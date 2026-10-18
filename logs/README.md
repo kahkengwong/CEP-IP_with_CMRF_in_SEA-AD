@@ -4,6 +4,10 @@
 
 Console logs of the container rerun on Fedora (Podman), one per script, from Part 9 to `Fig17_Summary_code.r`. The logs for Part 9 to Part 10g come from the batch runs made before `verification/run_rest.sh`. The logs from Part 10h onward come from `run_rest.sh`, and `run_rest_summary.txt` lists the status of each of its steps. Inside the container, the data folder is `/data` and the original results are `/win`. The run ID in the Part 12 logs ends with the host name.
 
+## container_rerun_python/
+
+Console logs of the container rerun of Python Parts 1 to 8 on Fedora (Podman), one per step, written by `verification/run_python.sh`. `run_python_summary.txt` lists the status and run time of each step. Part 8 has one log per arm. Part 7 first stopped with a bus error because the container's shared memory was too small; it was rerun with `--shm-size=16g`, and the summary shows both attempts. `compare_console_log.txt` is the comparison with the original results. Inside the container, the data folder is `/data` and the original results are `/ref`.
+
 ## original_R/
 
 Logs written by the original runs of the scripts from Part 9 to `Fig17_Summary_code.r`, in the same folder layout as the analysis folder. For each log that the container rerun wrote, the matching original log is included. Where a script wrote the same log at several times, the latest one is kept. Paths to the project folder are replaced with `<SEA-AD>`, and other user folder paths with `C:/Users/<user>` or `C:\Users\<user>`. No other text was changed.

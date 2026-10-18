@@ -84,8 +84,8 @@ Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely
 | `README_container.md` | Container build, inputs, and the full run order. |
 | `renv.lock` | Exact R package versions (R 4.6.1, Bioconductor 3.23; 280 packages). |
 | `requirements-python.txt` | Exact Python package versions (Python 3.13.14). |
-| `verification/` | `run_rest.sh` (runs the scripts in order from a named step), `compare_rerun.py`, and the comparison of the container rerun with the original results (`compare_all_log.txt`, `compare_all_detail.csv`). |
-| `logs/` | Console logs of the container rerun (`container_rerun/`, R Part 9 onward and the Part 12 Python step), logs of the original runs from Part 9 onward (`original_R/`), and logs of the original Python Parts 1 to 8 (`original_python/`). `logs/README.md` describes each folder and maps the Python logs to their scripts. |
+| `verification/` | `run_rest.sh` and `run_python.sh` (run the R and the Python scripts in order from a named step), `compare_rerun.py`, `compare_python.py` and `compare_gamdata.py`, and the comparisons of the container reruns with the original results (`compare_all_*` for R; `compare_python_*` and `compare_gamdata_log.txt` for Python). |
+| `logs/` | Console logs of the container reruns (`container_rerun/`, R Part 9 onward and the Part 12 Python step; `container_rerun_python/`, Python Parts 1 to 8), logs of the original runs from Part 9 onward (`original_R/`), and logs of the original Python Parts 1 to 8 (`original_python/`). `logs/README.md` describes each folder and maps the Python logs to their scripts. |
 
 ---
 
@@ -179,9 +179,11 @@ The first build takes about one to two hours, mostly to compile the Bioconductor
 
 ### 3. Start the container and check the inputs
 ```bash
-podman run --rm -it -v /path/to/data_folder:/data:Z seaad-cepip
+podman run --rm -it --shm-size=16g -v /path/to/data_folder:/data:Z seaad-cepip
 seaad-setup
 ```
+`--shm-size=16g` gives the container enough shared memory for Part 7 (DecontX), whose worker processes share the count matrix. Without it, Part 7 stops with a bus error.
+
 `seaad-setup` copies the settings files and the Part 12 scripts into the data folder and lists every input as found or missing.
 
 ### 4. Run the scripts
@@ -193,7 +195,7 @@ Rscript -e 'source("Part12_rerun/Part12_04_Labels.r")'
 ```
 Each script writes its outputs and a log in its own folder.
 
-`verification/run_rest.sh` runs the scripts from a given one to `Fig17_Summary_code.r` in order, saves each console log in `console_logs/`, and then runs the comparison. It was used for the reproduction check below; the comparison step needs the original results mounted at `/win`. To use it, copy `run_rest.sh` and `compare_rerun.py` into the data folder and run, for example, `bash /data/run_rest.sh Part10h_CP10K_Prognosis_code`.
+`verification/run_rest.sh` runs the scripts from a given one to `Fig17_Summary_code.r` in order, saves each console log in `console_logs/`, and then runs the comparison. It was used for the reproduction check below; the comparison step needs the original results mounted at `/win`. To use it, copy `run_rest.sh` and `compare_rerun.py` into the data folder and run, for example, `bash /data/run_rest.sh Part10h_CP10K_Prognosis_code`. `verification/run_python.sh` does the same for Python Parts 1 to 8 (Part 8 once per arm) and then runs `compare_python.py` against the original results mounted at `/ref`.
 
 ### Without the container (optional)
 - **R:** run `renv::restore()` in the repository folder to install the package versions in `renv.lock`. renv uses an isolated library and does not change the existing R setup.
@@ -203,11 +205,19 @@ Each script writes its outputs and a log in its own folder.
 ---
 
 ## ✅ Reproduction Check
-The original analysis ran R on Windows 11 and Python on Fedora 44. R Parts 9 to 13 were then rerun from the Part 8 export inside this container on Fedora, and every table was compared with the original results by `verification/compare_rerun.py`.
+The original analysis ran R on Windows 11 and Python on Fedora 44. The whole pipeline was then rerun inside this container on Fedora: Python Parts 1 to 8 from the SEA-AD h5ad, and R Parts 9 to 13 from the Part 8 export. Every table was compared with the original results by `verification/compare_rerun.py`.
 
 - **Method:** every CSV and Excel table is compared cell by cell. Numbers agree when they are within a relative difference of 1e-6, and text must match exactly.
 
-- **Result:**
+- **Result, Python Parts 1 to 8:**
+  - All 25 steps ran to completion (Part 8 once per arm), in about three hours.
+  - The 54 count matrices and cell and gene lists exported by Part 8 (the four arms and the full data of both region sets) are identical byte for byte to the original export used by the R analyses.
+  - Of the 9,262 tables found in both runs, 9,211 are the same. A further 40 Part 8 `gam_data` tables are the same in every shared column; the original files hold 1 or 10 more gene columns, added later by R Part 9.
+  - Nine Part 5 differential expression tables differ in one to three genes each: the paired p-values of TAOK3, LINC02391, and NBAS changed slightly, with the adjusted p-values of the genes next to them in rank, and the log2FC of five genes changed in the fourth decimal. No gene crosses the 0.05 cutoff.
+  - Two Part 8 record files differ only in how a logical value is written (`False` against `FALSE`).
+  - The reference was the Windows copy of the original results, which the R analyses used. Tables found only there come from scripts that are not part of this deposit.
+
+- **Result, R Parts 9 to 13:**
   - All R scripts from Part 9 onward, and the Part 12 Python step, ran to completion in the container.
   - Of the 1,203 tables found in both runs, 1,013 are the same, 110 differ only in sign, row order, or text, and 23 differ by at most 0.1%.
   - A further 53 tables differ by more than 0.1%. These are secondary statistics that depend on random subsamples, permutations, or nearest neighbours:
@@ -225,7 +235,7 @@ The original analysis ran R on Windows 11 and Python on Fedora 44. R Parts 9 to 
   - the settings version recorded in the Part 12 tables;
   - dates, times, and folder paths.
 
-The full comparison is in `verification/compare_all_log.txt` (summary) and `verification/compare_all_detail.csv` (one row per table).
+The full comparison is in `verification/compare_all_log.txt` (summary) and `verification/compare_all_detail.csv` (one row per table) for the R parts, and in `verification/compare_python_tables_log.txt`, `compare_python_tables_detail.csv`, `compare_python_matrices_log.txt` and `compare_gamdata_log.txt` for the Python parts.
 
 ---
 
@@ -252,6 +262,7 @@ The full comparison is in `verification/compare_all_log.txt` (summary) and `veri
 ### Performance Notes
 - All analyses are CPU-based; GPU acceleration is not required.
 - Run times in the container on the development machine:
+  - Python Parts 1 to 8: about three hours (Part 6b about 80 minutes, Part 7 about 40 minutes)
   - R Parts 9 to 10d: about 35 minutes
   - Parts 10e to 10g: about 45 minutes
   - the four Part 10h model scripts: about 45 minutes

@@ -1,0 +1,269 @@
+[OUT] arm folder : /data/[1]_NeoC
+[OUT] this part  : /data/[1]_NeoC/Part5_NeoC_DEGs
+======================================================================
+Part 5  -  DEG Analysis: M4-top Mic.13 vs same-supertype background
+(neocortical; PVM_2_3 and PVM_4 pooled across regions)
+======================================================================
+
+======================================================================
+SECTION 1: Constants, auto-loader, guardrails
+======================================================================
+  [AUTO-LOADER] 10 variables missing  -  loading from joblib ...
+  [AUTO-LOADER] All variables loaded successfully.
+
+  [M4_TOP_MASK INTEGRITY CHECK]
+    PASS: M4_TOP_MASK n=3,412 cells, M1_thr=1.041837, M2_thr=1.313850
+
+  [NeoC ARM GUARDRAIL]
+    PASS: obs_full regions = ['AnG', 'DFC', 'ITG', 'MTG', 'STG', 'V1C']  (neocortical only, n=134,088 cells)
+
+  Loading adata from: SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad
+  adata: 240,651 cells × 36,601 genes
+  adata.layers['UMIs'] confirmed present.
+
+  m4_mask_global = canonical M4_TOP_MASK: n=3,412 cells
+  TOP_PCT        : 3.0%
+  obs_full cells : 134,088
+  adata cells    : 240,651
+  adata genes    : 36,601
+
+======================================================================
+SECTION 2: Expression extraction & normalisation helpers
+(Source: adata.layers['UMIs']  -  raw integer counts confirmed)
+======================================================================
+  Expression helpers ready.
+  Excel helpers ready.
+
+======================================================================
+SECTION 4: Core DEG function (pseudobulk paired Wilcoxon signed-rank, BH-FDR)
+======================================================================
+  DEG function ready.
+
+======================================================================
+SECTION 5: Running all DEG comparisons
+  PVM_3   → per_region (one comparison per region)
+  PVM_2_3 → pooled across all regions (1 comparison)
+  PVM_4   → pooled across all regions (1 comparison)
+======================================================================
+
+  ── PVM_3 (Micro-PVM_3-SEAAD) | mode=per_region ──────────────────────────
+     Total cells in supertype: 16,707
+
+  PVM_3_AnG: fg=230 (M4-top), bg=1192 (non-M4-top, same ST+region)
+    [PVM_3_AnG] fg=230, bg=1,192  -  loading expression ...
+  [UMI DTYPE CHECK PASS] max=448, integer-like=True -> layers['UMIs'] confirmed as raw counts.
+    [PVM_3_AnG] genes passing pct filter : 6,511
+    [PVM_3_AnG] genes passing both filters: 6,511
+    [PVM_3_AnG] donors: fg=39, bg=43, shared(paired)=39
+    [PVM_3_AnG] significant DEGs (p_adj<0.05, |log2FC|>=0.25): 136  → after pct_fg>=0.15 gate: 130 (UP=47, DOWN=83, dropped=6)  [n_donors=39]
+    Saved /data/[1]_NeoC/Part5_NeoC_DEGs/DEG_PVM_3_AnG.xlsx
+
+  PVM_3_DFC: fg=944 (M4-top), bg=3873 (non-M4-top, same ST+region)
+    [PVM_3_DFC] fg=944, bg=3,873  -  loading expression ...
+    [PVM_3_DFC] genes passing pct filter : 8,061
+    [PVM_3_DFC] genes passing both filters: 8,061
+    [PVM_3_DFC] donors: fg=72, bg=80, shared(paired)=72
+    [PVM_3_DFC] significant DEGs (p_adj<0.05, |log2FC|>=0.25): 322  → after pct_fg>=0.15 gate: 317 (UP=123, DOWN=194, dropped=5)  [n_donors=72]
+    Saved /data/[1]_NeoC/Part5_NeoC_DEGs/DEG_PVM_3_DFC.xlsx
+
+  PVM_3_ITG: fg=235 (M4-top), bg=1710 (non-M4-top, same ST+region)
+    [PVM_3_ITG] fg=235, bg=1,710  -  loading expression ...
+    [PVM_3_ITG] genes passing pct filter : 8,587
+    [PVM_3_ITG] genes passing both filters: 8,587
+    [PVM_3_ITG] donors: fg=37, bg=43, shared(paired)=37
+    [PVM_3_ITG] significant DEGs (p_adj<0.05, |log2FC|>=0.25): 383  → after pct_fg>=0.15 gate: 369 (UP=87, DOWN=282, dropped=14)  [n_donors=37]
+    Saved /data/[1]_NeoC/Part5_NeoC_DEGs/DEG_PVM_3_ITG.xlsx
+
+  PVM_3_MTG: fg=571 (M4-top), bg=3897 (non-M4-top, same ST+region)
+    [PVM_3_MTG] fg=571, bg=3,897  -  loading expression ...
+    [PVM_3_MTG] genes passing pct filter : 8,073
+    [PVM_3_MTG] genes passing both filters: 8,073
+    [PVM_3_MTG] donors: fg=67, bg=84, shared(paired)=67
+    [PVM_3_MTG] significant DEGs (p_adj<0.05, |log2FC|>=0.25): 441  → after pct_fg>=0.15 gate: 430 (UP=208, DOWN=222, dropped=11)  [n_donors=67]
+    Saved /data/[1]_NeoC/Part5_NeoC_DEGs/DEG_PVM_3_MTG.xlsx
+
+  PVM_3_STG: fg=308 (M4-top), bg=1634 (non-M4-top, same ST+region)
+    [PVM_3_STG] fg=308, bg=1,634  -  loading expression ...
+    [PVM_3_STG] genes passing pct filter : 9,538
+    [PVM_3_STG] genes passing both filters: 9,538
+    [PVM_3_STG] donors: fg=39, bg=43, shared(paired)=39
+    [PVM_3_STG] significant DEGs (p_adj<0.05, |log2FC|>=0.25): 284  → after pct_fg>=0.15 gate: 274 (UP=92, DOWN=182, dropped=10)  [n_donors=39]
+    Saved /data/[1]_NeoC/Part5_NeoC_DEGs/DEG_PVM_3_STG.xlsx
+
+  PVM_3_V1C: fg=338 (M4-top), bg=1775 (non-M4-top, same ST+region)
+    [PVM_3_V1C] fg=338, bg=1,775  -  loading expression ...
+    [PVM_3_V1C] genes passing pct filter : 9,021
+    [PVM_3_V1C] genes passing both filters: 9,021
+    [PVM_3_V1C] donors: fg=35, bg=43, shared(paired)=35
+    [PVM_3_V1C] significant DEGs (p_adj<0.05, |log2FC|>=0.25): 299  → after pct_fg>=0.15 gate: 292 (UP=111, DOWN=181, dropped=7)  [n_donors=35]
+    Saved /data/[1]_NeoC/Part5_NeoC_DEGs/DEG_PVM_3_V1C.xlsx
+
+  ── PVM_2_3 (Micro-PVM_2_3-SEAAD) | mode=pooled ──────────────────────────
+     Total cells in supertype: 32,087
+
+  PVM_2_3_ALL: fg=227 (M4-top, ALL regions pooled), bg=31860 (non-M4-top, ALL regions pooled)
+    fg per region: {'AnG': 18, 'DFC': 65, 'ITG': 21, 'MTG': 58, 'STG': 33, 'V1C': 32}
+    bg per region: {'AnG': 2032, 'DFC': 9108, 'ITG': 4423, 'MTG': 8220, 'STG': 4401, 'V1C': 3676}
+    [PVM_2_3_ALL] fg=227, bg=31,860  -  loading expression ...
+    [PVM_2_3_ALL] genes passing pct filter : 8,234
+    [PVM_2_3_ALL] genes passing both filters: 8,234
+    [PVM_2_3_ALL] donors: fg=53, bg=84, shared(paired)=53
+    [PVM_2_3_ALL] significant DEGs (p_adj<0.05, |log2FC|>=0.25): 530  → after pct_fg>=0.15 gate: 511 (UP=146, DOWN=365, dropped=19)  [n_donors=53]
+    Saved /data/[1]_NeoC/Part5_NeoC_DEGs/DEG_PVM_2_3_ALL.xlsx
+
+  ── PVM_4 (Micro-PVM_4-SEAAD) | mode=pooled ──────────────────────────
+     Total cells in supertype: 1,325
+
+  PVM_4_ALL: fg=357 (M4-top, ALL regions pooled), bg=968 (non-M4-top, ALL regions pooled)
+    fg per region: {'AnG': 39, 'DFC': 72, 'ITG': 13, 'MTG': 143, 'STG': 21, 'V1C': 69}
+    bg per region: {'AnG': 232, 'DFC': 131, 'ITG': 101, 'MTG': 263, 'STG': 64, 'V1C': 177}
+    [PVM_4_ALL] fg=357, bg=968  -  loading expression ...
+    [PVM_4_ALL] genes passing pct filter : 6,996
+    [PVM_4_ALL] genes passing both filters: 6,996
+    [PVM_4_ALL] donors: fg=48, bg=60, shared(paired)=42
+    [PVM_4_ALL] significant DEGs (p_adj<0.05, |log2FC|>=0.25): 122  → after pct_fg>=0.15 gate: 107 (UP=34, DOWN=73, dropped=15)  [n_donors=42]
+    Saved /data/[1]_NeoC/Part5_NeoC_DEGs/DEG_PVM_4_ALL.xlsx
+
+
+  ── DEG SUMMARY ──────────────────────────────────────────────
+  Comparison             mode             fg     bg   n_sig    UP  DOWN  status
+  ---------------------------------------------------------------------------
+  PVM_3_AnG              per_region      230   1192     130    47    83  OK
+  PVM_3_DFC              per_region      944   3873     317   123   194  OK
+  PVM_3_ITG              per_region      235   1710     369    87   282  OK
+  PVM_3_MTG              per_region      571   3897     430   208   222  OK
+  PVM_3_STG              per_region      308   1634     274    92   182  OK
+  PVM_3_V1C              per_region      338   1775     292   111   181  OK
+  PVM_2_3_ALL            pooled          227  31860     511   146   365  OK
+  PVM_4_ALL              pooled          357    968     107    34    73  OK
+
+======================================================================
+SECTION 6: Master Excel workbook
+======================================================================
+  Saved /data/[1]_NeoC/Part5_NeoC_DEGs/DEG_master_results.xlsx
+
+======================================================================
+SECTION 7: Figure 1  -  Volcano plots
+  Fig1a: PVM_3 per-region (1×6 grid)
+  Fig1b: PVM_2_3 and PVM_4 pooled (1×2 grid)
+======================================================================
+  Saved Fig1a_volcano_PVM3_perregion_neocortex.png
+  Saved Fig1b_volcano_PVM23_PVM4_pooled_neocortex.png
+
+======================================================================
+SECTION 8: Figure 2  -  Top-DEG dot plots per supertype
+======================================================================
+  Saved Fig2_dotplot_PVM_3.png
+  Saved Fig2_dotplot_PVM_2_3.png
+  Saved Fig2_dotplot_PVM_4.png
+
+======================================================================
+SECTION 9: Figure 3  -  DEG overlap across regions per supertype
+  PVM_3 only (per-region mode)
+======================================================================
+  Saved Fig3_overlap_PVM_3.png
+  PVM_2_3: pooled mode, skipped.
+  PVM_4: pooled mode, skipped.
+
+  Master workbook re-saved with overlap sheets: /data/[1]_NeoC/Part5_NeoC_DEGs/DEG_master_results.xlsx
+
+======================================================================
+SECTION 10: Part 5 final report (neocortical)
+======================================================================
+
+Part 5 complete (neocortical)
+======================================================================
+CANONICAL MASK SOURCE:
+  M4_TOP_MASK from the Part 2 joblib.
+  Definition: top-3.0% M1_FC AND top-3.0% M2_Hybrid simultaneously.
+  n=3,412 cells total  |  M1_thr=1.041837  |  M2_thr=1.313850
+
+[M4_TOP_MASK GUARDRAIL]: PASS  -  n=3,412 cells confirmed
+[NEOCORTICAL GUARDRAIL]: PASS  -  regions = ['AnG', 'DFC', 'ITG', 'MTG', 'STG', 'V1C']
+
+ANALYSIS MODES:
+  PVM_3   : per_region   -  6 separate comparisons (one per region)
+  PVM_2_3 : pooled       -  1 comparison (all regions combined)
+  PVM_4   : pooled       -  1 comparison (all regions combined)
+
+DEG DESIGN:
+  per_region foreground : M4-top (M4_TOP_MASK=True) of supertype in that region
+  per_region background : non-M4-top of SAME supertype in SAME region
+  pooled foreground     : ALL M4-top of supertype across AnG+DFC+ITG+MTG+STG+V1C
+  pooled background     : ALL non-M4-top of SAME supertype across AnG+DFC+ITG+MTG+STG+V1C
+
+DEG PARAMETERS:
+  Source     : adata.layers['UMIs'] (raw integer UMI counts)
+  Normalise  : CP10K (10,000) + log1p
+  Test       : pseudobulk paired Wilcoxon signed-rank (donor-level)
+  min_pct    : 0.1 (>= 10% in either group, applied inside run_deg)
+  min_cells  : 3 per group
+  min_cells_expr: 10 cells across fg+bg combined
+  |log2FC|   : >= 0.25 (Seurat default)
+  p_adj_thr  : < 0.05 (BH-FDR per comparison)
+  pct_fg gate: >= 0.15 (SIG sheet only)
+  volcano_rank: -log10(p_adj) × |log2FC| for sig+gated genes; NaN otherwise
+
+TOTAL SIGNIFICANT DEGs (across all comparisons):
+  Total sig  : 2430  (UP=848, DOWN=1582)
+  Run OK     : 8  |  Skipped: 0
+
+COMPARISON SUMMARY:
+
+  Comparison             mode             fg     bg   n_sig    UP  DOWN  status
+  ---------------------------------------------------------------------------
+  PVM_3      AnG       per_region   fg= 230  bg= 1192  sig= 130  (UP= 47 DOWN= 83)  OK
+  PVM_3      DFC       per_region   fg= 944  bg= 3873  sig= 317  (UP=123 DOWN=194)  OK
+  PVM_3      ITG       per_region   fg= 235  bg= 1710  sig= 369  (UP= 87 DOWN=282)  OK
+  PVM_3      MTG       per_region   fg= 571  bg= 3897  sig= 430  (UP=208 DOWN=222)  OK
+  PVM_3      STG       per_region   fg= 308  bg= 1634  sig= 274  (UP= 92 DOWN=182)  OK
+  PVM_3      V1C       per_region   fg= 338  bg= 1775  sig= 292  (UP=111 DOWN=181)  OK
+  PVM_2_3    ALL       pooled       fg= 227  bg=31860  sig= 511  (UP=146 DOWN=365)  OK
+  PVM_4      ALL       pooled       fg= 357  bg=  968  sig= 107  (UP= 34 DOWN= 73)  OK
+
+OUTPUTS in /data/[1]_NeoC/Part5_NeoC_DEGs/:
+  DEG_PVM_2_3_ALL.xlsx                                                     489.5 KB
+  DEG_PVM_3_AnG.xlsx                                                       369.2 KB
+  DEG_PVM_3_DFC.xlsx                                                       474.5 KB
+  DEG_PVM_3_ITG.xlsx                                                       496.6 KB
+  DEG_PVM_3_MTG.xlsx                                                       481.6 KB
+  DEG_PVM_3_STG.xlsx                                                       544.3 KB
+  DEG_PVM_3_V1C.xlsx                                                       508.7 KB
+  DEG_PVM_4_ALL.xlsx                                                       397.3 KB
+  DEG_master_results.xlsx                                                 3441.5 KB
+  Fig1a_volcano_PVM3_perregion_neocortex.png                               441.8 KB
+  Fig1a_volcano_PVM3_perregion_neocortex.svg                               328.4 KB
+  Fig1b_volcano_PVM23_PVM4_pooled_neocortex.png                            212.2 KB
+  Fig1b_volcano_PVM23_PVM4_pooled_neocortex.svg                            171.8 KB
+  Fig2_dotplot_PVM_2_3.png                                                 109.1 KB
+  Fig2_dotplot_PVM_2_3.svg                                                  88.2 KB
+  Fig2_dotplot_PVM_3.png                                                   335.5 KB
+  Fig2_dotplot_PVM_3.svg                                                   229.2 KB
+  Fig2_dotplot_PVM_4.png                                                   106.3 KB
+  Fig2_dotplot_PVM_4.svg                                                    86.4 KB
+  Fig3_overlap_PVM_3.png                                                   185.1 KB
+  Fig3_overlap_PVM_3.svg                                                   116.6 KB
+
+Part 5 (neocortical) complete.
+
+──────────────────────────────────────────────────────────────────────
+DIAGNOSTICS: filter breakdowns (canonical M4_TOP_MASK)
+──────────────────────────────────────────────────────────────────────
+
+[Diag 1] PVM_3 MTG  -  per-region filter breakdown
+PVM_3 MTG: fg=571 (M4-top), bg=3,897 (non-M4-top)
+Total genes in panel          : 36,601
+Pass pct>=10% (either group)  : 8,073
+Pass min_cells_expr>=10       : 21,395
+Pass BOTH filters             : 8,073
+Never expressed (pct=0 both)  : 6,841
+
+[Diag 2] PVM_2_3 ALL (pooled)  -  filter breakdown
+PVM_2_3 ALL: fg=227 (M4-top, pooled), bg=31,860 (non-M4-top, pooled)
+Total genes in panel          : 36,601
+Pass pct>=10% (either group)  : 8,234
+Pass min_cells_expr>=10       : 28,049
+Pass BOTH filters             : 8,234
+Never expressed (pct=0 both)  : 3,515
+
+Diagnostics complete.

@@ -1,0 +1,104 @@
+run_python.sh started 2026-10-18 16:14:48
+Python: Python 3.13.14
+
+== Part1a_NormForensics_code   start 16:14:48
+   finished 16:15:16 | 0 min | exit 0
+== Part1b_MT-audit_code   start 16:15:16
+   finished 16:16:06 | 1 min | exit 0
+== Part1c_WithinDonor_code   start 16:16:06
+   finished 16:16:47 | 1 min | exit 0
+== Part1d_Errata_code   start 16:16:47
+   finished 16:17:06 | 0 min | exit 0
+== Part1e_TechQC_code   start 16:17:06
+   finished 16:18:29 | 1 min | exit 0
+== Part1f_Ordinals_code   start 16:18:29
+   finished 16:18:43 | 0 min | exit 0
+== Part1g_TrendReconcile_code   start 16:18:43
+   finished 16:19:09 | 0 min | exit 0
+== Part2_NeoC_CP10K_code   start 16:19:09
+   finished 16:24:31 | 5 min | exit 0
+== Part2_NonNeoC_CP10K_code   start 16:24:31
+   finished 16:29:45 | 5 min | exit 0
+== Part3_M4Composition_code   start 16:29:45
+   finished 16:30:07 | 0 min | exit 0
+== Part4_NeoC_ScreenScatter   start 16:30:07
+   finished 16:38:29 | 8 min | exit 0
+== Part4_NonNeoC_ScreenScatter   start 16:38:29
+   finished 16:43:54 | 5 min | exit 0
+== Part5_NeoC_DEGs   start 16:43:54
+   finished 16:45:08 | 1 min | exit 0
+== Part5_NonNeoC_DEGs   start 16:45:08
+   finished 16:46:03 | 1 min | exit 0
+== Part5b_NeoC_Validation   start 16:46:03
+   finished 16:46:04 | 0 min | exit 0
+== Part5b_NonNeoC_Validation   start 16:46:04
+   finished 16:46:05 | 0 min | exit 0
+== Part6_NeoC_GOI-DFG_code   start 16:46:05
+   finished 17:07:04 | 21 min | exit 0
+== Part6_NonNeoC_GOI-DFG_code   start 17:07:04
+   finished 17:18:02 | 11 min | exit 0
+== Part6b_NeoC_Pooled_GOI-DFG   start 17:18:02
+   finished 18:04:40 | 47 min | exit 0
+== Part6b_NonNeoC_Pooled_GOI-DFG   start 18:04:40
+   finished 18:36:29 | 32 min | exit 0
+== Part7_DecontX   start 18:36:29
+   FAILED 18:37:17 | 1 min | exit 135
+
+Run stopped at Part7_DecontX. After fixing the cause, resume with:
+   bash /data/run_python.sh Part7_DecontX
+run_python.sh started 2026-10-18 18:43:03
+Starting at: Part7_DecontX
+Python: Python 3.13.14
+
+== Part7_DecontX   start 18:43:03
+   finished 19:25:18 | 42 min | exit 0
+== Part8_PVM3_all   start 19:25:18
+  arm block used:
+    ARM_TAG        = "PVM3_all"
+    TARGET_STYPE   = "Micro-PVM_3-SEAAD"
+    USE_M4_TOP     = False
+    SELECT_GENES   = [MOD1_GOI]
+    PANEL_GOI      = MOD1_GOI
+    PANEL_DFG      = list(MOD1_DFG)
+    PANEL_LABEL    = "cDFG"
+    RUN_SUFFIX     = "_PVM3all"
+    NEST_SUBSET_OF = None
+   finished 19:26:26 | 1 min | exit 0
+== Part8_PVM1_all   start 19:26:26
+  arm block used:
+    ARM_TAG        = "PVM1_all"
+    TARGET_STYPE   = "Micro-PVM_1"
+    USE_M4_TOP     = False
+    SELECT_GENES   = [MOD1_GOI]
+    PANEL_GOI      = MOD1_GOI
+    PANEL_DFG      = list(MOD1_DFG)
+    PANEL_LABEL    = "cDFG"
+    RUN_SUFFIX     = "_PVM1all"
+    NEST_SUBSET_OF = None
+   finished 19:27:03 | 1 min | exit 0
+== Part8_Mic13_PVM3   start 19:27:03
+  arm block used:
+    ARM_TAG        = "Mic13_PVM3"
+    TARGET_STYPE   = "Micro-PVM_3-SEAAD"
+    USE_M4_TOP     = True
+    SELECT_GENES   = [MOD1_GOI]
+    PANEL_GOI      = MOD1_GOI
+    PANEL_DFG      = list(MOD1_DFG)
+    PANEL_LABEL    = "cDFG"
+    RUN_SUFFIX     = ""
+    NEST_SUBSET_OF = "PVM3_all"
+   finished 19:27:40 | 1 min | exit 0
+== Part8_HKG8_matched   start 19:27:40
+   finished 19:28:18 | 1 min | exit 0
+== compare   start 19:28:18
+   finished 19:30:59 | 3 min | exit 0
+
+run_python.sh ended 2026-10-18 19:30:59
+run_python.sh started 2026-10-18 19:55:29
+Starting at: compare
+Python: Python 3.13.14
+
+== compare   start 19:55:29
+   finished 19:59:07 | 4 min | exit 0
+
+run_python.sh ended 2026-10-18 19:59:07

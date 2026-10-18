@@ -1,0 +1,67 @@
+compare_python.py, part 2 (matrices and lists)   2026-10-18 19:59:00
+Rerun    : /data (container)
+Reference: /ref (original Python runs on Fedora)
+Rules    : bytes first; if they differ, indices exactly and values within 1e-06 relative (1e-09 absolute)
+
+== R_export_CP10K
+   [SAME (IDENTICAL BYTES)] HKG8_matched/neocortex/counts/raw_selected/matrix.mtx
+   [SAME (IDENTICAL BYTES)] HKG8_matched/neocortex/counts/raw_selected/matrix_barcodes.tsv
+   [SAME (IDENTICAL BYTES)] HKG8_matched/neocortex/counts/raw_selected/matrix_features.tsv
+   [SAME (IDENTICAL BYTES)] HKG8_matched/neocortex/deg_support/norm.mtx
+   [SAME (IDENTICAL BYTES)] HKG8_matched/neocortex/deg_support/norm_barcodes.tsv
+   [SAME (IDENTICAL BYTES)] HKG8_matched/neocortex/deg_support/norm_features.tsv
+   [SAME (IDENTICAL BYTES)] HKG8_matched/nonneocortex/counts/raw_selected/matrix.mtx
+   [SAME (IDENTICAL BYTES)] HKG8_matched/nonneocortex/counts/raw_selected/matrix_barcodes.tsv
+   [SAME (IDENTICAL BYTES)] HKG8_matched/nonneocortex/counts/raw_selected/matrix_features.tsv
+   [SAME (IDENTICAL BYTES)] HKG8_matched/nonneocortex/deg_support/norm.mtx
+   [SAME (IDENTICAL BYTES)] HKG8_matched/nonneocortex/deg_support/norm_barcodes.tsv
+   [SAME (IDENTICAL BYTES)] HKG8_matched/nonneocortex/deg_support/norm_features.tsv
+   [SAME (IDENTICAL BYTES)] Mic13_PVM3/neocortex/counts/raw_selected/matrix.mtx
+   [SAME (IDENTICAL BYTES)] Mic13_PVM3/neocortex/counts/raw_selected/matrix_barcodes.tsv
+   [SAME (IDENTICAL BYTES)] Mic13_PVM3/neocortex/counts/raw_selected/matrix_features.tsv
+   [SAME (IDENTICAL BYTES)] Mic13_PVM3/neocortex/deg_support/norm.mtx
+   [SAME (IDENTICAL BYTES)] Mic13_PVM3/neocortex/deg_support/norm_barcodes.tsv
+   [SAME (IDENTICAL BYTES)] Mic13_PVM3/neocortex/deg_support/norm_features.tsv
+   [SAME (IDENTICAL BYTES)] Mic13_PVM3/nonneocortex/counts/raw_selected/matrix.mtx
+   [SAME (IDENTICAL BYTES)] Mic13_PVM3/nonneocortex/counts/raw_selected/matrix_barcodes.tsv
+   [SAME (IDENTICAL BYTES)] Mic13_PVM3/nonneocortex/counts/raw_selected/matrix_features.tsv
+   [SAME (IDENTICAL BYTES)] Mic13_PVM3/nonneocortex/deg_support/norm.mtx
+   [SAME (IDENTICAL BYTES)] Mic13_PVM3/nonneocortex/deg_support/norm_barcodes.tsv
+   [SAME (IDENTICAL BYTES)] Mic13_PVM3/nonneocortex/deg_support/norm_features.tsv
+   [SAME (IDENTICAL BYTES)] PVM1_all/neocortex/counts/raw_selected/matrix.mtx
+   [SAME (IDENTICAL BYTES)] PVM1_all/neocortex/counts/raw_selected/matrix_barcodes.tsv
+   [SAME (IDENTICAL BYTES)] PVM1_all/neocortex/counts/raw_selected/matrix_features.tsv
+   [SAME (IDENTICAL BYTES)] PVM1_all/neocortex/deg_support/norm.mtx
+   [SAME (IDENTICAL BYTES)] PVM1_all/neocortex/deg_support/norm_barcodes.tsv
+   [SAME (IDENTICAL BYTES)] PVM1_all/neocortex/deg_support/norm_features.tsv
+   [SAME (IDENTICAL BYTES)] PVM1_all/nonneocortex/counts/raw_selected/matrix.mtx
+   [SAME (IDENTICAL BYTES)] PVM1_all/nonneocortex/counts/raw_selected/matrix_barcodes.tsv
+   [SAME (IDENTICAL BYTES)] PVM1_all/nonneocortex/counts/raw_selected/matrix_features.tsv
+   [SAME (IDENTICAL BYTES)] PVM1_all/nonneocortex/deg_support/norm.mtx
+   [SAME (IDENTICAL BYTES)] PVM1_all/nonneocortex/deg_support/norm_barcodes.tsv
+   [SAME (IDENTICAL BYTES)] PVM1_all/nonneocortex/deg_support/norm_features.tsv
+   [SAME (IDENTICAL BYTES)] PVM3_all/neocortex/counts/raw_selected/matrix.mtx
+   [SAME (IDENTICAL BYTES)] PVM3_all/neocortex/counts/raw_selected/matrix_barcodes.tsv
+   [SAME (IDENTICAL BYTES)] PVM3_all/neocortex/counts/raw_selected/matrix_features.tsv
+   [SAME (IDENTICAL BYTES)] PVM3_all/neocortex/deg_support/norm.mtx
+   [SAME (IDENTICAL BYTES)] PVM3_all/neocortex/deg_support/norm_barcodes.tsv
+   [SAME (IDENTICAL BYTES)] PVM3_all/neocortex/deg_support/norm_features.tsv
+   [SAME (IDENTICAL BYTES)] PVM3_all/nonneocortex/counts/raw_selected/matrix.mtx
+   [SAME (IDENTICAL BYTES)] PVM3_all/nonneocortex/counts/raw_selected/matrix_barcodes.tsv
+   [SAME (IDENTICAL BYTES)] PVM3_all/nonneocortex/counts/raw_selected/matrix_features.tsv
+   [SAME (IDENTICAL BYTES)] PVM3_all/nonneocortex/deg_support/norm.mtx
+   [SAME (IDENTICAL BYTES)] PVM3_all/nonneocortex/deg_support/norm_barcodes.tsv
+   [SAME (IDENTICAL BYTES)] PVM3_all/nonneocortex/deg_support/norm_features.tsv
+   [SAME (IDENTICAL BYTES)] shared/neocortex/counts/raw_dataset/matrix.mtx
+   [SAME (IDENTICAL BYTES)] shared/neocortex/counts/raw_dataset/matrix_barcodes.tsv
+   [SAME (IDENTICAL BYTES)] shared/neocortex/counts/raw_dataset/matrix_features.tsv
+   [SAME (IDENTICAL BYTES)] shared/nonneocortex/counts/raw_dataset/matrix.mtx
+   [SAME (IDENTICAL BYTES)] shared/nonneocortex/counts/raw_dataset/matrix_barcodes.tsv
+   [SAME (IDENTICAL BYTES)] shared/nonneocortex/counts/raw_dataset/matrix_features.tsv
+
+== Overall
+   SAME (IDENTICAL BYTES)     54
+
+Tables: /data/compare/compare_python_tables_log.txt
+Detail: /data/compare/compare_python_matrices_detail.csv
+Done in 0.1 min

@@ -1,0 +1,68 @@
+Part3_M4Composition_code.py
+BASE : /data
+pandas 3.0.5, numpy 2.4.6, anndata 0.13.2
+h5ad obs: 240,651 nuclei
+
+======================================================================
+  NeoC
+======================================================================
+  scores : /data/[1]_NeoC/Part2_NeoC_M4/top_3.0pct/S0_cell_scores_all_methods.csv
+  M1 file: /data/[1]_NeoC/Part2_NeoC_M4/top_3.0pct/S1_supertype_enrichment.csv
+  [PASS] 134,088 nuclei in S0 (expected 134,088)
+  [PASS] every S0 barcode is in the h5ad obs
+  [PASS] M1 counts, donors, % and fold reproduce the file on disk exactly
+  [PASS] M1 bootstrap CIs reproduce the file on disk exactly (groupby observed=True)
+  [PASS] 3,412 nuclei in the M4 set
+  [PASS] M4 per-supertype counts match Figure 1B
+    Micro-PVM_4-SEAAD        357 /   1325  donors  48   26.94%   8.981x  [6.216, 10.442]
+    Micro-PVM_3-SEAAD       2626 /  16707  donors  81   15.72%   5.239x  [4.514, 5.970]
+    Micro-PVM_2_3-SEAAD      227 /  32087  donors  53    0.71%   0.236x  [0.156, 0.325]
+    Micro-PVM_1               26 /   4596  donors  16    0.57%   0.189x  [0.104, 0.290]
+    Micro-PVM_2_1-SEAAD        4 /   1067  donors   3    0.37%   0.125x  [0.000, 0.347]
+    Micro-PVM_2              170 /  75816  donors  51    0.22%   0.075x  [0.045, 0.113]
+    Lymphocyte                 2 /   2460  donors   2    0.08%   0.027x  [0.000, 0.068]
+    Monocyte                   0 /     30  donors   0    0.00%   0.000x  [0.000, 0.000]
+  saved: /data/[1]_NeoC/Part2_NeoC_M4/top_3.0pct/NeoC_S1_supertype_enrichment_M4.csv
+  [PASS] M1_FC: Micro-PVM_4-SEAAD 30.717% (Part 2 figure 30.7%)
+  [PASS] M2_Hybrid: Micro-PVM_4-SEAAD 31.547% (Part 2 figure 31.5%)
+  [PASS] M3_pRank: Micro-PVM_4-SEAAD 40.679% (Part 2 figure 40.7%)
+  [PASS] M4_M1andM2: Micro-PVM_4-SEAAD 26.943% (Part 2 figure 26.9%)
+  [PASS] M5_M1andM3: Micro-PVM_4-SEAAD 30.340% (Part 2 figure 30.3%)
+  [PASS] M6_M2andM3: Micro-PVM_4-SEAAD 29.509% (Part 2 figure 29.5%)
+  [PASS] M2_Hybrid: 1 Monocyte nuclei in the top set (Part 2 figure 1)
+  [PASS] M3_pRank: 2 Monocyte nuclei in the top set (Part 2 figure 2)
+  [PASS] M6_M2andM3: 1 Monocyte nuclei in the top set (Part 2 figure 1)
+  saved: /data/[1]_NeoC/Part2_NeoC_M4/top_3.0pct/NeoC_S7_scorer_composition.csv
+
+======================================================================
+  NonNeoC
+======================================================================
+  scores : /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_3.0pct/S0_cell_scores_all_methods.csv
+  M1 file: /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_3.0pct/S1_supertype_enrichment.csv
+  [PASS] 106,563 nuclei in S0 (expected 106,563)
+  [PASS] every S0 barcode is in the h5ad obs
+  [PASS] M1 counts, donors, % and fold reproduce the file on disk exactly
+  [PASS] M1 bootstrap CIs reproduce the file on disk exactly (groupby observed=True)
+  [PASS] 2,704 nuclei in the M4 set
+  [PASS] M4 per-supertype counts match Figure 1B
+    Micro-PVM_4-SEAAD        103 /    442  donors  43   23.30%   7.768x  [5.362, 12.691]
+    Micro-PVM_3-SEAAD       2329 /  13098  donors  82   17.78%   5.927x  [5.004, 6.910]
+    Micro-PVM_2_3-SEAAD      144 /  21728  donors  47    0.66%   0.221x  [0.159, 0.289]
+    Micro-PVM_2_1-SEAAD        2 /    391  donors   2    0.51%   0.171x  [0.000, 0.501]
+    Micro-PVM_1                8 /   3313  donors   8    0.24%   0.080x  [0.033, 0.141]
+    Micro-PVM_2              118 /  65432  donors  42    0.18%   0.060x  [0.043, 0.081]
+    Lymphocyte                 0 /   2147  donors   0    0.00%   0.000x  [0.000, 0.000]
+    Monocyte                   0 /     12  donors   0    0.00%   0.000x  [0.000, 0.000]
+  saved: /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_3.0pct/NonNeoC_S1_supertype_enrichment_M4.csv
+  [PASS] M1_FC: Micro-PVM_4-SEAAD 26.244% (Part 2 figure 26.2%)
+  [PASS] M2_Hybrid: Micro-PVM_4-SEAAD 27.376% (Part 2 figure 27.4%)
+  [PASS] M3_pRank: Micro-PVM_4-SEAAD 35.294% (Part 2 figure 35.3%)
+  [PASS] M4_M1andM2: Micro-PVM_4-SEAAD 23.303% (Part 2 figure 23.3%)
+  [PASS] M5_M1andM3: Micro-PVM_4-SEAAD 25.566% (Part 2 figure 25.6%)
+  [PASS] M6_M2andM3: Micro-PVM_4-SEAAD 26.244% (Part 2 figure 26.2%)
+  [PASS] M2_Hybrid: 2 Monocyte nuclei in the top set (Part 2 figure 2)
+  [PASS] M3_pRank: 3 Monocyte nuclei in the top set (Part 2 figure 3)
+  [PASS] M6_M2andM3: 2 Monocyte nuclei in the top set (Part 2 figure 2)
+  saved: /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_3.0pct/NonNeoC_S7_scorer_composition.csv
+
+All checks passed.

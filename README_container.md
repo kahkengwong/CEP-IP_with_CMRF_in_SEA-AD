@@ -38,10 +38,10 @@ apptainer build seaad-cepip.sif docker-archive://seaad-cepip.tar
 ## 2. Start the container
 
 ```bash
-podman run --rm -it -v /path/to/SEA-AD:/data:Z seaad-cepip
+podman run --rm -it --shm-size=16g -v /path/to/SEA-AD:/data:Z seaad-cepip
 ```
 
-`:Z` lets the container use the folder on systems with SELinux, such as Fedora. Inside the container, run once:
+`:Z` lets the container use the folder on systems with SELinux, such as Fedora. `--shm-size=16g` is needed for Part 7 (DecontX), whose worker processes share the count matrix through shared memory; with the default size, Part 7 stops with a bus error. Inside the container, run once:
 
 ```bash
 seaad-setup
@@ -120,6 +120,8 @@ The full order of the R scripts:
 30) Fig17_Summary_code.r
 
 `verification/run_rest.sh` in the repository runs steps 15 to 30 in this order (or from any named step), saves each console log in `console_logs/` and ends with the comparison against the original results mounted at `/win`. Each step is marked failed if it stops or its log ends with `VERDICT: FAIL`.
+
+`verification/run_python.sh` runs Python Parts 1 to 8 in order (or from any named step), with Part 8 once per arm, saves each console log in `console_logs_py/`, and ends with `compare_python.py`, which compares the outputs with the original results mounted at `/ref`. It stops at the first step that fails.
 
 ## 5. Notes
 

@@ -1,0 +1,50 @@
+compare_gamdata.py   2026-10-19 04:07:43
+Rerun    : SEA-AD_pyrerun/R_export_CP10K (container)
+Reference: SEA-AD_Windows/SEA-AD/R_export_CP10K (copy used by the R analyses)
+
+   [SAME IN SHARED COLUMNS] HKG8_matched/neocortex/gam_data/AnG_Micro_PVM_3_SEAAD_selected.csv | 20 vs 21 columns
+   [SAME IN SHARED COLUMNS] HKG8_matched/neocortex/gam_data/DFC_Micro_PVM_3_SEAAD_selected.csv | 20 vs 21 columns
+   [SAME IN SHARED COLUMNS] HKG8_matched/neocortex/gam_data/ITG_Micro_PVM_3_SEAAD_selected.csv | 20 vs 21 columns
+   [SAME IN SHARED COLUMNS] HKG8_matched/neocortex/gam_data/MTG_Micro_PVM_3_SEAAD_selected.csv | 20 vs 21 columns
+   [SAME IN SHARED COLUMNS] HKG8_matched/neocortex/gam_data/STG_Micro_PVM_3_SEAAD_selected.csv | 20 vs 21 columns
+   [SAME IN SHARED COLUMNS] HKG8_matched/neocortex/gam_data/V1C_Micro_PVM_3_SEAAD_selected.csv | 20 vs 21 columns
+   [SAME IN SHARED COLUMNS] HKG8_matched/nonneocortex/gam_data/FI_Micro_PVM_3_SEAAD_selected.csv | 20 vs 21 columns
+   [SAME IN SHARED COLUMNS] HKG8_matched/nonneocortex/gam_data/HIP_Micro_PVM_3_SEAAD_selected.csv | 20 vs 21 columns
+   [SAME IN SHARED COLUMNS] HKG8_matched/nonneocortex/gam_data/LEC_Micro_PVM_3_SEAAD_selected.csv | 20 vs 21 columns
+   [SAME IN SHARED COLUMNS] HKG8_matched/nonneocortex/gam_data/MEC_Micro_PVM_3_SEAAD_selected.csv | 20 vs 21 columns
+   [SAME IN SHARED COLUMNS] Mic13_PVM3/neocortex/gam_data/AnG_Micro_PVM_3_SEAAD_selected.csv | 20 vs 30 columns
+   [SAME IN SHARED COLUMNS] Mic13_PVM3/neocortex/gam_data/DFC_Micro_PVM_3_SEAAD_selected.csv | 20 vs 30 columns
+   [SAME IN SHARED COLUMNS] Mic13_PVM3/neocortex/gam_data/ITG_Micro_PVM_3_SEAAD_selected.csv | 20 vs 30 columns
+   [SAME IN SHARED COLUMNS] Mic13_PVM3/neocortex/gam_data/MTG_Micro_PVM_3_SEAAD_selected.csv | 20 vs 30 columns
+   [SAME IN SHARED COLUMNS] Mic13_PVM3/neocortex/gam_data/STG_Micro_PVM_3_SEAAD_selected.csv | 20 vs 30 columns
+   [SAME IN SHARED COLUMNS] Mic13_PVM3/neocortex/gam_data/V1C_Micro_PVM_3_SEAAD_selected.csv | 20 vs 30 columns
+   [SAME IN SHARED COLUMNS] Mic13_PVM3/nonneocortex/gam_data/FI_Micro_PVM_3_SEAAD_selected.csv | 20 vs 30 columns
+   [SAME IN SHARED COLUMNS] Mic13_PVM3/nonneocortex/gam_data/HIP_Micro_PVM_3_SEAAD_selected.csv | 20 vs 30 columns
+   [SAME IN SHARED COLUMNS] Mic13_PVM3/nonneocortex/gam_data/LEC_Micro_PVM_3_SEAAD_selected.csv | 20 vs 30 columns
+   [SAME IN SHARED COLUMNS] Mic13_PVM3/nonneocortex/gam_data/MEC_Micro_PVM_3_SEAAD_selected.csv | 20 vs 30 columns
+   [SAME IN SHARED COLUMNS] PVM1_all/neocortex/gam_data/AnG_Micro_PVM_1_selected.csv | 14 vs 24 columns
+   [SAME IN SHARED COLUMNS] PVM1_all/neocortex/gam_data/DFC_Micro_PVM_1_selected.csv | 14 vs 24 columns
+   [SAME IN SHARED COLUMNS] PVM1_all/neocortex/gam_data/ITG_Micro_PVM_1_selected.csv | 14 vs 24 columns
+   [SAME IN SHARED COLUMNS] PVM1_all/neocortex/gam_data/MTG_Micro_PVM_1_selected.csv | 14 vs 24 columns
+   [SAME IN SHARED COLUMNS] PVM1_all/neocortex/gam_data/STG_Micro_PVM_1_selected.csv | 14 vs 24 columns
+   [SAME IN SHARED COLUMNS] PVM1_all/neocortex/gam_data/V1C_Micro_PVM_1_selected.csv | 14 vs 24 columns
+   [SAME IN SHARED COLUMNS] PVM1_all/nonneocortex/gam_data/FI_Micro_PVM_1_selected.csv | 14 vs 24 columns
+   [SAME IN SHARED COLUMNS] PVM1_all/nonneocortex/gam_data/HIP_Micro_PVM_1_selected.csv | 14 vs 24 columns
+   [SAME IN SHARED COLUMNS] PVM1_all/nonneocortex/gam_data/LEC_Micro_PVM_1_selected.csv | 14 vs 24 columns
+   [SAME IN SHARED COLUMNS] PVM1_all/nonneocortex/gam_data/MEC_Micro_PVM_1_selected.csv | 14 vs 24 columns
+   [SAME IN SHARED COLUMNS] PVM3_all/neocortex/gam_data/AnG_Micro_PVM_3_SEAAD_selected.csv | 14 vs 24 columns
+   [SAME IN SHARED COLUMNS] PVM3_all/neocortex/gam_data/DFC_Micro_PVM_3_SEAAD_selected.csv | 14 vs 24 columns
+   [SAME IN SHARED COLUMNS] PVM3_all/neocortex/gam_data/ITG_Micro_PVM_3_SEAAD_selected.csv | 14 vs 24 columns
+   [SAME IN SHARED COLUMNS] PVM3_all/neocortex/gam_data/MTG_Micro_PVM_3_SEAAD_selected.csv | 14 vs 24 columns
+   [SAME IN SHARED COLUMNS] PVM3_all/neocortex/gam_data/STG_Micro_PVM_3_SEAAD_selected.csv | 14 vs 24 columns
+   [SAME IN SHARED COLUMNS] PVM3_all/neocortex/gam_data/V1C_Micro_PVM_3_SEAAD_selected.csv | 14 vs 24 columns
+   [SAME IN SHARED COLUMNS] PVM3_all/nonneocortex/gam_data/FI_Micro_PVM_3_SEAAD_selected.csv | 14 vs 24 columns
+   [SAME IN SHARED COLUMNS] PVM3_all/nonneocortex/gam_data/HIP_Micro_PVM_3_SEAAD_selected.csv | 14 vs 24 columns
+   [SAME IN SHARED COLUMNS] PVM3_all/nonneocortex/gam_data/LEC_Micro_PVM_3_SEAAD_selected.csv | 14 vs 24 columns
+   [SAME IN SHARED COLUMNS] PVM3_all/nonneocortex/gam_data/MEC_Micro_PVM_3_SEAAD_selected.csv | 14 vs 24 columns
+
+Columns only in the reference, by group of tables:
+   10 tables: ['ACTB']
+   30 tables: ['MT-CO3', 'ACTB', 'EEF1A1', 'RPL13A', 'B2M', 'YWHAZ', 'FTL', 'PSAP', 'RAB7A', 'HNRNPA2B1']
+
+Tables with every shared column the same: 40; with differences: 0

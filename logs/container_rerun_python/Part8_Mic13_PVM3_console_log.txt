@@ -1,0 +1,245 @@
+========================================================================
+Part 8 - CEP-IP Data Extraction for R  [CP10K]
+  ARM         : Mic13_PVM3
+  Supertype   : Micro-PVM_3-SEAAD
+  M4-top mask : True
+  Select on   : MT-CO3 > 0
+  Panel GOI   : MT-CO3
+  Panel DFG (8): ['MT-ATP6', 'MT-CO2', 'MT-ND3', 'MT-ND4', 'MT-CYB', 'MT-ND1', 'MT-ND2', 'MT-CO1']   [cDFG]
+  Norm        : CP10K (log1p(UMIs/total × 10000))
+  Output root : /data/R_export_CP10K/Mic13_PVM3
+========================================================================
+
+SECTION 0: Output directories created.
+
+SECTION 1: Loading h5ad ...
+  Loaded: (240651, 36601)  [25.6s]
+
+== Normalisation guardrails (CP10K) ==================================
+  [PASS]  GR-00  uns['X_normalization'] = 'ln(UP10K+1)'  (expected 'ln(UP10K+1)')
+  [PASS]  GR-00b  obs index unique across 240,651 cells
+  [PASS]  GR-01  layers['UMIs'] present  (available: ['UMIs', None])
+  [PASS]  GR-02  layers['UMIs'] values are integer-like (sampled 10,000 nz)
+  [PASS]  GR-03  layers['UMIs'] max = 5121 (>> 20, consistent with raw UMIs)
+  [INFO]  GR-04-info  adata.raw is None = True
+  Loading X_norm = adata.X (CP10K, no further transform) ...
+  X_norm loaded: shape=(240651, 36601)  nnz=650,073,978
+  [PASS]  GR-05  adata.X dtype = float64  (float)
+  [PASS]  GR-06  adata.X max = 8.1820  (<= 9.2104 ceiling, consistent with CP10K)
+  [PASS]  GR-07  adata.X min(nz) = 0.118260  (>= 0, consistent with log1p(...))
+  [PASS]  GR-08  max(X_raw)/max(X_norm) = 625.9x  (5121 vs 8.1820 - raw counts >> CP10K)
+  [PASS]  GR-09  X_raw and X_norm are distinct objects
+  [PASS]  GR-10a  X_norm == adata.X spot-check MATCH  (max_diff=0.00e+00, n=200 cells × 500 genes)
+  [PASS]  GR-10b  X_norm == log1p(UMIs/total × 10000)  (max_diff=4.44e-16)
+  [PASS]  GR-10c  X_norm != log2(CP10K(adata.X)+1)  (max_diff=1.5186) - not double-normalised
+  [PASS]  GR-10d  expm1(X_norm) row sums pin 10000  (mean=10000.000000, CV=1.23e-16, n=50)
+  [PASS]  GR-11  nnz(X_raw) == nnz(X_norm) = 650,073,978  (same sparsity pattern)
+
+  Guardrail summary: 15 PASS / 0 FAIL out of 15 checks
+
+  X_raw  shape: (240651, 36601)  nnz=650,073,978  (layers['UMIs'], raw integer counts)
+  X_norm shape: (240651, 36601)  nnz=650,073,978  (adata.X, CP10K - no further transform)
+
+  Panel GOI 'MT-CO3' index: 36565
+  DFG neocortex present    : 8/8  ['MT-ATP6', 'MT-CO2', 'MT-ND3', 'MT-ND4', 'MT-CYB', 'MT-ND1', 'MT-ND2', 'MT-CO1']
+  DFG non-neocortex present: 8/8  ['MT-ATP6', 'MT-CO2', 'MT-ND3', 'MT-ND4', 'MT-CYB', 'MT-ND1', 'MT-ND2', 'MT-CO1']
+  Selection genes resolved : 1/1  ['MT-CO3']
+  [PASS]  GR-15-goi  panel GOI 'MT-CO3' resolved at var_names index 36565
+  [PASS]  GR-15-neoc  all 8 NeoC DFGs resolved
+  [PASS]  GR-15-nonnc  all 8 NonNeoC DFGs resolved
+  [PASS]  GR-15-select  all 1 selection genes resolved: ['MT-CO3']
+
+  obsm keys available: ['X_scVI', 'X_umap']
+
+  Column mapping:
+    Region      : Brain Region  [OK]
+    Supertype   : Supertype  [OK]
+    Donor       : Donor ID  [OK]
+    ADNC        : Overall AD neuropathological Change  [OK]
+    Braak       : Braak  [OK]
+    CERAD       : CERAD score  [OK]
+    Thal        : Thal  [OK]
+    CogStatus   : Cognitive Status  [OK]
+    APOE        : APOE Genotype  [OK]
+    MMSE        : Last MMSE Score  [OK]
+    Age         : Age at Death  [OK]
+    CAA         : Overall CAA Score  [OK]
+    PMI         : PMI  [OK]
+    RIN         : RIN  [OK]
+    BrainPH     : Brain pH  [OK]
+    BrainWeight : Fresh Brain Weight  [OK]
+    SevereFlag  : Severely Affected Donor  [OK]
+  All 10 declared regions present in obs
+  TARGET_STYPE 'Micro-PVM_3-SEAAD' found in obs (Supertype)
+  [PASS]  GR-20-braak  Braak: all 6 observed levels covered by the map
+  [PASS]  GR-20-cerad  CERAD score: all 4 observed levels covered by the map
+  [PASS]  GR-20-thal  Thal: all 6 observed levels covered by the map
+  [PASS]  GR-20-caa  Overall CAA Score: all 4 observed levels covered by the map
+
+SECTION 2: Shared exports ...
+  gene_metadata.csv: already exists, skipping (set FORCE_SHARED_REWRITE = True to rebuild)
+  donor_clinical.csv: already exists, skipping (set FORCE_SHARED_REWRITE = True to rebuild)
+
+  h5ad obs index name: 'exp_component_name' -> exported as 'barcode'
+  obs_all_cells.csv: already exists, skipping (set FORCE_SHARED_REWRITE = True to rebuild)
+  embedding_scVI.csv: already exists, skipping (set FORCE_SHARED_REWRITE = True to rebuild)
+  embedding_umap.csv: already exists, skipping (set FORCE_SHARED_REWRITE = True to rebuild)
+  Section 2 complete.
+
+========================================================================
+SECTION 5: Running dataset extractions
+========================================================================
+
+========================================================================
+  SECTION 3 [NEOCORTEX / Mic13_PVM3] - selecting cells
+========================================================================
+  Loading joblib: /data/[1]_NeoC/Part2_NeoC_M4/Part2_neocortex_env.joblib
+  [PASS]  GR-19-h5ad-neoc  Part 2 env scored 'SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad', matching this run
+  [PASS]  GR-19-norm-neoc  Part 2 NORM_TARGET_SUM = 10000.0 matches this run
+  Inherited contract: RELEASE=2026-06-22 Multiregion  TOP_PCT=0.03  N_M4_TOP=3412  KEEP_FLAGGED_NUCLEI=True
+  Scorers in env: ['M1_FC', 'M2_Hybrid', 'M3_pRank', 'M4_M1andM2', 'M5_M1andM3', 'M6_M2andM3']
+  Arm check: joblib regions ['AnG', 'DFC', 'ITG', 'MTG', 'STG', 'V1C'] within neocortex
+  Barcode match: 134,088/134,088 found in h5ad
+  M4-top cells: 3,412 / 134,088
+  After supertype filter (Micro-PVM_3-SEAAD): 2,626
+  After MT-CO3>0 filter: 2,130
+
+========================================================================
+  SECTION 4 [NEOCORTEX / Mic13_PVM3] - extracting
+========================================================================
+  Dataset cells: 134,088  |  Selected: 2,130  (1.59%)
+  Exporting metadata ...
+    obs_selected.csv: 2130 cells × 139 cols
+    obs_dataset.csv: 134088 cells
+    cell_index_selected.csv: 2130 cells
+    scores_selected_all_methods.csv: 2130 cells × 7 cols
+  Exporting embeddings ...
+    umap_selected.csv exported
+    Exported 2 embedding keys for selected cells
+  Exporting GAM input data ...
+    Extracting GOI (MT-CO3) expression ...
+    Extracting cDFG expression (8 genes) ...
+    gam_master_all_cells.csv: 2130 cells × 20 cols
+      DFC × Micro-PVM_3-SEAAD: n_selected=719
+      MTG × Micro-PVM_3-SEAAD: n_selected=444
+      AnG × Micro-PVM_3-SEAAD: n_selected=183
+      STG × Micro-PVM_3-SEAAD: n_selected=272
+      V1C × Micro-PVM_3-SEAAD: n_selected=302
+      ITG × Micro-PVM_3-SEAAD: n_selected=210
+    summary_gam_inputs.csv: 6 region×supertype combinations
+  Exporting raw count matrices ...
+    Writing neocortex selected raw counts: (2130, 36601)  nnz=6,365,927
+      -> /data/R_export_CP10K/Mic13_PVM3/neocortex/counts/raw_selected/matrix.mtx
+      -> /data/R_export_CP10K/Mic13_PVM3/neocortex/counts/raw_selected/matrix_barcodes.tsv
+      -> /data/R_export_CP10K/Mic13_PVM3/neocortex/counts/raw_selected/matrix_features.tsv
+    shared/neocortex/counts/raw_dataset: already exists, skipping
+  Exporting normalised matrix for DEG support ...
+    Writing neocortex selected CP10K: (2130, 36601)  nnz=6,365,927
+      -> /data/R_export_CP10K/Mic13_PVM3/neocortex/deg_support/norm.mtx
+      -> /data/R_export_CP10K/Mic13_PVM3/neocortex/deg_support/norm_barcodes.tsv
+      -> /data/R_export_CP10K/Mic13_PVM3/neocortex/deg_support/norm_features.tsv
+    norm_GOI_DFG_selected.csv: (2130, 9)
+    manifest.txt written
+
+  [NEOCORTEX] complete in 4.2s
+
+========================================================================
+  SECTION 3 [NONNEOCORTEX / Mic13_PVM3] - selecting cells
+========================================================================
+  Loading joblib: /data/[2]_Non-NeoC/Part2_NonNeoC_M4/Part2_nonneocortex_env.joblib
+  [PASS]  GR-19-h5ad-nonn  Part 2 env scored 'SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad', matching this run
+  [PASS]  GR-19-norm-nonn  Part 2 NORM_TARGET_SUM = 10000.0 matches this run
+  Inherited contract: RELEASE=2026-06-22 Multiregion  TOP_PCT=0.03  N_M4_TOP=2704  KEEP_FLAGGED_NUCLEI=True
+  Scorers in env: ['M1_FC', 'M2_Hybrid', 'M3_pRank', 'M4_M1andM2', 'M5_M1andM3', 'M6_M2andM3']
+  Arm check: joblib regions ['FI', 'HIP', 'LEC', 'MEC'] within nonneocortex
+  Barcode match: 106,563/106,563 found in h5ad
+  M4-top cells: 2,704 / 106,563
+  After supertype filter (Micro-PVM_3-SEAAD): 2,329
+  After MT-CO3>0 filter: 1,987
+
+========================================================================
+  SECTION 4 [NONNEOCORTEX / Mic13_PVM3] - extracting
+========================================================================
+  Dataset cells: 106,563  |  Selected: 1,987  (1.86%)
+  Exporting metadata ...
+    obs_selected.csv: 1987 cells × 139 cols
+    obs_dataset.csv: 106563 cells
+    cell_index_selected.csv: 1987 cells
+    scores_selected_all_methods.csv: 1987 cells × 7 cols
+  Exporting embeddings ...
+    umap_selected.csv exported
+    Exported 2 embedding keys for selected cells
+  Exporting GAM input data ...
+    Extracting GOI (MT-CO3) expression ...
+    Extracting cDFG expression (8 genes) ...
+    gam_master_all_cells.csv: 1987 cells × 20 cols
+      HIP × Micro-PVM_3-SEAAD: n_selected=445
+      MEC × Micro-PVM_3-SEAAD: n_selected=1,156
+      LEC × Micro-PVM_3-SEAAD: n_selected=190
+      FI × Micro-PVM_3-SEAAD: n_selected=196
+    summary_gam_inputs.csv: 4 region×supertype combinations
+  Exporting raw count matrices ...
+    Writing nonneocortex selected raw counts: (1987, 36601)  nnz=5,075,567
+      -> /data/R_export_CP10K/Mic13_PVM3/nonneocortex/counts/raw_selected/matrix.mtx
+      -> /data/R_export_CP10K/Mic13_PVM3/nonneocortex/counts/raw_selected/matrix_barcodes.tsv
+      -> /data/R_export_CP10K/Mic13_PVM3/nonneocortex/counts/raw_selected/matrix_features.tsv
+    shared/nonneocortex/counts/raw_dataset: already exists, skipping
+  Exporting normalised matrix for DEG support ...
+    Writing nonneocortex selected CP10K: (1987, 36601)  nnz=5,075,567
+      -> /data/R_export_CP10K/Mic13_PVM3/nonneocortex/deg_support/norm.mtx
+      -> /data/R_export_CP10K/Mic13_PVM3/nonneocortex/deg_support/norm_barcodes.tsv
+      -> /data/R_export_CP10K/Mic13_PVM3/nonneocortex/deg_support/norm_features.tsv
+    norm_GOI_DFG_selected.csv: (1987, 9)
+    manifest.txt written
+
+  [NONNEOCORTEX] complete in 3.5s
+
+SECTION 6: Writing export record ...
+  Saved: /data/R_export_CP10K/Mic13_PVM3/Part8_export_record.csv
+
+========================================================================
+SECTION 7: Extraction complete - final inventory
+========================================================================
+
+  Total files  : 45  (arm tree only)
+  Total size   : 0.76 GB  (arm tree only)
+  ARM          : Mic13_PVM3
+  Supertype    : Micro-PVM_3-SEAAD
+  M4-top       : True
+  Select on    : MT-CO3>0
+  Panel        : MT-CO3 + 8 DFG  [cDFG]
+  Output root  : /data/R_export_CP10K/Mic13_PVM3
+
+  Key files for R:
+    /data/R_export_CP10K/Mic13_PVM3/Part8_export_record.csv  (export record)
+    /data/R_export_CP10K/shared/  (gene metadata, donor clinical, obs, embeddings)
+    /data/R_export_CP10K/Mic13_PVM3/neocortex/gam_data/  (per-region CSVs)
+    /data/R_export_CP10K/Mic13_PVM3/neocortex/counts/raw_selected/  (matrix.mtx)
+    /data/R_export_CP10K/Mic13_PVM3/neocortex/deg_support/  (norm.mtx)
+    /data/R_export_CP10K/shared/neocortex/counts/raw_dataset/  (matrix.mtx)
+    /data/R_export_CP10K/Mic13_PVM3/nonneocortex/gam_data/  (per-region CSVs)
+    /data/R_export_CP10K/Mic13_PVM3/nonneocortex/counts/raw_selected/  (matrix.mtx)
+    /data/R_export_CP10K/Mic13_PVM3/nonneocortex/deg_support/  (norm.mtx)
+    /data/R_export_CP10K/shared/nonneocortex/counts/raw_dataset/  (matrix.mtx)
+
+========================================================================
+SECTION 8: Post-export normalisation cross-validation (CP10K)
+========================================================================
+  [PASS]  GR-12-neoc  norm.mtx max = 8.0564  (<= 9.2104, consistent with CP10K)
+  [PASS]  GR-13-neoc  norm.mtx on disk vs adata.X (CP10K): max_diff = 0.00e+00  (14 genes x 50 cells)
+  [PASS]  GR-14-neoc  raw_selected/matrix.mtx: integer-valued, max=2389
+  [PASS]  GR-12-nonn  norm.mtx max = 7.6610  (<= 9.2104, consistent with CP10K)
+  [PASS]  GR-13-nonn  norm.mtx on disk vs adata.X (CP10K): max_diff = 0.00e+00  (14 genes x 50 cells)
+  [PASS]  GR-14-nonn  raw_selected/matrix.mtx: integer-valued, max=1552
+  [PASS]  GR-17-neoc  Mic13_PVM3 (2,130) is a subset of PVM3_all (13,331)
+  [PASS]  GR-17-nonn  Mic13_PVM3 (1,987) is a subset of PVM3_all (11,132)
+
+  Guardrail log written: /data/R_export_CP10K/Mic13_PVM3/Part8_Guardrail_Log.txt
+
+  Guardrail final tally: 35 PASS / 0 FAIL
+
+  All 35 guardrails passed
+
+========================================================================
+Part 8 + guardrails complete  [Mic13_PVM3].
+========================================================================

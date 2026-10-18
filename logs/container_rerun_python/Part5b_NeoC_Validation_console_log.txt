@@ -1,0 +1,190 @@
+[OUT] arm folder : /data/[1]_NeoC
+[OUT] this part  : /data/[1]_NeoC/Part5b_NeoC_Validation
+======================================================================
+Part 5b - Mic.13 Equivalence Validation  [NeoC arm]
+======================================================================
+
+  DEG input: /data/[1]_NeoC/Part5_NeoC_DEGs/DEG_master_results.xlsx
+  Mic.13 gene list: /data/Mic13_genes.txt
+
+======================================================================
+SECTION 1: Scorer panel vs held-out gene split
+======================================================================
+  Scorer genes (circular, 133): 85 MIC13_UP + 48 MIC13_DOWN (Part 2); no MT genes
+
+  Mic.13 marker genes loaded: 95
+  In scorer (circular): 27  ['APOE', 'ATG7', 'CCDC26', 'CD83', 'CPM', 'CSGALNACT1', 'CX3CR1', 'F13A1', 'GLDN', 'GPNMB', 'GRID2', 'ITGAX', 'ITPR2', 'MRC1', 'MSR1', 'NAMPT', 'NHSL1', 'OLR1', 'PTPRG', 'RPS27', 'SPP1', 'SRGN', 'SYNDIG1', 'TGFBR1', 'TMEM163', 'TPRG1', 'ZNF804A']
+  Held out (real test): 68
+
+  DAM2 signature genes: 19
+  DAM2 held out (not in scorer): 12  ['AXL', 'CCL6', 'CD9', 'CLEC7A', 'CST7', 'CTSB', 'CTSL', 'IGFBP1', 'LILRB4', 'TIMP2', 'TREM2', 'TYROBP']
+
+======================================================================
+SECTION 2: Load DEG results from Part 5
+======================================================================
+  Sheets: ['00_summary', 'PVM_2_3_ALL_SIG', 'PVM_2_3_ALL_ALL', 'PVM_3_AnG_SIG', 'PVM_3_AnG_ALL', 'PVM_3_DFC_SIG', 'PVM_3_DFC_ALL', 'PVM_3_ITG_SIG', 'PVM_3_ITG_ALL', 'PVM_3_MTG_SIG', 'PVM_3_MTG_ALL', 'PVM_3_STG_SIG', 'PVM_3_STG_ALL', 'PVM_3_V1C_SIG', 'PVM_3_V1C_ALL', 'PVM_4_ALL_SIG', 'PVM_4_ALL_ALL', 'PVM_3_overlap']
+    PVM_3_AnG_SIG: 130 sig DEGs
+    PVM_3_DFC_SIG: 317 sig DEGs
+    PVM_3_ITG_SIG: 369 sig DEGs
+    PVM_3_MTG_SIG: 430 sig DEGs
+    PVM_3_STG_SIG: 274 sig DEGs
+    PVM_3_V1C_SIG: 292 sig DEGs
+    PVM_3_overlap: 766 genes
+
+  Union of sig DEGs across 6 regions:
+    Total unique: 751
+    UP in >=1 region: 273
+    DOWN in >=1 region: 478
+    Sig in >= 2 regions: 408
+    Sig in >= 3 regions: 267
+    Sig in >= 4 regions: 193
+    sig in >= 4 regions: 193 gated (used), 200 in PVM_3_overlap without the pct_fg gate (not used)
+
+  Universe (genes tested): 8234  (from PVM_2_3_ALL_ALL)
+
+======================================================================
+SECTION 3: Hypergeometric overlap - Mic.13 held-out genes
+======================================================================
+
+--- TEST 1a: Held-out Mic.13 vs all sig DEGs (union across regions) ---
+  [Mic.13 held-out vs all sig DEGs]
+    Reference: 68 genes | DEGs: 751 | Universe: 8234
+    Overlap: 24 (expected 6.2, fold 3.9x)
+    p = 2.3732e-09  ***
+    Genes: ACSL1, ARHGAP22, ATP2C1, CCND3, CD14, COLEC12, FTH1, FTL, HLA-DPB1, HLA-DRA, HSP90AA1, IFI44L, ITPR1, KHDRBS3, MT-ATP6, MT-CO1, MT-CO2, NLRP1, P2RY12, PTPRC ... (+4)
+
+--- TEST 1b: Held-out Mic.13 vs UP DEGs only ---
+  [Mic.13 held-out vs UP DEGs]
+    Reference: 68 genes | DEGs: 273 | Universe: 8234
+    Overlap: 8 (expected 2.3, fold 3.5x)
+    p = 1.7355e-03  **
+    Genes: ACSL1, COLEC12, FTH1, FTL, HSP90AA1, MT-ATP6, MT-CO1, MT-CO2
+
+--- TEST 1c: In-scorer Mic.13 vs all sig DEGs (circular) ---
+  [Mic.13 IN-SCORER vs all sig DEGs (CIRCULAR)]
+    Reference: 27 genes | DEGs: 751 | Universe: 8234
+    Overlap: 19 (expected 2.5, fold 7.7x)
+    p = 1.5455e-14  ***
+    Genes: ATG7, CCDC26, CD83, CPM, CSGALNACT1, CX3CR1, GLDN, GPNMB, GRID2, ITGAX, ITPR2, MSR1, NAMPT, OLR1, PTPRG, SPP1, SYNDIG1, TMEM163, TPRG1
+
+--- TEST 1d: Held-out Mic.13 vs sig DEGs per region ---
+  [Mic.13 held-out vs AnG sig DEGs]
+    Reference: 68 genes | DEGs: 130 | Universe: 8234
+    Overlap: 5 (expected 1.1, fold 4.7x)
+    p = 4.2755e-03  **
+    Genes: ACSL1, CD14, HLA-DRA, IFI44L, TLR2
+  [Mic.13 held-out vs DFC sig DEGs]
+    Reference: 68 genes | DEGs: 317 | Universe: 8234
+    Overlap: 10 (expected 2.6, fold 3.8x)
+    p = 2.4765e-04  ***
+    Genes: ACSL1, ARHGAP22, CCND3, CD14, FTL, MT-CO1, P2RY12, PTPRC, RUNX1, ZFP36L2
+  [Mic.13 held-out vs ITG sig DEGs]
+    Reference: 68 genes | DEGs: 369 | Universe: 8234
+    Overlap: 10 (expected 3.0, fold 3.3x)
+    p = 8.2203e-04  ***
+    Genes: ACSL1, ARHGAP22, CD14, HLA-DPB1, HLA-DRA, ITPR1, MT-CO2, P2RY12, PTPRC, ZFP36L2
+  [Mic.13 held-out vs MTG sig DEGs]
+    Reference: 68 genes | DEGs: 430 | Universe: 8234
+    Overlap: 14 (expected 3.6, fold 3.9x)
+    p = 8.3559e-06  ***
+    Genes: ACSL1, ARHGAP22, ATP2C1, CCND3, CD14, COLEC12, FTL, KHDRBS3, MT-ATP6, MT-CO2, NLRP1, P2RY12, TGFBR2, ZFP36L2
+  [Mic.13 held-out vs STG sig DEGs]
+    Reference: 68 genes | DEGs: 274 | Universe: 8234
+    Overlap: 10 (expected 2.3, fold 4.4x)
+    p = 7.4579e-05  ***
+    Genes: ARHGAP22, ATP2C1, FTH1, FTL, HSP90AA1, MT-ATP6, MT-CO1, MT-CO2, P2RY12, ZFP36L2
+  [Mic.13 held-out vs V1C sig DEGs]
+    Reference: 68 genes | DEGs: 292 | Universe: 8234
+    Overlap: 8 (expected 2.4, fold 3.3x)
+    p = 2.6443e-03  **
+    Genes: CCND3, CD14, FTL, IFI44L, NLRP1, PTPRC, TGFBR2, ZFP36L2
+
+--- TEST 1e: Held-out Mic.13 vs genes sig in >= 4 regions ---
+  [Mic.13 held-out vs robust DEGs (>=4 regions)]
+    Reference: 68 genes | DEGs: 193 | Universe: 8234
+    Overlap: 6 (expected 1.6, fold 3.8x)
+    p = 5.0295e-03  **
+    Genes: ACSL1, ARHGAP22, CD14, FTL, P2RY12, ZFP36L2
+
+======================================================================
+SECTION 4: DAM2 signature overlap (Keren-Shaul et al. 2017)
+======================================================================
+
+--- TEST 2a: DAM2 held-out vs all sig DEGs ---
+  [DAM2 held-out vs all sig DEGs]
+    Reference: 12 genes | DEGs: 751 | Universe: 8234
+    Overlap: 4 (expected 1.1, fold 3.7x)
+    p = 1.8740e-02  *
+    Genes: CD9, CLEC7A, CTSB, TREM2
+
+--- TEST 2b: DAM2 held-out vs UP DEGs ---
+  [DAM2 held-out vs UP DEGs]
+    Reference: 12 genes | DEGs: 273 | Universe: 8234
+    Overlap: 3 (expected 0.4, fold 7.5x)
+    p = 6.3492e-03  **
+    Genes: CD9, CTSB, TREM2
+
+======================================================================
+SECTION 5: Gene-level annotation table
+======================================================================
+  Held-out Mic.13 genes: 24/68 are sig DEGs
+  In-scorer Mic.13 genes: 19/27 are sig DEGs (circular)
+
+  Held-out Mic.13 genes recovered as sig DEGs (24):
+    MT-ATP6         dir=UP  n_regions=2  log2FC=0.344 to 0.394
+    MT-CO2          dir=UP  n_regions=3  log2FC=0.334 to 0.451
+    MT-CO1          dir=UP  n_regions=2  log2FC=0.294 to 0.391
+    RUNX1           dir=DOWN  n_regions=1  log2FC=-0.396 to -0.396
+    FTL             dir=UP  n_regions=4  log2FC=0.490 to 1.090
+    PTPRC           dir=DOWN  n_regions=3  log2FC=-0.570 to -0.349
+    FTH1            dir=UP  n_regions=1  log2FC=0.790 to 0.790
+    ARHGAP22        dir=DOWN  n_regions=4  log2FC=-0.533 to -0.365
+    HSP90AA1        dir=UP  n_regions=1  log2FC=0.308 to 0.308
+    TLR2            dir=DOWN  n_regions=1  log2FC=-0.653 to -0.653
+    ACSL1           dir=UP  n_regions=4  log2FC=0.401 to 0.682
+    TGFBR2          dir=DOWN  n_regions=2  log2FC=-0.403 to -0.253
+    ATP2C1          dir=DOWN  n_regions=2  log2FC=-0.298 to -0.278
+    P2RY12          dir=DOWN  n_regions=4  log2FC=-0.433 to -0.305
+    KHDRBS3         dir=DOWN  n_regions=1  log2FC=-0.362 to -0.362
+    ZFP36L2         dir=DOWN  n_regions=5  log2FC=-0.368 to -0.316
+    CCND3           dir=DOWN  n_regions=3  log2FC=-0.657 to -0.263
+    HLA-DRA         dir=DOWN  n_regions=2  log2FC=-0.423 to -0.332
+    ITPR1           dir=DOWN  n_regions=1  log2FC=-0.301 to -0.301
+    IFI44L          dir=DOWN  n_regions=2  log2FC=-0.449 to -0.305
+    CD14            dir=DOWN  n_regions=5  log2FC=-0.542 to -0.271
+    HLA-DPB1        dir=DOWN  n_regions=1  log2FC=-0.381 to -0.381
+    NLRP1           dir=DOWN  n_regions=2  log2FC=-0.275 to -0.271
+    COLEC12         dir=UP  n_regions=1  log2FC=0.316 to 0.316
+
+======================================================================
+SECTION 6: Excel export
+======================================================================
+  Saved /data/[1]_NeoC/Part5b_NeoC_Validation/Part5b_NeoC_Mic13_validation.xlsx
+
+======================================================================
+SECTION 7: Part 5b Final Report  [NeoC arm]
+======================================================================
+
+Part 5b COMPLETE - Mic.13 Equivalence Validation  [NeoC arm]
+======================================================================
+DEG source      : /data/[1]_NeoC/Part5_NeoC_DEGs/DEG_master_results.xlsx
+Mic.13 list     : 95 genes (Green et al. 2024, Extended Data Fig 2c)
+Scorer genes    : 133 (85 MIC13_UP + 48 MIC13_DOWN, Part 2)
+
+GENE SPLIT:
+  In-scorer (circular) : 27 genes
+  Held-out (real test) : 68 genes
+
+TEST 1 - Mic.13 held-out genes among Part 5 sig DEGs:
+  All DEGs : 24/68 recovered, fold=3.87x, p=2.3732e-09
+  UP DEGs  : 8/68 recovered, fold=3.55x, p=1.7355e-03
+
+TEST 2 - DAM2 signature (Keren-Shaul et al. 2017):
+  All DEGs : 4/12 recovered, fold=3.65x, p=1.8740e-02
+======================================================================
+
+
+All outputs in /data/[1]_NeoC/Part5b_NeoC_Validation/:
+  Part5b_NeoC_Mic13_validation.xlsx
+
+Part 5b (neocortical) complete.

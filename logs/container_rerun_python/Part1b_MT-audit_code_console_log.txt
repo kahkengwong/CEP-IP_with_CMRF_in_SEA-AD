@@ -1,0 +1,364 @@
+
+==========================================================================
+  Q1a/Q2 - Structure and provenance (metadata only, backed mode)
+==========================================================================
+  shape                : (240651, 36601)
+  X dtype (declared)   : float64
+  layers present       : ['UMIs']
+  raw present          : False
+  obsm keys            : ['X_scVI', 'X_umap']
+  uns keys             : ['Brain Region_colors', 'Great Apes Metadata', 'Subclass_colors', 'Supertype_colors', 'UW Clinical Metadata', 'X_normalization', 'batch_condition', 'default_embedding', 'log1p', 'neighbors', 'title', 'umap']
+
+==========================================================================
+  Q0 - obs column resolution and TARGET_STYPE assertion
+==========================================================================
+  obs has 130 columns
+
+    stype_col   default=Supertype                                found=Supertype                                ok
+    region_col  default=Brain Region                             found=Brain Region                             ok
+    donor_col   default=Donor ID                                 found=Donor ID                                 ok
+    adnc_col    default=Overall AD neuropathological Change      found=Overall AD neuropathological Change      ok
+    braak_col   default=Braak                                    found=Braak                                    ok
+
+  distinct supertypes in 'Supertype' : 8
+  'Micro-PVM_3-SEAAD' present : YES  (n=29,805)
+
+  --- uns provenance values (printed in full) ---
+    uns['X_normalization'] = ln(UP10K+1)
+    uns['batch_condition'] = ['library_prep']
+    uns['default_embedding'] = X_umap
+    uns['log1p'] = {}
+    uns['title'] = Immune: Seattle Alzheimer's Disease Atlas (SEA-AD)
+
+  --- other uns keys ---
+    uns['Brain Region_colors'] : ndarray, len=10
+    uns['Great Apes Metadata'] : str, len=42
+    uns['Subclass_colors'] : ndarray, len=1
+    uns['Supertype_colors'] : ndarray, len=8
+    uns['UW Clinical Metadata'] : str, len=44
+    uns['neighbors'] : dict, len=3
+    uns['umap'] : dict, len=1
+
+==========================================================================
+  Q0b - SEA-AD inclusion flags
+==========================================================================
+  'Used in analysis' value counts:
+    True                   240,651  (100.000%)
+  All nuclei are flagged for analysis.
+
+  'Neurotypical reference': 0 nuclei flagged as reference
+  No reference nuclei.
+
+  uns['log1p']         : {}
+
+  --- ambient-correction keyword hunt (strings only) ---
+  [HIT] normali            in uns key 'X_normalization'
+        X_normalization
+
+  --- all obs columns ---
+    sample_id
+    Neurotypical reference
+    Donor ID
+    Organism
+    Brain Region
+    Sex
+    Gender
+    Age at Death
+    Race (choice=White)
+    Race (choice=Black/ African American)
+    Race (choice=Asian)
+    Race (choice=American Indian/ Alaska Native)
+    Race (choice=Native Hawaiian or Pacific Islander)
+    Race (choice=Unknown or unreported)
+    Race (choice=Other)
+    specify other race
+    Hispanic/Latino
+    Highest level of education
+    Years of education
+    PMI
+    Fresh Brain Weight
+    Brain pH
+    Overall AD neuropathological Change
+    Thal
+    Braak
+    CERAD score
+    Overall CAA Score
+    Highest Lewy Body Disease
+    Total Microinfarcts (not observed grossly)
+    Total microinfarcts in screening sections
+    Atherosclerosis
+    Arteriolosclerosis
+    LATE
+    Cognitive Status
+    Last CASI Score
+    Interval from last CASI in months
+    Last MMSE Score
+    Interval from last MMSE in months
+    Last MOCA Score
+    Interval from last MOCA in months
+    APOE Genotype
+    Primary Study Name
+    Secondary Study Name
+    NeuN positive fraction on FANS
+    RIN
+    cell_prep_type
+    facs_population_plan
+    rna_amplification
+    sample_name
+    sample_quantity_count
+    expc_cell_capture
+    method
+    pcr_cycles
+    percent_cdna_longer_than_400bp
+    rna_amplification_pass_fail
+    amplified_quantity_ng
+    load_name
+    library_prep
+    library_input_ng
+    r1_index
+    avg_size_bp
+    quantification_fmol
+    library_prep_pass_fail
+    exp_component_vendor_name
+    batch_vendor_name
+    experiment_component_failed
+    alignment
+    Genome
+    ar_id
+    bc
+    GEX_Estimated_number_of_cells
+    GEX_number_of_reads
+    GEX_sequencing_saturation
+    GEX_Mean_raw_reads_per_cell
+    GEX_Q30_bases_in_barcode
+    GEX_Q30_bases_in_read_2
+    GEX_Q30_bases_in_UMI
+    GEX_Percent_duplicates
+    GEX_Q30_bases_in_sample_index_i1
+    GEX_Q30_bases_in_sample_index_i2
+    GEX_Reads_with_TSO
+    GEX_Sequenced_read_pairs
+    GEX_Valid_UMIs
+    GEX_Valid_barcodes
+    GEX_Reads_mapped_to_genome
+    GEX_Reads_mapped_confidently_to_genome
+    GEX_Reads_mapped_confidently_to_intergenic_regions
+    GEX_Reads_mapped_confidently_to_intronic_regions
+    GEX_Reads_mapped_confidently_to_exonic_regions
+    GEX_Reads_mapped_confidently_to_transcriptome
+    GEX_Reads_mapped_antisense_to_gene
+    GEX_Fraction_of_transcriptomic_reads_in_cells
+    GEX_Total_genes_detected
+    GEX_Median_UMI_counts_per_cell
+    GEX_Median_genes_per_cell
+    Multiome_Feature_linkages_detected
+    Multiome_Linked_genes
+    Multiome_Linked_peaks
+    ATAC_Confidently_mapped_read_pairs
+    ATAC_Fraction_of_genome_in_peaks
+    ATAC_Fraction_of_high_quality_fragments_in_cells
+    ATAC_Fraction_of_high_quality_fragments_overlapping_TSS
+    ATAC_Fraction_of_high_quality_fragments_overlapping_peaks
+    ATAC_Fraction_of_transposition_events_in_peaks_in_cells
+    ATAC_Mean_raw_read_pairs_per_cell
+    ATAC_Median_high_quality_fragments_per_cell
+    ATAC_Non-nuclear_read_pairs
+    ATAC_Number_of_peaks
+    ATAC_Percent_duplicates
+    ATAC_Q30_bases_in_barcode
+    ATAC_Q30_bases_in_read_1
+    ATAC_Q30_bases_in_read_2
+    ATAC_Q30_bases_in_sample_index_i1
+    ATAC_Sequenced_read_pairs
+    ATAC_TSS_enrichment_score
+    ATAC_Unmapped_read_pairs
+    ATAC_Valid_barcodes
+    Number of mapped reads
+    Number of unmapped reads
+    Number of multimapped reads
+    Number of reads
+    Number of UMIs
+    Genes detected
+    Doublet score
+    Fraction mitochondrial UMIs
+    Severely Affected Donor
+    Class
+    Subclass
+    Supertype
+    Used in analysis
+
+  QC-looking obs columns : ['NeuN positive fraction on FANS', 'GEX_Fraction_of_transcriptomic_reads_in_cells', 'GEX_Median_genes_per_cell', 'ATAC_Fraction_of_genome_in_peaks', 'ATAC_Fraction_of_high_quality_fragments_in_cells', 'ATAC_Fraction_of_high_quality_fragments_overlapping_TSS', 'ATAC_Fraction_of_high_quality_fragments_overlapping_peaks', 'ATAC_Fraction_of_transposition_events_in_peaks_in_cells', 'Doublet score', 'Fraction mitochondrial UMIs']
+
+  --- var columns ---
+    gene_ids
+    feature_types
+    genome
+
+==========================================================================
+  Q3 - Mitochondrial gene inventory in the feature space
+==========================================================================
+  genes starting 'MT-'  : 13
+    ['MT-ATP6', 'MT-ATP8', 'MT-CO1', 'MT-CO2', 'MT-CO3', 'MT-CYB', 'MT-ND1', 'MT-ND2', 'MT-ND3', 'MT-ND4', 'MT-ND4L', 'MT-ND5', 'MT-ND6']
+
+  Module 1 present      : 9/9
+
+  DISJOINT mito axis    : 4 genes
+    ['MT-ATP8', 'MT-ND4L', 'MT-ND5', 'MT-ND6']
+
+    MT-RNR1    present=False
+    MT-RNR2    present=False
+    MT-ND5     present=True
+    MT-ND4L    present=True
+    MT-ND6     present=True
+    MT-ATP8    present=True
+
+==========================================================================
+  Loading full matrix into memory
+==========================================================================
+  loaded                : (240651, 36601)
+  count layer           : UMIs
+
+==========================================================================
+  Q1b - Matrix classification (numeric, in-memory)
+==========================================================================
+  X                      min=0.0000  max=7.7732  mean_nz=1.2933  integer_like=False   [SAMPLED n=3,000]
+                           -> LOG-scale normalised
+  layers['UMIs']         min=0.0000  max=1662.0000  mean_nz=2.2980  integer_like=True   [SAMPLED n=3,000]
+                           -> RAW COUNTS
+
+  --- exact global extremes (not sampled) ---
+  X                      exact min=0.0000  exact max=8.1820
+  layers['UMIs']         exact min=0.0000  exact max=5121.0000
+
+  NORM_CEILING = log1p(10,000) = 9.2104
+  headroom     = +1.0285
+  [OK] X is under the ceiling.
+
+  the same maximum expressed on the CP100K scale : 10.4843
+
+  extracting 14 genes in one block slice ...
+  done
+
+==========================================================================
+  Q4 - mito% and depth; association with pathology
+==========================================================================
+  --- ALL nuclei ---
+  mito%              min=0.000  q25=0.097  median=0.245  q75=0.608  q99=5.599  max=59.793 %
+  total counts       min=138.000  q25=3252.000  median=5266.000  q75=8162.000  q99=20583.000  max=79658.000 
+  genes detected     min=127.000  q25=1897.000  median=2632.000  q75=3437.000  q99=5406.000  max=10554.000 
+
+  --- Micro-PVM_3-SEAAD (n=29805) ---
+  mito%              min=0.000  q25=0.172  median=0.435  q75=1.070  q99=7.460  max=45.059 %
+  total counts       min=157.000  q25=3222.000  median=5373.000  q75=8342.000  q99=20214.120  max=40045.000 
+
+  --- per region (NeoC vs NonNeoC asymmetry check) ---
+    region  arm        n_nuclei   n_PVM3  mito%_med  depth_med
+    AnG     NeoC         10,279    1,422      0.230       4130
+    DFC     NeoC         41,553    4,817      0.174       5029
+    FI      NonNeoC      17,445    1,289      0.226       2927
+    HIP     NonNeoC      14,190    2,793      0.533       4308
+    ITG     NeoC         16,111    1,945      0.346       6510
+    LEC     NonNeoC      11,791    1,295      0.196       3703
+    MEC     NonNeoC      63,137    7,721      0.311       6124
+    MTG     NeoC         36,686    4,468      0.169       5368
+    STG     NeoC         15,214    1,942      0.199       7306
+    V1C     NeoC         14,245    2,113      0.268       6742
+
+  --- donor level: mito% against pathology ---
+  Braak parsed          : 240,651/240,651 nuclei
+  donors in this table  : 84
+    mito_pct  vs adnc  : rho=+0.4370  p=3.233e-05  n=84  <-- CONFOUND RISK
+    depth     vs adnc  : rho=+0.1233  p=0.264  n=84
+    mito_pct  vs braak : rho=+0.4247  p=5.672e-05  n=84  <-- CONFOUND RISK
+    depth     vs braak : rho=+0.1346  p=0.2221  n=84
+  cross-check: computed mito% vs obs['Fraction mitochondrial UMIs']  rho=+1.0000 p=0
+
+==========================================================================
+  Q5 - MT-CO3 abundance against ACTB
+==========================================================================
+  (Micro-PVM_3-SEAAD, n=29805;  analysed, MT-CO3 > 0, n=24463)
+   gene  in_module1  detect_pct  detect_pct_analysed  mean_counts  mean_counts_analysed  max_counts  rho_with_GOI
+ MT-CO3        True   82.076833           100.000000     6.597685              8.038425       366.0           NaN
+   ACTB       False   60.281832            62.539345     1.834927              2.013285        76.0      0.044241
+MT-ATP6        True   77.023989            85.300249     5.864285              6.992478       364.0      0.735630
+ MT-CO2        True   81.338702            88.627724     5.991511              7.109839       421.0      0.754359
+ MT-ND3        True   75.111558            83.689654     7.034122              8.423701       315.0      0.722345
+ MT-ND4        True   77.705083            85.365654     5.151988              6.118301       315.0      0.720071
+ MT-CYB        True   73.048146            81.343253     4.062775              4.832277       208.0      0.702476
+ MT-ND1        True   64.656937            72.489065     2.590673              3.069534       218.0      0.612773
+ MT-ND2        True   67.700050            75.947349     2.961852              3.514614       330.0      0.646429
+ MT-CO1        True   76.611307            83.673303     3.730851              4.384663       245.0      0.624732
+MT-ATP8       False   33.390371            38.719699     0.649992              0.769857        41.0      0.371261
+MT-ND4L       False   34.880054            40.518334     0.670290              0.794383        39.0      0.389674
+ MT-ND5       False   49.102500            56.415812     1.280255              1.517394        61.0      0.477962
+ MT-ND6       False    7.206844             8.257368     0.085690              0.098761         6.0      0.093152
+
+  MT-CO3: mean 6.60 counts per nucleus, max 366, detected in 82.1% of Micro-PVM_3-SEAAD.
+
+==========================================================================
+  Q5b - is concordance with the GOI explained by abundance?
+==========================================================================
+  fitted on 12 non-GOI mitochondrial genes; rho is the same in both fits.
+
+                                        all nuclei      analysed
+  --------------------------------------------------------------
+  slope                                    +0.3542       +0.3520
+  intercept                                +0.4573       +0.4322
+  R2                                        0.9877        0.9876
+  ACTB predicted rho                       +0.5506       +0.5391
+  ACTB residual                            -0.5064       -0.4949
+  worst mito residual                      +0.0351       +0.0356
+  ratio to worst mito residual               14.44         13.90
+
+  ACTB observed rho : +0.0442  (same in both)
+  worst mito residual carried by: MT-CO1 (all) / MT-ND3 (analysed)
+  vs detection% (all     ): R2 0.9737
+  vs detection% (analysed): R2 0.9799
+
+  ACTB is 13.9x the worst mito residual off the trend
+
+==========================================================================
+  Q6 - conditioning on a disjoint mito axis
+==========================================================================
+  cells: Micro-PVM_3-SEAAD with MT-CO3 > 0   n=24463
+  cDFG built from 8/8 DFGs
+
+  UNCONDITIONAL    rho(MT-CO3, cDFG) = +0.8174   p=0
+  | cAMB (4 disjoint MT)          rho = +0.7123  p=0   drop=+0.1051
+  | total counts                     rho = +0.8124  p=0   drop=+0.0050
+  | mito% (circular, reference only) rho = -0.4885  p=0
+  | cAMB + total counts             rho = +0.6807  p=0   drop=+0.1367
+
+  --- ambient directional prediction: strength vs depth ---
+    depth Q1 (n= 6116, median=     2314): rho=+0.7536
+    depth Q2 (n= 6116, median=     4527): rho=+0.8084
+    depth Q3 (n= 6122, median=     6984): rho=+0.8444
+    depth Q4 (n= 6117, median=    11436): rho=+0.8716
+
+==========================================================================
+  Q7 - implied size factors vs mito% (did normalisation absorb it?)
+==========================================================================
+  implied size factors for 2965/3000 nuclei
+  implied sf         min=0.026  q25=0.354  median=0.591  q75=0.897  q99=2.071  max=3.197 
+  rho(size factor, mito%) = -0.3568  p=1.057e-89
+  rho(size factor, depth) = +1.0000  p=0
+
+  |rho| = 0.3568 with mito%: moderate coupling.
+  rho with depth is +1.0000: size factor equals depth.
+
+==========================================================================
+  Saving
+==========================================================================
+  saved: Part1_PreChecks/S1b_mito_gene_inventory.csv
+
+  columns used by this run:
+    supertype   Supertype
+    region      Brain Region
+    donor       Donor ID
+    ADNC        Overall AD neuropathological Change
+    Braak       Braak
+  saved: Part1_PreChecks/S1b_precheck_report.txt
+
+==========================================================================
+  PART 1b COMPLETE
+==========================================================================
