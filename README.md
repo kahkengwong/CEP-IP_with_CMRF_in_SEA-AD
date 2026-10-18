@@ -1,10 +1,6 @@
 <div align="center">
 
-# 🧬 CEP-IP/CMRF in SEA-AD Microglia: A Mitochondrial Co-expression Module Linked to Cognition
-### ✨ The **CEP-IP** framework with a **copula monotone recovery filter (CMRF)** applied to the **SEA-AD** immune single-nucleus RNA-seq dataset (84 donors, 10 brain regions).
-### ✨ A transcriptome-wide screen identified a module of **MT-CO3** and eight co-expressed mitochondrially encoded genes (cDFG).
-### ✨ The donor percentage of **Module post-IP** cells was tested against cognition and pathology.
-### ✨ Five **Batteries** of analyses tested contamination, measurement artifacts, %MT, and the 11 severely affected (SA) donors.
+# CEP-IP/CMRF in SEA-AD Microglia: A Mitochondrial Co-expression Module Linked to Cognition
 
 ![Project Status](https://img.shields.io/badge/status-active-brightgreen?logo=check&logoColor=white)
 [![Project Page](https://img.shields.io/badge/Code-GitHub-4E81BE?logo=github&logoColor=white)](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
@@ -14,14 +10,19 @@
 [![Dataset](https://img.shields.io/badge/Dataset-HuggingFace-B08C00?logo=huggingface&logoColor=F3D34E)](https://huggingface.co/datasets/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
 [![Supplementary](https://img.shields.io/badge/Supplementary-Zenodo-1682D4?logo=zenodo&logoColor=white)](https://zenodo.org/records/23445742)
 [![Preprint](https://img.shields.io/badge/Preprint-bioRxiv-B31B1B)](https://doi.org/BIORXIV_DOI)
-[![Container](https://img.shields.io/badge/Container-Podman%20%7C%20Docker-892CA0?logo=podman&logoColor=white)](#-reproducing-the-analysis)
+[![Container](https://img.shields.io/badge/Container-Podman%20%7C%20Docker-892CA0?logo=podman&logoColor=white)](#reproducing-the-analysis)
 
 **Author:** **Kah** **Keng** **Wong**
 
 </div>
 
+- The **CEP-IP** framework with a **copula monotone recovery filter (CMRF)** applied to the **SEA-AD** immune single-nucleus RNA-seq dataset (84 donors, 10 brain regions).
+- A transcriptome-wide screen identified a module of **MT-CO3** and eight co-expressed mitochondrially encoded genes (cDFG).
+- The donor percentage of **Module post-IP** cells was tested against cognition and pathology.
+- Five **Batteries** of analyses tested contamination, measurement artifacts, %MT, and the 11 severely affected (SA) donors.
+
 <details>
-<summary>🧬 &nbsp;<strong>Abstract (click to expand)</strong></summary>
+<summary><strong>Abstract (click to expand)</strong></summary>
 
 Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely filter nuclei by mitochondrial fraction (%MT) or remove mitochondrial genes, yet whether these reads carry information about cognition is rarely examined. In SEA-AD microglia (84 donors, 10 brain regions), a transcriptome-wide screen identified a module of MT-CO3 and eight co-expressed mitochondrially encoded genes. Three microglial populations were analyzed, Mic.13-like, PVM_3, and PVM_1 cells, with a housekeeping-gene control. The CEP-IP pipeline with a copula monotone recovery filter (CMRF) used per-cell Spearman and Kendall scores, an inflection point (IP), and a cross-validated copula-space boundary to label Module cells. The donor percentage of Module cells past the IP (Module post-IP%) was associated with worse cognition (MMSE and CASI) in the three populations in neocortical and non-neocortical regions. These associations remained after adjustment for tissue quality, plaque and tangle burden, whereas most pathology associations were lost after adjustment for cognition. Tested together, Module post-IP% carried the cognition associations and non-Module post-IP% did not, and the housekeeping control showed no MMSE association. In Mic.13-like and PVM_3, the cognition associations held after contamination adjustment and doublet removal, Module post-IP% repeated across each donor's regions beyond chance, and no per-cell %MT cutoff reproduced the Module cells. However, Module post-IP% could not be separated from %MT, and the source of the mitochondrial transcripts, whether retained cytoplasm, ambient RNA, or a true change in mitochondrial content, remains unresolved. These findings suggest that mitochondrial reads in AD snRNA-seq should be checked before filtering, and the full pipeline code is publicly available.
 
@@ -31,7 +32,7 @@ Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely
 
 ---
 
-## 📋 Overview
+## Overview
 - This repository holds the analysis code, the software environment (container recipe and lock files), and the reproduction check for the preprint. It builds on the published **CEP-IP framework** ([Wong, 2026, *CMPB*](https://doi.org/10.1016/j.cmpb.2026.109372); [code](https://github.com/kahkengwong/CEP-IP_Framework)).
 
 - **Python Parts 1 to 8** read the SEA-AD immune h5ad: pre-checks, Mic.13-like (M4) cell selection, the GOI-DFG screens, DecontX, and the export of each arm for R.
@@ -48,7 +49,7 @@ Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely
 
 ---
 
-### 📂 Datasets Used
+### Datasets Used
 
 **1. SEA-AD immune snRNA-seq dataset**, Multiregion release of 22 June 2026: `SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad`, with the SEA-AD quantitative neuropathology (`sea-ad-quantitative-neuropathology-063026.xlsx`) and CPS (`sea-ad_global_and_local_cps_050126.xlsx`) workbooks. Available from the [SEA-AD portal](https://brain-map.org/consortia/sea-ad/our-data).
 - M.I. Gabitto, K.J. Travaglini, V.M. Rachleff, E.S. Kaplan, B. Long, et al., Integrated multimodal cell atlas of Alzheimer's disease, Nat Neurosci, 27 (2024) 2366-2383. https://doi.org/10.1038/s41593-024-01774-5
@@ -59,7 +60,7 @@ Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely
 
 ---
 
-## 🔀 Workflow of the Project
+## Workflow of the Project
 <!-- ![Workflow](Project_Workflow.jpg) -->
 
 - The **GOI-DFG screen** ranks every gene as a GOI against all expressed partner genes with the Spearman-Kendall dual filter (r<sub>s</sub> ≥0.6 and τ<sub>b</sub> ≥0.5). MT-CO3 was the top-ranked mitochondrial GOI, and its eight DFGs were averaged into the composite cDFG.
@@ -74,7 +75,32 @@ Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely
 
 ---
 
-## 🗂️ Repository Contents
+## Methods and Key Results
+The five figures below follow the main steps of the analysis, using M4 NeoC as the example where one arm is shown.
+
+<p align="center"><img src="figures/Figure_1_Si_Ki_creates_discontinuity.jpg" width="900" alt="Figure 1. The S<sub>i</sub> and K<sub>i</sub> gates create a discontinuity."></p>
+
+**Figure 1. The S<sub>i</sub> and K<sub>i</sub> gates create a discontinuity.** The S<sub>i</sub> and K<sub>i</sub> gates (S<sub>i</sub> >0.05 and K<sub>i</sub> >0.5) identified the SKCS-core cells and improved the deviance explained (DE; from 67.4% to 87.7% in M4 NeoC), but created a discontinuity along MT-CO3 that is also visible in the pitcher plot (K<sub>i</sub> against S<sub>i</sub>).
+
+<p align="center"><img src="figures/Figure_2_Transform_to_copula_space.jpg" width="900" alt="Figure 2. Transformation into copula space."></p>
+
+**Figure 2. Transformation into copula space.** The expression space (cDFG against MT-CO3) and the score space (K<sub>i</sub> against S<sub>i</sub>) are transformed into copula space by ranking each axis and dividing by n + 1: v against u for the expression values, and v<sub>SK</sub> against u<sub>SK</sub> for the S<sub>i</sub> and K<sub>i</sub> values.
+
+<p align="center"><img src="figures/Figure_3_CMRF_reclaims_cells.jpg" width="900" alt="Figure 3. CMRF reclaims monotone-coherent cells."></p>
+
+**Figure 3. CMRF reclaims monotone-coherent cells.** The copula monotone recovery filter (CMRF) reclaimed monotone-coherent cells that the fixed S<sub>i</sub> and K<sub>i</sub> gates had excluded. The SKCS-core cells calibrated the spline, two bands (&delta;<sub>base</sub> and &delta;<sub>adapt</sub>) identified the candidates, and the RSk-fCV gate tested them. Purple diamonds are the Recovered cells.
+
+<p align="center"><img src="figures/Figure_4_Pitcher_plots_QC_of_CMRF.jpg" width="900" alt="Figure 4. Pitcher plots as a quality check of CMRF."></p>
+
+**Figure 4. Pitcher plots as a quality check of CMRF.** Pitcher plots in copula space for each arm and region set. The Recovered cells (purple) bridge the post-IP (green) and pre-IP (amber) branches.
+
+<p align="center"><img src="figures/Figure_5_Applications.jpg" width="900" alt="Figure 5. Applications of Module post-IP%."></p>
+
+**Figure 5. Applications of Module post-IP%.** Module post-IP% was computed for each arm (A) and used in downstream applications, such as its association with cognition and pathology outcomes in the SEA-AD donors, where it was benchmarked against the competitors of CMRF (B).
+
+---
+
+## Repository Contents
 | Path | Contents |
 |---|---|
 | `scripts/Python/` | The 23 Python scripts: Parts 1 to 8 and the Part 12 extraction step (`Part12_02_Extract.py`). |
@@ -85,11 +111,12 @@ Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely
 | `renv.lock` | Exact R package versions (R 4.6.1, Bioconductor 3.23; 280 packages). |
 | `requirements-python.txt` | Exact Python package versions (Python 3.13.14). |
 | `verification/` | `run_rest.sh` and `run_python.sh` (run the R and the Python scripts in order from a named step), `compare_rerun.py`, `compare_python.py` and `compare_gamdata.py`, and the comparisons of the container reruns with the original results (`compare_all_*` for R; `compare_python_*` and `compare_gamdata_log.txt` for Python). |
+| `figures/` | Figures 1 to 5 of the Methods and Key Results section. |
 | `logs/` | Console logs of the container reruns (`container_rerun/`, R Part 9 onward and the Part 12 Python step; `container_rerun_python/`, Python Parts 1 to 8), logs of the original runs from Part 9 onward (`original_R/`), and logs of the original Python Parts 1 to 8 (`original_python/`). `logs/README.md` describes each folder and maps the Python logs to their scripts. |
 
 ---
 
-## 📜 Descriptions of the Scripts
+## Descriptions of the Scripts
 Figure and table numbers are those of the preprint. The Part 12 file names (`Fig15` to `Fig19`) follow the run order of the Batteries; they correspond to preprint Figures 12 to 16.
 
 ### Python (SEA-AD h5ad)
@@ -157,7 +184,7 @@ Two scripts read finished supplementary tables instead of recomputing them: the 
 
 ---
 
-## 🚀 Reproducing the Analysis
+## Reproducing the Analysis
 The analysis runs in a container that holds R 4.6.1, Python 3.13.14 and every package at the version in the lock files. No data are inside the container: the data folder is mounted at `/data` when it starts, and every script reads and writes in that folder.
 
 ### 1. Get the data
@@ -210,7 +237,7 @@ Each script writes its outputs and a log in its own folder.
 
 ---
 
-## ✅ Reproduction Check
+## Reproduction Check
 The original analysis ran R on Windows 11 and Python on Fedora 44. The whole pipeline was then rerun inside this container on Fedora: Python Parts 1 to 8 from the SEA-AD h5ad, and R Parts 9 to 13 from the Part 8 export. Every table was compared with the original results by `verification/compare_rerun.py`.
 
 - **Method:** every CSV and Excel table is compared cell by cell. Numbers agree when they are within a relative difference of 1e-6, and text must match exactly.
@@ -245,13 +272,13 @@ The full comparison is in `verification/compare_all_log.txt` (summary) and `veri
 
 ---
 
-## 📑 Supplementary Tables & Figures (Zenodo)
+## Supplementary Tables & Figures (Zenodo)
 - Supplementary Tables (Excel format) and Supplementary Figures are available from [Zenodo](https://zenodo.org/records/23445742).
 - Refer to these tables to see the results without running the pipeline, or to check your own results.
 
 ---
 
-## 💻 Requirements
+## Requirements
 ### Software Requirements
 - **R:** 4.6.1, with Bioconductor 3.23 (280 packages in `renv.lock`, including monocle3, presto and BPCells from GitHub)
 - **Python:** 3.13.14 (packages in `requirements-python.txt`)
@@ -276,18 +303,18 @@ The full comparison is in `verification/compare_all_log.txt` (summary) and `veri
 
 ---
 
-## 🧾 License
+## License
 This project is licensed under the [MIT License](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD/blob/main/LICENSE). For the full details, please refer to the [LICENSE](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD/blob/main/LICENSE) file in this repository.
 
 ---
 
-## 🤝🏻 Contributing
+## Contributing
 Contributions, issues, and feature requests are welcome!
 
-### 🐛 Found a Bug?
+### Found a Bug?
 [Open an issue](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD/issues) describing the problem, including your error message, R or Python version, and operating system.
 
-### 💡 Want to Contribute Improvements?
+### Want to Contribute Improvements?
 If you've made enhancements you'd like to share with others, you can contribute back via a **pull request** (i.e., a way to propose merging your improvements back into the main repository so others can benefit).
 
 **How to submit:**
@@ -299,18 +326,18 @@ I'll review and may ask questions before merging. **Or simply:** [Open an issue]
 
 ---
 
-## 📚 Citation
+## Citation
 If you found this study useful, please cite:
 
 K.K. Wong. PREPRINT_TITLE. *bioRxiv* (2026). https://doi.org/BIORXIV_DOI
 
 K.K. Wong. CEP-IP: An explainable framework for cell subpopulation identification in single-cell transcriptomics. *Computer Methods and Programs in Biomedicine*, 282 (2026) 109372. https://doi.org/10.1016/j.cmpb.2026.109372
 
-Please also cite the source datasets (see 📂 Datasets Used).
+Please also cite the source datasets (see Datasets Used).
 
 ---
 
-## 📩 Contact
+## Contact
 Kah Keng Wong: [kahkeng@usm.my](mailto:kahkeng@usm.my)
 
 ---
