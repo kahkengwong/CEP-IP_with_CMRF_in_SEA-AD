@@ -12,7 +12,7 @@
 [![GitHub top language](https://img.shields.io/github/languages/top/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD?logo=R&logoColor=486FBA)](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
 [![GitHub last commit](https://img.shields.io/github/last-commit/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
 [![Dataset](https://img.shields.io/badge/Dataset-HuggingFace-B08C00?logo=huggingface&logoColor=F3D34E)](https://huggingface.co/datasets/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
-[![Supplementary](https://img.shields.io/badge/Supplementary-Zenodo-1682D4?logo=zenodo&logoColor=white)](https://zenodo.org/records/ZENODO_RECORD_ID)
+[![Supplementary](https://img.shields.io/badge/Supplementary-Zenodo-1682D4?logo=zenodo&logoColor=white)](https://zenodo.org/records/23445742)
 [![Preprint](https://img.shields.io/badge/Preprint-bioRxiv-B31B1B)](https://doi.org/BIORXIV_DOI)
 [![Container](https://img.shields.io/badge/Container-Podman%20%7C%20Docker-892CA0?logo=podman&logoColor=white)](#-reproducing-the-analysis)
 
@@ -153,7 +153,7 @@ Figure and table numbers are those of the preprint. The Part 12 file names (`Fig
 | 35 | `Part13b_CP10K_M4RandomSubset_code.r` | M4 cells against random PVM_3 cells. | Supplementary Figure S21, Table S18 |
 | 36 | `Fig17_Summary_code.r` | Summary of all tests of Module post-IP%. | Figure 17, Table S19 |
 
-Two scripts read finished supplementary tables instead of recomputing them: the Part 10g follow-up reads Table S11, and `Fig17_Summary_code.r` reads Tables S12 to S17 together with the Part 13 and 13b outputs. These tables are on [Zenodo](https://zenodo.org/records/ZENODO_RECORD_ID). `README_container.md` gives the paths where they are placed.
+Two scripts read finished supplementary tables instead of recomputing them: the Part 10g follow-up reads Table S11, and `Fig17_Summary_code.r` reads Tables S12 to S17 together with the Part 13 and 13b outputs. These tables are on [Zenodo](https://zenodo.org/records/23445742). `README_container.md` gives the paths where they are placed.
 
 ---
 
@@ -166,7 +166,7 @@ The analysis runs in a container that holds R 4.6.1, Python 3.13.14 and every pa
 | [HuggingFace](https://huggingface.co/datasets/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD) | `R_export_CP10K/` (Part 8 export of the four arms, about 14 GB), the Part 2 donor tables (`NeoC_S5b_donor_clinical.csv`, `NonNeoC_S5b_donor_clinical.csv`), and `Part7_DecontX/decontX_contamination_all.csv` | R Parts 9 to 13 |
 | [SEA-AD portal](https://brain-map.org/consortia/sea-ad/our-data) | Immune h5ad (2026-06-22 release), neuropathology and CPS workbooks | Python Parts 1 to 8, Part 12 |
 | [GEO GSE148822](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE148822) | Gerrits deposit, placed in `Gerrits/` with the series matrix in `Gerrits/Metadata/` | Part 12 (Battery 1) |
-| [Zenodo](https://zenodo.org/records/ZENODO_RECORD_ID) | Supplementary Tables | The Part 10g follow-up and `Fig17_Summary_code.r` |
+| [Zenodo](https://zenodo.org/records/23445742) | Supplementary Tables | The Part 10g follow-up and `Fig17_Summary_code.r` |
 
 Place them in one folder (the data folder), keeping the folder names above.
 
@@ -230,7 +230,7 @@ The full comparison is in `verification/compare_all_log.txt` (summary) and `veri
 ---
 
 ## 📑 Supplementary Tables & Figures (Zenodo)
-- Supplementary Tables (Excel format) and Supplementary Figures are available from [Zenodo](https://zenodo.org/records/ZENODO_RECORD_ID).
+- Supplementary Tables (Excel format) and Supplementary Figures are available from [Zenodo](https://zenodo.org/records/23445742).
 - Refer to these tables to see the results without running the pipeline, or to check your own results.
 
 ---
