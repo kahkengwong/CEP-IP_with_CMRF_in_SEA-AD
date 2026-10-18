@@ -93,63 +93,63 @@ Figure and table numbers are those of the preprint. The Part 12 file names (`Fig
 ### Python (SEA-AD h5ad)
 | No | Script File | Description | Paper output |
 |----|---|---|---|
-| 1 | `Part1a_NormForensics_code.py` | Identifies the normalisation behind the expression matrix. | Pre-check |
-| 2 | `Part1b_MT-audit_code.py` | Mitochondrial audit: layers, ambient-correction traces, mitochondrial genes and %MT. | Figure 1G |
-| 3 | `Part1c_WithinDonor_code.py` | Splits the pooled MT-CO3 to cDFG correlation into within-donor and between-donor parts. | Pre-check |
-| 4 | `Part1d_Errata_code.py` | Checks the SEA-AD specimen errata against the h5ad. | Pre-check |
-| 5 | `Part1e_TechQC_code.py` | Technical-confound checks (library batch, intronic:exonic ratio). | Pre-check |
-| 6 | `Part1f_Ordinals_code.py` | Clinical ordinals and donor table with tissue-quality covariates. | Pre-check |
-| 7 | `Part1g_TrendReconcile_code.py` | Detectability trend on two abundance axes. | Figure 1G |
-| 8 | `Part2_NeoC_CP10K_code.py`, `Part2_NonNeoC_CP10K_code.py` | M4 selection with the Mic.13 signature; writes the donor clinical tables. | Supplementary Figure S1A, Table S1 |
-| 9 | `Part3_M4Composition_code.py` | Supertype composition of the M4 set. | Figure 1B |
-| 10 | `Part4_NeoC_ScreenScatter.py`, `Part4_NonNeoC_ScreenScatter.py` | PVM_3 pooled GOI-DFG screen. | Figure 1D |
-| 11 | `Part5_NeoC_DEGs.py`, `Part5_NonNeoC_DEGs.py` | Pseudobulk DEGs of M4 cells. | Figure 1 |
-| 12 | `Part5b_NeoC_Validation.py`, `Part5b_NonNeoC_Validation.py` | Mic.13 equivalence validation. | Figure 1 |
-| 13 | `Part6_NeoC_GOI-DFG_code.py`, `Part6_NonNeoC_GOI-DFG_code.py` | GOI-DFG screen by region and supertype. | Figure 1, Tables S2 to S4 |
-| 14 | `Part6b_NeoC_Pooled_GOI-DFG.py`, `Part6b_NonNeoC_Pooled_GOI-DFG.py` | Pooled GOI-DFG screen in seven immune supertypes. | Figure 1, Tables S2 to S4 |
-| 15 | `Part7_DecontX.py` | DecontX ambient RNA estimate per library. | Table S6 |
-| 16 | `Part8_Data-export-CP10K_MT-CO3_8DFG.py` | Exports one arm for the R parts (run once per arm). | Input to Parts 9 to 13 |
-| 17 | `Part12_02_Extract.py` | Part 12 step 02: extracts the cells and counts the Batteries use. | Input to Part 12 |
+| 1 | Part1a_NormForensics_code.py | Identifies the normalisation behind the expression matrix. | Pre-check |
+| 2 | Part1b_MT-audit_code.py | Mitochondrial audit: layers, ambient-correction traces, mitochondrial genes and %MT. | Figure 1G |
+| 3 | Part1c_WithinDonor_code.py | Splits the pooled MT-CO3 to cDFG correlation into within-donor and between-donor parts. | Pre-check |
+| 4 | Part1d_Errata_code.py | Checks the SEA-AD specimen errata against the h5ad. | Pre-check |
+| 5 | Part1e_TechQC_code.py | Technical-confound checks (library batch, intronic:exonic ratio). | Pre-check |
+| 6 | Part1f_Ordinals_code.py | Clinical ordinals and donor table with tissue-quality covariates. | Pre-check |
+| 7 | Part1g_TrendReconcile_code.py | Detectability trend on two abundance axes. | Figure 1G |
+| 8 | Part2_NeoC_CP10K_code.py<br>Part2_NonNeoC_CP10K_code.py | M4 selection with the Mic.13 signature; writes the donor clinical tables. | Supplementary Figure S1A, Table S1 |
+| 9 | Part3_M4Composition_code.py | Supertype composition of the M4 set. | Figure 1B |
+| 10 | Part4_NeoC_ScreenScatter.py<br>Part4_NonNeoC_ScreenScatter.py | PVM_3 pooled GOI-DFG screen. | Figure 1D |
+| 11 | Part5_NeoC_DEGs.py<br>Part5_NonNeoC_DEGs.py | Pseudobulk DEGs of M4 cells. | Figure 1 |
+| 12 | Part5b_NeoC_Validation.py<br>Part5b_NonNeoC_Validation.py | Mic.13 equivalence validation. | Figure 1 |
+| 13 | Part6_NeoC_GOI-DFG_code.py<br>Part6_NonNeoC_GOI-DFG_code.py | GOI-DFG screen by region and supertype. | Figure 1, Tables S2 to S4 |
+| 14 | Part6b_NeoC_Pooled_GOI-DFG.py<br>Part6b_NonNeoC_Pooled_GOI-DFG.py | Pooled GOI-DFG screen in seven immune supertypes. | Figure 1, Tables S2 to S4 |
+| 15 | Part7_DecontX.py | DecontX ambient RNA estimate per library. | Table S6 |
+| 16 | Part8_Data-export-CP10K_MT-CO3_8DFG.py | Exports one arm for the R parts (run once per arm). | Input to Parts 9 to 13 |
+| 17 | Part12_02_Extract.py | Part 12 step 02: extracts the cells and counts the Batteries use. | Input to Part 12 |
 
 ### R (Part 8 export)
 | No | Script File | Description | Paper output |
 |----|---|---|---|
-| 1 | `Part9_CP10K_QC_GAM_code.r` | Export QC, heatmaps and GAM fits. | Figure 2, Supplementary Figures S2, S3, S5, Table S7 |
-| 2 | `Part9b_CP10K_SiKi_code.r` | Justifies the S<sub>i</sub> floor. | Supplementary Figure S4, Table S7 |
-| 3 | `Part10_CP10K_SKCS_code.r` | SKCS decomposition and TREP classification. | Figures 2 and 3, Supplementary Figures S5 and S7, Table S7 |
-| 4 | `Part10b_CP10K_IPRS_code.r` | Inflection point detection and IPRS. | Figure 3, Supplementary Figure S6, Table S8 |
-| 5 | `Part10b_CP10K_SKCS_TREP_code.r` | SKCS fixed thresholds and IP x TREP classes. | Table S7 |
-| 6 | `Part10c_CP10K_Copula1_code.r` | Copula space. | Figure 4, Supplementary Figures S8 to S10, Table S9 |
-| 7 | `Part10d_CP10K_Copula2_code.r` | The IP and gates in copula coordinates. | Figure 4, Supplementary Figures S8 to S10, Table S9 |
-| 8 | `Part10e_CP10K_CMRF_code.r` | Copula monotone recovery filter (CMRF). | Table S10 |
-| 9 | `Part10e_CP10K_Validation1_code.r` | GAM refit on the final Module. | Figure 8A, Table S10 |
-| 10 | `Part10e_CP10K_Validation2_UMAP_code.r` | CMRF classes in a raw-count UMAP. | Figure 8B and 8C, Table S10 |
-| 11 | `Part10f_CP10K_Band_Formation_code.r` | Band-formation figures. | Figure 6, Supplementary Figures S11 and S12 |
-| 12 | `Part10f_CP10K_CMRF_RSkfCV_Mechanism_code.r` | How the RSk-fCV gate works. | Figure 7 |
-| 13 | `Part10g_CP10K_DEGs_Part1_code.r` | Paired pseudobulk differential expression in the Module. | Table S11 |
-| 14 | `Part10g_Step7to9_rebuild_code.r` | Targeted tests, control overlap and ambient check. | Table S11 |
-| 15 | `Part10h_CP10K_Prognosis_code.r` | Donor-level clinical models. | Figure 9A, Supplementary Figure S14, Table S12 |
-| 16 | `Part10h_CP10K_Prognosis_1_Comparator_code.r` | Comparison with five external baselines. | Figure 10A and 10B, Table S12 |
-| 17 | `Part10h_CP10K_Prognosis_2_CogVsPath_code.r` | Cognition against pathology. | Figure 9B and 9C, Table S12 |
-| 18 | `Part10h_CP10K_Prognosis_4_Multivariate_code.r` | Module against a gene score plus a cell count. | Figure 10C and 10D, Table S12 |
-| 19 | `Part10h_CP10K_Comparator_Fig13_code.r` | Draws the comparator figures. | Figure 10A to 10D |
-| 20 | `Part11_CP10K_CogVsPath_code.r` | Module minus non-Module contrast. | Figure 9D, Table S12 |
-| 21 | `Part11_CP10K_CogVsPath_HighLevel_code.r` | Summary panel of the four cell populations. | Figure 9E |
-| 22 | `Part11_Identity_BandAblation_code.r` | Module boundary ablation. | Figure 11A and 11C, Table S12 |
-| 23 | `Part11_BandAblation_Fig11Export_code.r` | Boundary lines and cell membership. | Figure 11B, Table S12 |
-| 24 | `Part12_03_Config.r` | Shared settings and functions of Part 12 (sourced by each step). | - |
-| 25 | `Part12_04_Labels.r`, `Part12_05_Units.r`, `Part12_06_GerritsCells.r` | Cell labels, donor-region units, and Gerrits cells. | Inputs to the Batteries |
-| 26 | `Part12_Fig15_Analysis.r`, `Part12_Fig15_Plots.r` | Battery 1: contamination. | Figure 12, Table S13 |
-| 27 | `Part12_Fig16_Analysis.r`, `Part12_Fig16_Plots.r` | Battery 2: measurement. | Figure 13, Table S14 |
-| 28 | `Part12_Fig17_Analysis.r`, `Part12_Fig17_Plots.r` | Battery 3: Module post-IP% and %MT on histology and clinical outcomes. | Figure 14, Table S15 |
-| 29 | `Part12_Fig18_Analysis.r`, `Part12_Fig18_Plots.r` | Battery 4: can %MT replace the Module. | Figure 15, Table S16 |
-| 30 | `Part12_Fig19_Analysis.r`, `Part12_Fig19_Plots.r` | Battery 5: the 11 severely affected donors. | Figure 16, Table S17 |
-| 31 | `Part12_ModulePostIP_Overview.r` | Module post-IP% overview. | Supplementary Figure S13 |
-| 32 | `Part10g_CP10K_DEGs_Part1_code_S11_followup_analyses.r` | Follow-up DE analyses (reads the Part 12 labels). | Table S11 |
-| 33 | `Part13a_CP10K_Find14DpctMT_code.r` | Donor %MT for the Part 13 model. | Input to Part 13 |
-| 34 | `Part13_CP10K_M4Share_code.r` | Does the donor's M4 share explain the M4 results. | Supplementary Figure S20, Table S18 |
-| 35 | `Part13b_CP10K_M4RandomSubset_code.r` | M4 cells against random PVM_3 cells. | Supplementary Figure S21, Table S18 |
-| 36 | `Fig17_Summary_code.r` | Summary of all tests of Module post-IP%. | Figure 17, Table S19 |
+| 1 | Part9_CP10K_QC_GAM_code.r | Export QC, heatmaps and GAM fits. | Figure 2, Supplementary Figures S2, S3, S5, Table S7 |
+| 2 | Part9b_CP10K_SiKi_code.r | Justifies the S<sub>i</sub> floor. | Supplementary Figure S4, Table S7 |
+| 3 | Part10_CP10K_SKCS_code.r | SKCS decomposition and TREP classification. | Figures 2 and 3, Supplementary Figures S5 and S7, Table S7 |
+| 4 | Part10b_CP10K_IPRS_code.r | Inflection point detection and IPRS. | Figure 3, Supplementary Figure S6, Table S8 |
+| 5 | Part10b_CP10K_SKCS_TREP_code.r | SKCS fixed thresholds and IP x TREP classes. | Table S7 |
+| 6 | Part10c_CP10K_Copula1_code.r | Copula space. | Figure 4, Supplementary Figures S8 to S10, Table S9 |
+| 7 | Part10d_CP10K_Copula2_code.r | The IP and gates in copula coordinates. | Figure 4, Supplementary Figures S8 to S10, Table S9 |
+| 8 | Part10e_CP10K_CMRF_code.r | Copula monotone recovery filter (CMRF). | Table S10 |
+| 9 | Part10e_CP10K_Validation1_code.r | GAM refit on the final Module. | Figure 8A, Table S10 |
+| 10 | Part10e_CP10K_Validation2_UMAP_code.r | CMRF classes in a raw-count UMAP. | Figure 8B and 8C, Table S10 |
+| 11 | Part10f_CP10K_Band_Formation_code.r | Band-formation figures. | Figure 6, Supplementary Figures S11 and S12 |
+| 12 | Part10f_CP10K_CMRF_RSkfCV_Mechanism_code.r | How the RSk-fCV gate works. | Figure 7 |
+| 13 | Part10g_CP10K_DEGs_Part1_code.r | Paired pseudobulk differential expression in the Module. | Table S11 |
+| 14 | Part10g_Step7to9_rebuild_code.r | Targeted tests, control overlap and ambient check. | Table S11 |
+| 15 | Part10h_CP10K_Prognosis_code.r | Donor-level clinical models. | Figure 9A, Supplementary Figure S14, Table S12 |
+| 16 | Part10h_CP10K_Prognosis_1_Comparator_code.r | Comparison with five external baselines. | Figure 10A and 10B, Table S12 |
+| 17 | Part10h_CP10K_Prognosis_2_CogVsPath_code.r | Cognition against pathology. | Figure 9B and 9C, Table S12 |
+| 18 | Part10h_CP10K_Prognosis_4_Multivariate_code.r | Module against a gene score plus a cell count. | Figure 10C and 10D, Table S12 |
+| 19 | Part10h_CP10K_Comparator_Fig13_code.r | Draws the comparator figures. | Figure 10A to 10D |
+| 20 | Part11_CP10K_CogVsPath_code.r | Module minus non-Module contrast. | Figure 9D, Table S12 |
+| 21 | Part11_CP10K_CogVsPath_HighLevel_code.r | Summary panel of the four cell populations. | Figure 9E |
+| 22 | Part11_Identity_BandAblation_code.r | Module boundary ablation. | Figure 11A and 11C, Table S12 |
+| 23 | Part11_BandAblation_Fig11Export_code.r | Boundary lines and cell membership. | Figure 11B, Table S12 |
+| 24 | Part12_03_Config.r | Shared settings and functions of Part 12 (sourced by each step). | - |
+| 25 | Part12_04_Labels.r<br>Part12_05_Units.r<br>Part12_06_GerritsCells.r | Cell labels, donor-region units, and Gerrits cells. | Inputs to the Batteries |
+| 26 | Part12_Fig15_Analysis.r<br>Part12_Fig15_Plots.r | Battery 1: contamination. | Figure 12, Table S13 |
+| 27 | Part12_Fig16_Analysis.r<br>Part12_Fig16_Plots.r | Battery 2: measurement. | Figure 13, Table S14 |
+| 28 | Part12_Fig17_Analysis.r<br>Part12_Fig17_Plots.r | Battery 3: Module post-IP% and %MT on histology and clinical outcomes. | Figure 14, Table S15 |
+| 29 | Part12_Fig18_Analysis.r<br>Part12_Fig18_Plots.r | Battery 4: can %MT replace the Module. | Figure 15, Table S16 |
+| 30 | Part12_Fig19_Analysis.r<br>Part12_Fig19_Plots.r | Battery 5: the 11 severely affected donors. | Figure 16, Table S17 |
+| 31 | Part12_ModulePostIP_Overview.r | Module post-IP% overview. | Supplementary Figure S13 |
+| 32 | Part10g_CP10K_DEGs_Part1_code_S11_followup_analyses.r | Follow-up DE analyses (reads the Part 12 labels). | Table S11 |
+| 33 | Part13a_CP10K_Find14DpctMT_code.r | Donor %MT for the Part 13 model. | Input to Part 13 |
+| 34 | Part13_CP10K_M4Share_code.r | Does the donor's M4 share explain the M4 results. | Supplementary Figure S20, Table S18 |
+| 35 | Part13b_CP10K_M4RandomSubset_code.r | M4 cells against random PVM_3 cells. | Supplementary Figure S21, Table S18 |
+| 36 | Fig17_Summary_code.r | Summary of all tests of Module post-IP%. | Figure 17, Table S19 |
 
 Two scripts read finished supplementary tables instead of recomputing them: the Part 10g follow-up reads Table S11, and `Fig17_Summary_code.r` reads Tables S12 to S17 together with the Part 13 and 13b outputs. These tables are on [Zenodo](https://zenodo.org/records/ZENODO_RECORD_ID). `README_container.md` gives the paths where they are placed.
 
