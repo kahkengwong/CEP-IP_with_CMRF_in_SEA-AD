@@ -28,6 +28,12 @@ podman build --no-cache -t seaad-cepip -f Containerfile .
 
 The first build takes about one to two hours, mostly to compile the Bioconductor packages and monocle3. It needs an internet connection. The image is about 6 to 8 GB.
 
+Instead of building it, the image can be loaded from the archived copy on Zenodo (`seaad-cepip_image.tar.gz`, 1.7 GB, https://doi.org/10.5281/zenodo.23446228), which holds the same software and scripts:
+```bash
+podman load -i seaad-cepip_image.tar.gz
+```
+This gives the image `localhost/seaad-cepip`; Docker accepts `docker load -i` in the same way.
+
 For an HPC cluster that uses Apptainer instead of Podman:
 
 ```bash
