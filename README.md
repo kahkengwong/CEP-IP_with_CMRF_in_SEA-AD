@@ -9,8 +9,8 @@
 [![Container](https://img.shields.io/badge/Container-Podman%20%7C%20Docker-892CA0?logo=podman&logoColor=white&style=flat-square)](#reproducing-the-analysis)
 
 ![Project Status](https://img.shields.io/badge/status-active-brightgreen?logo=check&logoColor=white&style=flat-square)
-[![GitHub languages](https://img.shields.io/github/languages/count/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD?style=flat-square)](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
-[![GitHub top language](https://img.shields.io/github/languages/top/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD?logo=R&logoColor=486FBA&style=flat-square)](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
+[![R](https://img.shields.io/badge/R-4.6.1-276DC3?logo=r&logoColor=white&style=flat-square)](#software-requirements)
+[![Python](https://img.shields.io/badge/Python-3.13.14-3776AB?logo=python&logoColor=white&style=flat-square)](#software-requirements)
 [![GitHub last commit](https://img.shields.io/github/last-commit/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD?style=flat-square)](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
 
 **Author:** **Kah** **Keng** **Wong**
@@ -333,7 +333,10 @@ The original analysis ran R on Windows 11 and Python on Fedora 44. The whole pip
   - dates, times, and folder paths.
 
 > [!NOTE]
-> These differences come from the operating system and from how values are printed. A GAM basis function and its sign-flipped copy give the same fit, and a value printed as -0 is zero. The quote marks, the settings version, and the dates, times, and folder paths only record how a run was made and are not used in any calculation. None of them changes a fitted value, a test result, or a finding.
+> These differences do not change any result:
+> - A GAM basis function and its sign-flipped copy give the same fit.
+> - A value printed as -0 is zero.
+> - Quote marks, the settings version, dates, times, and folder paths are records of the run and are not used in any calculation.
 
 The full comparisons are in `verification/`:
 - **R parts:** `compare_all_log.txt` (summary) and `compare_all_detail.csv` (one row per table).
