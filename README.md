@@ -31,7 +31,7 @@ Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely
 
 ---
 
-## 📋Overview
+## 📋 Overview
 - This repository holds the analysis code, the software environment (container recipe and lock files), and the reproduction check for the preprint. It builds on the published **CEP-IP framework** ([Wong, 2026, *CMPB*](https://doi.org/10.1016/j.cmpb.2026.109372); [code](https://github.com/kahkengwong/CEP-IP_Framework)).
 
 - **Python Parts 1 to 8** read the SEA-AD immune h5ad: pre-checks, Mic.13-like (M4) cell selection, the GOI-DFG screens, DecontX, and the export of each arm for R.
@@ -59,7 +59,7 @@ Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely
 
 ---
 
-## 🔀Workflow of the Project
+## 🔀 Workflow of the Project
 <!-- ![Workflow](Project_Workflow.jpg) -->
 
 - The **GOI-DFG screen** ranks every gene as a GOI against all expressed partner genes with the Spearman-Kendall dual filter (r<sub>s</sub> ≥0.6 and τ<sub>b</sub> ≥0.5). MT-CO3 was the top-ranked mitochondrial GOI, and its eight DFGs were averaged into the composite cDFG.
@@ -227,7 +227,7 @@ The full comparison is in `verification/compare_all_log.txt` (summary) and `veri
 
 ---
 
-## 📋 Supplementary Tables & Figures (Zenodo)
+## 📑 Supplementary Tables & Figures (Zenodo)
 - Supplementary Tables (Excel format) and Supplementary Figures are available from [Zenodo](https://zenodo.org/records/ZENODO_RECORD_ID).
 - Refer to these tables to see the results without running the pipeline, or to check your own results.
 
@@ -240,20 +240,24 @@ The full comparison is in `verification/compare_all_log.txt` (summary) and `veri
 - **Container:** Podman or Docker (base image `rocker/r-ver:4.6.1`, Ubuntu 24.04)
 
 ### Hardware Requirements
-- **RAM:** 32GB (64GB recommended for the Python parts that read the full h5ad)
+- **RAM:** 32 GB (64 GB recommended for the Python parts that read the full h5ad)
 - **CPU:** 8 cores (12+ cores recommended; the GAM fits and resampling run in parallel)
-- **Storage:** about 60GB free disk space for the inputs, the container image and the outputs
+- **Storage:** about 60 GB free disk space for the inputs, the container image and the outputs
 
 ### Development Environment
-- **Developed and tested on:** Intel Core i9-14900KF, 64GB DDR5 RAM, Windows 11 Pro (R 4.6.1) and Fedora 44 (Python 3.13.14)
+- **Developed and tested on:** Intel Core i9-14900KF, 64 GB DDR5 RAM, Windows 11 Pro (R 4.6.1) and Fedora 44 (Python 3.13.14)
 
 ### Performance Notes
 - All analyses are CPU-based; GPU acceleration is not required.
-- In the container on the development machine, R Parts 9 to 10d took about 35 minutes, Parts 10e to 10g about 45 minutes, the four Part 10h model scripts about 45 minutes, and the scripts from `Part10h_CP10K_Comparator_Fig13_code.r` to `Fig17_Summary_code.r` (including the Part 12 Batteries) about 20 minutes.
+- Run times in the container on the development machine:
+  - R Parts 9 to 10d: about 35 minutes
+  - Parts 10e to 10g: about 45 minutes
+  - the four Part 10h model scripts: about 45 minutes
+  - `Part10h_CP10K_Comparator_Fig13_code.r` to `Fig17_Summary_code.r` (including the Part 12 Batteries): about 20 minutes
 
 ---
 
-## 🧾License
+## 🧾 License
 This project is licensed under the [MIT License](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD/blob/main/LICENSE). For the full details, please refer to the [LICENSE](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD/blob/main/LICENSE) file in this repository.
 
 ---
@@ -292,7 +296,7 @@ Claude (Anthropic) was used to assist with code development and with the readabi
 
 ---
 
-## 📩Contact
+## 📩 Contact
 Kah Keng Wong: [kahkeng@usm.my](mailto:kahkeng@usm.my)
 
 ---
