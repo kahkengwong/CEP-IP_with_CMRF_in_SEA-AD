@@ -58,7 +58,7 @@ GERRITS_CITATION
 ---
 
 ## 🔀Workflow of the Project
-![Workflow](Project_Workflow.jpg)
+<!-- ![Workflow](Project_Workflow.jpg) -->
 
 - The **GOI-DFG screen** ranks every gene as a GOI against all expressed partner genes with the Spearman-Kendall dual filter (r<sub>s</sub> ≥0.6 and τ<sub>b</sub> ≥0.5). MT-CO3 was the top-ranked mitochondrial GOI, and its eight DFGs were averaged into the composite cDFG.
 
