@@ -62,28 +62,10 @@ Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely
 ---
 
 ## Workflow of the Project
-<!-- ![Workflow](Project_Workflow.jpg) -->
+<p align="center"><img src="figures/Workflow.png" width="100%" alt="Workflow of the project"></p>
 
-```mermaid
-flowchart TB
-    subgraph PY["Python, SEA-AD h5ad"]
-        direction LR
-        A["SEA-AD immune h5ad<br/>84 donors, 10 regions"] --> B["Parts 1 to 7<br/>pre-checks, M4 selection,<br/>GOI-DFG screens, DecontX"] --> C["Part 8<br/>export of the four arms<br/>(Hugging Face)"]
-    end
-    subgraph RR["R, Part 8 export"]
-        direction LR
-        D["Parts 9 to 10d<br/>GAMs, SKCS, IP,<br/>copula space"] --> E["Part 10e<br/>CMRF Module"] --> F["Parts 10g to 11<br/>DEGs, clinical models,<br/>competitors, ablation"] --> G["Part 12<br/>Batteries 1 to 5"] --> H["Part 13, Figure 17<br/>M4 against PVM_3,<br/>summary of all tests"]
-    end
-    PY --> RR
-    style PY fill:none,stroke:#8C959F
-    style RR fill:none,stroke:#8C959F
-    classDef py fill:#E8F1FB,stroke:#4E81BE,color:#1B1B1B
-    classDef rr fill:#EAF5EA,stroke:#2E7D32,color:#1B1B1B
-    classDef key fill:#F3E8FB,stroke:#7B3FA0,color:#1B1B1B
-    class A,B,C py
-    class D,F,G,H rr
-    class E key
-```
+> [!NOTE]
+> The figure and table numbers in the workflow are those of the preprint; S numbers refer to its Supplementary Figures and Tables. Figures 1 to 5 in the Methods and Key Results section are separate figures made for this README.
 
 - The **GOI-DFG screen** ranks every gene as a GOI against all expressed partner genes with the Spearman-Kendall dual filter (r<sub>s</sub> ≥0.6 and τ<sub>b</sub> ≥0.5). MT-CO3 was the top-ranked mitochondrial GOI, and its eight DFGs were averaged into the composite cDFG.
 
@@ -149,13 +131,16 @@ The five figures below follow the main steps of the analysis, using M4 NeoC as t
 | `renv.lock` | Exact R package versions (R 4.6.1, Bioconductor 3.23; 280 packages). |
 | `requirements-python.txt` | Exact Python package versions (Python 3.13.14). |
 | `verification/` | <ul><li>`run_rest.sh` and `run_python.sh`: run the R and the Python scripts in order from a named step</li><li>`compare_rerun.py`, `compare_python.py`, and `compare_gamdata.py`: compare a rerun with the original results</li><li>The comparisons of the container reruns with the original results: `compare_all_*` for R; `compare_python_*` and `compare_gamdata_log.txt` for Python</li></ul> |
-| `figures/` | Figures 1 to 5 of the Methods and Key Results section. |
+| `figures/` | The workflow figure (`Workflow.png`) and Figures 1 to 5 of the Methods and Key Results section. |
 | `logs/` | <ul><li>`container_rerun/`: console logs of the container rerun of R Part 9 onward and the Part 12 Python step</li><li>`container_rerun_python/`: console logs of the container rerun of Python Parts 1 to 8</li><li>`original_R/`: logs of the original runs from Part 9 onward</li><li>`original_python/`: logs of the original runs of Python Parts 1 to 8</li><li>`logs/README.md` describes each folder and maps the Python logs to their scripts</li></ul> |
 
 ---
 
 ## Descriptions of the Scripts
-Figure and table numbers are those of the preprint. The Part 12 file names (`Fig15` to `Fig19`) follow the run order of the Batteries; they correspond to preprint Figures 12 to 16.
+Figure and table numbers are those of the preprint.
+
+> [!NOTE]
+> The Part 12 file names (`Fig15` to `Fig19`) follow the run order of the Batteries; they correspond to preprint Figures 12 to 16.
 
 <details>
 <summary><strong>Python scripts (SEA-AD h5ad): Parts 1 to 8 and the Part 12 extraction</strong></summary>
