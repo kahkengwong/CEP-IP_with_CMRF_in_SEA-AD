@@ -206,6 +206,7 @@ Each script writes its outputs and a log in its own folder.
 The original analysis ran R on Windows 11 and Python on Fedora 44. R Parts 9 to 13 were then rerun from the Part 8 export inside this container on Fedora, and every table was compared with the original results by `verification/compare_rerun.py`.
 
 - **Method:** every CSV and Excel table is compared cell by cell. Numbers agree when they are within a relative difference of 1e-6, and text must match exactly.
+
 - **Result:**
   - All R scripts from Part 9 onward, and the Part 12 Python step, ran to completion in the container.
   - Of the 1,203 tables found in both runs, 1,013 are the same, 110 differ only in sign, row order, or text, and 23 differ by at most 0.1%.
@@ -216,6 +217,7 @@ The original analysis ran R on Windows 11 and Python on Fedora 44. R Parts 9 to 
     - some donor-level p-values in four Part 10g tables, none of which changes a significance call.
   - Four tables differ in size because a checksum column was removed from the deposited scripts, or because the original folder held more files to scan.
   - Tables found only in the original results come from scripts or steps that are not part of this deposit.
+
 - **Expected differences:**
   - eigenvector signs in the GAM basis-function tables (either sign is a valid solution);
   - the sign of values printed as zero;
