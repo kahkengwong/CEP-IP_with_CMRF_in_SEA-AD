@@ -2,7 +2,8 @@
 
 # 🧬 CEP-IP/CMRF in SEA-AD Microglia: A Mitochondrial Co-expression Module Linked to Cognition
 ### ✨ The **CEP-IP** framework with a **copula monotone recovery filter (CMRF)** applied to the **SEA-AD** immune single-nucleus RNA-seq dataset (84 donors, 10 brain regions).
-### ✨ A transcriptome-wide screen identified a module of **MT-CO3** and eight co-expressed mitochondrially encoded genes (cDFG), and the donor percentage of **Module post-IP** cells was tested against cognition and pathology.
+### ✨ A transcriptome-wide screen identified a module of **MT-CO3** and eight co-expressed mitochondrially encoded genes (cDFG).
+### ✨ The donor percentage of **Module post-IP** cells was tested against cognition and pathology.
 ### ✨ Five **Batteries** of analyses tested contamination, measurement artifacts, %MT, and the 11 severely affected (SA) donors.
 
 ![Project Status](https://img.shields.io/badge/status-active-brightgreen?logo=check&logoColor=white)
@@ -50,10 +51,11 @@ Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely
 ### 📂 Datasets Used
 
 **1. SEA-AD immune snRNA-seq dataset**, Multiregion release of 22 June 2026: `SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad`, with the SEA-AD quantitative neuropathology (`sea-ad-quantitative-neuropathology-063026.xlsx`) and CPS (`sea-ad_global_and_local_cps_050126.xlsx`) workbooks. Available from the [SEA-AD portal](https://brain-map.org/consortia/sea-ad/our-data).
-SEA_AD_CITATIONS
+- M.I. Gabitto, K.J. Travaglini, V.M. Rachleff, E.S. Kaplan, B. Long, et al., Integrated multimodal cell atlas of Alzheimer's disease, Nat Neurosci, 27 (2024) 2366-2383. https://doi.org/10.1038/s41593-024-01774-5
+- K.J. Travaglini, M.I. Gabitto, Y. Ding, A. Agrawal, N. Postupna, et al., Multiregional single-cell profiling reveals shared and specialized cellular vulnerability in Alzheimer’s disease, bioRxiv, (2026). https://www.biorxiv.org/content/10.64898/2026.07.01.734821v1
 
 **2. Gerrits et al. single-nucleus dataset (GSE148822)**, used in Battery 1 (ambient RNA). Available from [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE148822).
-GERRITS_CITATION
+- E. Gerrits, N. Brouwer, S.M. Kooistra, M.E. Woodbury, Y. Vermeiren, et al., Distinct amyloid-beta and tau-associated microglia profiles in Alzheimer's disease, Acta Neuropathol, 141 (2021) 681-696. doi: 10.1007/s00401-021-02263-w
 
 ---
 
@@ -204,8 +206,22 @@ Each script writes its outputs and a log in its own folder.
 The original analysis ran R on Windows 11 and Python on Fedora 44. R Parts 9 to 13 were then rerun from the Part 8 export inside this container on Fedora, and every table was compared with the original results by `verification/compare_rerun.py`.
 
 - **Method:** every CSV and Excel table is compared cell by cell. Numbers agree when they are within a relative difference of 1e-6, and text must match exactly.
-- **Result:** All R scripts from Part 9 onward, and the Part 12 Python step, ran to completion in the container. Of the 1,203 tables found in both runs, 1,013 are the same, 110 differ only in sign, row order, or text, and 23 differ by at most 0.1%. A further 53 tables differ by more than 0.1%. These are secondary statistics that depend on random subsamples, permutations, or nearest neighbours: the TOST, PERMANOVA and PERMDISP, kBET, iLISI, and neighbour-proportion tests of Part 10e Validation2 (with their columns in the Figure 11 summary), the permutation null threshold of Part 10f, the Part 12 depth-thinning curve, and some donor-level p-values in four Part 10g tables, none of which changes a significance call. Four tables differ in size because a checksum column was removed from the deposited scripts, or because the original folder held more files to scan. Tables found only in the original results come from scripts or steps that are not part of this deposit.
-- **Expected differences:** eigenvector signs in the GAM basis-function tables (either sign is a valid solution), the sign of values printed as zero (`0.000000000` against `-0.000000000`), quote marks written by R's `shQuote()` (double on Windows, single on Linux), the settings version recorded in the Part 12 tables, and dates, times, and folder paths.
+- **Result:**
+  - All R scripts from Part 9 onward, and the Part 12 Python step, ran to completion in the container.
+  - Of the 1,203 tables found in both runs, 1,013 are the same, 110 differ only in sign, row order, or text, and 23 differ by at most 0.1%.
+  - A further 53 tables differ by more than 0.1%. These are secondary statistics that depend on random subsamples, permutations, or nearest neighbours:
+    - the TOST, PERMANOVA and PERMDISP, kBET, iLISI, and neighbour-proportion tests of Part 10e Validation2 (with their columns in the Figure 11 summary);
+    - the permutation null threshold of Part 10f;
+    - the Part 12 depth-thinning curve;
+    - some donor-level p-values in four Part 10g tables, none of which changes a significance call.
+  - Four tables differ in size because a checksum column was removed from the deposited scripts, or because the original folder held more files to scan.
+  - Tables found only in the original results come from scripts or steps that are not part of this deposit.
+- **Expected differences:**
+  - eigenvector signs in the GAM basis-function tables (either sign is a valid solution);
+  - the sign of values printed as zero;
+  - quote marks written by R's `shQuote()` (double on Windows, single on Linux);
+  - the settings version recorded in the Part 12 tables;
+  - dates, times, and folder paths.
 
 The full comparison is in `verification/compare_all_log.txt` (summary) and `verification/compare_all_detail.csv` (one row per table).
 
