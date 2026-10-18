@@ -1,0 +1,59 @@
+Part 12 rerun -- step 21
+Script: Part12_Fig17_Plots.r | md5 d88e7a2a2a6adaddb6df873b25a95070
+Shared file: Part12_03_Config.r | md5 df0cc2f82a0fd0947b3bb0b93bae800a
+Run ID: 20260924-2107-windows
+Start: 2026-09-24 21:07:01
+Machine: LAPTOP-M7LQ95IS | R version 4.6.1 (2026-06-24 ucrt)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6 | ggplot2 4.0.3 | gtable 0.3.6
+Config: Part12_rerun/Part12_01_config.json | version 16 | md5 de727a6a529ece74865c9387be6d8831
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 21-01 script saved in Part12_rerun | Part12_Fig17_Plots.r
+
+SECTION A -- inputs
+[PASS] 21-02 17AB_Histology log was written by the current Part12_Fig17_Analysis.r | Script: Part12_Fig17_Analysis.r | md5 2ec0fe20e58388f27586a92d44d7e34f
+[PASS] 21-03 17CE_ModuleVsMT log was written by the current Part12_Fig17_Analysis.r | Script: Part12_Fig17_Analysis.r | md5 2ec0fe20e58388f27586a92d44d7e34f
+[PASS] 21-04 shared helpers identical to Part12_Fig17_Analysis.r | p12_17_families same | p12_17_verdict same
+[PASS] 21-05 Stats_17A.csv matches the 09_Fig17/17AB_Histology log | Part12_rerun/09_Fig17/17AB_Histology/Stats_17A.csv
+[PASS] 21-06 Stats_17B.csv matches the 09_Fig17/17AB_Histology log | Part12_rerun/09_Fig17/17AB_Histology/Stats_17B.csv
+[PASS] 21-07 Stats_S12.csv matches the 09_Fig17/17AB_Histology log | Part12_rerun/09_Fig17/17AB_Histology/Stats_S12.csv
+[PASS] 21-08 Stats_S12_measures.csv matches the 09_Fig17/17AB_Histology log | Part12_rerun/09_Fig17/17AB_Histology/Stats_S12_measures.csv
+[PASS] 21-09 Plot_S12_counts.csv matches the 09_Fig17/17AB_Histology log | Part12_rerun/09_Fig17/17AB_Histology/Plot_S12_counts.csv
+[PASS] 21-10 Stats_17C.csv matches the 09_Fig17/17CE_ModuleVsMT log | Part12_rerun/09_Fig17/17CE_ModuleVsMT/Stats_17C.csv
+[PASS] 21-11 Stats_17D.csv matches the 09_Fig17/17CE_ModuleVsMT log | Part12_rerun/09_Fig17/17CE_ModuleVsMT/Stats_17D.csv
+[PASS] 21-12 Stats_17E.csv matches the 09_Fig17/17CE_ModuleVsMT log | Part12_rerun/09_Fig17/17CE_ModuleVsMT/Stats_17E.csv
+[PASS] 21-13 Plot_17C_verdicts.csv matches the 09_Fig17/17CE_ModuleVsMT log | Part12_rerun/09_Fig17/17CE_ModuleVsMT/Plot_17C_verdicts.csv
+[PASS] 21-14 Plot_17D_verdicts.csv matches the 09_Fig17/17CE_ModuleVsMT log | Part12_rerun/09_Fig17/17CE_ModuleVsMT/Plot_17D_verdicts.csv
+[PASS] 21-15 17C verdicts follow from Stats_17C | 224 rows
+[PASS] 21-16 17D verdicts follow from Stats_17D | 72 rows
+[PASS] 21-17 S12 family medians follow from the per-measure rs | 280 family rows
+[PASS] 21-18 S12 tested counts follow from the per-measure rs | 280 rows
+[PASS] 21-19 every figure label is ASCII | 40 labels
+[PASS] 21-20 figure script text is ASCII | 762 lines
+
+SECTION B -- figures
+[PASS] 21-21 Fig17A_microglial_shape drawn | pdf and png
+[PASS] 21-22 Fig17B_cps drawn | pdf and png
+[PASS] 21-23 Fig17C_duel_histology drawn | pdf and png
+[PASS] 21-24 Fig17D_duel_clinical drawn | pdf and png
+[PASS] 21-25 Fig17E_collinearity drawn | pdf and png
+[PASS] 21-26 FigS12A_stain_families drawn | pdf and png
+[PASS] 21-27 FigS12B_module_minus_mt drawn | pdf and png
+
+
+Outputs:
+  Part12_rerun/09_Fig17/Fig17/Fig17A_microglial_shape.pdf | 0.0 MB | md5 2ec63f6d1efdde6ebc8a845b287976af
+  Part12_rerun/09_Fig17/Fig17/Fig17A_microglial_shape.png | 0.1 MB | md5 4e74c4fc943add72516c7bcc81cea905
+  Part12_rerun/09_Fig17/Fig17/Fig17B_cps.pdf | 0.0 MB | md5 db49f84e235c45b9771ff7e2df076945
+  Part12_rerun/09_Fig17/Fig17/Fig17B_cps.png | 0.1 MB | md5 73cff9d128ea9ac0cfc601cd647de112
+  Part12_rerun/09_Fig17/Fig17/Fig17C_duel_histology.pdf | 0.0 MB | md5 e7e9693e10d3c3e240f388c188cbb7b9
+  Part12_rerun/09_Fig17/Fig17/Fig17C_duel_histology.png | 0.1 MB | md5 25e54baa8e49c8dd3c5cdae3ba85a5ea
+  Part12_rerun/09_Fig17/Fig17/Fig17D_duel_clinical.pdf | 0.0 MB | md5 8e074c9e847a5ebee1cb66adbfe16d84
+  Part12_rerun/09_Fig17/Fig17/Fig17D_duel_clinical.png | 0.1 MB | md5 6031cc6b9a47965ca35c8cc1e17c7778
+  Part12_rerun/09_Fig17/Fig17/Fig17E_collinearity.pdf | 0.0 MB | md5 528e59f906944bd378412d9abaf98926
+  Part12_rerun/09_Fig17/Fig17/Fig17E_collinearity.png | 0.1 MB | md5 2c549cd3cdeb4b0974e79e29d8ce8ee3
+  Part12_rerun/09_Fig17/Fig17/FigS12A_stain_families.pdf | 0.0 MB | md5 e423460e08e186f74b21c6f2cd65478f
+  Part12_rerun/09_Fig17/Fig17/FigS12A_stain_families.png | 0.1 MB | md5 0a9f628b302c207513d83b252871937a
+  Part12_rerun/09_Fig17/Fig17/FigS12B_module_minus_mt.pdf | 0.0 MB | md5 c359cf06c58d7c767f357722dcff0154
+  Part12_rerun/09_Fig17/Fig17/FigS12B_module_minus_mt.png | 0.1 MB | md5 26d68ceec8c855576b964dfe6f547112
+Checks: 27 PASS, 0 FAIL, 0 WARN | duration 0.1 min
+VERDICT: PASS

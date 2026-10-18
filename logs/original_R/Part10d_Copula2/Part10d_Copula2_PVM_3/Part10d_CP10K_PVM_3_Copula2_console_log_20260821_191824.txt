@@ -1,0 +1,411 @@
+Part10d Copula2 — log started: 2026-08-21 19:18:24.967013
+
+
+============================================================================
+  ARM: PVM3_all   config: R_config.R
+============================================================================
+R_config.R loaded (Module 1: MT-CO3 + 8 DFGs, ≥8/10 regions).
+  ARM_TAG   : PVM3_all 
+  ARM_DIR   : <SEA-AD>/R_export_CP10K/PVM3_all 
+  NEOC_DIR  : <SEA-AD>/R_export_CP10K/PVM3_all/neocortex 
+  NONNC_DIR : <SEA-AD>/R_export_CP10K/PVM3_all/nonneocortex 
+  SHARED_DIR: <SEA-AD>/R_export_CP10K/shared 
+  GOI       : MT-CO3 
+  DFG_NEOC  : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  DFG_NONNC : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Composite : cDFG 
+  RUN_SUFFIX: _PVM3all 
+  Supertype : Micro-PVM_3-SEAAD 
+  Mod1 genes: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 ( 9 )
+  HKG_GENES : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 13331 NeoC / 11132 NonNeoC
+  Config OK: PVM3_all | MT-CO3 + 8 DFG | CP10K
+
+  [IPRS] Not in this arm's Part10b_SKCS folder; using: <SEA-AD>/Part10b_IPRS/Part10b_IPRS_PVM_3/Part10b_IPRS_CP10K_PVM_3_results.rds 
+  [IPRS] IP definition: IPRS R(x)=0, full population 
+  [IPRS] NonNeoC    IP_thresh set to 2.657153 (IPRS R(x)=0, full population)
+  [IPRS] NonNeoC    IP_y_thresh set to 1.887917  = f(IP_thresh)
+  [IPRS] NeoC       IP_thresh set to 2.495273 (IPRS R(x)=0, full population)
+  [IPRS] NeoC       IP_y_thresh set to 1.664802  = f(IP_thresh)
+
+ ======================================================================== 
+  Part10d — Empirical copula: S_i, K_i, EP_i, R(IP_x)=0
+  Arm          : PVM3_all 
+  GOI          : MT-CO3 
+  DFG          : cDFG  —  MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Normalisation: CP10K  log1p(UMIs/total x  10000 )
+  Datasets     : NonNeoC, NeoC 
+  Part 10b EP  : <SEA-AD>/Part10b_SKCS/Part10b_SKCS_PVM_3 
+  Output dir   : <SEA-AD>/Part10d_Copula2/Part10d_Copula2_PVM_3 
+======================================================================== 
+
+
+ ======================================================================== 
+  SECTION A0 — PRE-ANALYSIS GUARDRAILS
+======================================================================== 
+
+  -- Dataset: NeoC --------------------------------------
+  [PASS]  GR-01-NeoC        norm.mtx max = 8.1332  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NeoC        expm1(norm) row sums: mean = 10000.000000, max |dev| = 4.89e-10, n = 50
+  [PASS]  GR-04-NeoC        raw max = 3187, integer-like = TRUE
+  -- Dataset: NonNeoC --------------------------------------
+  [PASS]  GR-01-NonNeoC     norm.mtx max = 7.6610  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NonNeoC     expm1(norm) row sums: mean = 10000.000000, max |dev| = 7.57e-10, n = 50
+  [PASS]  GR-04-NonNeoC     raw max = 1552, integer-like = TRUE
+  [PASS]  GR-05-NonNeoC     Part 10b EP/TREP CSV: Part10b_SKCS_PVM_3/Part10b_CP10K_PVM_3_SKCS_NonNeoC_EP_TREP_values.csv
+  [PASS]  GR-05-NeoC        Part 10b EP/TREP CSV: Part10b_SKCS_PVM_3/Part10b_CP10K_PVM_3_SKCS_NeoC_EP_TREP_values.csv
+  Guardrail log written: <SEA-AD>/Part10d_Copula2/Part10d_Copula2_PVM_3/Part10d_CP10K_PVM_3_Copula2_Guardrail_Log.txt 
+
+  Pre-analysis guardrails: 8 PASS / 0 WARN / 0 FAIL
+  *** ALL PRE-ANALYSIS GUARDRAILS PASSED ***
+
+
+ ======================================================================== 
+  Part10d Copula2: NonNeoC  [ PVM3_all ]
+======================================================================== 
+
+  GOI-positive cells loaded: 11132
+  SKCS-core cells loaded: 6941
+  Matched 6941 / 6941 SKCS cells to GAM data
+
+  Working dataset: 6941 SKCS-core cells | 11132 GOI-positive (full pop)
+
+  EP_value range: [-938223.1, 1.0000] | clipped at 2nd pct (-12.3903): [-12.3903, 1.0000]
+
+  Part 10b Pre/Post labels reproduce: 1.0000 on the cDFG axis at IP_y, 0.9849 on the GOI axis at IP_x  (n=6941)
+  Copula coords: u range [0.0001, 0.9999] | v range [0.0027, 0.9999]
+  (full-pop ranks: n_full=11132 -> u,v NOT uniform over [0,1]
+
+  Non-selected (gray) cells: 4191  (n_full=11132 - n_SKCS=6941)
+
+  Computing C_hat over all 11132 GOI-positive cells (O(n^2)) ...
+  C_hat computed. SKCS subset: n=6941 | range [0.0001, 0.9932]
+
+  Fitting GAM image curve g(u) on 6317 TREP cells (PRSS phase1+phase2) ...
+    g(u) phase1 iter 1 | k=3 | PRSS=50.63848
+    g(u) phase1 iter 2 | k=4 | PRSS=39.90099
+    g(u) phase1 iter 3 | k=5 | PRSS=39.25761
+    g(u) phase1 iter 4 | k=6 | PRSS=36.17182
+    g(u) phase1 iter 5 | k=7 | PRSS=36.12392
+    g(u) phase1 iter 6 | k=8 | PRSS=35.93112
+    g(u) phase1 iter 7 | k=9 | PRSS=35.92241
+    g(u) phase1 iter 8 | k=10 | PRSS=35.37188
+    g(u) phase1 best: k=10 | PRSS=35.37188
+    g(u) refine iter 9 | k=10 | PRSS=35.37188
+    g(u) refine iter 10 | k=10 | PRSS=35.37188
+    g(u) refine iter 11 | k=10 | PRSS=35.37188
+    g(u) refine iter 12 | k=10 | PRSS=35.37188
+    g(u) refine iter 13 | k=10 | PRSS=35.37188
+  g(u) PRSS result: best_k=10 | best_iter=8 | best_PRSS=35.37188 | early_stopped=FALSE
+  g(u) GAM summary: edf=8.82 | Dev=95.3% | p=0.00e+00
+
+  IP in copula space: (IP_u, IP_v) = (0.5951, 0.5274)   [IP_y = 1.8879]
+  IP threshold: IP_x = 2.657  ->  IP_u = Fx(IP_x) = 0.5951  (full-pop n=11132)
+
+  ── Step 1: S_i copula computation ──
+  ── Step 2: K_i copula computation ──
+  Computing Ki ordinal copula over ALL 11132 GOI+ cells ...
+  Done.
+
+  ── Step 4: the inflection point in copula space ──
+  (i)  IP_u = Fx(IP_x=2.6572) = 0.5951 | IP_v = Fc(IP_y=1.8879) = 0.5274
+  (ii) Copula density waist test (strip ±0.04 around diagonal):
+    Mean density at u=0.25: 3.10548 (n=279)
+    Mean density at IP_u:  1.12980 (n=248)
+    Mean density at u=0.75: 3.73955 (n=279)
+    t-test u=0.25 > IP_u:  t=24.713  p=0.0000
+    t-test u=0.75 > IP_u:  t=29.114  p=0.0000
+    cells in strip: 535 (u=0.25), 207 (IP_u), 653 (u=0.75)
+
+  (iii) Copula density waist test in the v direction, at v_IP (B10D-21):
+    Mean density at v=0.25: 3.07915 (n=279)
+    Mean density at IP_v:  0.08147 (n=248)
+    Mean density at v=0.75: 3.73223 (n=279)
+    t-test v=0.25 > IP_v:  t=92.573  p=0.0000
+    t-test v=0.75 > IP_v:  t=85.174  p=0.0000
+    cells in strip: 525 (v=0.25), 2 (IP_v), 648 (v=0.75)   [B10D-22] fewer than 10 cells at IP_v: near-EMPTY region
+
+  ── Step 5: Synthesis -- pitcher plant as copula geometry ──
+  Plot 5 saved (synthesis: pitcher plant as copula geometry)
+
+
+  -- Step 6: Ki-Si Copula Analysis (ALL GOI-positive cells) --
+
+  Ki-Si copula: n = 11132 GOI-positive cells (all)
+  Si_norm range: [-0.8948, 0.9995] | Ki range: [-0.8970, 0.9998]
+  [B10D-20] plots use Si_norm = 4(u-0.5)(v-0.5), the same scale as Part 10b's spear_norm / S_value, so the
+            SKCS gate at 0.05 is drawn where it belongs. The rank-product form (range [-2491.0, 2782.2],
+            scale_factor = 11135.0) is kept as Si_rankprod for the Step 1 identity only.
+  u_sk range: [0.0001, 0.9999] | v_sk range: [0.0001, 0.9999]
+
+  Non-SKCS cells: 4191 | SKCS-core cells: 6941
+  Ki-Si original: rho = 0.7849 | lambda_L = 0.6576 | lambda_U = 0.7690
+  Ki-Si shuffled: rho = 0.0072 | lambda_L = 0.1024 | lambda_U = 0.0853
+  KS marginals: D = 0.0000  p = 1.0000
+  CvM copula distance = 0.00556  (p < 0.001)
+
+  Building Plot 06a: Ki-Si marginal joint (expression space) ...
+  Plot 06a saved (Ki-Si marginal joint)
+  Building Plot 06c: Ki-Si copula unit square ...
+  Gate conversion: S_i_norm > 0.05 -> u = 3424/11132 = 0.3076   |   K_i > 0.5 -> v = 2231/11132 = 0.2004   (k/n)
+  Plot 06c saved (Ki-Si copula unit square)
+  Building Plot 06b: Ki-Si copula demo cells ...
+  Plot 06b saved (Ki-Si copula demo cells)
+  Building Plot 06d: Ki-Si expression-space scatter ...
+  Plot 06d saved (Ki-Si expression-space scatter)
+  Building Plot 06e: Ki-Si copula joint density ...
+  KS u_sk vs Uniform: D=0.00013 p_BH=1.00000
+  KS v_sk vs Uniform: D=0.00068 p_BH=1.00000
+
+  Plot 06e saved (Ki-Si copula joint density)
+  Building Plot 06f: Ki-Si shuffled marginal joint ...
+  Plot 06f saved (Ki-Si shuffled marginal joint)
+
+
+  [B10D-23] Every Part 10d quantity above is CELL-LEVEL: no donor random intercept and no
+            inverse-donor weights, unlike Parts 9, 10, 10b and the IPRS part. See the
+            Estimation_Basis sheet of the workbook.
+  Step 6 (Ki-Si copula) complete.
+
+  Excel saved: Part10d_CP10K_PVM_3_Copula2_NonNeoC_copula_SKCS_analysis.xlsx
+  Displaying plots in RStudio ...
+    -> synthesis 
+    -> KiSi_marginal_joint 
+    -> KiSi_copula_unit_square 
+    -> KiSi_copula_demo_cells 
+    -> KiSi_expression_space_scatter 
+    -> KiSi_copula_joint_density 
+    -> KiSi_shuffled_marginal_joint 
+
+ ======================================================================== 
+  Part10d Copula2: NeoC  [ PVM3_all ]
+======================================================================== 
+
+  GOI-positive cells loaded: 13331
+  SKCS-core cells loaded: 8407
+  Matched 8407 / 8407 SKCS cells to GAM data
+
+  Working dataset: 8407 SKCS-core cells | 13331 GOI-positive (full pop)
+
+  EP_value range: [-15577359.6, 1.0000] | clipped at 2nd pct (-39.5857): [-39.5857, 1.0000]
+
+  Part 10b Pre/Post labels reproduce: 1.0000 on the cDFG axis at IP_y, 0.9491 on the GOI axis at IP_x  (n=8407)
+  Copula coords: u range [0.0001, 0.9999] | v range [0.0038, 0.9999]
+  (full-pop ranks: n_full=13331 -> u,v NOT uniform over [0,1]
+
+  Non-selected (gray) cells: 4924  (n_full=13331 - n_SKCS=8407)
+
+  Computing C_hat over all 13331 GOI-positive cells (O(n^2)) ...
+  C_hat computed. SKCS subset: n=8407 | range [0.0001, 0.9969]
+
+  Fitting GAM image curve g(u) on 7617 TREP cells (PRSS phase1+phase2) ...
+    g(u) phase1 iter 1 | k=3 | PRSS=60.54788
+    g(u) phase1 iter 2 | k=4 | PRSS=48.00851
+    g(u) phase1 iter 3 | k=5 | PRSS=47.43203
+    g(u) phase1 iter 4 | k=6 | PRSS=43.91282
+    g(u) phase1 iter 5 | k=7 | PRSS=43.91906
+    g(u) phase1 iter 6 | k=8 | PRSS=43.38351
+    g(u) phase1 iter 7 | k=9 | PRSS=43.37553
+    g(u) phase1 iter 8 | k=10 | PRSS=42.81247
+    g(u) phase1 best: k=10 | PRSS=42.81247
+    g(u) refine iter 9 | k=10 | PRSS=42.81247
+    g(u) refine iter 10 | k=10 | PRSS=42.81247
+    g(u) refine iter 11 | k=10 | PRSS=42.81247
+    g(u) refine iter 12 | k=10 | PRSS=42.81247
+    g(u) refine iter 13 | k=10 | PRSS=42.81247
+  g(u) PRSS result: best_k=10 | best_iter=8 | best_PRSS=42.81247 | early_stopped=FALSE
+  g(u) GAM summary: edf=8.84 | Dev=95.3% | p=0.00e+00
+
+  IP in copula space: (IP_u, IP_v) = (0.6453, 0.5589)   [IP_y = 1.6648]
+  IP threshold: IP_x = 2.495  ->  IP_u = Fx(IP_x) = 0.6453  (full-pop n=13331)
+
+  ── Step 1: S_i copula computation ──
+  ── Step 2: K_i copula computation ──
+  Computing Ki ordinal copula over ALL 13331 GOI+ cells ...
+  Done.
+
+  ── Step 4: the inflection point in copula space ──
+  (i)  IP_u = Fx(IP_x=2.4953) = 0.6453 | IP_v = Fc(IP_y=1.6648) = 0.5589
+  (ii) Copula density waist test (strip ±0.04 around diagonal):
+    Mean density at u=0.25: 2.98084 (n=279)
+    Mean density at IP_u:  2.42884 (n=279)
+    Mean density at u=0.75: 3.86080 (n=279)
+    t-test u=0.25 > IP_u:  t=6.405  p=0.0000
+    t-test u=0.75 > IP_u:  t=14.237  p=0.0000
+    cells in strip: 607 (u=0.25), 501 (IP_u), 800 (u=0.75)
+
+  (iii) Copula density waist test in the v direction, at v_IP (B10D-21):
+    Mean density at v=0.25: 2.97399 (n=279)
+    Mean density at IP_v:  0.42956 (n=279)
+    Mean density at v=0.75: 3.79540 (n=279)
+    t-test v=0.25 > IP_v:  t=52.765  p=0.0000
+    t-test v=0.75 > IP_v:  t=51.670  p=0.0000
+    cells in strip: 607 (v=0.25), 68 (IP_v), 779 (v=0.75)
+
+  ── Step 5: Synthesis -- pitcher plant as copula geometry ──
+  Plot 5 saved (synthesis: pitcher plant as copula geometry)
+
+
+  -- Step 6: Ki-Si Copula Analysis (ALL GOI-positive cells) --
+
+  Ki-Si copula: n = 13331 GOI-positive cells (all)
+  Si_norm range: [-0.7746, 0.9997] | Ki range: [-0.7761, 1.0000]
+  [B10D-20] plots use Si_norm = 4(u-0.5)(v-0.5), the same scale as Part 10b's spear_norm / S_value, so the
+            SKCS gate at 0.05 is drawn where it belongs. The rank-product form (range [-2582.0, 3332.5],
+            scale_factor = 13334.0) is kept as Si_rankprod for the Step 1 identity only.
+  u_sk range: [0.0001, 0.9999] | v_sk range: [0.0001, 0.9999]
+
+  Non-SKCS cells: 4924 | SKCS-core cells: 8407
+  Ki-Si original: rho = 0.7530 | lambda_L = 0.6301 | lambda_U = 0.7201
+  Ki-Si shuffled: rho = -0.0028 | lambda_L = 0.0968 | lambda_U = 0.1035
+  KS marginals: D = 0.0000  p = 1.0000
+  CvM copula distance = 0.00514  (p < 0.001)
+
+  Building Plot 06a: Ki-Si marginal joint (expression space) ...
+  Plot 06a saved (Ki-Si marginal joint)
+  Building Plot 06c: Ki-Si copula unit square ...
+  Gate conversion: S_i_norm > 0.05 -> u = 4059/13331 = 0.3045   |   K_i > 0.5 -> v = 2512/13331 = 0.1884   (k/n)
+  Plot 06c saved (Ki-Si copula unit square)
+  Building Plot 06b: Ki-Si copula demo cells ...
+  Plot 06b saved (Ki-Si copula demo cells)
+  Building Plot 06d: Ki-Si expression-space scatter ...
+  Plot 06d saved (Ki-Si expression-space scatter)
+  Building Plot 06e: Ki-Si copula joint density ...
+  KS u_sk vs Uniform: D=0.00011 p_BH=1.00000
+  KS v_sk vs Uniform: D=0.00056 p_BH=1.00000
+
+  Plot 06e saved (Ki-Si copula joint density)
+  Building Plot 06f: Ki-Si shuffled marginal joint ...
+  Plot 06f saved (Ki-Si shuffled marginal joint)
+
+
+  [B10D-23] Every Part 10d quantity above is CELL-LEVEL: no donor random intercept and no
+            inverse-donor weights, unlike Parts 9, 10, 10b and the IPRS part. See the
+            Estimation_Basis sheet of the workbook.
+  Step 6 (Ki-Si copula) complete.
+
+  Excel saved: Part10d_CP10K_PVM_3_Copula2_NeoC_copula_SKCS_analysis.xlsx
+  Displaying plots in RStudio ...
+    -> synthesis 
+    -> KiSi_marginal_joint 
+    -> KiSi_copula_unit_square 
+    -> KiSi_copula_demo_cells 
+    -> KiSi_expression_space_scatter 
+    -> KiSi_copula_joint_density 
+    -> KiSi_shuffled_marginal_joint 
+  Results object saved: Part10d_CP10K_PVM_3_Copula2_all_results.rds  (3.3 MB, plots dropped)
+
+ ######################################################################## 
+  SECTION C1 — POST-ANALYSIS GUARDRAILS
+######################################################################## 
+
+  [PASS]  GR-06-NonNeoC     GOI-positive cells = 11132  (min = 50)
+  [PASS]  GR-07-NonNeoC     IP_thresh = 2.657153  (IPRS R(x)=0, full population)
+  [PASS]  GR-08-NonNeoC     IP in copula space: (IP_u, IP_v) = (0.5951, 0.5274)
+  [PASS]  GR-10-NonNeoC     Part 10b Pre/Post labels reproduce 1.0000 on the cDFG axis at IP_y and 0.9849 on the GOI axis at IP_x, over 6941 cell(s)
+  [PASS]  GR-11-NonNeoC     every Part 10b EP/TREP barcode has a row in the GAM data
+  [PASS]  GR-12-NonNeoC     v-direction (cDFG marginal, supplementary) -- GAP: density at IP_v = 0.0815 vs 3.0792 (v=0.25) and 3.7322 (v=0.75) | ratios 37.80, 45.81 | t = 92.57, 85.17 | p = 7.77e-267, 9.43e-231 | cells in strip 525/2/648 | IP strip holds 2 cell(s) while both flanks exceed 209 cells and the uniform-copula density 0.510: a GAP between two dense lobes, stronger than a waist
+  [PASS]  GR-09-NonNeoC     u-direction (GOI marginal, primary) -- WAIST: density at IP_u = 1.1298 vs 3.1055 (u=0.25) and 3.7396 (u=0.75) | ratios 2.75, 3.31 | t = 24.71, 29.11 | p = 5.92e-73, 1.03e-101 | cells in strip 535/207/653 | IP strip occupied; density below both flanks
+  [PASS]  GR-06-NeoC        GOI-positive cells = 13331  (min = 50)
+  [PASS]  GR-07-NeoC        IP_thresh = 2.495273  (IPRS R(x)=0, full population)
+  [PASS]  GR-08-NeoC        IP in copula space: (IP_u, IP_v) = (0.6453, 0.5589)
+  [PASS]  GR-10-NeoC        Part 10b Pre/Post labels reproduce 1.0000 on the cDFG axis at IP_y and 0.9491 on the GOI axis at IP_x, over 8407 cell(s)
+  [PASS]  GR-11-NeoC        every Part 10b EP/TREP barcode has a row in the GAM data
+  [PASS]  GR-12-NeoC        v-direction (cDFG marginal, supplementary) -- WAIST: density at IP_v = 0.4296 vs 2.9740 (v=0.25) and 3.7954 (v=0.75) | ratios 6.92, 8.84 | t = 52.76, 51.67 | p = 1.02e-182, 2.32e-213 | cells in strip 607/68/779 | IP strip occupied; density below both flanks
+  [PASS]  GR-09-NeoC        u-direction (GOI marginal, primary) -- WAIST: density at IP_u = 2.4288 vs 2.9808 (u=0.25) and 3.8608 (u=0.75) | ratios 1.23, 1.59 | t = 6.40, 14.24 | p = 3.01e-10, 9.02e-39 | cells in strip 607/501/800 | IP strip occupied; density below both flanks
+  Guardrail log written: <SEA-AD>/Part10d_Copula2/Part10d_Copula2_PVM_3/Part10d_CP10K_PVM_3_Copula2_Guardrail_Log.txt 
+
+  Final guardrail tally: 22 PASS / 0 WARN / 0 FAIL
+  All 22 checks passed.
+
+ ======================================================================== 
+  Part10d Copula2 COMPLETE [ PVM3_all ]
+  Output directory: <SEA-AD>/Part10d_Copula2/Part10d_Copula2_PVM_3 
+  Files generated:
+    Part10d_CP10K_PVM_3_Copula2_all_results.rds                      3317 KB
+    Part10d_CP10K_PVM_3_Copula2_console_log_20260821_140011.txt        22 KB
+    Part10d_CP10K_PVM_3_Copula2_console_log_20260821_142254.txt        22 KB
+    Part10d_CP10K_PVM_3_Copula2_console_log_20260821_144718.txt        23 KB
+    Part10d_CP10K_PVM_3_Copula2_console_log_20260821_191824.txt        18 KB
+    Part10d_CP10K_PVM_3_Copula2_Guardrail_Log.txt                       3 KB
+    Part10d_CP10K_PVM_3_Copula2_NeoC_05_synthesis.pdf                 590 KB
+    Part10d_CP10K_PVM_3_Copula2_NeoC_05_synthesis.png                1407 KB
+    Part10d_CP10K_PVM_3_Copula2_NeoC_06a_KiSi_marginal_joint.pdf       21 KB
+    Part10d_CP10K_PVM_3_Copula2_NeoC_06a_KiSi_marginal_joint.png      100 KB
+    Part10d_CP10K_PVM_3_Copula2_NeoC_06b_KiSi_copula_demo_cells.pdf    770 KB
+    Part10d_CP10K_PVM_3_Copula2_NeoC_06b_KiSi_copula_demo_cells.png    460 KB
+    Part10d_CP10K_PVM_3_Copula2_NeoC_06c_KiSi_copula_unit_square.pdf    760 KB
+    Part10d_CP10K_PVM_3_Copula2_NeoC_06c_KiSi_copula_unit_square.png    269 KB
+    Part10d_CP10K_PVM_3_Copula2_NeoC_06d_KiSi_expression_space_scatter.pdf    753 KB
+    Part10d_CP10K_PVM_3_Copula2_NeoC_06d_KiSi_expression_space_scatter.png    221 KB
+    Part10d_CP10K_PVM_3_Copula2_NeoC_06e_KiSi_copula_joint_density.pdf     27 KB
+    Part10d_CP10K_PVM_3_Copula2_NeoC_06e_KiSi_copula_joint_density.png    180 KB
+    Part10d_CP10K_PVM_3_Copula2_NeoC_06f_KiSi_shuffled_marginal_joint.pdf     24 KB
+    Part10d_CP10K_PVM_3_Copula2_NeoC_06f_KiSi_shuffled_marginal_joint.png    131 KB
+    Part10d_CP10K_PVM_3_Copula2_NeoC_copula_SKCS_analysis.xlsx        822 KB
+    Part10d_CP10K_PVM_3_Copula2_NonNeoC_05_synthesis.pdf              491 KB
+    Part10d_CP10K_PVM_3_Copula2_NonNeoC_05_synthesis.png             1357 KB
+    Part10d_CP10K_PVM_3_Copula2_NonNeoC_06a_KiSi_marginal_joint.pdf     20 KB
+    Part10d_CP10K_PVM_3_Copula2_NonNeoC_06a_KiSi_marginal_joint.png     90 KB
+    Part10d_CP10K_PVM_3_Copula2_NonNeoC_06b_KiSi_copula_demo_cells.pdf    643 KB
+    Part10d_CP10K_PVM_3_Copula2_NonNeoC_06b_KiSi_copula_demo_cells.png    417 KB
+    Part10d_CP10K_PVM_3_Copula2_NonNeoC_06c_KiSi_copula_unit_square.pdf    636 KB
+    Part10d_CP10K_PVM_3_Copula2_NonNeoC_06c_KiSi_copula_unit_square.png    239 KB
+    Part10d_CP10K_PVM_3_Copula2_NonNeoC_06d_KiSi_expression_space_scatter.pdf    629 KB
+    Part10d_CP10K_PVM_3_Copula2_NonNeoC_06d_KiSi_expression_space_scatter.png    201 KB
+    Part10d_CP10K_PVM_3_Copula2_NonNeoC_06e_KiSi_copula_joint_density.pdf     27 KB
+    Part10d_CP10K_PVM_3_Copula2_NonNeoC_06e_KiSi_copula_joint_density.png    181 KB
+    Part10d_CP10K_PVM_3_Copula2_NonNeoC_06f_KiSi_shuffled_marginal_joint.pdf     22 KB
+    Part10d_CP10K_PVM_3_Copula2_NonNeoC_06f_KiSi_shuffled_marginal_joint.png    111 KB
+    Part10d_CP10K_PVM_3_Copula2_NonNeoC_copula_SKCS_analysis.xlsx     686 KB
+  Load the results with: readRDS("<SEA-AD>/Part10d_Copula2/Part10d_Copula2_PVM_3/Part10d_CP10K_PVM_3_Copula2_all_results.rds")
+======================================================================== 
+
+  GUIDE TO OUTPUTS:
+  (Steps 1-3 plots reserved for separate Ki-Si methods paper)
+
+  Step 4 -- the inflection point in copula space (no figure -- M10D-26):
+    The IP is placed at (IP_u, IP_v) = (Fx(IP_x), Fc(IP_y)); both
+    coordinates are transforms of IPRS quantities. The copula density
+    at IP_u is compared against u=0.25 and u=0.75 by one-sided
+    t-tests, in the u direction (GR-09) and the v direction (GR-12),
+    with the WAIST / GAP / NONE verdict and the strip cell counts.
+    Console, Step4_IP_CopulaSpace and the RDS carry all of it.
+
+  Plot 05 -- Synthesis (pitcher plant as copula):
+    All four quantities simultaneously: density (background),
+    S_i contours, K_i colour, EP_i size, g(u) curve, IP_u line.
+
+  Plot 06a -- Ki-Si marginal joint [EXPRESSION SPACE]:
+    ALL GOI-positive cells (n_full). Top: p(Si_norm) marginal PDF.
+    Right: p(Ki) marginal PDF. Main: joint density with contours.
+
+  Plot 06b -- Ki-Si copula demo cells:
+    3 representative cells (A, B, C) highlighted on the copula
+    unit square with rank/(n+1) formulas in a side panel.
+    ALL cells shown: Non-SKCS in gray80 (bottom), SKCS coloured.
+
+  Plot 06c -- Ki-Si copula unit square:
+    (u_sk, v_sk) = (F(Si_norm), F(Ki)) in [0,1]x[0,1].
+    Non-SKCS cells in gray80 (bottom layer), SKCS-core by group.
+
+  Plot 06d -- Ki-Si expression-space scatter:
+    Same cells and colours as 06c but in original (Si_norm, Ki) space.
+    Non-SKCS in gray80.
+
+  Plot 06e -- Ki-Si copula joint density [COPULA SPACE]:
+    2D KDE of (u_sk, v_sk) with uniform marginal PDFs.
+    ALL cells; axis padded +/- 0.20; KS/AD uniformity tests.
+
+  Plot 06f -- Ki-Si shuffled marginal joint:
+    Ki shuffled to break dependence; marginals identical.
+    Joint density becomes diffuse -- CvM distance confirms
+    the original Ki-Si copula structure is non-trivial.
+======================================================================== 
+
+  Log written to: <SEA-AD>/Part10d_Copula2/Part10d_Copula2_PVM_3/Part10d_CP10K_PVM_3_Copula2_console_log_20260821_191824.txt  (console output and warnings) 
+
+Part10d Copula2 — log ended: 2026-08-21 19:22:59.23918

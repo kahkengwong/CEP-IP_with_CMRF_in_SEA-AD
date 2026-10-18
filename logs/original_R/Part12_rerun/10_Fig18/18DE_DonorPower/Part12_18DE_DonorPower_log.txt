@@ -1,0 +1,111 @@
+Part 12 rerun -- step 24
+Script: Part12_Fig18_Analysis.r | md5 400e7e6b5d59719ac3dfca8ed173ee84
+Shared file: Part12_03_Config.r | md5 df0cc2f82a0fd0947b3bb0b93bae800a
+Run ID: 20260923-2111-windows
+Start: 2026-09-23 21:11:10
+Machine: LAPTOP-M7LQ95IS | R version 4.6.1 (2026-06-24 ucrt)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6 | parallel 4.6.1
+Config: Part12_rerun/Part12_01_config.json | version 16 | md5 de727a6a529ece74865c9387be6d8831
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 24-01 script saved in Part12_rerun | Part12_Fig18_Analysis.r
+
+Pre-set reading for Figure 18 definitions, | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### Figure 18 definitions, shared by 18A to 18E
+  
+  - **Arms and region sets.** All four arms. 18A, 18B and 18C keep NeoC and NonNeoC apart (18A is a clinical model, D11; 18B and 18C work on cells within a region set). 18D and 18E use the step 05 unit table with the region sets pooled within donor, as 16A and 16B do.
+  - **%MT.** The 13-gene %MT of the arm's own cells (D5): per cell for 18B and 18C, the donor mean in log1p form (`mito_log1p`) for 18A.
+  - **Module cells.** The arm's Module cells (step 04 `is_module`) against its non-Module labelled cells.
+  - **Inference.** Common rule 3 for the 18C test. 18A keeps OLS p (section 4 exception 1). 18B, 18D and 18E carry no test (exceptions 4 and 5). Simulation draws are made from the step seed per simulation cell, so the result does not depend on the worker count.
+  
+
+Pre-set reading for 18D | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### 18D. How many donors does each effect need? (simulation)
+  
+  - **Design.** Per arm, donors are subsampled without replacement at 10, 15, 20, 25, 30, 40, 50, 60, 70 and 83 donors (up to the arm's count), 300 draws per point, with the unit Module post-IP% rescaled so the donor share is 1.0, 0.75 or 0.5 times the observed share (the archived rescaling of the donor deviation).
+  - **Rules.**
+    - R1, the 16A rule: the donor share of the subsample exceeds the 95th percentile of its null (donor labels shuffled within region; 20 subsets x 25 shuffles per donor count, median of the 95th percentiles).
+    - R2, the 16B rule: split-half rs over 200 random splits of each donor's units (donors with 2 or more units, 10-donor floor) is 0.50 or more.
+    - R3, D22 (choice D1): MMSE score ~ cov4 + donor Module post-IP%, standardised, Module coefficient OLS p < 0.05, where the donor value is the mean of the donor's rescaled units in the subsample (region sets pooled) and cov4 and MMSE come from the donor table.
+    - The share of draws in which R2 could be computed is drawn beside R2.
+  - **Estimate.** The detection rate per rule and donor count, and the smallest donor count reaching 80%.
+  - **Drawn (choice D2).** One row: M4 at 1.0x and 0.75x, PVM_3 at 1.0x and 0.75x, as the archived figure laid them out (the archived order was PVM_3 first).
+  - **Reading.** No test.
+    - The donor requirement is the largest of the three crossings at 0.75x on M4 and on PVM_3; a rule that does not reach 80% needs more donors than the cohort has.
+    - HKG8 R1 should not reach 80% at any donor count. If it does, the curves measure sample size and 18D is not read.
+  - **Closure check.** At 1.0x with every donor, the donor share equals the 16A estimate for Module post-IP% on the same arm.
+  
+
+Pre-set reading for 18E | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### 18E. What does raising the region floor cost? (descriptive)
+  
+  - **Estimate.** Per arm and minimum regions per donor, from 3 to the largest count any donor has: the share of the arm's donors kept, the donor share on the kept donors (3-donor floor, as archived), and the split-half rs by the 16B rule on the kept donors (choice E1: 10-donor floor, common rule 4; the archived run used 15).
+  - **Reading.** The region requirement is the smallest minimum beyond which neither the donor share nor the split-half rs rises by more than 0.05 while retention falls. Kept donors at a high minimum are the donors sampled in many regions, not a random subset, and the Results say so.
+  
+
+Pre-set reading for Supplementary Figure 17 | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### Supplementary Figure 17. Donor-count curves per arm
+  
+  - **Estimate.** 18D for each arm at 1.0x, 0.75x and 0.5x, one file per arm (choice S1). Supplementary Figures 14, 15 and 16 are not drawn (section 7: 14 and 16 dropped with their 12j and 12r content, 15 with 12m; its NonNeoC densities are in 18B).
+  - **Reading.** As 18D, per arm.
+
+SECTION A -- inputs
+[PASS] 24-02 05_units.csv matches the 05_Units log | Part12_rerun/05_Units/05_units.csv
+[PASS] 24-03 05_donors.csv matches the 05_Units log | Part12_rerun/05_Units/05_donors.csv
+[PASS] 24-04 Stats_16A.csv matches the 08_Fig16/16AB_DonorStructure log | Part12_rerun/08_Fig16/16AB_DonorStructure/Stats_16A.csv
+[PASS] 24-05 unit table carries this labels version | 856 units
+
+SECTION B -- arms, observed shares and the null per donor count
+[PASS] 24-06 M4 donor share equals the 16A estimate | 0.695671 against 16A 0.695671
+[PASS] 24-07 M4 cov4 and MMSE_num agree between a donor's region-set rows | 83 donors | 0 conflicting fields
+[PASS] 24-08 M4 rescaled donor shares equal their targets | 1.00x 0.6957 | 0.75x 0.5218 | 0.50x 0.3478
+  M4     units  125 | donors  51 | observed share 0.696 | null p95 at n: 10 0.635, 15 0.562, 20 0.527, 25 0.511, 30 0.460, 40 0.499, 50 0.469
+[PASS] 24-09 PVM_3 donor share equals the 16A estimate | 0.731795 against 16A 0.731795
+[PASS] 24-10 PVM_3 cov4 and MMSE_num agree between a donor's region-set rows | 84 donors | 0 conflicting fields
+[PASS] 24-11 PVM_3 rescaled donor shares equal their targets | 1.00x 0.7318 | 0.75x 0.5488 | 0.50x 0.3659
+  PVM_3  units  450 | donors  83 | observed share 0.732 | null p95 at n: 10 0.305, 15 0.277, 20 0.257, 25 0.259, 30 0.252, 40 0.246, 50 0.224, 60 0.219, 70 0.221, 83 0.220
+[PASS] 24-12 PVM_1 donor share equals the 16A estimate | 0.738724 against 16A 0.738724
+[PASS] 24-13 PVM_1 cov4 and MMSE_num agree between a donor's region-set rows | 84 donors | 0 conflicting fields
+[PASS] 24-14 PVM_1 rescaled donor shares equal their targets | 1.00x 0.7387 | 0.75x 0.5540 | 0.50x 0.3694
+  PVM_1  units  201 | donors  66 | observed share 0.739 | null p95 at n: 10 0.526, 15 0.463, 20 0.456, 25 0.411, 30 0.420, 40 0.396, 50 0.396, 60 0.395
+[PASS] 24-15 HKG8 donor share equals the 16A estimate | 0.416512 against 16A 0.416512
+[PASS] 24-16 HKG8 cov4 and MMSE_num agree between a donor's region-set rows | 82 donors | 0 conflicting fields
+[PASS] 24-17 HKG8 rescaled donor shares equal their targets | 1.00x 0.4165 | 0.75x 0.3124 | 0.50x 0.2083
+  HKG8   units   80 | donors  38 | observed share 0.417 | null p95 at n: 10 0.679, 15 0.568, 20 0.568, 25 0.569, 30 0.582
+
+SECTION C -- 18D, 300 draws per point
+[NOTE] workers | 15 of 16 logical cores (PSOCK)
+[NOTE] simulation time | 1.6 min | 90 cells
+  M4     1.00x target share 0.696 | n at 80%: R1 15, R2 20, R3 25
+  M4     0.75x target share 0.522 | n at 80%: R1 50, R2 not reached, R3 25
+  M4     0.50x target share 0.348 | n at 80%: R1 not reached, R2 not reached, R3 25
+  PVM_3  1.00x target share 0.732 | n at 80%: R1 10, R2 15, R3 30
+  PVM_3  0.75x target share 0.549 | n at 80%: R1 10, R2 15, R3 30
+  PVM_3  0.50x target share 0.366 | n at 80%: R1 20, R2 not reached, R3 30
+  PVM_1  1.00x target share 0.739 | n at 80%: R1 10, R2 20, R3 40
+  PVM_1  0.75x target share 0.554 | n at 80%: R1 25, R2 not reached, R3 40
+  PVM_1  0.50x target share 0.369 | n at 80%: R1 not reached, R2 not reached, R3 40
+  HKG8   1.00x target share 0.417 | n at 80%: R1 not reached, R2 not reached, R3 not reached
+  HKG8   0.75x target share 0.312 | n at 80%: R1 not reached, R2 not reached, R3 not reached
+  HKG8   0.50x target share 0.208 | n at 80%: R1 not reached, R2 not reached, R3 not reached
+[NOTE] validity check: HKG8 R1 reaches 80% at no donor count | holds
+
+SECTION D -- 18E, minimum regions per donor
+  M4     3+: kept 0.37 share 0.63 split 0.70 | 4+: kept 0.22 share 0.62 split 0.78 | 5+: kept 0.18 share 0.75 split NA | 6+: kept 0.06 share 0.65 split NA | 7+: kept 0.04 share NA split NA
+[NOTE] M4 rise over 3+ regions | donor share +0.119, split-half +0.083 (margin 0.05)
+  PVM_3  3+: kept 0.84 share 0.72 split 0.85 | 4+: kept 0.49 share 0.67 split 0.88 | 5+: kept 0.47 share 0.66 split 0.88 | 6+: kept 0.46 share 0.67 split 0.88 | 7+: kept 0.43 share 0.66 split 0.87 | 8+: kept 0.39 share 0.65 split 0.89 | 9+: kept 0.24 share 0.46 split 0.81 | 10+: kept 0.13 share 0.43 split 0.82
+[NOTE] PVM_3 rise over 3+ regions | donor share -0.048, split-half +0.040 (margin 0.05)
+  PVM_1  3+: kept 0.38 share 0.67 split 0.77 | 4+: kept 0.27 share 0.62 split 0.78 | 5+: kept 0.23 share 0.57 split 0.71 | 6+: kept 0.18 share 0.56 split 0.73 | 7+: kept 0.12 share 0.55 split NA | 8+: kept 0.08 share 0.27 split NA | 9+: kept 0.05 share 0.15 split NA | 10+: kept 0.05 share 0.15 split NA
+[NOTE] PVM_1 rise over 3+ regions | donor share -0.048, split-half +0.010 (margin 0.05)
+  HKG8   3+: kept 0.34 share 0.36 split 0.30 | 4+: kept 0.11 share 0.22 split NA | 5+: kept 0.03 share NA split NA | 6+: kept 0.03 share NA split NA | 7+: kept 0.03 share NA split NA
+[NOTE] HKG8 rise over 3+ regions | donor share -0.146, split-half +0.000 (margin 0.05)
+
+SECTION E -- write
+[PASS] 24-18 stats and plot files written | 18D 72 | 18E 78 rows
+
+Outputs:
+  Part12_rerun/10_Fig18/18DE_DonorPower/Stats_18D.csv | 0.0 MB | md5 7a0e40a349cb5154ff48728bda1c7e47
+  Part12_rerun/10_Fig18/18DE_DonorPower/Stats_18E.csv | 0.0 MB | md5 fe514a01024e2331493ae0c0f0ed03b8
+  Part12_rerun/10_Fig18/18DE_DonorPower/Plot_18D_curves.csv | 0.0 MB | md5 d2727e640f06b708bbec52c69c6586a3
+  Part12_rerun/10_Fig18/18DE_DonorPower/Plot_18E_regions.csv | 0.0 MB | md5 8c4738330f25f861630812b02d81826e
+Checks: 18 PASS, 0 FAIL, 0 WARN | duration 1.7 min
+VERDICT: PASS

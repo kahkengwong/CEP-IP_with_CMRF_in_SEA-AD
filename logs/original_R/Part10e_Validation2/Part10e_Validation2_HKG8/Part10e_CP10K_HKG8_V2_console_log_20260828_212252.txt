@@ -1,0 +1,298 @@
+Part10e Validation2 (UMAP) - log started: 2026-08-28 21:22:52.343886
+
+
+============================================================================
+  ARM: HKG8_matched   config: R_config_HKG8.R
+============================================================================
+R_config_HKG8.R loaded (HKG specificity control: ACTB + 8 cHKGs).
+  ARM_TAG   : HKG8_matched 
+  ARM_DIR   : <SEA-AD>/R_export_CP10K/HKG8_matched 
+  NEOC_DIR  : <SEA-AD>/R_export_CP10K/HKG8_matched/neocortex 
+  NONNC_DIR : <SEA-AD>/R_export_CP10K/HKG8_matched/nonneocortex 
+  SHARED_DIR: <SEA-AD>/R_export_CP10K/shared 
+  GOI       : ACTB 
+  DFG       : EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 
+  DFG_LABEL : cHKG8 
+  RUN_SUFFIX: _HKG8 
+  Selected  : MT-CO3>0 AND ACTB>0 
+  Mod1 genes: ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 1432 NeoC / 1079 NonNeoC
+  Config OK: HKG8_matched | ACTB + 8 DFG | CP10K
+
+
+ ======================================================================== 
+  Part10e Validation2 - CMRF classes in transcriptomic space
+  Arm          : HKG8_matched 
+  GOI          : ACTB 
+  Normalisation: CP10K  log1p(UMIs/total x  10000 )
+  Embedding    : Monocle3 UMAP on counts_raw_selected | 50 PCA dimensions
+  OrigRef group: group_refined 
+  V1 input     : <SEA-AD>/Part10e_Validation1/Part10e_Validation1_HKG8 
+  Output dir   : <SEA-AD>/Part10e_Validation2/Part10e_Validation2_HKG8 
+======================================================================== 
+
+  SECTION A0 - PRE-ANALYSIS GUARDRAILS
+
+  [PASS]  GR-V2-01-NeoC       Validation1 workbook: Part10e_Validation1_HKG8/Part10e_CP10K_HKG8_V1_NeoC_SK_interaction_analysis.xlsx
+  [PASS]  GR-V2-01-NonNeoC    Validation1 workbook: Part10e_Validation1_HKG8/Part10e_CP10K_HKG8_V1_NonNeoC_SK_interaction_analysis.xlsx
+  [PASS]  GR-V2-02-NeoC       raw_selected present: <SEA-AD>/R_export_CP10K/HKG8_matched/neocortex/counts/raw_selected
+  [PASS]  GR-V2-02-NonNeoC    raw_selected present: <SEA-AD>/R_export_CP10K/HKG8_matched/nonneocortex/counts/raw_selected
+
+  Pre-analysis guardrails: 4 PASS / 0 WARN / 0 FAIL
+
+
+ ======================================================================== 
+  Part10e Validation2: NeoC  [ HKG8_matched ]
+======================================================================== 
+
+  STEP 1 - CMRF class and group labels
+    Labels from Part10e_CP10K_HKG8_V1_NeoC_SK_interaction_analysis.xlsx: 1432 row(s), 1432 in the four classes
+      Original + Refined     239
+      Recovered              287
+      Original only          11
+      Excluded               895
+    Donors: 74 distinct | 0 cell(s) with no donor in gam_data
+
+  STEP 2 - Raw counts from the Part 8 export
+    Counts: 1432 cell(s); genes 36601 -> 23010 after the >= 3-cell detection filter
+
+  STEP 3 - Monocle3 CDS and UMAP
+    CDS: 23010 gene(s) x 1432 cell(s)
+    PCA: 50 dimension(s)
+
+  STEP 4 - UMAP coordinates
+    2D: 1432 cell(s)
+    3D: 1432 cell(s)
+
+  STEP 5 - Figures
+    UMAP2D figures skipped (V2_MAKE_2D_FIGS = FALSE)
+    Projection point size 1.40 for 1432 cell(s)
+    UMAP3D_Projections saved and drawn
+    UMAP3D_ByGroup saved
+    3D scatter: 1 group(s) empty on this dataset and drawn as a zero-count legend entry: Pre-IP non-TREP
+    UMAP3D_Interactive.html saved
+
+  STEP 7 - Donor composition of the four classes
+    Original + Refined     n=  239 | donors= 54 | top share=0.096 | TVD=0.000 (null p95 NA)
+    Recovered              n=  287 | donors= 59 | top share=0.087 | TVD=0.341 (null p95 0.302)
+    Original only          n=   11 | donors= 11 | top share=0.091 | TVD=0.775 (null p95 0.837)
+    Excluded               n=  895 | donors= 72 | top share=0.089 | TVD=0.277 (null p95 0.254)
+
+  STEP 8 - Equivalence, dispersion and local mixing
+    Using the 3D embedding (UMAP_1, UMAP_2, UMAP_3)
+    OrigRef with a subgroup label: 239 | Recovered: 287 | Original only: 11
+      Pre-IP TREP            71
+      Pre-IP non-TREP        0
+      Post-IP TREP           156
+      Post-IP non-TREP       12
+    Donor-unit tests: ON (>= 3 donor(s) per group, >= 3 cell(s) per donor)
+      TOST cell  Pre-IP TREP        U1: p=0.7889 delta=0.557 (not equivalent)
+      TOST donor Pre-IP TREP        U1: p=0.9248 delta=0.276 (not equivalent)
+      TOST cell  Pre-IP TREP        U2: p=0.0016 delta=0.638 (EQUIVALENT)
+      TOST donor Pre-IP TREP        U2: p=0.6877 delta=0.304 (not equivalent)
+      TOST cell  Pre-IP TREP        U3: p=0.3456 delta=0.616 (not equivalent)
+      TOST donor Pre-IP TREP        U3: p=0.5925 delta=0.411 (not equivalent)
+      PERMANOVA cell  Pre-IP TREP        R2=0.0266 p=0.0010 | PERMDISP F=20.70 p=0.0010
+      PERMANOVA donor Pre-IP TREP        R2=0.0907 p=0.0090 | PERMDISP F=0.01 p=0.9450
+      iLISI     Pre-IP TREP        mean=1.488 median=1.474 (max 2)
+      kNN       Pre-IP TREP        ref_frac=0.186 global=0.198 enrich=0.94x
+      kBET      Pre-IP TREP        reject=0.455 (lower is better)
+      TOST cell  Post-IP TREP       U1: p=1.0000 delta=0.544 (not equivalent)
+      TOST donor Post-IP TREP       U1: p=1.0000 delta=0.265 (not equivalent)
+      TOST cell  Post-IP TREP       U2: p=0.0007 delta=0.597 (EQUIVALENT)
+      TOST donor Post-IP TREP       U2: p=0.0722 delta=0.299 (not equivalent)
+      TOST cell  Post-IP TREP       U3: p=0.0259 delta=0.582 (EQUIVALENT)
+      TOST donor Post-IP TREP       U3: p=0.7440 delta=0.362 (not equivalent)
+      PERMANOVA cell  Post-IP TREP       R2=0.1982 p=0.0010 | PERMDISP F=84.31 p=0.0010
+      PERMANOVA donor Post-IP TREP       R2=0.4910 p=0.0010 | PERMDISP F=0.28 p=0.5950
+      iLISI     Post-IP TREP       mean=1.406 median=1.350 (max 2)
+      kNN       Post-IP TREP       ref_frac=0.190 global=0.352 enrich=0.54x
+      kBET      Post-IP TREP       reject=0.867 (lower is better)
+      TOST cell  Post-IP non-TREP   U1: p=0.9979 delta=0.591 (not equivalent)
+      TOST cell  Post-IP non-TREP   U2: p=0.3372 delta=0.655 (not equivalent)
+      TOST cell  Post-IP non-TREP   U3: p=0.3126 delta=0.598 (not equivalent)
+      PERMANOVA cell  Post-IP non-TREP   R2=0.0239 p=0.0010 | PERMDISP F=13.72 p=0.0010
+      iLISI     Post-IP non-TREP   mean=1.079 median=1.042 (max 2)
+      kNN       Post-IP non-TREP   ref_frac=0.036 global=0.040 enrich=0.90x
+      kBET      Post-IP non-TREP   reject=0.184 (lower is better)
+    TOST [cell]: 18 test(s), 3 equivalent unadjusted, 2 after BH
+    TOST [donor]: 6 test(s), 0 equivalent unadjusted, 0 after BH
+    PERMANOVA [cell]: 6 test(s) | centroid ns 0 | dispersion ns 3 | both ns 0
+    PERMANOVA [donor]: 2 test(s) | centroid ns 0 | dispersion ns 2 | both ns 0
+
+  STEP 9 - Figure 11 statistics
+    axis from 71 Pre-IP TREP to 156 Post-IP TREP cell(s), centroid separation 30.163
+      donor omnibus Friedman p=<1e-04 | trend Page's L p=<1e-04
+      donor off-axis omnibus Friedman p=<1e-04
+      cell  omnibus Kruskal-Wallis p=<1e-04 | trend Jonckheere-Terpstra p=<1e-04
+      cell  off-axis omnibus Kruskal-Wallis p=<1e-04
+    copula (u_SK, v_SK) axis from Validation1 RDS, centroid separation 0.045, max |RDS - recomputed| = 0.00e+00
+      donor lateral omnibus repeated-measures ANOVA p=<1e-04
+      cell  lateral omnibus Kruskal-Wallis p=<1e-04
+      donor bridge omnibus repeated-measures ANOVA p=<1e-04
+      cell  bridge omnibus Kruskal-Wallis p=<1e-04
+    SKCS cut failed by the 287 Recovered cell(s): Si only 0, Ki only 203, both 84, neither 0 (Si-any 29.3%, Ki-any 100.0%)
+      donor omnibus Friedman p=<1e-04 | trend Page's L p=<1e-04
+      cell  omnibus Kruskal-Wallis p=<1e-04 | trend Jonckheere-Terpstra p=<1e-04
+
+ ======================================================================== 
+  Part10e Validation2: NonNeoC  [ HKG8_matched ]
+======================================================================== 
+
+  STEP 1 - CMRF class and group labels
+    Labels from Part10e_CP10K_HKG8_V1_NonNeoC_SK_interaction_analysis.xlsx: 1079 row(s), 1079 in the four classes
+      Original + Refined     191
+      Recovered              240
+      Original only          8
+      Excluded               640
+    Donors: 77 distinct | 0 cell(s) with no donor in gam_data
+
+  STEP 2 - Raw counts from the Part 8 export
+    Counts: 1079 cell(s); genes 36601 -> 21614 after the >= 3-cell detection filter
+
+  STEP 3 - Monocle3 CDS and UMAP
+    CDS: 21614 gene(s) x 1079 cell(s)
+    PCA: 50 dimension(s)
+
+  STEP 4 - UMAP coordinates
+    2D: 1079 cell(s)
+    3D: 1079 cell(s)
+
+  STEP 5 - Figures
+    UMAP2D figures skipped (V2_MAKE_2D_FIGS = FALSE)
+    Projection point size 1.40 for 1079 cell(s)
+    UMAP3D_Projections saved and drawn
+    UMAP3D_ByGroup saved
+    3D scatter: 1 group(s) empty on this dataset and drawn as a zero-count legend entry: Pre-IP non-TREP
+    UMAP3D_Interactive.html saved
+
+  STEP 7 - Donor composition of the four classes
+    Original + Refined     n=  191 | donors= 55 | top share=0.115 | TVD=0.000 (null p95 NA)
+    Recovered              n=  240 | donors= 61 | top share=0.075 | TVD=0.372 (null p95 0.337)
+    Original only          n=    8 | donors=  8 | top share=0.125 | TVD=0.707 (null p95 0.906)
+    Excluded               n=  640 | donors= 72 | top share=0.102 | TVD=0.320 (null p95 0.294)
+
+  STEP 8 - Equivalence, dispersion and local mixing
+    Using the 3D embedding (UMAP_1, UMAP_2, UMAP_3)
+    OrigRef with a subgroup label: 191 | Recovered: 240 | Original only: 8
+      Pre-IP TREP            43
+      Pre-IP non-TREP        0
+      Post-IP TREP           132
+      Post-IP non-TREP       16
+    Donor-unit tests: ON (>= 3 donor(s) per group, >= 3 cell(s) per donor)
+      TOST cell  Pre-IP TREP        U1: p=0.0015 delta=0.805 (EQUIVALENT)
+      TOST donor Pre-IP TREP        U1: p=0.0357 delta=0.662 (EQUIVALENT)
+      TOST cell  Pre-IP TREP        U2: p=0.3169 delta=0.595 (not equivalent)
+      TOST donor Pre-IP TREP        U2: p=0.7252 delta=0.381 (not equivalent)
+      TOST cell  Pre-IP TREP        U3: p=0.9999 delta=0.491 (not equivalent)
+      TOST donor Pre-IP TREP        U3: p=0.9426 delta=0.293 (not equivalent)
+      PERMANOVA cell  Pre-IP TREP        R2=0.0332 p=0.0010 | PERMDISP F=35.73 p=0.0010
+      PERMANOVA donor Pre-IP TREP        R2=0.0473 p=0.1540 | PERMDISP F=5.09 p=0.0360
+      iLISI     Pre-IP TREP        mean=1.388 median=1.345 (max 2)
+      kNN       Pre-IP TREP        ref_frac=0.143 global=0.152 enrich=0.94x
+      kBET      Pre-IP TREP        reject=0.424 (lower is better)
+      TOST cell  Post-IP TREP       U1: p=0.0000 delta=0.733 (EQUIVALENT)
+      TOST donor Post-IP TREP       U1: p=0.2084 delta=0.622 (not equivalent)
+      TOST cell  Post-IP TREP       U2: p=1.0000 delta=0.578 (not equivalent)
+      TOST donor Post-IP TREP       U2: p=1.0000 delta=0.348 (not equivalent)
+      TOST cell  Post-IP TREP       U3: p=1.0000 delta=0.482 (not equivalent)
+      TOST donor Post-IP TREP       U3: p=1.0000 delta=0.287 (not equivalent)
+      PERMANOVA cell  Post-IP TREP       R2=0.1631 p=0.0010 | PERMDISP F=91.21 p=0.0010
+      PERMANOVA donor Post-IP TREP       R2=0.2950 p=0.0010 | PERMDISP F=10.64 p=0.0020
+      iLISI     Post-IP TREP       mean=1.467 median=1.395 (max 2)
+      kNN       Post-IP TREP       ref_frac=0.240 global=0.355 enrich=0.68x
+      kBET      Post-IP TREP       reject=0.892 (lower is better)
+      TOST cell  Post-IP non-TREP   U1: p=0.0447 delta=0.824 (EQUIVALENT)
+      TOST cell  Post-IP non-TREP   U2: p=0.9778 delta=0.614 (not equivalent)
+      TOST cell  Post-IP non-TREP   U3: p=0.6279 delta=0.504 (not equivalent)
+      PERMANOVA cell  Post-IP non-TREP   R2=0.0211 p=0.0020 | PERMDISP F=2.71 p=0.1190
+      iLISI     Post-IP non-TREP   mean=1.126 median=1.097 (max 2)
+      kNN       Post-IP non-TREP   ref_frac=0.056 global=0.062 enrich=0.90x
+      kBET      Post-IP non-TREP   reject=0.137 (lower is better)
+    TOST [cell]: 18 test(s), 4 equivalent unadjusted, 2 after BH
+    TOST [donor]: 6 test(s), 1 equivalent unadjusted, 0 after BH
+    PERMANOVA [cell]: 6 test(s) | centroid ns 1 | dispersion ns 4 | both ns 1
+    PERMANOVA [donor]: 2 test(s) | centroid ns 1 | dispersion ns 0 | both ns 0
+
+  STEP 9 - Figure 11 statistics
+    axis from 43 Pre-IP TREP to 132 Post-IP TREP cell(s), centroid separation 30.047
+      donor omnibus repeated-measures ANOVA p=<1e-04 | trend Page's L p=<1e-04
+      donor off-axis omnibus Friedman p=0.009166
+      cell  omnibus Kruskal-Wallis p=<1e-04 | trend Jonckheere-Terpstra p=<1e-04
+      cell  off-axis omnibus Kruskal-Wallis p=<1e-04
+    copula (u_SK, v_SK) axis from Validation1 RDS, centroid separation 0.035, max |RDS - recomputed| = 0.00e+00
+      donor lateral omnibus repeated-measures ANOVA p=<1e-04
+      cell  lateral omnibus Kruskal-Wallis p=<1e-04
+      donor bridge omnibus Friedman p=<1e-04
+      cell  bridge omnibus Kruskal-Wallis p=<1e-04
+    SKCS cut failed by the 240 Recovered cell(s): Si only 0, Ki only 172, both 68, neither 0 (Si-any 28.3%, Ki-any 100.0%)
+      donor omnibus repeated-measures ANOVA p=<1e-04 | trend Page's L p=<1e-04
+      cell  omnibus Kruskal-Wallis p=<1e-04 | trend Jonckheere-Terpstra p=<1e-04
+
+ ======================================================================== 
+  SAVING RDS + EXCEL
+======================================================================== 
+
+  [NeoC] RDS saved: Part10e_CP10K_HKG8_V2_NeoC_results.rds  (0.1 MB, plots dropped)
+  [NonNeoC] RDS saved: Part10e_CP10K_HKG8_V2_NonNeoC_results.rds  (0.1 MB, plots dropped)
+  Excel saved: Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx (28 sheet(s))
+
+  POST-ANALYSIS GUARDRAILS
+
+  [PASS]  GR-V2-03-NeoC       embedded 1432 cell(s): OrigRef 239, Recovered 287, Orig-only 11, Excluded 895
+  [PASS]  GR-V2-04-NeoC       raw_selected max = 1874, integer-like = TRUE | 23010 gene(s), 50 PCA dim
+  [PASS]  GR-V2-05-NeoC       test axes: UMAP_1, UMAP_2, UMAP_3
+  [WARN]  GR-V2-06-NeoC       Recovered donors: n = 59 | largest donor share = 0.087 | TVD vs OrigRef = 0.341 against a null p95 of 0.302
+  [PASS]  GR-V2-07-NeoC       tested: Recovered 287, Original-only 11, OrigRef with a subgroup label 239 (minimum 5)
+  [PASS]  GR-V2-08-NeoC       0 of 6 cell-unit PERMANOVA pair(s) subsampled to 500 per group
+  [PASS]  GR-V2-10-NeoC       every Original+Refined cell carries one of the four IP x TREP subgroups from `group_refined`
+  [PASS]  GR-V2-11-NeoC       Pre->Post projection axis: axis from 71 Pre-IP TREP to 156 Post-IP TREP cell(s), centroid separation 30.163
+  [PASS]  GR-V2-12-NeoC       complete donor blocks: projection 24, spine residual 10 (minimum 5; below it the donor unit is not evaluable and the cell unit stands alone)
+  [PASS]  GR-V2-13-NeoC       copula method check on (u_SK, v_SK) = (F(Si_norm), F(Ki)), the pitcher-plot axes: copula (u_SK, v_SK) axis from Validation1 RDS, centroid separation 0.045, max |RDS - recomputed| = 0.00e+00. Position and off-axis distance here are imposed by the CMRF selection rule and are reported as a method check, not a finding
+  [PASS]  GR-V2-09-NeoC       donor-unit (inverse-donor-weighted) tests: 6 TOST, 2 PERMANOVA | thresholds >= 3 donor(s) per group, >= 3 cell(s) per donor
+  [PASS]  GR-V2-03-NonNeoC    embedded 1079 cell(s): OrigRef 191, Recovered 240, Orig-only 8, Excluded 640
+  [PASS]  GR-V2-04-NonNeoC    raw_selected max = 1552, integer-like = TRUE | 21614 gene(s), 50 PCA dim
+  [PASS]  GR-V2-05-NonNeoC    test axes: UMAP_1, UMAP_2, UMAP_3
+  [WARN]  GR-V2-06-NonNeoC    Recovered donors: n = 61 | largest donor share = 0.075 | TVD vs OrigRef = 0.372 against a null p95 of 0.337
+  [PASS]  GR-V2-07-NonNeoC    tested: Recovered 240, Original-only 8, OrigRef with a subgroup label 191 (minimum 5)
+  [PASS]  GR-V2-08-NonNeoC    0 of 6 cell-unit PERMANOVA pair(s) subsampled to 500 per group
+  [PASS]  GR-V2-10-NonNeoC    every Original+Refined cell carries one of the four IP x TREP subgroups from `group_refined`
+  [PASS]  GR-V2-11-NonNeoC    Pre->Post projection axis: axis from 43 Pre-IP TREP to 132 Post-IP TREP cell(s), centroid separation 30.047
+  [PASS]  GR-V2-12-NonNeoC    complete donor blocks: projection 13, spine residual 6 (minimum 5; below it the donor unit is not evaluable and the cell unit stands alone)
+  [PASS]  GR-V2-13-NonNeoC    copula method check on (u_SK, v_SK) = (F(Si_norm), F(Ki)), the pitcher-plot axes: copula (u_SK, v_SK) axis from Validation1 RDS, centroid separation 0.035, max |RDS - recomputed| = 0.00e+00. Position and off-axis distance here are imposed by the CMRF selection rule and are reported as a method check, not a finding
+  [PASS]  GR-V2-09-NonNeoC    donor-unit (inverse-donor-weighted) tests: 6 TOST, 2 PERMANOVA | thresholds >= 3 donor(s) per group, >= 3 cell(s) per donor
+  Guardrail log written: <SEA-AD>/Part10e_Validation2/Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Guardrail_Log.txt 
+
+  Final guardrail tally: 24 PASS / 2 WARN / 0 FAIL
+  24 passed, 2 warning(s), no failures.
+
+ ======================================================================== 
+  Part10e Validation2 COMPLETE [ HKG8_matched ]
+  Output directory: <SEA-AD>/Part10e_Validation2/Part10e_Validation2_HKG8 
+  Files generated:
+    Part10e_CP10K_HKG8_V2_console_log_20260828_205353.txt              19 KB
+    Part10e_CP10K_HKG8_V2_console_log_20260828_212252.txt              18 KB
+    Part10e_CP10K_HKG8_V2_Guardrail_Log.txt                             4 KB
+    Part10e_CP10K_HKG8_V2_NeoC_results.rds                            126 KB
+    Part10e_CP10K_HKG8_V2_NeoC_UMAP3D_ByGroup.pdf                     217 KB
+    Part10e_CP10K_HKG8_V2_NeoC_UMAP3D_ByGroup.png                     220 KB
+    Part10e_CP10K_HKG8_V2_NeoC_UMAP3D_Interactive.html               4249 KB
+    Part10e_CP10K_HKG8_V2_NeoC_UMAP3D_Interactive_files                 4 KB
+    Part10e_CP10K_HKG8_V2_NeoC_UMAP3D_Projections.pdf                  69 KB
+    Part10e_CP10K_HKG8_V2_NeoC_UMAP3D_Projections.png                 154 KB
+    Part10e_CP10K_HKG8_V2_NonNeoC_results.rds                         100 KB
+    Part10e_CP10K_HKG8_V2_NonNeoC_UMAP3D_ByGroup.pdf                  178 KB
+    Part10e_CP10K_HKG8_V2_NonNeoC_UMAP3D_ByGroup.png                  192 KB
+    Part10e_CP10K_HKG8_V2_NonNeoC_UMAP3D_Interactive.html            4140 KB
+    Part10e_CP10K_HKG8_V2_NonNeoC_UMAP3D_Interactive_files              4 KB
+    Part10e_CP10K_HKG8_V2_NonNeoC_UMAP3D_Projections.pdf               56 KB
+    Part10e_CP10K_HKG8_V2_NonNeoC_UMAP3D_Projections.png              145 KB
+    Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx                     63 KB
+======================================================================== 
+
+  Log written to: <SEA-AD>/Part10e_Validation2/Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_console_log_20260828_212252.txt 
+
+Part10e Validation2 - log ended: 2026-08-28 21:24:34.861356

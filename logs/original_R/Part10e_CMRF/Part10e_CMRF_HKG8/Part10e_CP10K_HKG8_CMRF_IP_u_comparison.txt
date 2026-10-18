@@ -1,0 +1,28 @@
+========================================================================
+  Part10e IP_u Comparison: SKCS-core vs Full-population
+  Generated: 2026-08-27 01:40:02.60603
+========================================================================
+
+------------------------------------------------------------------------
+  Dataset: NonNeoC
+------------------------------------------------------------------------
+  IP_x (SKCS-core, Part10b_IPRS):  1.813001
+  IP_u used (SKCS-core -> full-pop): 0.680556  [source: SKCS_IPRS]
+  IP_u Part10d (full-pop computed):   0.680556
+  Delta (used - Part10d):             0.000000
+
+  IP_u values are identical -- no CMRF classification differences.
+
+------------------------------------------------------------------------
+  Dataset: NeoC
+------------------------------------------------------------------------
+  IP_x (SKCS-core, Part10b_IPRS):  1.555173
+  IP_u used (SKCS-core -> full-pop): 0.519888  [source: SKCS_IPRS]
+  IP_u Part10d (full-pop computed):   0.519888
+  Delta (used - Part10d):             0.000000
+
+  IP_u values are identical -- no CMRF classification differences.
+
+========================================================================
+  COMPARISON COMPLETE
+========================================================================

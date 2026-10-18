@@ -1,0 +1,75 @@
+========================================================================
+Part10e Validation1 [PVM1_all] — Cell Count Guardrail Report
+Generated: 2026-08-28 16:44:39.660299
+========================================================================
+
+[NeoC] Cell Count Reconciliation  (arm PVM1_all, GOI MT-CO3)
+------------------------------------------------------------------------------
+Identity                                               Observed     Status
+------------------------------------------------------------------------------
+OrigRef (1821) + Recovered (381) = module (2202)           2202       PASS
+the four CMRF classes (1821+381+41+975) = MT-CO3-positive (3218)       3218       PASS
+MT-CO3-positive (3218) + MT-CO3-negative (0) = sheet rows (3218)       3218       PASS
+module (2202) + non-module (1016) = MT-CO3-positive (3218)       3218       PASS
+TREP (2010) + non-TREP (192) = module (2202)               2202       PASS
+------------------------------------------------------------------------------
+Dataset NeoC: ALL RECONCILE
+
+  MT-CO3-positive (plotted):                  3218
+  Non-module (gray):             1016
+  GAM DE (donor-aware):          87.61%
+  TREP sizing DE (flat null):    91.27%
+  IP threshold:                  2.3827
+  TREP / non-TREP:               2010 / 192
+
+  4-group breakdown:
+    Pre-IP TREP               1010
+    Pre-IP non-TREP           4
+    Post-IP TREP              1000
+    Post-IP non-TREP          188
+
+  TREP Concordance (OrigRef cells: refitted vs original Part10b):
+    Agreement: 1792 / 1821 (98.4%)
+    Original \ Refitted      Post-IP non-TREP       Post-IP TREP    Pre-IP non-TREP        Pre-IP TREP
+    Post-IP non-TREP                      123                 21                  0                  0
+    Post-IP TREP                            8                913                  0                  0
+    Pre-IP non-TREP                         0                  0                  1                  0
+    Pre-IP TREP                             0                  0                  0                755
+
+
+[NonNeoC] Cell Count Reconciliation  (arm PVM1_all, GOI MT-CO3)
+------------------------------------------------------------------------------
+Identity                                               Observed     Status
+------------------------------------------------------------------------------
+OrigRef (1618) + Recovered (318) = module (1936)           1936       PASS
+the four CMRF classes (1618+318+59+663) = MT-CO3-positive (2658)       2658       PASS
+MT-CO3-positive (2658) + MT-CO3-negative (0) = sheet rows (2658)       2658       PASS
+module (1936) + non-module (722) = MT-CO3-positive (2658)       2658       PASS
+TREP (1800) + non-TREP (136) = module (1936)               1936       PASS
+------------------------------------------------------------------------------
+Dataset NonNeoC: ALL RECONCILE
+
+  MT-CO3-positive (plotted):                  2658
+  Non-module (gray):             722
+  GAM DE (donor-aware):          87.38%
+  TREP sizing DE (flat null):    92.97%
+  IP threshold:                  2.6453
+  TREP / non-TREP:               1800 / 136
+
+  4-group breakdown:
+    Pre-IP TREP               887
+    Pre-IP non-TREP           2
+    Post-IP TREP              913
+    Post-IP non-TREP          134
+
+  TREP Concordance (OrigRef cells: refitted vs original Part10b):
+    Agreement: 1568 / 1618 (96.9%)
+    Original \ Refitted      Post-IP non-TREP       Post-IP TREP        Pre-IP TREP
+    Post-IP non-TREP                       64                 50                  0
+    Post-IP TREP                            0                803                  0
+    Pre-IP TREP                             0                  0                701
+
+
+========================================================================
+OVERALL GUARDRAIL: ALL COUNTS RECONCILE — PASS
+========================================================================

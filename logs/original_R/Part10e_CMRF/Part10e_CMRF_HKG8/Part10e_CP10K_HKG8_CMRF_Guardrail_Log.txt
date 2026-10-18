@@ -1,0 +1,36 @@
+========================================================================
+Part 10e CMRF — Guardrail Log [CP10K]
+Date: 2026-08-27 01:40:48
+Arm : HKG8_matched
+Normalisation: adata.X = log1p(UMIs/total x 10000), exported unchanged
+========================================================================
+
+  [PASS]  GR-01-NeoC        norm.mtx max = 7.9541  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NeoC        expm1(norm) row sums: mean = 10000.000000, max |dev| = 8.44e-10, n = 50
+  [PASS]  GR-04-NeoC        raw max = 1874, integer-like = TRUE
+  [PASS]  GR-01-NonNeoC     norm.mtx max = 7.6610  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NonNeoC     expm1(norm) row sums: mean = 10000.000000, max |dev| = 6.20e-10, n = 50
+  [PASS]  GR-04-NonNeoC     raw max = 1552, integer-like = TRUE
+  [PASS]  GR-05-NonNeoC     Part 10b EP/TREP CSV: Part10b_SKCS_HKG8/Part10b_CP10K_HKG8_SKCS_NonNeoC_EP_TREP_values.csv
+  [PASS]  GR-05-NeoC        Part 10b EP/TREP CSV: Part10b_SKCS_HKG8/Part10b_CP10K_HKG8_SKCS_NeoC_EP_TREP_values.csv
+  [PASS]  GR-06-Part10d     Part 10d RDS: Part10d_Copula2_HKG8/Part10d_CP10K_HKG8_Copula2_all_results.rds
+  [PASS]  GR-07-IPRS        IPRS IP values (IPRS_full): IP_x NonNeoC=1.8130, NeoC=1.5552 | IP_y NonNeoC=1.1745, NeoC=1.2452
+  [PASS]  GR-08-NonNeoC     CMRF classification: Original + Refined=191 | Original only=8 | Recovered=240 | Excluded=640
+  [PASS]  GR-09-NonNeoC     Recovered cells = 240 | original SKCS-core = 199 | refined = 431
+  [WARN]  GR-10-NonNeoC     spine DECREASING: min consecutive difference = -1.523e-03 over 501 grid points | steepest decrease near u = 0.0000
+  [PASS]  GR-11-NonNeoC     spine on 159 TREP SKCS-core cell(s), u in [0.0009, 0.9991] | donor RE = YES (49 donors) | k = 5 | 13 iteration(s)
+  [PASS]  GR-12-NonNeoC     classification axis = cDFG at IP_y | IP_y = 1.174491 | IP_v = 0.490741 | Part 10b Pre/Post labels reproduce 1.0000 on the cDFG axis at IP_y and 1.0000 on the GOI axis at IP_x, over 199 cell(s)
+  [PASS]  GR-08-NeoC        CMRF classification: Original + Refined=239 | Original only=11 | Recovered=287 | Excluded=895
+  [PASS]  GR-09-NeoC        Recovered cells = 287 | original SKCS-core = 250 | refined = 526
+  [WARN]  GR-10-NeoC        spine DECREASING: min consecutive difference = -1.741e-03 over 501 grid points | steepest decrease near u = 0.1180
+  [PASS]  GR-11-NeoC        spine on 218 TREP SKCS-core cell(s), u in [0.0014, 0.9993] | donor RE = YES (52 donors) | k = 6 | 13 iteration(s)
+  [PASS]  GR-12-NeoC        classification axis = cDFG at IP_y | IP_y = 1.245230 | IP_v = 0.476622 | Part 10b Pre/Post labels reproduce 1.0000 on the cDFG axis at IP_y and 1.0000 on the GOI axis at IP_x, over 250 cell(s)
+
+========================================================================
+  Total : 20
+  PASS  : 18
+  WARN  : 2
+  FAIL  : 0
+
+  Result: no failures; review the warnings above
+========================================================================

@@ -1,0 +1,36 @@
+========================================================================
+Part 10e CMRF — Guardrail Log [CP10K]
+Date: 2026-08-27 01:01:09
+Arm : Mic13_PVM3
+Normalisation: adata.X = log1p(UMIs/total x 10000), exported unchanged
+========================================================================
+
+  [PASS]  GR-01-NeoC        norm.mtx max = 8.0564  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NeoC        expm1(norm) row sums: mean = 10000.000000, max |dev| = 8.44e-10, n = 50
+  [PASS]  GR-04-NeoC        raw max = 2389, integer-like = TRUE
+  [PASS]  GR-01-NonNeoC     norm.mtx max = 7.6610  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NonNeoC     expm1(norm) row sums: mean = 10000.000000, max |dev| = 5.86e-10, n = 50
+  [PASS]  GR-04-NonNeoC     raw max = 1552, integer-like = TRUE
+  [PASS]  GR-05-NonNeoC     Part 10b EP/TREP CSV: Part10b_SKCS_Mic13_PVM3/Part10b_CP10K_M4_SKCS_NonNeoC_EP_TREP_values.csv
+  [PASS]  GR-05-NeoC        Part 10b EP/TREP CSV: Part10b_SKCS_Mic13_PVM3/Part10b_CP10K_M4_SKCS_NeoC_EP_TREP_values.csv
+  [PASS]  GR-06-Part10d     Part 10d RDS: Part10d_Copula2_Mic13_PVM3/Part10d_CP10K_M4_Copula2_all_results.rds
+  [PASS]  GR-07-IPRS        IPRS IP values (IPRS_full): IP_x NonNeoC=2.8025, NeoC=2.6794 | IP_y NonNeoC=2.0387, NeoC=1.8755
+  [PASS]  GR-08-NonNeoC     CMRF classification: Original + Refined=1232 | Original only=71 | Recovered=242 | Excluded=442
+  [PASS]  GR-09-NonNeoC     Recovered cells = 242 | original SKCS-core = 1303 | refined = 1474
+  [PASS]  GR-10-NonNeoC     spine non-decreasing: min consecutive difference = 2.012e-04 over 501 grid points
+  [PASS]  GR-11-NonNeoC     spine on 1202 TREP SKCS-core cell(s), u in [0.0005, 0.9995] | donor RE = YES (79 donors) | k = 10 | 13 iteration(s)
+  [PASS]  GR-12-NonNeoC     classification axis = cDFG at IP_y | IP_y = 2.038718 | IP_v = 0.527163 | Part 10b Pre/Post labels reproduce 1.0000 on the cDFG axis at IP_y and 0.9900 on the GOI axis at IP_x, over 1303 cell(s)
+  [PASS]  GR-08-NeoC        CMRF classification: Original + Refined=1358 | Original only=61 | Recovered=298 | Excluded=413
+  [PASS]  GR-09-NeoC        Recovered cells = 298 | original SKCS-core = 1419 | refined = 1656
+  [PASS]  GR-10-NeoC        spine non-decreasing: min consecutive difference = 4.560e-04 over 501 grid points
+  [PASS]  GR-11-NeoC        spine on 1308 TREP SKCS-core cell(s), u in [0.0005, 0.9995] | donor RE = YES (74 donors) | k = 10 | 13 iteration(s)
+  [PASS]  GR-12-NeoC        classification axis = cDFG at IP_y | IP_y = 1.875476 | IP_v = 0.538245 | Part 10b Pre/Post labels reproduce 1.0000 on the cDFG axis at IP_y and 0.9648 on the GOI axis at IP_x, over 1419 cell(s)
+
+========================================================================
+  Total : 20
+  PASS  : 20
+  WARN  : 0
+  FAIL  : 0
+
+  Result: no failures, no warnings
+========================================================================

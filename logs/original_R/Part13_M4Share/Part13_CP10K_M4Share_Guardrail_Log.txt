@@ -1,0 +1,41 @@
+========================================================================
+Part 13 - M4 share - Guardrail Log [CP10K]
+Date: 2026-10-10 16:22:20
+Root: <SEA-AD>
+Write: <SEA-AD>/Part13_M4Share
+========================================================================
+
+  [PASS]  GR-13-01  pre-set readings match the file written by an earlier run (Part13_CP10K_M4Share_preset_readings.txt, MD5 9c16f2be3f74c5697c602143fae8b550)
+  [PASS]  GR-13-02  comparator arm_tag 'Mic13_PVM3' (expected 'Mic13_PVM3'), schema 'M10HC v1'; it was built from 'Part10h_CP10K_M4_Prognosis_results.rds' and this run reads 'Part10h_CP10K_M4_Prognosis_results.rds'; CogVsPath RDS Part10h_CP10K_M4_CogVsPath_results.rds
+  [PASS]  GR-13-03  datasets NeoC/NonNeoC; donors 84/83 (expected 84/83); duplicated donor rows: FALSE; outcomes 15 (6 controls); cov4 = Age_num + APOE_e4_dose + Sex_num + PMI_num
+  [PASS]  GR-13-04  comparator module == Part 10h pct_post on every donor: max |diff| 0.00e+00
+  [PASS]  GR-13-05  Part 10h identities on one denominator: pct_any_post = pct_post + pct_excl_post (max |diff| 3.55e-15); pct_module_all = pct_pre + pct_post (3.55e-15)
+  [PASS]  GR-13-06  M4 share = the four Figure 9 populations = pct_module_all + pct_excl (max |diff| 7.11e-15); share x n_total / 100 is a whole cell count on every donor (max deviation 2.84e-14); donors with n_total < 1, share > 100 or Module > share: 0
+  [PASS]  GR-13-07  M4 arm cells rebuilt from the shares: 2130/1987 (expected 2130/1987, Methods S3 Table 3)
+  [PASS]  GR-13-08  denominator n_total = the donor's Micro-PVM_3 cells: CP (B1) x microglial cells / 100 reproduces n_total to 5.68e-14
+  [PASS]  GR-13-09  %MT of the M4 cells: 0 donor(s) without M4 cells carry a value and 0 with M4 cells lack one; r with the Micro-PVM_3-wide MitoFrac_num 0.922 (r ~ 1 would mean the file holds the supertype %MT, not the M4 cells' %MT); MT_FILE MD5 matches the Part 13a output
+  [PASS]  GR-13-10  Part 10h Multivariate (cov4, pct_post, 15 outcomes; Figure 9A) reproduced on 120 of 120 values
+  [PASS]  GR-13-11  comparator Marginal (module, cov4) and Duels vs CP, AUCell, UCell, AMS (Figures 10A-10B) reproduced on 720 of 720 values
+  [PASS]  GR-13-12  CogVsPath Models (module, cov4 and +BTC; Figure 9B) reproduced on 36 of 36 values; its BH family holds: MMSE score, CASI score, Cognitive status
+  [PASS]  GR-13-13  published Figure 10C/10D coefficients and FDRs (BH over MMSE and CASI per block and model, PostHoc M10PH-04) reproduced on 80 of 80 values
+  [PASS]  GR-13-14  published Figure 14D estimates (beta, 95% CI, n, FDR over the 9 clinical outcomes) reproduced on 15 of 15 values; a failure points to MT_FILE, MT_TRANSFORM or the family
+  [PASS]  GR-13-15  Module vs CP verdicts (Figure 10B) agree with the comparator's Duels on 30 of 30 outcomes, so the verdict rule used for the M4 share is the published one
+  [PASS]  GR-13-16  bootstrap point estimates equal the fitted models (max |diff| 0.00e+00); full-rank replicates 100.0% of 10000 at the lowest job (rank-deficient replicates skipped and counted)
+  [WARN]  GR-13-17  primary models readable (full-model VIF < 5): m1 TRUE, m2 TRUE, m3 FALSE. PRE-SET READING: R0 Not separable; m1b reading: state beyond abundance
+  [PASS]  GR-13-18  every fitted model is in the workbook: 452 of 452
+  [PASS]  GR-13-19  outputs written: Part13_CP10K_M4Share_SuppTable.xlsx, Part13_CP10K_M4Share_SuppFig.pdf, Part13_CP10K_M4Share_SuppFig.png, Part13_CP10K_M4Share_legend_draft.txt
+  [PASS]  GR-13-20  published Figure 10C largest VIF reproduced on 8 of 8 boxes; a mismatch means the readability rule here differs from PostHoc's
+  [SKIP]  GR-13-21  SEL_FILE not supplied; the all-M4-selected share sensitivity was not run
+  [PASS]  GR-13-22  post-hoc readings written before the post-hoc models: Part13_CP10K_M4Share_posthoc_readings.txt (MD5 82a670f93b0aa5c21c09cb5a5d2b5894)
+  [PASS]  GR-13-23  post-hoc frame: within-M4 fraction = 100 x Module post-IP cells / M4 cells, rebuilt from whole cell counts (max |diff| 1.42e-14); fraction outside 0-100 on 0 rows; fitted n equals donors with >= 5 M4 cells, %MT, outcome and cov4 on 18 of 18 models (MMSE n 61/58, Figure 14D frame 74/76); no model has more donors than its Figure 14D model; S02r on the S08 donors in 30 of 30 models
+  [WARN]  GR-13-24  post-hoc primary model readable (NeoC MMSE, p1, full-model VIF 7.03): fraction beta -0.763, FDR 0.048; %MT FDR 0.904. POST-HOC READING: P0 Not separable
+  [PASS]  GR-13-25  post-hoc figure written: Part13_CP10K_M4Share_SuppFig2.pdf, Part13_CP10K_M4Share_SuppFig2.png
+
+========================================================================
+  Total : 25
+  PASS  : 22
+  WARN  : 2
+  FAIL  : 0
+  SKIP  : 1
+  Run   : completed; reading: R0 Not separable; m1b reading: state beyond abundance | post-hoc: P0 Not separable
+========================================================================

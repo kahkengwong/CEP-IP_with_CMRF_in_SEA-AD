@@ -1,0 +1,242 @@
+============================================================================
+Part 9 check ledger -- CP10K
+Date        : 2026-08-17 21:13:18
+Arm         : HKG8_matched
+Export root : <SEA-AD>/R_export_CP10K
+Normalisation: adata.X = log1p(UMIs/total x 10000), exported unchanged
+============================================================================
+
+  [PASS]  QC-01a      All required config variables defined
+                          32 variables checked
+  [PASS]  QC-01b      All required directories exist
+                          17 directories checked
+  [PASS]  QC-01c      Part8_export_record.csv present
+                          h5ad = SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad | release = 2026-06-22 Multiregion | exported 2026-07-31T11:10:35Z
+  [PASS]  QC-01d      Export record normalisation matches config
+                          record: CP10K at target_sum 10000 | config: CP10K at 10000
+  [PASS]  QC-02       File present: gene_metadata.csv
+                          1.7 MB
+  [PASS]  QC-02       File present: donor_clinical.csv
+                          0 MB
+  [PASS]  QC-02       File present: obs_all_cells.csv
+                          246.5 MB
+  [PASS]  QC-02       File present: embedding_scVI.csv
+                          38.2 MB
+  [PASS]  QC-02       File present: embedding_umap.csv
+                          16.6 MB
+  [PASS]  QC-02       gene_metadata row count
+  [PASS]  QC-02       donor_clinical row count
+  [PASS]  QC-02       donor_clinical tissue-quality covariates
+                          all present: PMI, RIN, Brain pH, Fresh Brain Weight, Severely Affected Donor
+  [PASS]  QC-02       donor_clinical has no region column
+                          region correctly absent
+  [PASS]  QC-02       obs_all_cells has a barcode column
+                          first 10 cols: barcode, sample_id, Neurotypical reference, Donor ID, Organism, Brain Region, Sex, Gender, Age at Death, Race (choice=White)
+  [PASS]  QC-03       NeoC summary_gam_inputs.csv rows
+                          6 region x supertype combinations
+  [PASS]  QC-03       NeoC DFC column set, n = 465
+                          all required columns present; total cols = 21
+  [PASS]  QC-03       NeoC MTG column set, n = 290
+                          all required columns present; total cols = 21
+  [PASS]  QC-03       NeoC AnG column set, n = 113
+                          all required columns present; total cols = 21
+  [PASS]  QC-03       NeoC STG column set, n = 210
+                          all required columns present; total cols = 21
+  [PASS]  QC-03       NeoC V1C column set, n = 219
+                          all required columns present; total cols = 21
+  [PASS]  QC-03       NeoC ITG column set, n = 135
+                          all required columns present; total cols = 21
+  [PASS]  QC-03       NonNeoC summary_gam_inputs.csv rows
+                          4 region x supertype combinations
+  [PASS]  QC-03       NonNeoC HIP column set, n = 166
+                          all required columns present; total cols = 21
+  [PASS]  QC-03       NonNeoC MEC column set, n = 739
+                          all required columns present; total cols = 21
+  [PASS]  QC-03       NonNeoC LEC column set, n = 75
+                          all required columns present; total cols = 21
+  [PASS]  QC-03       NonNeoC FI column set, n = 99
+                          all required columns present; total cols = 21
+  [PASS]  QC-04       NeoC DFC GOI / composite ranges
+                          GOI [0.456, 4.093] NA=0 neg=0 | cHKG8 [0.000, 2.980] NA=0 neg=0 | ceiling 9.2104
+  [PASS]  QC-04b      NeoC DFC GOI > 0 as selected
+                          0 of 465 cells have GOI <= 0 (ACTB in SELECT_GENES)
+  [PASS]  QC-04       NeoC MTG GOI / composite ranges
+                          GOI [0.356, 3.356] NA=0 neg=0 | cHKG8 [0.191, 2.379] NA=0 neg=0 | ceiling 9.2104
+  [PASS]  QC-04b      NeoC MTG GOI > 0 as selected
+                          0 of 290 cells have GOI <= 0 (ACTB in SELECT_GENES)
+  [PASS]  QC-04       NeoC AnG GOI / composite ranges
+                          GOI [0.392, 4.222] NA=0 neg=0 | cHKG8 [0.000, 2.519] NA=0 neg=0 | ceiling 9.2104
+  [PASS]  QC-04b      NeoC AnG GOI > 0 as selected
+                          0 of 113 cells have GOI <= 0 (ACTB in SELECT_GENES)
+  [PASS]  QC-04       NeoC STG GOI / composite ranges
+                          GOI [0.414, 3.723] NA=0 neg=0 | cHKG8 [0.164, 2.460] NA=0 neg=0 | ceiling 9.2104
+  [PASS]  QC-04b      NeoC STG GOI > 0 as selected
+                          0 of 210 cells have GOI <= 0 (ACTB in SELECT_GENES)
+  [PASS]  QC-04       NeoC V1C GOI / composite ranges
+                          GOI [0.408, 3.528] NA=0 neg=0 | cHKG8 [0.000, 2.575] NA=0 neg=0 | ceiling 9.2104
+  [PASS]  QC-04b      NeoC V1C GOI > 0 as selected
+                          0 of 219 cells have GOI <= 0 (ACTB in SELECT_GENES)
+  [PASS]  QC-04       NeoC ITG GOI / composite ranges
+                          GOI [0.340, 4.216] NA=0 neg=0 | cHKG8 [0.330, 2.359] NA=0 neg=0 | ceiling 9.2104
+  [PASS]  QC-04b      NeoC ITG GOI > 0 as selected
+                          0 of 135 cells have GOI <= 0 (ACTB in SELECT_GENES)
+  [PASS]  QC-04       NonNeoC HIP GOI / composite ranges
+                          GOI [0.524, 3.843] NA=0 neg=0 | cHKG8 [0.176, 2.296] NA=0 neg=0 | ceiling 9.2104
+  [PASS]  QC-04b      NonNeoC HIP GOI > 0 as selected
+                          0 of 166 cells have GOI <= 0 (ACTB in SELECT_GENES)
+  [PASS]  QC-04       NonNeoC MEC GOI / composite ranges
+                          GOI [0.288, 4.315] NA=0 neg=0 | cHKG8 [0.149, 2.577] NA=0 neg=0 | ceiling 9.2104
+  [PASS]  QC-04b      NonNeoC MEC GOI > 0 as selected
+                          0 of 739 cells have GOI <= 0 (ACTB in SELECT_GENES)
+  [PASS]  QC-04       NonNeoC LEC GOI / composite ranges
+                          GOI [0.630, 3.970] NA=0 neg=0 | cHKG8 [0.204, 2.641] NA=0 neg=0 | ceiling 9.2104
+  [PASS]  QC-04b      NonNeoC LEC GOI > 0 as selected
+                          0 of 75 cells have GOI <= 0 (ACTB in SELECT_GENES)
+  [PASS]  QC-04       NonNeoC FI GOI / composite ranges
+                          GOI [0.567, 4.237] NA=0 neg=0 | cHKG8 [0.000, 2.701] NA=0 neg=0 | ceiling 9.2104
+  [PASS]  QC-04b      NonNeoC FI GOI > 0 as selected
+                          0 of 99 cells have GOI <= 0 (ACTB in SELECT_GENES)
+  [PASS]  QC-05       NeoC DFC selected count
+  [PASS]  QC-05       NeoC MTG selected count
+  [PASS]  QC-05       NeoC AnG selected count
+  [PASS]  QC-05       NeoC STG selected count
+  [PASS]  QC-05       NeoC V1C selected count
+  [PASS]  QC-05       NeoC ITG selected count
+  [PASS]  QC-05       NonNeoC HIP selected count
+  [PASS]  QC-05       NonNeoC MEC selected count
+  [PASS]  QC-05       NonNeoC LEC selected count
+  [PASS]  QC-05       NonNeoC FI selected count
+  [PASS]  QC-06       NeoC raw_selected MTX dims vs barcodes and features
+                          MTX 1432 x 36601 | barcodes 1432 | features 36601
+  [PASS]  QC-06       NeoC raw_dataset (shared) MTX dims vs barcodes and features
+                          MTX 134088 x 36601 | barcodes 134088 | features 36601
+  [PASS]  QC-06       NeoC norm MTX dims vs barcodes and features
+                          MTX 1432 x 36601 | barcodes 1432 | features 36601
+  [PASS]  QC-06       NonNeoC raw_selected MTX dims vs barcodes and features
+                          MTX 1079 x 36601 | barcodes 1079 | features 36601
+  [PASS]  QC-06       NonNeoC raw_dataset (shared) MTX dims vs barcodes and features
+                          MTX 106563 x 36601 | barcodes 106563 | features 36601
+  [PASS]  QC-06       NonNeoC norm MTX dims vs barcodes and features
+                          MTX 1079 x 36601 | barcodes 1079 | features 36601
+  [PASS]  QC-07       NeoC DFC GAM barcodes in count matrix
+                          465 / 465 found
+  [PASS]  QC-07       NeoC MTG GAM barcodes in count matrix
+                          290 / 290 found
+  [PASS]  QC-07       NeoC AnG GAM barcodes in count matrix
+                          113 / 113 found
+  [PASS]  QC-07       NeoC STG GAM barcodes in count matrix
+                          210 / 210 found
+  [PASS]  QC-07       NeoC V1C GAM barcodes in count matrix
+                          219 / 219 found
+  [PASS]  QC-07       NeoC ITG GAM barcodes in count matrix
+                          135 / 135 found
+  [PASS]  QC-07       NonNeoC HIP GAM barcodes in count matrix
+                          166 / 166 found
+  [PASS]  QC-07       NonNeoC MEC GAM barcodes in count matrix
+                          739 / 739 found
+  [PASS]  QC-07       NonNeoC LEC GAM barcodes in count matrix
+                          75 / 75 found
+  [PASS]  QC-07       NonNeoC FI GAM barcodes in count matrix
+                          99 / 99 found
+  [PASS]  QC-08       NeoC GOI in dense CSV vs GAM CSV
+                          r = 1.000000 | max_diff = 0.00e+00 | n = 465 | region DFC
+  [PASS]  QC-08       NonNeoC GOI in dense CSV vs GAM CSV
+                          r = 1.000000 | max_diff = 0.00e+00 | n = 166 | region HIP
+  [PASS]  QC-09       NeoC "Overall AD neuropathological Change" NA rate
+                          0 NA or empty out of 1432 cells (0.0%)
+  [PASS]  QC-09       NeoC "Braak" NA rate
+                          0 NA or empty out of 1432 cells (0.0%)
+  [PASS]  QC-09       NeoC "CERAD score" NA rate
+                          0 NA or empty out of 1432 cells (0.0%)
+  [PASS]  QC-09       NeoC "Thal" NA rate
+                          0 NA or empty out of 1432 cells (0.0%)
+  [PASS]  QC-09       NeoC "Cognitive Status" NA rate
+                          0 NA or empty out of 1432 cells (0.0%)
+  [PASS]  QC-09       NeoC "APOE Genotype" NA rate
+                          0 NA or empty out of 1432 cells (0.0%)
+  [PASS]  QC-09       NeoC "Donor ID" NA rate
+                          0 NA or empty out of 1432 cells (0.0%)
+  [PASS]  QC-09       NonNeoC "Overall AD neuropathological Change" NA rate
+                          0 NA or empty out of 1079 cells (0.0%)
+  [PASS]  QC-09       NonNeoC "Braak" NA rate
+                          0 NA or empty out of 1079 cells (0.0%)
+  [PASS]  QC-09       NonNeoC "CERAD score" NA rate
+                          0 NA or empty out of 1079 cells (0.0%)
+  [PASS]  QC-09       NonNeoC "Thal" NA rate
+                          0 NA or empty out of 1079 cells (0.0%)
+  [PASS]  QC-09       NonNeoC "Cognitive Status" NA rate
+                          0 NA or empty out of 1079 cells (0.0%)
+  [PASS]  QC-09       NonNeoC "APOE Genotype" NA rate
+                          0 NA or empty out of 1079 cells (0.0%)
+  [PASS]  QC-09       NonNeoC "Donor ID" NA rate
+                          0 NA or empty out of 1079 cells (0.0%)
+  [PASS]  QC-10       NeoC selected cell count
+  [PASS]  QC-10       NeoC dataset cell count
+  [PASS]  QC-10       NonNeoC selected cell count
+  [PASS]  QC-10       NonNeoC dataset cell count
+  [PASS]  QC-11       NeoC score_M1_FC
+                          range [1.0420, 2.9916] NA=0 Inf=0
+  [PASS]  QC-11       NeoC score_M2_Hybrid
+                          range [1.3140, 3.8357] NA=0 Inf=0
+  [PASS]  QC-11       NeoC score_M3_pRank
+                          range [0.7407, 3.3335] NA=0 Inf=0
+  [PASS]  QC-11       NeoC score_M4_M1andM2
+                          range [0.9700, 1.0000] NA=0 Inf=0
+  [PASS]  QC-11       NeoC score_M5_M1andM3
+                          range [0.9194, 1.0000] NA=0 Inf=0
+  [PASS]  QC-11       NeoC score_M6_M2andM3
+                          range [0.9194, 1.0000] NA=0 Inf=0
+  [PASS]  QC-11       NonNeoC score_M1_FC
+                          range [0.9828, 3.0539] NA=0 Inf=0
+  [PASS]  QC-11       NonNeoC score_M2_Hybrid
+                          range [1.1995, 3.8102] NA=0 Inf=0
+  [PASS]  QC-11       NonNeoC score_M3_pRank
+                          range [0.7844, 3.3695] NA=0 Inf=0
+  [PASS]  QC-11       NonNeoC score_M4_M1andM2
+                          range [0.9700, 1.0000] NA=0 Inf=0
+  [PASS]  QC-11       NonNeoC score_M5_M1andM3
+                          range [0.9375, 1.0000] NA=0 Inf=0
+  [PASS]  QC-11       NonNeoC score_M6_M2andM3
+                          range [0.9375, 1.0000] NA=0 Inf=0
+  [PASS]  QC-12a      NeoC norm.mtx maximum within the ceiling
+                          max = 7.9541 (ceiling log1p(10000) = 9.2104)
+  [PASS]  QC-12b      NeoC expm1(norm) row sums pin the target
+                          mean = 10000.000000, max |deviation| = 8.44e-10, n = 50 cells
+  [PASS]  QC-12c      NeoC norm.mtx reconstructs from raw counts
+                          max_diff = 4.44e-16 vs log1p(UMIs/total x 10000), 14 genes x 50 cells
+  [PASS]  QC-12d      NeoC norm.mtx GOI vs GAM CSV GOI
+                          max_diff = 2.15e-07 over 465 cells, region DFC
+  [PASS]  QC-12e      NeoC raw counts are integer-valued
+                          max = 1874, integer-like = TRUE
+  [PASS]  QC-12a      NonNeoC norm.mtx maximum within the ceiling
+                          max = 7.6610 (ceiling log1p(10000) = 9.2104)
+  [PASS]  QC-12b      NonNeoC expm1(norm) row sums pin the target
+                          mean = 10000.000000, max |deviation| = 6.20e-10, n = 50 cells
+  [PASS]  QC-12c      NonNeoC norm.mtx reconstructs from raw counts
+                          max_diff = 4.44e-16 vs log1p(UMIs/total x 10000), 14 genes x 50 cells
+  [PASS]  QC-12d      NonNeoC norm.mtx GOI vs GAM CSV GOI
+                          max_diff = 1.83e-07 over 166 cells, region HIP
+  [PASS]  QC-12e      NonNeoC raw counts are integer-valued
+                          max = 1552, integer-like = TRUE
+  [PASS]  GR-00       Pre-analysis input checks performed in Part 9.1
+                          QC-01 to QC-13 ran against the same files: 114 PASS / 0 WARN / 0 FAIL
+  [PASS]  GR-06       Global cell count audit
+                          12 row(s) audited, 0 mismatch(es)
+  [PASS]  GR-07       GAM convergence
+                          12/12 converged, 0 failed, 0 skipped
+  [WARN]  GR-08       Deviance explained within range
+                          DE range [-27.30%, 31.89%] over 12 models, vs donor-aware null (D-04)
+  [PASS]  GR-09       PRSS finite and positive
+                          range [1.7909, 9.7259] over 12 models
+  [PASS]  GR-10       Best k within the configured range
+                          best k range [3, 10], max_k = 10, 12 models
+  [PASS]  GR-12       Donor random intercept fitted on every model
+                          donors per fit [18, 77]; 0 fallback(s) to cell level
+
+============================================================================
+  Total : 121
+  PASS  : 120
+  WARN  : 1
+  FAIL  : 0
+  Result: no failures
+============================================================================

@@ -1,0 +1,138 @@
+Part10h stage 2 Cog-vs-Path - log started: 2026-08-30 07:06:00.760042
+
+
+============================================================================
+  ARM: PVM3_all   config: R_config.R
+============================================================================
+R_config.R loaded (Module 1: MT-CO3 + 8 DFGs, ≥8/10 regions).
+  ARM_TAG   : PVM3_all 
+  ARM_DIR   : <SEA-AD>/R_export_CP10K/PVM3_all 
+  NEOC_DIR  : <SEA-AD>/R_export_CP10K/PVM3_all/neocortex 
+  NONNC_DIR : <SEA-AD>/R_export_CP10K/PVM3_all/nonneocortex 
+  SHARED_DIR: <SEA-AD>/R_export_CP10K/shared 
+  GOI       : MT-CO3 
+  DFG_NEOC  : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  DFG_NONNC : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Composite : cDFG 
+  RUN_SUFFIX: _PVM3all 
+  Supertype : Micro-PVM_3-SEAAD 
+  Mod1 genes: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 ( 9 )
+  HKG_GENES : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 13331 NeoC / 11132 NonNeoC
+  Config OK: PVM3_all | MT-CO3 + 8 DFG | CP10K
+
+
+ ======================================================================== 
+  Part10h stage 2 - Cognition vs Pathology
+  Arm    : PVM3_all | MT-CO3 | CP10K 
+  Input  : Part10h_CP10K_PVM_3_Prognosis_results.rds (+ the comparator RDS, optional)
+  Unit   : DONOR. Question: does the module still predict cognition
+           once plaque and tangle burden are in the model?
+  Output : <SEA-AD>/Part10h_Prognosis_2_CogVsPath/Part10h_Prognosis_2_CogVsPath_PVM_3 
+======================================================================== 
+
+STEP 1 -- Part 10h results object
+  [PASS]  GR-10CP-01          Part10h_CP10K_PVM_3_Prognosis_results.rds (written 2026-08-29 03:18:52) | 167 row(s), 2 dataset(s) | cov4 = Age_num + APOE_e4_dose + Sex_num + PMI_num | blocks +ADNC(+1) +BTC(+3) +ALL(+4) | 4 cognitive, 4 pathology outcome(s) | maps via Part 10h COV_MAP, built-in | donors usable: MMSE score 159, CASI score 137, MOCA score 30, Cognitive status 167
+  [PASS]  GR-10CP-11          module family: 3 of 3 present (Non-module Post-IP, Module Pre-IP, Non-module Pre-IP). Without Non-module Post-IP the attenuation asymmetry cannot be measured and the boundary claim rests on the unadjusted correlations alone
+  [PASS]  GR-10CP-08          baselines from Part10h_CP10K_PVM_3_Comparator_results.rds, joined on donor + dataset; join reproduces the module exactly (max |dev| 0.0e+00). Predictors: CMRF module Post-IP, Non-module Post-IP, Module Pre-IP, Non-module Pre-IP, Cluster proportion (supertype), Module score (AUCell), Changepoint split (segmented), Module score (UCell), Module score (AddModuleScore)
+
+STEP 1c -- agreement among the cognitive measures
+   dataset          a                b  n n_levels_a n_levels_b pearson
+1     NeoC MMSE score       CASI score 69         18         29   0.820
+2     NeoC MMSE score       MOCA score 13         18         10      NA
+3     NeoC MMSE score Cognitive status 80         18          2  -0.498
+4     NeoC CASI score       MOCA score  8         29         10      NA
+5     NeoC CASI score Cognitive status 69         29          2  -0.617
+6     NeoC MOCA score Cognitive status 15         10          2      NA
+7  NonNeoC MMSE score       CASI score 68         18         29   0.819
+8  NonNeoC MMSE score       MOCA score 13         18         10      NA
+9  NonNeoC MMSE score Cognitive status 79         18          2  -0.497
+10 NonNeoC CASI score       MOCA score  8         29         10      NA
+11 NonNeoC CASI score Cognitive status 68         29          2  -0.613
+12 NonNeoC MOCA score Cognitive status 15         10          2      NA
+   spearman kendall
+1     0.833   0.677
+2        NA      NA
+3    -0.518  -0.440
+4        NA      NA
+5    -0.604  -0.505
+6        NA      NA
+7     0.833   0.676
+8        NA      NA
+9    -0.513  -0.436
+10       NA      NA
+11   -0.596  -0.498
+12       NA      NA
+  [PASS]  GR-10CP-09          cognitive status vs the administered scores: NeoC/MMSE score rho -0.518 (n 80); NeoC/CASI score rho -0.604 (n 69); NeoC/MOCA score rho NA (n 15); NonNeoC/MMSE score rho -0.513 (n 79); NonNeoC/CASI score rho -0.596 (n 68); NonNeoC/MOCA score rho NA (n 15). 2 level(s) against MMSE's 18. Above about |0.8| it is close to a coarsened MMSE; below, its divergence elsewhere is substantive
+
+STEP 2 -- module against cognition, adjusted for pathology
+
+  NeoC
+    MMSE score         cov4 beta -0.493*** (dR2 0.216, n 80)  |  +ADNC beta -0.463*** (dR2 0.150, n 80)  |  +BTC beta -0.394** (dR2 0.100, n 80)  |  +ALL beta -0.402** (dR2 0.103, n 80)
+    CASI score         cov4 beta -0.601*** (dR2 0.308, n 69)  |  +ADNC beta -0.478*** (dR2 0.146, n 69)  |  +BTC beta -0.421** (dR2 0.107, n 69)  |  +ALL beta -0.421** (dR2 0.106, n 69)
+    Cognitive status   cov4 beta +0.465*** (dR2 0.194, n 84)  |  +ADNC beta +0.321** (dR2 0.073, n 84)  |  +BTC beta +0.260* (dR2 0.043, n 84)  |  +ALL beta +0.271* (dR2 0.047, n 84)
+
+  NonNeoC
+    MMSE score         cov4 beta -0.465*** (dR2 0.200, n 79)  |  +ADNC beta -0.424*** (dR2 0.139, n 79)  |  +BTC beta -0.361** (dR2 0.093, n 79)  |  +ALL beta -0.363** (dR2 0.093, n 79)
+    CASI score         cov4 beta -0.552*** (dR2 0.274, n 68)  |  +ADNC beta -0.427*** (dR2 0.133, n 68)  |  +BTC beta -0.364** (dR2 0.090, n 68)  |  +ALL beta -0.364** (dR2 0.090, n 68)
+    Cognitive status   cov4 beta +0.499*** (dR2 0.232, n 83)  |  +ADNC beta +0.378*** (dR2 0.111, n 83)  |  +BTC beta +0.325** (dR2 0.076, n 83)  |  +ALL beta +0.327** (dR2 0.076, n 83)
+
+STEP 3 -- how much of the coefficient survives
+  headline block +BTC (cov4 + Braak + Thal + CERAD), module:
+    NeoC     MMSE score         beta -0.493 -> -0.394 (80% retained), BH 0.0000 -> 0.0016  SURVIVES
+    NeoC     CASI score         beta -0.601 -> -0.421 (70.1% retained), BH 0.0000 -> 0.0019  SURVIVES
+    NeoC     Cognitive status   beta +0.465 -> +0.260 (56.1% retained), BH 0.0000 -> 0.0253  SURVIVES
+    NonNeoC  MMSE score         beta -0.465 -> -0.361 (77.8% retained), BH 0.0000 -> 0.0029  SURVIVES
+    NonNeoC  CASI score         beta -0.552 -> -0.364 (66% retained), BH 0.0000 -> 0.0036  SURVIVES
+    NonNeoC  Cognitive status   beta +0.499 -> +0.325 (65.3% retained), BH 0.0000 -> 0.0036  SURVIVES
+
+STEP 4 -- the mirror: pathology adjusted for cognition
+  NeoC     CMRF module Post-IP  pathology surviving BH: 4 of 4 at cov4, 3 of 4 with MMSE + CASI added
+  NeoC     Non-module Post-IP   pathology surviving BH: 4 of 4 at cov4, 3 of 4 with MMSE + CASI added
+  NeoC     Module Pre-IP        pathology surviving BH: 4 of 4 at cov4, 0 of 4 with MMSE + CASI added
+  NeoC     Non-module Pre-IP    pathology surviving BH: 0 of 4 at cov4, 0 of 4 with MMSE + CASI added
+  NonNeoC  CMRF module Post-IP  pathology surviving BH: 4 of 4 at cov4, 0 of 4 with MMSE + CASI added
+  NonNeoC  Non-module Post-IP   pathology surviving BH: 2 of 4 at cov4, 0 of 4 with MMSE + CASI added
+  NonNeoC  Module Pre-IP        pathology surviving BH: 4 of 4 at cov4, 0 of 4 with MMSE + CASI added
+  NonNeoC  Non-module Pre-IP    pathology surviving BH: 2 of 4 at cov4, 0 of 4 with MMSE + CASI added
+
+STEP 4b -- module and non-module in ONE model
+  NeoC     cov4   MMSE score         n  80 | module -0.479 (BH 0.0001) | non-module -0.025 (BH 0.8203) | VIF 1.6/1.6 | module only
+  NeoC     cov4   CASI score         n  69 | module -0.661 (BH 0.0000) | non-module +0.096 (BH 0.8203) | VIF 1.8/1.6 | module only
+  NeoC     cov4   Cognitive status   n  84 | module +0.442 (BH 0.0007) | non-module +0.038 (BH 0.8203) | VIF 1.6/1.6 | module only
+  NeoC     +BTC   MMSE score         n  80 | module -0.399 (BH 0.0023) | non-module +0.009 (BH 0.9373) | VIF 1.9/1.7 | module only
+  NeoC     +BTC   CASI score         n  69 | module -0.495 (BH 0.0023) | non-module +0.142 (BH 0.7456) | VIF 2.1/1.6 | module only
+  NeoC     +BTC   Cognitive status   n  84 | module +0.298 (BH 0.0217) | non-module -0.081 (BH 0.7456) | VIF 1.9/1.7 | module only
+  NonNeoC  cov4   MMSE score         n  79 | module -0.446 (BH 0.0000) | non-module -0.058 (BH 0.8524) | VIF 1.2/1.2 | module only
+  NonNeoC  cov4   CASI score         n  68 | module -0.553 (BH 0.0000) | non-module +0.007 (BH 0.9526) | VIF 1.2/1.1 | module only
+  NonNeoC  cov4   Cognitive status   n  83 | module +0.523 (BH 0.0000) | non-module -0.074 (BH 0.8524) | VIF 1.2/1.2 | module only
+  NonNeoC  +BTC   MMSE score         n  79 | module -0.358 (BH 0.0024) | non-module -0.015 (BH 0.8827) | VIF 1.5/1.3 | module only
+  NonNeoC  +BTC   CASI score         n  68 | module -0.376 (BH 0.0032) | non-module +0.066 (BH 0.8145) | VIF 1.5/1.2 | module only
+  NonNeoC  +BTC   Cognitive status   n  83 | module +0.354 (BH 0.0024) | non-module -0.122 (BH 0.7074) | VIF 1.5/1.3 | module only
+
+STEP 5 -- figures
+
+STEP 6 -- output
+  6 sheet(s) written to Part10h_CP10K_PVM_3_CogVsPath.xlsx
+  Part10h_CP10K_PVM_3_CogVsPath_results.rds written (0.02 MB)
+
+STEP 7 -- guardrails
+  [PASS]  GR-10CP-04          cov4 vs Part 10h over 6 row(s): max |d beta| 0.0000, |d n| 0, |d delta-R2| 0.0000. Unverified here (no Part 10h row): MOCA score
+  [PASS]  GR-10CP-02          realised n per block: cov4 68-84, +ADNC 68-84, +BTC 68-84, +ALL 68-84 | 0 of 162 attenuation row(s) compare DIFFERENT donor sets, so every pct_retained is like-for-like | 3 row(s) sit below the |beta| 0.10 floor and carry abs_change_beta instead of pct_retained
+  [WARN]  GR-10CP-03          worst VIF per block: cov4 1.2, +ADNC 1.7, +BTC 3.8, +ALL 11.2 | 54 model(s) at or above 5. Expected in +ALL, where ADNC is a composite of Braak, Thal and CERAD; the headline is +BTC
+  [PASS]  GR-10CP-05          THE ANSWER at +BTC: 6 of 6 dataset-outcome row(s) survive. SURVIVING: NeoC MMSE score (80% of beta, BH 0.0016); NeoC CASI score (70% of beta, BH 0.0019); NeoC Cognitive status (56% of beta, BH 0.0253); NonNeoC MMSE score (78% of beta, BH 0.0029); NonNeoC CASI score (66% of beta, BH 0.0036); NonNeoC Cognitive status (65% of beta, BH 0.0036) | mirror: 6 of 32 pathology row(s) survive adding MMSE + CASI
+  [PASS]  GR-10CP-10          DO THE BASELINES SURVIVE +BTC? MMSE/CASI rows -- module 4 of 4; Cluster proportion (supertype) 0 of 4; Module score (AUCell) 4 of 4; Changepoint split (segmented) 3 of 4; Module score (UCell) 4 of 4; Module score (AddModuleScore) 4 of 4. If the baselines survive too, surviving +BTC is a property of any microglial measure rather than of the module
+  [PASS]  GR-10CP-12          JOINT MODEL at +BTC over MMSE/CASI: 4 of 4 row(s) readable at VIF < 5 (module-non-module r 0.29 to 0.56). Verdicts: module only 4. | RETENTION at +BTC -- module: NeoC MMSE score 80%; NeoC CASI score 70%; NonNeoC MMSE score 78%; NonNeoC CASI score 66% || non-module: NeoC MMSE score 52%; NeoC CASI score 22%; NonNeoC MMSE score 41%; NonNeoC CASI score -11%. A LOWER retention off-module is the attenuation asymmetry; a row below the beta floor had no baseline association to attenuate and is NOT evidence either way
+  [PASS]  GR-10CP-13          publication panels on FIXED axes: attenuation [-0.90, 0.30], mirror [-0.40, 0.80]. 0 interval(s) clipped. The limits are the same on every arm so the assembled panels are directly comparable; a free axis would make a control arm's coefficient look the size of a real arm's.
+  [PASS]  GR-10CP-06          4 figure(s) written as PDF and PNG; both summarise sheets
+  [PASS]  GR-10CP-07          outputs: Part10h_CP10K_PVM_3_CogVsPath_results.rds written | Part10h_CP10K_PVM_3_CogVsPath.xlsx written
+
+  Final guardrail tally: 12 PASS / 1 WARN / 0 FAIL
+
+ ======================================================================== 
+  Part10h stage 2 Cog-vs-Path COMPLETE [PVM3_all]
+  Output directory: <SEA-AD>/Part10h_Prognosis_2_CogVsPath/Part10h_Prognosis_2_CogVsPath_PVM_3 
+======================================================================== 

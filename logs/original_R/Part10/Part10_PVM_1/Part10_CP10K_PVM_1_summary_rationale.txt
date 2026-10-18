@@ -1,0 +1,52 @@
+========================================================================
+Part 10 - Module 1 SKCS Decomposition: Rationale & Cell Count Summary
+========================================================================
+
+MODULE 1
+--------
+  GOI  : MT-CO3
+  DFG  : cDFG composite of  MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1
+  HKG  : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1
+  Cell source : per-region gam_data CSVs (full M4-top)
+  GOI filter  : MT-CO3 > 0
+  Baseline DE : Part 9 RDS (full-population GAM)
+
+SKCS THRESHOLDS
+---------------
+  S_norm > 0.05 (calibration-purity floor: >= 5% of max single-cell rank-product)
+  K > 0.5 (concordant with >= 75% of all pairwise comparisons)
+  Normalisation: Si_norm = Si / Si_max, where Si_max = (n-1)/4
+  Si_norm > 0.05 excludes ambiguous IP transition zone for CMRF calibration
+
+TREP CLASSIFICATION (EP-based, Allen MTG Part 5)
+------------------------------------------------
+  EP = 1 - model_residual^2 / null_residual^2  (per cell)
+  Model residual uses the population-level prediction (s(donor) excluded).
+  TREP = top round(n x DE) cells by EP descending, where DE is the
+  weighted population-level deviance explained of that same prediction
+  (B10-08). Both predictions are donor-free; the residuals are not, so
+  the ranking matches the published method and is not donor-neutral.
+  Non-SKCS cells: is_trep = FALSE by default.
+
+CELL COUNTS
+-----------
+NON-NEOCORTICAL REGIONS (NonNeoC)
+----------------------------------------
+    HIP           total=449    SKCS-core=303   (67.5%)  non-SKCS=146   (32.5%)
+    MEC           total=1387   SKCS-core=894   (64.5%)  non-SKCS=493   (35.5%)
+    LEC           total=209    SKCS-core=103   (49.3%)  non-SKCS=106   (50.7%)
+    FI            total=613    SKCS-core=382   (62.3%)  non-SKCS=231   (37.7%)
+    Pooled        total=2658   SKCS-core=1677  (63.1%)  non-SKCS=981   (36.9%)
+
+NEOCORTICAL REGIONS (NeoC)
+----------------------------------------
+    DFC           total=730    SKCS-core=326   (44.7%)  non-SKCS=404   (55.3%)
+    MTG           total=902    SKCS-core=541   (60.0%)  non-SKCS=361   (40.0%)
+    AnG           total=314    SKCS-core=183   (58.3%)  non-SKCS=131   (41.7%)
+    STG           total=403    SKCS-core=241   (59.8%)  non-SKCS=162   (40.2%)
+    V1C           total=419    SKCS-core=215   (51.3%)  non-SKCS=204   (48.7%)
+    ITG           total=450    SKCS-core=305   (67.8%)  non-SKCS=145   (32.2%)
+    Pooled        total=3218   SKCS-core=1862  (57.9%)  non-SKCS=1356  (42.1%)
+
+Generated: 2026-08-17 21:52:03
+========================================================================

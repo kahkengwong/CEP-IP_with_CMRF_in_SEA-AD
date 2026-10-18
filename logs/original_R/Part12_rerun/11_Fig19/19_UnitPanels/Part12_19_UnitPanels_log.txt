@@ -1,0 +1,138 @@
+Part 12 rerun -- step 27
+Script: Part12_Fig19_Analysis.r | md5 87e3a3e952c93113bff84d7fe4fd612f
+Shared file: Part12_03_Config.r | md5 df0cc2f82a0fd0947b3bb0b93bae800a
+Run ID: 20260925-1026-windows
+Start: 2026-09-25 10:26:05
+Machine: LAPTOP-M7LQ95IS | R version 4.6.1 (2026-06-24 ucrt)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6 | parallel 4.6.1
+Config: Part12_rerun/Part12_01_config.json | version 16 | md5 de727a6a529ece74865c9387be6d8831
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 27-01 script saved in Part12_rerun | Part12_Fig19_Analysis.r
+
+Battery 5 config: Part12_rerun/Part12_Fig19_config.json | version 1 | md5 edbb1f1b6225c5f7ce29611b7142b88b
+Battery 5 readings: Part12_rerun/Part12_Preset_Readings_Battery5.md | md5 45660b915ba3b704eaf3216421dd2ba1
+[PASS] 27-02 Battery 5 readings file present | Part12_rerun/Part12_Preset_Readings_Battery5.md
+
+Pre-set reading for Battery 5 definitions | Part12_rerun/Part12_Preset_Readings_Battery5.md | md5 45660b915ba3b704eaf3216421dd2ba1
+  ### Battery 5 definitions.
+  
+  - Why a separate battery. All 84 donors are primary in Batteries 1 to 4, and the eleven SA donors were pre-specified as a sensitivity analysis of the clinical association only (Supplementary Figure 10). The Methods state that the between-donor results may depend on them. Battery 5 tests that statement on the panels exposed to a donor-level shift, instead of leaving it open.
+  - Change of decision, recorded. On 2026-09-23 no further reruns of Batteries 1 to 4 were planned. Battery 5 does not rerun them: it reads their stats files and inputs, reproduces the all-donor estimates it retests, and computes new statistics only without the eleven and under random removal. It is recorded in the migration summary as a dated entry.
+  - Files left unchanged. Part12_01_config.json (version 16), Part12_Preset_Readings.md, Part12_03_Config.r and the Figure 15 to 18 analysis files are not edited. Every Battery 1 to 4 log prints their checksums; editing them would make those logs disagree with the files they name. Battery 5 has its own configuration (Part12_Fig19_config.json) and this readings file. Section 26 stops if any Battery 1 to 4 file differs from its recorded checksum.
+  - What is held fixed. Cell labels, the inflection point, the units, the Module post-IP% of every unit and donor, the %MT, the nuclear panel genes of 18A and every donor panel score are those of the all-donor run. Only donor rows are removed from each statistic. Battery 5 therefore asks whether the eleven donors carry the statistics, not whether they shaped the Module definition.
+  - The SA flag. The SEA-AD column "Severely Affected Donor" of obs_dataset.csv, every arm and region set. Exactly eleven donors must be flagged, the flag must be constant within donor, and every flagged donor must have ADNC_rank 3 (High). Otherwise section 26 fails.
+  - Frames. A frame is the donor set a statistic is drawn from: the arm's donors in the unit table (16A, 16B, 16F); the arm's donors joined to histology or CPS (17A, 17B); the arm's donors joined to histology (17C); the arm's donor-table rows in one region set (15A, 17D, 18A). Removing the eleven removes those of them present in the frame; k is that number.
+  - Without the eleven. Each retested statistic is recomputed on the frame less its SA donors, with the method, floors and multiple-testing families of the all-donor run, and a new resampling seed (Part12_Fig19_config.json). FDR is BH within the same family as in the all-donor run.
+  - Random removal (the null). In each frame, k donors are drawn without replacement from the frame's High-ADNC donors that are not SA, 1,000 times; the draws are made once in section 26 and written, so every later section uses the same draws. A contrast between two arms uses draw r of each arm's frame. Each draw recomputes the estimate only.
+  - Change. For a row with all-donor estimate e and sign s = sign(e), the change on removing a set is s x (e_removed - e). A negative change is attenuation toward zero. The SA change is compared with the 1,000 random-removal changes of the same row; p_null = (1 + number of random changes at or below the SA change) / (1 + number of finite random changes), one-sided, descriptive.
+  - Reproduction check. Before anything is removed, each section recomputes the all-donor estimates it retests and compares them with the Battery 1 to 4 stats files (estimate, units and donors; and the OLS p for 15A, 17D and 18A). A difference above 1e-8 fails the section.
+  - Row classes. Significant means FDR < 0.05; the all-donor FDR is the one in the Battery 1 to 4 stats file.
+    - Holds: significant with and without the eleven, same sign.
+    - Reversed: significant with and without, opposite sign.
+    - Lost, beyond random removal: significant with, not without, and the SA change is below the 5th percentile of the random-removal changes.
+    - Lost, within random removal: significant with, not without, and the SA change is at or above that percentile.
+    - Lost, null untestable: significant with, not without, and the frame has fewer non-SA High-ADNC donors than k.
+    - Untestable without the eleven: significant with, below the donor floor without.
+    - Gained: not significant with, significant without.
+    - Neither: significant in neither.
+    - Untestable: untestable in the all-donor run.
+  - Panel reading. A panel holds without the eleven when none of its rows is Reversed or Lost, beyond random removal. Otherwise the panel is reported as depending on the eleven for that number of rows, named. Rows lost within random removal are reported as lost with power, not as dependence. The counts of every class are reported for every panel, whatever they are.
+  - Placement. Figure 19 of the Part 12 rerun files (the manuscript number is set at assembly), in the main text, whatever the outcome. Every row of every retested panel is in the Figure 19 stats and readout files.
+  
+
+Pre-set reading for 19A | Part12_rerun/Part12_Preset_Readings_Battery5.md | md5 45660b915ba3b704eaf3216421dd2ba1
+  ### 19A. Unit-level donor structure: 16A, 16B and 16F between donors (section 27)
+  
+  - 16A: donor share of variance per arm and quantity (five quantities), against 10,000 within-region shuffles of the donor labels; BH within arm.
+  - 16B: split-half rs per arm and quantity (three quantities). The halves are those of the all-donor run (reproduced from its seed), so without the eleven each remaining donor keeps its halves; donor bootstrap on the remaining donors; BH within arm.
+  - 16F between donors: rs of donor means with the library intronic rate for Module post-IP%, log1p %MT, log cell count and log median depth, and the contrasts |Module rs| - |%MT rs|, Module - depth and arm - HKG8; donors drawn once over all arms; BH within arm, level and row type (rs, contrast).
+  - Reading. The rows the Battery 2 claim rests on are the Module post-IP% rows of 16A and 16B on M4, PVM_3 and PVM_1, and the Module rs and arm - HKG8 contrast of 16F. If these hold, the donor structure and its intronic-rate association do not rest on the eleven. If they are lost beyond random removal, the Methods sentence "may depend on them" becomes "depends on them" for the named rows. HKG8 is read as the control: its rows are expected not to hold in 16A and 16B, as in the all-donor run.
+  
+
+SECTION A -- inputs
+[PASS] 27-03 05_units.csv matches the 05_Units log | Part12_rerun/05_Units/05_units.csv
+[PASS] 27-04 unit table carries this labels version | 856 units
+[PASS] 27-05 SA_donors_19.csv matches the 11_Fig19/19_SADonors log | Part12_rerun/11_Fig19/19_SADonors/SA_donors_19.csv
+[PASS] 27-06 Frames_19.csv matches the 11_Fig19/19_SADonors log | Part12_rerun/11_Fig19/19_SADonors/Frames_19.csv
+[PASS] 27-07 NullDraws_19.csv matches the 11_Fig19/19_SADonors log | Part12_rerun/11_Fig19/19_SADonors/NullDraws_19.csv
+[PASS] 27-08 SA donors read from section 26 | 11 donors
+[PASS] 27-09 Stats_16A.csv matches the 08_Fig16/16AB_DonorStructure log | Part12_rerun/08_Fig16/16AB_DonorStructure/Stats_16A.csv
+[PASS] 27-10 Stats_16A.csv carries the configured columns, config and labels version | 20 rows
+[PASS] 27-11 Stats_16B.csv matches the 08_Fig16/16AB_DonorStructure log | Part12_rerun/08_Fig16/16AB_DonorStructure/Stats_16B.csv
+[PASS] 27-12 Stats_16B.csv carries the configured columns, config and labels version | 12 rows
+[PASS] 27-13 Stats_16F.csv matches the 08_Fig16/16FG_LibraryFields log | Part12_rerun/08_Fig16/16FG_LibraryFields/Stats_16F.csv
+[PASS] 27-14 Stats_16F.csv carries the configured columns, config and labels version | 54 rows
+[NOTE] workers | 15 of 16 logical cores (PSOCK)
+
+SECTION B -- 16A, donor share against 10000 within-region shuffles
+[PASS] 27-15 16A: all-donor rows reproduce the Battery 1 to 4 stats file | 20 rows | 0 unmatched | 0 estimates, 0 counts differ | largest estimate difference 5.0e-16
+  M4     module_post_pct   donors  51 ->  42 | share  69.6% ->  70.8% | FDR 2.50e-04 -> 5.00e-04
+  M4     module_resid_tq4  donors  50 ->  42 | share  58.3% ->  68.7% | FDR 1.50e-03 -> 2.50e-04
+  M4     mito_log1p        donors  51 ->  42 | share  72.7% ->  69.7% | FDR 2.50e-04 -> 2.50e-04
+  M4     contamination     donors  51 ->  42 | share  56.3% ->  58.4% | FDR 1.75e-01 -> 2.21e-01
+  M4     ctrl_pct_null     donors  51 ->  42 | share  60.7% ->  61.6% | FDR 1.17e-03 -> 1.75e-03
+  PVM_3  module_post_pct   donors  83 ->  72 | share  73.2% ->  64.0% | FDR <=1.00e-04 -> <=1.00e-04
+  PVM_3  module_resid_tq4  donors  82 ->  72 | share  66.7% ->  63.5% | FDR <=1.00e-04 -> <=1.00e-04
+  PVM_3  mito_log1p        donors  83 ->  72 | share  66.7% ->  56.5% | FDR <=1.00e-04 -> <=1.00e-04
+  PVM_3  contamination     donors  83 ->  72 | share  37.1% ->  39.7% | FDR <=1.00e-04 -> <=1.00e-04
+  PVM_3  ctrl_pct_null     donors  83 ->  72 | share  40.8% ->  39.3% | FDR <=1.00e-04 -> <=1.00e-04
+  PVM_1  module_post_pct   donors  66 ->  57 | share  73.9% ->  58.5% | FDR 1.25e-04 -> 1.67e-04
+  PVM_1  module_resid_tq4  donors  65 ->  57 | share  66.1% ->  57.8% | FDR 1.25e-04 -> 1.67e-04
+  PVM_1  mito_log1p        donors  66 ->  57 | share  64.8% ->  47.3% | FDR 1.25e-04 -> 1.87e-03
+  PVM_1  contamination     donors  66 ->  57 | share  40.6% ->  43.4% | FDR 4.37e-02 -> 3.66e-02
+  PVM_1  ctrl_pct_null     donors  66 ->  57 | share  51.3% ->  54.5% | FDR 1.25e-04 -> 1.67e-04
+  HKG8   module_post_pct   donors  38 ->  30 | share  41.7% ->  39.9% | FDR 5.20e-01 -> 6.58e-01
+  HKG8   module_resid_tq4  donors  38 ->  30 | share  40.9% ->  39.9% | FDR 5.20e-01 -> 6.58e-01
+  HKG8   mito_log1p        donors  38 ->  30 | share  80.6% ->  74.2% | FDR 5.00e-04 -> 5.00e-04
+  HKG8   contamination     donors  38 ->  30 | share  64.8% ->  61.2% | FDR 1.12e-01 -> 1.39e-01
+  HKG8   ctrl_pct_null     donors  38 ->  30 | share  67.6% ->  62.2% | FDR 3.12e-02 -> 1.39e-01
+
+SECTION C -- 16B, split-half rs over 200 splits (B = 10000)
+[PASS] 27-16 16B: all-donor rows reproduce the Battery 1 to 4 stats file | 12 rows | 0 unmatched | 0 estimates, 0 counts differ | largest estimate difference 4.4e-16
+  M4     module_post_pct   donors  30 ->  23 | rs +0.692 -> +0.669 [+0.407, +0.825] | FDR 3.00e-04 -> 3.00e-04
+  M4     module_resid_tq4  donors  30 ->  23 | rs +0.469 -> +0.550 [+0.220, +0.786] | FDR 2.40e-03 -> 2.20e-03
+  M4     mito_log1p        donors  30 ->  23 | rs +0.733 -> +0.721 [+0.496, +0.845] | FDR 3.00e-04 -> 3.00e-04
+  PVM_3  module_post_pct   donors  80 ->  70 | rs +0.839 -> +0.778 [+0.670, +0.841] | FDR <=2.00e-04 -> <=2.00e-04
+  PVM_3  module_resid_tq4  donors  79 ->  70 | rs +0.790 -> +0.760 [+0.640, +0.838] | FDR <=2.00e-04 -> <=2.00e-04
+  PVM_3  mito_log1p        donors  80 ->  70 | rs +0.786 -> +0.712 [+0.612, +0.785] | FDR <=2.00e-04 -> <=2.00e-04
+  PVM_1  module_post_pct   donors  46 ->  37 | rs +0.721 -> +0.554 [+0.286, +0.734] | FDR <=2.00e-04 -> 6.00e-04
+  PVM_1  module_resid_tq4  donors  45 ->  37 | rs +0.615 -> +0.447 [+0.132, +0.692] | FDR <=2.00e-04 -> 1.29e-02
+  PVM_1  mito_log1p        donors  46 ->  37 | rs +0.617 -> +0.394 [+0.079, +0.627] | FDR <=2.00e-04 -> 1.62e-02
+  HKG8   module_post_pct   donors  22 ->  17 | rs +0.066 -> +0.172 [-0.216, +0.517] | FDR 9.70e-01 -> 3.89e-01
+  HKG8   module_resid_tq4  donors  22 ->  17 | rs +0.012 -> +0.205 [-0.249, +0.554] | FDR 9.70e-01 -> 3.89e-01
+  HKG8   mito_log1p        donors  22 ->  17 | rs +0.802 -> +0.735 [+0.440, +0.874] | FDR 6.00e-04 -> 6.00e-04
+
+SECTION D -- 16F between donors (field intronic), donor bootstrap (B = 10000)
+[PASS] 27-17 16F: all-donor rows reproduce the Battery 1 to 4 stats file | 27 rows | 0 unmatched | 0 estimates, 0 counts differ | largest estimate difference 4.4e-16
+[PASS] 27-18 16F: tasks rebuilt without the eleven equal the all-donor tasks less their rows | 16 tasks
+[PASS] 27-19 16F: the plain estimate vector follows the stats rows | 27 rows
+  M4     Module rs -0.518 -> -0.348 [-0.592, -0.045] | FDR 8.00e-04 -> 1.02e-01 | donors 51 -> 42
+  PVM_3  Module rs -0.690 -> -0.553 [-0.698, -0.362] | FDR 4.00e-04 -> 4.00e-04 | donors 83 -> 72
+  PVM_1  Module rs -0.576 -> -0.397 [-0.601, -0.144] | FDR 8.00e-04 -> 1.84e-02 | donors 66 -> 57
+  HKG8   Module rs -0.512 -> -0.428 [-0.719, -0.022] | FDR 1.28e-02 -> 8.88e-02 | donors 38 -> 30
+
+SECTION E -- the reading
+    16A M4                       Holds 4 | Neither 1
+    16A PVM_3                    Holds 5
+    16A PVM_1                    Holds 5
+    16A HKG8                     Holds 1 | Lost, beyond random removal 1 | Neither 3
+    16B M4                       Holds 3
+    16B PVM_3                    Holds 3
+    16B PVM_1                    Holds 3
+    16B HKG8                     Holds 1 | Neither 2
+    16F M4                       Lost, beyond random removal 3 | Neither 4
+    16F PVM_3                    Holds 3 | Lost, beyond random removal 1 | Neither 3
+    16F PVM_1                    Holds 1 | Lost, beyond random removal 2 | Lost, within random removal 1 | Neither 3
+    16F HKG8                     Lost, beyond random removal 1 | Lost, within random removal 2 | Neither 3
+
+SECTION F -- write
+[PASS] 27-20 stats and readout written | 16A 20 | 16B 12 | 16F 27 | readout 59 rows
+
+Outputs:
+  Part12_rerun/11_Fig19/19_UnitPanels/Stats_19_16A.csv | 0.0 MB | md5 80ff200aad3b2418f95ee082b2ea68ea
+  Part12_rerun/11_Fig19/19_UnitPanels/Stats_19_16B.csv | 0.0 MB | md5 a8146e89a9375d30980c25e6da34c986
+  Part12_rerun/11_Fig19/19_UnitPanels/Stats_19_16F.csv | 0.0 MB | md5 3cbf2dca125a5df948323834ea151222
+  Part12_rerun/11_Fig19/19_UnitPanels/Readout_19_Units.csv | 0.0 MB | md5 731036873d91dc123ab5949159b285ff
+  Part12_rerun/11_Fig19/19_UnitPanels/Null_19_Units.csv | 5.7 MB | md5 db2921fda6f330fd5294345bde447ff0
+Checks: 20 PASS, 0 FAIL, 0 WARN | duration 8.0 min
+VERDICT: PASS

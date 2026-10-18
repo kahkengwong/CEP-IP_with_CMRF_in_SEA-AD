@@ -1,0 +1,38 @@
+========================================================================
+Part 13b - M4 cells against random PVM_3 cells - Guardrail Log [CP10K]
+Date: 2026-10-10 18:18:11
+Root: <SEA-AD>
+Write: <SEA-AD>/Part13b_M4RandomSubset
+========================================================================
+
+  [PASS]  GR-13b-01  pre-set readings written before any model: Part13b_CP10K_M4RandomSubset_preset_readings.txt (MD5 33a5e4a2d29dfec4a936c23320e29650)
+  [PASS]  GR-13b-02  comparator arm_tag 'Mic13_PVM3' (expected 'Mic13_PVM3'); M4 Prognosis arm tag 'Mic13_PVM3'; PVM_3 Prognosis arm tag 'PVM3_all' (NA = not stored; the file is identified by its basename Part10h_CP10K_PVM_3_Prognosis_results.rds); comparator built from 'Part10h_CP10K_M4_Prognosis_results.rds', this run reads 'Part10h_CP10K_M4_Prognosis_results.rds'; MT_FILE MD5 matches the Part 13a output; label file MD5 recorded
+  [PASS]  GR-13b-03  M4 donor frame: donors 84/83 (expected 84/83), duplicated rows FALSE; M4 cells (share x n_total / 100) 2130/1987 (expected 2130/1987); M4 cells and Module post-IP cells are whole numbers (max deviation 2.8e-14)
+  [PASS]  GR-13b-04  one donor set and one denominator: comparator donor_frame and the M4 Prognosis prop_df agree on donors (TRUE), pct_post, n_total and share (max |diff| 0.00e+00); the PVM_3 Prognosis prop_df has the same donors (TRUE) and the same Micro-PVM_3 denominator n_total (max |diff| 0.00e+00)
+  [PASS]  GR-13b-05  PVM_3 arm cells from the PVM_3 prop_df: 13331/11132 (expected 13331/11132), whole numbers (max deviation 1.1e-13); donors with more M4 cells than PVM_3 arm cells: 0
+  [PASS]  GR-13b-06  label file rows: duplicated (region set, arm, barcode) 0; rows whose donor and region set are not in the donor frame 0; %MT missing or outside 0-100 0; strata donor x region
+  [PASS]  GR-13b-07  label rows per donor equal the Part 10h arm cells on every donor: M4 rows 2130/1987 against M4 share x n_total 2130/1987 (max |diff| 0); PVM_3 rows 13331/11132 against the PVM_3 prop_df 13331/11132 (max |diff| 0)
+  [PASS]  GR-13b-08  Module post-IP label: 7 candidate rule(s), 5 reproduce the Part 10h Module post-IP cells (pct_post x n_total / 100) on every donor of BOTH arms, 1 distinct cell set(s); rule used: group in {Module post-IP}
+  [PASS]  GR-13b-09  every M4 cell is a PVM_3 pool cell of the same region set: 0 of 4117 M4 cells absent from the pool; of those found, 0 carry another donor, 0 another region, and the per-cell %MT differs by at most 0.0e+00
+  [PASS]  GR-13b-10  log1p of the mean per-cell %MT over the M4 label rows reproduces the Figure 14D %MT file on 158 donors (max |diff| 4.7e-15); donors with a value on one side only: 0 / 0; file rows matching no donor 0
+  [PASS]  GR-13b-11  observed cell sets built by the draw function equal a direct count of the M4 rows: M4 cells, Module post-IP% under PVM_3 labels, M4 share, %MT and the %MT donor pattern (max |diff| 7.1e-15); strata with more M4 cells than pool cells: 0
+  [PASS]  GR-13b-12  fast fitter equals lm() with the comparator .z and .safe_vif on every observed model: 864 of 864 values
+  [PASS]  GR-13b-13  with the M4 arm's own labels this script reproduces Part 10h Multivariate (cov4, pct_post, cognition; 12 values) and the published Figure 14D rows (15 values): 27 of 27
+  [PASS]  GR-13b-14  every draw holds each donor's M4 cell number in every stratum, so the M4 share is identical (max |deviation| 0 over 10000 draws x 2 region sets); draws with duplicated cells 0; out-of-pool cells 0; observed models not fitted 0
+  [PASS]  GR-13b-15  draws in which every model was fitted on exactly the observed donors: 100.00% at the lower region set (minimum 99%); model-n mismatches 0, failed fits 0; 62 s
+  [PASS]  GR-13b-16  PRIMARY READING (NeoC MMSE, MA): M4 cells beta -0.523 against random subsets median -0.476 [95% of draws -0.544 to -0.439], two-sided p 0.307, FDR 0.370. I0 No evidence that identity matters. Reference without a test: the M4 cells under the M4 arm's own labels give beta -0.539
+  [PASS]  GR-13b-17  SECOND READING (NeoC, r of Module post-IP% with %MT): M4 cells r 0.710 against random subsets median 0.727 [0.665 to 0.778], two-sided p 0.579, FDR 0.866. S0 No difference. Reference without a test: own labels r 0.731
+  [PASS]  GR-13b-18  outputs written: Part13b_CP10K_M4RandomSubset_SuppTable.xlsx, Part13b_CP10K_M4RandomSubset_null_draws.csv, Part13b_CP10K_M4RandomSubset_SuppFig.pdf, Part13b_CP10K_M4RandomSubset_SuppFig.png, Part13b_CP10K_M4RandomSubset_legend_draft.txt
+  [PASS]  GR-13b-19  cell-level labels against Part 10h's Validation 1 cell table (Module class + inherited side): 4 of 4 workbooks found; label cells matched by barcode 28580 of 28580; without an inherited side 0; cells whose Module post-IP label differs 0
+  [PASS]  GR-13b-20  M4 cells, Module post-IP under the M4 arm's own labels against the PVM_3 labels: agreement 0.943/0.971, kappa 0.884/0.939 (NeoC/NonNeoC; WARN below 0.4, when the readings speak for the PVM_3 definition only)
+  [PASS]  GR-13b-21  expected share of drawn cells that are M4 cells 0.245/0.245 (NeoC/NonNeoC; WARN above 0.4); strata in which every pool cell is an M4 cell (no freedom) 0/1
+  [PASS]  GR-13b-22  parallel draws reproduce exactly when rerun one by one in this session (first 20 draws per region set: same NA and Inf pattern, finite values max |diff| 0, tolerance 1e-09); 15 worker(s), one L'Ecuyer-CMRG stream per draw from seed 20261011
+
+========================================================================
+  Total : 22
+  PASS  : 22
+  WARN  : 0
+  FAIL  : 0
+  SKIP  : 0
+  Run   : completed; readings: I0 No evidence that identity matters | S0 No difference
+========================================================================

@@ -1,0 +1,65 @@
+Part 12 rerun -- step 12
+Script: Part12_Fig15_Plots.r | md5 400ff7eed552c6028af6a6948dea9f51
+Shared file: Part12_03_Config.r | md5 df0cc2f82a0fd0947b3bb0b93bae800a
+Run ID: 20260922-1356-windows
+Start: 2026-09-22 13:56:50
+Machine: LAPTOP-M7LQ95IS | R version 4.6.1 (2026-06-24 ucrt)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16 | md5 de727a6a529ece74865c9387be6d8831
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 12-01 script saved in Part12_rerun | Part12_Fig15_Plots.r
+
+SECTION A -- inputs
+[PASS] 12-02 Stats_15A.csv matches the 07_Fig15/15AB_ContamDoublets log | Part12_rerun/07_Fig15/15AB_ContamDoublets/Stats_15A.csv
+[PASS] 12-03 Stats_15B.csv matches the 07_Fig15/15AB_ContamDoublets log | Part12_rerun/07_Fig15/15AB_ContamDoublets/Stats_15B.csv
+[PASS] 12-04 Stats_15C.csv matches the 07_Fig15/15CD_DecontXStrata log | Part12_rerun/07_Fig15/15CD_DecontXStrata/Stats_15C.csv
+[PASS] 12-05 Stats_15D.csv matches the 07_Fig15/15CD_DecontXStrata log | Part12_rerun/07_Fig15/15CD_DecontXStrata/Stats_15D.csv
+[PASS] 12-06 Plot_15D_tertiles.csv matches the 07_Fig15/15CD_DecontXStrata log | Part12_rerun/07_Fig15/15CD_DecontXStrata/Plot_15D_tertiles.csv
+[PASS] 12-07 Stats_15E.csv matches the 07_Fig15/15EG_GerritsAmbient log | Part12_rerun/07_Fig15/15EG_GerritsAmbient/Stats_15E.csv
+[PASS] 12-08 Stats_15F.csv matches the 07_Fig15/15EG_GerritsAmbient log | Part12_rerun/07_Fig15/15EG_GerritsAmbient/Stats_15F.csv
+[PASS] 12-09 Stats_15G.csv matches the 07_Fig15/15EG_GerritsAmbient log | Part12_rerun/07_Fig15/15EG_GerritsAmbient/Stats_15G.csv
+[PASS] 12-10 Plot_15E_samples.csv matches the 07_Fig15/15EG_GerritsAmbient log | Part12_rerun/07_Fig15/15EG_GerritsAmbient/Plot_15E_samples.csv
+[PASS] 12-11 Plot_15F_samples.csv matches the 07_Fig15/15EG_GerritsAmbient log | Part12_rerun/07_Fig15/15EG_GerritsAmbient/Plot_15F_samples.csv
+[PASS] 12-12 Plot_15G_tertiles.csv matches the 07_Fig15/15EG_GerritsAmbient log | Part12_rerun/07_Fig15/15EG_GerritsAmbient/Plot_15G_tertiles.csv
+[PASS] 12-13 Stats_15H.csv matches the 07_Fig15/15H_DepthThinning log | Part12_rerun/07_Fig15/15H_DepthThinning/Stats_15H.csv
+[PASS] 12-14 Stats_S10.csv matches the 07_Fig15/S10_Cargo log | Part12_rerun/07_Fig15/S10_Cargo/Stats_S10.csv
+[PASS] 12-15 every stats file carries this labels version | 2026-09-06_module-pool
+
+SECTION B -- figures
+[PASS] 12-16 Fig15A_contamination_dR2 drawn | pdf and png
+[PASS] 12-17 Fig15B_doublet_dR2 drawn | pdf and png
+[PASS] 12-18 15C FDR values printed as < 0.001 are below 0.001 | 2 floor-derived values, largest 3.00e-04
+[PASS] 12-19 Fig15C_contamination_by_group drawn | pdf and png
+[PASS] 12-20 15D plot data agree with the stats file | max |difference| 3.3e-16 over 4 arms
+[PASS] 12-21 Fig15D_rs_by_contamination drawn | pdf and png
+[PASS] 12-22 Fig15E_ambient_vs_nuclear drawn | pdf and png
+[PASS] 12-23 15E plot data agree with the stats file | median log ratio 1.141977 against 1.141977
+[PASS] 12-24 Fig15F_raw_vs_partial drawn | pdf and png
+[PASS] 12-25 Fig15G_rs_by_soup_tertile drawn | pdf and png
+[NOTE] 15H targets left out of the drawing | 1500, within 2% of the Gerrits depth 1504; kept in Stats_15H
+[NOTE] 15H housekeeping series identical with and without the MT match | drawn as one line
+[PASS] 12-26 Fig15H_depth_curve drawn | pdf and png
+[PASS] 12-27 FigS10_own_vs_other_lineage drawn | pdf and png
+
+
+Outputs:
+  Part12_rerun/07_Fig15/Fig15/Fig15A_contamination_dR2.pdf | 0.0 MB | md5 8e3085e1afe87c447dfa070670c427d6
+  Part12_rerun/07_Fig15/Fig15/Fig15A_contamination_dR2.png | 0.1 MB | md5 c2c25f6f944e19ed2177ebae4c90983d
+  Part12_rerun/07_Fig15/Fig15/Fig15B_doublet_dR2.pdf | 0.0 MB | md5 72e2a6ca9752739c8ed80bcc0a37d6bf
+  Part12_rerun/07_Fig15/Fig15/Fig15B_doublet_dR2.png | 0.1 MB | md5 1051c7e408e950fbdabba5a4c313462c
+  Part12_rerun/07_Fig15/Fig15/Fig15C_contamination_by_group.pdf | 0.0 MB | md5 403ffaf9a17a25b52c8b653d1fd41808
+  Part12_rerun/07_Fig15/Fig15/Fig15C_contamination_by_group.png | 0.1 MB | md5 076608b34055b3d53aa4cb8b155ba084
+  Part12_rerun/07_Fig15/Fig15/Fig15D_rs_by_contamination.pdf | 0.0 MB | md5 35f0fff0e696395ab69c5e0d87b2362d
+  Part12_rerun/07_Fig15/Fig15/Fig15D_rs_by_contamination.png | 0.1 MB | md5 16eef7bcfa6add54c0e8861d9b7233f7
+  Part12_rerun/07_Fig15/Fig15/Fig15E_ambient_vs_nuclear.pdf | 0.0 MB | md5 71dca74cc0e2c4a6a4af8600cec4e33c
+  Part12_rerun/07_Fig15/Fig15/Fig15E_ambient_vs_nuclear.png | 0.0 MB | md5 d90922af6ca86959f841c2b028ebda07
+  Part12_rerun/07_Fig15/Fig15/Fig15F_raw_vs_partial.pdf | 0.0 MB | md5 dd2263fce5238a014b774db8e78183a1
+  Part12_rerun/07_Fig15/Fig15/Fig15F_raw_vs_partial.png | 0.1 MB | md5 1964ed1f138f1c8f6b7e8af804234291
+  Part12_rerun/07_Fig15/Fig15/Fig15G_rs_by_soup_tertile.pdf | 0.0 MB | md5 4fe1b3815619bd7314d76592e056f76b
+  Part12_rerun/07_Fig15/Fig15/Fig15G_rs_by_soup_tertile.png | 0.0 MB | md5 ce0122f0219294955488cdb7c3d19094
+  Part12_rerun/07_Fig15/Fig15/Fig15H_depth_curve.pdf | 0.0 MB | md5 ca19ca923e4d9bfc20e46d3cd92d8f09
+  Part12_rerun/07_Fig15/Fig15/Fig15H_depth_curve.png | 0.1 MB | md5 d25cb4f001c204243fcff8ac92557e2b
+  Part12_rerun/07_Fig15/Fig15/FigS10_own_vs_other_lineage.pdf | 0.0 MB | md5 7fce6db11797a41e3a3ffffeb48708b0
+  Part12_rerun/07_Fig15/Fig15/FigS10_own_vs_other_lineage.png | 0.1 MB | md5 16a1a55163f1cde2da4b9e1cfc94932e
+Checks: 27 PASS, 0 FAIL, 0 WARN | duration 0.0 min
+VERDICT: PASS

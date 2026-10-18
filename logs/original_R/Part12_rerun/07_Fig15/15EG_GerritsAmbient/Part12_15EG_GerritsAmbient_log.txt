@@ -1,0 +1,90 @@
+Part 12 rerun -- step 09
+Script: Part12_Fig15_Analysis.r | md5 410a9ce09b24f8bb94b171686b69dd0b
+Shared file: Part12_03_Config.r | md5 df0cc2f82a0fd0947b3bb0b93bae800a
+Run ID: 20260922-0816-windows
+Start: 2026-09-22 08:16:57
+Machine: LAPTOP-M7LQ95IS | R version 4.6.1 (2026-06-24 ucrt)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16 | md5 de727a6a529ece74865c9387be6d8831
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 09-01 script saved in Part12_rerun | Part12_Fig15_Analysis.r
+
+Pre-set reading for 15E | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### 15E. Is the ambient pool more mitochondrial than the nuclei? (Gerrits)
+  
+  - **Estimate.** Per sample, log of the ratio of ambient %MT (barcodes of 1 to 100 UMIs) to nuclear %MT (D16 cells). Median over samples, donor bootstrap.
+  - **Family.** One test.
+  - **Reading.**
+    - Median log ratio > 0 with FDR < 0.05: the ambient pool is enriched for mitochondrial reads, so an ambient source of MT reads exists; 15F and 15G test whether it produces the co-expression.
+    - At or below zero, or FDR >= 0.05: no mitochondrial enrichment in the ambient pool.
+  
+
+Pre-set reading for 15F | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### 15F. Does co-expression survive removing ambient RNA and depth? (Gerrits)
+  
+  - **Estimate.** On one cell set (D16) and one population (D27): per sample, the median over the 8 DFG partners of rs(MT-CO3, partner), raw and partial (soup index and log depth partialled out). Primary estimate: median over samples of the partial value. Secondary: the same per partner, and partial divided by raw, reported without a test.
+  - **Family.** Primary: raw and partial, 2 tests. Secondary: 8 partners, within raw and within partial.
+  - **Reading.**
+    - Partial median > 0 with FDR < 0.05: the co-expression is present after ambient load and depth are removed.
+    - Partial median at or below zero, or FDR >= 0.05, while raw is positive: the raw co-expression is accounted for by ambient load and depth.
+    - Partial divided by raw is reported as the retained share, with no threshold.
+  
+
+Pre-set reading for 15G | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### 15G. Does co-expression change with ambient load? (Gerrits)
+  
+  - **Estimate.** Soup-index tertiles within sample. Per sample, the median over the 8 partners of rs(top tertile) minus rs(bottom tertile). Median over samples, donor bootstrap. Secondary: per partner.
+  - **Family.** Primary: one test. Secondary: 8 partners.
+  - **Reading.**
+    - Difference < 0 with FDR < 0.05: co-expression is weaker in nuclei with more ambient RNA, so the ambient RNA dilutes it and does not produce it.
+    - Difference > 0 with FDR < 0.05: co-expression is stronger with more ambient RNA, so ambient RNA contributes to it.
+    - FDR >= 0.05: co-expression does not change with ambient load.
+  
+
+SECTION A -- inputs
+[PASS] 09-02 06_gerrits_samples.csv matches the 06_GerritsCells log | Part12_rerun/06_GerritsCells/06_gerrits_samples.csv
+[PASS] 09-03 06_gerrits_cells.csv.gz matches the 06_GerritsCells log | Part12_rerun/06_GerritsCells/06_gerrits_cells.csv.gz
+[PASS] 09-04 36 samples from 18 donors | 36 samples | 18 donors
+
+SECTION B -- 15E, ambient against nuclear %MT
+[PASS] 09-05 log ratio finite on every sample | 0 not finite
+  median log ratio 1.142 [1.011, 1.456] (ratio 3.13) | samples above 0: 36 of 36 | p <=2.00e-04
+
+SECTION C -- per-sample correlations in the MT-CO3-positive nuclei (D27)
+[NOTE] share of population nuclei with a soup index of 0, per sample | median 29.3% (range 14.5% to 60.6%); above two thirds, the top tertile also holds zeros
+  population per sample: median 3589 nuclei (range 897 to 8123) | 15F samples 36 | 15G samples 36
+
+SECTION D -- 15F, raw and partial co-expression
+  raw 0.267 [0.238, 0.297] p <=2.00e-04 | partial 0.366 [0.354, 0.400] p <=2.00e-04 | partial/raw 1.368
+    MT-ATP6 raw 0.272 | partial 0.378
+    MT-CO2  raw 0.308 | partial 0.381
+    MT-ND3  raw 0.206 | partial 0.346
+    MT-ND4  raw 0.270 | partial 0.372
+    MT-CYB  raw 0.282 | partial 0.373
+    MT-ND1  raw 0.227 | partial 0.340
+    MT-ND2  raw 0.213 | partial 0.332
+    MT-CO1  raw 0.387 | partial 0.406
+
+SECTION E -- 15G, top minus bottom soup-index tertile
+  difference +0.0602 [+0.0160, +0.0821] | p <=2.00e-04
+    MT-ATP6 +0.0586
+    MT-CO2  +0.0549
+    MT-ND3  +0.0309
+    MT-ND4  +0.0533
+    MT-CYB  +0.0540
+    MT-ND1  +0.0619
+    MT-ND2  +0.0433
+    MT-CO1  +0.0412
+
+SECTION F -- write
+[PASS] 09-06 stats files written and read back | 30 rows
+
+Outputs:
+  Part12_rerun/07_Fig15/15EG_GerritsAmbient/Stats_15E.csv | 0.0 MB | md5 6034fabdf08919a227d857b71edacdfe
+  Part12_rerun/07_Fig15/15EG_GerritsAmbient/Stats_15F.csv | 0.0 MB | md5 73e37de3ab419342ce9381e92c7d4d42
+  Part12_rerun/07_Fig15/15EG_GerritsAmbient/Stats_15G.csv | 0.0 MB | md5 89f8901766d9fea27231426779c4ee02
+  Part12_rerun/07_Fig15/15EG_GerritsAmbient/Plot_15E_samples.csv | 0.0 MB | md5 7853938c6fab8e5175bdb851996b27ea
+  Part12_rerun/07_Fig15/15EG_GerritsAmbient/Plot_15F_samples.csv | 0.0 MB | md5 be4d28b64ce6f76620f41a71b5a5d9cf
+  Part12_rerun/07_Fig15/15EG_GerritsAmbient/Plot_15G_tertiles.csv | 0.0 MB | md5 7f956222f269e2b4360f46ad19b8eae8
+Checks: 6 PASS, 0 FAIL, 0 WARN | duration 0.3 min
+VERDICT: PASS

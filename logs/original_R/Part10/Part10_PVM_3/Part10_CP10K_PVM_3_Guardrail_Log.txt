@@ -1,0 +1,70 @@
+========================================================================
+Part 10 -- Guardrail Log [CP10K]
+Date: 2026-08-17 21:44:54
+Arm : PVM3_all
+Normalisation: adata.X = log1p(UMIs/total x 10000), exported unchanged
+========================================================================
+
+  [PASS]  GR-07-NeoC      Part 9 NeoC RDS: Part9_CP10K_PVM_3_NeoC_GAM_models.rds
+  [PASS]  GR-07-NonNeoC   Part 9 NonNeoC RDS: Part9_CP10K_PVM_3_NonNeoC_GAM_models.rds
+  [PASS]  GR-01-NeoC      norm.mtx max = 8.1332  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NeoC      expm1(norm) row sums: mean = 10000.000000, max |dev| = 4.89e-10, n = 50
+  [PASS]  GR-04-NeoC      raw max = 3187, integer-like = TRUE
+  [PASS]  GR-05-NeoC-DFC  GOI max=6.041  cDFG max=5.609  (ceiling=9.2104)
+  [PASS]  GR-06-NeoC-DFC  expected=3654  observed=3654
+  [PASS]  GR-05-NeoC-MTG  GOI max=4.819  cDFG max=3.913  (ceiling=9.2104)
+  [PASS]  GR-06-NeoC-MTG  expected=3336  observed=3336
+  [PASS]  GR-05-NeoC-AnG  GOI max=6.275  cDFG max=5.989  (ceiling=9.2104)
+  [PASS]  GR-06-NeoC-AnG  expected=1146  observed=1146
+  [PASS]  GR-05-NeoC-STG  GOI max=5.504  cDFG max=4.828  (ceiling=9.2104)
+  [PASS]  GR-06-NeoC-STG  expected=1619  observed=1619
+  [PASS]  GR-05-NeoC-V1C  GOI max=6.046  cDFG max=5.375  (ceiling=9.2104)
+  [PASS]  GR-06-NeoC-V1C  expected=1826  observed=1826
+  [PASS]  GR-05-NeoC-ITG  GOI max=5.925  cDFG max=5.132  (ceiling=9.2104)
+  [PASS]  GR-06-NeoC-ITG  expected=1750  observed=1750
+  [PASS]  GR-01-NonNeoC   norm.mtx max = 7.6610  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NonNeoC   expm1(norm) row sums: mean = 10000.000000, max |dev| = 7.57e-10, n = 50
+  [PASS]  GR-04-NonNeoC   raw max = 1552, integer-like = TRUE
+  [PASS]  GR-05-NonNeoC-HIP  GOI max=5.579  cDFG max=5.060  (ceiling=9.2104)
+  [PASS]  GR-06-NonNeoC-HIP  expected=2535  observed=2535
+  [PASS]  GR-05-NonNeoC-MEC  GOI max=5.751  cDFG max=5.490  (ceiling=9.2104)
+  [PASS]  GR-06-NonNeoC-MEC  expected=6539  observed=6539
+  [PASS]  GR-05-NonNeoC-LEC  GOI max=5.455  cDFG max=5.278  (ceiling=9.2104)
+  [PASS]  GR-06-NonNeoC-LEC  expected=1023  observed=1023
+  [PASS]  GR-05-NonNeoC-FI  GOI max=5.719  cDFG max=5.642  (ceiling=9.2104)
+  [PASS]  GR-06-NonNeoC-FI  expected=1035  observed=1035
+  [PASS]  GR-08-NeoC-DFC  SKCS-core=2195/3654 (60.1%)
+  [PASS]  GR-08-NeoC-MTG  SKCS-core=2005/3336 (60.1%)
+  [PASS]  GR-08-NeoC-AnG  SKCS-core=717/1146 (62.6%)
+  [PASS]  GR-08-NeoC-STG  SKCS-core=1074/1619 (66.3%)
+  [PASS]  GR-08-NeoC-V1C  SKCS-core=1130/1826 (61.9%)
+  [PASS]  GR-08-NeoC-ITG  SKCS-core=1177/1750 (67.3%)
+  [WARN]  GR-09-NeoC      SKCS-core GAM DE range: [-0.9%, 88.3%]  (n=14, donor-aware null)
+  [PASS]  GR-11-NeoC      donor RE on 14/14 fit(s); donors per fit [43, 84]; 0 fallback(s)
+  [PASS]  GR-10-NeoC-DFC  TREP=2007/2195 (91.4%) | sizing DE=0.9144 (B10-08)
+  [PASS]  GR-10-NeoC-MTG  TREP=1812/2005 (90.4%) | sizing DE=0.9038 (B10-08)
+  [PASS]  GR-10-NeoC-AnG  TREP=636/717 (88.7%) | sizing DE=0.8871 (B10-08)
+  [PASS]  GR-10-NeoC-STG  TREP=975/1074 (90.8%) | sizing DE=0.9075 (B10-08)
+  [PASS]  GR-10-NeoC-V1C  TREP=1030/1130 (91.2%) | sizing DE=0.9114 (B10-08)
+  [PASS]  GR-10-NeoC-ITG  TREP=1078/1177 (91.6%) | sizing DE=0.9158 (B10-08)
+  [PASS]  GR-10-NeoC-Pooled  TREP=7617/8407 (90.6%) | sizing DE=0.9061 (B10-08)
+  [PASS]  GR-08-NonNeoC-HIP  SKCS-core=1575/2535 (62.1%)
+  [PASS]  GR-08-NonNeoC-MEC  SKCS-core=4267/6539 (65.3%)
+  [PASS]  GR-08-NonNeoC-LEC  SKCS-core=477/1023 (46.6%)
+  [PASS]  GR-08-NonNeoC-FI  SKCS-core=511/1035 (49.4%)
+  [WARN]  GR-09-NonNeoC   SKCS-core GAM DE range: [-1.7%, 88.7%]  (n=10, donor-aware null)
+  [PASS]  GR-11-NonNeoC   donor RE on 10/10 fit(s); donors per fit [31, 83]; 0 fallback(s)
+  [PASS]  GR-10-NonNeoC-HIP  TREP=1400/1575 (88.9%) | sizing DE=0.8891 (B10-08)
+  [PASS]  GR-10-NonNeoC-MEC  TREP=3885/4267 (91.0%) | sizing DE=0.9105 (B10-08)
+  [PASS]  GR-10-NonNeoC-LEC  TREP=429/477 (89.9%) | sizing DE=0.8987 (B10-08)
+  [PASS]  GR-10-NonNeoC-FI  TREP=470/511 (92.0%) | sizing DE=0.9202 (B10-08)
+  [PASS]  GR-10-NonNeoC-Pooled  TREP=6317/6941 (91.0%) | sizing DE=0.9101 (B10-08)
+
+========================================================================
+  Total : 54
+  PASS  : 52
+  WARN  : 2
+  FAIL  : 0
+
+  Result: no failures; review the warnings above
+========================================================================

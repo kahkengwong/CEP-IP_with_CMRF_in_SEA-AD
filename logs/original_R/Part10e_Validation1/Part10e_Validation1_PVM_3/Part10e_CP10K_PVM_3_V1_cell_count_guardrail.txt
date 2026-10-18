@@ -1,0 +1,76 @@
+========================================================================
+Part10e Validation1 [PVM3_all] — Cell Count Guardrail Report
+Generated: 2026-08-28 16:41:41.403394
+========================================================================
+
+[NeoC] Cell Count Reconciliation  (arm PVM3_all, GOI MT-CO3)
+------------------------------------------------------------------------------
+Identity                                               Observed     Status
+------------------------------------------------------------------------------
+OrigRef (8103) + Recovered (1351) = module (9454)          9454       PASS
+the four CMRF classes (8103+1351+304+3573) = MT-CO3-positive (13331)      13331       PASS
+MT-CO3-positive (13331) + MT-CO3-negative (0) = sheet rows (13331)      13331       PASS
+module (9454) + non-module (3877) = MT-CO3-positive (13331)      13331       PASS
+TREP (8637) + non-TREP (817) = module (9454)               9454       PASS
+------------------------------------------------------------------------------
+Dataset NeoC: ALL RECONCILE
+
+  MT-CO3-positive (plotted):                  13331
+  Non-module (gray):             3877
+  GAM DE (donor-aware):          87.41%
+  TREP sizing DE (flat null):    91.36%
+  IP threshold:                  2.4953
+  TREP / non-TREP:               8637 / 817
+
+  4-group breakdown:
+    Pre-IP TREP               4443
+    Pre-IP non-TREP           101
+    Post-IP TREP              4194
+    Post-IP non-TREP          716
+
+  TREP Concordance (OrigRef cells: refitted vs original Part10b):
+    Agreement: 7898 / 8103 (97.5%)
+    Original \ Refitted      Post-IP non-TREP       Post-IP TREP    Pre-IP non-TREP        Pre-IP TREP
+    Post-IP non-TREP                      425                203                  0                  0
+    Post-IP TREP                            0               3836                  0                  0
+    Pre-IP non-TREP                         0                  0                  4                  2
+    Pre-IP TREP                             0                  0                  0               3633
+
+
+[NonNeoC] Cell Count Reconciliation  (arm PVM3_all, GOI MT-CO3)
+------------------------------------------------------------------------------
+Identity                                               Observed     Status
+------------------------------------------------------------------------------
+OrigRef (6646) + Recovered (1089) = module (7735)          7735       PASS
+the four CMRF classes (6646+1089+295+3102) = MT-CO3-positive (11132)      11132       PASS
+MT-CO3-positive (11132) + MT-CO3-negative (0) = sheet rows (11132)      11132       PASS
+module (7735) + non-module (3397) = MT-CO3-positive (11132)      11132       PASS
+TREP (7106) + non-TREP (629) = module (7735)               7735       PASS
+------------------------------------------------------------------------------
+Dataset NonNeoC: ALL RECONCILE
+
+  MT-CO3-positive (plotted):                  11132
+  Non-module (gray):             3397
+  GAM DE (donor-aware):          87.12%
+  TREP sizing DE (flat null):    91.87%
+  IP threshold:                  2.6572
+  TREP / non-TREP:               7106 / 629
+
+  4-group breakdown:
+    Pre-IP TREP               3574
+    Pre-IP non-TREP           50
+    Post-IP TREP              3532
+    Post-IP non-TREP          579
+
+  TREP Concordance (OrigRef cells: refitted vs original Part10b):
+    Agreement: 6498 / 6646 (97.8%)
+    Original \ Refitted      Post-IP non-TREP       Post-IP TREP        Pre-IP TREP
+    Post-IP non-TREP                      287                117                  0
+    Post-IP TREP                            0               3210                  0
+    Pre-IP non-TREP                         0                  0                 31
+    Pre-IP TREP                             0                  0               3001
+
+
+========================================================================
+OVERALL GUARDRAIL: ALL COUNTS RECONCILE — PASS
+========================================================================

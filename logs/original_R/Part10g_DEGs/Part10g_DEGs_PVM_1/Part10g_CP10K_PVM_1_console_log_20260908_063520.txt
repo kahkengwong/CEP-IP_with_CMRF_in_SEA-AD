@@ -1,0 +1,590 @@
+Part10g DEGs Part 1 - log started: 2026-09-08 06:35:20.285634
+
+
+============================================================================
+  ARM: PVM1_all   config: R_config.R
+============================================================================
+R_config.R loaded (Module 1: MT-CO3 + 8 DFGs, ≥8/10 regions).
+  ARM_TAG   : PVM1_all 
+  ARM_DIR   : <SEA-AD>/R_export_CP10K/PVM1_all 
+  NEOC_DIR  : <SEA-AD>/R_export_CP10K/PVM1_all/neocortex 
+  NONNC_DIR : <SEA-AD>/R_export_CP10K/PVM1_all/nonneocortex 
+  SHARED_DIR: <SEA-AD>/R_export_CP10K/shared 
+  GOI       : MT-CO3 
+  DFG_NEOC  : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  DFG_NONNC : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Composite : cDFG 
+  RUN_SUFFIX: _PVM1all 
+  Supertype : Micro-PVM_1 
+  Mod1 genes: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 ( 9 )
+  HKG_GENES : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 3218 NeoC / 2658 NonNeoC
+  Config OK: PVM1_all | MT-CO3 + 8 DFG | CP10K
+
+
+ ======================================================================== 
+  Part10g - Post-IP vs Pre-IP DEGs within the CMRF module
+  Arm          : PVM1_all 
+  GOI          : MT-CO3 | CP10K 
+  IP arms      : inherited (group_refined -> IP_status -> cDFG < IP_y); never split on GOI
+  Units        : cell (comparison) and donor (PRIMARY, paired pseudobulk)
+  Donor pairing: >= 3 cell(s) per arm, >= 5 paired donors
+  V1 input     : <SEA-AD>/Part10e_Validation1/Part10e_Validation1_PVM_1 
+  Output dir   : <SEA-AD>/Part10g_DEGs/Part10g_DEGs_PVM_1 
+======================================================================== 
+
+  NOTE: library nests perfectly within donor in this dataset (0 of 905
+        libraries span more than one donor), so the donor unit absorbs
+        batch as well. Batch and donor are not separable here and no
+        independent batch adjustment is claimed.
+
+  PRE-ANALYSIS GUARDRAILS
+
+  [PASS]  GR-10G-01-NeoC        Validation1 workbook and RDS present in Part10e_Validation1_PVM_1
+  [PASS]  GR-10G-02-NeoC        deg_support present: <SEA-AD>/R_export_CP10K/PVM1_all/neocortex/deg_support
+  [PASS]  GR-10G-01-NonNeoC     Validation1 workbook and RDS present in Part10e_Validation1_PVM_1
+  [PASS]  GR-10G-02-NonNeoC     deg_support present: <SEA-AD>/R_export_CP10K/PVM1_all/nonneocortex/deg_support
+  [PASS]  GR-10G-03-presto      presto available for the cell unit
+
+
+ ======================================================================== 
+  Part10g: NeoC  [ PVM1_all ]
+======================================================================== 
+
+  STEP 1 - Validation1 cell annotations
+    Excluded                  : 975
+    Original + Refined        : 1821
+    Original only             : 41
+    Recovered                 : 381
+    Module (OrigRef + Recovered) : 2202
+
+  STEP 2 - The inflection point: IP_x is REPORTED, IP_y CLASSIFIES
+    IP_x (REPORTED, GOI axis)  = 2.382738   [R(x)=0 crossing; NOT the classifier]
+    u_IP (copula rank of IP_x) = 0.662939   [reference only]
+    IP_y = f(IP_x) (cDFG axis) = 1.526079   [THIS CLASSIFIES: Pre-IP when cDFG < IP_y]
+    IP_y source: inflection_points_DFG_y[["NeoC"]] in Part10b_IPRS_CP10K_PVM_1_results.rds
+
+  STEP 3 - IP arms (inherited from Part 10e / Validation 1)
+    Arm source: group_refined 2202 | IP_status 0 | cDFG@IP_y fallback 0 | unlabelled 0
+    Inherited label vs `cDFG_expr < IP_y`: 100.00% agreement on 2202 cell(s)
+    For reference only: the GOI-axis split at u_IP would disagree on 250 of 2202 cell(s) (88.65% agreement)
+    Original + Refined        : Pre-IP=756  Post-IP=1065  unlabelled=0
+    Recovered                 : Pre-IP=258  Post-IP=123  unlabelled=0
+    Non-module cells: 1016 in 2 class(es): Excluded, Original only
+    Non-module arm source: group_refined 41 | IP_status 0 | cDFG@IP_y 975 | unlabelled 0
+    Excluded                  : Pre-IP=778  Post-IP=197  unlabelled=0
+    Original only             : Pre-IP=32  Post-IP=9  unlabelled=0
+
+  STEP 4 - Normalised expression and donor
+    norm.mtx: 36601 gene(s) x 3218 cell(s) | max = 7.6178
+    Donors: 84 distinct | 0 cell(s) without one
+    CP10K recipe vs deg_support/norm.mtx: max |dev| = 8.882e-16 on 2000 gene(s) x 400 cell(s)
+    Module cells with expression: 2202 of 2202
+    Non-module cells with expression: 1016 of 1016 (Pre-IP 810, Post-IP 206)
+    Donors with >= 3 non-module cell(s): Pre-IP 69 | Post-IP 24 | POOLED 71  (>= 5 needed to pair)
+
+  STEP 5 - Comparisons
+
+  [NeoC] PostIP_vs_PreIP: fg n=1188 | bg n=1014
+    Detection filter: 36601 -> 11492 gene(s)
+    cell unit: 11492 gene(s) in 0.5 s
+    cell unit: 374 significant (BH < 0.05, |FC| >= 0.25)
+    donor unit: 82 donor(s) total, 55 paired (>= 3 cell(s) each arm), 8 fg-only, 15 bg-only
+    donor_fc stored: 11492 gene(s) x 55 donor(s)
+    donor unit: 461 significant of 11492 testable, on 55 donor(s)
+
+  Non-module contrasts (M10G-11)
+
+  [NeoC] NMPost_vs_NMPre: fg n=206 | bg n=810
+    Detection filter: 36601 -> 10926 gene(s)
+    cell unit: 10926 gene(s) in 0.2 s
+    cell unit: 23 significant (BH < 0.05, |FC| >= 0.25)
+    donor unit: 80 donor(s) total, 22 paired (>= 3 cell(s) each arm), 2 fg-only, 47 bg-only
+    donor unit: 0 significant of 10926 testable, on 22 donor(s)
+
+  [NeoC] PostIP_vs_NMPost: fg n=1188 | bg n=206
+    Detection filter: 36601 -> 11157 gene(s)
+    cell unit: 11157 gene(s) in 0.3 s
+    cell unit: 110 significant (BH < 0.05, |FC| >= 0.25)
+    donor unit: 73 donor(s) total, 24 paired (>= 3 cell(s) each arm), 39 fg-only, 0 bg-only
+    donor_fc stored: 11157 gene(s) x 24 donor(s)
+    donor unit: 0 significant of 11157 testable, on 24 donor(s)
+
+  [NeoC] PreIP_vs_NMPre: fg n=1014 | bg n=810
+    Detection filter: 36601 -> 11354 gene(s)
+    cell unit: 11354 gene(s) in 0.4 s
+    cell unit: 75 significant (BH < 0.05, |FC| >= 0.25)
+    donor unit: 83 donor(s) total, 63 paired (>= 3 cell(s) each arm), 7 fg-only, 6 bg-only
+    donor_fc stored: 11354 gene(s) x 63 donor(s)
+    donor unit: 12 significant of 11354 testable, on 63 donor(s)
+
+  [NeoC] PostIP_vs_NMAll: fg n=1188 | bg n=1016
+    Detection filter: 36601 -> 11034 gene(s)
+    cell unit: 11034 gene(s) in 0.4 s
+    cell unit: 145 significant (BH < 0.05, |FC| >= 0.25)
+    donor unit: 82 donor(s) total, 56 paired (>= 3 cell(s) each arm), 7 fg-only, 15 bg-only
+    donor_fc stored: 11034 gene(s) x 56 donor(s)
+    donor unit: 51 significant of 11034 testable, on 56 donor(s)
+
+  [NeoC] PreIP_vs_NMAll: fg n=1014 | bg n=1016
+    Detection filter: 36601 -> 11351 gene(s)
+    cell unit: 11351 gene(s) in 0.4 s
+    cell unit: 90 significant (BH < 0.05, |FC| >= 0.25)
+    donor unit: 84 donor(s) total, 63 paired (>= 3 cell(s) each arm), 7 fg-only, 8 bg-only
+    donor unit: 59 significant of 11351 testable, on 63 donor(s)
+
+  Background (non-M4-top Micro-PVM_1)
+    Micro-PVM_1 in the dataset: 4596 | selected: 3218 (3218 of them Micro-PVM_1) | background: 1378
+    raw_dataset: 134088 cell(s) x 36601 gene(s); reading
+    background matrix: 36601 gene(s) x 1378 cell(s)
+    background donors: 77 distinct | 0 cell(s) without one
+    combined donors: 84 distinct | 0 background cell(s) without one
+    combined matrix: 36601 gene(s) x 4596 cell(s) (1378 background)
+
+  [NeoC] PostIP_vs_BG: fg n=1188 | bg n=1378
+    Detection filter: 36601 -> 10933 gene(s)
+    cell unit: 10933 gene(s) in 0.5 s
+    cell unit: 1045 significant (BH < 0.05, |FC| >= 0.12)
+    donor unit: 83 donor(s) total, 52 paired (>= 3 cell(s) each arm), 11 fg-only, 20 bg-only
+    donor unit: 127 significant of 10933 testable, on 52 donor(s)
+
+  [NeoC] PreIP_vs_BG: fg n=1014 | bg n=1378
+    Detection filter: 36601 -> 11285 gene(s)
+    cell unit: 11285 gene(s) in 0.4 s
+    cell unit: 643 significant (BH < 0.05, |FC| >= 0.12)
+    donor unit: 82 donor(s) total, 66 paired (>= 3 cell(s) each arm), 4 fg-only, 6 bg-only
+    donor unit: 5 significant of 11285 testable, on 66 donor(s)
+
+  [NeoC] NMAll_vs_BG: fg n=1016 | bg n=1378
+    Detection filter: 36601 -> 10528 gene(s)
+    cell unit: 10528 gene(s) in 0.4 s
+    cell unit: 472 significant (BH < 0.05, |FC| >= 0.12)
+    donor unit: 83 donor(s) total, 64 paired (>= 3 cell(s) each arm), 7 fg-only, 8 bg-only
+    donor unit: 12 significant of 10528 testable, on 64 donor(s)
+
+  STEP 6 - Figures
+    31 figure(s) written across 9 comparison(s)
+    [PostIP_vs_PreIP cell] median |log2FC| 0.0452 | 3.5% of genes over the 0.250 gate | median max expr 0.179
+    [PostIP_vs_PreIP donor] median |log2FC| 0.0529 | 4.9% of genes over the 0.250 gate | median max expr 0.179
+    [NMPost_vs_NMPre cell] median |log2FC| 0.0624 | 2.9% of genes over the 0.250 gate | median max expr 0.185
+    [NMPost_vs_NMPre donor] median |log2FC| 0.0685 | 3.9% of genes over the 0.250 gate | median max expr 0.185
+    [PostIP_vs_NMPost cell] median |log2FC| 0.0606 | 3.6% of genes over the 0.250 gate | median max expr 0.182
+    [PostIP_vs_NMPost donor] median |log2FC| 0.0713 | 4.6% of genes over the 0.250 gate | median max expr 0.182
+    [PreIP_vs_NMPre cell] median |log2FC| 0.0406 | 1.7% of genes over the 0.250 gate | median max expr 0.179
+    [PreIP_vs_NMPre donor] median |log2FC| 0.0419 | 1.0% of genes over the 0.250 gate | median max expr 0.179
+    [PostIP_vs_NMAll cell] median |log2FC| 0.0389 | 1.5% of genes over the 0.250 gate | median max expr 0.181
+    [PostIP_vs_NMAll donor] median |log2FC| 0.0460 | 1.6% of genes over the 0.250 gate | median max expr 0.181
+    [PreIP_vs_NMAll cell] median |log2FC| 0.0384 | 1.7% of genes over the 0.250 gate | median max expr 0.179
+    [PreIP_vs_NMAll donor] median |log2FC| 0.0406 | 1.1% of genes over the 0.250 gate | median max expr 0.179
+    [PostIP_vs_BG cell] median |log2FC| 0.0479 | 15.1% of genes over the 0.125 gate | median max expr 0.181
+    [PostIP_vs_BG donor] median |log2FC| 0.0532 | 16.6% of genes over the 0.125 gate | median max expr 0.181
+    [PreIP_vs_BG cell] median |log2FC| 0.0390 | 8.7% of genes over the 0.125 gate | median max expr 0.177
+    [PreIP_vs_BG donor] median |log2FC| 0.0374 | 7.1% of genes over the 0.125 gate | median max expr 0.177
+    [NMAll_vs_BG cell] median |log2FC| 0.0386 | 7.2% of genes over the 0.125 gate | median max expr 0.183
+    [NMAll_vs_BG donor] median |log2FC| 0.0406 | 6.2% of genes over the 0.125 gate | median max expr 0.183
+
+ ======================================================================== 
+  Part10g: NonNeoC  [ PVM1_all ]
+======================================================================== 
+
+  STEP 1 - Validation1 cell annotations
+    Excluded                  : 663
+    Original + Refined        : 1618
+    Original only             : 59
+    Recovered                 : 318
+    Module (OrigRef + Recovered) : 1936
+
+  STEP 2 - The inflection point: IP_x is REPORTED, IP_y CLASSIFIES
+    IP_x (REPORTED, GOI axis)  = 2.645333   [R(x)=0 crossing; NOT the classifier]
+    u_IP (copula rank of IP_x) = 0.610004   [reference only]
+    IP_y = f(IP_x) (cDFG axis) = 1.836287   [THIS CLASSIFIES: Pre-IP when cDFG < IP_y]
+    IP_y source: inflection_points_DFG_y[["NonNeoC"]] in Part10b_IPRS_CP10K_PVM_1_results.rds
+
+  STEP 3 - IP arms (inherited from Part 10e / Validation 1)
+    Arm source: group_refined 1936 | IP_status 0 | cDFG@IP_y fallback 0 | unlabelled 0
+    Inherited label vs `cDFG_expr < IP_y`: 100.00% agreement on 1936 cell(s)
+    For reference only: the GOI-axis split at u_IP would disagree on 164 of 1936 cell(s) (91.53% agreement)
+    Original + Refined        : Pre-IP=701  Post-IP=917  unlabelled=0
+    Recovered                 : Pre-IP=188  Post-IP=130  unlabelled=0
+    Non-module cells: 722 in 2 class(es): Excluded, Original only
+    Non-module arm source: group_refined 59 | IP_status 0 | cDFG@IP_y 663 | unlabelled 0
+    Excluded                  : Pre-IP=520  Post-IP=143  unlabelled=0
+    Original only             : Pre-IP=48  Post-IP=11  unlabelled=0
+
+  STEP 4 - Normalised expression and donor
+    norm.mtx: 36601 gene(s) x 2658 cell(s) | max = 7.7520
+    Donors: 83 distinct | 0 cell(s) without one
+    CP10K recipe vs deg_support/norm.mtx: max |dev| = 8.882e-16 on 2000 gene(s) x 400 cell(s)
+    Module cells with expression: 1936 of 1936
+    Non-module cells with expression: 722 of 722 (Pre-IP 568, Post-IP 154)
+    Donors with >= 3 non-module cell(s): Pre-IP 53 | Post-IP 20 | POOLED 57  (>= 5 needed to pair)
+
+  STEP 5 - Comparisons
+
+  [NonNeoC] PostIP_vs_PreIP: fg n=1047 | bg n=889
+    Detection filter: 36601 -> 11076 gene(s)
+    cell unit: 11076 gene(s) in 0.4 s
+    cell unit: 335 significant (BH < 0.05, |FC| >= 0.25)
+    donor unit: 82 donor(s) total, 46 paired (>= 3 cell(s) each arm), 10 fg-only, 18 bg-only
+    donor_fc stored: 11076 gene(s) x 46 donor(s)
+    donor unit: 84 significant of 11076 testable, on 46 donor(s)
+
+  Non-module contrasts (M10G-11)
+
+  [NonNeoC] NMPost_vs_NMPre: fg n=154 | bg n=568
+    Detection filter: 36601 -> 10651 gene(s)
+    cell unit: 10651 gene(s) in 0.1 s
+    cell unit: 20 significant (BH < 0.05, |FC| >= 0.25)
+    donor unit: 75 donor(s) total, 19 paired (>= 3 cell(s) each arm), 1 fg-only, 34 bg-only
+    donor unit: 0 significant of 10651 testable, on 19 donor(s)
+
+  [NonNeoC] PostIP_vs_NMPost: fg n=1047 | bg n=154
+    Detection filter: 36601 -> 10935 gene(s)
+    cell unit: 10935 gene(s) in 0.2 s
+    cell unit: 17 significant (BH < 0.05, |FC| >= 0.25)
+    donor unit: 73 donor(s) total, 19 paired (>= 3 cell(s) each arm), 37 fg-only, 1 bg-only
+    donor_fc stored: 10935 gene(s) x 19 donor(s)
+    donor unit: 0 significant of 10935 testable, on 19 donor(s)
+
+  [NonNeoC] PreIP_vs_NMPre: fg n=889 | bg n=568
+    Detection filter: 36601 -> 10895 gene(s)
+    cell unit: 10895 gene(s) in 0.2 s
+    cell unit: 22 significant (BH < 0.05, |FC| >= 0.25)
+    donor unit: 78 donor(s) total, 51 paired (>= 3 cell(s) each arm), 13 fg-only, 2 bg-only
+    donor_fc stored: 10895 gene(s) x 51 donor(s)
+    donor unit: 4 significant of 10895 testable, on 51 donor(s)
+
+  [NonNeoC] PostIP_vs_NMAll: fg n=1047 | bg n=722
+    Detection filter: 36601 -> 10452 gene(s)
+    cell unit: 10452 gene(s) in 0.3 s
+    cell unit: 183 significant (BH < 0.05, |FC| >= 0.25)
+    donor unit: 82 donor(s) total, 46 paired (>= 3 cell(s) each arm), 10 fg-only, 11 bg-only
+    donor_fc stored: 10452 gene(s) x 46 donor(s)
+    donor unit: 15 significant of 10452 testable, on 46 donor(s)
+
+  [NonNeoC] PreIP_vs_NMAll: fg n=889 | bg n=722
+    Detection filter: 36601 -> 10898 gene(s)
+    cell unit: 10898 gene(s) in 0.2 s
+    cell unit: 28 significant (BH < 0.05, |FC| >= 0.25)
+    donor unit: 78 donor(s) total, 51 paired (>= 3 cell(s) each arm), 13 fg-only, 6 bg-only
+    donor unit: 10 significant of 10898 testable, on 51 donor(s)
+
+  Background (non-M4-top Micro-PVM_1)
+    Micro-PVM_1 in the dataset: 3313 | selected: 2658 (2658 of them Micro-PVM_1) | background: 655
+    raw_dataset: 106563 cell(s) x 36601 gene(s); reading
+    background matrix: 36601 gene(s) x 655 cell(s)
+    background donors: 72 distinct | 0 cell(s) without one
+    combined donors: 83 distinct | 0 background cell(s) without one
+    combined matrix: 36601 gene(s) x 3313 cell(s) (655 background)
+
+  [NonNeoC] PostIP_vs_BG: fg n=1047 | bg n=655
+    Detection filter: 36601 -> 10367 gene(s)
+    cell unit: 10367 gene(s) in 0.2 s
+    cell unit: 1099 significant (BH < 0.05, |FC| >= 0.12)
+    donor unit: 83 donor(s) total, 31 paired (>= 3 cell(s) each arm), 25 fg-only, 20 bg-only
+    donor unit: 20 significant of 10367 testable, on 31 donor(s)
+
+  [NonNeoC] PreIP_vs_BG: fg n=889 | bg n=655
+    Detection filter: 36601 -> 10868 gene(s)
+    cell unit: 10868 gene(s) in 0.2 s
+    cell unit: 821 significant (BH < 0.05, |FC| >= 0.12)
+    donor unit: 78 donor(s) total, 46 paired (>= 3 cell(s) each arm), 18 fg-only, 5 bg-only
+    donor unit: 1 significant of 10868 testable, on 46 donor(s)
+
+  [NonNeoC] NMAll_vs_BG: fg n=722 | bg n=655
+    Detection filter: 36601 -> 9785 gene(s)
+    cell unit: 9785 gene(s) in 0.2 s
+    cell unit: 368 significant (BH < 0.05, |FC| >= 0.12)
+    donor unit: 77 donor(s) total, 39 paired (>= 3 cell(s) each arm), 18 fg-only, 12 bg-only
+    donor unit: 10 significant of 9785 testable, on 39 donor(s)
+
+  STEP 6 - Figures
+    29 figure(s) written across 9 comparison(s)
+    [PostIP_vs_PreIP cell] median |log2FC| 0.0479 | 3.4% of genes over the 0.250 gate | median max expr 0.178
+    [PostIP_vs_PreIP donor] median |log2FC| 0.0534 | 3.1% of genes over the 0.250 gate | median max expr 0.178
+    [NMPost_vs_NMPre cell] median |log2FC| 0.0755 | 5.5% of genes over the 0.250 gate | median max expr 0.176
+    [NMPost_vs_NMPre donor] median |log2FC| 0.0876 | 9.6% of genes over the 0.250 gate | median max expr 0.176
+    [PostIP_vs_NMPost cell] median |log2FC| 0.0704 | 5.0% of genes over the 0.250 gate | median max expr 0.174
+    [PostIP_vs_NMPost donor] median |log2FC| 0.0819 | 8.5% of genes over the 0.250 gate | median max expr 0.174
+    [PreIP_vs_NMPre cell] median |log2FC| 0.0421 | 0.6% of genes over the 0.250 gate | median max expr 0.178
+    [PreIP_vs_NMPre donor] median |log2FC| 0.0488 | 1.2% of genes over the 0.250 gate | median max expr 0.178
+    [PostIP_vs_NMAll cell] median |log2FC| 0.0511 | 2.4% of genes over the 0.250 gate | median max expr 0.178
+    [PostIP_vs_NMAll donor] median |log2FC| 0.0523 | 1.7% of genes over the 0.250 gate | median max expr 0.178
+    [PreIP_vs_NMAll cell] median |log2FC| 0.0397 | 0.6% of genes over the 0.250 gate | median max expr 0.178
+    [PreIP_vs_NMAll donor] median |log2FC| 0.0461 | 1.0% of genes over the 0.250 gate | median max expr 0.178
+    [PostIP_vs_BG cell] median |log2FC| 0.0638 | 21.3% of genes over the 0.125 gate | median max expr 0.177
+    [PostIP_vs_BG donor] median |log2FC| 0.0688 | 24.7% of genes over the 0.125 gate | median max expr 0.177
+    [PreIP_vs_BG cell] median |log2FC| 0.0452 | 10.4% of genes over the 0.125 gate | median max expr 0.177
+    [PreIP_vs_BG donor] median |log2FC| 0.0501 | 13.2% of genes over the 0.125 gate | median max expr 0.177
+    [NMAll_vs_BG cell] median |log2FC| 0.0548 | 14.9% of genes over the 0.125 gate | median max expr 0.182
+    [NMAll_vs_BG donor] median |log2FC| 0.0574 | 17.4% of genes over the 0.125 gate | median max expr 0.182
+
+ ======================================================================== 
+  SAVING RESULTS
+======================================================================== 
+
+  [PASS]  GR-10G-45             donor_fc: 8 matrix(es) of 8 expected (2 dataset(s) x 4 contrast(s)) | NeoC/PostIP_vs_PreIP:11492x55, NeoC/PostIP_vs_NMPost:11157x24, NeoC/PreIP_vs_NMPre:11354x63, NeoC/PostIP_vs_NMAll:11034x56, NonNeoC/PostIP_vs_PreIP:11076x46, NonNeoC/PostIP_vs_NMPost:10935x19, NonNeoC/PreIP_vs_NMPre:10895x51, NonNeoC/PostIP_vs_NMAll:10452x46
+  [NeoC] RDS saved: Part10g_CP10K_PVM_1_NeoC_results.rds (25.1 MB)
+  [NonNeoC] RDS saved: Part10g_CP10K_PVM_1_NonNeoC_results.rds (21.2 MB)
+  Excel saved: Part10g_CP10K_PVM_1_DEGs_Part1_donor.xlsx      (21 sheet(s), PRIMARY)
+
+  POST-ANALYSIS GUARDRAILS
+
+  [PASS]  GR-10G-04-NeoC        u_IP = 0.662939 | 2202 module cell(s) | 0 cell(s) without a donor
+  [PASS]  GR-10G-05-NeoC        norm.mtx max = 7.6178 (CP10K ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-10G-06-NeoC        donor unit ran on 55 paired donor(s) of 82 (>= 3 cell(s) per arm); 8 fg-only, 15 bg-only
+  [PASS]  GR-10G-07-NeoC        significant genes: 374 at the cell unit, 461 at the donor unit (0.8x). Report the donor unit; the cell unit is pseudoreplicated
+  [PASS]  GR-10G-15-NeoC        donor unit present on 9 of 9 comparison(s): PostIP_vs_PreIP, NMPost_vs_NMPre, PostIP_vs_NMPost, PreIP_vs_NMPre, PostIP_vs_NMAll, PreIP_vs_NMAll, PostIP_vs_BG, PreIP_vs_BG, NMAll_vs_BG
+  [PASS]  GR-10G-17-NeoC        non-module 1016 cell(s) in Excluded + Original only | Pre-IP 810 / Post-IP 206 | 1016 of 1016 in norm.mtx | 5 of 5 contrast(s) ran (NMPost_vs_NMPre, PostIP_vs_NMPost, PreIP_vs_NMPre, PostIP_vs_NMAll, PreIP_vs_NMAll) | donors with >= 3 cell(s): Pre-IP 69, Post-IP 24, POOLED 71 against the 5 needed to pair
+  [PASS]  GR-10G-14-NeoC        IP_y = 1.526079 from `inflection_points_DFG_y` in Part10b_IPRS_CP10K_PVM_1_results.rds | IP_x = 2.382738 (reported, GOI axis, NOT the classifier)
+  [PASS]  GR-10G-09-NeoC        arm inherited: group_refined 2202, IP_status 0, cDFG@IP_y fallback 0, unlabelled 0 | inherited vs `cDFG < IP_y`: 100.00% on 2202 cell(s) | GOI-axis split at u_IP would agree 88.65%
+  [PASS]  GR-10G-10-NeoC-PostIP_vs_PreIP-cell  [PostIP_vs_PreIP cell] 3.51% of 11492 tested gene(s) clear |log2FC| >= 0.250 (median |log2FC| 0.0452, median max expr 0.179). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [PASS]  GR-10G-10-NeoC-PostIP_vs_PreIP-donor  [PostIP_vs_PreIP donor] 4.86% of 11492 tested gene(s) clear |log2FC| >= 0.250 (median |log2FC| 0.0529, median max expr 0.179). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [PASS]  GR-10G-10-NeoC-NMPost_vs_NMPre-cell  [NMPost_vs_NMPre cell] 2.88% of 10926 tested gene(s) clear |log2FC| >= 0.250 (median |log2FC| 0.0624, median max expr 0.185). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [PASS]  GR-10G-10-NeoC-NMPost_vs_NMPre-donor  [NMPost_vs_NMPre donor] 3.88% of 10926 tested gene(s) clear |log2FC| >= 0.250 (median |log2FC| 0.0685, median max expr 0.185). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [PASS]  GR-10G-10-NeoC-PostIP_vs_NMPost-cell  [PostIP_vs_NMPost cell] 3.59% of 11157 tested gene(s) clear |log2FC| >= 0.250 (median |log2FC| 0.0606, median max expr 0.182). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [PASS]  GR-10G-10-NeoC-PostIP_vs_NMPost-donor  [PostIP_vs_NMPost donor] 4.57% of 11157 tested gene(s) clear |log2FC| >= 0.250 (median |log2FC| 0.0713, median max expr 0.182). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [WARN]  GR-10G-10-NeoC-PreIP_vs_NMPre-cell  [PreIP_vs_NMPre cell] 1.72% of 11354 tested gene(s) clear |log2FC| >= 0.250 (median |log2FC| 0.0406, median max expr 0.179). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [WARN]  GR-10G-10-NeoC-PreIP_vs_NMPre-donor  [PreIP_vs_NMPre donor] 1.02% of 11354 tested gene(s) clear |log2FC| >= 0.250 (median |log2FC| 0.0419, median max expr 0.179). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [WARN]  GR-10G-10-NeoC-PostIP_vs_NMAll-cell  [PostIP_vs_NMAll cell] 1.54% of 11034 tested gene(s) clear |log2FC| >= 0.250 (median |log2FC| 0.0389, median max expr 0.181). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [WARN]  GR-10G-10-NeoC-PostIP_vs_NMAll-donor  [PostIP_vs_NMAll donor] 1.56% of 11034 tested gene(s) clear |log2FC| >= 0.250 (median |log2FC| 0.0460, median max expr 0.181). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [WARN]  GR-10G-10-NeoC-PreIP_vs_NMAll-cell  [PreIP_vs_NMAll cell] 1.66% of 11351 tested gene(s) clear |log2FC| >= 0.250 (median |log2FC| 0.0384, median max expr 0.179). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [WARN]  GR-10G-10-NeoC-PreIP_vs_NMAll-donor  [PreIP_vs_NMAll donor] 1.07% of 11351 tested gene(s) clear |log2FC| >= 0.250 (median |log2FC| 0.0406, median max expr 0.179). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [PASS]  GR-10G-10-NeoC-PostIP_vs_BG-cell  [PostIP_vs_BG cell] 15.09% of 10933 tested gene(s) clear |log2FC| >= 0.125 (median |log2FC| 0.0479, median max expr 0.181). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [PASS]  GR-10G-10-NeoC-PostIP_vs_BG-donor  [PostIP_vs_BG donor] 16.62% of 10933 tested gene(s) clear |log2FC| >= 0.125 (median |log2FC| 0.0532, median max expr 0.181). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [PASS]  GR-10G-10-NeoC-PreIP_vs_BG-cell  [PreIP_vs_BG cell] 8.67% of 11285 tested gene(s) clear |log2FC| >= 0.125 (median |log2FC| 0.0390, median max expr 0.177). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [PASS]  GR-10G-10-NeoC-PreIP_vs_BG-donor  [PreIP_vs_BG donor] 7.09% of 11285 tested gene(s) clear |log2FC| >= 0.125 (median |log2FC| 0.0374, median max expr 0.177). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [PASS]  GR-10G-10-NeoC-NMAll_vs_BG-cell  [NMAll_vs_BG cell] 7.17% of 10528 tested gene(s) clear |log2FC| >= 0.125 (median |log2FC| 0.0386, median max expr 0.183). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [PASS]  GR-10G-10-NeoC-NMAll_vs_BG-donor  [NMAll_vs_BG donor] 6.18% of 10528 tested gene(s) clear |log2FC| >= 0.125 (median |log2FC| 0.0406, median max expr 0.183). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [PASS]  GR-10G-11-NeoC-PostIP_vs_PreIP-cell  [PostIP_vs_PreIP cell] 374 significant: 236 up / 138 down; groups within 1.5x (1188 against 1014), so the original down-only rule applies. Skew toward down = 0.58; those down genes are detected in 62.9% of cells at best (median)
+  [PASS]  GR-10G-11-NeoC-PostIP_vs_PreIP-donor  [PostIP_vs_PreIP donor] 461 significant: 225 up / 236 down; groups within 1.5x (1188 against 1014), so the original down-only rule applies. Skew toward down = 1.05; those down genes are detected in 73.7% of cells at best (median)
+  [PASS]  GR-10G-11-NeoC-NMPost_vs_NMPre-cell  [NMPost_vs_NMPre cell] 23 significant: 21 up / 2 down; the background is the larger group (810 against 206), so the artefact direction is DOWN. Skew toward down = 0.10; those down genes are detected in 87.2% of cells at best (median)
+  [PASS]  GR-10G-11-NeoC-NMPost_vs_NMPre-donor  [NMPost_vs_NMPre donor] 0 significant: 0 up / 0 down. No significant gene, so there is no skew. No artefact verdict is given here. See GR-10G-12 for whether this comparison was resolution-limited
+  [PASS]  GR-10G-11-NeoC-PostIP_vs_NMPost-cell  [PostIP_vs_NMPost cell] 110 significant: 72 up / 38 down; the foreground is the larger group (1188 against 206), so the artefact direction is UP. Skew toward up = 1.89; those up genes are detected in 50.0% of cells at best (median)
+  [PASS]  GR-10G-11-NeoC-PostIP_vs_NMPost-donor  [PostIP_vs_NMPost donor] 0 significant: 0 up / 0 down. No significant gene, so there is no skew. No artefact verdict is given here. See GR-10G-12 for whether this comparison was resolution-limited
+  [PASS]  GR-10G-11-NeoC-PreIP_vs_NMPre-cell  [PreIP_vs_NMPre cell] 75 significant: 41 up / 34 down; groups within 1.5x (1014 against 810), so the original down-only rule applies. Skew toward down = 0.83; those down genes are detected in 57.0% of cells at best (median)
+  [PASS]  GR-10G-11-NeoC-PreIP_vs_NMPre-donor  [PreIP_vs_NMPre donor] 12 significant: 6 up / 6 down; groups within 1.5x (1014 against 810), so the original down-only rule applies. Skew toward down = 1.00; those down genes are detected in 79.3% of cells at best (median)
+  [PASS]  GR-10G-11-NeoC-PostIP_vs_NMAll-cell  [PostIP_vs_NMAll cell] 145 significant: 118 up / 27 down; groups within 1.5x (1188 against 1016), so the original down-only rule applies. Skew toward down = 0.23; those down genes are detected in 34.2% of cells at best (median)
+  [PASS]  GR-10G-11-NeoC-PostIP_vs_NMAll-donor  [PostIP_vs_NMAll donor] 51 significant: 46 up / 5 down; groups within 1.5x (1188 against 1016), so the original down-only rule applies. Skew toward down = 0.11; those down genes are detected in 28.4% of cells at best (median)
+  [PASS]  GR-10G-11-NeoC-PreIP_vs_NMAll-cell  [PreIP_vs_NMAll cell] 90 significant: 40 up / 50 down; groups within 1.5x (1014 against 1016), so the original down-only rule applies. Skew toward down = 1.25; those down genes are detected in 54.0% of cells at best (median)
+  [PASS]  GR-10G-11-NeoC-PreIP_vs_NMAll-donor  [PreIP_vs_NMAll donor] 59 significant: 21 up / 38 down; groups within 1.5x (1014 against 1016), so the original down-only rule applies. Skew toward down = 1.81; those down genes are detected in 64.1% of cells at best (median)
+  [PASS]  GR-10G-11-NeoC-PostIP_vs_BG-cell  [PostIP_vs_BG cell] 1045 significant: 857 up / 188 down; groups within 1.5x (1188 against 1378), so the original down-only rule applies. Skew toward down = 0.22; those down genes are detected in 29.1% of cells at best (median)
+  [PASS]  GR-10G-11-NeoC-PostIP_vs_BG-donor  [PostIP_vs_BG donor] 127 significant: 96 up / 31 down; groups within 1.5x (1188 against 1378), so the original down-only rule applies. Skew toward down = 0.32; those down genes are detected in 51.0% of cells at best (median)
+  [PASS]  GR-10G-11-NeoC-PreIP_vs_BG-cell  [PreIP_vs_BG cell] 643 significant: 427 up / 216 down; groups within 1.5x (1014 against 1378), so the original down-only rule applies. Skew toward down = 0.51; those down genes are detected in 32.2% of cells at best (median)
+  [PASS]  GR-10G-11-NeoC-PreIP_vs_BG-donor  [PreIP_vs_BG donor] 5 significant: 5 up / 0 down. Fewer than 10 significant gene(s), so the skew ratio is NOT ASSESSABLE. No artefact verdict is given here. See GR-10G-12 for whether this comparison was resolution-limited
+  [PASS]  GR-10G-11-NeoC-NMAll_vs_BG-cell  [NMAll_vs_BG cell] 472 significant: 445 up / 27 down; groups within 1.5x (1016 against 1378), so the original down-only rule applies. Skew toward down = 0.06; those down genes are detected in 32.2% of cells at best (median)
+  [PASS]  GR-10G-11-NeoC-NMAll_vs_BG-donor  [NMAll_vs_BG donor] 12 significant: 12 up / 0 down; groups within 1.5x (1016 against 1378), so the original down-only rule applies. Skew toward down = 0.00; no gene(s) on the down side, so no detection rate to report
+  [PASS]  GR-10G-12-NeoC-PostIP_vs_PreIP  [PostIP_vs_PreIP donor] 55 paired donor(s): smallest attainable signed-rank p = 1.14e-10; one gene alone reaches BH = 1.31e-06 over 11492 gene(s). Observed: 10 gene(s) tie at p = 1.14e-10, reaching BH = 1.31e-07 -- that is the flat top row of the volcano.
+  [WARN]  GR-10G-12-NeoC-NMPost_vs_NMPre  [NMPost_vs_NMPre donor] 22 paired donor(s): smallest attainable signed-rank p = 4.30e-05; one gene alone reaches BH = 4.70e-01 over 10926 gene(s). Observed: 3 gene(s) tie at p = 4.30e-05, reaching BH = 1.19e-01 -- that is the flat top row of the volcano. RESOLUTION-LIMITED: no gene reached BH < 0.05, the observed minimum being 1.19e-01. A single gene at the floor reaches only BH = 4.70e-01, so a call here needed either at least 10 gene(s) tied at the floor or small enough p-values at higher ranks for the BH step-up to carry one below alpha, and neither happened. A count of 0 significant measures donor resolution, not absence of an effect.
+  [WARN]  GR-10G-12-NeoC-PostIP_vs_NMPost  [PostIP_vs_NMPost donor] 24 paired donor(s): smallest attainable signed-rank p = 1.94e-05; one gene alone reaches BH = 2.17e-01 over 11157 gene(s). Observed: 1 gene(s) tie at p = 1.94e-05, reaching BH = 6.59e-02 -- that is the flat top row of the volcano. RESOLUTION-LIMITED: no gene reached BH < 0.05, the observed minimum being 6.59e-02. A single gene at the floor reaches only BH = 2.17e-01, so a call here needed either at least 5 gene(s) tied at the floor or small enough p-values at higher ranks for the BH step-up to carry one below alpha, and neither happened. A count of 0 significant measures donor resolution, not absence of an effect.
+  [PASS]  GR-10G-12-NeoC-PreIP_vs_NMPre  [PreIP_vs_NMPre donor] 63 paired donor(s): smallest attainable signed-rank p = 5.29e-12; one gene alone reaches BH = 6.01e-08 over 11354 gene(s). Observed: 1 gene(s) tie at p = 6.73e-12, reaching BH = 7.64e-08 -- that is the flat top row of the volcano.
+  [PASS]  GR-10G-12-NeoC-PostIP_vs_NMAll  [PostIP_vs_NMAll donor] 56 paired donor(s): smallest attainable signed-rank p = 7.76e-11; one gene alone reaches BH = 8.56e-07 over 11034 gene(s). Observed: 4 gene(s) tie at p = 7.76e-11, reaching BH = 1.12e-07 -- that is the flat top row of the volcano.
+  [PASS]  GR-10G-12-NeoC-PreIP_vs_NMAll  [PreIP_vs_NMAll donor] 63 paired donor(s): smallest attainable signed-rank p = 5.29e-12; one gene alone reaches BH = 6.01e-08 over 11351 gene(s). Observed: 1 gene(s) tie at p = 6.12e-12, reaching BH = 6.94e-08 -- that is the flat top row of the volcano.
+  [PASS]  GR-10G-12-NeoC-PostIP_vs_BG  [PostIP_vs_BG donor] 52 paired donor(s): smallest attainable signed-rank p = 3.61e-10; one gene alone reaches BH = 3.94e-06 over 10933 gene(s). Observed: 6 gene(s) tie at p = 3.61e-10, reaching BH = 5.54e-07 -- that is the flat top row of the volcano.
+  [PASS]  GR-10G-12-NeoC-PreIP_vs_BG  [PreIP_vs_BG donor] 66 paired donor(s): smallest attainable signed-rank p = 1.68e-12; one gene alone reaches BH = 1.89e-08 over 11285 gene(s). Observed: 1 gene(s) tie at p = 1.68e-12, reaching BH = 1.89e-08 -- that is the flat top row of the volcano.
+  [PASS]  GR-10G-12-NeoC-NMAll_vs_BG  [NMAll_vs_BG donor] 64 paired donor(s): smallest attainable signed-rank p = 3.61e-12; one gene alone reaches BH = 3.80e-08 over 10528 gene(s). Observed: 1 gene(s) tie at p = 3.61e-12, reaching BH = 3.80e-08 -- that is the flat top row of the volcano.
+  [PASS]  GR-10G-13-NeoC        CP10K recomputed from raw_selected vs deg_support/norm.mtx: max |dev| = 8.882e-16 on 2000 gene(s) x 400 cell(s), tolerance 1.0e-06
+  [PASS]  GR-10G-08-NeoC        background = 1378 non-selected Micro-PVM_1 cell(s) of 4596 in the dataset, from raw_dataset, normalised on the verified CP10K recipe; 36601 gene(s) shared with norm.mtx; 3218 of 3218 selected cell(s) are Micro-PVM_1; 3 of 3 background contrast(s) ran
+  [PASS]  GR-10G-04-NonNeoC     u_IP = 0.610004 | 1936 module cell(s) | 0 cell(s) without a donor
+  [PASS]  GR-10G-05-NonNeoC     norm.mtx max = 7.7520 (CP10K ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-10G-06-NonNeoC     donor unit ran on 46 paired donor(s) of 82 (>= 3 cell(s) per arm); 10 fg-only, 18 bg-only
+  [PASS]  GR-10G-07-NonNeoC     significant genes: 335 at the cell unit, 84 at the donor unit (4.0x). Report the donor unit; the cell unit is pseudoreplicated
+  [PASS]  GR-10G-15-NonNeoC     donor unit present on 9 of 9 comparison(s): PostIP_vs_PreIP, NMPost_vs_NMPre, PostIP_vs_NMPost, PreIP_vs_NMPre, PostIP_vs_NMAll, PreIP_vs_NMAll, PostIP_vs_BG, PreIP_vs_BG, NMAll_vs_BG
+  [PASS]  GR-10G-17-NonNeoC     non-module 722 cell(s) in Excluded + Original only | Pre-IP 568 / Post-IP 154 | 722 of 722 in norm.mtx | 5 of 5 contrast(s) ran (NMPost_vs_NMPre, PostIP_vs_NMPost, PreIP_vs_NMPre, PostIP_vs_NMAll, PreIP_vs_NMAll) | donors with >= 3 cell(s): Pre-IP 53, Post-IP 20, POOLED 57 against the 5 needed to pair
+  [PASS]  GR-10G-14-NonNeoC     IP_y = 1.836287 from `inflection_points_DFG_y` in Part10b_IPRS_CP10K_PVM_1_results.rds | IP_x = 2.645333 (reported, GOI axis, NOT the classifier)
+  [PASS]  GR-10G-09-NonNeoC     arm inherited: group_refined 1936, IP_status 0, cDFG@IP_y fallback 0, unlabelled 0 | inherited vs `cDFG < IP_y`: 100.00% on 1936 cell(s) | GOI-axis split at u_IP would agree 91.53%
+  [PASS]  GR-10G-10-NonNeoC-PostIP_vs_PreIP-cell  [PostIP_vs_PreIP cell] 3.44% of 11076 tested gene(s) clear |log2FC| >= 0.250 (median |log2FC| 0.0479, median max expr 0.178). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [PASS]  GR-10G-10-NonNeoC-PostIP_vs_PreIP-donor  [PostIP_vs_PreIP donor] 3.07% of 11076 tested gene(s) clear |log2FC| >= 0.250 (median |log2FC| 0.0534, median max expr 0.178). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [PASS]  GR-10G-10-NonNeoC-NMPost_vs_NMPre-cell  [NMPost_vs_NMPre cell] 5.54% of 10651 tested gene(s) clear |log2FC| >= 0.250 (median |log2FC| 0.0755, median max expr 0.176). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [PASS]  GR-10G-10-NonNeoC-NMPost_vs_NMPre-donor  [NMPost_vs_NMPre donor] 9.62% of 10651 tested gene(s) clear |log2FC| >= 0.250 (median |log2FC| 0.0876, median max expr 0.176). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [PASS]  GR-10G-10-NonNeoC-PostIP_vs_NMPost-cell  [PostIP_vs_NMPost cell] 4.96% of 10935 tested gene(s) clear |log2FC| >= 0.250 (median |log2FC| 0.0704, median max expr 0.174). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [PASS]  GR-10G-10-NonNeoC-PostIP_vs_NMPost-donor  [PostIP_vs_NMPost donor] 8.53% of 10935 tested gene(s) clear |log2FC| >= 0.250 (median |log2FC| 0.0819, median max expr 0.174). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [WARN]  GR-10G-10-NonNeoC-PreIP_vs_NMPre-cell  [PreIP_vs_NMPre cell] 0.59% of 10895 tested gene(s) clear |log2FC| >= 0.250 (median |log2FC| 0.0421, median max expr 0.178). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [WARN]  GR-10G-10-NonNeoC-PreIP_vs_NMPre-donor  [PreIP_vs_NMPre donor] 1.20% of 10895 tested gene(s) clear |log2FC| >= 0.250 (median |log2FC| 0.0488, median max expr 0.178). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [PASS]  GR-10G-10-NonNeoC-PostIP_vs_NMAll-cell  [PostIP_vs_NMAll cell] 2.43% of 10452 tested gene(s) clear |log2FC| >= 0.250 (median |log2FC| 0.0511, median max expr 0.178). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [WARN]  GR-10G-10-NonNeoC-PostIP_vs_NMAll-donor  [PostIP_vs_NMAll donor] 1.66% of 10452 tested gene(s) clear |log2FC| >= 0.250 (median |log2FC| 0.0523, median max expr 0.178). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [WARN]  GR-10G-10-NonNeoC-PreIP_vs_NMAll-cell  [PreIP_vs_NMAll cell] 0.59% of 10898 tested gene(s) clear |log2FC| >= 0.250 (median |log2FC| 0.0397, median max expr 0.178). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [WARN]  GR-10G-10-NonNeoC-PreIP_vs_NMAll-donor  [PreIP_vs_NMAll donor] 1.00% of 10898 tested gene(s) clear |log2FC| >= 0.250 (median |log2FC| 0.0461, median max expr 0.178). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [PASS]  GR-10G-10-NonNeoC-PostIP_vs_BG-cell  [PostIP_vs_BG cell] 21.30% of 10367 tested gene(s) clear |log2FC| >= 0.125 (median |log2FC| 0.0638, median max expr 0.177). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [PASS]  GR-10G-10-NonNeoC-PostIP_vs_BG-donor  [PostIP_vs_BG donor] 24.73% of 10367 tested gene(s) clear |log2FC| >= 0.125 (median |log2FC| 0.0688, median max expr 0.177). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [PASS]  GR-10G-10-NonNeoC-PreIP_vs_BG-cell  [PreIP_vs_BG cell] 10.35% of 10868 tested gene(s) clear |log2FC| >= 0.125 (median |log2FC| 0.0452, median max expr 0.177). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [PASS]  GR-10G-10-NonNeoC-PreIP_vs_BG-donor  [PreIP_vs_BG donor] 13.18% of 10868 tested gene(s) clear |log2FC| >= 0.125 (median |log2FC| 0.0501, median max expr 0.177). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [PASS]  GR-10G-10-NonNeoC-NMAll_vs_BG-cell  [NMAll_vs_BG cell] 14.88% of 9785 tested gene(s) clear |log2FC| >= 0.125 (median |log2FC| 0.0548, median max expr 0.182). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [PASS]  GR-10G-10-NonNeoC-NMAll_vs_BG-donor  [NMAll_vs_BG donor] 17.38% of 9785 tested gene(s) clear |log2FC| >= 0.125 (median |log2FC| 0.0574, median max expr 0.182). Expected 2-40%; outside that the gate is calibrated for a different normalisation
+  [PASS]  GR-10G-11-NonNeoC-PostIP_vs_PreIP-cell  [PostIP_vs_PreIP cell] 335 significant: 178 up / 157 down; groups within 1.5x (1047 against 889), so the original down-only rule applies. Skew toward down = 0.88; those down genes are detected in 62.8% of cells at best (median)
+  [PASS]  GR-10G-11-NonNeoC-PostIP_vs_PreIP-donor  [PostIP_vs_PreIP donor] 84 significant: 41 up / 43 down; groups within 1.5x (1047 against 889), so the original down-only rule applies. Skew toward down = 1.05; those down genes are detected in 79.3% of cells at best (median)
+  [PASS]  GR-10G-11-NonNeoC-NMPost_vs_NMPre-cell  [NMPost_vs_NMPre cell] 20 significant: 20 up / 0 down; the background is the larger group (568 against 154), so the artefact direction is DOWN. Skew toward down = 0.00; no gene(s) on the down side, so no detection rate to report
+  [PASS]  GR-10G-11-NonNeoC-NMPost_vs_NMPre-donor  [NMPost_vs_NMPre donor] 0 significant: 0 up / 0 down. No significant gene, so there is no skew. No artefact verdict is given here. See GR-10G-12 for whether this comparison was resolution-limited
+  [WARN]  GR-10G-11-NonNeoC-PostIP_vs_NMPost-cell  [PostIP_vs_NMPost cell] 17 significant: 14 up / 3 down; the foreground is the larger group (1047 against 154), so the artefact direction is UP. Skew toward up = 4.67; those up genes are detected in 97.1% of cells at best (median)
+  [PASS]  GR-10G-11-NonNeoC-PostIP_vs_NMPost-donor  [PostIP_vs_NMPost donor] 0 significant: 0 up / 0 down. No significant gene, so there is no skew. No artefact verdict is given here. See GR-10G-12 for whether this comparison was resolution-limited
+  [PASS]  GR-10G-11-NonNeoC-PreIP_vs_NMPre-cell  [PreIP_vs_NMPre cell] 22 significant: 8 up / 14 down; the foreground is the larger group (889 against 568), so the artefact direction is UP. Skew toward up = 0.57; those up genes are detected in 48.1% of cells at best (median)
+  [PASS]  GR-10G-11-NonNeoC-PreIP_vs_NMPre-donor  [PreIP_vs_NMPre donor] 4 significant: 1 up / 3 down. Fewer than 10 significant gene(s), so the skew ratio is NOT ASSESSABLE. No artefact verdict is given here. See GR-10G-12 for whether this comparison was resolution-limited
+  [PASS]  GR-10G-11-NonNeoC-PostIP_vs_NMAll-cell  [PostIP_vs_NMAll cell] 183 significant: 146 up / 37 down; groups within 1.5x (1047 against 722), so the original down-only rule applies. Skew toward down = 0.25; those down genes are detected in 48.6% of cells at best (median)
+  [PASS]  GR-10G-11-NonNeoC-PostIP_vs_NMAll-donor  [PostIP_vs_NMAll donor] 15 significant: 14 up / 1 down; groups within 1.5x (1047 against 722), so the original down-only rule applies. Skew toward down = 0.07; those down genes are detected in 17.2% of cells at best (median)
+  [PASS]  GR-10G-11-NonNeoC-PreIP_vs_NMAll-cell  [PreIP_vs_NMAll cell] 28 significant: 9 up / 19 down; groups within 1.5x (889 against 722), so the original down-only rule applies. Skew toward down = 2.11; those down genes are detected in 57.4% of cells at best (median)
+  [WARN]  GR-10G-11-NonNeoC-PreIP_vs_NMAll-donor  [PreIP_vs_NMAll donor] 10 significant: 0 up / 10 down; groups within 1.5x (889 against 722), so the original down-only rule applies. Skew toward down = Inf; those down genes are detected in 73.5% of cells at best (median)
+  [WARN]  GR-10G-11-NonNeoC-PostIP_vs_BG-cell  [PostIP_vs_BG cell] 1099 significant: 976 up / 123 down; the foreground is the larger group (1047 against 655), so the artefact direction is UP. Skew toward up = 7.93; those up genes are detected in 27.1% of cells at best (median)
+  [WARN]  GR-10G-11-NonNeoC-PostIP_vs_BG-donor  [PostIP_vs_BG donor] 20 significant: 19 up / 1 down; the foreground is the larger group (1047 against 655), so the artefact direction is UP. Skew toward up = 19.00; those up genes are detected in 82.4% of cells at best (median)
+  [PASS]  GR-10G-11-NonNeoC-PreIP_vs_BG-cell  [PreIP_vs_BG cell] 821 significant: 507 up / 314 down; groups within 1.5x (889 against 655), so the original down-only rule applies. Skew toward down = 0.62; those down genes are detected in 32.5% of cells at best (median)
+  [PASS]  GR-10G-11-NonNeoC-PreIP_vs_BG-donor  [PreIP_vs_BG donor] 1 significant: 1 up / 0 down. Fewer than 10 significant gene(s), so the skew ratio is NOT ASSESSABLE. No artefact verdict is given here. See GR-10G-12 for whether this comparison was resolution-limited
+  [PASS]  GR-10G-11-NonNeoC-NMAll_vs_BG-cell  [NMAll_vs_BG cell] 368 significant: 363 up / 5 down; groups within 1.5x (722 against 655), so the original down-only rule applies. Skew toward down = 0.01; those down genes are detected in 55.7% of cells at best (median)
+  [PASS]  GR-10G-11-NonNeoC-NMAll_vs_BG-donor  [NMAll_vs_BG donor] 10 significant: 10 up / 0 down; groups within 1.5x (722 against 655), so the original down-only rule applies. Skew toward down = 0.00; no gene(s) on the down side, so no detection rate to report
+  [PASS]  GR-10G-12-NonNeoC-PostIP_vs_PreIP  [PostIP_vs_PreIP donor] 46 paired donor(s): smallest attainable signed-rank p = 3.64e-09; one gene alone reaches BH = 4.03e-05 over 11076 gene(s). Observed: 10 gene(s) tie at p = 3.64e-09, reaching BH = 4.03e-06 -- that is the flat top row of the volcano.
+  [WARN]  GR-10G-12-NonNeoC-NMPost_vs_NMPre  [NMPost_vs_NMPre donor] 19 paired donor(s): smallest attainable signed-rank p = 1.43e-04; one gene alone reaches BH = 1.52e+00 over 10651 gene(s). Observed: 3 gene(s) tie at p = 1.43e-04, reaching BH = 3.26e-01 -- that is the flat top row of the volcano. RESOLUTION-LIMITED: no gene reached BH < 0.05, the observed minimum being 3.26e-01. A single gene at the floor reaches only BH = 1.52e+00, so a call here needed either at least 31 gene(s) tied at the floor or small enough p-values at higher ranks for the BH step-up to carry one below alpha, and neither happened. A count of 0 significant measures donor resolution, not absence of an effect.
+  [WARN]  GR-10G-12-NonNeoC-PostIP_vs_NMPost  [PostIP_vs_NMPost donor] 19 paired donor(s): smallest attainable signed-rank p = 1.43e-04; one gene alone reaches BH = 1.56e+00 over 10935 gene(s). Observed: 3 gene(s) tie at p = 1.43e-04, reaching BH = 2.56e-01 -- that is the flat top row of the volcano. RESOLUTION-LIMITED: no gene reached BH < 0.05, the observed minimum being 2.56e-01. A single gene at the floor reaches only BH = 1.56e+00, so a call here needed either at least 32 gene(s) tied at the floor or small enough p-values at higher ranks for the BH step-up to carry one below alpha, and neither happened. A count of 0 significant measures donor resolution, not absence of an effect.
+  [PASS]  GR-10G-12-NonNeoC-PreIP_vs_NMPre  [PreIP_vs_NMPre donor] 51 paired donor(s): smallest attainable signed-rank p = 5.30e-10; one gene alone reaches BH = 5.78e-06 over 10895 gene(s). Observed: 1 gene(s) tie at p = 1.11e-08, reaching BH = 1.21e-04 -- that is the flat top row of the volcano.
+  [PASS]  GR-10G-12-NonNeoC-PostIP_vs_NMAll  [PostIP_vs_NMAll donor] 46 paired donor(s): smallest attainable signed-rank p = 3.64e-09; one gene alone reaches BH = 3.81e-05 over 10452 gene(s). Observed: 1 gene(s) tie at p = 3.64e-09, reaching BH = 7.06e-06 -- that is the flat top row of the volcano.
+  [PASS]  GR-10G-12-NonNeoC-PreIP_vs_NMAll  [PreIP_vs_NMAll donor] 51 paired donor(s): smallest attainable signed-rank p = 5.30e-10; one gene alone reaches BH = 5.78e-06 over 10898 gene(s). Observed: 1 gene(s) tie at p = 1.28e-09, reaching BH = 7.86e-06 -- that is the flat top row of the volcano.
+  [PASS]  GR-10G-12-NonNeoC-PostIP_vs_BG  [PostIP_vs_BG donor] 31 paired donor(s): smallest attainable signed-rank p = 1.23e-06; one gene alone reaches BH = 1.28e-02 over 10367 gene(s). Observed: 9 gene(s) tie at p = 1.23e-06, reaching BH = 1.41e-03 -- that is the flat top row of the volcano.
+  [PASS]  GR-10G-12-NonNeoC-PreIP_vs_BG  [PreIP_vs_BG donor] 46 paired donor(s): smallest attainable signed-rank p = 3.64e-09; one gene alone reaches BH = 3.96e-05 over 10868 gene(s). Observed: 1 gene(s) tie at p = 3.64e-09, reaching BH = 3.96e-05 -- that is the flat top row of the volcano.
+  [PASS]  GR-10G-12-NonNeoC-NMAll_vs_BG  [NMAll_vs_BG donor] 39 paired donor(s): smallest attainable signed-rank p = 5.47e-08; one gene alone reaches BH = 5.35e-04 over 9785 gene(s). Observed: 1 gene(s) tie at p = 5.47e-08, reaching BH = 5.35e-04 -- that is the flat top row of the volcano.
+  [PASS]  GR-10G-13-NonNeoC     CP10K recomputed from raw_selected vs deg_support/norm.mtx: max |dev| = 8.882e-16 on 2000 gene(s) x 400 cell(s), tolerance 1.0e-06
+  [PASS]  GR-10G-08-NonNeoC     background = 655 non-selected Micro-PVM_1 cell(s) of 3313 in the dataset, from raw_dataset, normalised on the verified CP10K recipe; 36601 gene(s) shared with norm.mtx; 2658 of 2658 selected cell(s) are Micro-PVM_1; 3 of 3 background contrast(s) ran
+  [PASS]  GR-10G-16-donor       Part10g_CP10K_PVM_1_DEGs_Part1_donor.xlsx: 21 sheet(s), 391993 row(s), every sheet carries unit = "donor" and nothing else -- this is the file downstream parts read
+  [PASS]  GR-10G-16-cell        Part10g_CP10K_PVM_1_DEGs_Part1_cell_diagnostic.xlsx: NOT EMITTED BY CONFIGURATION (V10G_CELL_OUTPUTS = FALSE). The cell unit is still computed -- it is in Part10g_CP10K_PVM_1_<ds>_results.rds in full and in GR-10G-07/-10/-11 -- but has no workbook and no figures, and nothing downstream reads it.
+  Guardrail log written: <SEA-AD>/Part10g_DEGs/Part10g_DEGs_PVM_1/Part10g_CP10K_PVM_1_Guardrail_Log.txt 
+
+  Final guardrail tally: 99 PASS / 19 WARN / 0 FAIL
+
+ ======================================================================== 
+  Part10g DEGs Part 1 COMPLETE [ PVM1_all ]
+  Output directory: <SEA-AD>/Part10g_DEGs/Part10g_DEGs_PVM_1 
+  Files generated:
+    Part10g_CP10K_PVM_1_console_log_20260902_230244.txt                61 KB
+    Part10g_CP10K_PVM_1_console_log_20260908_063520.txt                50 KB
+    Part10g_CP10K_PVM_1_DEGs_Part1_donor.xlsx                       28131 KB
+    Part10g_CP10K_PVM_1_Guardrail_Log.txt                              32 KB
+    Part10g_CP10K_PVM_1_NeoC_arm_counts.pdf                             5 KB
+    Part10g_CP10K_PVM_1_NeoC_arm_counts.png                            24 KB
+    Part10g_CP10K_PVM_1_NeoC_NMAll_vs_BG_donor_counts.pdf               4 KB
+    Part10g_CP10K_PVM_1_NeoC_NMAll_vs_BG_donor_counts.png              21 KB
+    Part10g_CP10K_PVM_1_NeoC_NMAll_vs_BG_donor_CRS.pdf                  5 KB
+    Part10g_CP10K_PVM_1_NeoC_NMAll_vs_BG_donor_CRS.png                 25 KB
+    Part10g_CP10K_PVM_1_NeoC_NMAll_vs_BG_donor_volcano.pdf            436 KB
+    Part10g_CP10K_PVM_1_NeoC_NMAll_vs_BG_donor_volcano.png             61 KB
+    Part10g_CP10K_PVM_1_NeoC_NMPost_vs_NMPre_donor_counts.pdf           4 KB
+    Part10g_CP10K_PVM_1_NeoC_NMPost_vs_NMPre_donor_counts.png          18 KB
+    Part10g_CP10K_PVM_1_NeoC_NMPost_vs_NMPre_donor_dotplot.pdf         10 KB
+    Part10g_CP10K_PVM_1_NeoC_NMPost_vs_NMPre_donor_dotplot.png         64 KB
+    Part10g_CP10K_PVM_1_NeoC_NMPost_vs_NMPre_donor_volcano.pdf        442 KB
+    Part10g_CP10K_PVM_1_NeoC_NMPost_vs_NMPre_donor_volcano.png         77 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_BG_donor_counts.pdf              5 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_BG_donor_counts.png             23 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_BG_donor_CRS.pdf                 5 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_BG_donor_CRS.png                31 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_BG_donor_volcano.pdf           488 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_BG_donor_volcano.png           108 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_NMAll_donor_counts.pdf           5 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_NMAll_donor_counts.png          22 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_NMAll_donor_CRS.pdf              5 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_NMAll_donor_CRS.png             31 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_NMAll_donor_dotplot.pdf          9 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_NMAll_donor_dotplot.png         61 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_NMAll_donor_volcano.pdf        507 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_NMAll_donor_volcano.png         98 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_NMPost_donor_counts.pdf          4 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_NMPost_donor_counts.png         18 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_NMPost_donor_dotplot.pdf         8 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_NMPost_donor_dotplot.png        55 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_NMPost_donor_volcano.pdf       493 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_NMPost_donor_volcano.png       115 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_PreIP_donor_counts.pdf           4 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_PreIP_donor_counts.png          24 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_PreIP_donor_CRS.pdf              5 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_PreIP_donor_CRS.png             27 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_PreIP_donor_dotplot.pdf         11 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_PreIP_donor_dotplot.png         76 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_PreIP_donor_volcano.pdf        558 KB
+    Part10g_CP10K_PVM_1_NeoC_PostIP_vs_PreIP_donor_volcano.png        178 KB
+    Part10g_CP10K_PVM_1_NeoC_PreIP_vs_BG_donor_counts.pdf               5 KB
+    Part10g_CP10K_PVM_1_NeoC_PreIP_vs_BG_donor_counts.png              21 KB
+    Part10g_CP10K_PVM_1_NeoC_PreIP_vs_BG_donor_CRS.pdf                  5 KB
+    Part10g_CP10K_PVM_1_NeoC_PreIP_vs_BG_donor_CRS.png                 31 KB
+    Part10g_CP10K_PVM_1_NeoC_PreIP_vs_BG_donor_volcano.pdf            515 KB
+    Part10g_CP10K_PVM_1_NeoC_PreIP_vs_BG_donor_volcano.png             61 KB
+    Part10g_CP10K_PVM_1_NeoC_PreIP_vs_NMAll_donor_counts.pdf            5 KB
+    Part10g_CP10K_PVM_1_NeoC_PreIP_vs_NMAll_donor_counts.png           23 KB
+    Part10g_CP10K_PVM_1_NeoC_PreIP_vs_NMAll_donor_CRS.pdf               5 KB
+    Part10g_CP10K_PVM_1_NeoC_PreIP_vs_NMAll_donor_CRS.png              32 KB
+    Part10g_CP10K_PVM_1_NeoC_PreIP_vs_NMAll_donor_dotplot.pdf          11 KB
+    Part10g_CP10K_PVM_1_NeoC_PreIP_vs_NMAll_donor_dotplot.png          74 KB
+    Part10g_CP10K_PVM_1_NeoC_PreIP_vs_NMAll_donor_volcano.pdf         552 KB
+    Part10g_CP10K_PVM_1_NeoC_PreIP_vs_NMAll_donor_volcano.png         119 KB
+    Part10g_CP10K_PVM_1_NeoC_PreIP_vs_NMPre_donor_counts.pdf            4 KB
+    Part10g_CP10K_PVM_1_NeoC_PreIP_vs_NMPre_donor_counts.png           24 KB
+    Part10g_CP10K_PVM_1_NeoC_PreIP_vs_NMPre_donor_CRS.pdf               5 KB
+    Part10g_CP10K_PVM_1_NeoC_PreIP_vs_NMPre_donor_CRS.png              27 KB
+    Part10g_CP10K_PVM_1_NeoC_PreIP_vs_NMPre_donor_dotplot.pdf           8 KB
+    Part10g_CP10K_PVM_1_NeoC_PreIP_vs_NMPre_donor_dotplot.png          52 KB
+    Part10g_CP10K_PVM_1_NeoC_PreIP_vs_NMPre_donor_volcano.pdf         553 KB
+    Part10g_CP10K_PVM_1_NeoC_PreIP_vs_NMPre_donor_volcano.png          76 KB
+    Part10g_CP10K_PVM_1_NeoC_results.rds                            25081 KB
+    Part10g_CP10K_PVM_1_NonNeoC_arm_counts.pdf                          5 KB
+    Part10g_CP10K_PVM_1_NonNeoC_arm_counts.png                         25 KB
+    Part10g_CP10K_PVM_1_NonNeoC_NMAll_vs_BG_donor_counts.pdf            5 KB
+    Part10g_CP10K_PVM_1_NonNeoC_NMAll_vs_BG_donor_counts.png           21 KB
+    Part10g_CP10K_PVM_1_NonNeoC_NMAll_vs_BG_donor_CRS.pdf               5 KB
+    Part10g_CP10K_PVM_1_NonNeoC_NMAll_vs_BG_donor_CRS.png              27 KB
+    Part10g_CP10K_PVM_1_NonNeoC_NMAll_vs_BG_donor_volcano.pdf         389 KB
+    Part10g_CP10K_PVM_1_NonNeoC_NMAll_vs_BG_donor_volcano.png          54 KB
+    Part10g_CP10K_PVM_1_NonNeoC_NMPost_vs_NMPre_donor_counts.pdf        4 KB
+    Part10g_CP10K_PVM_1_NonNeoC_NMPost_vs_NMPre_donor_counts.png       18 KB
+    Part10g_CP10K_PVM_1_NonNeoC_NMPost_vs_NMPre_donor_dotplot.pdf      10 KB
+    Part10g_CP10K_PVM_1_NonNeoC_NMPost_vs_NMPre_donor_dotplot.png      67 KB
+    Part10g_CP10K_PVM_1_NonNeoC_NMPost_vs_NMPre_donor_volcano.pdf     440 KB
+    Part10g_CP10K_PVM_1_NonNeoC_NMPost_vs_NMPre_donor_volcano.png      85 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_BG_donor_counts.pdf           5 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_BG_donor_counts.png          21 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_BG_donor_CRS.pdf              5 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_BG_donor_CRS.png             32 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_BG_donor_volcano.pdf        440 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_BG_donor_volcano.png         98 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_NMAll_donor_counts.pdf        5 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_NMAll_donor_counts.png       21 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_NMAll_donor_CRS.pdf           5 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_NMAll_donor_CRS.png          31 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_NMAll_donor_dotplot.pdf       8 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_NMAll_donor_dotplot.png      57 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_NMAll_donor_volcano.pdf     459 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_NMAll_donor_volcano.png      64 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_NMPost_donor_counts.pdf       4 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_NMPost_donor_counts.png      18 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_NMPost_donor_dotplot.pdf      8 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_NMPost_donor_dotplot.png     56 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_NMPost_donor_volcano.pdf    472 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_NMPost_donor_volcano.png    107 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_PreIP_donor_counts.pdf        5 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_PreIP_donor_counts.png       24 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_PreIP_donor_CRS.pdf           5 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_PreIP_donor_CRS.png          30 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_PreIP_donor_dotplot.pdf      11 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_PreIP_donor_dotplot.png      75 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_PreIP_donor_volcano.pdf     514 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PostIP_vs_PreIP_donor_volcano.png     115 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PreIP_vs_BG_donor_counts.pdf            4 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PreIP_vs_BG_donor_counts.png           21 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PreIP_vs_BG_donor_volcano.pdf         499 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PreIP_vs_BG_donor_volcano.png          59 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PreIP_vs_NMAll_donor_counts.pdf         5 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PreIP_vs_NMAll_donor_counts.png        21 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PreIP_vs_NMAll_donor_CRS.pdf            5 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PreIP_vs_NMAll_donor_CRS.png           28 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PreIP_vs_NMAll_donor_dotplot.pdf        8 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PreIP_vs_NMAll_donor_dotplot.png       49 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PreIP_vs_NMAll_donor_volcano.pdf      514 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PreIP_vs_NMAll_donor_volcano.png       74 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PreIP_vs_NMPre_donor_counts.pdf         5 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PreIP_vs_NMPre_donor_counts.png        22 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PreIP_vs_NMPre_donor_dotplot.pdf        7 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PreIP_vs_NMPre_donor_dotplot.png       42 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PreIP_vs_NMPre_donor_volcano.pdf      531 KB
+    Part10g_CP10K_PVM_1_NonNeoC_PreIP_vs_NMPre_donor_volcano.png       76 KB
+    Part10g_CP10K_PVM_1_NonNeoC_results.rds                         21201 KB
+======================================================================== 
+
+  Log written to: <SEA-AD>/Part10g_DEGs/Part10g_DEGs_PVM_1/Part10g_CP10K_PVM_1_console_log_20260908_063520.txt 
+
+Part10g DEGs Part 1 - log ended: 2026-09-08 06:41:48.437201

@@ -1,0 +1,121 @@
+Part 12 rerun -- step 17
+Script: Part12_Fig16_Analysis.r | md5 b40e70eac4ef82cfb4dfd36917428310
+Shared file: Part12_03_Config.r | md5 df0cc2f82a0fd0947b3bb0b93bae800a
+Run ID: 20260923-1045-windows
+Start: 2026-09-23 10:45:22
+Machine: LAPTOP-M7LQ95IS | R version 4.6.1 (2026-06-24 ucrt)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16 | md5 de727a6a529ece74865c9387be6d8831
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 17-01 script saved in Part12_rerun | Part12_Fig16_Analysis.r
+
+Pre-set reading for 16F | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### 16F. Does Module post-IP% track the library intronic rate?
+  
+  - **Estimate.** rs of Module post-IP% with the library intronic rate at two levels: between donors (donor means over units) and within donor (units centred on their donor mean; donors with at least 3 units). Comparators, as in the archived run: log1p %MT, log cell count and log median depth. Contrasts on the same donor draws: |Module rs| minus |%MT rs|, Module minus depth, and the arm minus HKG8. Donor bootstrap; donors drawn once from all arms together, so the arm-minus-HKG8 contrast keeps the donor overlap. All four arms.
+  - **Family.** Within arm and level: the rs rows, then the contrasts as their own family.
+  - **Reading.**
+    - Module rs non-zero with FDR < 0.05 at a level: Module post-IP% tracks the intronic rate at that level.
+    - The arm minus HKG8 contrast non-zero: the association is specific to the Module; otherwise specificity is not established.
+    - The Module minus %MT contrast is reported beside it, with no reading of its own.
+  
+
+Pre-set reading for 16G | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### 16G. Do sort purity or library construction order it?
+  
+  - **Estimate.** As 16F, for each library field with no more than 25% missing: antisense rate, NeuN-positive fraction on FANS, share of cDNA above 400 bp, PCR cycles and sequencing saturation. log median depth is carried as a comparator, with the Module minus depth contrast.
+  - **Family.** As 16F, within arm and level over the fields.
+  - **Reading.** Four conditions, kept from the archived run. A field orders Module post-IP% only if all four hold within donor:
+    1. the Module rs is non-zero after BH;
+    2. the Module minus depth contrast excludes zero;
+    3. the arm minus HKG8 contrast excludes zero;
+    4. the Module rs is not matched by %MT: the 95% interval of |Module rs| minus |%MT rs| is not wholly below zero.
+    - The between-donor rows are reported beside, with no condition of their own.
+  
+
+SECTION A -- inputs
+[PASS] 17-02 05_units.csv matches the 05_Units log | Part12_rerun/05_Units/05_units.csv
+[PASS] 17-03 unit table carries this labels version | 856 units
+[NOTE] field intronic | 0.0% of units missing: kept
+[NOTE] field antisense | 0.0% of units missing: kept
+[NOTE] field neun_fans | 0.0% of units missing: kept
+[NOTE] field cdna_400 | 0.1% of units missing: kept
+[NOTE] field pcr_cycles | 0.0% of units missing: kept
+[NOTE] field saturation | 25.1% of units missing: dropped (above the missing-value limit)
+[PASS] 17-04 the intronic rate is available for 16F | intronic, antisense, neun_fans, cdna_400, pcr_cycles
+
+SECTION B -- donor bootstrap over 83 donors, 160 tasks (B = 10000)
+[NOTE] workers | 15 of 16 logical cores (PSOCK)
+[NOTE] bootstrap time | 0.3 min
+
+  M4, between donors
+    intronic    Module rs -0.518 [-0.696, -0.285] FDR 8.00e-04 | %MT -0.517 | cells +0.022 | depth -0.030 | donors 51
+    antisense   Module rs -0.680 [-0.788, -0.515] FDR 1.60e-03 | %MT -0.714 | cells +0.075 | depth -0.073 | donors 51
+    neun_fans   Module rs -0.005 [-0.295, +0.276] FDR 9.91e-01 | %MT +0.053 | cells -0.280 | depth +0.012 | donors 51
+    cdna_400    Module rs -0.019 [-0.272, +0.238] FDR 9.91e-01 | %MT +0.114 | cells +0.002 | depth +0.108 | donors 51
+    pcr_cycles  Module rs -0.025 [-0.305, +0.260] FDR 9.91e-01 | %MT -0.145 | cells +0.131 | depth +0.221 | donors 51
+  M4, within donor
+    intronic    Module rs -0.114 [-0.380, +0.188] FDR 5.62e-01 | %MT -0.176 | cells +0.084 | depth -0.283 | donors 19
+    antisense   Module rs +0.098 [-0.112, +0.310] FDR 8.69e-01 | %MT +0.080 | cells -0.008 | depth -0.494 | donors 19
+    neun_fans   Module rs +0.206 [-0.019, +0.419] FDR 2.98e-01 | %MT +0.021 | cells -0.056 | depth +0.070 | donors 19
+    cdna_400    Module rs +0.021 [-0.170, +0.209] FDR 9.17e-01 | %MT +0.182 | cells -0.065 | depth -0.403 | donors 19
+    pcr_cycles  Module rs -0.086 [-0.318, +0.162] FDR 8.69e-01 | %MT -0.034 | cells -0.057 | depth +0.431 | donors 19
+  PVM_3, between donors
+    intronic    Module rs -0.690 [-0.793, -0.545] FDR 4.00e-04 | %MT -0.695 | cells -0.287 | depth +0.059 | donors 83
+    antisense   Module rs -0.772 [-0.848, -0.651] FDR 1.07e-03 | %MT -0.778 | cells -0.345 | depth -0.045 | donors 83
+    neun_fans   Module rs +0.081 [-0.170, +0.315] FDR 6.32e-01 | %MT +0.084 | cells -0.182 | depth -0.090 | donors 83
+    cdna_400    Module rs +0.018 [-0.202, +0.234] FDR 9.21e-01 | %MT -0.007 | cells -0.076 | depth -0.112 | donors 83
+    pcr_cycles  Module rs -0.120 [-0.336, +0.099] FDR 5.95e-01 | %MT -0.146 | cells +0.120 | depth +0.119 | donors 83
+  PVM_3, within donor
+    intronic    Module rs -0.301 [-0.396, -0.199] FDR 2.67e-04 | %MT -0.025 | cells -0.228 | depth -0.300 | donors 70
+    antisense   Module rs -0.141 [-0.245, -0.038] FDR 1.03e-02 | %MT +0.117 | cells -0.346 | depth -0.540 | donors 70
+    neun_fans   Module rs -0.053 [-0.139, +0.029] FDR 2.34e-01 | %MT -0.085 | cells -0.303 | depth -0.048 | donors 70
+    cdna_400    Module rs -0.005 [-0.095, +0.081] FDR 8.94e-01 | %MT +0.094 | cells -0.258 | depth -0.347 | donors 70
+    pcr_cycles  Module rs +0.024 [-0.062, +0.110] FDR 6.18e-01 | %MT -0.239 | cells +0.307 | depth +0.534 | donors 70
+  PVM_1, between donors
+    intronic    Module rs -0.576 [-0.735, -0.366] FDR 8.00e-04 | %MT -0.454 | cells -0.205 | depth -0.105 | donors 66
+    antisense   Module rs -0.683 [-0.800, -0.517] FDR 1.60e-03 | %MT -0.536 | cells -0.129 | depth -0.262 | donors 66
+    neun_fans   Module rs -0.066 [-0.311, +0.186] FDR 7.03e-01 | %MT -0.067 | cells -0.179 | depth -0.248 | donors 66
+    cdna_400    Module rs -0.104 [-0.348, +0.155] FDR 6.31e-01 | %MT -0.054 | cells -0.151 | depth -0.232 | donors 66
+    pcr_cycles  Module rs -0.020 [-0.254, +0.211] FDR 8.65e-01 | %MT -0.129 | cells +0.082 | depth +0.207 | donors 66
+  PVM_1, within donor
+    intronic    Module rs -0.318 [-0.513, -0.124] FDR 1.04e-02 | %MT -0.029 | cells -0.076 | depth -0.087 | donors 25
+    antisense   Module rs -0.261 [-0.409, -0.099] FDR 1.28e-02 | %MT +0.068 | cells -0.134 | depth -0.354 | donors 25
+    neun_fans   Module rs -0.149 [-0.321, +0.012] FDR 1.58e-01 | %MT -0.046 | cells -0.233 | depth -0.061 | donors 25
+    cdna_400    Module rs +0.021 [-0.193, +0.207] FDR 8.55e-01 | %MT +0.135 | cells -0.114 | depth -0.272 | donors 25
+    pcr_cycles  Module rs +0.058 [-0.115, +0.272] FDR 5.95e-01 | %MT -0.230 | cells +0.148 | depth +0.319 | donors 25
+  HKG8, between donors
+    intronic    Module rs -0.512 [-0.737, -0.191] FDR 1.28e-02 | %MT -0.488 | cells -0.001 | depth +0.104 | donors 38
+    antisense   Module rs -0.147 [-0.469, +0.210] FDR 5.85e-01 | %MT -0.559 | cells +0.146 | depth -0.221 | donors 38
+    neun_fans   Module rs -0.033 [-0.358, +0.295] FDR 9.01e-01 | %MT +0.205 | cells -0.301 | depth +0.204 | donors 38
+    cdna_400    Module rs -0.240 [-0.522, +0.077] FDR 5.80e-01 | %MT +0.089 | cells -0.107 | depth +0.177 | donors 38
+    pcr_cycles  Module rs +0.210 [-0.171, +0.543] FDR 5.80e-01 | %MT -0.173 | cells +0.050 | depth -0.016 | donors 38
+  HKG8, within donor
+    intronic    Module rs -0.246 [-0.510, -0.000] FDR 1.14e-01 | %MT +0.163 | cells +0.094 | depth -0.238 | donors 13
+    antisense   Module rs +0.307 [+0.034, +0.543] FDR 5.68e-02 | %MT +0.094 | cells +0.032 | depth -0.443 | donors 13
+    neun_fans   Module rs -0.077 [-0.329, +0.111] FDR 5.34e-01 | %MT +0.176 | cells -0.350 | depth +0.237 | donors 13
+    cdna_400    Module rs +0.091 [-0.083, +0.235] FDR 3.74e-01 | %MT +0.328 | cells -0.271 | depth -0.386 | donors 13
+    pcr_cycles  Module rs +0.120 [-0.060, +0.314] FDR 2.85e-01 | %MT -0.162 | cells +0.215 | depth +0.272 | donors 13
+
+SECTION C -- the four conditions for 16G, within donor
+  M4     antisense   non-zero FALSE | vs depth TRUE  | vs HKG8 FALSE | not matched by %MT TRUE  -> does not order Module post-IP%
+  M4     neun_fans   non-zero FALSE | vs depth FALSE | vs HKG8 TRUE  | not matched by %MT TRUE  -> does not order Module post-IP%
+  M4     cdna_400    non-zero FALSE | vs depth TRUE  | vs HKG8 FALSE | not matched by %MT TRUE  -> does not order Module post-IP%
+  M4     pcr_cycles  non-zero FALSE | vs depth TRUE  | vs HKG8 FALSE | not matched by %MT TRUE  -> does not order Module post-IP%
+  PVM_3  antisense   non-zero TRUE  | vs depth TRUE  | vs HKG8 TRUE  | not matched by %MT TRUE  -> orders Module post-IP%
+  PVM_3  neun_fans   non-zero FALSE | vs depth FALSE | vs HKG8 FALSE | not matched by %MT TRUE  -> does not order Module post-IP%
+  PVM_3  cdna_400    non-zero FALSE | vs depth TRUE  | vs HKG8 FALSE | not matched by %MT TRUE  -> does not order Module post-IP%
+  PVM_3  pcr_cycles  non-zero FALSE | vs depth TRUE  | vs HKG8 FALSE | not matched by %MT FALSE -> does not order Module post-IP%
+  PVM_1  antisense   non-zero TRUE  | vs depth FALSE | vs HKG8 TRUE  | not matched by %MT TRUE  -> does not order Module post-IP%
+  PVM_1  neun_fans   non-zero FALSE | vs depth FALSE | vs HKG8 FALSE | not matched by %MT TRUE  -> does not order Module post-IP%
+  PVM_1  cdna_400    non-zero FALSE | vs depth FALSE | vs HKG8 FALSE | not matched by %MT TRUE  -> does not order Module post-IP%
+  PVM_1  pcr_cycles  non-zero FALSE | vs depth FALSE | vs HKG8 FALSE | not matched by %MT TRUE  -> does not order Module post-IP%
+
+SECTION D -- write
+[PASS] 17-05 stats files written | 16F 54 rows | 16G 216 rows
+
+Outputs:
+  Part12_rerun/08_Fig16/16FG_LibraryFields/Stats_16F.csv | 0.0 MB | md5 ec3d18b42fcec9a358d1545c9ca76f77
+  Part12_rerun/08_Fig16/16FG_LibraryFields/Stats_16G.csv | 0.0 MB | md5 cb1d5ba706aa629233f452bc25096e5f
+Checks: 5 PASS, 0 FAIL, 0 WARN | duration 0.3 min
+VERDICT: PASS

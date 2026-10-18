@@ -1,0 +1,172 @@
+==============================================================================
+  Part 13 - M4 share
+  2026-10-10 16:17:31
+  R version 4.6.1 (2026-06-24 ucrt)
+  Root : <SEA-AD>
+  Write: <SEA-AD>/Part13_M4Share
+==============================================================================
+
+STEP 1 -- pre-set readings
+  [PASS]  GR-13-01  pre-set readings match the file written by an earlier run (Part13_CP10K_M4Share_preset_readings.txt, MD5 9c16f2be3f74c5697c602143fae8b550)
+
+STEP 2 -- inputs
+  comparator <SEA-AD>/Part10h_Prognosis_1_Comparator/Part10h_Prognosis_1_Comparator_Mic13_PVM3/Part10h_CP10K_M4_Comparator_results.rds | MD5 421634b4f9b43404553f5de741a7f909
+  part10h    <SEA-AD>/Part10h_Prognosis/Part10h_Prognosis_Mic13_PVM3/Part10h_CP10K_M4_Prognosis_results.rds | MD5 a8beaf877265af83a4a521eca2de53de
+  cogvspath  <SEA-AD>/Part10h_Prognosis_2_CogVsPath/Part10h_Prognosis_2_CogVsPath_Mic13_PVM3/Part10h_CP10K_M4_CogVsPath_results.rds | MD5 fb4609ed0cf8e81dd2554ce2febc9c75
+  mt         <SEA-AD>/Part13_M4Share/Part13_M4_pctMT_for14D.csv | MD5 d6c97e61ac139e8321a51c5637d5e342
+  [PASS]  GR-13-02  comparator arm_tag 'Mic13_PVM3' (expected 'Mic13_PVM3'), schema 'M10HC v1'; it was built from 'Part10h_CP10K_M4_Prognosis_results.rds' and this run reads 'Part10h_CP10K_M4_Prognosis_results.rds'; CogVsPath RDS Part10h_CP10K_M4_CogVsPath_results.rds
+
+STEP 3 -- donor frame
+  [PASS]  GR-13-03  datasets NeoC/NonNeoC; donors 84/83 (expected 84/83); duplicated donor rows: FALSE; outcomes 15 (6 controls); cov4 = Age_num + APOE_e4_dose + Sex_num + PMI_num
+
+STEP 4 -- formula consistency (numerators and denominators)
+  [PASS]  GR-13-04  comparator module == Part 10h pct_post on every donor: max |diff| 0.00e+00
+  [PASS]  GR-13-05  Part 10h identities on one denominator: pct_any_post = pct_post + pct_excl_post (max |diff| 3.55e-15); pct_module_all = pct_pre + pct_post (3.55e-15)
+  [PASS]  GR-13-06  M4 share = the four Figure 9 populations = pct_module_all + pct_excl (max |diff| 7.11e-15); share x n_total / 100 is a whole cell count on every donor (max deviation 2.84e-14); donors with n_total < 1, share > 100 or Module > share: 0
+  [PASS]  GR-13-07  M4 arm cells rebuilt from the shares: 2130/1987 (expected 2130/1987, Methods S3 Table 3)
+  [PASS]  GR-13-08  denominator n_total = the donor's Micro-PVM_3 cells: CP (B1) x microglial cells / 100 reproduces n_total to 5.68e-14
+  within-M4 fraction: 32 donor-region-set rows with 1 to 4 M4 cells excluded, 9 with 0 M4 cells
+  [SKIP]  GR-13-21  SEL_FILE not supplied; the all-M4-selected share sensitivity was not run
+  [PASS]  GR-13-09  %MT of the M4 cells: 0 donor(s) without M4 cells carry a value and 0 with M4 cells lack one; r with the Micro-PVM_3-wide MitoFrac_num 0.922 (r ~ 1 would mean the file holds the supertype %MT, not the M4 cells' %MT); MT_FILE MD5 matches the Part 13a output
+  [PASS]  GR-13-22  post-hoc readings written before the post-hoc models: Part13_CP10K_M4Share_posthoc_readings.txt (MD5 82a670f93b0aa5c21c09cb5a5d2b5894)
+
+STEP 5 -- models
+  452 of 452 model(s) fitted (0 below 20 donors)
+
+STEP 6 -- reproduction of the stored and published estimates
+  [PASS]  GR-13-10  Part 10h Multivariate (cov4, pct_post, 15 outcomes; Figure 9A) reproduced on 120 of 120 values
+  [PASS]  GR-13-11  comparator Marginal (module, cov4) and Duels vs CP, AUCell, UCell, AMS (Figures 10A-10B) reproduced on 720 of 720 values
+  [PASS]  GR-13-12  CogVsPath Models (module, cov4 and +BTC; Figure 9B) reproduced on 36 of 36 values; its BH family holds: MMSE score, CASI score, Cognitive status
+  [PASS]  GR-13-20  published Figure 10C largest VIF reproduced on 8 of 8 boxes; a mismatch means the readability rule here differs from PostHoc's
+  [PASS]  GR-13-13  published Figure 10C/10D coefficients and FDRs (BH over MMSE and CASI per block and model, PostHoc M10PH-04) reproduced on 80 of 80 values
+  [PASS]  GR-13-14  published Figure 14D estimates (beta, 95% CI, n, FDR over the 9 clinical outcomes) reproduced on 15 of 15 values; a failure points to MT_FILE, MT_TRANSFORM or the family
+
+STEP 7 -- verdicts
+  [PASS]  GR-13-15  Module vs CP verdicts (Figure 10B) agree with the comparator's Duels on 30 of 30 outcomes, so the verdict rule used for the M4 share is the published one
+
+STEP 8 -- donor bootstrap
+  18 job(s) x B = 10000 in 129.8 s
+  [PASS]  GR-13-16  bootstrap point estimates equal the fitted models (max |diff| 0.00e+00); full-rank replicates 100.0% of 10000 at the lowest job (rank-deficient replicates skipped and counted)
+
+STEP 9 -- readings
+ model spec  n beta_module  ci_lo  ci_hi fdr_module beta_share fdr_share vif_max
+    m1  S03 80      -0.629 -0.890 -0.368   1.22e-04      0.121     0.406    2.43
+    m2  S07 80      -0.558 -0.828 -0.289   2.95e-04      0.144     0.508    2.62
+    m3  S10 74      -0.757 -1.174 -0.341      0.005      0.211     0.191    5.78
+ module_holds
+         TRUE
+         TRUE
+        FALSE
+  m1 change in beta -0.090 (95% CI -0.262 to 0.106), attenuation -16.7%, bootstrap p 0.361
+  [WARN]  GR-13-17  primary models readable (full-model VIF < 5): m1 TRUE, m2 TRUE, m3 FALSE. PRE-SET READING: R0 Not separable; m1b reading: state beyond abundance
+  Figure 14D verdicts that change with the M4 share: 15
+ dataset          outcome verdict_14D verdict_with_share
+    NeoC        ADNC rank     Neither         Unreadable
+    NeoC     APOE e4 dose     Neither         Unreadable
+    NeoC      Braak stage     Neither         Unreadable
+    NeoC        CAA score     Neither         Unreadable
+    NeoC       CASI score     Neither         Unreadable
+    NeoC      CERAD score     Neither         Unreadable
+    NeoC Cognitive status     Neither         Unreadable
+    NeoC       MMSE score Module only         Unreadable
+    NeoC       Thal phase     Neither         Unreadable
+ NonNeoC        ADNC rank     Neither        Second only
+ NonNeoC      Braak stage     Neither        Second only
+ NonNeoC       CASI score     Neither        Second only
+ NonNeoC      CERAD score     Neither        Second only
+ NonNeoC Cognitive status Module only            Neither
+ NonNeoC       MMSE score Module only            Neither
+
+STEP 9b -- post-hoc: within-M4 fraction against %MT of the same M4 cells
+  M4 share alone on the S08 donors (S02r) against the share term in S08, cognition:
+    NeoC     Cognitive status  S02r beta 0.302 FDR 0.036 | S08 share beta 0.181 FDR 0.288 | n 64
+    NeoC     MMSE score        S02r beta -0.361 FDR 0.014 | S08 share beta -0.186 FDR 0.197 | n 61
+    NeoC     CASI score        S02r beta -0.387 FDR 0.014 | S08 share beta -0.263 FDR 0.197 | n 51
+    NonNeoC  Cognitive status  S02r beta 0.361 FDR 0.051 | S08 share beta 0.258 FDR 0.269 | n 62
+    NonNeoC  MMSE score        S02r beta -0.240 FDR 0.172 | S08 share beta -0.106 FDR 0.658 | n 58
+    NonNeoC  CASI score        S02r beta -0.283 FDR 0.172 | S08 share beta -0.103 FDR 0.658 | n 49
+  [PASS]  GR-13-23  post-hoc frame: within-M4 fraction = 100 x Module post-IP cells / M4 cells, rebuilt from whole cell counts (max |diff| 1.42e-14); fraction outside 0-100 on 0 rows; fitted n equals donors with >= 5 M4 cells, %MT, outcome and cov4 on 18 of 18 models (MMSE n 61/58, Figure 14D frame 74/76); no model has more donors than its Figure 14D model; S02r on the S08 donors in 30 of 30 models
+ spec dataset          outcome  n beta_frac fdr_frac beta_mt fdr_mt vif_max    verdict
+  S15    NeoC Cognitive status 64     0.747    0.088  -0.400  0.904    7.03 Unreadable
+  S15    NeoC       MMSE score 61    -0.763    0.048   0.248  0.904    7.03 Unreadable
+  S15    NeoC       CASI score 51    -0.395    0.524  -0.090  0.904    7.60 Unreadable
+  S15 NonNeoC Cognitive status 62     0.689    0.086  -0.249  0.932    6.41 Unreadable
+  S15 NonNeoC       MMSE score 58    -0.723    0.063   0.235  0.932    6.32 Unreadable
+  S15 NonNeoC       CASI score 49    -0.570    0.201  -0.023  0.941    6.40 Unreadable
+  S16    NeoC Cognitive status 64     0.562    0.109  -0.416  0.475    7.59 Unreadable
+  S16    NeoC       MMSE score 61    -0.664    0.060   0.228  0.475    7.60 Unreadable
+  S16    NeoC       CASI score 51    -0.066    0.852  -0.244  0.475    8.78 Unreadable
+  S16 NonNeoC Cognitive status 62     0.592    0.035  -0.322  0.429    6.75 Unreadable
+  S16 NonNeoC       MMSE score 58    -0.700    0.034   0.291  0.429    6.69 Unreadable
+  S16 NonNeoC       CASI score 49    -0.657    0.035   0.168  0.589    6.95 Unreadable
+  S17    NeoC Cognitive status 64     0.699    0.127  -0.427  0.993    7.05 Unreadable
+  S17    NeoC       MMSE score 61    -0.707    0.080   0.266  0.993    7.04 Unreadable
+  S17    NeoC       CASI score 51    -0.380    0.617  -0.003  0.993    7.73 Unreadable
+  S17 NonNeoC Cognitive status 62     0.455    0.557  -0.063  0.830    7.29 Unreadable
+  S17 NonNeoC       MMSE score 58    -0.646    0.226   0.175  0.792    7.18 Unreadable
+  S17 NonNeoC       CASI score 49    -0.451    0.557  -0.112  0.830    7.50 Unreadable
+  [WARN]  GR-13-24  post-hoc primary model readable (NeoC MMSE, p1, full-model VIF 7.03): fraction beta -0.763, FDR 0.048; %MT FDR 0.904. POST-HOC READING: P0 Not separable
+ dataset                                pair  n     r   r_s vif_pair
+    NeoC          M4 share ~ Module post-IP% 84 0.756 0.767     2.33
+    NeoC                      M4 share ~ %MT 78 0.348 0.395     1.14
+    NeoC                       M4 share ~ CP 84 0.576 0.540     1.50
+    NeoC                   M4 share ~ AUCell 84 0.486 0.472     1.31
+    NeoC       M4 share ~ within-M4 fraction 64 0.352 0.302     1.14
+    NeoC     Module post-IP% ~ %MT (Fig 14E) 78 0.731 0.849     2.14
+    NeoC Within-M4 fraction ~ %MT (post-hoc) 64 0.920 0.946     6.54
+ NonNeoC          M4 share ~ Module post-IP% 83 0.691 0.642     1.91
+ NonNeoC                      M4 share ~ %MT 80 0.171 0.212     1.03
+ NonNeoC                       M4 share ~ CP 83 0.468 0.433     1.28
+ NonNeoC                   M4 share ~ AUCell 83 0.182 0.186     1.03
+ NonNeoC       M4 share ~ within-M4 fraction 62 0.269 0.260     1.08
+ NonNeoC     Module post-IP% ~ %MT (Fig 14E) 80 0.653 0.807     1.74
+ NonNeoC Within-M4 fraction ~ %MT (post-hoc) 62 0.913 0.906     6.01
+
+STEP 11 -- supplementary table
+  [PASS]  GR-13-18  every fitted model is in the workbook: 452 of 452
+
+STEP 12 -- supplementary figure
+  [PASS]  GR-13-25  post-hoc figure written: Part13_CP10K_M4Share_SuppFig2.pdf, Part13_CP10K_M4Share_SuppFig2.png
+  [PASS]  GR-13-19  outputs written: Part13_CP10K_M4Share_SuppTable.xlsx, Part13_CP10K_M4Share_SuppFig.pdf, Part13_CP10K_M4Share_SuppFig.png, Part13_CP10K_M4Share_legend_draft.txt
+  Part13_CP10K_M4Share_SuppTable.xlsx | MD5 eb03d0091a3479441b36170aa9a45b4f
+  Part13_CP10K_M4Share_SuppFig.pdf | MD5 9546d0cba0f46bc19dcb30ec5d849f3c
+  Part13_CP10K_M4Share_SuppFig.png | MD5 54966308ff09ad7f1b9d32d3c28aca29
+  Part13_CP10K_M4Share_SuppFig2.pdf | MD5 5db07de2ec05b1324097bd57488c4f5e
+  Part13_CP10K_M4Share_SuppFig2.png | MD5 ea89a67c3fca5148fcaf320d869f4317
+  Part13_CP10K_M4Share_legend_draft.txt | MD5 fb9f3234f07914bd88fd77d2c72161aa
+
+Guardrail ledger : <SEA-AD>/Part13_M4Share/Part13_CP10K_M4Share_Guardrail_Log.txt
+Guardrail detail : <SEA-AD>/Part13_M4Share/Part13_CP10K_M4Share_Guardrail_Detail.txt
+Console log      : <SEA-AD>/Part13_M4Share/Part13_CP10K_M4Share_console_log_20261010_161731.txt
+Run: completed; reading: R0 Not separable; m1b reading: state beyond abundance | post-hoc: P0 Not separable
+
+R version 4.6.1 (2026-06-24 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26300)
+
+Matrix products: default
+  LAPACK version 3.12.1
+
+locale:
+[1] LC_COLLATE=English_United Kingdom.utf8  LC_CTYPE=English_United Kingdom.utf8   
+[3] LC_MONETARY=English_United Kingdom.utf8 LC_NUMERIC=C                           
+[5] LC_TIME=English_United Kingdom.utf8    
+
+time zone: Asia/Kuala_Lumpur
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] patchwork_1.3.2  ggplot2_4.0.3    openxlsx_4.2.8.1
+
+loaded via a namespace (and not attached):
+ [1] vctrs_0.7.3         zip_3.0.1           cli_3.6.6           rlang_1.3.0        
+ [5] stringi_1.8.9       generics_0.1.4      textshaping_1.0.5   S7_0.2.2           
+ [9] data.table_1.18.6.1 labeling_0.4.3      glue_1.8.1          ragg_1.5.2         
+[13] scales_1.4.0        grid_4.6.1          tibble_3.3.1        lifecycle_1.0.5    
+[17] compiler_4.6.1      dplyr_1.2.1         RColorBrewer_1.1-3  Rcpp_1.1.2         
+[21] pkgconfig_2.0.3     rstudioapi_0.19.0   systemfonts_1.3.2   farver_2.1.2       
+[25] R6_2.6.1            tidyselect_1.2.1    pillar_1.11.1       magrittr_2.0.5     
+[29] tools_4.6.1         withr_3.0.3         gtable_0.3.6       

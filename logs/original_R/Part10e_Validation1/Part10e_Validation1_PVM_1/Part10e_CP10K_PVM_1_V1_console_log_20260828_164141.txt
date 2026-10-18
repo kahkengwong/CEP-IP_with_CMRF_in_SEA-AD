@@ -1,0 +1,379 @@
+Part10e Validation1 — log started: 2026-08-28 16:41:41.458287
+
+
+============================================================================
+  ARM: PVM1_all   config: R_config.R
+============================================================================
+R_config.R loaded (Module 1: MT-CO3 + 8 DFGs, ≥8/10 regions).
+  ARM_TAG   : PVM1_all 
+  ARM_DIR   : <SEA-AD>/R_export_CP10K/PVM1_all 
+  NEOC_DIR  : <SEA-AD>/R_export_CP10K/PVM1_all/neocortex 
+  NONNC_DIR : <SEA-AD>/R_export_CP10K/PVM1_all/nonneocortex 
+  SHARED_DIR: <SEA-AD>/R_export_CP10K/shared 
+  GOI       : MT-CO3 
+  DFG_NEOC  : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  DFG_NONNC : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Composite : cDFG 
+  RUN_SUFFIX: _PVM1all 
+  Supertype : Micro-PVM_1 
+  Mod1 genes: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 ( 9 )
+  HKG_GENES : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 3218 NeoC / 2658 NonNeoC
+  Config OK: PVM1_all | MT-CO3 + 8 DFG | CP10K
+
+  [IPRS] Part10b_IPRS_CP10K_PVM_1_results.rds | definition: IPRS_full
+  [IPRS] NonNeoC    IP_x = 2.645333 | IP_y = 1.836287
+  [IPRS] NeoC       IP_x = 2.382738 | IP_y = 1.526079
+
+ ======================================================================== 
+  Part10e Validation1 — CMRF final-module validation
+  Arm          : PVM1_all 
+  GOI          : MT-CO3 
+  Normalisation: CP10K  log1p(UMIs/total x  10000 )
+  GAM          : GOI + s(GOI) + s(donor, bs = "re") | inverse-donor weights 
+  Pre/Post-IP  : cDFG axis
+  CMRF input   : <SEA-AD>/Part10e_CMRF/Part10e_CMRF_PVM_1 
+  Output dir   : <SEA-AD>/Part10e_Validation1/Part10e_Validation1_PVM_1 
+======================================================================== 
+
+  SECTION A0 — PRE-ANALYSIS GUARDRAILS
+
+  [PASS]  GR-01-NeoC        norm.mtx max = 7.6178  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NeoC        expm1(norm) row sums: mean = 10000.000000, max |dev| = 6.71e-10, n = 50
+  [PASS]  GR-04-NeoC        raw max = 3138, integer-like = TRUE
+  [PASS]  GR-01-NonNeoC     norm.mtx max = 7.7520  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NonNeoC     expm1(norm) row sums: mean = 10000.000000, max |dev| = 6.49e-10, n = 50
+  [PASS]  GR-04-NonNeoC     raw max = 3293, integer-like = TRUE
+  [PASS]  GR-03-NeoC        CMRF workbook: Part10e_CMRF_PVM_1/Part10e_CP10K_PVM_1_CMRF_NeoC_SK_interaction_analysis.xlsx
+  [PASS]  GR-03-NonNeoC     CMRF workbook: Part10e_CMRF_PVM_1/Part10e_CP10K_PVM_1_CMRF_NonNeoC_SK_interaction_analysis.xlsx
+  [PASS]  GR-05-IPRS        IP values (IPRS_full): NonNeoC=2.6453, NeoC=2.3827
+
+  Pre-analysis guardrails: 9 PASS / 0 WARN / 0 FAIL
+
+
+ ======================================================================== 
+  Part10e Validation1: NeoC  [ PVM1_all ]
+======================================================================== 
+
+  Loading Excel data ...
+  IP_x = 2.382738  |  IP_y = 1.526079   (from the IPRS RDS)
+  Pre/Post-IP split on cDFG at 1.526079
+  Total=3218  GOI+=3218  Module=2202  (OrigRef=1821  Recovered=381)  Gray=1016
+
+  Fitting cDFG GAM on final module ...
+  Donors on the module cells: 82
+    [cDFG_NeoC] n=2202 | unique_x=2165 | max_k=10 | donor RE=YES (82 donors) | weights=inverse donor
+      init  iter  1 | k=3 | PRSS=6.2659 | 4.7 s
+      fits 2-8 ran on 7 worker(s)
+      init  iter  2 | k=4 | PRSS=6.2438 | 6.4 s
+      init  iter  3 | k=5 | PRSS=6.0072 | 3.2 s
+      init  iter  4 | k=6 | PRSS=5.7848 | 2.8 s
+      init  iter  5 | k=7 | PRSS=5.7103 | 2.3 s
+      init  iter  6 | k=8 | PRSS=5.7113 | 1.5 s
+      init  iter  7 | k=9 | PRSS=5.7094 | 2.0 s
+      init  iter  8 | k=10 | PRSS=5.7081 | 1.7 s
+    Final best k=10 PRSS=5.7081  iters=13  early_stop=FALSE
+  cDFG DE (donor-aware): 87.61%
+  TREP sizing DE (flat null, population fit): 91.27%
+
+  Loading cHKG data from norm.mtx ...
+    cHKG: 2202 cells, 9 genes (ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1)
+  Fitting cHKG GAM ...
+  cHKG DE (donor-aware): 2.35%
+
+  Computing EP and TREP ...
+  TREP=2010  non-TREP=192
+  4-group counts:
+    Pre-IP TREP            1010
+    Pre-IP non-TREP        4
+    Post-IP TREP           1000
+    Post-IP non-TREP       188
+
+  [Fig 1] Building CEP-IP + Pitcher ...
+  Fig 1 saved
+
+  [Fig 2] Building GAM curves + CEP-IP scatter ...
+  GAM dual curve built
+  CEP-IP scatter built
+  Fig 2 saved
+
+  [Fig 3] Building copula space plots ...
+  Copula (u,v): n=3218  IP_u=0.6629  IP_v=0.5666
+  SKCS cuts: Si_norm > 0.05, Ki > 0.5  ->  copula (u_SK, v_SK) = (0.3176, 0.2663)
+  Copula panels built
+  Fig 3 saved
+
+  [Fig 4-5] Building original-label plots (no refit) ...
+    OrigRef=1821  Recovered=381  Orig-only=41  Excluded=975
+  Fig 4A: CEP-IP (original labels) built
+  Fig 4B: Pitcher (original labels) built
+  Fig 4 saved
+  Fig 5: Copula (original labels) built
+  Fig 5 saved
+
+  Computing TREP concordance (refitted vs original) ...
+  Concordance: 1792/1821 (98.4%)
+
+  Building V1-augmented Step4_Refined_Cells ...
+  V1 data frame: 3218 rows (3218 GOI-pos + 0 GOI-neg)
+
+ ======================================================================== 
+  Part10e Validation1: NonNeoC  [ PVM1_all ]
+======================================================================== 
+
+  Loading Excel data ...
+  IP_x = 2.645333  |  IP_y = 1.836287   (from the IPRS RDS)
+  Pre/Post-IP split on cDFG at 1.836287
+  Total=2658  GOI+=2658  Module=1936  (OrigRef=1618  Recovered=318)  Gray=722
+
+  Fitting cDFG GAM on final module ...
+  Donors on the module cells: 82
+    [cDFG_NonNeoC] n=1936 | unique_x=1905 | max_k=10 | donor RE=YES (82 donors) | weights=inverse donor
+      init  iter  1 | k=3 | PRSS=7.4316 | 2.1 s
+      fits 2-8 ran on 7 worker(s)
+      init  iter  2 | k=4 | PRSS=7.2616 | 1.7 s
+      init  iter  3 | k=5 | PRSS=6.7987 | 2.6 s
+      init  iter  4 | k=6 | PRSS=6.4713 | 1.9 s
+      init  iter  5 | k=7 | PRSS=6.4773 | 1.8 s
+      init  iter  6 | k=8 | PRSS=6.4233 | 1.9 s
+      init  iter  7 | k=9 | PRSS=6.4046 | 2.1 s
+      init  iter  8 | k=10 | PRSS=6.3940 | 1.4 s
+    Final best k=10 PRSS=6.3940  iters=13  early_stop=FALSE
+  cDFG DE (donor-aware): 87.38%
+  TREP sizing DE (flat null, population fit): 92.97%
+
+  Loading cHKG data from norm.mtx ...
+    cHKG: 1936 cells, 9 genes (ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1)
+  Fitting cHKG GAM ...
+  cHKG DE (donor-aware): 1.32%
+
+  Computing EP and TREP ...
+  TREP=1800  non-TREP=136
+  4-group counts:
+    Pre-IP TREP            887
+    Pre-IP non-TREP        2
+    Post-IP TREP           913
+    Post-IP non-TREP       134
+
+  [Fig 1] Building CEP-IP + Pitcher ...
+  Fig 1 saved
+
+  [Fig 2] Building GAM curves + CEP-IP scatter ...
+  GAM dual curve built
+  CEP-IP scatter built
+  Fig 2 saved
+
+  [Fig 3] Building copula space plots ...
+  Copula (u,v): n=2658  IP_u=0.6100  IP_v=0.5480
+  SKCS cuts: Si_norm > 0.05, Ki > 0.5  ->  copula (u_SK, v_SK) = (0.2961, 0.1791)
+  Copula panels built
+  Fig 3 saved
+
+  [Fig 4-5] Building original-label plots (no refit) ...
+    OrigRef=1618  Recovered=318  Orig-only=59  Excluded=663
+  Fig 4A: CEP-IP (original labels) built
+  Fig 4B: Pitcher (original labels) built
+  Fig 4 saved
+  Fig 5: Copula (original labels) built
+  Fig 5 saved
+
+  Computing TREP concordance (refitted vs original) ...
+  Concordance: 1568/1618 (96.9%)
+
+  Building V1-augmented Step4_Refined_Cells ...
+  V1 data frame: 2658 rows (2658 GOI-pos + 0 GOI-neg)
+
+ ======================================================================== 
+  SAVING RDS + EXCEL
+======================================================================== 
+
+  [NeoC] RDS saved: Part10e_CP10K_PVM_1_V1_NeoC_results.rds  (1.3 MB, plots dropped)
+  [NeoC] Excel saved: Part10e_CP10K_PVM_1_V1_NeoC_SK_interaction_analysis.xlsx (3218 rows)
+  [NonNeoC] RDS saved: Part10e_CP10K_PVM_1_V1_NonNeoC_results.rds  (1.2 MB, plots dropped)
+  [NonNeoC] Excel saved: Part10e_CP10K_PVM_1_V1_NonNeoC_SK_interaction_analysis.xlsx (2658 rows)
+
+
+ ======================================================================== 
+  CELL COUNT GUARDRAIL
+======================================================================== 
+
+========================================================================
+Part10e Validation1 [PVM1_all] — Cell Count Guardrail Report
+Generated: 2026-08-28 16:44:39.660299
+========================================================================
+
+[NeoC] Cell Count Reconciliation  (arm PVM1_all, GOI MT-CO3)
+------------------------------------------------------------------------------
+Identity                                               Observed     Status
+------------------------------------------------------------------------------
+OrigRef (1821) + Recovered (381) = module (2202)           2202       PASS
+the four CMRF classes (1821+381+41+975) = MT-CO3-positive (3218)       3218       PASS
+MT-CO3-positive (3218) + MT-CO3-negative (0) = sheet rows (3218)       3218       PASS
+module (2202) + non-module (1016) = MT-CO3-positive (3218)       3218       PASS
+TREP (2010) + non-TREP (192) = module (2202)               2202       PASS
+------------------------------------------------------------------------------
+Dataset NeoC: ALL RECONCILE
+
+  MT-CO3-positive (plotted):                  3218
+  Non-module (gray):             1016
+  GAM DE (donor-aware):          87.61%
+  TREP sizing DE (flat null):    91.27%
+  IP threshold:                  2.3827
+  TREP / non-TREP:               2010 / 192
+
+  4-group breakdown:
+    Pre-IP TREP               1010
+    Pre-IP non-TREP           4
+    Post-IP TREP              1000
+    Post-IP non-TREP          188
+
+  TREP Concordance (OrigRef cells: refitted vs original Part10b):
+    Agreement: 1792 / 1821 (98.4%)
+    Original \ Refitted      Post-IP non-TREP       Post-IP TREP    Pre-IP non-TREP        Pre-IP TREP
+    Post-IP non-TREP                      123                 21                  0                  0
+    Post-IP TREP                            8                913                  0                  0
+    Pre-IP non-TREP                         0                  0                  1                  0
+    Pre-IP TREP                             0                  0                  0                755
+
+
+[NonNeoC] Cell Count Reconciliation  (arm PVM1_all, GOI MT-CO3)
+------------------------------------------------------------------------------
+Identity                                               Observed     Status
+------------------------------------------------------------------------------
+OrigRef (1618) + Recovered (318) = module (1936)           1936       PASS
+the four CMRF classes (1618+318+59+663) = MT-CO3-positive (2658)       2658       PASS
+MT-CO3-positive (2658) + MT-CO3-negative (0) = sheet rows (2658)       2658       PASS
+module (1936) + non-module (722) = MT-CO3-positive (2658)       2658       PASS
+TREP (1800) + non-TREP (136) = module (1936)               1936       PASS
+------------------------------------------------------------------------------
+Dataset NonNeoC: ALL RECONCILE
+
+  MT-CO3-positive (plotted):                  2658
+  Non-module (gray):             722
+  GAM DE (donor-aware):          87.38%
+  TREP sizing DE (flat null):    92.97%
+  IP threshold:                  2.6453
+  TREP / non-TREP:               1800 / 136
+
+  4-group breakdown:
+    Pre-IP TREP               887
+    Pre-IP non-TREP           2
+    Post-IP TREP              913
+    Post-IP non-TREP          134
+
+  TREP Concordance (OrigRef cells: refitted vs original Part10b):
+    Agreement: 1568 / 1618 (96.9%)
+    Original \ Refitted      Post-IP non-TREP       Post-IP TREP        Pre-IP TREP
+    Post-IP non-TREP                       64                 50                  0
+    Post-IP TREP                            0                803                  0
+    Pre-IP TREP                             0                  0                701
+
+
+========================================================================
+OVERALL GUARDRAIL: ALL COUNTS RECONCILE — PASS
+========================================================================
+
+  Guardrail log saved: <SEA-AD>/Part10e_Validation1/Part10e_Validation1_PVM_1/Part10e_CP10K_PVM_1_V1_cell_count_guardrail.txt
+
+  POST-ANALYSIS GUARDRAILS
+
+  [PASS]  GR-06-NeoC        module = 2202 cell(s) (OrigRef 1821 + Recovered 381) | cDFG DE = 87.61% (donor-aware) | TREP 2010 / non-TREP 192
+  [PASS]  GR-07-NeoC        cDFG refit: donor RE = YES (82 donors) | k = 10 | inverse-donor weights
+  [PASS]  GR-08-NeoC        Pre/Post split on cDFG at 1.526079 | IP_x = 2.382738 | IP_y = 1.526079
+  [PASS]  GR-09-NeoC        Refitted vs Part10b TREP: 98.4% agreement on 1821 cell(s)
+  [PASS]  GR-06-NonNeoC     module = 1936 cell(s) (OrigRef 1618 + Recovered 318) | cDFG DE = 87.38% (donor-aware) | TREP 1800 / non-TREP 136
+  [PASS]  GR-07-NonNeoC     cDFG refit: donor RE = YES (82 donors) | k = 10 | inverse-donor weights
+  [PASS]  GR-08-NonNeoC     Pre/Post split on cDFG at 1.836287 | IP_x = 2.645333 | IP_y = 1.836287
+  [PASS]  GR-09-NonNeoC     Refitted vs Part10b TREP: 96.9% agreement on 1618 cell(s)
+  Guardrail log written: <SEA-AD>/Part10e_Validation1/Part10e_Validation1_PVM_1/Part10e_CP10K_PVM_1_V1_Guardrail_Log.txt 
+
+  Final guardrail tally: 17 PASS / 0 WARN / 0 FAIL
+  All 17 checks passed.
+
+ ======================================================================== 
+  Part10e Validation1 COMPLETE [ PVM1_all ]
+  Output directory: <SEA-AD>/Part10e_Validation1/Part10e_Validation1_PVM_1 
+  Files generated:
+    Part10e_CP10K_PVM_1_V1_cell_count_guardrail.txt                     4 KB
+    Part10e_CP10K_PVM_1_V1_console_log_20260827_103722.txt             21 KB
+    Part10e_CP10K_PVM_1_V1_console_log_20260828_164141.txt             14 KB
+    Part10e_CP10K_PVM_1_V1_Guardrail_Log.txt                            2 KB
+    Part10e_CP10K_PVM_1_V1_NeoC_CEP-IP_Pitcher_FinalModule.pdf        367 KB
+    Part10e_CP10K_PVM_1_V1_NeoC_CEP-IP_Pitcher_FinalModule.png        159 KB
+    Part10e_CP10K_PVM_1_V1_NeoC_Copula_space.pdf                      355 KB
+    Part10e_CP10K_PVM_1_V1_NeoC_Copula_space.png                      206 KB
+    Part10e_CP10K_PVM_1_V1_NeoC_GAM_cHKG_CEP-IP_scatter.pdf           403 KB
+    Part10e_CP10K_PVM_1_V1_NeoC_GAM_cHKG_CEP-IP_scatter.png           190 KB
+    Part10e_CP10K_PVM_1_V1_NeoC_OrigLabel_CEP-IP_Pitcher.pdf          327 KB
+    Part10e_CP10K_PVM_1_V1_NeoC_OrigLabel_CEP-IP_Pitcher.png          149 KB
+    Part10e_CP10K_PVM_1_V1_NeoC_OrigLabel_Copula_space.pdf            330 KB
+    Part10e_CP10K_PVM_1_V1_NeoC_OrigLabel_Copula_space.png            214 KB
+    Part10e_CP10K_PVM_1_V1_NeoC_results.rds                          1290 KB
+    Part10e_CP10K_PVM_1_V1_NeoC_SK_interaction_analysis.xlsx          944 KB
+    Part10e_CP10K_PVM_1_V1_NonNeoC_CEP-IP_Pitcher_FinalModule.pdf     308 KB
+    Part10e_CP10K_PVM_1_V1_NonNeoC_CEP-IP_Pitcher_FinalModule.png     155 KB
+    Part10e_CP10K_PVM_1_V1_NonNeoC_Copula_space.pdf                   295 KB
+    Part10e_CP10K_PVM_1_V1_NonNeoC_Copula_space.png                   187 KB
+    Part10e_CP10K_PVM_1_V1_NonNeoC_GAM_cHKG_CEP-IP_scatter.pdf        362 KB
+    Part10e_CP10K_PVM_1_V1_NonNeoC_GAM_cHKG_CEP-IP_scatter.png        207 KB
+    Part10e_CP10K_PVM_1_V1_NonNeoC_OrigLabel_CEP-IP_Pitcher.pdf       271 KB
+    Part10e_CP10K_PVM_1_V1_NonNeoC_OrigLabel_CEP-IP_Pitcher.png       150 KB
+    Part10e_CP10K_PVM_1_V1_NonNeoC_OrigLabel_Copula_space.pdf         273 KB
+    Part10e_CP10K_PVM_1_V1_NonNeoC_OrigLabel_Copula_space.png         198 KB
+    Part10e_CP10K_PVM_1_V1_NonNeoC_results.rds                       1158 KB
+    Part10e_CP10K_PVM_1_V1_NonNeoC_SK_interaction_analysis.xlsx       799 KB
+======================================================================== 
+
+  Log written to: <SEA-AD>/Part10e_Validation1/Part10e_Validation1_PVM_1/Part10e_CP10K_PVM_1_V1_console_log_20260828_164141.txt 
+
+Part10e Validation1 — log ended: 2026-08-28 16:44:39.672119
+
+========================================================================
+  MESSAGE STREAM (warnings, messages, errors)
+========================================================================
+G2;H2;Warningh: Removed 18 rows containing missing values or
+values outside the scale range (`geom_ribbon()`).g
+G2;H2;Warningh in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  conversion failure on 'NeoC (MT-CO3⁺; n=3218) — CMRF Final Module (OriRef+Recovered=2202)' in 'mbcsToSbcs': for ⁺ (U+207A)g
+G2;H2;Warningh: Removed 18 rows containing missing values or
+values outside the scale range (`geom_ribbon()`).g
+G2;H2;Warningh: Removed 18 rows containing missing values or
+values outside the scale range (`geom_ribbon()`).g
+G2;H2;Warningh in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  conversion failure on 'CMRF Final Module (n=2202, γ=1.5)' in 'mbcsToSbcs': for γ (U+03B3)g
+G2;H2;Warningh in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  conversion failure on 'NeoC (MT-CO3⁺, n=3218) — CMRF Final Module: Copula Space' in 'mbcsToSbcs': for ⁺ (U+207A)g
+G2;H2;Warningh in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  conversion failure on 'NeoC (MT-CO3⁺, n=3218) — Original Part10b Labels (no refit)' in 'mbcsToSbcs': for ⁺ (U+207A)g
+G2;H2;Warningh in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  conversion failure on 'Recovered=381 (◆)  |  Orig-only=41 (▽)  |  Excluded=975 (gray)' in 'mbcsToSbcs': for ◆ (U+25C6)g
+G2;H2;Warningh in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  conversion failure on 'Recovered=381 (◆)  |  Orig-only=41 (▽)  |  Excluded=975 (gray)' in 'mbcsToSbcs': for ▽ (U+25BD)g
+G2;H2;Warningh in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  conversion failure on 'Recovered=381 (◆)  |  Orig-only=41 (▽)  |  Excluded=975 (gray)' in 'mbcsToSbcs': for ◆ (U+25C6)g
+G2;H2;Warningh in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  conversion failure on 'Recovered=381 (◆)  |  Orig-only=41 (▽)  |  Excluded=975 (gray)' in 'mbcsToSbcs': for ▽ (U+25BD)g
+G2;H2;Warningh in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  conversion failure on 'NeoC (MT-CO3⁺, n=3218) — Original Labels: Copula Space' in 'mbcsToSbcs': for ⁺ (U+207A)g
+G2;H2;Warningh in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  conversion failure on 'NonNeoC (MT-CO3⁺; n=2658) — CMRF Final Module (OriRef+Recovered=1936)' in 'mbcsToSbcs': for ⁺ (U+207A)g
+G2;H2;Warningh in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  conversion failure on 'CMRF Final Module (n=1936, γ=1.5)' in 'mbcsToSbcs': for γ (U+03B3)g
+G2;H2;Warningh in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  conversion failure on 'NonNeoC (MT-CO3⁺, n=2658) — CMRF Final Module: Copula Space' in 'mbcsToSbcs': for ⁺ (U+207A)g
+G2;H2;Warningh in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  conversion failure on 'NonNeoC (MT-CO3⁺, n=2658) — Original Part10b Labels (no refit)' in 'mbcsToSbcs': for ⁺ (U+207A)g
+G2;H2;Warningh in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  conversion failure on 'Recovered=318 (◆)  |  Orig-only=59 (▽)  |  Excluded=663 (gray)' in 'mbcsToSbcs': for ◆ (U+25C6)g
+G2;H2;Warningh in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  conversion failure on 'Recovered=318 (◆)  |  Orig-only=59 (▽)  |  Excluded=663 (gray)' in 'mbcsToSbcs': for ▽ (U+25BD)g
+G2;H2;Warningh in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  conversion failure on 'Recovered=318 (◆)  |  Orig-only=59 (▽)  |  Excluded=663 (gray)' in 'mbcsToSbcs': for ◆ (U+25C6)g
+G2;H2;Warningh in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  conversion failure on 'Recovered=318 (◆)  |  Orig-only=59 (▽)  |  Excluded=663 (gray)' in 'mbcsToSbcs': for ▽ (U+25BD)g
+G2;H2;Warningh in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+  conversion failure on 'NonNeoC (MT-CO3⁺, n=2658) — Original Labels: Copula Space' in 'mbcsToSbcs': for ⁺ (U+207A)g
+

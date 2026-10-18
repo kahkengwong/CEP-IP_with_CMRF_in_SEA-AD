@@ -1,0 +1,117 @@
+
+==============================================================================
+Part 10g Steps 7b, 7c, 8 and 9 REBUILD
+==============================================================================
+Date     : 2026-10-17 22:50:00 
+CEP_HOME : <SEA-AD> 
+R        : R version 4.6.1 (2026-06-24 ucrt) 
+Output   : <SEA-AD>/Part10g_DEGs/Step7to9_rebuild 
+
+==============================================================================
+1. INPUTS
+==============================================================================
+  M4 NeoC       Part10g_CP10K_M4_NeoC_results.rds (2026-09-08 06:26)
+  M4 NonNeoC    Part10g_CP10K_M4_NonNeoC_results.rds (2026-09-08 06:26)
+  PVM_3 NeoC    Part10g_CP10K_PVM_3_NeoC_results.rds (2026-09-08 06:35)
+  PVM_3 NonNeoC Part10g_CP10K_PVM_3_NonNeoC_results.rds (2026-09-08 06:35)
+  PVM_1 NeoC    Part10g_CP10K_PVM_1_NeoC_results.rds (2026-09-08 06:41)
+  PVM_1 NonNeoC Part10g_CP10K_PVM_1_NonNeoC_results.rds (2026-09-08 06:41)
+  HKG8 NeoC     Part10g_CP10K_HKG8_NeoC_results.rds (2026-09-08 06:48)
+  HKG8 NonNeoC  Part10g_CP10K_HKG8_NonNeoC_results.rds (2026-09-08 06:48)
+
+  Structure check on M4 NeoC PostIP_vs_PreIP 
+    donor columns : gene, dataset, comparison, unit, n_fg, n_bg, n_donors, avg_log2FC, pct_fg, pct_bg, mean_expr_fg, mean_expr_bg, p_val, p_val_adj_BH, auc, r_rb, significant, direction, pct_filter_pass, is_mt_gene, padj_rank, auc_rank, fc_rank, CRS, CRS_signed, eligible, top1000_up, top1000_down, rank_up, rank_down 
+    donor_fc      : matrix 11697 x 41 
+
+==============================================================================
+2. STEPS 7b AND 7c: choose the test settings
+==============================================================================
+  t-test Welch   | Mann-Whitney exact = default | differences 1456
+  t-test Student | Mann-Whitney exact = default | differences 7312
+  t-test Welch   | Mann-Whitney exact = FALSE   | differences 0
+  t-test Student | Mann-Whitney exact = FALSE   | differences 6636
+
+  Using: t-test Welch, Mann-Whitney exact = FALSE
+
+==============================================================================
+3. STEPS 7b AND 7c: comparison with the existing CSVs
+==============================================================================
+
+  Step 7b: existing 211 rows | rebuilt 211 rows | in existing only 0 | in rebuilt only 0
+    VERDICT: MATCH
+
+  Step 7b verdict: existing 211 rows | rebuilt 211 rows | in existing only 0 | in rebuilt only 0
+    p2_PVM_3                  4 of 211 differ  e.g. MT-CO3|PostIP_vs_NMPost|NeoC: 2.46e-10 vs 2.46274e-10; MT-ND3|PostIP_vs_NMPost|NeoC: 1.35e-05 vs 1.34801e-05; MT-ND4|PostIP_vs_NMPost|NeoC: 8.53e-06 vs 8.53142e-06 
+    p1_PVM_3                  7 of 211 differ  e.g. MT-CO3|PostIP_vs_NMPost|NeoC: 1.2300e-10 vs 1.23137e-10; MT-ND3|PostIP_vs_NMPost|NeoC: 6.7400e-06 vs 6.74003e-06; MT-ATP6|PostIP_vs_NMPost|NeoC: 1.0609e-04 vs 1.06090e-04 
+    p2_M4                     1 of 211 differ  e.g. MT-CO3|PostIP_vs_NMPost|NeoC: 9.23e-06 vs 9.23247e-06 
+    p1_M4                     3 of 211 differ  e.g. MT-CO3|PostIP_vs_NMPost|NeoC: 0.000004620 vs 4.61623e-06; MT-ND3|PostIP_vs_NMPost|NeoC: 0.000192765 vs 1.92765e-04; MT-CO3|PostIP_vs_NMPost|NonNeoC: 0.000254658 vs 2.54658e-04 
+    p2_PVM_1                  5 of 211 differ  e.g. MT-CO3|PostIP_vs_NMPost|NeoC: 0.000000153 vs 1.52580e-07; MT-ATP6|PostIP_vs_NMPost|NeoC: 0.000120892 vs 1.20892e-04; MT-ND4|PostIP_vs_NMPost|NeoC: 0.000003310 vs 3.30555e-06 
+    p1_PVM_1                  6 of 211 differ  e.g. MT-CO3|PostIP_vs_NMPost|NeoC: 7.63e-08 vs 7.62901e-08; MT-ATP6|PostIP_vs_NMPost|NeoC: 6.04e-05 vs 6.04458e-05; MT-ND4|PostIP_vs_NMPost|NeoC: 1.65e-06 vs 1.65278e-06 
+    FDR2_PVM_3                4 of 211 differ  e.g. MT-CO3|PostIP_vs_NMPost|NeoC: 2.12000e-08 vs 2.11796e-08; MT-ND3|PostIP_vs_NMPost|NeoC: 2.89821e-04 vs 2.89821e-04; MT-ND4|PostIP_vs_NMPost|NeoC: 2.44567e-04 vs 2.44567e-04 
+    FDR1_PVM_3                3 of 211 differ  e.g. MT-CO3|PostIP_vs_NMPost|NeoC: 1.06000e-08 vs 1.05898e-08; MT-ND3|PostIP_vs_NMPost|NeoC: 1.93214e-04 vs 1.93214e-04; MT-ND4|PostIP_vs_NMPost|NeoC: 1.83426e-04 vs 1.83426e-04 
+    FDR2_nc_PVM_3             1 of 211 differ  e.g. ACTB|PostIP_vs_NMPost|NeoC: 8.22e-05 vs 8.2169e-05 
+    FDR1_nc_PVM_3             1 of 211 differ  e.g. KCNQ3|PreIP_vs_NMPre|NonNeoC: 0.000175586 vs 0.000175586 
+    FDR2_PVM_1                2 of 211 differ  e.g. MT-CO3|PostIP_vs_NMPost|NeoC: 0.000013100 vs 1.31219e-05; MT-ND4|PostIP_vs_NMPost|NeoC: 0.000142139 vs 1.42139e-04 
+    FDR1_PVM_1                2 of 211 differ  e.g. MT-CO3|PostIP_vs_NMPost|NeoC: 6.56e-06 vs 6.56095e-06; MT-ND4|PostIP_vs_NMPost|NeoC: 7.11e-05 vs 7.10694e-05 
+    VERDICT: 39 differences
+
+  Step 7c: existing 396 rows | rebuilt 396 rows | in existing only 0 | in rebuilt only 0
+    VERDICT: MATCH
+
+==============================================================================
+4. STEP 8: Module membership overlap between arms
+==============================================================================
+  M4 NeoC         2130 cells | ID column barcode      | Module   1656
+  M4 NonNeoC      1987 cells | ID column barcode      | Module   1474
+  PVM_3 NeoC     13331 cells | ID column barcode      | Module   9454
+  PVM_3 NonNeoC  11132 cells | ID column barcode      | Module   7735
+  PVM_1 NeoC      3218 cells | ID column barcode      | Module   2202
+  PVM_1 NonNeoC   2658 cells | ID column barcode      | Module   1936
+  HKG8 NeoC       1432 cells | ID column barcode      | Module    526
+  HKG8 NonNeoC    1079 cells | ID column barcode      | Module    431
+ dataset arm_a arm_b  n_a   n_b n_shared both_module a_only_module b_only_module neither_module jaccard_module   kappa pct_a_module_that_is_b_module
+    NeoC  HKG8 PVM_3 1432 13331     1432         408           118           692            214         0.3350  0.0097                          77.6
+    NeoC  HKG8    M4 1432  2130     1432         430            96           736            170         0.3407  0.0041                          81.7
+    NeoC    M4 PVM_3 2130 13331     2130        1536           120            35            439         0.9083  0.8023                          92.8
+ NonNeoC  HKG8 PVM_3 1079 11132     1079         318           113           480            168         0.3491 -0.0026                          73.8
+ NonNeoC  HKG8    M4 1079  1987     1079         323           108           504            144         0.3455 -0.0246                          74.9
+ NonNeoC    M4 PVM_3 1987 11132     1987        1390            84            33            480         0.9224  0.8511                          94.3
+
+  Step 8: existing 6 rows | rebuilt 6 rows | in existing only 0 | in rebuilt only 0
+    VERDICT: MATCH
+
+==============================================================================
+5. STEP 9: axis genes on non-Module cells
+==============================================================================
+  Non-circular Step 7c passes (two-sided): SYT1 NeoC, KCNIP4 NeoC, CADM1 NeoC, RBFOX1 NeoC, DPP10 NeoC, CDK14 NeoC, MEG3 NeoC, MAGI2 NeoC, CNTNAP2 NeoC, RORA NeoC, SRGAP2C NonNeoC, PPM1E NonNeoC, CSMD1 NonNeoC, LSAMP NonNeoC 
+  source n_fg                 differences 256
+  source n_bg                 differences 256
+  source n_donors             differences 256
+  source avg_log2FC           differences 0
+  source pct_fg               differences 256
+  source pct_bg               differences 256
+  source mean_expr_fg         differences 256
+  source mean_expr_bg         differences 256
+  source p_val                differences 256
+  source p_val_adj_BH         differences 256
+  source auc                  differences 256
+  source r_rb                 differences 255
+  source padj_rank            differences 256
+  source auc_rank             differences 256
+  source fc_rank              differences 256
+  source CRS                  differences 256
+  source CRS_signed           differences 256
+  source rank_up              differences 256
+  source rank_down            differences 256
+  source median_donor_fc      differences 256
+
+  Using source: avg_log2FC 
+
+  Step 9: existing 32 rows | rebuilt 32 rows | in existing only 0 | in rebuilt only 0
+    VERDICT: MATCH
+
+==============================================================================
+DONE
+==============================================================================
+Rebuilt files and this log are in:
+  <SEA-AD>/Part10g_DEGs/Step7to9_rebuild

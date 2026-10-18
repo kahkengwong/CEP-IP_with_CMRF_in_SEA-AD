@@ -1,0 +1,133 @@
+Part 12 rerun -- step 29
+Script: Part12_Fig19_Analysis.r | md5 87e3a3e952c93113bff84d7fe4fd612f
+Shared file: Part12_03_Config.r | md5 df0cc2f82a0fd0947b3bb0b93bae800a
+Run ID: 20260925-1035-windows
+Start: 2026-09-25 10:35:05
+Machine: LAPTOP-M7LQ95IS | R version 4.6.1 (2026-06-24 ucrt)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6 | parallel 4.6.1
+Config: Part12_rerun/Part12_01_config.json | version 16 | md5 de727a6a529ece74865c9387be6d8831
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 29-01 script saved in Part12_rerun | Part12_Fig19_Analysis.r
+
+Battery 5 config: Part12_rerun/Part12_Fig19_config.json | version 1 | md5 edbb1f1b6225c5f7ce29611b7142b88b
+Battery 5 readings: Part12_rerun/Part12_Preset_Readings_Battery5.md | md5 45660b915ba3b704eaf3216421dd2ba1
+[PASS] 29-02 Battery 5 readings file present | Part12_rerun/Part12_Preset_Readings_Battery5.md
+
+Pre-set reading for Battery 5 definitions | Part12_rerun/Part12_Preset_Readings_Battery5.md | md5 45660b915ba3b704eaf3216421dd2ba1
+  ### Battery 5 definitions.
+  
+  - Why a separate battery. All 84 donors are primary in Batteries 1 to 4, and the eleven SA donors were pre-specified as a sensitivity analysis of the clinical association only (Supplementary Figure 10). The Methods state that the between-donor results may depend on them. Battery 5 tests that statement on the panels exposed to a donor-level shift, instead of leaving it open.
+  - Change of decision, recorded. On 2026-09-23 no further reruns of Batteries 1 to 4 were planned. Battery 5 does not rerun them: it reads their stats files and inputs, reproduces the all-donor estimates it retests, and computes new statistics only without the eleven and under random removal. It is recorded in the migration summary as a dated entry.
+  - Files left unchanged. Part12_01_config.json (version 16), Part12_Preset_Readings.md, Part12_03_Config.r and the Figure 15 to 18 analysis files are not edited. Every Battery 1 to 4 log prints their checksums; editing them would make those logs disagree with the files they name. Battery 5 has its own configuration (Part12_Fig19_config.json) and this readings file. Section 26 stops if any Battery 1 to 4 file differs from its recorded checksum.
+  - What is held fixed. Cell labels, the inflection point, the units, the Module post-IP% of every unit and donor, the %MT, the nuclear panel genes of 18A and every donor panel score are those of the all-donor run. Only donor rows are removed from each statistic. Battery 5 therefore asks whether the eleven donors carry the statistics, not whether they shaped the Module definition.
+  - The SA flag. The SEA-AD column "Severely Affected Donor" of obs_dataset.csv, every arm and region set. Exactly eleven donors must be flagged, the flag must be constant within donor, and every flagged donor must have ADNC_rank 3 (High). Otherwise section 26 fails.
+  - Frames. A frame is the donor set a statistic is drawn from: the arm's donors in the unit table (16A, 16B, 16F); the arm's donors joined to histology or CPS (17A, 17B); the arm's donors joined to histology (17C); the arm's donor-table rows in one region set (15A, 17D, 18A). Removing the eleven removes those of them present in the frame; k is that number.
+  - Without the eleven. Each retested statistic is recomputed on the frame less its SA donors, with the method, floors and multiple-testing families of the all-donor run, and a new resampling seed (Part12_Fig19_config.json). FDR is BH within the same family as in the all-donor run.
+  - Random removal (the null). In each frame, k donors are drawn without replacement from the frame's High-ADNC donors that are not SA, 1,000 times; the draws are made once in section 26 and written, so every later section uses the same draws. A contrast between two arms uses draw r of each arm's frame. Each draw recomputes the estimate only.
+  - Change. For a row with all-donor estimate e and sign s = sign(e), the change on removing a set is s x (e_removed - e). A negative change is attenuation toward zero. The SA change is compared with the 1,000 random-removal changes of the same row; p_null = (1 + number of random changes at or below the SA change) / (1 + number of finite random changes), one-sided, descriptive.
+  - Reproduction check. Before anything is removed, each section recomputes the all-donor estimates it retests and compares them with the Battery 1 to 4 stats files (estimate, units and donors; and the OLS p for 15A, 17D and 18A). A difference above 1e-8 fails the section.
+  - Row classes. Significant means FDR < 0.05; the all-donor FDR is the one in the Battery 1 to 4 stats file.
+    - Holds: significant with and without the eleven, same sign.
+    - Reversed: significant with and without, opposite sign.
+    - Lost, beyond random removal: significant with, not without, and the SA change is below the 5th percentile of the random-removal changes.
+    - Lost, within random removal: significant with, not without, and the SA change is at or above that percentile.
+    - Lost, null untestable: significant with, not without, and the frame has fewer non-SA High-ADNC donors than k.
+    - Untestable without the eleven: significant with, below the donor floor without.
+    - Gained: not significant with, significant without.
+    - Neither: significant in neither.
+    - Untestable: untestable in the all-donor run.
+  - Panel reading. A panel holds without the eleven when none of its rows is Reversed or Lost, beyond random removal. Otherwise the panel is reported as depending on the eleven for that number of rows, named. Rows lost within random removal are reported as lost with power, not as dependence. The counts of every class are reported for every panel, whatever they are.
+  - Placement. Figure 19 of the Part 12 rerun files (the manuscript number is set at assembly), in the main text, whatever the outcome. Every row of every retested panel is in the Figure 19 stats and readout files.
+  
+
+Pre-set reading for 19B | Part12_rerun/Part12_Preset_Readings_Battery5.md | md5 45660b915ba3b704eaf3216421dd2ba1
+  ### 19B. Histology and clinical rows by class: 17A within donor, 17B between donors, 17C within donor, 15A, 17D, 18A (sections 28 and 29)
+  
+  - 17A within donor: rs of each of the five unit quantities with the six IBA1 measures; BH within arm and quantity over the six.
+  - 17B between donors: rs of the five quantities with the six CPS scores; BH within arm and quantity over the six.
+  - 17C within donor: the two rank coefficients (Module post-IP% and %MT) for each of the 28 stain measures; BH within arm and predictor over the 28; VIF recomputed.
+  - 15A: the cov4 Module coefficient, unadjusted and adjusted for donor-mean contamination, per arm, region set and outcome; BH as in 15A. dR2 and retention are carried without a test.
+  - 17D: the two coefficients of the cov4 model with both predictors; BH as in 17D; VIF recomputed.
+  - 18A: the two coefficients of each cov4 model with the second predictor and a nuclear-encoded panel; panel genes and donor scores fixed at the all-donor values; BH as in 18A; VIF recomputed.
+  - Reading. Class counts per panel and arm, drawn in Figure 19B. 17B between donors carries the exposure named in the Methods; 17A, 17C, 15A, 17D and 18A carry moderate exposure. A panel is read by the panel reading in the definitions.
+  
+
+Pre-set reading for 19C | Part12_rerun/Part12_Preset_Readings_Battery5.md | md5 45660b915ba3b704eaf3216421dd2ba1
+  ### 19C. Verdicts with and without the eleven: 17C within donor, 17D, 18A (sections 28 and 29)
+  
+  - The verdict of each model (Module only, %MT only, Both, Neither, Unreadable, Untestable; for 18A second only, NE panel only, Both, Neither, Unreadable, Untestable) is recomputed without the eleven with the Battery 3 and 4 rules, and cross-tabulated against the all-donor verdict.
+  - Reading. The Battery 3 and 4 conclusions rest on the absence of "Module only" rows where %MT is readable, and on the unreadable PVM_3 and PVM_1 rows. If the cross-tabulation moves rows into "Module only" or out of "Unreadable", the conclusion is re-stated for those rows; if the verdicts stay on the diagonal or move only between "Neither" and "%MT only", the Battery 3 and 4 conclusions stand.
+  
+
+SECTION A -- inputs
+[PASS] 29-03 05_donors.csv matches the 05_Units log | Part12_rerun/05_Units/05_donors.csv
+[PASS] 29-04 donor table carries this labels version | 643 donor rows
+[PASS] 29-05 04_cell_labels.csv.gz matches the 04_Labels log | Part12_rerun/04_Labels/04_cell_labels.csv.gz
+[PASS] 29-06 02_counts.mtx.gz matches the 02_Extract log | Part12_rerun/02_Extract/02_counts.mtx.gz
+[PASS] 29-07 02_counts_genes.tsv matches the 02_Extract log | Part12_rerun/02_Extract/02_counts_genes.tsv
+[PASS] 29-08 02_counts_cells.tsv matches the 02_Extract log | Part12_rerun/02_Extract/02_counts_cells.tsv
+[PASS] 29-09 02_matched_sets.csv matches the 02_Extract log | Part12_rerun/02_Extract/02_matched_sets.csv
+[PASS] 29-10 labels carry this labels version | checked
+[PASS] 29-11 count matrix, gene list and cell list agree | 37714 x 955
+[PASS] 29-12 every labelled cell is in the count matrix | 36967 cells
+[PASS] 29-13 SA_donors_19.csv matches the 11_Fig19/19_SADonors log | Part12_rerun/11_Fig19/19_SADonors/SA_donors_19.csv
+[PASS] 29-14 Frames_19.csv matches the 11_Fig19/19_SADonors log | Part12_rerun/11_Fig19/19_SADonors/Frames_19.csv
+[PASS] 29-15 NullDraws_19.csv matches the 11_Fig19/19_SADonors log | Part12_rerun/11_Fig19/19_SADonors/NullDraws_19.csv
+[PASS] 29-16 SA donors read from section 26 | 11 donors
+[PASS] 29-17 Stats_15A.csv matches the 07_Fig15/15AB_ContamDoublets log | Part12_rerun/07_Fig15/15AB_ContamDoublets/Stats_15A.csv
+[PASS] 29-18 Stats_15A.csv carries the configured columns, config and labels version | 432 rows
+[PASS] 29-19 Stats_17D.csv matches the 09_Fig17/17CE_ModuleVsMT log | Part12_rerun/09_Fig17/17CE_ModuleVsMT/Stats_17D.csv
+[PASS] 29-20 Stats_17D.csv carries the configured columns, config and labels version | 216 rows
+[PASS] 29-21 Stats_18A.csv matches the 10_Fig18/18A_NuclearPanels log | Part12_rerun/10_Fig18/18A_NuclearPanels/Stats_18A.csv
+[PASS] 29-22 Stats_18A.csv carries the configured columns, config and labels version | 6912 rows
+[NOTE] workers | 15 of 16 logical cores (PSOCK)
+
+SECTION B -- donor panel scores (section 22, all donors, held fixed)
+[NOTE] panel scores | 128 of 128 arm, region set and panel combinations scored
+
+SECTION C -- all-donor reproduction
+[PASS] 29-23 15A: all-donor rows reproduce the Battery 1 to 4 stats file | 432 rows | 0 unmatched | 0 estimates, 0 counts, 0 p differ | largest estimate difference 1.1e-14
+[PASS] 29-24 17D: all-donor rows reproduce the Battery 1 to 4 stats file | 216 rows | 0 unmatched | 0 estimates, 0 counts, 0 p differ | largest estimate difference 4.8e-14
+[PASS] 29-25 18A: all-donor rows reproduce the Battery 1 to 4 stats file | 6912 rows | 0 unmatched | 0 estimates, 0 counts, 0 p differ | largest estimate difference 5.1e-15
+
+SECTION D -- without the eleven
+
+SECTION E -- random removal (1000 draws per frame, fast refit)
+[PASS] 29-26 the fast refit equals lm() on the without-eleven run | 4896 coefficients | 0 differ | largest difference 6.7e-16
+[NOTE] random-removal time | 1.4 min
+
+SECTION F -- the reading
+    15A M4                       Holds 19 | Lost, beyond random removal 8 | Lost, within random removal 4 | Neither 5
+    15A PVM_3                    Holds 16 | Lost, beyond random removal 11 | Neither 9
+    15A PVM_1                    Holds 1 | Lost, beyond random removal 20 | Neither 15
+    15A HKG8                     Holds 2 | Lost, beyond random removal 1 | Lost, within random removal 2 | Neither 31
+    17D M4                       Holds 2 | Lost, within random removal 1 | Neither 33
+    17D PVM_3                    Neither 36
+    17D PVM_1                    Neither 36
+    17D HKG8                     Holds 4 | Lost, beyond random removal 10 | Neither 22
+    18A M4                       Holds 18 | Lost, beyond random removal 36 | Lost, within random removal 40 | Gained 2 | Neither 1056
+    18A PVM_3                    Holds 404 | Lost, beyond random removal 49 | Lost, within random removal 3 | Gained 1 | Neither 695
+    18A PVM_1                    Holds 2 | Lost, beyond random removal 415 | Lost, within random removal 1 | Gained 9 | Neither 725
+    18A HKG8                     Holds 15 | Lost, beyond random removal 26 | Lost, within random removal 23 | Gained 1 | Neither 1087
+  17D M4     verdicts kept 17 of 18 | Module only -> Neither: 1
+  17D PVM_3  verdicts kept 18 of 18
+  17D PVM_1  verdicts kept 8 of 18 | Unreadable -> Neither: 10
+  17D HKG8   verdicts kept 8 of 18 | %MT only -> Neither: 10
+  18A M4     verdicts kept 501 of 576 | Both -> Neither: 3; Both -> second only: 1; NE panel only -> Both: 1; NE panel only -> Neither: 2; second only -> Both: 1; second only -> Neither: 67
+  18A PVM_3  verdicts kept 523 of 576 | second only -> Both: 1; second only -> Neither: 52
+  18A PVM_1  verdicts kept 157 of 576 | NE panel only -> Both: 1; NE panel only -> Neither: 1; Neither -> Both: 1; second only -> Both: 1; second only -> NE panel only: 5; second only -> Neither: 410
+  18A HKG8   verdicts kept 527 of 576 | NE panel only -> Neither: 1; second only -> NE panel only: 1; second only -> Neither: 47
+
+SECTION G -- write
+[PASS] 29-27 stats and readout written | 15A 432 | 17D 216 | 18A 6912 | readout 4896 rows
+
+Outputs:
+  Part12_rerun/11_Fig19/19_Clinical/Stats_19_15A.csv | 0.1 MB | md5 120b829f80941124df4ec80aec41d889
+  Part12_rerun/11_Fig19/19_Clinical/Stats_19_17D.csv | 0.0 MB | md5 8e324c5e414726dfc1c00a7d9c258bd8
+  Part12_rerun/11_Fig19/19_Clinical/Stats_19_18A.csv | 1.4 MB | md5 03e53f8f36b26048b9e546c9461f583c
+  Part12_rerun/11_Fig19/19_Clinical/Verdicts_19_17D.csv | 0.0 MB | md5 bb1fefcf627d9b6483d3356f915b5028
+  Part12_rerun/11_Fig19/19_Clinical/Verdicts_19_18A.csv | 0.3 MB | md5 a0bab68876967b8fc29740f73495feb8
+  Part12_rerun/11_Fig19/19_Clinical/Readout_19_Clinical.csv | 1.9 MB | md5 dc3d41f002d0f0172a9fea2a60039d7d
+  Part12_rerun/11_Fig19/19_Clinical/Null_19_Clinical.csv | 481.5 MB | md5 127f27f24f2e97c4d7fdfd8b06b10fff
+Checks: 27 PASS, 0 FAIL, 0 WARN | duration 3.6 min
+VERDICT: PASS

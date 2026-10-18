@@ -1,0 +1,1157 @@
+
+============================================================================
+  ARM: Mic13_PVM3
+  Config: <SEA-AD>/R_config.R
+============================================================================
+R_config.R loaded (Module 1: MT-CO3 + 8 DFGs, ≥8/10 regions).
+  ARM_TAG   : Mic13_PVM3 
+  ARM_DIR   : <SEA-AD>/R_export_CP10K/Mic13_PVM3 
+  NEOC_DIR  : <SEA-AD>/R_export_CP10K/Mic13_PVM3/neocortex 
+  NONNC_DIR : <SEA-AD>/R_export_CP10K/Mic13_PVM3/nonneocortex 
+  SHARED_DIR: <SEA-AD>/R_export_CP10K/shared 
+  GOI       : MT-CO3 
+  DFG_NEOC  : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  DFG_NONNC : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Composite : cDFG 
+  RUN_SUFFIX: (none) 
+  Supertype : Micro-PVM_3-SEAAD 
+  Mod1 genes: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 ( 9 )
+  HKG_GENES : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 2130 NeoC / 1987 NonNeoC
+
+============================================================================
+  Part 9 -- QC, heatmaps and GAM-REML-PRSS  [CP10K]
+  Started    : 2026-08-17 20:51:02
+  Arm        : Mic13_PVM3
+  Supertype  : Micro-PVM_3-SEAAD
+  GOI        : MT-CO3
+  DFG (8)    : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1
+  Composite  : cDFG
+  HKG (9)    : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1
+  Norm       : CP10K -- log1p(UMIs/total x 10000), ceiling 9.2104
+  Export tree: <SEA-AD>/R_export_CP10K  (read; Part 9.2 also writes)
+  Output dir : <SEA-AD>/Part9/Part9_Mic13_PVM3
+  Log file   : <SEA-AD>/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_QC_GAM_Log.txt  (console output and warnings)
+============================================================================
+
+
+############################################################################
+  PART 9.1 -- EXPORT QC
+############################################################################
+
+-- QC-01  R_config.R integrity ------------------------------------------
+  [PASS]  QC-01a     All required config variables defined
+             detail   : 32 variables checked
+  [PASS]  QC-01b     All required directories exist
+             detail   : 17 directories checked
+  [PASS]  QC-01c     Part8_export_record.csv present
+             detail   : h5ad = SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad | release = 2026-06-22 Multiregion | exported 2026-07-31T11:03:55Z
+  [PASS]  QC-01d     Export record normalisation matches config
+             detail   : record: CP10K at target_sum 10000 | config: CP10K at 10000
+
+-- QC-02  Shared files --------------------------------------------------
+  [PASS]  QC-02      File present: gene_metadata.csv
+             detail   : 1.7 MB
+  [PASS]  QC-02      File present: donor_clinical.csv
+             detail   : 0 MB
+  [PASS]  QC-02      File present: obs_all_cells.csv
+             detail   : 246.5 MB
+  [PASS]  QC-02      File present: embedding_scVI.csv
+             detail   : 38.2 MB
+  [PASS]  QC-02      File present: embedding_umap.csv
+             detail   : 16.6 MB
+  [PASS]  QC-02      gene_metadata row count
+             expected = 36601   observed = 36601
+  [PASS]  QC-02      donor_clinical row count
+             expected = 84   observed = 84
+  [PASS]  QC-02      donor_clinical tissue-quality covariates
+             detail   : all present: PMI, RIN, Brain pH, Fresh Brain Weight, Severely Affected Donor
+  [PASS]  QC-02      donor_clinical has no region column
+             detail   : region correctly absent
+  [PASS]  QC-02      obs_all_cells has a barcode column
+             detail   : first 10 cols: barcode, sample_id, Neurotypical reference, Donor ID, Organism, Brain Region, Sex, Gender, Age at Death, Race (choice=White)
+
+-- QC-03  GAM CSV column structure --------------------------------------
+  [PASS]  QC-03      NeoC summary_gam_inputs.csv rows
+             detail   : 6 region x supertype combinations
+  [PASS]  QC-03      NeoC DFC column set, n = 719
+             detail   : all required columns present; total cols = 30
+  [PASS]  QC-03      NeoC MTG column set, n = 444
+             detail   : all required columns present; total cols = 30
+  [PASS]  QC-03      NeoC AnG column set, n = 183
+             detail   : all required columns present; total cols = 30
+  [PASS]  QC-03      NeoC STG column set, n = 272
+             detail   : all required columns present; total cols = 30
+  [PASS]  QC-03      NeoC V1C column set, n = 302
+             detail   : all required columns present; total cols = 30
+  [PASS]  QC-03      NeoC ITG column set, n = 210
+             detail   : all required columns present; total cols = 30
+  [PASS]  QC-03      NonNeoC summary_gam_inputs.csv rows
+             detail   : 4 region x supertype combinations
+  [PASS]  QC-03      NonNeoC HIP column set, n = 445
+             detail   : all required columns present; total cols = 30
+  [PASS]  QC-03      NonNeoC MEC column set, n = 1156
+             detail   : all required columns present; total cols = 30
+  [PASS]  QC-03      NonNeoC LEC column set, n = 190
+             detail   : all required columns present; total cols = 30
+  [PASS]  QC-03      NonNeoC FI column set, n = 196
+             detail   : all required columns present; total cols = 30
+
+-- QC-04  GOI and composite value ranges --------------------------------
+  [PASS]  QC-04      NeoC DFC GOI / composite ranges
+             detail   : GOI [0.415, 5.914] NA=0 neg=0 | cDFG [0.000, 4.917] NA=0 neg=0 | ceiling 9.2104
+  [PASS]  QC-04b     NeoC DFC GOI > 0 as selected
+             detail   : 0 of 719 cells have GOI <= 0 (MT-CO3 in SELECT_GENES)
+  [PASS]  QC-04      NeoC MTG GOI / composite ranges
+             detail   : GOI [0.362, 4.328] NA=0 neg=0 | cDFG [0.000, 3.913] NA=0 neg=0 | ceiling 9.2104
+  [PASS]  QC-04b     NeoC MTG GOI > 0 as selected
+             detail   : 0 of 444 cells have GOI <= 0 (MT-CO3 in SELECT_GENES)
+  [PASS]  QC-04      NeoC AnG GOI / composite ranges
+             detail   : GOI [0.732, 6.275] NA=0 neg=0 | cDFG [0.000, 5.989] NA=0 neg=0 | ceiling 9.2104
+  [PASS]  QC-04b     NeoC AnG GOI > 0 as selected
+             detail   : 0 of 183 cells have GOI <= 0 (MT-CO3 in SELECT_GENES)
+  [PASS]  QC-04      NeoC STG GOI / composite ranges
+             detail   : GOI [0.318, 5.504] NA=0 neg=0 | cDFG [0.136, 4.828] NA=0 neg=0 | ceiling 9.2104
+  [PASS]  QC-04b     NeoC STG GOI > 0 as selected
+             detail   : 0 of 272 cells have GOI <= 0 (MT-CO3 in SELECT_GENES)
+  [PASS]  QC-04      NeoC V1C GOI / composite ranges
+             detail   : GOI [0.515, 6.046] NA=0 neg=0 | cDFG [0.000, 5.375] NA=0 neg=0 | ceiling 9.2104
+  [PASS]  QC-04b     NeoC V1C GOI > 0 as selected
+             detail   : 0 of 302 cells have GOI <= 0 (MT-CO3 in SELECT_GENES)
+  [PASS]  QC-04      NeoC ITG GOI / composite ranges
+             detail   : GOI [0.510, 5.238] NA=0 neg=0 | cDFG [0.216, 4.700] NA=0 neg=0 | ceiling 9.2104
+  [PASS]  QC-04b     NeoC ITG GOI > 0 as selected
+             detail   : 0 of 210 cells have GOI <= 0 (MT-CO3 in SELECT_GENES)
+  [PASS]  QC-04      NonNeoC HIP GOI / composite ranges
+             detail   : GOI [0.498, 5.309] NA=0 neg=0 | cDFG [0.136, 4.893] NA=0 neg=0 | ceiling 9.2104
+  [PASS]  QC-04b     NonNeoC HIP GOI > 0 as selected
+             detail   : 0 of 445 cells have GOI <= 0 (MT-CO3 in SELECT_GENES)
+  [PASS]  QC-04      NonNeoC MEC GOI / composite ranges
+             detail   : GOI [0.399, 5.732] NA=0 neg=0 | cDFG [0.000, 5.159] NA=0 neg=0 | ceiling 9.2104
+  [PASS]  QC-04b     NonNeoC MEC GOI > 0 as selected
+             detail   : 0 of 1156 cells have GOI <= 0 (MT-CO3 in SELECT_GENES)
+  [PASS]  QC-04      NonNeoC LEC GOI / composite ranges
+             detail   : GOI [0.982, 5.455] NA=0 neg=0 | cDFG [0.000, 5.278] NA=0 neg=0 | ceiling 9.2104
+  [PASS]  QC-04b     NonNeoC LEC GOI > 0 as selected
+             detail   : 0 of 190 cells have GOI <= 0 (MT-CO3 in SELECT_GENES)
+  [PASS]  QC-04      NonNeoC FI GOI / composite ranges
+             detail   : GOI [0.979, 5.647] NA=0 neg=0 | cDFG [0.000, 5.642] NA=0 neg=0 | ceiling 9.2104
+  [PASS]  QC-04b     NonNeoC FI GOI > 0 as selected
+             detail   : 0 of 196 cells have GOI <= 0 (MT-CO3 in SELECT_GENES)
+
+-- QC-05  Per-region selected counts ------------------------------------
+  [PASS]  QC-05      NeoC DFC selected count
+             expected = 719   observed = 719
+  [PASS]  QC-05      NeoC MTG selected count
+             expected = 444   observed = 444
+  [PASS]  QC-05      NeoC AnG selected count
+             expected = 183   observed = 183
+  [PASS]  QC-05      NeoC STG selected count
+             expected = 272   observed = 272
+  [PASS]  QC-05      NeoC V1C selected count
+             expected = 302   observed = 302
+  [PASS]  QC-05      NeoC ITG selected count
+             expected = 210   observed = 210
+  [PASS]  QC-05      NonNeoC HIP selected count
+             expected = 445   observed = 445
+  [PASS]  QC-05      NonNeoC MEC selected count
+             expected = 1156   observed = 1156
+  [PASS]  QC-05      NonNeoC LEC selected count
+             expected = 190   observed = 190
+  [PASS]  QC-05      NonNeoC FI selected count
+             expected = 196   observed = 196
+
+-- QC-06  MTX dimensions ------------------------------------------------
+  [PASS]  QC-06      NeoC raw_selected MTX dims vs barcodes and features
+             detail   : MTX 2130 x 36601 | barcodes 2130 | features 36601
+  [PASS]  QC-06      NeoC raw_dataset (shared) MTX dims vs barcodes and features
+             detail   : MTX 134088 x 36601 | barcodes 134088 | features 36601
+  [PASS]  QC-06      NeoC norm MTX dims vs barcodes and features
+             detail   : MTX 2130 x 36601 | barcodes 2130 | features 36601
+  [PASS]  QC-06      NonNeoC raw_selected MTX dims vs barcodes and features
+             detail   : MTX 1987 x 36601 | barcodes 1987 | features 36601
+  [PASS]  QC-06      NonNeoC raw_dataset (shared) MTX dims vs barcodes and features
+             detail   : MTX 106563 x 36601 | barcodes 106563 | features 36601
+  [PASS]  QC-06      NonNeoC norm MTX dims vs barcodes and features
+             detail   : MTX 1987 x 36601 | barcodes 1987 | features 36601
+
+-- QC-07  Barcode consistency -------------------------------------------
+  [PASS]  QC-07      NeoC DFC GAM barcodes in count matrix
+             detail   : 719 / 719 found
+  [PASS]  QC-07      NeoC MTG GAM barcodes in count matrix
+             detail   : 444 / 444 found
+  [PASS]  QC-07      NeoC AnG GAM barcodes in count matrix
+             detail   : 183 / 183 found
+  [PASS]  QC-07      NeoC STG GAM barcodes in count matrix
+             detail   : 272 / 272 found
+  [PASS]  QC-07      NeoC V1C GAM barcodes in count matrix
+             detail   : 302 / 302 found
+  [PASS]  QC-07      NeoC ITG GAM barcodes in count matrix
+             detail   : 210 / 210 found
+  [PASS]  QC-07      NonNeoC HIP GAM barcodes in count matrix
+             detail   : 445 / 445 found
+  [PASS]  QC-07      NonNeoC MEC GAM barcodes in count matrix
+             detail   : 1156 / 1156 found
+  [PASS]  QC-07      NonNeoC LEC GAM barcodes in count matrix
+             detail   : 190 / 190 found
+  [PASS]  QC-07      NonNeoC FI GAM barcodes in count matrix
+             detail   : 196 / 196 found
+
+-- QC-08  norm_GOI_DFG_selected.csv spot-check --------------------------
+  [PASS]  QC-08      NeoC GOI in dense CSV vs GAM CSV
+             detail   : r = 1.000000 | max_diff = 0.00e+00 | n = 719 | region DFC
+  [PASS]  QC-08      NonNeoC GOI in dense CSV vs GAM CSV
+             detail   : r = 1.000000 | max_diff = 0.00e+00 | n = 445 | region HIP
+
+-- QC-09  Clinical metadata completeness --------------------------------
+  [PASS]  QC-09      NeoC "Overall AD neuropathological Change" NA rate
+             detail   : 0 NA or empty out of 2130 cells (0.0%)
+  [PASS]  QC-09      NeoC "Braak" NA rate
+             detail   : 0 NA or empty out of 2130 cells (0.0%)
+  [PASS]  QC-09      NeoC "CERAD score" NA rate
+             detail   : 0 NA or empty out of 2130 cells (0.0%)
+  [PASS]  QC-09      NeoC "Thal" NA rate
+             detail   : 0 NA or empty out of 2130 cells (0.0%)
+  [PASS]  QC-09      NeoC "Cognitive Status" NA rate
+             detail   : 0 NA or empty out of 2130 cells (0.0%)
+  [PASS]  QC-09      NeoC "APOE Genotype" NA rate
+             detail   : 0 NA or empty out of 2130 cells (0.0%)
+  [PASS]  QC-09      NeoC "Donor ID" NA rate
+             detail   : 0 NA or empty out of 2130 cells (0.0%)
+  [PASS]  QC-09      NonNeoC "Overall AD neuropathological Change" NA rate
+             detail   : 0 NA or empty out of 1987 cells (0.0%)
+  [PASS]  QC-09      NonNeoC "Braak" NA rate
+             detail   : 0 NA or empty out of 1987 cells (0.0%)
+  [PASS]  QC-09      NonNeoC "CERAD score" NA rate
+             detail   : 0 NA or empty out of 1987 cells (0.0%)
+  [PASS]  QC-09      NonNeoC "Thal" NA rate
+             detail   : 0 NA or empty out of 1987 cells (0.0%)
+  [PASS]  QC-09      NonNeoC "Cognitive Status" NA rate
+             detail   : 0 NA or empty out of 1987 cells (0.0%)
+  [PASS]  QC-09      NonNeoC "APOE Genotype" NA rate
+             detail   : 0 NA or empty out of 1987 cells (0.0%)
+  [PASS]  QC-09      NonNeoC "Donor ID" NA rate
+             detail   : 0 NA or empty out of 1987 cells (0.0%)
+
+-- QC-10  Cell count audit ----------------------------------------------
+  [PASS]  QC-10      NeoC selected cell count
+             expected = 2130   observed = 2130
+  [PASS]  QC-10      NeoC dataset cell count
+             expected = 134088   observed = 134088
+  [PASS]  QC-10      NonNeoC selected cell count
+             expected = 1987   observed = 1987
+  [PASS]  QC-10      NonNeoC dataset cell count
+             expected = 106563   observed = 106563
+
+-- QC-11  Scorer columns ------------------------------------------------
+  [PASS]  QC-11      NeoC score_M1_FC
+             detail   : range [1.0420, 2.9916] NA=0 Inf=0
+  [PASS]  QC-11      NeoC score_M2_Hybrid
+             detail   : range [1.3140, 3.8357] NA=0 Inf=0
+  [PASS]  QC-11      NeoC score_M3_pRank
+             detail   : range [0.7407, 3.3335] NA=0 Inf=0
+  [PASS]  QC-11      NeoC score_M4_M1andM2
+             detail   : range [0.9700, 1.0000] NA=0 Inf=0
+  [PASS]  QC-11      NeoC score_M5_M1andM3
+             detail   : range [0.9194, 1.0000] NA=0 Inf=0
+  [PASS]  QC-11      NeoC score_M6_M2andM3
+             detail   : range [0.9194, 1.0000] NA=0 Inf=0
+  [PASS]  QC-11      NonNeoC score_M1_FC
+             detail   : range [0.9828, 3.0539] NA=0 Inf=0
+  [PASS]  QC-11      NonNeoC score_M2_Hybrid
+             detail   : range [1.1992, 3.8102] NA=0 Inf=0
+  [PASS]  QC-11      NonNeoC score_M3_pRank
+             detail   : range [0.7241, 3.3695] NA=0 Inf=0
+  [PASS]  QC-11      NonNeoC score_M4_M1andM2
+             detail   : range [0.9700, 1.0000] NA=0 Inf=0
+  [PASS]  QC-11      NonNeoC score_M5_M1andM3
+             detail   : range [0.9256, 1.0000] NA=0 Inf=0
+  [PASS]  QC-11      NonNeoC score_M6_M2andM3
+             detail   : range [0.9256, 1.0000] NA=0 Inf=0
+
+-- QC-12  Normalisation guardrails --------------------------------------
+  [PASS]  QC-12a     NeoC norm.mtx maximum within the ceiling
+             detail   : max = 8.0564 (ceiling log1p(10000) = 9.2104)
+  [PASS]  QC-12b     NeoC expm1(norm) row sums pin the target
+             detail   : mean = 10000.000000, max |deviation| = 8.44e-10, n = 50 cells
+  [PASS]  QC-12c     NeoC norm.mtx reconstructs from raw counts
+             detail   : max_diff = 8.88e-16 vs log1p(UMIs/total x 10000), 14 genes x 50 cells
+  [PASS]  QC-12d     NeoC norm.mtx GOI vs GAM CSV GOI
+             detail   : max_diff = 4.43e-07 over 719 cells, region DFC
+  [PASS]  QC-12e     NeoC raw counts are integer-valued
+             detail   : max = 2389, integer-like = TRUE
+  [PASS]  QC-12a     NonNeoC norm.mtx maximum within the ceiling
+             detail   : max = 7.6610 (ceiling log1p(10000) = 9.2104)
+  [PASS]  QC-12b     NonNeoC expm1(norm) row sums pin the target
+             detail   : mean = 10000.000000, max |deviation| = 5.86e-10, n = 50 cells
+  [PASS]  QC-12c     NonNeoC norm.mtx reconstructs from raw counts
+             detail   : max_diff = 8.88e-16 vs log1p(UMIs/total x 10000), 14 genes x 50 cells
+  [PASS]  QC-12d     NonNeoC norm.mtx GOI vs GAM CSV GOI
+             detail   : max_diff = 4.23e-07 over 445 cells, region HIP
+  [PASS]  QC-12e     NonNeoC raw counts are integer-valued
+             detail   : max = 1552, integer-like = TRUE
+
+============================================================================
+  QC SUMMARY
+============================================================================
+
+  Total checks : 114
+  PASS         : 114
+  WARN         : 0
+  FAIL         : 0
+
+  No non-PASS items.
+
+  Ledger written : <SEA-AD>/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_Guardrail_Log.txt
+  Ledger workbook: <SEA-AD>/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_Guardrail_Summary.xlsx
+
+############################################################################
+  PART 9.2 -- GENE COLUMN PATCH
+############################################################################
+
+  This section writes into the export tree. The per-region GAM CSVs under
+  <SEA-AD>/R_export_CP10K
+  gain the housekeeping columns. Every other output of this script goes
+  to <SEA-AD>/Part9/Part9_Mic13_PVM3 
+
+  Required columns: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1, ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 
+  (1 GOI + 8 DFG + 9 HKG = 18 unique)
+
+  === NeoC ===
+    norm.mtx: 2130 cells x 36601 genes
+    Genes available in norm.mtx: 18 / 18
+    DFC: all 18 genes already present -- no patch
+    MTG: all 18 genes already present -- no patch
+    AnG: all 18 genes already present -- no patch
+    STG: all 18 genes already present -- no patch
+    V1C: all 18 genes already present -- no patch
+    ITG: all 18 genes already present -- no patch
+  NeoC summary: 0 region(s) patched, 6 already complete
+
+  === NonNeoC ===
+    norm.mtx: 1987 cells x 36601 genes
+    Genes available in norm.mtx: 18 / 18
+    HIP: all 18 genes already present -- no patch
+    MEC: all 18 genes already present -- no patch
+    LEC: all 18 genes already present -- no patch
+    FI: all 18 genes already present -- no patch
+  NonNeoC summary: 0 region(s) patched, 4 already complete
+
+  Gene column patch complete.
+  Part 10 must be re-run to propagate the columns into its pooled scores CSV.
+
+
+############################################################################
+  PART 9.3 -- HEATMAPS
+############################################################################
+
+  GOI       : MT-CO3 
+  DFG       : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  HKG       : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 
+  Composite : cDFG 
+
+======================================================================
+  NEOCORTEX
+======================================================================
+
+  Loading normalised matrix from:
+     <SEA-AD>/R_export_CP10K/Mic13_PVM3/neocortex 
+    Matrix: 2130 cells x 36601 genes
+    Genes resolved: 18 / 18 
+    Columns: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1, ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 
+
+  Metadata loaded: 2130 selected cells
+  Region column   : Brain Region | present: TRUE 
+  Supertype column: Supertype | present: TRUE 
+  Cells passing the region and supertype filter: 2130 
+  Common barcodes: 2130 
+  Region counts:
+
+AnG DFC ITG MTG STG V1C 
+183 719 210 444 272 302 
+  DFG present: MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  HKG present: ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 
+  Matrix assembled: 20 rows x 2130 cols
+  Row order: MT-CO3 | cDFG | MT-ATP6 | MT-CO2 | MT-ND3 | MT-ND4 | MT-CYB | MT-ND1 | MT-ND2 | MT-CO1 | cHKG | ACTB | EEF1A1 | RPL13A | B2M | YWHAZ | FTL | PSAP | RAB7A | HNRNPA2B1 
+
+  Drawing heatmap: Neocortex (DFC, MTG, AnG, STG, V1C, ITG) | rows: 20 | cols: 2130 
+  Saving PDF: <SEA-AD>/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_Heatmap_Neocortex_MT-CO3.pdf 
+  PDF saved.
+  Saving PNG: <SEA-AD>/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_Heatmap_Neocortex_MT-CO3.png (23 x 7 in at 150 dpi)
+  PNG saved.
+
+======================================================================
+  NONNEOCORTEX
+======================================================================
+
+  Loading normalised matrix from:
+     <SEA-AD>/R_export_CP10K/Mic13_PVM3/nonneocortex 
+    Matrix: 1987 cells x 36601 genes
+    Genes resolved: 18 / 18 
+    Columns: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1, ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 
+
+  Metadata loaded: 1987 selected cells
+  Region column   : Brain Region | present: TRUE 
+  Supertype column: Supertype | present: TRUE 
+  Cells passing the region and supertype filter: 1987 
+  Common barcodes: 1987 
+  Region counts:
+
+  FI  HIP  LEC  MEC 
+ 196  445  190 1156 
+  DFG present: MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  HKG present: ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 
+  Matrix assembled: 20 rows x 1987 cols
+  Row order: MT-CO3 | cDFG | MT-ATP6 | MT-CO2 | MT-ND3 | MT-ND4 | MT-CYB | MT-ND1 | MT-ND2 | MT-CO1 | cHKG | ACTB | EEF1A1 | RPL13A | B2M | YWHAZ | FTL | PSAP | RAB7A | HNRNPA2B1 
+
+  Drawing heatmap: Non-neocortex (HIP, MEC, LEC, FI) | rows: 20 | cols: 1987 
+  Saving PDF: <SEA-AD>/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_Heatmap_NonNeocortex_MT-CO3.pdf 
+  PDF saved.
+  Saving PNG: <SEA-AD>/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_Heatmap_NonNeocortex_MT-CO3.png (22 x 7 in at 150 dpi)
+  PNG saved.
+
+======================================================================
+  Part 9.3 complete. Outputs in: <SEA-AD>/Part9/Part9_Mic13_PVM3 
+
+  Row order, both heatmaps:
+    1: OXPHOS -- MT-CO3 (GOI) | cDFG | MT-ATP6 MT-CO2 MT-ND3 MT-ND4 MT-CYB MT-ND1 MT-ND2 MT-CO1 
+    2: HKG    -- cHKG | ACTB EEF1A1 RPL13A B2M YWHAZ FTL PSAP RAB7A HNRNPA2B1 
+  Cells: NeoC = 2130 | NonNeoC = 1987 
+======================================================================
+
+
+############################################################################
+  PART 9.4 -- GAM-REML-PRSS
+############################################################################
+
+  Estimator: donor random intercept, s(donor, bs = "re"), minimum 3 donors
+  Weights  : inverse donor cell count, w = 1/n_i (each donor sums to 1)
+  PRSS     : phase 1 = 8 iterations, phase 2 = up to 5 (early stop 20)
+  LOO      : SKIPPED (RUN_LOO = FALSE)
+  Parallel : 15 PSOCK worker(s) for phase-2 PRSS iterations and LOO refits
+  [PASS]  GR-00      Pre-analysis input checks performed in Part 9.1
+             detail   : QC-01 to QC-13 ran against the same files: 114 PASS / 0 WARN / 0 FAIL
+
+
+######################################################################
+  RUNNING: NeoC  |  gamma = 1.5  |  no tail trimming
+######################################################################
+
+======================================================================
+  PART 9.4 -- GAM-REML-PRSS | NeoC | supertype: Micro-PVM_3-SEAAD | gamma: 1.5 
+  Pipeline: Allen MTG-identical | max_k=10 | Phase1=8 iters modulo | Phase2=iters 9-100 | EarlyStop= 20 
+  GOI filter: GOI > 0
+  Tail trim: NONE
+  Pooled region: YES 
+  GOI : MT-CO3 
+  DFG : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  HKG : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 
+  Regions: DFC, MTG, AnG, STG, V1C, ITG 
+======================================================================
+
+Building per-region data (GOI>0 filter applied) ...
+  Loading HKG expression from norm.mtx ...
+  HKG genes found in norm.mtx: ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 
+  Region DFC : n_raw = 719 | GOI<=0 excluded: 0 | GOI>0 retained: 719 
+  Region DFC : HKG matched 719 / 719 barcodes
+  Region DFC | n_raw: 719 | n_goi_neg: 0 | n_goi_pos: 719 | n_trimmed: 0 | n_used: 719 | donors: 67 | sum(w): 67 | unique GOI: 709 | DFG: 8 | HKG: 9 
+  Region MTG : n_raw = 444 | GOI<=0 excluded: 0 | GOI>0 retained: 444 
+  Region MTG : HKG matched 444 / 444 barcodes
+  Region MTG | n_raw: 444 | n_goi_neg: 0 | n_goi_pos: 444 | n_trimmed: 0 | n_used: 444 | donors: 61 | sum(w): 61 | unique GOI: 443 | DFG: 8 | HKG: 9 
+  Region AnG : n_raw = 183 | GOI<=0 excluded: 0 | GOI>0 retained: 183 
+  Region AnG : HKG matched 183 / 183 barcodes
+  Region AnG | n_raw: 183 | n_goi_neg: 0 | n_goi_pos: 183 | n_trimmed: 0 | n_used: 183 | donors: 37 | sum(w): 37 | unique GOI: 183 | DFG: 8 | HKG: 9 
+  Region STG : n_raw = 272 | GOI<=0 excluded: 0 | GOI>0 retained: 272 
+  Region STG : HKG matched 272 / 272 barcodes
+  Region STG | n_raw: 272 | n_goi_neg: 0 | n_goi_pos: 272 | n_trimmed: 0 | n_used: 272 | donors: 39 | sum(w): 39 | unique GOI: 272 | DFG: 8 | HKG: 9 
+  Region V1C : n_raw = 302 | GOI<=0 excluded: 0 | GOI>0 retained: 302 
+  Region V1C : HKG matched 302 / 302 barcodes
+  Region V1C | n_raw: 302 | n_goi_neg: 0 | n_goi_pos: 302 | n_trimmed: 0 | n_used: 302 | donors: 35 | sum(w): 35 | unique GOI: 302 | DFG: 8 | HKG: 9 
+  Region ITG : n_raw = 210 | GOI<=0 excluded: 0 | GOI>0 retained: 210 
+  Region ITG : HKG matched 210 / 210 barcodes
+  Region ITG | n_raw: 210 | n_goi_neg: 0 | n_goi_pos: 210 | n_trimmed: 0 | n_used: 210 | donors: 36 | sum(w): 36 | unique GOI: 210 | DFG: 8 | HKG: 9 
+Regions with sufficient cells: 6 / 6 
+
+Building pooled region ...
+  Building pooled region 'NeoC_Pooled' from 6 region(s): DFC, MTG, AnG, STG, V1C, ITG
+  Pooled cells: 2130 | n_raw (sum): 2130 | n_goi_neg (sum): 0 | n_goi_pos (sum): 2130 | n_trimmed: 0 | donors: 78 | sum(w): 78 | unique GOI: 2091 | DFG genes: 8 | HKG genes: 9 
+  Pooled region 'NeoC_Pooled' added to region_data.
+
+Building cell count audit sheet ...
+
+  Cell count audit -- GOI filter summary:
+  Region                     N_Raw   GOI_Neg   GOI_Pos   Trimmed    N_Used  Tally
+  ------------------------------------------------------------------------------
+  DFC                          719         0       719         0       719  OK
+  MTG                          444         0       444         0       444  OK
+  AnG                          183         0       183         0       183  OK
+  STG                          272         0       272         0       272  OK
+  V1C                          302         0       302         0       302  OK
+  ITG                          210         0       210         0       210  OK
+  NeoC_Pooled                 2130         0      2130         0      2130  OK
+
+  Cell count audit: all regions pass (N_Used_for_GAM == N_GOI_Pos)
+
+========== Running GAM fits: 7 regions x 2 gene sets ==========
+
+--- Region: DFC  | gamma = 1.5 ---
+ Fitting DFG ...
+  [ DFC | DFG ] cells: 719 | unique GOI: 709 | max k: 10 | donors: 67 | donor RE: YES | sum(w): 67 
+    init iter 1 | k = 3 | PRSS: 9.5316 
+    init iter 2 | k = 4 | PRSS: 9.4419 
+    init iter 3 | k = 5 | PRSS: 9.4542 
+    init iter 4 | k = 6 | PRSS: 9.4591 
+    init iter 5 | k = 7 | PRSS: 9.4566 
+    init iter 6 | k = 8 | PRSS: 9.4544 
+    init iter 7 | k = 9 | PRSS: 9.455 
+    init iter 8 | k = 10 | PRSS: 9.4555 
+    best k after phase 1: 4 | PRSS: 9.4419 
+    refine iter 9 | k = 4 | PRSS: 9.4419 
+    refine iter 10 | k = 4 | PRSS: 9.4419 
+    refine iter 11 | k = 4 | PRSS: 9.4419 
+    refine iter 12 | k = 4 | PRSS: 9.4419 
+    refine iter 13 | k = 4 | PRSS: 9.4419 
+    best model is from iter 2 (k = 4 ) on a worker -- refitting here
+ Fitting HKG ...
+  [ DFC | HKG ] cells: 719 | unique GOI: 709 | max k: 10 | donors: 67 | donor RE: YES | sum(w): 67 
+    init iter 1 | k = 3 | PRSS: 10.0225 
+    init iter 2 | k = 4 | PRSS: 10.0182 
+    init iter 3 | k = 5 | PRSS: 10.0184 
+    init iter 4 | k = 6 | PRSS: 10.0183 
+    init iter 5 | k = 7 | PRSS: 10.0181 
+    init iter 6 | k = 8 | PRSS: 10.0181 
+    init iter 7 | k = 9 | PRSS: 10.018 
+    init iter 8 | k = 10 | PRSS: 10.018 
+    best k after phase 1: 10 | PRSS: 10.018 
+    refine iter 9 | k = 10 | PRSS: 10.018 
+    refine iter 10 | k = 10 | PRSS: 10.018 
+    refine iter 11 | k = 10 | PRSS: 10.018 
+    refine iter 12 | k = 10 | PRSS: 10.018 
+    refine iter 13 | k = 10 | PRSS: 10.018 
+    best model is from iter 8 (k = 10 ) on a worker -- refitting here
+
+--- Region: MTG  | gamma = 1.5 ---
+ Fitting DFG ...
+  [ MTG | DFG ] cells: 444 | unique GOI: 443 | max k: 10 | donors: 61 | donor RE: YES | sum(w): 61 
+    init iter 1 | k = 3 | PRSS: 8.8948 
+    init iter 2 | k = 4 | PRSS: 8.9075 
+    init iter 3 | k = 5 | PRSS: 8.8844 
+    init iter 4 | k = 6 | PRSS: 8.8866 
+    init iter 5 | k = 7 | PRSS: 8.8876 
+    init iter 6 | k = 8 | PRSS: 8.8882 
+    init iter 7 | k = 9 | PRSS: 8.8839 
+    init iter 8 | k = 10 | PRSS: 8.8838 
+    best k after phase 1: 10 | PRSS: 8.8838 
+    refine iter 9 | k = 10 | PRSS: 8.8838 
+    refine iter 10 | k = 10 | PRSS: 8.8838 
+    refine iter 11 | k = 10 | PRSS: 8.8838 
+    refine iter 12 | k = 10 | PRSS: 8.8838 
+    refine iter 13 | k = 10 | PRSS: 8.8838 
+    best model is from iter 8 (k = 10 ) on a worker -- refitting here
+ Fitting HKG ...
+  [ MTG | HKG ] cells: 444 | unique GOI: 443 | max k: 10 | donors: 61 | donor RE: YES | sum(w): 61 
+    init iter 1 | k = 3 | PRSS: 7.1481 
+    init iter 2 | k = 4 | PRSS: 7.1349 
+    init iter 3 | k = 5 | PRSS: 7.138 
+    init iter 4 | k = 6 | PRSS: 7.138 
+    init iter 5 | k = 7 | PRSS: 7.1382 
+    init iter 6 | k = 8 | PRSS: 7.1386 
+    init iter 7 | k = 9 | PRSS: 7.1388 
+    init iter 8 | k = 10 | PRSS: 7.1388 
+    best k after phase 1: 4 | PRSS: 7.1349 
+    refine iter 9 | k = 4 | PRSS: 7.1349 
+    refine iter 10 | k = 4 | PRSS: 7.1349 
+    refine iter 11 | k = 4 | PRSS: 7.1349 
+    refine iter 12 | k = 4 | PRSS: 7.1349 
+    refine iter 13 | k = 4 | PRSS: 7.1349 
+    best model is from iter 2 (k = 4 ) on a worker -- refitting here
+
+--- Region: AnG  | gamma = 1.5 ---
+ Fitting DFG ...
+  [ AnG | DFG ] cells: 183 | unique GOI: 183 | max k: 10 | donors: 37 | donor RE: YES | sum(w): 37 
+    init iter 1 | k = 3 | PRSS: 7.6594 
+    init iter 2 | k = 4 | PRSS: 7.6792 
+    init iter 3 | k = 5 | PRSS: 7.6854 
+    init iter 4 | k = 6 | PRSS: 7.6861 
+    init iter 5 | k = 7 | PRSS: 7.6867 
+    init iter 6 | k = 8 | PRSS: 7.6873 
+    init iter 7 | k = 9 | PRSS: 7.6876 
+    init iter 8 | k = 10 | PRSS: 7.6879 
+    best k after phase 1: 3 | PRSS: 7.6594 
+    refine iter 9 | k = 4 | PRSS: 7.6792 
+    refine iter 10 | k = 3 | PRSS: 7.6594 
+    refine iter 11 | k = 3 | PRSS: 7.6594 
+    refine iter 12 | k = 4 | PRSS: 7.6792 
+    refine iter 13 | k = 3 | PRSS: 7.6594 
+    best model is from iter 1 (k = 3 ) on a worker -- refitting here
+ Fitting HKG ...
+  [ AnG | HKG ] cells: 183 | unique GOI: 183 | max k: 10 | donors: 37 | donor RE: YES | sum(w): 37 
+    init iter 1 | k = 3 | PRSS: 9.205 
+    init iter 2 | k = 4 | PRSS: 9.239 
+    init iter 3 | k = 5 | PRSS: 9.2428 
+    init iter 4 | k = 6 | PRSS: 9.2453 
+    init iter 5 | k = 7 | PRSS: 9.2466 
+    init iter 6 | k = 8 | PRSS: 9.245 
+    init iter 7 | k = 9 | PRSS: 9.2457 
+    init iter 8 | k = 10 | PRSS: 9.246 
+    best k after phase 1: 3 | PRSS: 9.205 
+    refine iter 9 | k = 4 | PRSS: 9.239 
+    refine iter 10 | k = 3 | PRSS: 9.205 
+    refine iter 11 | k = 3 | PRSS: 9.205 
+    refine iter 12 | k = 4 | PRSS: 9.239 
+    refine iter 13 | k = 3 | PRSS: 9.205 
+    best model is from iter 1 (k = 3 ) on a worker -- refitting here
+
+--- Region: STG  | gamma = 1.5 ---
+ Fitting DFG ...
+  [ STG | DFG ] cells: 272 | unique GOI: 272 | max k: 10 | donors: 39 | donor RE: YES | sum(w): 39 
+    init iter 1 | k = 3 | PRSS: 3.7323 
+    init iter 2 | k = 4 | PRSS: 3.7041 
+    init iter 3 | k = 5 | PRSS: 3.7108 
+    init iter 4 | k = 6 | PRSS: 3.7162 
+    init iter 5 | k = 7 | PRSS: 3.7132 
+    init iter 6 | k = 8 | PRSS: 3.7145 
+    init iter 7 | k = 9 | PRSS: 3.7136 
+    init iter 8 | k = 10 | PRSS: 3.7138 
+    best k after phase 1: 4 | PRSS: 3.7041 
+    refine iter 9 | k = 4 | PRSS: 3.7041 
+    refine iter 10 | k = 4 | PRSS: 3.7041 
+    refine iter 11 | k = 4 | PRSS: 3.7041 
+    refine iter 12 | k = 4 | PRSS: 3.7041 
+    refine iter 13 | k = 4 | PRSS: 3.7041 
+    best model is from iter 2 (k = 4 ) on a worker -- refitting here
+ Fitting HKG ...
+  [ STG | HKG ] cells: 272 | unique GOI: 272 | max k: 10 | donors: 39 | donor RE: YES | sum(w): 39 
+    init iter 1 | k = 3 | PRSS: 3.876 
+    init iter 2 | k = 4 | PRSS: 3.886 
+    init iter 3 | k = 5 | PRSS: 3.8884 
+    init iter 4 | k = 6 | PRSS: 3.8894 
+    init iter 5 | k = 7 | PRSS: 3.8872 
+    init iter 6 | k = 8 | PRSS: 3.8875 
+    init iter 7 | k = 9 | PRSS: 3.8876 
+    init iter 8 | k = 10 | PRSS: 3.8876 
+    best k after phase 1: 3 | PRSS: 3.876 
+    refine iter 9 | k = 4 | PRSS: 3.886 
+    refine iter 10 | k = 3 | PRSS: 3.876 
+    refine iter 11 | k = 3 | PRSS: 3.876 
+    refine iter 12 | k = 4 | PRSS: 3.886 
+    refine iter 13 | k = 3 | PRSS: 3.876 
+    best model is from iter 1 (k = 3 ) on a worker -- refitting here
+
+--- Region: V1C  | gamma = 1.5 ---
+ Fitting DFG ...
+  [ V1C | DFG ] cells: 302 | unique GOI: 302 | max k: 10 | donors: 35 | donor RE: YES | sum(w): 35 
+    init iter 1 | k = 3 | PRSS: 3.8535 
+    init iter 2 | k = 4 | PRSS: 3.8412 
+    init iter 3 | k = 5 | PRSS: 3.8495 
+    init iter 4 | k = 6 | PRSS: 3.853 
+    init iter 5 | k = 7 | PRSS: 3.8521 
+    init iter 6 | k = 8 | PRSS: 3.8528 
+    init iter 7 | k = 9 | PRSS: 3.8513 
+    init iter 8 | k = 10 | PRSS: 3.8507 
+    best k after phase 1: 4 | PRSS: 3.8412 
+    refine iter 9 | k = 4 | PRSS: 3.8412 
+    refine iter 10 | k = 4 | PRSS: 3.8412 
+    refine iter 11 | k = 4 | PRSS: 3.8412 
+    refine iter 12 | k = 4 | PRSS: 3.8412 
+    refine iter 13 | k = 4 | PRSS: 3.8412 
+    best model is from iter 2 (k = 4 ) on a worker -- refitting here
+ Fitting HKG ...
+  [ V1C | HKG ] cells: 302 | unique GOI: 302 | max k: 10 | donors: 35 | donor RE: YES | sum(w): 35 
+    init iter 1 | k = 3 | PRSS: 5.3552 
+    init iter 2 | k = 4 | PRSS: 5.3552 
+    init iter 3 | k = 5 | PRSS: 5.3552 
+    init iter 4 | k = 6 | PRSS: 5.3552 
+    init iter 5 | k = 7 | PRSS: 5.3552 
+    init iter 6 | k = 8 | PRSS: 5.3552 
+    init iter 7 | k = 9 | PRSS: 5.3552 
+    init iter 8 | k = 10 | PRSS: 5.3552 
+    best k after phase 1: 5 | PRSS: 5.3552 
+    refine iter 9 | k = 5 | PRSS: 5.3552 
+    refine iter 10 | k = 5 | PRSS: 5.3552 
+    refine iter 11 | k = 5 | PRSS: 5.3552 
+    refine iter 12 | k = 5 | PRSS: 5.3552 
+    refine iter 13 | k = 5 | PRSS: 5.3552 
+    best model is from iter 3 (k = 5 ) on a worker -- refitting here
+
+--- Region: ITG  | gamma = 1.5 ---
+ Fitting DFG ...
+  [ ITG | DFG ] cells: 210 | unique GOI: 210 | max k: 10 | donors: 36 | donor RE: YES | sum(w): 36 
+    init iter 1 | k = 3 | PRSS: 3.1146 
+    init iter 2 | k = 4 | PRSS: 3.0878 
+    init iter 3 | k = 5 | PRSS: 3.1016 
+    init iter 4 | k = 6 | PRSS: 3.1013 
+    init iter 5 | k = 7 | PRSS: 3.0829 
+    init iter 6 | k = 8 | PRSS: 3.0822 
+    init iter 7 | k = 9 | PRSS: 3.0827 
+    init iter 8 | k = 10 | PRSS: 3.0769 
+    best k after phase 1: 10 | PRSS: 3.0769 
+    refine iter 9 | k = 10 | PRSS: 3.0769 
+    refine iter 10 | k = 10 | PRSS: 3.0769 
+    refine iter 11 | k = 10 | PRSS: 3.0769 
+    refine iter 12 | k = 10 | PRSS: 3.0769 
+    refine iter 13 | k = 10 | PRSS: 3.0769 
+    best model is from iter 8 (k = 10 ) on a worker -- refitting here
+ Fitting HKG ...
+  [ ITG | HKG ] cells: 210 | unique GOI: 210 | max k: 10 | donors: 36 | donor RE: YES | sum(w): 36 
+    init iter 1 | k = 3 | PRSS: 3.5099 
+    init iter 2 | k = 4 | PRSS: 3.5099 
+    init iter 3 | k = 5 | PRSS: 3.5099 
+    init iter 4 | k = 6 | PRSS: 3.5099 
+    init iter 5 | k = 7 | PRSS: 3.5099 
+    init iter 6 | k = 8 | PRSS: 3.5099 
+    init iter 7 | k = 9 | PRSS: 3.5099 
+    init iter 8 | k = 10 | PRSS: 3.5099 
+    best k after phase 1: 4 | PRSS: 3.5099 
+    refine iter 9 | k = 4 | PRSS: 3.5099 
+    refine iter 10 | k = 4 | PRSS: 3.5099 
+    refine iter 11 | k = 4 | PRSS: 3.5099 
+    refine iter 12 | k = 4 | PRSS: 3.5099 
+    refine iter 13 | k = 4 | PRSS: 3.5099 
+    best model is from iter 2 (k = 4 ) on a worker -- refitting here
+
+--- Region: NeoC_Pooled [POOLED] | gamma = 1.5 ---
+ Fitting DFG ...
+  [ NeoC_Pooled | DFG ] cells: 2130 | unique GOI: 2091 | max k: 10 | donors: 78 | donor RE: YES | sum(w): 78 
+    init iter 1 | k = 3 | PRSS: 13.9192 
+    init iter 2 | k = 4 | PRSS: 13.875 
+    init iter 3 | k = 5 | PRSS: 13.8736 
+    init iter 4 | k = 6 | PRSS: 13.8778 
+    init iter 5 | k = 7 | PRSS: 13.8788 
+    init iter 6 | k = 8 | PRSS: 13.8782 
+    init iter 7 | k = 9 | PRSS: 13.8721 
+    init iter 8 | k = 10 | PRSS: 13.872 
+    best k after phase 1: 10 | PRSS: 13.872 
+    refine iter 9 | k = 10 | PRSS: 13.872 
+    refine iter 10 | k = 10 | PRSS: 13.872 
+    refine iter 11 | k = 10 | PRSS: 13.872 
+    refine iter 12 | k = 10 | PRSS: 13.872 
+    refine iter 13 | k = 10 | PRSS: 13.872 
+    best model is from iter 8 (k = 10 ) on a worker -- refitting here
+ Fitting HKG ...
+  [ NeoC_Pooled | HKG ] cells: 2130 | unique GOI: 2091 | max k: 10 | donors: 78 | donor RE: YES | sum(w): 78 
+    init iter 1 | k = 3 | PRSS: 14.0189 
+    init iter 2 | k = 4 | PRSS: 14.0202 
+    init iter 3 | k = 5 | PRSS: 14.0206 
+    init iter 4 | k = 6 | PRSS: 14.0208 
+    init iter 5 | k = 7 | PRSS: 14.0181 
+    init iter 6 | k = 8 | PRSS: 14.0181 
+    init iter 7 | k = 9 | PRSS: 14.0181 
+    init iter 8 | k = 10 | PRSS: 14.0181 
+    best k after phase 1: 9 | PRSS: 14.0181 
+    refine iter 9 | k = 9 | PRSS: 14.0181 
+    refine iter 10 | k = 9 | PRSS: 14.0181 
+    refine iter 11 | k = 9 | PRSS: 14.0181 
+    refine iter 12 | k = 9 | PRSS: 14.0181 
+    refine iter 13 | k = 9 | PRSS: 14.0181 
+    best model is from iter 7 (k = 9 ) on a worker -- refitting here
+
+Completed: 14 fits (of max 14 )
+
+========== LOO skipped (RUN_LOO = FALSE) ==========
+
+Saved: <SEA-AD>/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_NeoC_GAM_Results_1.xlsx 
+Models saved: <SEA-AD>/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_NeoC_GAM_models.rds 
+
+Generating plots -> PDF: <SEA-AD>/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_NeoC_GAM_Results_2.pdf 
+  GAM curve PNGs -> subregion dir: <SEA-AD>/Part9/Part9_Mic13_PVM3/subregions 
+
+  GAM curve plots (PDF and PNG per region) ...
+  PNG saved: Part9_CP10K_M4_NeoC_GAMcurve_DFC.png 
+  PNG saved: Part9_CP10K_M4_NeoC_GAMcurve_MTG.png 
+  PNG saved: Part9_CP10K_M4_NeoC_GAMcurve_AnG.png 
+  PNG saved: Part9_CP10K_M4_NeoC_GAMcurve_STG.png 
+  PNG saved: Part9_CP10K_M4_NeoC_GAMcurve_V1C.png 
+  PNG saved: Part9_CP10K_M4_NeoC_GAMcurve_ITG.png 
+  PNG saved: Part9_CP10K_M4_NeoC_GAMcurve_NeoC_Pooled.png 
+  LOO plots (PDF only) ...
+PDF saved: <SEA-AD>/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_NeoC_GAM_Results_2.pdf 
+
+========== Summary statistics -- NeoC ==========
+
+Gene Set: DFG ( per-region : 6 region(s))
+  Mean best k:      5.83 
+  Mean best PRSS:   6.1012 
+  Mean DE:          64.92 %  (vs donor-aware null)
+  Mean smooth EDF:  1.6354 
+  Donor RE fitted: 6/6 | mean donors: 45.8
+
+Gene Set: DFG ( pooled : 1 region(s))
+  Mean best k:      10 
+  Mean best PRSS:   13.872 
+  Mean DE:          67.37 %  (vs donor-aware null)
+  Mean smooth EDF:  3.5275 
+  Donor RE fitted: 1/1 | mean donors: 78
+
+Gene Set: HKG ( per-region : 6 region(s))
+  Mean best k:      4.83 
+  Mean best PRSS:   6.5165 
+  Mean DE:          -4.66 %  (vs donor-aware null)
+  Mean smooth EDF:  0.3848 
+  Donor RE fitted: 6/6 | mean donors: 45.8
+
+Gene Set: HKG ( pooled : 1 region(s))
+  Mean best k:      9 
+  Mean best PRSS:   14.0181 
+  Mean DE:          -0.1 %  (vs donor-aware null)
+  Mean smooth EDF:  1.4259 
+  Donor RE fitted: 1/1 | mean donors: 78
+
+========== Part 9.4 NeoC complete ==========
+  Excel : <SEA-AD>/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_NeoC_GAM_Results_1.xlsx 
+  RDS   : <SEA-AD>/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_NeoC_GAM_models.rds 
+  PDF   : <SEA-AD>/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_NeoC_GAM_Results_2.pdf 
+  PNGs  : <SEA-AD>/Part9/Part9_Mic13_PVM3/subregions 
+
+
+
+######################################################################
+  RUNNING: NonNeoC  |  gamma = 1.5  |  no tail trimming
+######################################################################
+
+======================================================================
+  PART 9.4 -- GAM-REML-PRSS | NonNeoC | supertype: Micro-PVM_3-SEAAD | gamma: 1.5 
+  Pipeline: Allen MTG-identical | max_k=10 | Phase1=8 iters modulo | Phase2=iters 9-100 | EarlyStop= 20 
+  GOI filter: GOI > 0
+  Tail trim: NONE
+  Pooled region: YES 
+  GOI : MT-CO3 
+  DFG : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  HKG : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 
+  Regions: HIP, MEC, LEC, FI 
+======================================================================
+
+Building per-region data (GOI>0 filter applied) ...
+  Loading HKG expression from norm.mtx ...
+  HKG genes found in norm.mtx: ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 
+  Region HIP : n_raw = 445 | GOI<=0 excluded: 0 | GOI>0 retained: 445 
+  Region HIP : HKG matched 445 / 445 barcodes
+  Region HIP | n_raw: 445 | n_goi_neg: 0 | n_goi_pos: 445 | n_trimmed: 0 | n_used: 445 | donors: 31 | sum(w): 31 | unique GOI: 443 | DFG: 8 | HKG: 9 
+  Region MEC : n_raw = 1156 | GOI<=0 excluded: 0 | GOI>0 retained: 1156 
+  Region MEC : HKG matched 1156 / 1156 barcodes
+  Region MEC | n_raw: 1156 | n_goi_neg: 0 | n_goi_pos: 1156 | n_trimmed: 0 | n_used: 1156 | donors: 76 | sum(w): 76 | unique GOI: 1143 | DFG: 8 | HKG: 9 
+  Region LEC : n_raw = 190 | GOI<=0 excluded: 0 | GOI>0 retained: 190 
+  Region LEC : HKG matched 190 / 190 barcodes
+  Region LEC | n_raw: 190 | n_goi_neg: 0 | n_goi_pos: 190 | n_trimmed: 0 | n_used: 190 | donors: 23 | sum(w): 23 | unique GOI: 189 | DFG: 8 | HKG: 9 
+  Region FI : n_raw = 196 | GOI<=0 excluded: 0 | GOI>0 retained: 196 
+  Region FI : HKG matched 196 / 196 barcodes
+  Region FI | n_raw: 196 | n_goi_neg: 0 | n_goi_pos: 196 | n_trimmed: 0 | n_used: 196 | donors: 29 | sum(w): 29 | unique GOI: 195 | DFG: 8 | HKG: 9 
+Regions with sufficient cells: 4 / 4 
+
+Building pooled region ...
+  Building pooled region 'NonNeoC_Pooled' from 4 region(s): HIP, MEC, LEC, FI
+  Pooled cells: 1987 | n_raw (sum): 1987 | n_goi_neg (sum): 0 | n_goi_pos (sum): 1987 | n_trimmed: 0 | donors: 80 | sum(w): 80 | unique GOI: 1934 | DFG genes: 8 | HKG genes: 9 
+  Pooled region 'NonNeoC_Pooled' added to region_data.
+
+Building cell count audit sheet ...
+
+  Cell count audit -- GOI filter summary:
+  Region                     N_Raw   GOI_Neg   GOI_Pos   Trimmed    N_Used  Tally
+  ------------------------------------------------------------------------------
+  HIP                          445         0       445         0       445  OK
+  MEC                         1156         0      1156         0      1156  OK
+  LEC                          190         0       190         0       190  OK
+  FI                           196         0       196         0       196  OK
+  NonNeoC_Pooled              1987         0      1987         0      1987  OK
+
+  Cell count audit: all regions pass (N_Used_for_GAM == N_GOI_Pos)
+
+========== Running GAM fits: 5 regions x 2 gene sets ==========
+
+--- Region: HIP  | gamma = 1.5 ---
+ Fitting DFG ...
+  [ HIP | DFG ] cells: 445 | unique GOI: 443 | max k: 10 | donors: 31 | donor RE: YES | sum(w): 31 
+    init iter 1 | k = 3 | PRSS: 6.2076 
+    init iter 2 | k = 4 | PRSS: 6.2154 
+    init iter 3 | k = 5 | PRSS: 6.2135 
+    init iter 4 | k = 6 | PRSS: 6.2143 
+    init iter 5 | k = 7 | PRSS: 6.2115 
+    init iter 6 | k = 8 | PRSS: 6.2116 
+    init iter 7 | k = 9 | PRSS: 6.211 
+    init iter 8 | k = 10 | PRSS: 6.2111 
+    best k after phase 1: 3 | PRSS: 6.2076 
+    refine iter 9 | k = 4 | PRSS: 6.2154 
+    refine iter 10 | k = 3 | PRSS: 6.2076 
+    refine iter 11 | k = 3 | PRSS: 6.2076 
+    refine iter 12 | k = 4 | PRSS: 6.2154 
+    refine iter 13 | k = 3 | PRSS: 6.2076 
+    best model is from iter 1 (k = 3 ) on a worker -- refitting here
+ Fitting HKG ...
+  [ HIP | HKG ] cells: 445 | unique GOI: 443 | max k: 10 | donors: 31 | donor RE: YES | sum(w): 31 
+    init iter 1 | k = 3 | PRSS: 4.8563 
+    init iter 2 | k = 4 | PRSS: 4.8235 
+    init iter 3 | k = 5 | PRSS: 4.721 
+    init iter 4 | k = 6 | PRSS: 4.6728 
+    init iter 5 | k = 7 | PRSS: 4.6484 
+    init iter 6 | k = 8 | PRSS: 4.6529 
+    init iter 7 | k = 9 | PRSS: 4.6541 
+    init iter 8 | k = 10 | PRSS: 4.6173 
+    best k after phase 1: 10 | PRSS: 4.6173 
+    refine iter 9 | k = 10 | PRSS: 4.6173 
+    refine iter 10 | k = 10 | PRSS: 4.6173 
+    refine iter 11 | k = 10 | PRSS: 4.6173 
+    refine iter 12 | k = 10 | PRSS: 4.6173 
+    refine iter 13 | k = 10 | PRSS: 4.6173 
+    best model is from iter 8 (k = 10 ) on a worker -- refitting here
+
+--- Region: MEC  | gamma = 1.5 ---
+ Fitting DFG ...
+  [ MEC | DFG ] cells: 1156 | unique GOI: 1143 | max k: 10 | donors: 76 | donor RE: YES | sum(w): 76 
+    init iter 1 | k = 3 | PRSS: 12.012 
+    init iter 2 | k = 4 | PRSS: 11.9347 
+    init iter 3 | k = 5 | PRSS: 11.9001 
+    init iter 4 | k = 6 | PRSS: 11.9034 
+    init iter 5 | k = 7 | PRSS: 11.9042 
+    init iter 6 | k = 8 | PRSS: 11.9 
+    init iter 7 | k = 9 | PRSS: 11.9006 
+    init iter 8 | k = 10 | PRSS: 11.9004 
+    best k after phase 1: 8 | PRSS: 11.9 
+    refine iter 9 | k = 8 | PRSS: 11.9 
+    refine iter 10 | k = 8 | PRSS: 11.9 
+    refine iter 11 | k = 8 | PRSS: 11.9 
+    refine iter 12 | k = 8 | PRSS: 11.9 
+    refine iter 13 | k = 8 | PRSS: 11.9 
+    best model is from iter 6 (k = 8 ) on a worker -- refitting here
+ Fitting HKG ...
+  [ MEC | HKG ] cells: 1156 | unique GOI: 1143 | max k: 10 | donors: 76 | donor RE: YES | sum(w): 76 
+    init iter 1 | k = 3 | PRSS: 11.7924 
+    init iter 2 | k = 4 | PRSS: 11.7891 
+    init iter 3 | k = 5 | PRSS: 11.747 
+    init iter 4 | k = 6 | PRSS: 11.738 
+    init iter 5 | k = 7 | PRSS: 11.7365 
+    init iter 6 | k = 8 | PRSS: 11.7391 
+    init iter 7 | k = 9 | PRSS: 11.7405 
+    init iter 8 | k = 10 | PRSS: 11.7395 
+    best k after phase 1: 7 | PRSS: 11.7365 
+    refine iter 9 | k = 7 | PRSS: 11.7365 
+    refine iter 10 | k = 7 | PRSS: 11.7365 
+    refine iter 11 | k = 7 | PRSS: 11.7365 
+    refine iter 12 | k = 7 | PRSS: 11.7365 
+    refine iter 13 | k = 7 | PRSS: 11.7365 
+    best model is from iter 5 (k = 7 ) on a worker -- refitting here
+
+--- Region: LEC  | gamma = 1.5 ---
+ Fitting DFG ...
+  [ LEC | DFG ] cells: 190 | unique GOI: 189 | max k: 10 | donors: 23 | donor RE: YES | sum(w): 23 
+    init iter 1 | k = 3 | PRSS: 7.3071 
+    init iter 2 | k = 4 | PRSS: 7.1463 
+    init iter 3 | k = 5 | PRSS: 7.166 
+    init iter 4 | k = 6 | PRSS: 7.1632 
+    init iter 5 | k = 7 | PRSS: 7.1676 
+    init iter 6 | k = 8 | PRSS: 7.1656 
+    init iter 7 | k = 9 | PRSS: 7.1455 
+    init iter 8 | k = 10 | PRSS: 7.1463 
+    best k after phase 1: 9 | PRSS: 7.1455 
+    refine iter 9 | k = 9 | PRSS: 7.1455 
+    refine iter 10 | k = 9 | PRSS: 7.1455 
+    refine iter 11 | k = 9 | PRSS: 7.1455 
+    refine iter 12 | k = 9 | PRSS: 7.1455 
+    refine iter 13 | k = 9 | PRSS: 7.1455 
+    best model is from iter 7 (k = 9 ) on a worker -- refitting here
+ Fitting HKG ...
+  [ LEC | HKG ] cells: 190 | unique GOI: 189 | max k: 10 | donors: 23 | donor RE: YES | sum(w): 23 
+    init iter 1 | k = 3 | PRSS: 4.3592 
+    init iter 2 | k = 4 | PRSS: 4.3592 
+    init iter 3 | k = 5 | PRSS: 4.3592 
+    init iter 4 | k = 6 | PRSS: 4.3592 
+    init iter 5 | k = 7 | PRSS: 4.3592 
+    init iter 6 | k = 8 | PRSS: 4.3592 
+    init iter 7 | k = 9 | PRSS: 4.3592 
+    init iter 8 | k = 10 | PRSS: 4.3592 
+    best k after phase 1: 5 | PRSS: 4.3592 
+    refine iter 9 | k = 5 | PRSS: 4.3592 
+    refine iter 10 | k = 5 | PRSS: 4.3592 
+    refine iter 11 | k = 5 | PRSS: 4.3592 
+    refine iter 12 | k = 5 | PRSS: 4.3592 
+    refine iter 13 | k = 5 | PRSS: 4.3592 
+    best model is from iter 3 (k = 5 ) on a worker -- refitting here
+
+--- Region: FI  | gamma = 1.5 ---
+ Fitting DFG ...
+  [ FI | DFG ] cells: 196 | unique GOI: 195 | max k: 10 | donors: 29 | donor RE: YES | sum(w): 29 
+    init iter 1 | k = 3 | PRSS: 8.0117 
+    init iter 2 | k = 4 | PRSS: 8.0277 
+    init iter 3 | k = 5 | PRSS: 8.0358 
+    init iter 4 | k = 6 | PRSS: 8.0421 
+    init iter 5 | k = 7 | PRSS: 8.0437 
+    init iter 6 | k = 8 | PRSS: 8.0445 
+    init iter 7 | k = 9 | PRSS: 8.0449 
+    init iter 8 | k = 10 | PRSS: 8.0452 
+    best k after phase 1: 3 | PRSS: 8.0117 
+    refine iter 9 | k = 4 | PRSS: 8.0277 
+    refine iter 10 | k = 3 | PRSS: 8.0117 
+    refine iter 11 | k = 3 | PRSS: 8.0117 
+    refine iter 12 | k = 4 | PRSS: 8.0277 
+    refine iter 13 | k = 3 | PRSS: 8.0117 
+    best model is from iter 1 (k = 3 ) on a worker -- refitting here
+ Fitting HKG ...
+  [ FI | HKG ] cells: 196 | unique GOI: 195 | max k: 10 | donors: 29 | donor RE: YES | sum(w): 29 
+    init iter 1 | k = 3 | PRSS: 7.6163 
+    init iter 2 | k = 4 | PRSS: 7.6163 
+    init iter 3 | k = 5 | PRSS: 7.6162 
+    init iter 4 | k = 6 | PRSS: 7.6163 
+    init iter 5 | k = 7 | PRSS: 7.6163 
+    init iter 6 | k = 8 | PRSS: 7.6163 
+    init iter 7 | k = 9 | PRSS: 7.6163 
+    init iter 8 | k = 10 | PRSS: 7.6163 
+    best k after phase 1: 5 | PRSS: 7.6162 
+    refine iter 9 | k = 5 | PRSS: 7.6162 
+    refine iter 10 | k = 5 | PRSS: 7.6162 
+    refine iter 11 | k = 5 | PRSS: 7.6162 
+    refine iter 12 | k = 5 | PRSS: 7.6162 
+    refine iter 13 | k = 5 | PRSS: 7.6162 
+    best model is from iter 3 (k = 5 ) on a worker -- refitting here
+
+--- Region: NonNeoC_Pooled [POOLED] | gamma = 1.5 ---
+ Fitting DFG ...
+  [ NonNeoC_Pooled | DFG ] cells: 1987 | unique GOI: 1934 | max k: 10 | donors: 80 | donor RE: YES | sum(w): 80 
+    init iter 1 | k = 3 | PRSS: 15.8613 
+    init iter 2 | k = 4 | PRSS: 15.846 
+    init iter 3 | k = 5 | PRSS: 15.8239 
+    init iter 4 | k = 6 | PRSS: 15.8114 
+    init iter 5 | k = 7 | PRSS: 15.7968 
+    init iter 6 | k = 8 | PRSS: 15.7956 
+    init iter 7 | k = 9 | PRSS: 15.7968 
+    init iter 8 | k = 10 | PRSS: 15.7955 
+    best k after phase 1: 10 | PRSS: 15.7955 
+    refine iter 9 | k = 10 | PRSS: 15.7955 
+    refine iter 10 | k = 10 | PRSS: 15.7955 
+    refine iter 11 | k = 10 | PRSS: 15.7955 
+    refine iter 12 | k = 10 | PRSS: 15.7955 
+    refine iter 13 | k = 10 | PRSS: 15.7955 
+    best model is from iter 8 (k = 10 ) on a worker -- refitting here
+ Fitting HKG ...
+  [ NonNeoC_Pooled | HKG ] cells: 1987 | unique GOI: 1934 | max k: 10 | donors: 80 | donor RE: YES | sum(w): 80 
+    init iter 1 | k = 3 | PRSS: 14.0618 
+    init iter 2 | k = 4 | PRSS: 14.0618 
+    init iter 3 | k = 5 | PRSS: 13.8643 
+    init iter 4 | k = 6 | PRSS: 13.8708 
+    init iter 5 | k = 7 | PRSS: 13.8661 
+    init iter 6 | k = 8 | PRSS: 13.8639 
+    init iter 7 | k = 9 | PRSS: 13.8664 
+    init iter 8 | k = 10 | PRSS: 13.8678 
+    best k after phase 1: 8 | PRSS: 13.8639 
+    refine iter 9 | k = 8 | PRSS: 13.8639 
+    refine iter 10 | k = 8 | PRSS: 13.8639 
+    refine iter 11 | k = 8 | PRSS: 13.8639 
+    refine iter 12 | k = 8 | PRSS: 13.8639 
+    refine iter 13 | k = 8 | PRSS: 13.8639 
+    best model is from iter 6 (k = 8 ) on a worker -- refitting here
+
+Completed: 10 fits (of max 10 )
+
+========== LOO skipped (RUN_LOO = FALSE) ==========
+
+Saved: <SEA-AD>/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_NonNeoC_GAM_Results_1.xlsx 
+Models saved: <SEA-AD>/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_NonNeoC_GAM_models.rds 
+
+Generating plots -> PDF: <SEA-AD>/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_NonNeoC_GAM_Results_2.pdf 
+  GAM curve PNGs -> subregion dir: <SEA-AD>/Part9/Part9_Mic13_PVM3/subregions 
+
+  GAM curve plots (PDF and PNG per region) ...
+  PNG saved: Part9_CP10K_M4_NonNeoC_GAMcurve_HIP.png 
+  PNG saved: Part9_CP10K_M4_NonNeoC_GAMcurve_MEC.png 
+  PNG saved: Part9_CP10K_M4_NonNeoC_GAMcurve_LEC.png 
+  PNG saved: Part9_CP10K_M4_NonNeoC_GAMcurve_FI.png 
+  PNG saved: Part9_CP10K_M4_NonNeoC_GAMcurve_NonNeoC_Pooled.png 
+  LOO plots (PDF only) ...
+PDF saved: <SEA-AD>/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_NonNeoC_GAM_Results_2.pdf 
+
+========== Summary statistics -- NonNeoC ==========
+
+Gene Set: DFG ( per-region : 4 region(s))
+  Mean best k:      5.75 
+  Mean best PRSS:   8.3162 
+  Mean DE:          56.91 %  (vs donor-aware null)
+  Mean smooth EDF:  1.5814 
+  Donor RE fitted: 4/4 | mean donors: 39.8
+
+Gene Set: DFG ( pooled : 1 region(s))
+  Mean best k:      10 
+  Mean best PRSS:   15.7955 
+  Mean DE:          65.2 %  (vs donor-aware null)
+  Mean smooth EDF:  3.5261 
+  Donor RE fitted: 1/1 | mean donors: 80
+
+Gene Set: HKG ( per-region : 4 region(s))
+  Mean best k:      6.75 
+  Mean best PRSS:   7.0823 
+  Mean DE:          1.11 %  (vs donor-aware null)
+  Mean smooth EDF:  1.611 
+  Donor RE fitted: 4/4 | mean donors: 39.8
+
+Gene Set: HKG ( pooled : 1 region(s))
+  Mean best k:      8 
+  Mean best PRSS:   13.8639 
+  Mean DE:          0.81 %  (vs donor-aware null)
+  Mean smooth EDF:  3.534 
+  Donor RE fitted: 1/1 | mean donors: 80
+
+========== Part 9.4 NonNeoC complete ==========
+  Excel : <SEA-AD>/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_NonNeoC_GAM_Results_1.xlsx 
+  RDS   : <SEA-AD>/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_NonNeoC_GAM_models.rds 
+  PDF   : <SEA-AD>/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_NonNeoC_GAM_Results_2.pdf 
+  PNGs  : <SEA-AD>/Part9/Part9_Mic13_PVM3/subregions 
+
+
+######################################################################
+  SECTION E -- GLOBAL CELL COUNT GUARDRAIL
+######################################################################
+
+  Full cell count audit across both datasets:
+
+  Tag       Region                  Pooled      N_Raw   GOI_Neg   GOI_Pos   Trimmed    N_Used  Tally
+  ------------------------------------------------------------------------------------------------
+  NeoC      DFC                     no            719         0       719         0       719  OK
+  NeoC      MTG                     no            444         0       444         0       444  OK
+  NeoC      AnG                     no            183         0       183         0       183  OK
+  NeoC      STG                     no            272         0       272         0       272  OK
+  NeoC      V1C                     no            302         0       302         0       302  OK
+  NeoC      ITG                     no            210         0       210         0       210  OK
+  NeoC      NeoC_Pooled             YES          2130         0      2130         0      2130  OK
+  NonNeoC   HIP                     no            445         0       445         0       445  OK
+  NonNeoC   MEC                     no           1156         0      1156         0      1156  OK
+  NonNeoC   LEC                     no            190         0       190         0       190  OK
+  NonNeoC   FI                      no            196         0       196         0       196  OK
+  NonNeoC   NonNeoC_Pooled          YES          1987         0      1987         0      1987  OK
+
+**********************************************************************
+  GUARDRAIL PASSED: N_Used_for_GAM == N_GOI_Pos for every region
+  in both NeoC and NonNeoC. N_Trimmed = 0 throughout.
+**********************************************************************
+
+  [PASS]  GR-06      Global cell count audit
+             detail   : 12 row(s) audited, 0 mismatch(es)
+  Log written to : <SEA-AD>/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_QC_GAM_Log.txt 
+  Subregion PNGs : <SEA-AD>/Part9/Part9_Mic13_PVM3/subregions 
+
+######################################################################
+  SECTION F -- POST-GAM QUALITY GUARDRAILS
+######################################################################
+
+  [PASS]  GR-07      GAM convergence
+             detail   : 24/24 converged, 0 failed, 0 skipped
+  [WARN]  GR-08      Deviance explained within range
+             detail   : DE range [-12.66%, 75.59%] over 24 models, vs donor-aware null (D-04)
+  [PASS]  GR-09      PRSS finite and positive
+             detail   : range [3.0769, 15.7955] over 24 models
+  [PASS]  GR-10      Best k within the configured range
+             detail   : best k range [3, 10], max_k = 10, 24 models
+  [PASS]  GR-11      Mean DFG deviance explained exceeds HKG
+             detail   : DFG 62.48% vs HKG -1.90%, vs donor-aware null (D-04)
+  [PASS]  GR-12      Donor random intercept fitted on every model
+             detail   : donors per fit [23, 80]; 0 fallback(s) to cell level
+             expected = 24   observed = 24
+  Ledger written : <SEA-AD>/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_Guardrail_Log.txt
+  Ledger workbook: <SEA-AD>/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_Guardrail_Summary.xlsx
+
+  Final ledger: 121 PASS / 1 WARN / 0 FAIL
+  No failures recorded.
+  PSOCK cluster stopped.
+
+  Outputs in: <SEA-AD>/Part9/Part9_Mic13_PVM3 
+  Arm complete: 2026-08-17 20:55:20 
+

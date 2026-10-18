@@ -1,0 +1,43 @@
+Part 12 rerun -- step 16
+Script: Part12_Fig16_Analysis.r | md5 b40e70eac4ef82cfb4dfd36917428310
+Shared file: Part12_03_Config.r | md5 df0cc2f82a0fd0947b3bb0b93bae800a
+Run ID: 20260923-1045-windows
+Start: 2026-09-23 10:45:12
+Machine: LAPTOP-M7LQ95IS | R version 4.6.1 (2026-06-24 ucrt)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16 | md5 de727a6a529ece74865c9387be6d8831
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 16-01 script saved in Part12_rerun | Part12_Fig16_Analysis.r
+
+Pre-set reading for 16E | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### 16E. Is the offset share equal between the branches?
+  
+  - **Estimate.** Per donor and branch (Module post-IP, Module pre-IP), OLS of MT UMIs on total UMIs; the offset share is the median intercept over donors divided by the fitted MT UMIs at the median depth. The contrast is post-IP minus pre-IP in percentage points, with a paired donor bootstrap (a donor's two fits stay together). 20 cells per donor and branch, 10 donors. No depth filter (D8). All four arms.
+  - **Family.** The 4 arms.
+  - **Reading.** Margin 10 pp, read on the 90% interval (the section 4 exception); the 95% interval gives the non-zero test.
+    - The whole 90% interval inside +/-10 pp and the 95% interval covering zero: the offset share is the same in both branches, within the margin.
+    - Inside the margin but non-zero: a difference exists and is smaller than 10 pp.
+    - Non-zero and not inside the margin: the post-IP branch carries a different offset share, which would mean the Module selects the part of the MT signal that does not scale with depth.
+    - Neither non-zero nor inside the margin: underpowered.
+  - **Note, 2026-09-22.** The reading said both that the family is the 4 arms and that the 95% interval gives the non-zero test. These disagree when the interval excludes zero but the FDR over the arms does not pass. Resolved in favour of common rule 2: non-zero means FDR < 0.05, BH over the arms; the margin still reads the 90% interval. This was decided after the first run, in which M4 had p 0.0412 (95% interval +1.0 to +37.2) and FDR 0.12; the Results report the change.
+  
+
+SECTION A -- inputs
+[PASS] 16-02 04_cell_labels.csv.gz matches the 04_Labels log | Part12_rerun/04_Labels/04_cell_labels.csv.gz
+[PASS] 16-03 labels carry this labels version | checked
+[PASS] 16-04 MT UMIs and total UMIs on every labelled cell | checked
+[PASS] 16-05 every Module cell is Module post-IP or Module pre-IP | Module post-IP, Module pre-IP
+
+SECTION B -- offset share per branch (20 cells per donor and branch, 10 donors, B = 10000)
+  M4     donors post  25, pre  26 | share post  42.9%, pre  21.4% | difference +21.5 pp, 95% [+1.0, +37.2], 90% [+4.5, +35.0] | p 4.12e-02 | FDR 1.24e-01 | underpowered: neither non-zero nor shown to be within the margin
+  PVM_3  donors post  57, pre  75 | share post  34.2%, pre  37.5% | difference -3.3 pp, 95% [-10.8, +2.7], 90% [-9.2, +1.8] | p 2.60e-01 | FDR 3.90e-01 | within the margin
+  PVM_1  donors post  31, pre  34 | share post  38.5%, pre  40.8% | difference -2.3 pp, 95% [-20.3, +16.9], 90% [-17.1, +13.6] | p 7.35e-01 | FDR 7.35e-01 | underpowered: neither non-zero nor shown to be within the margin
+  HKG8   donors post   7, pre   3 | share post    NA%, pre    NA% | difference NA pp, 95% [NA, NA], 90% [NA, NA] | p NA | FDR NA | untestable
+
+SECTION C -- write
+[PASS] 16-06 stats file written | 28 rows
+
+Outputs:
+  Part12_rerun/08_Fig16/16E_Offset/Stats_16E.csv | 0.0 MB | md5 66b5412cf971c8a328f429f884851b93
+Checks: 6 PASS, 0 FAIL, 0 WARN | duration 0.2 min
+VERDICT: PASS

@@ -1,0 +1,109 @@
+Part 12 rerun -- step 05
+Script: Part12_05_Units.r | md5 b0c6ed6b17e25a93ad89034219665b76
+Shared file: Part12_03_Config.r | md5 4a85657985b26ec6b5c8ef6b606e6dd3
+Run ID: 20260921-1723-windows
+Start: 2026-09-21 17:23:07
+Machine: LAPTOP-M7LQ95IS | R version 4.6.1 (2026-06-24 ucrt)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 10 | md5 303cc7df395d956437b7da055fee1b39
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 05-01 script saved in Part12_rerun | Part12_05_Units.r
+
+SECTION A -- step 04 labels
+[PASS] 05-02 step 04 log present | Part12_rerun/04_Labels/logs/Part12_04_Labels_log.txt
+[PASS] 05-03 04_cell_labels.csv.gz matches the step 04 log | Part12_rerun/04_Labels/tables/04_cell_labels.csv.gz
+[PASS] 05-04 labels carry this config's labels version and cut token | 2026-09-06_module-pool ip_y_threshold
+[NOTE] config version of the labels | labels 7 | this run 10
+  36967 labelled cells | 4 arms | 84 donors
+
+SECTION B -- libraries, donors, regions and datasets
+[PASS] 05-05 each library belongs to one donor | 899 libraries | 0 span more than one donor
+[PASS] 05-06 lib_intronic is constant within each library | 0 libraries with more than one value
+[PASS] 05-07 lib_antisense is constant within each library | 0 libraries with more than one value
+[PASS] 05-08 lib_neun_fans is constant within each library | 0 libraries with more than one value
+[PASS] 05-09 lib_cdna_400 is constant within each library | 0 libraries with more than one value
+[PASS] 05-10 lib_pcr_cycles is constant within each library | 0 libraries with more than one value
+[PASS] 05-11 lib_saturation is constant within each library | 0 libraries with more than one value
+[PASS] 05-12 lib_median_umi is constant within each library | 0 libraries with more than one value
+[PASS] 05-13 lib_method is constant within each library | 0 libraries with more than one value
+[PASS] 05-14 each region belongs to one dataset | AnG:NeoC DFC:NeoC FI:NonNeoC HIP:NonNeoC ITG:NeoC LEC:NonNeoC MEC:NonNeoC MTG:NeoC STG:NeoC V1C:NeoC
+
+[PASS] 05-15 02_cells.csv.gz matches the step 02 log | Part12_rerun/02_Extract/tables/02_cells.csv.gz
+[NOTE] Module post-IP% denominator | supertype
+
+SECTION C -- donor-region units (at least 10 cells of the arm)
+[PASS] 05-16 every unit has at least as many supertype cells as labelled cells | 856 units
+  M4     NeoC       70 units of  275 donor-regions |  35 donors | 1423 cells
+  M4     NonNeoC    55 units of  159 donor-regions |  39 donors | 1554 cells
+  PVM_3  NeoC      283 units of  336 donor-regions |  79 donors | 12999 cells
+  PVM_3  NonNeoC   167 units of  194 donor-regions |  80 donors | 10993 cells
+  PVM_1  NeoC      112 units of  329 donor-regions |  54 donors | 2192 cells
+  PVM_1  NonNeoC    89 units of  192 donor-regions |  52 donors | 2121 cells
+  HKG8   NeoC       46 units of  243 donor-regions |  27 donors | 789 cells
+  HKG8   NonNeoC    34 units of  149 donor-regions |  28 donors | 704 cells
+[PASS] 05-17 every unit meets the cell floor | 856 units
+[PASS] 05-18 Module post-IP% and %MT finite on every unit | checked
+[PASS] 05-19 contamination finite on every unit | 0 missing
+
+SECTION D -- donor table
+  input PVM_3 Prognosis              Part10h_Prognosis/Part10h_Prognosis_PVM_3/Part10h_CP10K_PVM_3_Prognosis.xlsx | 1.4 MB | md5 e9ed1921e5acc1910693f2b7d1c56442
+[PASS] 05-20 Donor_Table has one row per donor | 84 donors
+  input PVM_3 NeoC obs_dataset       R_export_CP10K/PVM3_all/neocortex/metadata/obs_dataset.csv | 127.5 MB | md5 331dcf19ea9bb5bb4d3c51d719498d8f
+  input PVM_3 NonNeoC obs_dataset    R_export_CP10K/PVM3_all/nonneocortex/metadata/obs_dataset.csv | 107.5 MB | md5 0bf2bf613d6ed5a8c4c8dde8e9caa478
+[PASS] 05-21 obs fbw is constant within donor | 0 donors with more than one value
+[PASS] 05-22 obs casi is constant within donor | 0 donors with more than one value
+[PASS] 05-23 Donor_Table brain weight equals the obs_dataset Fresh Brain Weight | 83 donors compared | 0 differ | Donor_Table 83, obs 83 non-missing
+[PASS] 05-24 M4 NeoC donor Post-IP counts equal Prognosis | 78 donors | 0 differ
+[PASS] 05-25 M4 NeoC Prognosis n_total equals the supertype denominator | n_total differs from supertype cells for 0, from labelled cells for 78 | max |pct_post difference| 5.3e-14 pp
+[PASS] 05-26 M4 NonNeoC donor Post-IP counts equal Prognosis | 80 donors | 0 differ
+[PASS] 05-27 M4 NonNeoC Prognosis n_total equals the supertype denominator | n_total differs from supertype cells for 0, from labelled cells for 80 | max |pct_post difference| 3.7e-14 pp
+[PASS] 05-28 PVM_3 NeoC donor Post-IP counts equal Prognosis | 84 donors | 0 differ
+[PASS] 05-29 PVM_3 NeoC Prognosis n_total equals the supertype denominator | n_total differs from supertype cells for 0, from labelled cells for 83 | max |pct_post difference| 5.7e-14 pp
+[PASS] 05-30 PVM_3 NonNeoC donor Post-IP counts equal Prognosis | 83 donors | 0 differ
+[PASS] 05-31 PVM_3 NonNeoC Prognosis n_total equals the supertype denominator | n_total differs from supertype cells for 0, from labelled cells for 78 | max |pct_post difference| 5e-14 pp
+[PASS] 05-32 PVM_1 NeoC donor Post-IP counts equal Prognosis | 84 donors | 0 differ
+[PASS] 05-33 PVM_1 NeoC Prognosis n_total equals the supertype denominator | n_total differs from supertype cells for 0, from labelled cells for 77 | max |pct_post difference| 5.7e-14 pp
+[PASS] 05-34 PVM_1 NonNeoC donor Post-IP counts equal Prognosis | 83 donors | 0 differ
+[PASS] 05-35 PVM_1 NonNeoC Prognosis n_total equals the supertype denominator | n_total differs from supertype cells for 0, from labelled cells for 72 | max |pct_post difference| 5.7e-14 pp
+[PASS] 05-36 HKG8 NeoC donor Post-IP counts equal Prognosis | 74 donors | 0 differ
+[PASS] 05-37 HKG8 NeoC Prognosis n_total equals the supertype denominator | n_total differs from supertype cells for 0, from labelled cells for 74 | max |pct_post difference| 4.4e-15 pp
+[PASS] 05-38 HKG8 NonNeoC donor Post-IP counts equal Prognosis | 77 donors | 0 differ
+[PASS] 05-39 HKG8 NonNeoC Prognosis n_total equals the supertype denominator | n_total differs from supertype cells for 0, from labelled cells for 77 | max |pct_post difference| 1.1e-14 pp
+[NOTE] non-Module supertype contamination per donor | 609 of 643 donor rows have 5 or more cells
+[PASS] 05-40 every labelled donor is in the Donor_Table | 84 of 84 donors
+  Age_num                 84 of  84 donors non-missing
+  APOE_e4_dose            84 of  84 donors non-missing
+  Sex_num                 84 of  84 donors non-missing
+  PMI_num                 84 of  84 donors non-missing
+  CogStatus_num           84 of  84 donors non-missing
+  MMSE_num                80 of  84 donors non-missing
+  CASI_num                69 of  84 donors non-missing
+  CERAD_num               84 of  84 donors non-missing
+  Braak_num               84 of  84 donors non-missing
+  Thal_num                84 of  84 donors non-missing
+  ADNC_rank               84 of  84 donors non-missing
+  CAA_num                 84 of  84 donors non-missing
+  RIN_num                 84 of  84 donors non-missing
+  BrainPH_num             84 of  84 donors non-missing
+  BrainWeight_num         83 of  84 donors non-missing
+
+SECTION E -- tissue-quality residuals (TQR), per arm over units
+  M4     module_post_pct   124 units |  50 donors | R2 0.271
+  M4     mito_log1p        124 units |  50 donors | R2 0.168
+  PVM_3  module_post_pct   447 units |  82 donors | R2 0.188
+  PVM_3  mito_log1p        447 units |  82 donors | R2 0.134
+  PVM_1  module_post_pct   199 units |  65 donors | R2 0.194
+  PVM_1  mito_log1p        199 units |  65 donors | R2 0.132
+  HKG8   module_post_pct    80 units |  38 donors | R2 0.013
+  HKG8   mito_log1p         80 units |  38 donors | R2 0.216
+[NOTE] units without all four tissue fields | 6 of 856
+
+SECTION F -- write
+[PASS] 05-41 text fields are ASCII | checked
+[PASS] 05-42 tables written and read back | units 856 rows | donors 643 rows
+
+Outputs:
+  Part12_rerun/05_Units/tables/05_units.csv | 0.4 MB | md5 6ffbbd232e957a9129c4e14aaec17b35
+  Part12_rerun/05_Units/tables/05_donors.csv | 0.1 MB | md5 cc4f620d2ffbafb921016ae970fd20c9
+Checks: 42 PASS, 0 FAIL, 0 WARN | duration 0.1 min
+VERDICT: PASS

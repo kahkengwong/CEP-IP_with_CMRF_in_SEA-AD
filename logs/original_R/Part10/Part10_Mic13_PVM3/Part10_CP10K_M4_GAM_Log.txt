@@ -1,0 +1,1488 @@
+
+============================================================================
+  ARM: Mic13_PVM3   config: R_config.R
+============================================================================
+R_config.R loaded (Module 1: MT-CO3 + 8 DFGs, ≥8/10 regions).
+  ARM_TAG   : Mic13_PVM3 
+  ARM_DIR   : <SEA-AD>/R_export_CP10K/Mic13_PVM3 
+  NEOC_DIR  : <SEA-AD>/R_export_CP10K/Mic13_PVM3/neocortex 
+  NONNC_DIR : <SEA-AD>/R_export_CP10K/Mic13_PVM3/nonneocortex 
+  SHARED_DIR: <SEA-AD>/R_export_CP10K/shared 
+  GOI       : MT-CO3 
+  DFG_NEOC  : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  DFG_NONNC : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Composite : cDFG 
+  RUN_SUFFIX: (none) 
+  Supertype : Micro-PVM_3-SEAAD 
+  Mod1 genes: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 ( 9 )
+  HKG_GENES : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 2130 NeoC / 1987 NonNeoC
+
+ ======================================================================== 
+  Part 10 -- SKCS Decomposition + Iterative GAM + TREP labels (Module 1)
+  GOI               : MT-CO3 
+  DFG ( cDFG )   : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  HKG               : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 
+  SKCS thresholds   : S_norm > 0.05 (normalised) AND K > 0.5 
+  Min cells         : 50 
+  GAM gamma         : 1.5 
+  Estimator         : donor random intercept, s(donor, bs = "re"), minimum 3 donors 
+  Weights           : inverse donor cell count, w = 1/n_i (each donor sums to 1) 
+  PRSS              : phase 1 = 8 iterations, phase 2 = up to 5 (early stop 20 )
+                      early stop is unreachable at this cap: 20 consecutive non-improving iterations are needed and phase 2 runs at most 5 (B10-15)
+  Alt-GOI scatters  : none (not the alternate-GOI arm) 
+  Parallel          : 15 PSOCK worker(s) for the PRSS iterations
+  Cell source       : per-region gam_data CSVs (full M4-top, GOI > 0)
+  Part 9 RDS NeoC   : <SEA-AD>/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_NeoC_GAM_models.rds 
+  Part 9 RDS NonNeoC: <SEA-AD>/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_NonNeoC_GAM_models.rds 
+  Output dir        : <SEA-AD>/Part10/Part10_Mic13_PVM3 
+  Dataset dirs      : Part10_Mic13_PVM3_NonNeoC and Part10_Mic13_PVM3_NeoC 
+======================================================================== 
+
+
+ ======================================================================== 
+  SECTION A0 -- PRE-ANALYSIS GUARDRAILS
+======================================================================== 
+
+  [PASS]  GR-07-NeoC      Part 9 NeoC RDS: Part9_CP10K_M4_NeoC_GAM_models.rds
+  [PASS]  GR-07-NonNeoC   Part 9 NonNeoC RDS: Part9_CP10K_M4_NonNeoC_GAM_models.rds
+  -- Dataset: NeoC --------------------------------------
+  [PASS]  GR-01-NeoC      norm.mtx max = 8.0564  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NeoC      expm1(norm) row sums: mean = 10000.000000, max |dev| = 8.44e-10, n = 50
+  [PASS]  GR-04-NeoC      raw max = 2389, integer-like = TRUE
+  [PASS]  GR-05-NeoC-DFC  GOI max=5.914  cDFG max=4.917  (ceiling=9.2104)
+  [PASS]  GR-06-NeoC-DFC  expected=719  observed=719
+  [PASS]  GR-05-NeoC-MTG  GOI max=4.328  cDFG max=3.913  (ceiling=9.2104)
+  [PASS]  GR-06-NeoC-MTG  expected=444  observed=444
+  [PASS]  GR-05-NeoC-AnG  GOI max=6.275  cDFG max=5.989  (ceiling=9.2104)
+  [PASS]  GR-06-NeoC-AnG  expected=183  observed=183
+  [PASS]  GR-05-NeoC-STG  GOI max=5.504  cDFG max=4.828  (ceiling=9.2104)
+  [PASS]  GR-06-NeoC-STG  expected=272  observed=272
+  [PASS]  GR-05-NeoC-V1C  GOI max=6.046  cDFG max=5.375  (ceiling=9.2104)
+  [PASS]  GR-06-NeoC-V1C  expected=302  observed=302
+  [PASS]  GR-05-NeoC-ITG  GOI max=5.238  cDFG max=4.700  (ceiling=9.2104)
+  [PASS]  GR-06-NeoC-ITG  expected=210  observed=210
+  -- Dataset: NonNeoC --------------------------------------
+  [PASS]  GR-01-NonNeoC   norm.mtx max = 7.6610  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NonNeoC   expm1(norm) row sums: mean = 10000.000000, max |dev| = 5.86e-10, n = 50
+  [PASS]  GR-04-NonNeoC   raw max = 1552, integer-like = TRUE
+  [PASS]  GR-05-NonNeoC-HIP  GOI max=5.309  cDFG max=4.893  (ceiling=9.2104)
+  [PASS]  GR-06-NonNeoC-HIP  expected=445  observed=445
+  [PASS]  GR-05-NonNeoC-MEC  GOI max=5.732  cDFG max=5.159  (ceiling=9.2104)
+  [PASS]  GR-06-NonNeoC-MEC  expected=1156  observed=1156
+  [PASS]  GR-05-NonNeoC-LEC  GOI max=5.455  cDFG max=5.278  (ceiling=9.2104)
+  [PASS]  GR-06-NonNeoC-LEC  expected=190  observed=190
+  [PASS]  GR-05-NonNeoC-FI  GOI max=5.647  cDFG max=5.642  (ceiling=9.2104)
+  [PASS]  GR-06-NonNeoC-FI  expected=196  observed=196
+  Guardrail log written: <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_CP10K_M4_Guardrail_Log.txt 
+
+  Pre-analysis guardrails: 28 PASS / 0 WARN / 0 FAIL
+  *** ALL PRE-ANALYSIS GUARDRAILS PASSED ***
+
+
+
+ ######################################################################## 
+  RUNNING: NonNeoC  [MT-CO3 / cDFG composite]
+######################################################################## 
+
+ ======================================================================== 
+  Part 10 Module 1 pipeline: NonNeoC 
+  Output dir: <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC 
+  Regions: HIP, MEC, LEC, FI 
+  GOI: MT-CO3   DFG: MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  HKG: ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 
+======================================================================== 
+
+  Part 9 estimator: donor random intercept = TRUE | models carrying it: 10 / 10 
+  Part 9 baseline DE (full population, cDFG composite, donor-aware null):
+    HIP          : 69.3%
+    MEC          : 66.6%
+    LEC          : 36.3%
+    FI           : 55.4%
+    Pooled       : 65.2%
+
+  Loading normalised MTX for heatmaps + HKG ...
+    Matrix: 1987 cells x 36601 genes
+  DFG resolved (heatmap): MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  HKG resolved (heatmap): ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 
+
+  Building per-region data (GOI > 0 filter) ...
+  Region HIP: 445 raw | 0 GOI=0 excluded | 445 GOI>0 retained | 31 donors | sum(w)=31.0000
+  Region MEC: 1156 raw | 0 GOI=0 excluded | 1156 GOI>0 retained | 76 donors | sum(w)=76.0000
+  Region LEC: 190 raw | 0 GOI=0 excluded | 190 GOI>0 retained | 23 donors | sum(w)=23.0000
+  Region FI: 196 raw | 0 GOI=0 excluded | 196 GOI>0 retained | 29 donors | sum(w)=29.0000
+
+  Cell count check (per-region):
+    HIP           n_raw=445    n_goi_neg=0      n_goi_pos=445    n_used=445    OK
+    MEC           n_raw=1156   n_goi_neg=0      n_goi_pos=1156   n_used=1156   OK
+    LEC           n_raw=190    n_goi_neg=0      n_goi_pos=190    n_used=190    OK
+    FI            n_raw=196    n_goi_neg=0      n_goi_pos=196    n_used=196    OK
+
+------------------------------------------------------------ 
+  SECTION D4: Per-region SKCS decomposition
+------------------------------------------------------------ 
+
+-------------------------------------------------- 
+  Region: HIP 
+  [HIP] Global Spearman rho = 0.8201  |  Si_max = 111.00
+  [HIP] Using tau_b denominator | cells with ties: 4 / 445
+  [HIP] Global Kendall tau  = 0.6380
+  [HIP] SKCS-core: 288 (64.7%)  |  Non-SKCS: 157 (35.3%)  [S_norm>0.05, K>0.5]
+-------------------------------------------------- 
+  Region: MEC 
+  [MEC] Global Spearman rho = 0.8612  |  Si_max = 288.75
+  [MEC] Using tau_b denominator | cells with ties: 34 / 1156
+  [MEC] Global Kendall tau  = 0.6730
+  [MEC] SKCS-core: 778 (67.3%)  |  Non-SKCS: 378 (32.7%)  [S_norm>0.05, K>0.5]
+-------------------------------------------------- 
+  Region: LEC 
+  [LEC] Global Spearman rho = 0.7836  |  Si_max = 47.25
+  [LEC] Using tau_b denominator | cells with ties: 4 / 190
+  [LEC] Global Kendall tau  = 0.6038
+  [LEC] SKCS-core: 112 (58.9%)  |  Non-SKCS: 78 (41.1%)  [S_norm>0.05, K>0.5]
+-------------------------------------------------- 
+  Region: FI 
+  [FI] Global Spearman rho = 0.8112  |  Si_max = 48.75
+  [FI] Using tau_b denominator | cells with ties: 5 / 196
+  [FI] Global Kendall tau  = 0.6274
+  [FI] SKCS-core: 124 (63.3%)  |  Non-SKCS: 72 (36.7%)  [S_norm>0.05, K>0.5]
+------------------------------------------------------------ 
+  SECTION D5: Pooled SKCS decomposition
+------------------------------------------------------------ 
+
+  Pooled dataset: n = 1987 cells from 4 regions
+  [NonNeoC_Pooled] Global Spearman rho = 0.8406  |  Si_max = 496.50
+  [NonNeoC_Pooled] Using tau_b denominator | cells with ties: 117 / 1987
+  [NonNeoC_Pooled] Global Kendall tau  = 0.6538
+  [NonNeoC_Pooled] SKCS-core: 1303 (65.6%)  |  Non-SKCS: 684 (34.4%)  [S_norm>0.05, K>0.5]
+  Pooled audit: n_raw=1987 | n_goi_neg=0 | n_goi_pos=1987 | OK
+  Added 8/8 DFG expression columns to pooled scores
+  Added 9/9 HKG expression columns to pooled scores
+  Pooled SKCS scatter PDF+PNG saved
+  Pooled GOI diagnostic PDF+PNG saved
+
+------------------------------------------------------------ 
+  SECTION D6: Heatmaps
+------------------------------------------------------------ 
+
+  Building SKCS-core heatmap: HIP | n = 288 
+  Building SKCS-core heatmap: MEC | n = 778 
+  Building SKCS-core heatmap: LEC | n = 112 
+  Building SKCS-core heatmap: FI | n = 124 
+  Building SKCS-core heatmap: Pooled | n = 1303 
+  Building SKCS-core heatmap: AllCells_Pooled | n = 1987 
+------------------------------------------------------------ 
+  SECTION D7: GAM-REML-PRSS on SKCS-core cells
+------------------------------------------------------------ 
+
+--------------------------------------------- 
+  Region/set: HIP | SKCS-core n = 288 
+  Fitting SKCS-core DFG (cDFG) GAM ...
+  [ HIP | DFG_SKCS ] cells: 288 | unique GOI: 288 | max k: 10 | donors: 30 | donor RE: YES | sum(w): 30 
+    init iter 1 | k = 3 | PRSS: 2.4349 
+    init iter 2 | k = 4 | PRSS: 2.2009 
+    init iter 3 | k = 5 | PRSS: 2.1576 
+    init iter 4 | k = 6 | PRSS: 2.1641 
+    init iter 5 | k = 7 | PRSS: 2.1615 
+    init iter 6 | k = 8 | PRSS: 2.1629 
+    init iter 7 | k = 9 | PRSS: 2.1537 
+    init iter 8 | k = 10 | PRSS: 2.1406 
+    best k after phase 1: 10 | PRSS: 2.1406 
+    refine iter 9 | k = 10 | PRSS: 2.1406 
+    refine iter 10 | k = 10 | PRSS: 2.1406 
+    refine iter 11 | k = 10 | PRSS: 2.1406 
+    refine iter 12 | k = 10 | PRSS: 2.1406 
+    refine iter 13 | k = 10 | PRSS: 2.1406 
+    best model is from iter 8 (k = 10 ) on a worker -- refitting here
+  HKG joined: 288 / 288 barcodes matched
+  Fitting SKCS-core HKG GAM ...
+  [ HIP | HKG_SKCS ] cells: 288 | unique GOI: 288 | max k: 10 | donors: 30 | donor RE: YES | sum(w): 30 
+    init iter 1 | k = 3 | PRSS: 4.0122 
+    init iter 2 | k = 4 | PRSS: 4.0122 
+    init iter 3 | k = 5 | PRSS: 3.8383 
+    init iter 4 | k = 6 | PRSS: 3.8557 
+    init iter 5 | k = 7 | PRSS: 3.8715 
+    init iter 6 | k = 8 | PRSS: 3.8644 
+    init iter 7 | k = 9 | PRSS: 3.8577 
+    init iter 8 | k = 10 | PRSS: 3.8462 
+    best k after phase 1: 5 | PRSS: 3.8383 
+    refine iter 9 | k = 5 | PRSS: 3.8383 
+    refine iter 10 | k = 5 | PRSS: 3.8383 
+    refine iter 11 | k = 5 | PRSS: 3.8383 
+    refine iter 12 | k = 5 | PRSS: 3.8383 
+    refine iter 13 | k = 5 | PRSS: 3.8383 
+    best model is from iter 3 (k = 5 ) on a worker -- refitting here
+  DE Part9=69.3%  |  DE SKCS-core=89.5%  |  delta=+20.2%
+
+  TREP: top 262 / 288 (90.9%) flagged | EP [-8.1407, 1.0000]
+  TREP sizing DE: population-level 0.9090 | summary()$dev.expl 0.9506 (B10-08)
+  TREP donor coverage: 30/30 donors represented | per-donor TREP fraction [0.500, 1.000] median 1.000
+--------------------------------------------- 
+  Region/set: MEC | SKCS-core n = 778 
+  Fitting SKCS-core DFG (cDFG) GAM ...
+  [ MEC | DFG_SKCS ] cells: 778 | unique GOI: 769 | max k: 10 | donors: 75 | donor RE: YES | sum(w): 75 
+    init iter 1 | k = 3 | PRSS: 6.2473 
+    init iter 2 | k = 4 | PRSS: 6.0479 
+    init iter 3 | k = 5 | PRSS: 5.8259 
+    init iter 4 | k = 6 | PRSS: 5.8277 
+    init iter 5 | k = 7 | PRSS: 5.6343 
+    init iter 6 | k = 8 | PRSS: 5.591 
+    init iter 7 | k = 9 | PRSS: 5.463 
+    init iter 8 | k = 10 | PRSS: 5.4225 
+    best k after phase 1: 10 | PRSS: 5.4225 
+    refine iter 9 | k = 10 | PRSS: 5.4225 
+    refine iter 10 | k = 10 | PRSS: 5.4225 
+    refine iter 11 | k = 10 | PRSS: 5.4225 
+    refine iter 12 | k = 10 | PRSS: 5.4225 
+    refine iter 13 | k = 10 | PRSS: 5.4225 
+    best model is from iter 8 (k = 10 ) on a worker -- refitting here
+  HKG joined: 778 / 778 barcodes matched
+  Fitting SKCS-core HKG GAM ...
+  [ MEC | HKG_SKCS ] cells: 778 | unique GOI: 769 | max k: 10 | donors: 75 | donor RE: YES | sum(w): 75 
+    init iter 1 | k = 3 | PRSS: 10.67 
+    init iter 2 | k = 4 | PRSS: 10.6785 
+    init iter 3 | k = 5 | PRSS: 10.6758 
+    init iter 4 | k = 6 | PRSS: 10.6757 
+    init iter 5 | k = 7 | PRSS: 10.6752 
+    init iter 6 | k = 8 | PRSS: 10.6749 
+    init iter 7 | k = 9 | PRSS: 10.6748 
+    init iter 8 | k = 10 | PRSS: 10.6748 
+    best k after phase 1: 3 | PRSS: 10.67 
+    refine iter 9 | k = 4 | PRSS: 10.6785 
+    refine iter 10 | k = 3 | PRSS: 10.67 
+    refine iter 11 | k = 3 | PRSS: 10.67 
+    refine iter 12 | k = 4 | PRSS: 10.6785 
+    refine iter 13 | k = 3 | PRSS: 10.67 
+    best model is from iter 1 (k = 3 ) on a worker -- refitting here
+  DE Part9=66.6%  |  DE SKCS-core=86.2%  |  delta=+19.6%
+
+  TREP: top 717 / 778 (92.2%) flagged | EP [-93775.5325, 1.0000]
+  TREP sizing DE: population-level 0.9217 | summary()$dev.expl 0.9535 (B10-08)
+  TREP donor coverage: 75/75 donors represented | per-donor TREP fraction [0.500, 1.000] median 1.000
+--------------------------------------------- 
+  Region/set: LEC | SKCS-core n = 112 
+  Fitting SKCS-core DFG (cDFG) GAM ...
+  [ LEC | DFG_SKCS ] cells: 112 | unique GOI: 112 | max k: 10 | donors: 21 | donor RE: YES | sum(w): 21 
+    init iter 1 | k = 3 | PRSS: 2.1913 
+    init iter 2 | k = 4 | PRSS: 1.7923 
+    init iter 3 | k = 5 | PRSS: 1.4804 
+    init iter 4 | k = 6 | PRSS: 1.4369 
+    init iter 5 | k = 7 | PRSS: 1.4248 
+    init iter 6 | k = 8 | PRSS: 1.4299 
+    init iter 7 | k = 9 | PRSS: 1.4391 
+    init iter 8 | k = 10 | PRSS: 1.4419 
+    best k after phase 1: 7 | PRSS: 1.4248 
+    refine iter 9 | k = 7 | PRSS: 1.4248 
+    refine iter 10 | k = 7 | PRSS: 1.4248 
+    refine iter 11 | k = 7 | PRSS: 1.4248 
+    refine iter 12 | k = 7 | PRSS: 1.4248 
+    refine iter 13 | k = 7 | PRSS: 1.4248 
+    best model is from iter 5 (k = 7 ) on a worker -- refitting here
+  HKG joined: 112 / 112 barcodes matched
+  Fitting SKCS-core HKG GAM ...
+  [ LEC | HKG_SKCS ] cells: 112 | unique GOI: 112 | max k: 10 | donors: 21 | donor RE: YES | sum(w): 21 
+    init iter 1 | k = 3 | PRSS: 3.0124 
+    init iter 2 | k = 4 | PRSS: 3.0124 
+    init iter 3 | k = 5 | PRSS: 3.0124 
+    init iter 4 | k = 6 | PRSS: 3.0124 
+    init iter 5 | k = 7 | PRSS: 3.0124 
+    init iter 6 | k = 8 | PRSS: 3.0124 
+    init iter 7 | k = 9 | PRSS: 3.0124 
+    init iter 8 | k = 10 | PRSS: 3.0124 
+    best k after phase 1: 6 | PRSS: 3.0124 
+    refine iter 9 | k = 6 | PRSS: 3.0124 
+    refine iter 10 | k = 6 | PRSS: 3.0124 
+    refine iter 11 | k = 6 | PRSS: 3.0124 
+    refine iter 12 | k = 6 | PRSS: 3.0124 
+    refine iter 13 | k = 6 | PRSS: 3.0124 
+    best model is from iter 4 (k = 6 ) on a worker -- refitting here
+  DE Part9=36.3%  |  DE SKCS-core=87.4%  |  delta=+51.1%
+
+  TREP: top 98 / 112 (87.2%) flagged | EP [-4.8756, 0.9998]
+  TREP sizing DE: population-level 0.8718 | summary()$dev.expl 0.9560 (B10-08)
+  TREP donor coverage: 18/21 donors represented | per-donor TREP fraction [0.000, 1.000] median 1.000
+--------------------------------------------- 
+  Region/set: FI | SKCS-core n = 124 
+  Fitting SKCS-core DFG (cDFG) GAM ...
+  [ FI | DFG_SKCS ] cells: 124 | unique GOI: 123 | max k: 10 | donors: 26 | donor RE: YES | sum(w): 26 
+    init iter 1 | k = 3 | PRSS: 3.8524 
+    init iter 2 | k = 4 | PRSS: 3.6924 
+    init iter 3 | k = 5 | PRSS: 3.6794 
+    init iter 4 | k = 6 | PRSS: 3.6601 
+    init iter 5 | k = 7 | PRSS: 3.645 
+    init iter 6 | k = 8 | PRSS: 3.6488 
+    init iter 7 | k = 9 | PRSS: 3.6224 
+    init iter 8 | k = 10 | PRSS: 3.6229 
+    best k after phase 1: 9 | PRSS: 3.6224 
+    refine iter 9 | k = 9 | PRSS: 3.6224 
+    refine iter 10 | k = 9 | PRSS: 3.6224 
+    refine iter 11 | k = 9 | PRSS: 3.6224 
+    refine iter 12 | k = 9 | PRSS: 3.6224 
+    refine iter 13 | k = 9 | PRSS: 3.6224 
+    best model is from iter 7 (k = 9 ) on a worker -- refitting here
+  HKG joined: 124 / 124 barcodes matched
+  Fitting SKCS-core HKG GAM ...
+  [ FI | HKG_SKCS ] cells: 124 | unique GOI: 123 | max k: 10 | donors: 26 | donor RE: YES | sum(w): 26 
+    init iter 1 | k = 3 | PRSS: 6.4561 
+    init iter 2 | k = 4 | PRSS: 6.4561 
+    init iter 3 | k = 5 | PRSS: 6.4561 
+    init iter 4 | k = 6 | PRSS: 6.4561 
+    init iter 5 | k = 7 | PRSS: 6.4561 
+    init iter 6 | k = 8 | PRSS: 6.4561 
+    init iter 7 | k = 9 | PRSS: 6.4561 
+    init iter 8 | k = 10 | PRSS: 6.4561 
+    best k after phase 1: 4 | PRSS: 6.4561 
+    refine iter 9 | k = 4 | PRSS: 6.4561 
+    refine iter 10 | k = 4 | PRSS: 6.4561 
+    refine iter 11 | k = 4 | PRSS: 6.4561 
+    refine iter 12 | k = 4 | PRSS: 6.4561 
+    refine iter 13 | k = 4 | PRSS: 6.4561 
+    best model is from iter 2 (k = 4 ) on a worker -- refitting here
+  DE Part9=55.4%  |  DE SKCS-core=81.4%  |  delta=+26.0%
+
+  TREP: top 113 / 124 (91.3%) flagged | EP [-10.3017, 1.0000]
+  TREP sizing DE: population-level 0.9129 | summary()$dev.expl 0.9327 (B10-08)
+  TREP donor coverage: 26/26 donors represented | per-donor TREP fraction [0.333, 1.000] median 1.000
+--------------------------------------------- 
+  Region/set: Pooled | SKCS-core n = 1303 
+  Fitting SKCS-core DFG (cDFG) GAM ...
+  [ Pooled | DFG_SKCS ] cells: 1303 | unique GOI: 1282 | max k: 10 | donors: 79 | donor RE: YES | sum(w): 79 
+    init iter 1 | k = 3 | PRSS: 7.5004 
+    init iter 2 | k = 4 | PRSS: 6.9555 
+    init iter 3 | k = 5 | PRSS: 6.7811 
+    init iter 4 | k = 6 | PRSS: 6.7029 
+    init iter 5 | k = 7 | PRSS: 6.3904 
+    init iter 6 | k = 8 | PRSS: 6.3824 
+    init iter 7 | k = 9 | PRSS: 6.25 
+    init iter 8 | k = 10 | PRSS: 6.2506 
+    best k after phase 1: 9 | PRSS: 6.25 
+    refine iter 9 | k = 9 | PRSS: 6.25 
+    refine iter 10 | k = 9 | PRSS: 6.25 
+    refine iter 11 | k = 9 | PRSS: 6.25 
+    refine iter 12 | k = 9 | PRSS: 6.25 
+    refine iter 13 | k = 9 | PRSS: 6.25 
+    best model is from iter 7 (k = 9 ) on a worker -- refitting here
+  HKG joined: 1303 / 1303 barcodes matched
+  Fitting SKCS-core HKG GAM ...
+  [ Pooled | HKG_SKCS ] cells: 1303 | unique GOI: 1282 | max k: 10 | donors: 79 | donor RE: YES | sum(w): 79 
+    init iter 1 | k = 3 | PRSS: 12.8043 
+    init iter 2 | k = 4 | PRSS: 12.8043 
+    init iter 3 | k = 5 | PRSS: 12.8043 
+    init iter 4 | k = 6 | PRSS: 12.8043 
+    init iter 5 | k = 7 | PRSS: 12.8043 
+    init iter 6 | k = 8 | PRSS: 12.8043 
+    init iter 7 | k = 9 | PRSS: 12.8043 
+    init iter 8 | k = 10 | PRSS: 12.8043 
+    best k after phase 1: 10 | PRSS: 12.8043 
+    refine iter 9 | k = 10 | PRSS: 12.8043 
+    refine iter 10 | k = 10 | PRSS: 12.8043 
+    refine iter 11 | k = 10 | PRSS: 12.8043 
+    refine iter 12 | k = 10 | PRSS: 12.8043 
+    refine iter 13 | k = 10 | PRSS: 12.8043 
+    best model is from iter 8 (k = 10 ) on a worker -- refitting here
+  DE Part9=65.2%  |  DE SKCS-core=87.8%  |  delta=+22.6%
+
+  TREP: top 1202 / 1303 (92.3%) flagged | EP [-1249.8592, 1.0000]
+  TREP sizing DE: population-level 0.9228 | summary()$dev.expl 0.9514 (B10-08)
+  TREP donor coverage: 79/79 donors represented | per-donor TREP fraction [0.545, 1.000] median 0.971
+------------------------------------------------------------ 
+  SECTION D7b: TREP labelling and CSV export
+------------------------------------------------------------ 
+
+  HIP           total=445 | GOI_neg=0 | SKCS=288 (TREP=262, non-TREP=26) | non-SKCS=157
+  MEC           total=1156 | GOI_neg=0 | SKCS=778 (TREP=717, non-TREP=61) | non-SKCS=378
+  LEC           total=190 | GOI_neg=0 | SKCS=112 (TREP=98, non-TREP=14) | non-SKCS=78
+  FI            total=196 | GOI_neg=0 | SKCS=124 (TREP=113, non-TREP=11) | non-SKCS=72
+  Pooled        total=1987 | GOI_neg=0 | SKCS=1303 (TREP=1202, non-TREP=101) | non-SKCS=684
+  Pooled SKCS scores CSV saved: Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_Pooled_SKCS_scores.csv 
+
+  Cell count audit: all regions PASS
+  Excel saved: Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_GAM_Results.xlsx 
+  DE comparison CSV saved: Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_summary_DE_comparison.csv 
+
+  RDS saved: Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_GAM_models.rds  (2.4 MB, plots dropped)
+
+------------------------------------------------------------ 
+  SECTION D11: Plots -- single merged PDF
+------------------------------------------------------------ 
+
+  Building GAM curve plots ...
+  Building GAM curve plots (All GOI+) ...
+  [ HIP | DFG_SKCS ] cells: 445 | unique GOI: 443 | max k: 10 | donors: 31 | donor RE: YES | sum(w): 31 
+    init iter 1 | k = 3 | PRSS: 6.2076 
+    init iter 2 | k = 4 | PRSS: 6.2154 
+    init iter 3 | k = 5 | PRSS: 6.2135 
+    init iter 4 | k = 6 | PRSS: 6.2143 
+    init iter 5 | k = 7 | PRSS: 6.2115 
+    init iter 6 | k = 8 | PRSS: 6.2116 
+    init iter 7 | k = 9 | PRSS: 6.211 
+    init iter 8 | k = 10 | PRSS: 6.2111 
+    best k after phase 1: 3 | PRSS: 6.2076 
+    refine iter 9 | k = 4 | PRSS: 6.2154 
+    refine iter 10 | k = 3 | PRSS: 6.2076 
+    refine iter 11 | k = 3 | PRSS: 6.2076 
+    refine iter 12 | k = 4 | PRSS: 6.2154 
+    refine iter 13 | k = 3 | PRSS: 6.2076 
+    best model is from iter 1 (k = 3 ) on a worker -- refitting here
+  [ HIP | HKG_SKCS ] cells: 445 | unique GOI: 443 | max k: 10 | donors: 31 | donor RE: YES | sum(w): 31 
+    init iter 1 | k = 3 | PRSS: 4.8563 
+    init iter 2 | k = 4 | PRSS: 4.8235 
+    init iter 3 | k = 5 | PRSS: 4.721 
+    init iter 4 | k = 6 | PRSS: 4.6728 
+    init iter 5 | k = 7 | PRSS: 4.6484 
+    init iter 6 | k = 8 | PRSS: 4.6529 
+    init iter 7 | k = 9 | PRSS: 4.6541 
+    init iter 8 | k = 10 | PRSS: 4.6173 
+    best k after phase 1: 10 | PRSS: 4.6173 
+    refine iter 9 | k = 10 | PRSS: 4.6173 
+    refine iter 10 | k = 10 | PRSS: 4.6173 
+    refine iter 11 | k = 10 | PRSS: 4.6173 
+    refine iter 12 | k = 10 | PRSS: 4.6173 
+    refine iter 13 | k = 10 | PRSS: 4.6173 
+    best model is from iter 8 (k = 10 ) on a worker -- refitting here
+  [ MEC | DFG_SKCS ] cells: 1156 | unique GOI: 1143 | max k: 10 | donors: 76 | donor RE: YES | sum(w): 76 
+    init iter 1 | k = 3 | PRSS: 12.012 
+    init iter 2 | k = 4 | PRSS: 11.9347 
+    init iter 3 | k = 5 | PRSS: 11.9001 
+    init iter 4 | k = 6 | PRSS: 11.9034 
+    init iter 5 | k = 7 | PRSS: 11.9042 
+    init iter 6 | k = 8 | PRSS: 11.9 
+    init iter 7 | k = 9 | PRSS: 11.9006 
+    init iter 8 | k = 10 | PRSS: 11.9004 
+    best k after phase 1: 8 | PRSS: 11.9 
+    refine iter 9 | k = 8 | PRSS: 11.9 
+    refine iter 10 | k = 8 | PRSS: 11.9 
+    refine iter 11 | k = 8 | PRSS: 11.9 
+    refine iter 12 | k = 8 | PRSS: 11.9 
+    refine iter 13 | k = 8 | PRSS: 11.9 
+    best model is from iter 6 (k = 8 ) on a worker -- refitting here
+  [ MEC | HKG_SKCS ] cells: 1156 | unique GOI: 1143 | max k: 10 | donors: 76 | donor RE: YES | sum(w): 76 
+    init iter 1 | k = 3 | PRSS: 11.7924 
+    init iter 2 | k = 4 | PRSS: 11.7891 
+    init iter 3 | k = 5 | PRSS: 11.747 
+    init iter 4 | k = 6 | PRSS: 11.738 
+    init iter 5 | k = 7 | PRSS: 11.7365 
+    init iter 6 | k = 8 | PRSS: 11.7391 
+    init iter 7 | k = 9 | PRSS: 11.7405 
+    init iter 8 | k = 10 | PRSS: 11.7395 
+    best k after phase 1: 7 | PRSS: 11.7365 
+    refine iter 9 | k = 7 | PRSS: 11.7365 
+    refine iter 10 | k = 7 | PRSS: 11.7365 
+    refine iter 11 | k = 7 | PRSS: 11.7365 
+    refine iter 12 | k = 7 | PRSS: 11.7365 
+    refine iter 13 | k = 7 | PRSS: 11.7365 
+    best model is from iter 5 (k = 7 ) on a worker -- refitting here
+  [ LEC | DFG_SKCS ] cells: 190 | unique GOI: 189 | max k: 10 | donors: 23 | donor RE: YES | sum(w): 23 
+    init iter 1 | k = 3 | PRSS: 7.3071 
+    init iter 2 | k = 4 | PRSS: 7.1463 
+    init iter 3 | k = 5 | PRSS: 7.166 
+    init iter 4 | k = 6 | PRSS: 7.1632 
+    init iter 5 | k = 7 | PRSS: 7.1676 
+    init iter 6 | k = 8 | PRSS: 7.1656 
+    init iter 7 | k = 9 | PRSS: 7.1455 
+    init iter 8 | k = 10 | PRSS: 7.1463 
+    best k after phase 1: 9 | PRSS: 7.1455 
+    refine iter 9 | k = 9 | PRSS: 7.1455 
+    refine iter 10 | k = 9 | PRSS: 7.1455 
+    refine iter 11 | k = 9 | PRSS: 7.1455 
+    refine iter 12 | k = 9 | PRSS: 7.1455 
+    refine iter 13 | k = 9 | PRSS: 7.1455 
+    best model is from iter 7 (k = 9 ) on a worker -- refitting here
+  [ LEC | HKG_SKCS ] cells: 190 | unique GOI: 189 | max k: 10 | donors: 23 | donor RE: YES | sum(w): 23 
+    init iter 1 | k = 3 | PRSS: 4.3592 
+    init iter 2 | k = 4 | PRSS: 4.3592 
+    init iter 3 | k = 5 | PRSS: 4.3592 
+    init iter 4 | k = 6 | PRSS: 4.3592 
+    init iter 5 | k = 7 | PRSS: 4.3592 
+    init iter 6 | k = 8 | PRSS: 4.3592 
+    init iter 7 | k = 9 | PRSS: 4.3592 
+    init iter 8 | k = 10 | PRSS: 4.3592 
+    best k after phase 1: 5 | PRSS: 4.3592 
+    refine iter 9 | k = 5 | PRSS: 4.3592 
+    refine iter 10 | k = 5 | PRSS: 4.3592 
+    refine iter 11 | k = 5 | PRSS: 4.3592 
+    refine iter 12 | k = 5 | PRSS: 4.3592 
+    refine iter 13 | k = 5 | PRSS: 4.3592 
+    best model is from iter 3 (k = 5 ) on a worker -- refitting here
+  [ FI | DFG_SKCS ] cells: 196 | unique GOI: 195 | max k: 10 | donors: 29 | donor RE: YES | sum(w): 29 
+    init iter 1 | k = 3 | PRSS: 8.0117 
+    init iter 2 | k = 4 | PRSS: 8.0277 
+    init iter 3 | k = 5 | PRSS: 8.0358 
+    init iter 4 | k = 6 | PRSS: 8.0421 
+    init iter 5 | k = 7 | PRSS: 8.0437 
+    init iter 6 | k = 8 | PRSS: 8.0445 
+    init iter 7 | k = 9 | PRSS: 8.0449 
+    init iter 8 | k = 10 | PRSS: 8.0452 
+    best k after phase 1: 3 | PRSS: 8.0117 
+    refine iter 9 | k = 4 | PRSS: 8.0277 
+    refine iter 10 | k = 3 | PRSS: 8.0117 
+    refine iter 11 | k = 3 | PRSS: 8.0117 
+    refine iter 12 | k = 4 | PRSS: 8.0277 
+    refine iter 13 | k = 3 | PRSS: 8.0117 
+    best model is from iter 1 (k = 3 ) on a worker -- refitting here
+  [ FI | HKG_SKCS ] cells: 196 | unique GOI: 195 | max k: 10 | donors: 29 | donor RE: YES | sum(w): 29 
+    init iter 1 | k = 3 | PRSS: 7.6163 
+    init iter 2 | k = 4 | PRSS: 7.6163 
+    init iter 3 | k = 5 | PRSS: 7.6162 
+    init iter 4 | k = 6 | PRSS: 7.6163 
+    init iter 5 | k = 7 | PRSS: 7.6163 
+    init iter 6 | k = 8 | PRSS: 7.6163 
+    init iter 7 | k = 9 | PRSS: 7.6163 
+    init iter 8 | k = 10 | PRSS: 7.6163 
+    best k after phase 1: 5 | PRSS: 7.6162 
+    refine iter 9 | k = 5 | PRSS: 7.6162 
+    refine iter 10 | k = 5 | PRSS: 7.6162 
+    refine iter 11 | k = 5 | PRSS: 7.6162 
+    refine iter 12 | k = 5 | PRSS: 7.6162 
+    refine iter 13 | k = 5 | PRSS: 7.6162 
+    best model is from iter 3 (k = 5 ) on a worker -- refitting here
+  [ Pooled | DFG_SKCS ] cells: 1987 | unique GOI: 1934 | max k: 10 | donors: 80 | donor RE: YES | sum(w): 80 
+    init iter 1 | k = 3 | PRSS: 15.8613 
+    init iter 2 | k = 4 | PRSS: 15.846 
+    init iter 3 | k = 5 | PRSS: 15.8239 
+    init iter 4 | k = 6 | PRSS: 15.8114 
+    init iter 5 | k = 7 | PRSS: 15.7968 
+    init iter 6 | k = 8 | PRSS: 15.7956 
+    init iter 7 | k = 9 | PRSS: 15.7968 
+    init iter 8 | k = 10 | PRSS: 15.7955 
+    best k after phase 1: 10 | PRSS: 15.7955 
+    refine iter 9 | k = 10 | PRSS: 15.7955 
+    refine iter 10 | k = 10 | PRSS: 15.7955 
+    refine iter 11 | k = 10 | PRSS: 15.7955 
+    refine iter 12 | k = 10 | PRSS: 15.7955 
+    refine iter 13 | k = 10 | PRSS: 15.7955 
+    best model is from iter 8 (k = 10 ) on a worker -- refitting here
+  [ Pooled | HKG_SKCS ] cells: 1987 | unique GOI: 1934 | max k: 10 | donors: 80 | donor RE: YES | sum(w): 80 
+    init iter 1 | k = 3 | PRSS: 14.0618 
+    init iter 2 | k = 4 | PRSS: 14.0618 
+    init iter 3 | k = 5 | PRSS: 13.8643 
+    init iter 4 | k = 6 | PRSS: 13.8708 
+    init iter 5 | k = 7 | PRSS: 13.8661 
+    init iter 6 | k = 8 | PRSS: 13.8639 
+    init iter 7 | k = 9 | PRSS: 13.8664 
+    init iter 8 | k = 10 | PRSS: 13.8678 
+    best k after phase 1: 8 | PRSS: 13.8639 
+    refine iter 9 | k = 8 | PRSS: 13.8639 
+    refine iter 10 | k = 8 | PRSS: 13.8639 
+    refine iter 11 | k = 8 | PRSS: 13.8639 
+    refine iter 12 | k = 8 | PRSS: 13.8639 
+    refine iter 13 | k = 8 | PRSS: 13.8639 
+    best model is from iter 6 (k = 8 ) on a worker -- refitting here
+  All GOI+ GAM curve plots done.
+  DE comparison bar PNG saved: Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_DE_comparison_bar.png 
+  CEP-IP scatter PNG saved (Module1 SKCS-core)
+  CEP-IP scatter PNG saved (Part 9 baseline)
+  Merged PDF saved: Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_GAM_Results_2.pdf ( 32 parts, mixed page sizes)
+
+ ======================================================================== 
+  Part 10 NonNeoC COMPLETE
+======================================================================== 
+
+  DE summary (Part9 baseline vs Module1 SKCS-core):
+    HIP           n_full=445    n_skcs=288    KS=0.299  DE_p9=69.3%  DE_skcs=89.5%  delta=+20.2%
+    MEC           n_full=1156   n_skcs=778    KS=0.358  DE_p9=66.6%  DE_skcs=86.2%  delta=+19.6%
+    LEC           n_full=190    n_skcs=112    KS=0.413  DE_p9=36.3%  DE_skcs=87.4%  delta=+51.1%
+    FI            n_full=196    n_skcs=124    KS=0.319  DE_p9=55.4%  DE_skcs=81.4%  delta=+26.0%
+    Pooled        n_full=1987   n_skcs=1303   KS=0.305  DE_p9=65.2%  DE_skcs=87.8%  delta=+22.6%
+
+
+ ######################################################################## 
+  RUNNING: NeoC  [MT-CO3 / cDFG composite]
+######################################################################## 
+
+ ======================================================================== 
+  Part 10 Module 1 pipeline: NeoC 
+  Output dir: <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC 
+  Regions: DFC, MTG, AnG, STG, V1C, ITG 
+  GOI: MT-CO3   DFG: MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  HKG: ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 
+======================================================================== 
+
+  Part 9 estimator: donor random intercept = TRUE | models carrying it: 14 / 14 
+  Part 9 baseline DE (full population, cDFG composite, donor-aware null):
+    DFC          : 66.8%
+    MTG          : 56.4%
+    AnG          : 48.0%
+    STG          : 70.4%
+    V1C          : 72.3%
+    ITG          : 75.6%
+    Pooled       : 67.4%
+
+  Loading normalised MTX for heatmaps + HKG ...
+    Matrix: 2130 cells x 36601 genes
+  DFG resolved (heatmap): MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  HKG resolved (heatmap): ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 
+
+  Building per-region data (GOI > 0 filter) ...
+  Region DFC: 719 raw | 0 GOI=0 excluded | 719 GOI>0 retained | 67 donors | sum(w)=67.0000
+  Region MTG: 444 raw | 0 GOI=0 excluded | 444 GOI>0 retained | 61 donors | sum(w)=61.0000
+  Region AnG: 183 raw | 0 GOI=0 excluded | 183 GOI>0 retained | 37 donors | sum(w)=37.0000
+  Region STG: 272 raw | 0 GOI=0 excluded | 272 GOI>0 retained | 39 donors | sum(w)=39.0000
+  Region V1C: 302 raw | 0 GOI=0 excluded | 302 GOI>0 retained | 35 donors | sum(w)=35.0000
+  Region ITG: 210 raw | 0 GOI=0 excluded | 210 GOI>0 retained | 36 donors | sum(w)=36.0000
+
+  Cell count check (per-region):
+    DFC           n_raw=719    n_goi_neg=0      n_goi_pos=719    n_used=719    OK
+    MTG           n_raw=444    n_goi_neg=0      n_goi_pos=444    n_used=444    OK
+    AnG           n_raw=183    n_goi_neg=0      n_goi_pos=183    n_used=183    OK
+    STG           n_raw=272    n_goi_neg=0      n_goi_pos=272    n_used=272    OK
+    V1C           n_raw=302    n_goi_neg=0      n_goi_pos=302    n_used=302    OK
+    ITG           n_raw=210    n_goi_neg=0      n_goi_pos=210    n_used=210    OK
+
+------------------------------------------------------------ 
+  SECTION D4: Per-region SKCS decomposition
+------------------------------------------------------------ 
+
+-------------------------------------------------- 
+  Region: DFC 
+  [DFC] Global Spearman rho = 0.8314  |  Si_max = 179.50
+  [DFC] Using tau_b denominator | cells with ties: 23 / 719
+  [DFC] Global Kendall tau  = 0.6488
+  [DFC] SKCS-core: 468 (65.1%)  |  Non-SKCS: 251 (34.9%)  [S_norm>0.05, K>0.5]
+-------------------------------------------------- 
+  Region: MTG 
+  [MTG] Global Spearman rho = 0.8435  |  Si_max = 110.75
+  [MTG] Using tau_b denominator | cells with ties: 7 / 444
+  [MTG] Global Kendall tau  = 0.6566
+  [MTG] SKCS-core: 286 (64.4%)  |  Non-SKCS: 158 (35.6%)  [S_norm>0.05, K>0.5]
+-------------------------------------------------- 
+  Region: AnG 
+  [AnG] Global Spearman rho = 0.8248  |  Si_max = 45.50
+  [AnG] Using tau_b denominator | cells with ties: 2 / 183
+  [AnG] Global Kendall tau  = 0.6529
+  [AnG] SKCS-core: 120 (65.6%)  |  Non-SKCS: 63 (34.4%)  [S_norm>0.05, K>0.5]
+-------------------------------------------------- 
+  Region: STG 
+  [STG] Global Spearman rho = 0.8954  |  Si_max = 67.75
+  [STG] Using tau_b denominator | cells with ties: 0 / 272
+  [STG] Global Kendall tau  = 0.7228
+  [STG] SKCS-core: 188 (69.1%)  |  Non-SKCS: 84 (30.9%)  [S_norm>0.05, K>0.5]
+-------------------------------------------------- 
+  Region: V1C 
+  [V1C] Global Spearman rho = 0.8950  |  Si_max = 75.25
+  [V1C] Using tau_b denominator | cells with ties: 0 / 302
+  [V1C] Global Kendall tau  = 0.7231
+  [V1C] SKCS-core: 217 (71.9%)  |  Non-SKCS: 85 (28.1%)  [S_norm>0.05, K>0.5]
+-------------------------------------------------- 
+  Region: ITG 
+  [ITG] Global Spearman rho = 0.8896  |  Si_max = 52.25
+  [ITG] Using tau_b denominator | cells with ties: 0 / 210
+  [ITG] Global Kendall tau  = 0.7201
+  [ITG] SKCS-core: 143 (68.1%)  |  Non-SKCS: 67 (31.9%)  [S_norm>0.05, K>0.5]
+------------------------------------------------------------ 
+  SECTION D5: Pooled SKCS decomposition
+------------------------------------------------------------ 
+
+  Pooled dataset: n = 2130 cells from 6 regions
+  [NeoC_Pooled] Global Spearman rho = 0.8557  |  Si_max = 532.25
+  [NeoC_Pooled] n=2130 > 2000 -- using chunked Kendall (chunk=500)
+  [NeoC_Pooled] Using tau_b denominator | cells with ties: 89 / 2130
+  [NeoC_Pooled] Global Kendall tau  = 0.6756
+  [NeoC_Pooled] SKCS-core: 1419 (66.6%)  |  Non-SKCS: 711 (33.4%)  [S_norm>0.05, K>0.5]
+  Pooled audit: n_raw=2130 | n_goi_neg=0 | n_goi_pos=2130 | OK
+  Added 8/8 DFG expression columns to pooled scores
+  Added 9/9 HKG expression columns to pooled scores
+  Pooled SKCS scatter PDF+PNG saved
+  Pooled GOI diagnostic PDF+PNG saved
+
+------------------------------------------------------------ 
+  SECTION D6: Heatmaps
+------------------------------------------------------------ 
+
+  Building SKCS-core heatmap: DFC | n = 468 
+  Building SKCS-core heatmap: MTG | n = 286 
+  Building SKCS-core heatmap: AnG | n = 120 
+  Building SKCS-core heatmap: STG | n = 188 
+  Building SKCS-core heatmap: V1C | n = 217 
+  Building SKCS-core heatmap: ITG | n = 143 
+  Building SKCS-core heatmap: Pooled | n = 1419 
+  Building SKCS-core heatmap: AllCells_Pooled | n = 2130 
+------------------------------------------------------------ 
+  SECTION D7: GAM-REML-PRSS on SKCS-core cells
+------------------------------------------------------------ 
+
+--------------------------------------------- 
+  Region/set: DFC | SKCS-core n = 468 
+  Fitting SKCS-core DFG (cDFG) GAM ...
+  [ DFC | DFG_SKCS ] cells: 468 | unique GOI: 463 | max k: 10 | donors: 62 | donor RE: YES | sum(w): 62 
+    init iter 1 | k = 3 | PRSS: 4.4977 
+    init iter 2 | k = 4 | PRSS: 4.1892 
+    init iter 3 | k = 5 | PRSS: 4.111 
+    init iter 4 | k = 6 | PRSS: 4.0563 
+    init iter 5 | k = 7 | PRSS: 4.0644 
+    init iter 6 | k = 8 | PRSS: 4.0225 
+    init iter 7 | k = 9 | PRSS: 4.0232 
+    init iter 8 | k = 10 | PRSS: 3.9915 
+    best k after phase 1: 10 | PRSS: 3.9915 
+    refine iter 9 | k = 10 | PRSS: 3.9915 
+    refine iter 10 | k = 10 | PRSS: 3.9915 
+    refine iter 11 | k = 10 | PRSS: 3.9915 
+    refine iter 12 | k = 10 | PRSS: 3.9915 
+    refine iter 13 | k = 10 | PRSS: 3.9915 
+    best model is from iter 8 (k = 10 ) on a worker -- refitting here
+  HKG joined: 468 / 468 barcodes matched
+  Fitting SKCS-core HKG GAM ...
+  [ DFC | HKG_SKCS ] cells: 468 | unique GOI: 463 | max k: 10 | donors: 62 | donor RE: YES | sum(w): 62 
+    init iter 1 | k = 3 | PRSS: 9.0218 
+    init iter 2 | k = 4 | PRSS: 9.0218 
+    init iter 3 | k = 5 | PRSS: 9.0218 
+    init iter 4 | k = 6 | PRSS: 9.0218 
+    init iter 5 | k = 7 | PRSS: 9.0218 
+    init iter 6 | k = 8 | PRSS: 9.0218 
+    init iter 7 | k = 9 | PRSS: 9.0218 
+    init iter 8 | k = 10 | PRSS: 9.0218 
+    best k after phase 1: 3 | PRSS: 9.0218 
+    refine iter 9 | k = 4 | PRSS: 9.0218 
+    refine iter 10 | k = 3 | PRSS: 9.0218 
+    refine iter 11 | k = 3 | PRSS: 9.0218 
+    refine iter 12 | k = 4 | PRSS: 9.0218 
+    refine iter 13 | k = 3 | PRSS: 9.0218 
+    best model is from iter 1 (k = 3 ) on a worker -- refitting here
+  DE Part9=66.8%  |  DE SKCS-core=86.4%  |  delta=+19.5%
+
+  TREP: top 433 / 468 (92.6%) flagged | EP [-983.4736, 1.0000]
+  TREP sizing DE: population-level 0.9261 | summary()$dev.expl 0.9568 (B10-08)
+  TREP donor coverage: 62/62 donors represented | per-donor TREP fraction [0.500, 1.000] median 1.000
+--------------------------------------------- 
+  Region/set: MTG | SKCS-core n = 286 
+  Fitting SKCS-core DFG (cDFG) GAM ...
+  [ MTG | DFG_SKCS ] cells: 286 | unique GOI: 286 | max k: 10 | donors: 56 | donor RE: YES | sum(w): 56 
+    init iter 1 | k = 3 | PRSS: 3.5196 
+    init iter 2 | k = 4 | PRSS: 3.0105 
+    init iter 3 | k = 5 | PRSS: 2.9254 
+    init iter 4 | k = 6 | PRSS: 2.884 
+    init iter 5 | k = 7 | PRSS: 2.8907 
+    init iter 6 | k = 8 | PRSS: 2.8957 
+    init iter 7 | k = 9 | PRSS: 2.8971 
+    init iter 8 | k = 10 | PRSS: 2.8921 
+    best k after phase 1: 6 | PRSS: 2.884 
+    refine iter 9 | k = 6 | PRSS: 2.884 
+    refine iter 10 | k = 6 | PRSS: 2.884 
+    refine iter 11 | k = 6 | PRSS: 2.884 
+    refine iter 12 | k = 6 | PRSS: 2.884 
+    refine iter 13 | k = 6 | PRSS: 2.884 
+    best model is from iter 4 (k = 6 ) on a worker -- refitting here
+  HKG joined: 286 / 286 barcodes matched
+  Fitting SKCS-core HKG GAM ...
+  [ MTG | HKG_SKCS ] cells: 286 | unique GOI: 286 | max k: 10 | donors: 56 | donor RE: YES | sum(w): 56 
+    init iter 1 | k = 3 | PRSS: 5.3315 
+    init iter 2 | k = 4 | PRSS: 5.3315 
+    init iter 3 | k = 5 | PRSS: 5.3315 
+    init iter 4 | k = 6 | PRSS: 5.3315 
+    init iter 5 | k = 7 | PRSS: 5.3315 
+    init iter 6 | k = 8 | PRSS: 5.3315 
+    init iter 7 | k = 9 | PRSS: 5.3315 
+    init iter 8 | k = 10 | PRSS: 5.3315 
+    best k after phase 1: 4 | PRSS: 5.3315 
+    refine iter 9 | k = 4 | PRSS: 5.3315 
+    refine iter 10 | k = 4 | PRSS: 5.3315 
+    refine iter 11 | k = 4 | PRSS: 5.3315 
+    refine iter 12 | k = 4 | PRSS: 5.3315 
+    refine iter 13 | k = 4 | PRSS: 5.3315 
+    best model is from iter 2 (k = 4 ) on a worker -- refitting here
+  DE Part9=56.4%  |  DE SKCS-core=84.2%  |  delta=+27.8%
+
+  TREP: top 258 / 286 (90.4%) flagged | EP [-10.6637, 1.0000]
+  TREP sizing DE: population-level 0.9037 | summary()$dev.expl 0.9518 (B10-08)
+  TREP donor coverage: 53/56 donors represented | per-donor TREP fraction [0.000, 1.000] median 1.000
+--------------------------------------------- 
+  Region/set: AnG | SKCS-core n = 120 
+  Fitting SKCS-core DFG (cDFG) GAM ...
+  [ AnG | DFG_SKCS ] cells: 120 | unique GOI: 120 | max k: 10 | donors: 33 | donor RE: YES | sum(w): 33 
+    init iter 1 | k = 3 | PRSS: 2.8303 
+    init iter 2 | k = 4 | PRSS: 2.8303 
+    init iter 3 | k = 5 | PRSS: 2.6346 
+    init iter 4 | k = 6 | PRSS: 2.5823 
+    init iter 5 | k = 7 | PRSS: 2.5894 
+    init iter 6 | k = 8 | PRSS: 2.5919 
+    init iter 7 | k = 9 | PRSS: 2.5973 
+    init iter 8 | k = 10 | PRSS: 2.5935 
+    best k after phase 1: 6 | PRSS: 2.5823 
+    refine iter 9 | k = 6 | PRSS: 2.5823 
+    refine iter 10 | k = 6 | PRSS: 2.5823 
+    refine iter 11 | k = 6 | PRSS: 2.5823 
+    refine iter 12 | k = 6 | PRSS: 2.5823 
+    refine iter 13 | k = 6 | PRSS: 2.5823 
+    best model is from iter 4 (k = 6 ) on a worker -- refitting here
+  HKG joined: 120 / 120 barcodes matched
+  Fitting SKCS-core HKG GAM ...
+  [ AnG | HKG_SKCS ] cells: 120 | unique GOI: 120 | max k: 10 | donors: 33 | donor RE: YES | sum(w): 33 
+    init iter 1 | k = 3 | PRSS: 8.4205 
+    init iter 2 | k = 4 | PRSS: 8.2964 
+    init iter 3 | k = 5 | PRSS: 8.3066 
+    init iter 4 | k = 6 | PRSS: 8.3166 
+    init iter 5 | k = 7 | PRSS: 8.3267 
+    init iter 6 | k = 8 | PRSS: 8.3311 
+    init iter 7 | k = 9 | PRSS: 8.3264 
+    init iter 8 | k = 10 | PRSS: 8.3264 
+    best k after phase 1: 4 | PRSS: 8.2964 
+    refine iter 9 | k = 4 | PRSS: 8.2964 
+    refine iter 10 | k = 4 | PRSS: 8.2964 
+    refine iter 11 | k = 4 | PRSS: 8.2964 
+    refine iter 12 | k = 4 | PRSS: 8.2964 
+    refine iter 13 | k = 4 | PRSS: 8.2964 
+    best model is from iter 2 (k = 4 ) on a worker -- refitting here
+  DE Part9=48.0%  |  DE SKCS-core=77.2%  |  delta=+29.2%
+
+  TREP: top 109 / 120 (90.5%) flagged | EP [-111.9825, 1.0000]
+  TREP sizing DE: population-level 0.9046 | summary()$dev.expl 0.9573 (B10-08)
+  TREP donor coverage: 32/33 donors represented | per-donor TREP fraction [0.000, 1.000] median 1.000
+--------------------------------------------- 
+  Region/set: STG | SKCS-core n = 188 
+  Fitting SKCS-core DFG (cDFG) GAM ...
+  [ STG | DFG_SKCS ] cells: 188 | unique GOI: 188 | max k: 10 | donors: 33 | donor RE: YES | sum(w): 33 
+    init iter 1 | k = 3 | PRSS: 1.9192 
+    init iter 2 | k = 4 | PRSS: 1.8076 
+    init iter 3 | k = 5 | PRSS: 1.7543 
+    init iter 4 | k = 6 | PRSS: 1.7335 
+    init iter 5 | k = 7 | PRSS: 1.7102 
+    init iter 6 | k = 8 | PRSS: 1.7088 
+    init iter 7 | k = 9 | PRSS: 1.7038 
+    init iter 8 | k = 10 | PRSS: 1.6982 
+    best k after phase 1: 10 | PRSS: 1.6982 
+    refine iter 9 | k = 10 | PRSS: 1.6982 
+    refine iter 10 | k = 10 | PRSS: 1.6982 
+    refine iter 11 | k = 10 | PRSS: 1.6982 
+    refine iter 12 | k = 10 | PRSS: 1.6982 
+    refine iter 13 | k = 10 | PRSS: 1.6982 
+    best model is from iter 8 (k = 10 ) on a worker -- refitting here
+  HKG joined: 188 / 188 barcodes matched
+  Fitting SKCS-core HKG GAM ...
+  [ STG | HKG_SKCS ] cells: 188 | unique GOI: 188 | max k: 10 | donors: 33 | donor RE: YES | sum(w): 33 
+    init iter 1 | k = 3 | PRSS: 3.1823 
+    init iter 2 | k = 4 | PRSS: 3.2056 
+    init iter 3 | k = 5 | PRSS: 3.209 
+    init iter 4 | k = 6 | PRSS: 3.2098 
+    init iter 5 | k = 7 | PRSS: 3.2067 
+    init iter 6 | k = 8 | PRSS: 3.2071 
+    init iter 7 | k = 9 | PRSS: 3.207 
+    init iter 8 | k = 10 | PRSS: 3.2066 
+    best k after phase 1: 3 | PRSS: 3.1823 
+    refine iter 9 | k = 4 | PRSS: 3.2056 
+    refine iter 10 | k = 3 | PRSS: 3.1823 
+    refine iter 11 | k = 3 | PRSS: 3.1823 
+    refine iter 12 | k = 4 | PRSS: 3.2056 
+    refine iter 13 | k = 3 | PRSS: 3.1823 
+    best model is from iter 1 (k = 3 ) on a worker -- refitting here
+  DE Part9=70.4%  |  DE SKCS-core=84.0%  |  delta=+13.6%
+
+  TREP: top 174 / 188 (92.7%) flagged | EP [-183.9351, 1.0000]
+  TREP sizing DE: population-level 0.9269 | summary()$dev.expl 0.9611 (B10-08)
+  TREP donor coverage: 33/33 donors represented | per-donor TREP fraction [0.667, 1.000] median 1.000
+--------------------------------------------- 
+  Region/set: V1C | SKCS-core n = 217 
+  Fitting SKCS-core DFG (cDFG) GAM ...
+  [ V1C | DFG_SKCS ] cells: 217 | unique GOI: 217 | max k: 10 | donors: 33 | donor RE: YES | sum(w): 33 
+    init iter 1 | k = 3 | PRSS: 2.8882 
+    init iter 2 | k = 4 | PRSS: 2.7698 
+    init iter 3 | k = 5 | PRSS: 2.6115 
+    init iter 4 | k = 6 | PRSS: 2.5945 
+    init iter 5 | k = 7 | PRSS: 2.593 
+    init iter 6 | k = 8 | PRSS: 2.5901 
+    init iter 7 | k = 9 | PRSS: 2.5924 
+    init iter 8 | k = 10 | PRSS: 2.5772 
+    best k after phase 1: 10 | PRSS: 2.5772 
+    refine iter 9 | k = 10 | PRSS: 2.5772 
+    refine iter 10 | k = 10 | PRSS: 2.5772 
+    refine iter 11 | k = 10 | PRSS: 2.5772 
+    refine iter 12 | k = 10 | PRSS: 2.5772 
+    refine iter 13 | k = 10 | PRSS: 2.5772 
+    best model is from iter 8 (k = 10 ) on a worker -- refitting here
+  HKG joined: 217 / 217 barcodes matched
+  Fitting SKCS-core HKG GAM ...
+  [ V1C | HKG_SKCS ] cells: 217 | unique GOI: 217 | max k: 10 | donors: 33 | donor RE: YES | sum(w): 33 
+    init iter 1 | k = 3 | PRSS: 5.0376 
+    init iter 2 | k = 4 | PRSS: 5.0376 
+    init iter 3 | k = 5 | PRSS: 5.0376 
+    init iter 4 | k = 6 | PRSS: 5.0376 
+    init iter 5 | k = 7 | PRSS: 5.0376 
+    init iter 6 | k = 8 | PRSS: 5.0376 
+    init iter 7 | k = 9 | PRSS: 5.0376 
+    init iter 8 | k = 10 | PRSS: 5.0376 
+    best k after phase 1: 7 | PRSS: 5.0376 
+    refine iter 9 | k = 7 | PRSS: 5.0376 
+    refine iter 10 | k = 7 | PRSS: 5.0376 
+    refine iter 11 | k = 7 | PRSS: 5.0376 
+    refine iter 12 | k = 7 | PRSS: 5.0376 
+    refine iter 13 | k = 7 | PRSS: 5.0376 
+    best model is from iter 5 (k = 7 ) on a worker -- refitting here
+  DE Part9=72.3%  |  DE SKCS-core=84.0%  |  delta=+11.7%
+
+  TREP: top 197 / 217 (91.0%) flagged | EP [-1685.7145, 1.0000]
+  TREP sizing DE: population-level 0.9099 | summary()$dev.expl 0.9457 (B10-08)
+  TREP donor coverage: 33/33 donors represented | per-donor TREP fraction [0.500, 1.000] median 1.000
+--------------------------------------------- 
+  Region/set: ITG | SKCS-core n = 143 
+  Fitting SKCS-core DFG (cDFG) GAM ...
+  [ ITG | DFG_SKCS ] cells: 143 | unique GOI: 143 | max k: 10 | donors: 34 | donor RE: YES | sum(w): 34 
+    init iter 1 | k = 3 | PRSS: 1.8335 
+    init iter 2 | k = 4 | PRSS: 1.3354 
+    init iter 3 | k = 5 | PRSS: 1.3086 
+    init iter 4 | k = 6 | PRSS: 1.2774 
+    init iter 5 | k = 7 | PRSS: 1.2851 
+    init iter 6 | k = 8 | PRSS: 1.2736 
+    init iter 7 | k = 9 | PRSS: 1.2769 
+    init iter 8 | k = 10 | PRSS: 1.2756 
+    best k after phase 1: 8 | PRSS: 1.2736 
+    refine iter 9 | k = 8 | PRSS: 1.2736 
+    refine iter 10 | k = 8 | PRSS: 1.2736 
+    refine iter 11 | k = 8 | PRSS: 1.2736 
+    refine iter 12 | k = 8 | PRSS: 1.2736 
+    refine iter 13 | k = 8 | PRSS: 1.2736 
+    best model is from iter 6 (k = 8 ) on a worker -- refitting here
+  HKG joined: 143 / 143 barcodes matched
+  Fitting SKCS-core HKG GAM ...
+  [ ITG | HKG_SKCS ] cells: 143 | unique GOI: 143 | max k: 10 | donors: 34 | donor RE: YES | sum(w): 34 
+    init iter 1 | k = 3 | PRSS: 3.4146 
+    init iter 2 | k = 4 | PRSS: 3.4146 
+    init iter 3 | k = 5 | PRSS: 3.4146 
+    init iter 4 | k = 6 | PRSS: 3.4146 
+    init iter 5 | k = 7 | PRSS: 3.4146 
+    init iter 6 | k = 8 | PRSS: 3.4146 
+    init iter 7 | k = 9 | PRSS: 3.4146 
+    init iter 8 | k = 10 | PRSS: 3.4146 
+    best k after phase 1: 10 | PRSS: 3.4146 
+    refine iter 9 | k = 10 | PRSS: 3.4146 
+    refine iter 10 | k = 10 | PRSS: 3.4146 
+    refine iter 11 | k = 10 | PRSS: 3.4146 
+    refine iter 12 | k = 10 | PRSS: 3.4146 
+    refine iter 13 | k = 10 | PRSS: 3.4146 
+    best model is from iter 8 (k = 10 ) on a worker -- refitting here
+  DE Part9=75.6%  |  DE SKCS-core=91.2%  |  delta=+15.6%
+
+  TREP: top 134 / 143 (94.0%) flagged | EP [-8.8001, 0.9999]
+  TREP sizing DE: population-level 0.9398 | summary()$dev.expl 0.9790 (B10-08)
+  TREP donor coverage: 33/34 donors represented | per-donor TREP fraction [0.000, 1.000] median 1.000
+--------------------------------------------- 
+  Region/set: Pooled | SKCS-core n = 1419 
+  Fitting SKCS-core DFG (cDFG) GAM ...
+  [ Pooled | DFG_SKCS ] cells: 1419 | unique GOI: 1401 | max k: 10 | donors: 74 | donor RE: YES | sum(w): 74 
+    init iter 1 | k = 3 | PRSS: 6.9673 
+    init iter 2 | k = 4 | PRSS: 6.513 
+    init iter 3 | k = 5 | PRSS: 6.2395 
+    init iter 4 | k = 6 | PRSS: 6.2124 
+    init iter 5 | k = 7 | PRSS: 6.208 
+    init iter 6 | k = 8 | PRSS: 6.1498 
+    init iter 7 | k = 9 | PRSS: 6.1484 
+    init iter 8 | k = 10 | PRSS: 6.09 
+    best k after phase 1: 10 | PRSS: 6.09 
+    refine iter 9 | k = 10 | PRSS: 6.09 
+    refine iter 10 | k = 10 | PRSS: 6.09 
+    refine iter 11 | k = 10 | PRSS: 6.09 
+    refine iter 12 | k = 10 | PRSS: 6.09 
+    refine iter 13 | k = 10 | PRSS: 6.09 
+    best model is from iter 8 (k = 10 ) on a worker -- refitting here
+  HKG joined: 1419 / 1419 barcodes matched
+  Fitting SKCS-core HKG GAM ...
+  [ Pooled | HKG_SKCS ] cells: 1419 | unique GOI: 1401 | max k: 10 | donors: 74 | donor RE: YES | sum(w): 74 
+    init iter 1 | k = 3 | PRSS: 12.839 
+    init iter 2 | k = 4 | PRSS: 12.8396 
+    init iter 3 | k = 5 | PRSS: 12.8392 
+    init iter 4 | k = 6 | PRSS: 12.8393 
+    init iter 5 | k = 7 | PRSS: 12.8373 
+    init iter 6 | k = 8 | PRSS: 12.8373 
+    init iter 7 | k = 9 | PRSS: 12.8374 
+    init iter 8 | k = 10 | PRSS: 12.8374 
+    best k after phase 1: 8 | PRSS: 12.8373 
+    refine iter 9 | k = 8 | PRSS: 12.8373 
+    refine iter 10 | k = 8 | PRSS: 12.8373 
+    refine iter 11 | k = 8 | PRSS: 12.8373 
+    refine iter 12 | k = 8 | PRSS: 12.8373 
+    refine iter 13 | k = 8 | PRSS: 12.8373 
+    best model is from iter 6 (k = 8 ) on a worker -- refitting here
+  DE Part9=67.4%  |  DE SKCS-core=87.7%  |  delta=+20.3%
+
+  TREP: top 1308 / 1419 (92.2%) flagged | EP [-86647.4083, 1.0000]
+  TREP sizing DE: population-level 0.9217 | summary()$dev.expl 0.9401 (B10-08)
+  TREP donor coverage: 74/74 donors represented | per-donor TREP fraction [0.500, 1.000] median 0.945
+------------------------------------------------------------ 
+  SECTION D7b: TREP labelling and CSV export
+------------------------------------------------------------ 
+
+  DFC           total=719 | GOI_neg=0 | SKCS=468 (TREP=433, non-TREP=35) | non-SKCS=251
+  MTG           total=444 | GOI_neg=0 | SKCS=286 (TREP=258, non-TREP=28) | non-SKCS=158
+  AnG           total=183 | GOI_neg=0 | SKCS=120 (TREP=109, non-TREP=11) | non-SKCS=63
+  STG           total=272 | GOI_neg=0 | SKCS=188 (TREP=174, non-TREP=14) | non-SKCS=84
+  V1C           total=302 | GOI_neg=0 | SKCS=217 (TREP=197, non-TREP=20) | non-SKCS=85
+  ITG           total=210 | GOI_neg=0 | SKCS=143 (TREP=134, non-TREP=9) | non-SKCS=67
+  Pooled        total=2130 | GOI_neg=0 | SKCS=1419 (TREP=1308, non-TREP=111) | non-SKCS=711
+  Pooled SKCS scores CSV saved: Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_Pooled_SKCS_scores.csv 
+
+  Cell count audit: all regions PASS
+  Excel saved: Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_GAM_Results.xlsx 
+  DE comparison CSV saved: Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_summary_DE_comparison.csv 
+
+  RDS saved: Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_GAM_models.rds  (2.8 MB, plots dropped)
+
+------------------------------------------------------------ 
+  SECTION D11: Plots -- single merged PDF
+------------------------------------------------------------ 
+
+  Building GAM curve plots ...
+  Building GAM curve plots (All GOI+) ...
+  [ DFC | DFG_SKCS ] cells: 719 | unique GOI: 709 | max k: 10 | donors: 67 | donor RE: YES | sum(w): 67 
+    init iter 1 | k = 3 | PRSS: 9.5316 
+    init iter 2 | k = 4 | PRSS: 9.4419 
+    init iter 3 | k = 5 | PRSS: 9.4542 
+    init iter 4 | k = 6 | PRSS: 9.4591 
+    init iter 5 | k = 7 | PRSS: 9.4566 
+    init iter 6 | k = 8 | PRSS: 9.4544 
+    init iter 7 | k = 9 | PRSS: 9.455 
+    init iter 8 | k = 10 | PRSS: 9.4555 
+    best k after phase 1: 4 | PRSS: 9.4419 
+    refine iter 9 | k = 4 | PRSS: 9.4419 
+    refine iter 10 | k = 4 | PRSS: 9.4419 
+    refine iter 11 | k = 4 | PRSS: 9.4419 
+    refine iter 12 | k = 4 | PRSS: 9.4419 
+    refine iter 13 | k = 4 | PRSS: 9.4419 
+    best model is from iter 2 (k = 4 ) on a worker -- refitting here
+  [ DFC | HKG_SKCS ] cells: 719 | unique GOI: 709 | max k: 10 | donors: 67 | donor RE: YES | sum(w): 67 
+    init iter 1 | k = 3 | PRSS: 10.0225 
+    init iter 2 | k = 4 | PRSS: 10.0182 
+    init iter 3 | k = 5 | PRSS: 10.0184 
+    init iter 4 | k = 6 | PRSS: 10.0183 
+    init iter 5 | k = 7 | PRSS: 10.0181 
+    init iter 6 | k = 8 | PRSS: 10.0181 
+    init iter 7 | k = 9 | PRSS: 10.018 
+    init iter 8 | k = 10 | PRSS: 10.018 
+    best k after phase 1: 10 | PRSS: 10.018 
+    refine iter 9 | k = 10 | PRSS: 10.018 
+    refine iter 10 | k = 10 | PRSS: 10.018 
+    refine iter 11 | k = 10 | PRSS: 10.018 
+    refine iter 12 | k = 10 | PRSS: 10.018 
+    refine iter 13 | k = 10 | PRSS: 10.018 
+    best model is from iter 8 (k = 10 ) on a worker -- refitting here
+  [ MTG | DFG_SKCS ] cells: 444 | unique GOI: 443 | max k: 10 | donors: 61 | donor RE: YES | sum(w): 61 
+    init iter 1 | k = 3 | PRSS: 8.8948 
+    init iter 2 | k = 4 | PRSS: 8.9075 
+    init iter 3 | k = 5 | PRSS: 8.8844 
+    init iter 4 | k = 6 | PRSS: 8.8866 
+    init iter 5 | k = 7 | PRSS: 8.8876 
+    init iter 6 | k = 8 | PRSS: 8.8882 
+    init iter 7 | k = 9 | PRSS: 8.8839 
+    init iter 8 | k = 10 | PRSS: 8.8838 
+    best k after phase 1: 10 | PRSS: 8.8838 
+    refine iter 9 | k = 10 | PRSS: 8.8838 
+    refine iter 10 | k = 10 | PRSS: 8.8838 
+    refine iter 11 | k = 10 | PRSS: 8.8838 
+    refine iter 12 | k = 10 | PRSS: 8.8838 
+    refine iter 13 | k = 10 | PRSS: 8.8838 
+    best model is from iter 8 (k = 10 ) on a worker -- refitting here
+  [ MTG | HKG_SKCS ] cells: 444 | unique GOI: 443 | max k: 10 | donors: 61 | donor RE: YES | sum(w): 61 
+    init iter 1 | k = 3 | PRSS: 7.1481 
+    init iter 2 | k = 4 | PRSS: 7.1349 
+    init iter 3 | k = 5 | PRSS: 7.138 
+    init iter 4 | k = 6 | PRSS: 7.138 
+    init iter 5 | k = 7 | PRSS: 7.1382 
+    init iter 6 | k = 8 | PRSS: 7.1386 
+    init iter 7 | k = 9 | PRSS: 7.1388 
+    init iter 8 | k = 10 | PRSS: 7.1388 
+    best k after phase 1: 4 | PRSS: 7.1349 
+    refine iter 9 | k = 4 | PRSS: 7.1349 
+    refine iter 10 | k = 4 | PRSS: 7.1349 
+    refine iter 11 | k = 4 | PRSS: 7.1349 
+    refine iter 12 | k = 4 | PRSS: 7.1349 
+    refine iter 13 | k = 4 | PRSS: 7.1349 
+    best model is from iter 2 (k = 4 ) on a worker -- refitting here
+  [ AnG | DFG_SKCS ] cells: 183 | unique GOI: 183 | max k: 10 | donors: 37 | donor RE: YES | sum(w): 37 
+    init iter 1 | k = 3 | PRSS: 7.6594 
+    init iter 2 | k = 4 | PRSS: 7.6792 
+    init iter 3 | k = 5 | PRSS: 7.6854 
+    init iter 4 | k = 6 | PRSS: 7.6861 
+    init iter 5 | k = 7 | PRSS: 7.6867 
+    init iter 6 | k = 8 | PRSS: 7.6873 
+    init iter 7 | k = 9 | PRSS: 7.6876 
+    init iter 8 | k = 10 | PRSS: 7.6879 
+    best k after phase 1: 3 | PRSS: 7.6594 
+    refine iter 9 | k = 4 | PRSS: 7.6792 
+    refine iter 10 | k = 3 | PRSS: 7.6594 
+    refine iter 11 | k = 3 | PRSS: 7.6594 
+    refine iter 12 | k = 4 | PRSS: 7.6792 
+    refine iter 13 | k = 3 | PRSS: 7.6594 
+    best model is from iter 1 (k = 3 ) on a worker -- refitting here
+  [ AnG | HKG_SKCS ] cells: 183 | unique GOI: 183 | max k: 10 | donors: 37 | donor RE: YES | sum(w): 37 
+    init iter 1 | k = 3 | PRSS: 9.205 
+    init iter 2 | k = 4 | PRSS: 9.239 
+    init iter 3 | k = 5 | PRSS: 9.2428 
+    init iter 4 | k = 6 | PRSS: 9.2453 
+    init iter 5 | k = 7 | PRSS: 9.2466 
+    init iter 6 | k = 8 | PRSS: 9.245 
+    init iter 7 | k = 9 | PRSS: 9.2457 
+    init iter 8 | k = 10 | PRSS: 9.246 
+    best k after phase 1: 3 | PRSS: 9.205 
+    refine iter 9 | k = 4 | PRSS: 9.239 
+    refine iter 10 | k = 3 | PRSS: 9.205 
+    refine iter 11 | k = 3 | PRSS: 9.205 
+    refine iter 12 | k = 4 | PRSS: 9.239 
+    refine iter 13 | k = 3 | PRSS: 9.205 
+    best model is from iter 1 (k = 3 ) on a worker -- refitting here
+  [ STG | DFG_SKCS ] cells: 272 | unique GOI: 272 | max k: 10 | donors: 39 | donor RE: YES | sum(w): 39 
+    init iter 1 | k = 3 | PRSS: 3.7323 
+    init iter 2 | k = 4 | PRSS: 3.7041 
+    init iter 3 | k = 5 | PRSS: 3.7108 
+    init iter 4 | k = 6 | PRSS: 3.7162 
+    init iter 5 | k = 7 | PRSS: 3.7132 
+    init iter 6 | k = 8 | PRSS: 3.7145 
+    init iter 7 | k = 9 | PRSS: 3.7136 
+    init iter 8 | k = 10 | PRSS: 3.7138 
+    best k after phase 1: 4 | PRSS: 3.7041 
+    refine iter 9 | k = 4 | PRSS: 3.7041 
+    refine iter 10 | k = 4 | PRSS: 3.7041 
+    refine iter 11 | k = 4 | PRSS: 3.7041 
+    refine iter 12 | k = 4 | PRSS: 3.7041 
+    refine iter 13 | k = 4 | PRSS: 3.7041 
+    best model is from iter 2 (k = 4 ) on a worker -- refitting here
+  [ STG | HKG_SKCS ] cells: 272 | unique GOI: 272 | max k: 10 | donors: 39 | donor RE: YES | sum(w): 39 
+    init iter 1 | k = 3 | PRSS: 3.876 
+    init iter 2 | k = 4 | PRSS: 3.886 
+    init iter 3 | k = 5 | PRSS: 3.8884 
+    init iter 4 | k = 6 | PRSS: 3.8894 
+    init iter 5 | k = 7 | PRSS: 3.8872 
+    init iter 6 | k = 8 | PRSS: 3.8875 
+    init iter 7 | k = 9 | PRSS: 3.8876 
+    init iter 8 | k = 10 | PRSS: 3.8876 
+    best k after phase 1: 3 | PRSS: 3.876 
+    refine iter 9 | k = 4 | PRSS: 3.886 
+    refine iter 10 | k = 3 | PRSS: 3.876 
+    refine iter 11 | k = 3 | PRSS: 3.876 
+    refine iter 12 | k = 4 | PRSS: 3.886 
+    refine iter 13 | k = 3 | PRSS: 3.876 
+    best model is from iter 1 (k = 3 ) on a worker -- refitting here
+  [ V1C | DFG_SKCS ] cells: 302 | unique GOI: 302 | max k: 10 | donors: 35 | donor RE: YES | sum(w): 35 
+    init iter 1 | k = 3 | PRSS: 3.8535 
+    init iter 2 | k = 4 | PRSS: 3.8412 
+    init iter 3 | k = 5 | PRSS: 3.8495 
+    init iter 4 | k = 6 | PRSS: 3.853 
+    init iter 5 | k = 7 | PRSS: 3.8521 
+    init iter 6 | k = 8 | PRSS: 3.8528 
+    init iter 7 | k = 9 | PRSS: 3.8513 
+    init iter 8 | k = 10 | PRSS: 3.8507 
+    best k after phase 1: 4 | PRSS: 3.8412 
+    refine iter 9 | k = 4 | PRSS: 3.8412 
+    refine iter 10 | k = 4 | PRSS: 3.8412 
+    refine iter 11 | k = 4 | PRSS: 3.8412 
+    refine iter 12 | k = 4 | PRSS: 3.8412 
+    refine iter 13 | k = 4 | PRSS: 3.8412 
+    best model is from iter 2 (k = 4 ) on a worker -- refitting here
+  [ V1C | HKG_SKCS ] cells: 302 | unique GOI: 302 | max k: 10 | donors: 35 | donor RE: YES | sum(w): 35 
+    init iter 1 | k = 3 | PRSS: 5.3552 
+    init iter 2 | k = 4 | PRSS: 5.3552 
+    init iter 3 | k = 5 | PRSS: 5.3552 
+    init iter 4 | k = 6 | PRSS: 5.3552 
+    init iter 5 | k = 7 | PRSS: 5.3552 
+    init iter 6 | k = 8 | PRSS: 5.3552 
+    init iter 7 | k = 9 | PRSS: 5.3552 
+    init iter 8 | k = 10 | PRSS: 5.3552 
+    best k after phase 1: 5 | PRSS: 5.3552 
+    refine iter 9 | k = 5 | PRSS: 5.3552 
+    refine iter 10 | k = 5 | PRSS: 5.3552 
+    refine iter 11 | k = 5 | PRSS: 5.3552 
+    refine iter 12 | k = 5 | PRSS: 5.3552 
+    refine iter 13 | k = 5 | PRSS: 5.3552 
+    best model is from iter 3 (k = 5 ) on a worker -- refitting here
+  [ ITG | DFG_SKCS ] cells: 210 | unique GOI: 210 | max k: 10 | donors: 36 | donor RE: YES | sum(w): 36 
+    init iter 1 | k = 3 | PRSS: 3.1146 
+    init iter 2 | k = 4 | PRSS: 3.0878 
+    init iter 3 | k = 5 | PRSS: 3.1016 
+    init iter 4 | k = 6 | PRSS: 3.1013 
+    init iter 5 | k = 7 | PRSS: 3.0829 
+    init iter 6 | k = 8 | PRSS: 3.0822 
+    init iter 7 | k = 9 | PRSS: 3.0827 
+    init iter 8 | k = 10 | PRSS: 3.0769 
+    best k after phase 1: 10 | PRSS: 3.0769 
+    refine iter 9 | k = 10 | PRSS: 3.0769 
+    refine iter 10 | k = 10 | PRSS: 3.0769 
+    refine iter 11 | k = 10 | PRSS: 3.0769 
+    refine iter 12 | k = 10 | PRSS: 3.0769 
+    refine iter 13 | k = 10 | PRSS: 3.0769 
+    best model is from iter 8 (k = 10 ) on a worker -- refitting here
+  [ ITG | HKG_SKCS ] cells: 210 | unique GOI: 210 | max k: 10 | donors: 36 | donor RE: YES | sum(w): 36 
+    init iter 1 | k = 3 | PRSS: 3.5099 
+    init iter 2 | k = 4 | PRSS: 3.5099 
+    init iter 3 | k = 5 | PRSS: 3.5099 
+    init iter 4 | k = 6 | PRSS: 3.5099 
+    init iter 5 | k = 7 | PRSS: 3.5099 
+    init iter 6 | k = 8 | PRSS: 3.5099 
+    init iter 7 | k = 9 | PRSS: 3.5099 
+    init iter 8 | k = 10 | PRSS: 3.5099 
+    best k after phase 1: 4 | PRSS: 3.5099 
+    refine iter 9 | k = 4 | PRSS: 3.5099 
+    refine iter 10 | k = 4 | PRSS: 3.5099 
+    refine iter 11 | k = 4 | PRSS: 3.5099 
+    refine iter 12 | k = 4 | PRSS: 3.5099 
+    refine iter 13 | k = 4 | PRSS: 3.5099 
+    best model is from iter 2 (k = 4 ) on a worker -- refitting here
+  [ Pooled | DFG_SKCS ] cells: 2130 | unique GOI: 2091 | max k: 10 | donors: 78 | donor RE: YES | sum(w): 78 
+    init iter 1 | k = 3 | PRSS: 13.9192 
+    init iter 2 | k = 4 | PRSS: 13.875 
+    init iter 3 | k = 5 | PRSS: 13.8736 
+    init iter 4 | k = 6 | PRSS: 13.8778 
+    init iter 5 | k = 7 | PRSS: 13.8788 
+    init iter 6 | k = 8 | PRSS: 13.8782 
+    init iter 7 | k = 9 | PRSS: 13.8721 
+    init iter 8 | k = 10 | PRSS: 13.872 
+    best k after phase 1: 10 | PRSS: 13.872 
+    refine iter 9 | k = 10 | PRSS: 13.872 
+    refine iter 10 | k = 10 | PRSS: 13.872 
+    refine iter 11 | k = 10 | PRSS: 13.872 
+    refine iter 12 | k = 10 | PRSS: 13.872 
+    refine iter 13 | k = 10 | PRSS: 13.872 
+    best model is from iter 8 (k = 10 ) on a worker -- refitting here
+  [ Pooled | HKG_SKCS ] cells: 2130 | unique GOI: 2091 | max k: 10 | donors: 78 | donor RE: YES | sum(w): 78 
+    init iter 1 | k = 3 | PRSS: 14.0189 
+    init iter 2 | k = 4 | PRSS: 14.0202 
+    init iter 3 | k = 5 | PRSS: 14.0206 
+    init iter 4 | k = 6 | PRSS: 14.0208 
+    init iter 5 | k = 7 | PRSS: 14.0181 
+    init iter 6 | k = 8 | PRSS: 14.0181 
+    init iter 7 | k = 9 | PRSS: 14.0181 
+    init iter 8 | k = 10 | PRSS: 14.0181 
+    best k after phase 1: 9 | PRSS: 14.0181 
+    refine iter 9 | k = 9 | PRSS: 14.0181 
+    refine iter 10 | k = 9 | PRSS: 14.0181 
+    refine iter 11 | k = 9 | PRSS: 14.0181 
+    refine iter 12 | k = 9 | PRSS: 14.0181 
+    refine iter 13 | k = 9 | PRSS: 14.0181 
+    best model is from iter 7 (k = 9 ) on a worker -- refitting here
+  All GOI+ GAM curve plots done.
+  DE comparison bar PNG saved: Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_DE_comparison_bar.png 
+  CEP-IP scatter PNG saved (Module1 SKCS-core)
+  CEP-IP scatter PNG saved (Part 9 baseline)
+  Merged PDF saved: Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_GAM_Results_2.pdf ( 43 parts, mixed page sizes)
+
+ ======================================================================== 
+  Part 10 NeoC COMPLETE
+======================================================================== 
+
+  DE summary (Part9 baseline vs Module1 SKCS-core):
+    DFC           n_full=719    n_skcs=468    KS=0.384  DE_p9=66.8%  DE_skcs=86.4%  delta=+19.6%
+    MTG           n_full=444    n_skcs=286    KS=0.370  DE_p9=56.4%  DE_skcs=84.2%  delta=+27.8%
+    AnG           n_full=183    n_skcs=120    KS=0.348  DE_p9=48.0%  DE_skcs=77.2%  delta=+29.2%
+    STG           n_full=272    n_skcs=188    KS=0.368  DE_p9=70.3%  DE_skcs=84.0%  delta=+13.6%
+    V1C           n_full=302    n_skcs=217    KS=0.390  DE_p9=72.3%  DE_skcs=84.0%  delta=+11.7%
+    ITG           n_full=210    n_skcs=143    KS=0.405  DE_p9=75.6%  DE_skcs=91.2%  delta=+15.6%
+    Pooled        n_full=2130   n_skcs=1419   KS=0.378  DE_p9=67.4%  DE_skcs=87.7%  delta=+20.3%
+
+ ======================================================================== 
+SECTION F: Non-SKCS / non-TREP second-pass GAM (optional)
+======================================================================== 
+
+  Cells flagged is_skcs == FALSE OR is_trep == FALSE in the
+  Part10 SKCS scores CSVs can be forwarded to a second-pass DFG
+  screen if desired.  Hard stop: n_cells < 50 
+
+
+ ======================================================================== 
+  Part 10 OVERALL COMPLETE (MT-CO3 / cDFG)
+======================================================================== 
+
+  Arm dir (log, guardrails, combined RDS, summary): <SEA-AD>/Part10/Part10_Mic13_PVM3 
+  Dataset dir                                   : <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC 
+  Dataset dir                                   : <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC 
+
+  Overall RDS saved: Part10_CP10K_M4_combined_results.rds  (5.3 MB, plots dropped)
+  Summary txt saved: Part10_CP10K_M4_summary_rationale.txt 
+
+  Files generated:
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/_RUN_INCOMPLETE.txt              0 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_CP10K_M4_combined_results.rds    5280 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_CP10K_M4_GAM_Log.txt      66 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_CP10K_M4_GAM_Log_messages.tmp       0 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_CP10K_M4_Guardrail_Log.txt       3 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_CP10K_M4_summary_rationale.txt       3 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_AllCells_Pooled_SKCScore_Heatmap.png     176 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_DE_comparison_bar.png      43 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_GAM_models.rds    2831 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_GAM_Results.xlsx     148 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_GAM_Results_2.pdf    2902 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_Pooled_AllGOIpos_GAM_curves.png     242 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_Pooled_CEP_IP_scatter.png      79 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_Pooled_CEP_IP_scatter_Part9_baseline.png     180 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_Pooled_GAM_curves.png     176 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_Pooled_GOI_dist_diagnostic.pdf      47 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_Pooled_GOI_dist_diagnostic.png      59 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_Pooled_SKCS_scatter.pdf     127 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_Pooled_SKCS_scatter.png      62 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_Pooled_SKCS_scores.csv     713 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_Pooled_SKCScore_Heatmap.png     128 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_summary_DE_comparison.csv       1 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_AnG_AllGOIpos_GAM_curves.png      44 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_AnG_GAM_curves.png      42 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_AnG_GOI_dist_diagnostic.pdf      12 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_AnG_GOI_dist_diagnostic.png      26 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_AnG_SKCS_scatter.pdf      16 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_AnG_SKCS_scatter.png      30 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_AnG_SKCS_scores.csv      28 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_AnG_SKCScore_Heatmap.png      47 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_DFC_AllGOIpos_GAM_curves.png     125 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_DFC_GAM_curves.png     100 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_DFC_GOI_dist_diagnostic.pdf      13 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_DFC_GOI_dist_diagnostic.png      26 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_DFC_SKCS_scatter.pdf      46 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_DFC_SKCS_scatter.png      41 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_DFC_SKCS_scores.csv     112 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_DFC_SKCScore_Heatmap.png      74 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_ITG_AllGOIpos_GAM_curves.png      47 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_ITG_GAM_curves.png      44 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_ITG_GOI_dist_diagnostic.pdf      13 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_ITG_GOI_dist_diagnostic.png      27 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_ITG_SKCS_scatter.pdf      17 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_ITG_SKCS_scatter.png      34 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_ITG_SKCS_scores.csv      33 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_ITG_SKCScore_Heatmap.png      49 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_MTG_AllGOIpos_GAM_curves.png      58 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_MTG_GAM_curves.png      51 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_MTG_GOI_dist_diagnostic.pdf      13 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_MTG_GOI_dist_diagnostic.png      28 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_MTG_SKCS_scatter.pdf      31 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_MTG_SKCS_scatter.png      39 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_MTG_SKCS_scores.csv      69 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_MTG_SKCScore_Heatmap.png      61 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_STG_AllGOIpos_GAM_curves.png      79 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_STG_GAM_curves.png      72 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_STG_GOI_dist_diagnostic.pdf      13 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_STG_GOI_dist_diagnostic.png      29 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_STG_SKCS_scatter.pdf      21 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_STG_SKCS_scatter.png      34 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_STG_SKCS_scores.csv      42 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_STG_SKCScore_Heatmap.png      53 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_V1C_AllGOIpos_GAM_curves.png      50 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_V1C_GAM_curves.png      47 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_V1C_GOI_dist_diagnostic.pdf      12 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_V1C_GOI_dist_diagnostic.png      25 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_V1C_SKCS_scatter.pdf      22 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_V1C_SKCS_scatter.png      36 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_V1C_SKCS_scores.csv      47 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_V1C_SKCScore_Heatmap.png      55 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_AllCells_Pooled_SKCScore_Heatmap.png     164 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_DE_comparison_bar.png      44 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_GAM_models.rds    2449 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_GAM_Results.xlsx     135 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_GAM_Results_2.pdf    2440 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_Pooled_AllGOIpos_GAM_curves.png     234 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_Pooled_CEP_IP_scatter.png      83 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_Pooled_CEP_IP_scatter_Part9_baseline.png     195 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_Pooled_GAM_curves.png     172 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_Pooled_GOI_dist_diagnostic.pdf      36 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_Pooled_GOI_dist_diagnostic.png      60 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_Pooled_SKCS_scatter.pdf     118 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_Pooled_SKCS_scatter.png      62 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_Pooled_SKCS_scores.csv     654 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_Pooled_SKCScore_Heatmap.png     120 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_summary_DE_comparison.csv       1 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_FI_AllGOIpos_GAM_curves.png      47 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_FI_GAM_curves.png      44 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_FI_GOI_dist_diagnostic.pdf      13 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_FI_GOI_dist_diagnostic.png      28 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_FI_SKCS_scatter.pdf      16 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_FI_SKCS_scatter.png      31 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_FI_SKCS_scores.csv      36 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_FI_SKCScore_Heatmap.png      46 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_HIP_AllGOIpos_GAM_curves.png      98 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_HIP_GAM_curves.png      83 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_HIP_GOI_dist_diagnostic.pdf      13 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_HIP_GOI_dist_diagnostic.png      28 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_HIP_SKCS_scatter.pdf      30 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_HIP_SKCS_scatter.png      36 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_HIP_SKCS_scores.csv      70 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_HIP_SKCScore_Heatmap.png      60 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_LEC_AllGOIpos_GAM_curves.png      46 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_LEC_GAM_curves.png      43 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_LEC_GOI_dist_diagnostic.pdf      13 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_LEC_GOI_dist_diagnostic.png      29 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_LEC_SKCS_scatter.pdf      16 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_LEC_SKCS_scatter.png      31 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_LEC_SKCS_scores.csv      30 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_LEC_SKCScore_Heatmap.png      46 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_MEC_AllGOIpos_GAM_curves.png     167 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_MEC_GAM_curves.png     130 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_MEC_GOI_dist_diagnostic.pdf      12 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_MEC_GOI_dist_diagnostic.png      29 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_MEC_SKCS_scatter.pdf      71 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_MEC_SKCS_scatter.png      49 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_MEC_SKCS_scores.csv     182 KB
+    <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_Mic13_PVM3_NonNeoC/Part10_subregions/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_MEC_SKCScore_Heatmap.png      93 KB
+
+ ######################################################################## 
+  SECTION H -- GLOBAL CELL COUNT GUARDRAIL
+######################################################################## 
+
+  Full cell count audit:
+
+     Tag Region Is_Pooled N_Raw N_GOI_Neg N_GOI_Pos N_Used_for_Analysis N_Donors
+ NonNeoC    HIP     FALSE   445         0       445                 445       31
+ NonNeoC    MEC     FALSE  1156         0      1156                1156       76
+ NonNeoC    LEC     FALSE   190         0       190                 190       23
+ NonNeoC     FI     FALSE   196         0       196                 196       29
+ NonNeoC Pooled      TRUE  1987         0      1987                1987       80
+    NeoC    DFC     FALSE   719         0       719                 719       67
+    NeoC    MTG     FALSE   444         0       444                 444       61
+    NeoC    AnG     FALSE   183         0       183                 183       37
+    NeoC    STG     FALSE   272         0       272                 272       39
+    NeoC    V1C     FALSE   302         0       302                 302       35
+    NeoC    ITG     FALSE   210         0       210                 210       36
+    NeoC Pooled      TRUE  2130         0      2130                2130       78
+ Sum_Weights Tally_OK                            Note
+          31     TRUE                              OK
+          76     TRUE                              OK
+          23     TRUE                              OK
+          29     TRUE                              OK
+          80     TRUE OK (sum of constituent regions)
+          67     TRUE                              OK
+          61     TRUE                              OK
+          37     TRUE                              OK
+          39     TRUE                              OK
+          35     TRUE                              OK
+          36     TRUE                              OK
+          78     TRUE OK (sum of constituent regions)
+
+************************************************************************ 
+  GUARDRAIL PASSED: N_Used_for_Analysis == N_GOI_Pos
+  for ALL regions in BOTH NeoC and NonNeoC datasets.
+************************************************************************ 
+
+  Part 10 all done. [tau_b denominator active]
+
+
+ ######################################################################## 
+  SECTION I -- POST-ANALYSIS QUALITY GUARDRAILS
+######################################################################## 
+
+  [PASS]  GR-08-NeoC-DFC  SKCS-core=468/719 (65.1%)
+  [PASS]  GR-08-NeoC-MTG  SKCS-core=286/444 (64.4%)
+  [PASS]  GR-08-NeoC-AnG  SKCS-core=120/183 (65.6%)
+  [PASS]  GR-08-NeoC-STG  SKCS-core=188/272 (69.1%)
+  [PASS]  GR-08-NeoC-V1C  SKCS-core=217/302 (71.9%)
+  [PASS]  GR-08-NeoC-ITG  SKCS-core=143/210 (68.1%)
+  [WARN]  GR-09-NeoC      SKCS-core GAM DE range: [-22.2%, 91.2%]  (n=14, donor-aware null)
+  [PASS]  GR-11-NeoC      donor RE on 14/14 fit(s); donors per fit [33, 74]; 0 fallback(s)
+  [PASS]  GR-10-NeoC-DFC  TREP=433/468 (92.5%) | sizing DE=0.9261 (B10-08)
+  [PASS]  GR-10-NeoC-MTG  TREP=258/286 (90.2%) | sizing DE=0.9037 (B10-08)
+  [PASS]  GR-10-NeoC-AnG  TREP=109/120 (90.8%) | sizing DE=0.9046 (B10-08)
+  [PASS]  GR-10-NeoC-STG  TREP=174/188 (92.6%) | sizing DE=0.9269 (B10-08)
+  [PASS]  GR-10-NeoC-V1C  TREP=197/217 (90.8%) | sizing DE=0.9099 (B10-08)
+  [PASS]  GR-10-NeoC-ITG  TREP=134/143 (93.7%) | sizing DE=0.9398 (B10-08)
+  [PASS]  GR-10-NeoC-Pooled  TREP=1308/1419 (92.2%) | sizing DE=0.9217 (B10-08)
+  [PASS]  GR-08-NonNeoC-HIP  SKCS-core=288/445 (64.7%)
+  [PASS]  GR-08-NonNeoC-MEC  SKCS-core=778/1156 (67.3%)
+  [PASS]  GR-08-NonNeoC-LEC  SKCS-core=112/190 (58.9%)
+  [PASS]  GR-08-NonNeoC-FI  SKCS-core=124/196 (63.3%)
+  [WARN]  GR-09-NonNeoC   SKCS-core GAM DE range: [-21.0%, 89.5%]  (n=10, donor-aware null)
+  [PASS]  GR-11-NonNeoC   donor RE on 10/10 fit(s); donors per fit [21, 79]; 0 fallback(s)
+  [PASS]  GR-10-NonNeoC-HIP  TREP=262/288 (91.0%) | sizing DE=0.9090 (B10-08)
+  [PASS]  GR-10-NonNeoC-MEC  TREP=717/778 (92.2%) | sizing DE=0.9217 (B10-08)
+  [PASS]  GR-10-NonNeoC-LEC  TREP=98/112 (87.5%) | sizing DE=0.8718 (B10-08)
+  [PASS]  GR-10-NonNeoC-FI  TREP=113/124 (91.1%) | sizing DE=0.9129 (B10-08)
+  [PASS]  GR-10-NonNeoC-Pooled  TREP=1202/1303 (92.2%) | sizing DE=0.9228 (B10-08)
+  Guardrail log written: <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_CP10K_M4_Guardrail_Log.txt 
+
+  Final guardrail tally: 52 PASS / 2 WARN / 0 FAIL
+  52 passed, 2 warning(s), no failures.
+
+  Log written to: <SEA-AD>/Part10/Part10_Mic13_PVM3/Part10_CP10K_M4_GAM_Log.txt  (console output and warnings) 
+  Part 10 all done: 2026-08-17 21:20:52 
+
+  PSOCK cluster stopped.

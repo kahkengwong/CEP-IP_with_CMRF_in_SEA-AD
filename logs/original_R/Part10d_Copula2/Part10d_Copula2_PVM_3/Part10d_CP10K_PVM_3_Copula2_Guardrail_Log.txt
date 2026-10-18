@@ -1,0 +1,38 @@
+========================================================================
+Part 10d Copula2 — Guardrail Log [CP10K]
+Date: 2026-08-21 19:22:59
+Arm : PVM3_all
+Normalisation: adata.X = log1p(UMIs/total x 10000), exported unchanged
+========================================================================
+
+  [PASS]  GR-01-NeoC        norm.mtx max = 8.1332  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NeoC        expm1(norm) row sums: mean = 10000.000000, max |dev| = 4.89e-10, n = 50
+  [PASS]  GR-04-NeoC        raw max = 3187, integer-like = TRUE
+  [PASS]  GR-01-NonNeoC     norm.mtx max = 7.6610  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NonNeoC     expm1(norm) row sums: mean = 10000.000000, max |dev| = 7.57e-10, n = 50
+  [PASS]  GR-04-NonNeoC     raw max = 1552, integer-like = TRUE
+  [PASS]  GR-05-NonNeoC     Part 10b EP/TREP CSV: Part10b_SKCS_PVM_3/Part10b_CP10K_PVM_3_SKCS_NonNeoC_EP_TREP_values.csv
+  [PASS]  GR-05-NeoC        Part 10b EP/TREP CSV: Part10b_SKCS_PVM_3/Part10b_CP10K_PVM_3_SKCS_NeoC_EP_TREP_values.csv
+  [PASS]  GR-06-NonNeoC     GOI-positive cells = 11132  (min = 50)
+  [PASS]  GR-07-NonNeoC     IP_thresh = 2.657153  (IPRS R(x)=0, full population)
+  [PASS]  GR-08-NonNeoC     IP in copula space: (IP_u, IP_v) = (0.5951, 0.5274)
+  [PASS]  GR-10-NonNeoC     Part 10b Pre/Post labels reproduce 1.0000 on the cDFG axis at IP_y and 0.9849 on the GOI axis at IP_x, over 6941 cell(s)
+  [PASS]  GR-11-NonNeoC     every Part 10b EP/TREP barcode has a row in the GAM data
+  [PASS]  GR-12-NonNeoC     v-direction (cDFG marginal, supplementary) -- GAP: density at IP_v = 0.0815 vs 3.0792 (v=0.25) and 3.7322 (v=0.75) | ratios 37.80, 45.81 | t = 92.57, 85.17 | p = 7.77e-267, 9.43e-231 | cells in strip 525/2/648 | IP strip holds 2 cell(s) while both flanks exceed 209 cells and the uniform-copula density 0.510: a GAP between two dense lobes, stronger than a waist
+  [PASS]  GR-09-NonNeoC     u-direction (GOI marginal, primary) -- WAIST: density at IP_u = 1.1298 vs 3.1055 (u=0.25) and 3.7396 (u=0.75) | ratios 2.75, 3.31 | t = 24.71, 29.11 | p = 5.92e-73, 1.03e-101 | cells in strip 535/207/653 | IP strip occupied; density below both flanks
+  [PASS]  GR-06-NeoC        GOI-positive cells = 13331  (min = 50)
+  [PASS]  GR-07-NeoC        IP_thresh = 2.495273  (IPRS R(x)=0, full population)
+  [PASS]  GR-08-NeoC        IP in copula space: (IP_u, IP_v) = (0.6453, 0.5589)
+  [PASS]  GR-10-NeoC        Part 10b Pre/Post labels reproduce 1.0000 on the cDFG axis at IP_y and 0.9491 on the GOI axis at IP_x, over 8407 cell(s)
+  [PASS]  GR-11-NeoC        every Part 10b EP/TREP barcode has a row in the GAM data
+  [PASS]  GR-12-NeoC        v-direction (cDFG marginal, supplementary) -- WAIST: density at IP_v = 0.4296 vs 2.9740 (v=0.25) and 3.7954 (v=0.75) | ratios 6.92, 8.84 | t = 52.76, 51.67 | p = 1.02e-182, 2.32e-213 | cells in strip 607/68/779 | IP strip occupied; density below both flanks
+  [PASS]  GR-09-NeoC        u-direction (GOI marginal, primary) -- WAIST: density at IP_u = 2.4288 vs 2.9808 (u=0.25) and 3.8608 (u=0.75) | ratios 1.23, 1.59 | t = 6.40, 14.24 | p = 3.01e-10, 9.02e-39 | cells in strip 607/501/800 | IP strip occupied; density below both flanks
+
+========================================================================
+  Total : 22
+  PASS  : 22
+  WARN  : 0
+  FAIL  : 0
+
+  Result: no failures, no warnings
+========================================================================

@@ -1,0 +1,36 @@
+========================================================================
+Part 10c Copula1 — Guardrail Log [CP10K]
+Date: 2026-08-19 18:20:28
+Arm : Mic13_PVM3
+Normalisation: adata.X = log1p(UMIs/total x 10000), exported unchanged
+========================================================================
+
+  [PASS]  GR-01-NeoC        norm.mtx max = 8.0564  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NeoC        expm1(norm) row sums: mean = 10000.000000, max |dev| = 8.44e-10, n = 50
+  [PASS]  GR-04-NeoC        raw max = 2389, integer-like = TRUE
+  [PASS]  GR-01-NonNeoC     norm.mtx max = 7.6610  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NonNeoC     expm1(norm) row sums: mean = 10000.000000, max |dev| = 5.86e-10, n = 50
+  [PASS]  GR-04-NonNeoC     raw max = 1552, integer-like = TRUE
+  [PASS]  GR-05-NonNeoC     Part 10 scores CSV: Part10_Mic13_PVM3_NonNeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_Pooled_SKCS_scores.csv
+  [PASS]  GR-05-NeoC        Part 10 scores CSV: Part10_Mic13_PVM3_NeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_Pooled_SKCS_scores.csv
+  [PASS]  GR-06-NonNeoC     Part 10b EP/TREP CSV: Part10b_SKCS_Mic13_PVM3/Part10b_CP10K_M4_SKCS_NonNeoC_EP_TREP_values.csv
+  [PASS]  GR-06-NeoC        Part 10b EP/TREP CSV: Part10b_SKCS_Mic13_PVM3/Part10b_CP10K_M4_SKCS_NeoC_EP_TREP_values.csv
+  [PASS]  GR-07-NonNeoC     GOI-positive cells = 1987  (min = 50)
+  [PASS]  GR-08-NonNeoC     Spearman rho = 0.8406  (finite & in [-1,1])
+  [PASS]  GR-09-NonNeoC     IP_thresh = 2.802522  (IPRS R(x)=0, full population)
+  [PASS]  GR-10-NonNeoC     Boundary drawn on cDFG (IP_CLASS_AXIS = cDFG) | threshold used = 2.038718 | IP_y from IPRS = 2.038718
+  [PASS]  GR-11-NonNeoC     Pre/Post labels agree with Part 10b on 1.0000 of 1303 cell(s) on the cDFG axis; 0.9900 on the other axis
+  [PASS]  GR-07-NeoC        GOI-positive cells = 2130  (min = 50)
+  [PASS]  GR-08-NeoC        Spearman rho = 0.8557  (finite & in [-1,1])
+  [PASS]  GR-09-NeoC        IP_thresh = 2.679411  (IPRS R(x)=0, full population)
+  [PASS]  GR-10-NeoC        Boundary drawn on cDFG (IP_CLASS_AXIS = cDFG) | threshold used = 1.875476 | IP_y from IPRS = 1.875476
+  [PASS]  GR-11-NeoC        Pre/Post labels agree with Part 10b on 1.0000 of 1419 cell(s) on the cDFG axis; 0.9648 on the other axis
+
+========================================================================
+  Total : 20
+  PASS  : 20
+  WARN  : 0
+  FAIL  : 0
+
+  Result: no failures, no warnings
+========================================================================

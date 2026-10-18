@@ -1,0 +1,164 @@
+Part 12 rerun -- step 20
+Script: Part12_Fig17_Analysis.r | md5 2ec0fe20e58388f27586a92d44d7e34f
+Shared file: Part12_03_Config.r | md5 df0cc2f82a0fd0947b3bb0b93bae800a
+Run ID: 20260923-2022-windows
+Start: 2026-09-23 20:22:55
+Machine: LAPTOP-M7LQ95IS | R version 4.6.1 (2026-06-24 ucrt)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6 | parallel 4.6.1
+Config: Part12_rerun/Part12_01_config.json | version 16 | md5 de727a6a529ece74865c9387be6d8831
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 20-01 script saved in Part12_rerun | Part12_Fig17_Analysis.r
+
+Pre-set reading for Definitions | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### Definitions shared by 17A to 17E and Supplementary Figure 12
+  
+  - **Units.** The step 05 unit table (arm, dataset, donor, region; at least 10 cells of the arm). NeoC and NonNeoC units are pooled within donor for 17A, 17B, 17C and Supplementary Figure 12, because a donor's regions span both region sets and neither set alone gives 10 donors with 3 regions on M4 or HKG8.
+  - **Quantities.** Module post-IP% (`module_post_pct`, supertype denominator, D28); %MT as `mito_log1p` (D5); cytoplasmic share (`cyto_share`); contamination (unit mean DecontX); log cell count (`log_n_cells`). All five are computed for every measure; each panel draws its own set.
+  - **Neuropathology measures (choice M1).** `sea-ad-quantitative-neuropathology-063026.xlsx`, sheet `Travaglini 2026 (multi-region)`. The 28 stain measures of that sheet: its 32 measure columns less the four hematoxylin nucleus measures, which are a counterstain and belong to no stain family. The 28 names are listed in the config (version 14) and read by exact name. Stain families, in drawing order: Amyloid 6E10 (9, including the two 6E10-IBA1 colocalisation measures), Tau AT8 (3), TDP43 (3), Synuclein (3), Astro GFAP (1), Microglia IBA1 (6), Neuron NeuN (3).
+  - **CPS scores.** `sea-ad_global_and_local_cps_050126.xlsx`, sheet `Travaglini 2026`: CPS_Local, CPS_Local_ABeta, CPS_Local_pTau (region-resolved) and CPS_Global, CPS_Global_ABeta, CPS_Global_pTau (one value per donor; checked constant within donor).
+  - **Joins.** Histology and CPS region names are mapped to snRNA-seq region names by the config region map only. The neuropathology sheet has one analysis region (Grey matter) and one row per donor and region (checked 2026-09-22), so no rows are averaged; the join stops if either no longer holds. ESOC and CaH have no sequencing and are left out; LEC units have no histology or CPS row. The log lists every unmapped region name and the share of units joined per arm.
+  - **Levels.**
+    - Within donor: donors with at least 3 units finite on both variables; each variable centred on its donor mean (`p12_centre_within`); rs over the pooled centred values.
+    - Between donors: donor means over units of both variables; for a global CPS score, the donor's value.
+  - **Inference.** Common rule 3: donors resampled, B = 10,000, indices drawn once per arm in the main process. Floor: 10 donors per test (common rule 4). A test below the floor is drawn as untestable.
+  - **Note, 2026-09-22, before any run.** "Once per arm" is made exact: indices are drawn once per arm and frame, so each resample draws as many donors as the frame has. The frames are the arm's histology-joined units (17A to 17C, S12 and the 17E histology-unit rows) and the arm's donor table per region set (the 17E clinical-grain rows). The 10-donor floor applies to the observed data; a resample needs 3 distinct donors.
+  - **Readability.** A two-predictor model is unreadable when the VIF of Module post-IP% and %MT, 1/(1 - r^2) from `p12_vif` on the two predictor columns of the fitted frame, is 5 or more. The VIF is taken on the full sample, not per resample.
+  
+
+Pre-set reading for 17C | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### 17C. Can Module post-IP% and %MT be separated on histology?
+  
+  - **Model.** Per arm, level and measure: rank(measure) ~ rank(Module post-IP%) + rank(%MT), standardised, no covariates. Within donor, every variable is centred on its donor before ranking. Between donors, donor means. 28 measures, 2 levels, all four arms. %MT in its log form only; the archived raw and rank variants are dropped (D5).
+  - **Inference.** The two coefficients on the same donor resamples; p by common rule 3. Sign flip (the coefficient's sign differs from the marginal rs) is a column.
+  - **Family (choice C1).** Within arm, level and predictor, over the 28 measures. The four stain blocks (Amyloid 6E10; Tau and TDP43; Microglia IBA1 and astrocyte GFAP; NeuN and synuclein) are for drawing only.
+  - **Verdict per row.** Unreadable (VIF >= 5); otherwise Module only, %MT only, Both or Neither, from the two FDRs at 0.05.
+  - **Reading.** On M4 within donor:
+    - One or more Module-only rows: Module post-IP% carries histological information beyond %MT on those measures.
+    - No Module-only rows and one or more %MT-only rows: the histology association is carried by %MT. A %MT-only row with a Module sign flip is read as shared variance the model could not allocate, not as absence of a Module association.
+    - All rows Neither or Unreadable: the data cannot separate the two on histology. This is not evidence for either.
+    - The between-donor rows are read the same way and reported beside.
+  - **Control.** HKG8, where the two predictors are expected to be weakly correlated, is read by common rule 5.
+  - **Title.** The archived panel title said cov4; the histology model carries no covariates, and the title says so.
+  
+
+Pre-set reading for 17D | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### 17D. Can Module post-IP% and %MT be separated on the clinical outcomes?
+  
+  - **Model.** The 15A clinical model with both predictors: outcome ~ cov4 + Module post-IP% + %MT, donor table, region sets fitted separately, the 9 outcomes of Figure 12, APOE e4 dose leaving the covariates when it is the outcome. Same donors as 15A. OLS p (section 4 exception 1, as 15A).
+  - **Family (choice D1).** Within arm, region set and predictor, over the 9 outcomes, as 15A. Outcome classes (cognition 3, pathology 5, APOE 1) are for drawing only.
+  - **Verdict per row.** As 17C, with the VIF from the two predictor columns of the donor frame.
+  - **Reading.** The primary rows are the M4 cognition rows in each region set, as 15A.
+    - A primary row Module only: Module post-IP% carries clinical information beyond %MT on that outcome.
+    - A primary row %MT only: that clinical association is carried by %MT, with the sign-flip reading of 17C.
+    - Neither or Unreadable: the two cannot be separated on that outcome.
+  - **Control.** HKG8 read by common rule 5. HKG8 now has its own %MT column (D5), so its verdicts change from the archived run.
+  
+
+Pre-set reading for 17E | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### 17E. Why are so many models unreadable?
+  
+  - **Estimate (choice E1).** |r| between Module post-IP% and %MT and the VIF, in exactly the frame each model uses:
+    - within donor (histology units): Spearman, NeoC and NonNeoC pooled, as 17C;
+    - between donors (histology units): Spearman on donor means, pooled, as 17C;
+    - between donors (clinical grain): Pearson on the donor table, region sets split, as 17D.
+    Donor-bootstrap intervals on |r|. No test (section 4 exception 5).
+  - **Reading.** Descriptive, read against the VIF 5 line (|r| 0.894).
+    - Rows at or above the line on the real arms and below it on HKG8: collinearity is the cause of the Unreadable verdicts in 17C and 17D.
+    - Rows below the line with Neither verdicts: the models are readable and the two predictors are not separable at this sample size.
+  
+
+SECTION A -- inputs and join
+[PASS] 20-02 05_units.csv matches the 05_Units log | Part12_rerun/05_Units/05_units.csv
+[PASS] 20-03 05_donors.csv matches the 05_Units log | Part12_rerun/05_Units/05_donors.csv
+[PASS] 20-04 unit and donor tables carry this labels version | checked
+[PASS] 20-05 the config lists 28 distinct stain measures, none also excluded | 28 listed
+  input neuropathology table         Manuscript/MetaData_&_Green_Paper/sea-ad-quantitative-neuropathology-063026.xlsx | 1.5 MB | md5 8b458c3a133cacd3524b75844c04a810
+  input CPS workbook                 Manuscript/MetaData_&_Green_Paper/sea-ad_global_and_local_cps_050126.xlsx | 0.1 MB | md5 d56fbfa910cd0e3cdf1bf8d3305695c7
+[NOTE] sheets | neuropathology 'Travaglini 2026 (multi-region)' 758 rows | CPS 'Travaglini 2026' 632 rows
+[PASS] 20-06 every column of the sheet is a key, a used measure or an excluded measure | 28 used, 4 excluded
+[PASS] 20-07 the sheet has one analysis region | Grey matter
+[PASS] 20-08 every neuropathology region is mapped or has no sequencing | all mapped
+[NOTE] neuropathology rows without sequencing, left out | 126 rows: CaH, ESOC
+[PASS] 20-09 every stain value is numeric or empty | 0 non-numeric entries
+[PASS] 20-10 one neuropathology row per donor and region | 632 rows | 84 donors
+[PASS] 20-11 every CPS region is mapped or has no sequencing | all mapped
+[PASS] 20-12 every CPS value is numeric or empty | 0 non-numeric entries
+[PASS] 20-13 one CPS row per donor and region | 632 rows | 84 donors
+[PASS] 20-14 each global CPS score is constant within donor | CPS_Global max range 0.00e+00 | CPS_Global_ABeta max range 0.00e+00 | CPS_Global_pTau max range 0.00e+00
+[PASS] 20-15 every unit-table donor has a neuropathology row | 83 of 83 donors
+[PASS] 20-16 every unit-table donor has a CPS row | 83 of 83 donors
+[NOTE] M4 join | 125 units | histology 121 | CPS 121 | regions without histology: LEC
+[NOTE] PVM_3 join | 450 units | histology 426 | CPS 426 | regions without histology: LEC, MEC
+[NOTE] PVM_1 join | 201 units | histology 196 | CPS 196 | regions without histology: LEC
+[NOTE] HKG8 join | 80 units | histology 79 | CPS 79 | regions without histology: LEC
+[PASS] 20-17 every arm has joined units | histology and CPS
+
+SECTION B -- tasks
+[NOTE] tasks | 224 17C models, 16 17E rows | testable 229
+
+SECTION C -- donor bootstrap, donors drawn per arm (B = 10000)
+[NOTE] workers | 15 of 16 logical cores (PSOCK)
+[NOTE] M4|HU bootstrap | 51 donors | 114 columns
+[NOTE] M4|CG|NeoC bootstrap | 78 donors | 1 columns
+[NOTE] M4|CG|NonNeoC bootstrap | 80 donors | 1 columns
+[NOTE] PVM_3|HU bootstrap | 83 donors | 114 columns
+[NOTE] PVM_3|CG|NeoC bootstrap | 84 donors | 1 columns
+[NOTE] PVM_3|CG|NonNeoC bootstrap | 83 donors | 1 columns
+[NOTE] PVM_1|HU bootstrap | 66 donors | 114 columns
+[NOTE] PVM_1|CG|NeoC bootstrap | 84 donors | 1 columns
+[NOTE] PVM_1|CG|NonNeoC bootstrap | 83 donors | 1 columns
+[NOTE] HKG8|HU bootstrap | 38 donors | 114 columns
+[NOTE] HKG8|CG|NeoC bootstrap | 74 donors | 1 columns
+[NOTE] HKG8|CG|NonNeoC bootstrap | 77 donors | 1 columns
+[NOTE] bootstrap time | 0.9 min
+[PASS] 20-18 bootstrap matrix complete | 10000 x 464
+
+SECTION D -- 17C, Module post-IP% and %MT in one rank model, histology
+  M4     within donor    Module only 0, %MT only 10, Both 2, Neither 14, Unreadable 0, Untestable 2 | %MT only with a Module sign flip 5 | donors 19
+  M4     between donors  Module only 3, %MT only 0, Both 0, Neither 23, Unreadable 2, Untestable 0 | %MT only with a Module sign flip 0 | donors 51
+  PVM_3  within donor    Module only 0, %MT only 15, Both 1, Neither 11, Unreadable 0, Untestable 1 | %MT only with a Module sign flip 12 | donors 69
+  PVM_3  between donors  Module only 0, %MT only 0, Both 0, Neither 0, Unreadable 28, Untestable 0 | %MT only with a Module sign flip 0 | donors 83
+  PVM_1  within donor    Module only 0, %MT only 6, Both 0, Neither 20, Unreadable 0, Untestable 2 | %MT only with a Module sign flip 6 | donors 25
+  PVM_1  between donors  Module only 0, %MT only 0, Both 0, Neither 11, Unreadable 17, Untestable 0 | %MT only with a Module sign flip 0 | donors 66
+  HKG8   within donor    Module only 0, %MT only 1, Both 0, Neither 21, Unreadable 0, Untestable 6 | %MT only with a Module sign flip 1 | donors 13
+  HKG8   between donors  Module only 0, %MT only 0, Both 0, Neither 28, Unreadable 0, Untestable 0 | %MT only with a Module sign flip 0 | donors 38
+
+SECTION E -- 17D, Module post-IP% and %MT in one cov4 model, clinical
+  M4     NeoC     Cognitive status: Neither | MMSE score: Module only | CASI score: Neither | CERAD score: Neither | Braak stage: Neither | Thal phase: Neither | ADNC rank: Neither | CAA score: Neither | APOE e4 dose: Neither
+  M4     NonNeoC  Cognitive status: Module only | MMSE score: Module only | CASI score: Neither | CERAD score: Neither | Braak stage: Neither | Thal phase: Neither | ADNC rank: Neither | CAA score: Neither | APOE e4 dose: Neither
+  PVM_3  NeoC     Cognitive status: Unreadable | MMSE score: Unreadable | CASI score: Unreadable | CERAD score: Unreadable | Braak stage: Unreadable | Thal phase: Unreadable | ADNC rank: Unreadable | CAA score: Unreadable | APOE e4 dose: Unreadable
+  PVM_3  NonNeoC  Cognitive status: Unreadable | MMSE score: Unreadable | CASI score: Unreadable | CERAD score: Unreadable | Braak stage: Unreadable | Thal phase: Unreadable | ADNC rank: Unreadable | CAA score: Unreadable | APOE e4 dose: Unreadable
+  PVM_1  NeoC     Cognitive status: Unreadable | MMSE score: Unreadable | CASI score: Unreadable | CERAD score: Unreadable | Braak stage: Unreadable | Thal phase: Unreadable | ADNC rank: Unreadable | CAA score: Unreadable | APOE e4 dose: Unreadable
+  PVM_1  NonNeoC  Cognitive status: Unreadable | MMSE score: Unreadable | CASI score: Unreadable | CERAD score: Unreadable | Braak stage: Unreadable | Thal phase: Unreadable | ADNC rank: Unreadable | CAA score: Unreadable | APOE e4 dose: Unreadable
+  HKG8   NeoC     Cognitive status: %MT only | MMSE score: %MT only | CASI score: %MT only | CERAD score: %MT only | Braak stage: %MT only | Thal phase: %MT only | ADNC rank: %MT only | CAA score: Neither | APOE e4 dose: Neither
+  HKG8   NonNeoC  Cognitive status: %MT only | MMSE score: %MT only | CASI score: %MT only | CERAD score: %MT only | Braak stage: %MT only | Thal phase: %MT only | ADNC rank: %MT only | CAA score: Neither | APOE e4 dose: Neither
+
+SECTION F -- 17E, collinearity of Module post-IP% and %MT
+  M4     within donor HU    pooled   |r| 0.474 [0.151, 0.733] | VIF 1.3 | donors 19
+  M4     between donors HU  pooled   |r| 0.879 [0.767, 0.932] | VIF 4.4 | donors 51
+  M4     between donors CG  NeoC     |r| 0.731 [0.617, 0.845] | VIF 2.1 | donors 78
+  M4     between donors CG  NonNeoC  |r| 0.653 [0.526, 0.778] | VIF 1.7 | donors 80
+  PVM_3  within donor HU    pooled   |r| 0.761 [0.702, 0.814] | VIF 2.4 | donors 69
+  PVM_3  between donors HU  pooled   |r| 0.980 [0.963, 0.986] | VIF 25.7 | donors 83
+  PVM_3  between donors CG  NeoC     |r| 0.962 [0.947, 0.975] | VIF 13.3 | donors 84
+  PVM_3  between donors CG  NonNeoC  |r| 0.957 [0.934, 0.978] | VIF 12.0 | donors 83
+  PVM_1  within donor HU    pooled   |r| 0.677 [0.538, 0.782] | VIF 1.8 | donors 25
+  PVM_1  between donors HU  pooled   |r| 0.890 [0.783, 0.954] | VIF 4.8 | donors 66
+  PVM_1  between donors CG  NeoC     |r| 0.929 [0.903, 0.957] | VIF 7.3 | donors 84
+  PVM_1  between donors CG  NonNeoC  |r| 0.908 [0.869, 0.939] | VIF 5.7 | donors 83
+  HKG8   within donor HU    pooled   |r| 0.388 [0.032, 0.705] | VIF 1.2 | donors 13
+  HKG8   between donors HU  pooled   |r| 0.347 [0.044, 0.624] | VIF 1.1 | donors 38
+  HKG8   between donors CG  NeoC     |r| 0.502 [0.260, 0.696] | VIF 1.3 | donors 74
+  HKG8   between donors CG  NonNeoC  |r| 0.279 [0.092, 0.465] | VIF 1.1 | donors 77
+
+SECTION G -- write
+[PASS] 20-19 stats and plot files written | 17C 1120 | 17D 216 | 17E 32 rows
+
+Outputs:
+  Part12_rerun/09_Fig17/17CE_ModuleVsMT/Stats_17C.csv | 0.2 MB | md5 6de773f4211a4d0c35842bd19dcb8fdc
+  Part12_rerun/09_Fig17/17CE_ModuleVsMT/Stats_17D.csv | 0.0 MB | md5 09e310d862a61eff1da4df98f961117f
+  Part12_rerun/09_Fig17/17CE_ModuleVsMT/Stats_17E.csv | 0.0 MB | md5 15c35bf37a8cfa0bbe7963a37ed8fc0e
+  Part12_rerun/09_Fig17/17CE_ModuleVsMT/Plot_17C_verdicts.csv | 0.1 MB | md5 87da0a903b0e085217b441f6018c43bb
+  Part12_rerun/09_Fig17/17CE_ModuleVsMT/Plot_17D_verdicts.csv | 0.0 MB | md5 ef59095bf2701edecfae31220db0e3ea
+Checks: 19 PASS, 0 FAIL, 0 WARN | duration 1.1 min
+VERDICT: PASS

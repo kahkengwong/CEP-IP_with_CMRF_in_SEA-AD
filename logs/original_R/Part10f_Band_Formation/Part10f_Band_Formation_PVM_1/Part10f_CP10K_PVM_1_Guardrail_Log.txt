@@ -1,0 +1,45 @@
+========================================================================
+Part 10f Band Formation - Guardrail Log [CP10K]
+Date: 2026-08-26 01:34:52
+Arm : PVM1_all
+Band: kappa = 0.5 | bw = 0.1 | coverage = 0.95
+========================================================================
+
+  [PASS]  GR-10F-01-CMRF      Part 10e results: Part10e_CMRF_PVM_1/Part10e_CP10K_PVM_1_CMRF_all_results.rds (4.3 MB)
+  [PASS]  GR-10F-02-NeoC      Validation1 RDS present; group_refined loaded for the axis check (colours come from group_orig)
+  [PASS]  GR-10F-02-NonNeoC   Validation1 RDS present; group_refined loaded for the axis check (colours come from group_orig)
+  [PASS]  GR-10F-03-NeoC      3218 cell(s): OrigRef 1821, Recovered 381, Orig-only 41, Excluded 975 | gap zone 113 = non-SKCS 87 (dark fill) + SKCS-core 26 (no symbol, ordinary four-group dot)
+  [PASS]  GR-10F-04-NeoC      band recomputed vs stored delta_adapt: max |dev| = 0.000e+00 (tolerance 1.0e-08, kappa 0.50, bw 0.10)
+  [PASS]  GR-10F-05-NeoC      spine non-decreasing on the grid (min diff 5.480e-04) -- the figure subtitles carry this verdict rather than asserting a monotone basis
+  [PASS]  GR-10F-14-NeoC      BF11 legend: Pre-IP TREP 755, Pre-IP non-TREP 1, Post-IP TREP 921, Post-IP non-TREP 144, Recovered 381, Original only 41, Excluded (RSk-fCV) 108, Non-selected 867 | total 3218 against n_cells 3218
+  [PASS]  GR-10F-15-NeoC      BF09 legend: Pre-IP TREP 755, Pre-IP non-TREP 1, Post-IP TREP 921, Post-IP non-TREP 144, Original only 41, Stage 1 within delta_base 402, Gap cells (non-SKCS) 87, Non-selected 867 | total 3218 against n_cells 3218
+  [PASS]  GR-10F-10-NeoC      rule `cDFG_expr < IP_y` (IP_y = 1.526079, drawn at IP_v = 0.566636): group_refined reproduces 100.00% over 2243 cell(s) [loaded, not drawn]; group_orig reproduces 100.00% over 1862 cell(s) [all 11 panels]
+  [PASS]  GR-10F-06-NeoC      subgroup labels loaded: Validation1 group_refined (3218 of 3218 cells matched) (colours come from group_orig on all 11 panels)
+  [PASS]  GR-10F-13-NeoC      all 11 panels colour 1862 SKCS-core cell(s) from group_orig = OrigRef 1821 + Orig-only 41; group_refined would colour 2243, a difference of 381 against Recovered 381 -- BUGFIX-10F-34 keeps the Recovered cells out of the colour layer
+  [WARN]  GR-10F-07-NeoC      Recovered: 381 cell(s) over 72 donor(s), largest share 0.079, TVD vs OrigRef 0.241 against a null p95 of 0.213 | also above their own null p95 (expected for gate-defined sets): Recovered, Excluded, Gap zone (non-SKCS), Stage 1 flat candidates, Stage 1 pool (blue+dark)
+  [PASS]  GR-10F-09-NeoC      BF10 Stage 2 removals: 108 cell(s) | Recovered 381 + Removed 108 = 489 against the non-SKCS Stage 1 pool 489 (agree) | Part 10e removed_by_stage2 (agrees with the derived set)
+  [PASS]  GR-10F-11-NeoC      BF01 spine training set: 1708 cell(s) (Pre-IP 787, Post-IP 921) against Part 10e spine_n_cells = 1708
+  [PASS]  GR-10F-12-NeoC      Gate closed with rel. RMSE increase 0.0462 against background variability 0.0505 (effect-size criterion); Wilcoxon alpha = 0.05
+  [PASS]  GR-10F-08-NeoC      RSk-fCV Wilcoxon p = 6.59e-29 (quoted in BF11)
+  [PASS]  GR-10F-03-NonNeoC   2658 cell(s): OrigRef 1618, Recovered 318, Orig-only 59, Excluded 663 | gap zone 102 = non-SKCS 87 (dark fill) + SKCS-core 15 (no symbol, ordinary four-group dot)
+  [PASS]  GR-10F-04-NonNeoC   band recomputed vs stored delta_adapt: max |dev| = 0.000e+00 (tolerance 1.0e-08, kappa 0.50, bw 0.10)
+  [PASS]  GR-10F-05-NonNeoC   spine non-decreasing on the grid (min diff 1.499e-04) -- the figure subtitles carry this verdict rather than asserting a monotone basis
+  [PASS]  GR-10F-14-NonNeoC   BF11 legend: Pre-IP TREP 701, Pre-IP non-TREP 0, Post-IP TREP 803, Post-IP non-TREP 114, Recovered 318, Original only 59, Excluded (RSk-fCV) 99, Non-selected 564 | total 2658 against n_cells 2658
+  [PASS]  GR-10F-15-NonNeoC   BF09 legend: Pre-IP TREP 701, Pre-IP non-TREP 0, Post-IP TREP 803, Post-IP non-TREP 114, Original only 59, Stage 1 within delta_base 330, Gap cells (non-SKCS) 87, Non-selected 564 | total 2658 against n_cells 2658
+  [PASS]  GR-10F-10-NonNeoC   rule `cDFG_expr < IP_y` (IP_y = 1.836287, drawn at IP_v = 0.547950): group_refined reproduces 100.00% over 1995 cell(s) [loaded, not drawn]; group_orig reproduces 100.00% over 1677 cell(s) [all 11 panels]
+  [PASS]  GR-10F-06-NonNeoC   subgroup labels loaded: Validation1 group_refined (2658 of 2658 cells matched) (colours come from group_orig on all 11 panels)
+  [PASS]  GR-10F-13-NonNeoC   all 11 panels colour 1677 SKCS-core cell(s) from group_orig = OrigRef 1618 + Orig-only 59; group_refined would colour 1995, a difference of 318 against Recovered 318 -- BUGFIX-10F-34 keeps the Recovered cells out of the colour layer
+  [WARN]  GR-10F-07-NonNeoC   Recovered: 318 cell(s) over 59 donor(s), largest share 0.079, TVD vs OrigRef 0.263 against a null p95 of 0.226 | also above their own null p95 (expected for gate-defined sets): Recovered, Original only, Excluded, Stage 1 flat candidates, Stage 1 pool (blue+dark)
+  [PASS]  GR-10F-09-NonNeoC   BF10 Stage 2 removals: 99 cell(s) | Recovered 318 + Removed 99 = 417 against the non-SKCS Stage 1 pool 417 (agree) | Part 10e removed_by_stage2 (agrees with the derived set)
+  [PASS]  GR-10F-11-NonNeoC   BF01 spine training set: 1547 cell(s) (Pre-IP 743, Post-IP 804) against Part 10e spine_n_cells = 1547
+  [PASS]  GR-10F-12-NonNeoC   Gate closed with rel. RMSE increase 0.0368 against background variability 0.0376 (effect-size criterion); Wilcoxon alpha = 0.05
+  [PASS]  GR-10F-08-NonNeoC   RSk-fCV Wilcoxon p = 1.31e-23 (quoted in BF11)
+
+========================================================================
+  Total : 29
+  PASS  : 27
+  WARN  : 2
+  FAIL  : 0
+
+  Result: no failures; review the warnings above
+========================================================================

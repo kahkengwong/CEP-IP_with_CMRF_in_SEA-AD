@@ -1,0 +1,477 @@
+Part10c Copula1 — log started: 2026-08-19 18:18:21.859678
+
+
+============================================================================
+  ARM: Mic13_PVM3   config: R_config.R
+============================================================================
+R_config.R loaded (Module 1: MT-CO3 + 8 DFGs, ≥8/10 regions).
+  ARM_TAG   : Mic13_PVM3 
+  ARM_DIR   : <SEA-AD>/R_export_CP10K/Mic13_PVM3 
+  NEOC_DIR  : <SEA-AD>/R_export_CP10K/Mic13_PVM3/neocortex 
+  NONNC_DIR : <SEA-AD>/R_export_CP10K/Mic13_PVM3/nonneocortex 
+  SHARED_DIR: <SEA-AD>/R_export_CP10K/shared 
+  GOI       : MT-CO3 
+  DFG_NEOC  : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  DFG_NONNC : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Composite : cDFG 
+  RUN_SUFFIX: (none) 
+  Supertype : Micro-PVM_3-SEAAD 
+  Mod1 genes: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 ( 9 )
+  HKG_GENES : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 2130 NeoC / 1987 NonNeoC
+  Config OK: Mic13_PVM3 | MT-CO3 + 8 DFG | CP10K
+
+  [IPRS] Not in this arm's Part10b_SKCS folder; using: <SEA-AD>/Part10b_IPRS/Part10b_IPRS_Mic13_PVM3/Part10b_IPRS_CP10K_M4_results.rds 
+  [IPRS] IP definition: IPRS R(x)=0, full population 
+  [IPRS] NonNeoC    IP_thresh set to 2.802522 (IPRS R(x)=0, full population)
+  [IPRS] NonNeoC    IP_y_thresh set to 2.038718  = f(IP_thresh), boundary axis
+  [IPRS] NeoC       IP_thresh set to 2.679411 (IPRS R(x)=0, full population)
+  [IPRS] NeoC       IP_y_thresh set to 1.875476  = f(IP_thresh), boundary axis
+
+ ======================================================================== 
+  Part10c — Copula Fundamentals
+  Arm          : Mic13_PVM3 
+  GOI          : MT-CO3 
+  DFG          : cDFG  —  MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Normalisation: CP10K  log1p(UMIs/total x  10000 )
+  Datasets     : NonNeoC, NeoC 
+  Boundary axis: cDFG (no fallback: the dataset stops if IP_y is absent)
+  Part 10 dir  : <SEA-AD>/Part10/Part10_Mic13_PVM3 
+  Part 10b EP  : <SEA-AD>/Part10b_SKCS/Part10b_SKCS_Mic13_PVM3 
+  Output dir   : <SEA-AD>/Part10c_Copula1/Part10c_Copula1_Mic13_PVM3 
+======================================================================== 
+
+
+ ======================================================================== 
+  SECTION A0 — PRE-ANALYSIS GUARDRAILS
+======================================================================== 
+
+  -- Dataset: NeoC --------------------------------------
+  [PASS]  GR-01-NeoC        norm.mtx max = 8.0564  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NeoC        expm1(norm) row sums: mean = 10000.000000, max |dev| = 8.44e-10, n = 50
+  [PASS]  GR-04-NeoC        raw max = 2389, integer-like = TRUE
+  -- Dataset: NonNeoC --------------------------------------
+  [PASS]  GR-01-NonNeoC     norm.mtx max = 7.6610  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NonNeoC     expm1(norm) row sums: mean = 10000.000000, max |dev| = 5.86e-10, n = 50
+  [PASS]  GR-04-NonNeoC     raw max = 1552, integer-like = TRUE
+  [PASS]  GR-05-NonNeoC     Part 10 scores CSV: Part10_Mic13_PVM3_NonNeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_Pooled_SKCS_scores.csv
+  [PASS]  GR-05-NeoC        Part 10 scores CSV: Part10_Mic13_PVM3_NeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_Pooled_SKCS_scores.csv
+  [PASS]  GR-06-NonNeoC     Part 10b EP/TREP CSV: Part10b_SKCS_Mic13_PVM3/Part10b_CP10K_M4_SKCS_NonNeoC_EP_TREP_values.csv
+  [PASS]  GR-06-NeoC        Part 10b EP/TREP CSV: Part10b_SKCS_Mic13_PVM3/Part10b_CP10K_M4_SKCS_NeoC_EP_TREP_values.csv
+  Guardrail log written: <SEA-AD>/Part10c_Copula1/Part10c_Copula1_Mic13_PVM3/Part10c_CP10K_M4_Copula1_Guardrail_Log.txt 
+
+  Pre-analysis guardrails: 10 PASS / 0 WARN / 0 FAIL
+  *** ALL PRE-ANALYSIS GUARDRAILS PASSED ***
+
+  [B10C-05] Pre/Post boundary drawn on IP_y = f(IP_x) on cDFG | reported IP_x = 2.802522 | threshold used = 2.038718
+
+ ======================================================================== 
+  Part10c Copula1: NonNeoC  [ Mic13_PVM3 ]
+======================================================================== 
+
+  GOI-positive cells: 1987
+
+  SKCS-core cells loaded: 1303
+
+  Using 1303 SKCS-core cells (of 1987 GOI+) for copula analysis
+
+  Part10 pooled scores loaded: 1987 rows  (Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_Pooled_SKCS_scores.csv)
+
+  Original: rho = 0.8406  |  lambda_L = 0.4429  |  lambda_U = 0.7247
+  Shuffled: rho = 0.0181  |  lambda_L = 0.0856  |  lambda_U = 0.1158
+  KS marginals: D = 0.0000  p = 1.0000
+  CvM copula distance = 0.00669  (p < 0.001)
+
+  Building Plot 1: Marginal PDFs + Joint density ...
+  Plot 1 saved
+  Building Plot 2: Copula unit square ...
+  Pre/Post label agreement with Part 10b: 1.0000 on cDFG, 0.9900 on the other axis  (n=1303)
+  Building copula cell data export ...
+  Copula cell data exported: Part10c_CP10K_M4_Copula1_NonNeoC_copula_cell_data.xlsx  (1987 rows, 15 cols)
+
+  IP_x = 2.8025 -> IP_u = Fg(IP_x) = 0.5880 | IP_y = 2.0387 -> IP_v = Fc(IP_y) = 0.5272  [full-pop n=1987, /(n+1)]
+  IP conversion: IP_x = 2.8025 -> IP_y = f(IP_x) = 2.0387  |  boundary IP_v = Fc(IP_y) = #{cDFG <= 2.0387}/(n+1) = 1048/1988 = 0.5272  |  IP_u = Fg(IP_x) = 1169/1988 = 0.5880 (GOI axis, not the boundary)
+  Plot 2 saved
+  Building Plot 2-demo: Representative cells with formulas ...
+  Plot 2-demo saved
+  Building Plot 2a: Expression-space scatter ...
+  Plot 2a saved
+  Building Plot 2b: Copula joint density with uniform marginal PDFs ...
+
+  ── Test 2C: Uniformity of copula marginals ──────────────────────
+  Dataset: NonNeoC   n = 1987
+
+  KS test  u vs Uniform(0,1): D = 0.00082   p_raw = 1.00000   p_BH = 1.00000   -> UNIFORM (fail to reject H0)
+  KS test  v vs Uniform(0,1): D = 0.00352   p_raw = 1.00000   p_BH = 1.00000   -> UNIFORM (fail to reject H0)
+  AD test  u vs Uniform(0,1): A = 0.00251   p_raw = 1.00000   p_BH = 1.00000   -> UNIFORM (fail to reject H0)
+  AD test  v vs Uniform(0,1): A = 0.01854   p_raw = 1.00000   p_BH = 1.00000   -> UNIFORM (fail to reject H0)
+  BH correction applied across all p-values in this test set.
+  Note: the edge dip visible in KDE marginal panels is a kernel
+  boundary-bias artefact of density() and does NOT affect these
+  tests, which operate on the raw rank-transformed values.
+  ─────────────────────────────────────────────────────────────────
+
+  Plot 2b saved
+  Building Plot 2c: Conditional density slices ...
+  Plot 2c saved (conditional density slices)
+  Building Plot 2d: Horizontal conditional density slices (v-direction) ...
+  Plot 2d saved (horizontal conditional density slices — v-direction)
+  Exhaustive marginal integration (all slices, both directions) ...
+    Direction 1: integrating c(u,v) dv at all 150 u-grid points ...
+    Direction 2: integrating c(u,v) du at all 150 v-grid points ...
+
+  ── Exhaustive marginal integration (all slices, both directions) ──
+  Integration limits: [0, 1]  |  Boundary-safe: [0.114, 0.886]
+
+  DIRECTION 1 — int c(u,v) dv  (82 slices in boundary-safe zone):
+    sum(I_u) / n_slices = 0.99689614
+    mean = 0.996896   sd = 0.005637   max|I-1| = 0.019518  -> PASS
+
+  DIRECTION 2 — int c(u,v) du  (82 slices in boundary-safe zone):
+    sum(I_v) / n_slices = 0.99733290
+    mean = 0.997333   sd = 0.005571   max|I-1| = 0.022985  -> PASS
+
+  OVERALL: BOTH MARGINALS VERIFIED  (tolerance: max|I-1| < 0.05 in boundary-safe zone)
+  ─────────────────────────────────────────────────────────────────
+
+
+  Test 2A: Same marginals, different dependence ...
+    KS test cDFG marginal: D=0.0000  p=1.0000
+    Spearman rho  original : 0.8406
+    Spearman rho  shuffled : 0.0181
+    CvM copula distance  : 0.006693
+    CvM permutation p    : 0.0000
+    Tail dep (original)  lambda_L=0.4429  lambda_U=0.7247
+    Tail dep (shuffled)  lambda_L=0.0856  lambda_U=0.1158
+  Building Plot 3: Original vs Shuffled joint density ...
+  Plot 3 saved
+  Building Plot 3a: Shuffled joint density with marginal PDFs ...
+  Plot 3a saved
+
+  Test 2B: Band-specific correlations ...
+    Lower tertile  (x <= 2.010)  n=663  rho=0.3729  tau=0.2539
+    Middle tertile             n=662  rho=0.4466  tau=0.3057
+    Upper tertile  (x >  3.025)  n=662  rho=0.6853  tau=0.5076
+    Global rho = 0.8406
+    Fisher z (lower vs global): z=-18.501 p=0.0000
+    Fisher z (upper vs global): z=-8.545 p=0.0000
+    Fisher z (lower vs upper) : z=-8.120 p=0.0000
+  Running permutation tests (2000 iterations each) ...
+    Perm test (lower vs upper)  obs_diff=-0.3123 p=0.0000
+    Perm test (lower vs middle) obs_diff=-0.0737 p=0.0145
+    Perm test (middle vs upper) obs_diff=-0.2387 p=0.0000
+
+  Band correlations summary:
+           band n_cells Spearman_rho Kendall_tau lambda_L_q10 lambda_U_q10
+  Lower tertile     663       0.3729      0.2539       0.3167       0.2866
+ Middle tertile     662       0.4466      0.3057       0.2568       0.2417
+  Upper tertile     662       0.6853      0.5076       0.2719       0.7704
+         Global    1987       0.8406      0.6538       0.4429       0.7247
+
+  Pairwise tests:
+      comparison rho_group1 rho_group2 Fisher_p Perm_p Fisher_sig
+  Lower vs Upper     0.3729     0.6853   0.0000 0.0000       TRUE
+ Lower vs Middle     0.3729     0.4466   0.1075 0.0145      FALSE
+ Middle vs Upper     0.4466     0.6853   0.0000 0.0000       TRUE
+ Lower vs Global     0.3729     0.8406   0.0000     NA       TRUE
+ Upper vs Global     0.6853     0.8406   0.0000     NA       TRUE
+                                              interpretation
+ Lower and upper tails have DIFFERENT rho -> masking present
+                                    Lower and middle similar
+                               Middle and upper bands differ
+ Lower band differs from global rho -> global rho is masking
+ Upper band differs from global rho -> global rho is masking
+
+  Excel saved: Part10c_CP10K_M4_Copula1_NonNeoC_copula_analysis_results.xlsx
+  Log saved: Part10c_CP10K_M4_Copula1_NonNeoC_console_log.txt
+  Displaying plots in RStudio ...
+    -> marginal_joint 
+    -> copula_unit_square 
+    -> copula_demo_cells 
+    -> expression_space_scatter 
+    -> copula_joint_density 
+    -> conditional_density_slices 
+    -> conditional_density_slices_v 
+    -> shuffled_vs_original 
+    -> shuffled_marginal_joint 
+  [B10C-05] Pre/Post boundary drawn on IP_y = f(IP_x) on cDFG | reported IP_x = 2.679411 | threshold used = 1.875476
+
+ ======================================================================== 
+  Part10c Copula1: NeoC  [ Mic13_PVM3 ]
+======================================================================== 
+
+  GOI-positive cells: 2130
+
+  SKCS-core cells loaded: 1419
+
+  Using 1419 SKCS-core cells (of 2130 GOI+) for copula analysis
+
+  Part10 pooled scores loaded: 2130 rows  (Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_Pooled_SKCS_scores.csv)
+
+  Original: rho = 0.8557  |  lambda_L = 0.4413  |  lambda_U = 0.7840
+  Shuffled: rho = 0.0055  |  lambda_L = 0.0845  |  lambda_U = 0.1033
+  KS marginals: D = 0.0000  p = 1.0000
+  CvM copula distance = 0.00707  (p < 0.001)
+
+  Building Plot 1: Marginal PDFs + Joint density ...
+  Plot 1 saved
+  Building Plot 2: Copula unit square ...
+  Pre/Post label agreement with Part 10b: 1.0000 on cDFG, 0.9648 on the other axis  (n=1419)
+  Building copula cell data export ...
+  Copula cell data exported: Part10c_CP10K_M4_Copula1_NeoC_copula_cell_data.xlsx  (2130 rows, 15 cols)
+
+  IP_x = 2.6794 -> IP_u = Fg(IP_x) = 0.6330 | IP_y = 1.8755 -> IP_v = Fc(IP_y) = 0.5382  [full-pop n=2130, /(n+1)]
+  IP conversion: IP_x = 2.6794 -> IP_y = f(IP_x) = 1.8755  |  boundary IP_v = Fc(IP_y) = #{cDFG <= 1.8755}/(n+1) = 1147/2131 = 0.5382  |  IP_u = Fg(IP_x) = 1349/2131 = 0.6330 (GOI axis, not the boundary)
+  Plot 2 saved
+  Building Plot 2-demo: Representative cells with formulas ...
+  Plot 2-demo saved
+  Building Plot 2a: Expression-space scatter ...
+  Plot 2a saved
+  Building Plot 2b: Copula joint density with uniform marginal PDFs ...
+
+  ── Test 2C: Uniformity of copula marginals ──────────────────────
+  Dataset: NeoC   n = 2130
+
+  KS test  u vs Uniform(0,1): D = 0.00068   p_raw = 1.00000   p_BH = 1.00000   -> UNIFORM (fail to reject H0)
+  KS test  v vs Uniform(0,1): D = 0.00305   p_raw = 1.00000   p_BH = 1.00000   -> UNIFORM (fail to reject H0)
+  AD test  u vs Uniform(0,1): A = 0.00235   p_raw = 1.00000   p_BH = 1.00000   -> UNIFORM (fail to reject H0)
+  AD test  v vs Uniform(0,1): A = 0.01505   p_raw = 1.00000   p_BH = 1.00000   -> UNIFORM (fail to reject H0)
+  BH correction applied across all p-values in this test set.
+  Note: the edge dip visible in KDE marginal panels is a kernel
+  boundary-bias artefact of density() and does NOT affect these
+  tests, which operate on the raw rank-transformed values.
+  ─────────────────────────────────────────────────────────────────
+
+  Plot 2b saved
+  Building Plot 2c: Conditional density slices ...
+  Plot 2c saved (conditional density slices)
+  Building Plot 2d: Horizontal conditional density slices (v-direction) ...
+  Plot 2d saved (horizontal conditional density slices — v-direction)
+  Exhaustive marginal integration (all slices, both directions) ...
+    Direction 1: integrating c(u,v) dv at all 150 u-grid points ...
+    Direction 2: integrating c(u,v) du at all 150 v-grid points ...
+
+  ── Exhaustive marginal integration (all slices, both directions) ──
+  Integration limits: [0, 1]  |  Boundary-safe: [0.112, 0.888]
+
+  DIRECTION 1 — int c(u,v) dv  (82 slices in boundary-safe zone):
+    sum(I_u) / n_slices = 0.99670517
+    mean = 0.996705   sd = 0.006266   max|I-1| = 0.028529  -> PASS
+
+  DIRECTION 2 — int c(u,v) du  (82 slices in boundary-safe zone):
+    sum(I_v) / n_slices = 0.99766231
+    mean = 0.997662   sd = 0.005370   max|I-1| = 0.017888  -> PASS
+
+  OVERALL: BOTH MARGINALS VERIFIED  (tolerance: max|I-1| < 0.05 in boundary-safe zone)
+  ─────────────────────────────────────────────────────────────────
+
+
+  Test 2A: Same marginals, different dependence ...
+    KS test cDFG marginal: D=0.0000  p=1.0000
+    Spearman rho  original : 0.8557
+    Spearman rho  shuffled : 0.0055
+    CvM copula distance  : 0.007067
+    CvM permutation p    : 0.0000
+    Tail dep (original)  lambda_L=0.4413  lambda_U=0.7840
+    Tail dep (shuffled)  lambda_L=0.0845  lambda_U=0.1033
+  Building Plot 3: Original vs Shuffled joint density ...
+  Plot 3 saved
+  Building Plot 3a: Shuffled joint density with marginal PDFs ...
+  Plot 3a saved
+
+  Test 2B: Band-specific correlations ...
+    Lower tertile  (x <= 1.802)  n=710  rho=0.4140  tau=0.2816
+    Middle tertile             n=710  rho=0.4213  tau=0.2932
+    Upper tertile  (x >  2.793)  n=710  rho=0.8034  tau=0.6205
+    Global rho = 0.8557
+    Fisher z (lower vs global): z=-19.270 p=0.0000
+    Fisher z (upper vs global): z=-3.889 p=0.0001
+    Fisher z (lower vs upper) : z=-12.555 p=0.0000
+  Running permutation tests (2000 iterations each) ...
+    Perm test (lower vs upper)  obs_diff=-0.3894 p=0.0000
+    Perm test (lower vs middle) obs_diff=-0.0074 p=0.7915
+    Perm test (middle vs upper) obs_diff=-0.3821 p=0.0000
+
+  Band correlations summary:
+           band n_cells Spearman_rho Kendall_tau lambda_L_q10 lambda_U_q10
+  Lower tertile     710       0.4140      0.2816       0.1690       0.2394
+ Middle tertile     710       0.4213      0.2932       0.2394       0.2958
+  Upper tertile     710       0.8034      0.6205       0.3380       0.8169
+         Global    2130       0.8557      0.6756       0.4413       0.7840
+
+  Pairwise tests:
+      comparison rho_group1 rho_group2 Fisher_p Perm_p Fisher_sig
+  Lower vs Upper     0.4140     0.8034   0.0000 0.0000       TRUE
+ Lower vs Middle     0.4140     0.4213   0.8670 0.7915      FALSE
+ Middle vs Upper     0.4213     0.8034   0.0000 0.0000       TRUE
+ Lower vs Global     0.4140     0.8557   0.0000     NA       TRUE
+ Upper vs Global     0.8034     0.8557   0.0001     NA       TRUE
+                                              interpretation
+ Lower and upper tails have DIFFERENT rho -> masking present
+                                    Lower and middle similar
+                               Middle and upper bands differ
+ Lower band differs from global rho -> global rho is masking
+ Upper band differs from global rho -> global rho is masking
+
+  Excel saved: Part10c_CP10K_M4_Copula1_NeoC_copula_analysis_results.xlsx
+  Log saved: Part10c_CP10K_M4_Copula1_NeoC_console_log.txt
+  Displaying plots in RStudio ...
+    -> marginal_joint 
+    -> copula_unit_square 
+    -> copula_demo_cells 
+    -> expression_space_scatter 
+    -> copula_joint_density 
+    -> conditional_density_slices 
+    -> conditional_density_slices_v 
+    -> shuffled_vs_original 
+    -> shuffled_marginal_joint 
+
+ ######################################################################## 
+  SECTION C1 — POST-ANALYSIS GUARDRAILS
+######################################################################## 
+
+  [PASS]  GR-07-NonNeoC     GOI-positive cells = 1987  (min = 50)
+  [PASS]  GR-08-NonNeoC     Spearman rho = 0.8406  (finite & in [-1,1])
+  [PASS]  GR-09-NonNeoC     IP_thresh = 2.802522  (IPRS R(x)=0, full population)
+  [PASS]  GR-10-NonNeoC     Boundary drawn on cDFG (IP_CLASS_AXIS = cDFG) | threshold used = 2.038718 | IP_y from IPRS = 2.038718
+  [PASS]  GR-11-NonNeoC     Pre/Post labels agree with Part 10b on 1.0000 of 1303 cell(s) on the cDFG axis; 0.9900 on the other axis
+  [PASS]  GR-07-NeoC        GOI-positive cells = 2130  (min = 50)
+  [PASS]  GR-08-NeoC        Spearman rho = 0.8557  (finite & in [-1,1])
+  [PASS]  GR-09-NeoC        IP_thresh = 2.679411  (IPRS R(x)=0, full population)
+  [PASS]  GR-10-NeoC        Boundary drawn on cDFG (IP_CLASS_AXIS = cDFG) | threshold used = 1.875476 | IP_y from IPRS = 1.875476
+  [PASS]  GR-11-NeoC        Pre/Post labels agree with Part 10b on 1.0000 of 1419 cell(s) on the cDFG axis; 0.9648 on the other axis
+  Guardrail log written: <SEA-AD>/Part10c_Copula1/Part10c_Copula1_Mic13_PVM3/Part10c_CP10K_M4_Copula1_Guardrail_Log.txt 
+
+  Final guardrail tally: 20 PASS / 0 WARN / 0 FAIL
+  All 20 checks passed.
+
+ ======================================================================== 
+  Part10c Copula1 COMPLETE [ Mic13_PVM3 ]
+  Output directory: <SEA-AD>/Part10c_Copula1/Part10c_Copula1_Mic13_PVM3 
+  Files generated:
+    Part10c_CP10K_M4_Copula1_all_results.rds                         96 KB
+    Part10c_CP10K_M4_Copula1_console_log_20260819_181821.txt         20 KB
+    Part10c_CP10K_M4_Copula1_Guardrail_Log.txt                        3 KB
+    Part10c_CP10K_M4_Copula1_NeoC_01_marginal_joint.pdf              48 KB
+    Part10c_CP10K_M4_Copula1_NeoC_01_marginal_joint.png             622 KB
+    Part10c_CP10K_M4_Copula1_NeoC_02_copula_demo_cells.pdf          129 KB
+    Part10c_CP10K_M4_Copula1_NeoC_02_copula_demo_cells.png          151 KB
+    Part10c_CP10K_M4_Copula1_NeoC_02_copula_unit_square.pdf         128 KB
+    Part10c_CP10K_M4_Copula1_NeoC_02_copula_unit_square.png          84 KB
+    Part10c_CP10K_M4_Copula1_NeoC_02a_expression_space_scatter.pdf    127 KB
+    Part10c_CP10K_M4_Copula1_NeoC_02a_expression_space_scatter.png     74 KB
+    Part10c_CP10K_M4_Copula1_NeoC_02b_copula_joint_density.pdf       28 KB
+    Part10c_CP10K_M4_Copula1_NeoC_02b_copula_joint_density.png      206 KB
+    Part10c_CP10K_M4_Copula1_NeoC_02c_conditional_density_slices.pdf     34 KB
+    Part10c_CP10K_M4_Copula1_NeoC_02c_conditional_density_slices.png    246 KB
+    Part10c_CP10K_M4_Copula1_NeoC_02d_conditional_density_slices_v.pdf     35 KB
+    Part10c_CP10K_M4_Copula1_NeoC_02d_conditional_density_slices_v.png    241 KB
+    Part10c_CP10K_M4_Copula1_NeoC_03_shuffled_vs_original.pdf        77 KB
+    Part10c_CP10K_M4_Copula1_NeoC_03_shuffled_vs_original.png       947 KB
+    Part10c_CP10K_M4_Copula1_NeoC_03a_shuffled_marginal_joint.pdf     71 KB
+    Part10c_CP10K_M4_Copula1_NeoC_03a_shuffled_marginal_joint.png    624 KB
+    Part10c_CP10K_M4_Copula1_NeoC_console_log.txt                     1 KB
+    Part10c_CP10K_M4_Copula1_NeoC_copula_analysis_results.xlsx       10 KB
+    Part10c_CP10K_M4_Copula1_NeoC_copula_cell_data.xlsx             246 KB
+    Part10c_CP10K_M4_Copula1_NonNeoC_01_marginal_joint.pdf           46 KB
+    Part10c_CP10K_M4_Copula1_NonNeoC_01_marginal_joint.png          581 KB
+    Part10c_CP10K_M4_Copula1_NonNeoC_02_copula_demo_cells.pdf       121 KB
+    Part10c_CP10K_M4_Copula1_NonNeoC_02_copula_demo_cells.png       148 KB
+    Part10c_CP10K_M4_Copula1_NonNeoC_02_copula_unit_square.pdf      120 KB
+    Part10c_CP10K_M4_Copula1_NonNeoC_02_copula_unit_square.png       82 KB
+    Part10c_CP10K_M4_Copula1_NonNeoC_02a_expression_space_scatter.pdf    119 KB
+    Part10c_CP10K_M4_Copula1_NonNeoC_02a_expression_space_scatter.png     83 KB
+    Part10c_CP10K_M4_Copula1_NonNeoC_02b_copula_joint_density.pdf     30 KB
+    Part10c_CP10K_M4_Copula1_NonNeoC_02b_copula_joint_density.png    218 KB
+    Part10c_CP10K_M4_Copula1_NonNeoC_02c_conditional_density_slices.pdf     35 KB
+    Part10c_CP10K_M4_Copula1_NonNeoC_02c_conditional_density_slices.png    252 KB
+    Part10c_CP10K_M4_Copula1_NonNeoC_02d_conditional_density_slices_v.pdf     35 KB
+    Part10c_CP10K_M4_Copula1_NonNeoC_02d_conditional_density_slices_v.png    250 KB
+    Part10c_CP10K_M4_Copula1_NonNeoC_03_shuffled_vs_original.pdf     73 KB
+    Part10c_CP10K_M4_Copula1_NonNeoC_03_shuffled_vs_original.png    866 KB
+    Part10c_CP10K_M4_Copula1_NonNeoC_03a_shuffled_marginal_joint.pdf     68 KB
+    Part10c_CP10K_M4_Copula1_NonNeoC_03a_shuffled_marginal_joint.png    545 KB
+    Part10c_CP10K_M4_Copula1_NonNeoC_console_log.txt                  1 KB
+    Part10c_CP10K_M4_Copula1_NonNeoC_copula_analysis_results.xlsx     10 KB
+    Part10c_CP10K_M4_Copula1_NonNeoC_copula_cell_data.xlsx          214 KB
+
+  Results object saved: Part10c_CP10K_M4_Copula1_all_results.rds
+  Load with: all_results_10c <- readRDS("<SEA-AD>/Part10c_Copula1/Part10c_Copula1_Mic13_PVM3/Part10c_CP10K_M4_Copula1_all_results.rds")
+======================================================================== 
+
+  CONCEPTUAL GUIDE TO THE OUTPUTS:
+
+  Plot 1 — Marginal PDFs + Joint density [EXPRESSION SPACE]:
+    Top p(x): bimodal marginal PDF of GOI. Its CDF Fg(x) gives each cell
+    its u value. Right p(y): bimodal marginal PDF of cDFG. Its CDF Fc(y)
+    gives each cell its v value. Main: dumbbell joint density in raw
+    expression units — two clusters (pre-IP / post-IP) connected by waist.
+
+  Plot 2 — Copula unit square:
+    Every cell mapped to (u,v) in [0,1]x[0,1] via marginal CDFs.
+    Raw expression units are gone; only rank position remains.
+    The four IP x TREP groups separate along the diagonal (pitcher plant).
+
+  Plot 2a — Expression-space scatter:
+    Same cells and colouring as Plot 2 but plotted in raw expression
+    coordinates (GOI vs cDFG) instead of copula (u,v). Vertical dashed
+    line marks the IP threshold; horizontal dashed line marks the median
+    cDFG near the IP. Shows the non-linear marginal structure that the
+    copula transform removes.
+
+  Plot 2b — Copula joint density + marginal PDFs [COPULA SPACE]:
+    Top panel p(u): approximately flat at 1 — uniform by the probability
+    integral transform theorem. The edge dip is kernel boundary bias,
+    not a true deviation; KS and AD tests on the raw values confirm
+    uniformity (Test 2C, Excel sheet: Test2C_UniformityTests).
+    Right panel p(v): same. Contrast with bimodal p(x)/p(y) in Plot 1.
+    Main panel: C(u,v) kernel density. Axes extended by 0.20 beyond
+    [0,1] to prevent boundary clipping; dotted grey lines mark [0,1].
+    The bimodal dumbbell of Plot 1 becomes a diagonal ridge (pitcher
+    plant geometry) in pure dependence space.
+
+  Test 2C — Uniformity of copula marginals:
+    KS one-sample test and Anderson-Darling test vs Uniform(0,1)
+    applied to u and v. BH correction across all 4 p-values.
+    p > 0.05 (BH) confirms uniformity. Results in Excel sheet
+    Test2C_UniformityTests and printed to console above.
+
+  Plot 2c — Vertical slices: integrating c(u,v) over v:
+    Shows 5 vertical cross-sections of the copula density at
+    u = 0.10, 0.25, 0.50, 0.75, 0.90.  Each slice has a different
+    shape but the same area (=1), proving that the u-marginal is
+    uniform.  Panel A: heatmap with slice lines.  Panel C: all
+    slices overlaid.  Panel B: faceted with area annotation.
+
+  Plot 2d — Horizontal slices: integrating c(u,v) over u:
+    Companion to Plot 2c for the OTHER direction.  Shows 5 horizontal
+    cross-sections at v = 0.10, 0.25, 0.50, 0.75, 0.90.  Same format
+    as Plot 2c.  Together, Plots 2c and 2d verify both marginals.
+
+  Exhaustive marginal integration (no figure — M10C-21):
+    Instead of checking 5 sample points, evaluates int c(u,v) dv at
+    EVERY KDE grid point across [0,1] (u as running variable), and
+    likewise int c(u,v) du at every v-grid point.  Reports:
+      sum(all slice integrals) / n_slices  (should = 1)
+      mean, sd, max|I-1|  (should be mean~1, sd~0, max~small)
+    Boundary-safe zone excludes the 2*bandwidth fringe.  Console, the
+    per-dataset log and ExhaustiveMarginal_Verification carry it.
+
+  Plot 3 — Same marginals, different dependence (Test 2A):
+    Left = real data. Right = y shuffled (same marginal, broken pairing).
+    KS test confirms marginals are identical. CvM copula distance + tail
+    lambda prove the joint structures differ fundamentally.
+
+  Band-specific correlations (Test 2B, no figure — M10C-21):
+    Global rho hides that cells at extreme GOI values have different
+    local correlation strength than cells near the IP.  Spearman rho,
+    Kendall tau-b, tail lambda and the Fisher and permutation tests
+    are in Test2B_BandCorrelations and Test2B_PairwiseTests.
+======================================================================== 
+
+  Log written to: <SEA-AD>/Part10c_Copula1/Part10c_Copula1_Mic13_PVM3/Part10c_CP10K_M4_Copula1_console_log_20260819_181821.txt  (console output and warnings) 
+
+Part10c Copula1 — log ended: 2026-08-19 18:20:30.546553

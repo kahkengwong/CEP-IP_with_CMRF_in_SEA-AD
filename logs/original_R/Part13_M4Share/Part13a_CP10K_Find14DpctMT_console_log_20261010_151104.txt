@@ -1,0 +1,58 @@
+==============================================================================
+  Part 13a - find the Figure 14D %MT
+  2026-10-10 15:11:04
+  R version 4.6.1 (2026-06-24 ucrt)
+  Root: <SEA-AD>
+==============================================================================
+
+STEP 1 -- comparator donor frame
+  <SEA-AD>/Part10h_Prognosis_1_Comparator/Part10h_Prognosis_1_Comparator_Mic13_PVM3/Part10h_CP10K_M4_Comparator_results.rds | MD5 421634b4f9b43404553f5de741a7f909 | donors 84/83
+
+STEP 2 -- candidate files
+  1 file(s) above 300 MB skipped: Null_19_Clinical.csv
+  84 file(s) to scan
+
+STEP 3 -- candidate %MT columns
+  27 candidate column version(s) before transforms
+
+STEP 4 -- Figure 14D reproduction
+  84 version(s) tried, 6 pass. Rows are published-row order: NeoC MMSE score; NonNeoC Cognitive status; NonNeoC MMSE score
+         id  pass max_abs_dbeta    n_fit            beta_fit transform
+  V004_none  TRUE   0.000488538 74/80/76 -0.529/0.415/-0.337      none
+  V022_none  TRUE   0.000488538 74/80/76 -0.529/0.415/-0.337      none
+ V003_log1p  TRUE   0.000488538 74/80/76 -0.529/0.415/-0.337     log1p
+ V001_log1p  TRUE   0.000488538 74/80/76 -0.529/0.415/-0.337     log1p
+ V023_log1p  TRUE   0.000488538 74/80/76 -0.529/0.415/-0.337     log1p
+ V025_log1p  TRUE   0.000488538 74/80/76 -0.529/0.415/-0.337     log1p
+ V004_log1p FALSE   0.008908325 74/80/76 -0.527/0.409/-0.346     log1p
+ V022_log1p FALSE   0.008908325 74/80/76 -0.527/0.409/-0.346     log1p
+   V001_log FALSE   0.043919784 74/80/76 -0.528/0.415/-0.381       log
+   V003_log FALSE   0.043919784 74/80/76 -0.528/0.415/-0.381       log
+                                                                                                                                                                  source
+                           <SEA-AD>/Part12_rerun/05_Units/05_donors.csv | csv | col mito_log1p | donor donor_key | set dataset | arm arm | as stored
+ <SEA-AD>/Part12_rerun/09_Fig17/SuppTable_Fig17.xlsx | sheet:Fig17D_donors | col mito_log1p | donor donor_key | set region_set | arm arm | as stored
+                             <SEA-AD>/Part12_rerun/05_Units/05_donors.csv | csv | col mito_pct | donor donor_key | set dataset | arm arm | as stored
+                       <SEA-AD>/Part12_rerun/04_Labels/04_cell_labels.csv | csv | col mito_pct | donor donor_id | set dataset | arm arm | donor mean
+        <SEA-AD>/Part12_rerun/10_Fig18/18BC_MTOverlap/Plot_18B_cells.csv | csv | col mito_pct | donor donor_key | set dataset | arm arm | donor mean
+  <SEA-AD>/Part12_rerun/10_Fig18/SuppTable_Fig18.xlsx | sheet:Fig18BC_cells | col mito_pct | donor donor_key | set region_set | arm arm | donor mean
+                           <SEA-AD>/Part12_rerun/05_Units/05_donors.csv | csv | col mito_log1p | donor donor_key | set dataset | arm arm | as stored
+ <SEA-AD>/Part12_rerun/09_Fig17/SuppTable_Fig17.xlsx | sheet:Fig17D_donors | col mito_log1p | donor donor_key | set region_set | arm arm | as stored
+                       <SEA-AD>/Part12_rerun/04_Labels/04_cell_labels.csv | csv | col mito_pct | donor donor_id | set dataset | arm arm | donor mean
+                             <SEA-AD>/Part12_rerun/05_Units/05_donors.csv | csv | col mito_pct | donor donor_key | set dataset | arm arm | as stored
+
+STEP 5 -- result
+  ONE set of donor values reproduces Figure 14D (6 equivalent source(s)).
+    <SEA-AD>/Part12_rerun/05_Units/05_donors.csv | csv | col mito_log1p | donor donor_key | set dataset | arm arm | as stored [none]
+    <SEA-AD>/Part12_rerun/09_Fig17/SuppTable_Fig17.xlsx | sheet:Fig17D_donors | col mito_log1p | donor donor_key | set region_set | arm arm | as stored [none]
+    <SEA-AD>/Part12_rerun/05_Units/05_donors.csv | csv | col mito_pct | donor donor_key | set dataset | arm arm | as stored [log1p]
+    <SEA-AD>/Part12_rerun/04_Labels/04_cell_labels.csv | csv | col mito_pct | donor donor_id | set dataset | arm arm | donor mean [log1p]
+    <SEA-AD>/Part12_rerun/10_Fig18/18BC_MTOverlap/Plot_18B_cells.csv | csv | col mito_pct | donor donor_key | set dataset | arm arm | donor mean [log1p]
+    <SEA-AD>/Part12_rerun/10_Fig18/SuppTable_Fig18.xlsx | sheet:Fig18BC_cells | col mito_pct | donor donor_key | set region_set | arm arm | donor mean [log1p]
+  Written: <SEA-AD>/Part13_M4Share/Part13_M4_pctMT_for14D.csv | MD5 d6c97e61ac139e8321a51c5637d5e342 | 158 donor rows
+
+  Paste into Part13_CP10K_M4Share_code.r, Section 0:
+    MT_FILE      <- "<SEA-AD>/Part13_M4Share/Part13_M4_pctMT_for14D.csv"
+    MT_TRANSFORM <- "none"   # the transform above is already applied in the file
+    MT_COLS      <- list(donor = "donor_id", dataset = "dataset", value = "pct_mt")
+
+Console log: <SEA-AD>/Part13_M4Share/Part13a_CP10K_Find14DpctMT_console_log_20261010_151104.txt

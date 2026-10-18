@@ -1,0 +1,76 @@
+Part 12 rerun -- step 25
+Script: Part12_Fig18_Plots.r | md5 624e41b565961efc737e6f3274afe8b5
+Shared file: Part12_03_Config.r | md5 df0cc2f82a0fd0947b3bb0b93bae800a
+Run ID: 20260924-2137-windows
+Start: 2026-09-24 21:37:11
+Machine: LAPTOP-M7LQ95IS | R version 4.6.1 (2026-06-24 ucrt)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6 | ggplot2 4.0.3 | gtable 0.3.6
+Config: Part12_rerun/Part12_01_config.json | version 16 | md5 de727a6a529ece74865c9387be6d8831
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 25-01 script saved in Part12_rerun | Part12_Fig18_Plots.r
+
+SECTION A -- inputs
+[PASS] 25-02 18A_NuclearPanels log was written by the current Part12_Fig18_Analysis.r | Script: Part12_Fig18_Analysis.r | md5 400e7e6b5d59719ac3dfca8ed173ee84
+[PASS] 25-03 18BC_MTOverlap log was written by the current Part12_Fig18_Analysis.r | Script: Part12_Fig18_Analysis.r | md5 400e7e6b5d59719ac3dfca8ed173ee84
+[PASS] 25-04 18DE_DonorPower log was written by the current Part12_Fig18_Analysis.r | Script: Part12_Fig18_Analysis.r | md5 400e7e6b5d59719ac3dfca8ed173ee84
+[PASS] 25-05 shared helpers identical to Part12_Fig18_Analysis.r | VK18 same | p12_18_verdict same
+[PASS] 25-06 Stats_18A.csv matches the 10_Fig18/18A_NuclearPanels log | Part12_rerun/10_Fig18/18A_NuclearPanels/Stats_18A.csv
+[PASS] 25-07 Plot_18A_verdicts.csv matches the 10_Fig18/18A_NuclearPanels log | Part12_rerun/10_Fig18/18A_NuclearPanels/Plot_18A_verdicts.csv
+[PASS] 25-08 Stats_18B.csv matches the 10_Fig18/18BC_MTOverlap log | Part12_rerun/10_Fig18/18BC_MTOverlap/Stats_18B.csv
+[PASS] 25-09 Stats_18C.csv matches the 10_Fig18/18BC_MTOverlap log | Part12_rerun/10_Fig18/18BC_MTOverlap/Stats_18C.csv
+[PASS] 25-10 Plot_18B_cells.csv matches the 10_Fig18/18BC_MTOverlap log | Part12_rerun/10_Fig18/18BC_MTOverlap/Plot_18B_cells.csv
+[PASS] 25-11 Plot_18C_donors.csv matches the 10_Fig18/18BC_MTOverlap log | Part12_rerun/10_Fig18/18BC_MTOverlap/Plot_18C_donors.csv
+[PASS] 25-12 Stats_18D.csv matches the 10_Fig18/18DE_DonorPower log | Part12_rerun/10_Fig18/18DE_DonorPower/Stats_18D.csv
+[PASS] 25-13 Plot_18D_curves.csv matches the 10_Fig18/18DE_DonorPower log | Part12_rerun/10_Fig18/18DE_DonorPower/Plot_18D_curves.csv
+[PASS] 25-14 Plot_18E_regions.csv matches the 10_Fig18/18DE_DonorPower log | Part12_rerun/10_Fig18/18DE_DonorPower/Plot_18E_regions.csv
+[PASS] 25-15 18A verdicts follow from Stats_18A | 2304 rows
+[PASS] 25-16 18C medians follow from the donor AUCs | 8 rows
+[PASS] 25-17 18D crossings follow from the curves | 36 crossings
+[PASS] 25-18 figure labels are ASCII | 30 labels
+[PASS] 25-19 figure script text is ASCII | 636 lines
+
+SECTION B -- figures
+[PASS] 25-20 Fig18A_duel_module drawn | pdf and png
+[PASS] 25-21 Fig18A_duel_mito drawn | pdf and png
+[PASS] 25-22 FigS18A_duel_module_NonNeoC drawn | pdf and png
+[PASS] 25-23 FigS18B_duel_mito_NonNeoC drawn | pdf and png
+[PASS] 25-24 Fig18B_mito_densities drawn | pdf and png
+[PASS] 25-25 FigS18C_mito_densities_NonNeoC drawn | pdf and png
+[PASS] 25-26 Fig18C_within_donor_auc drawn | pdf and png
+[PASS] 25-27 Fig18D_power_curves drawn | pdf and png
+[PASS] 25-28 FigS17_power_curves_M4 drawn | pdf and png
+[PASS] 25-29 FigS17_power_curves_PVM_3 drawn | pdf and png
+[PASS] 25-30 FigS17_power_curves_PVM_1 drawn | pdf and png
+[PASS] 25-31 FigS17_power_curves_HKG8 drawn | pdf and png
+[PASS] 25-32 Fig18E_region_check drawn | pdf and png
+
+
+Outputs:
+  Part12_rerun/10_Fig18/Fig18/Fig18A_duel_module.pdf | 0.0 MB | md5 83509b2a6e9f9c83a4b1d492ac88a6fc
+  Part12_rerun/10_Fig18/Fig18/Fig18A_duel_module.png | 0.2 MB | md5 d8949f2bceb28300c79fa0af24306b60
+  Part12_rerun/10_Fig18/Fig18/Fig18A_duel_mito.pdf | 0.0 MB | md5 a81603ac9f99b72184f4256d412437e8
+  Part12_rerun/10_Fig18/Fig18/Fig18A_duel_mito.png | 0.2 MB | md5 869071ab0d5d32413f6c94c64ec1f45e
+  Part12_rerun/10_Fig18/Fig18/FigS18A_duel_module_NonNeoC.pdf | 0.0 MB | md5 7f55a09d84d42b81ad3beb5c1de7fdd8
+  Part12_rerun/10_Fig18/Fig18/FigS18A_duel_module_NonNeoC.png | 0.2 MB | md5 6f50fb5abd715045747f1a81d0f8ad8c
+  Part12_rerun/10_Fig18/Fig18/FigS18B_duel_mito_NonNeoC.pdf | 0.0 MB | md5 e26b36f8a760259333b00db7e1b956c3
+  Part12_rerun/10_Fig18/Fig18/FigS18B_duel_mito_NonNeoC.png | 0.2 MB | md5 7025b81731bc3dffe3b5a252e97b5bff
+  Part12_rerun/10_Fig18/Fig18/Fig18B_mito_densities.pdf | 0.0 MB | md5 516ce6a92cb03cbf33d6aa6417376931
+  Part12_rerun/10_Fig18/Fig18/Fig18B_mito_densities.png | 0.1 MB | md5 4e00f383239d2b1292f8a723b673a381
+  Part12_rerun/10_Fig18/Fig18/FigS18C_mito_densities_NonNeoC.pdf | 0.0 MB | md5 6145e064a49132880c59f7d8e942d3e5
+  Part12_rerun/10_Fig18/Fig18/FigS18C_mito_densities_NonNeoC.png | 0.1 MB | md5 7910078311cc41e7a542e2735f7fee83
+  Part12_rerun/10_Fig18/Fig18/Fig18C_within_donor_auc.pdf | 0.0 MB | md5 a54f76c8feae1dfdbc9710e46bf5f6c9
+  Part12_rerun/10_Fig18/Fig18/Fig18C_within_donor_auc.png | 0.1 MB | md5 647d892797cce2d694ee017e6a8ef883
+  Part12_rerun/10_Fig18/Fig18/Fig18D_power_curves.pdf | 0.0 MB | md5 c09085f325db723d48e42f9d74b5b1d9
+  Part12_rerun/10_Fig18/Fig18/Fig18D_power_curves.png | 0.1 MB | md5 b58ddde78692d87c073a949ad0a55a20
+  Part12_rerun/10_Fig18/Fig18/FigS17_power_curves_M4.pdf | 0.0 MB | md5 37135baecc916b0946512c97a5de3cfa
+  Part12_rerun/10_Fig18/Fig18/FigS17_power_curves_M4.png | 0.1 MB | md5 c6e2801bfe532697e5531cb61f7150ed
+  Part12_rerun/10_Fig18/Fig18/FigS17_power_curves_PVM_3.pdf | 0.0 MB | md5 8931bfdde518cab37cdba619bb4e62b9
+  Part12_rerun/10_Fig18/Fig18/FigS17_power_curves_PVM_3.png | 0.1 MB | md5 05bd2f930373a3799c1bb0b39bb95bb0
+  Part12_rerun/10_Fig18/Fig18/FigS17_power_curves_PVM_1.pdf | 0.0 MB | md5 76ab23e441943662521926755f84457c
+  Part12_rerun/10_Fig18/Fig18/FigS17_power_curves_PVM_1.png | 0.1 MB | md5 fbe7bd5138dba4dadcdf5103afa64e48
+  Part12_rerun/10_Fig18/Fig18/FigS17_power_curves_HKG8.pdf | 0.0 MB | md5 3b1d3c050bc4e44fc393c927400162a1
+  Part12_rerun/10_Fig18/Fig18/FigS17_power_curves_HKG8.png | 0.1 MB | md5 07de02a556934e7aa1288c1a190895bd
+  Part12_rerun/10_Fig18/Fig18/Fig18E_region_check.pdf | 0.0 MB | md5 7aa0e6965e69c78167a3cf495b8fb654
+  Part12_rerun/10_Fig18/Fig18/Fig18E_region_check.png | 0.1 MB | md5 0a23d3a4cad3d086b3d4961b5712ece2
+Checks: 32 PASS, 0 FAIL, 0 WARN | duration 0.1 min
+VERDICT: PASS

@@ -1,0 +1,79 @@
+Part 12 rerun -- step 23
+Script: Part12_Fig18_Analysis.r | md5 400e7e6b5d59719ac3dfca8ed173ee84
+Shared file: Part12_03_Config.r | md5 df0cc2f82a0fd0947b3bb0b93bae800a
+Run ID: 20260923-2111-windows
+Start: 2026-09-23 21:11:07
+Machine: LAPTOP-M7LQ95IS | R version 4.6.1 (2026-06-24 ucrt)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16 | md5 de727a6a529ece74865c9387be6d8831
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 23-01 script saved in Part12_rerun | Part12_Fig18_Analysis.r
+
+Pre-set reading for Figure 18 definitions, | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### Figure 18 definitions, shared by 18A to 18E
+  
+  - **Arms and region sets.** All four arms. 18A, 18B and 18C keep NeoC and NonNeoC apart (18A is a clinical model, D11; 18B and 18C work on cells within a region set). 18D and 18E use the step 05 unit table with the region sets pooled within donor, as 16A and 16B do.
+  - **%MT.** The 13-gene %MT of the arm's own cells (D5): per cell for 18B and 18C, the donor mean in log1p form (`mito_log1p`) for 18A.
+  - **Module cells.** The arm's Module cells (step 04 `is_module`) against its non-Module labelled cells.
+  - **Inference.** Common rule 3 for the 18C test. 18A keeps OLS p (section 4 exception 1). 18B, 18D and 18E carry no test (exceptions 4 and 5). Simulation draws are made from the step seed per simulation cell, so the result does not depend on the worker count.
+  
+
+Pre-set reading for 18B | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### 18B. Does any %MT cut reproduce the Module cells? (descriptive)
+  
+  - **Estimate.** Per arm and region set, cells pooled over donors: the densities of log10(%MT + 0.01) for Module and non-Module cells, the AUC of %MT for Module membership, the best single cut by Youden's J, and Cohen's kappa at that cut. No test (D19); 18C is the test.
+  - **Drawn (choice B1).** Both region sets, NeoC above NonNeoC. This takes in the NonNeoC densities that sat in Supplementary Figure 15.
+  - **Reading.** Bands kept from the archived run, on the real arms.
+    - AUC below 0.60: %MT does not recover the Module cells.
+    - AUC 0.60 to 0.80: %MT carries part of the partition, and cells at the same %MT fall on both sides.
+    - AUC 0.80 or more: the Module is close to a %MT threshold.
+    - Kappa at the best cut is reported beside the AUC, with no band of its own.
+  
+
+Pre-set reading for 18C | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### 18C. Does %MT distinguish Module cells within a donor?
+  
+  - **Estimate.** Per arm, region set and donor with at least 20 Module and 20 non-Module cells (choice C1, common rule 4; the archived run used 10): the AUC of %MT for Module membership. The median over donors, with a donor-bootstrap interval; p for the median against 0.5 by common rule 3.
+  - **Family.** Within region set, over the 4 arms.
+  - **Reading.** M4 carries the reading; if M4 is below the donor floor, PVM_3 carries it (common rule 1).
+    - FDR >= 0.05: %MT does not distinguish Module from non-Module cells within a donor.
+    - Median above 0.5 with FDR < 0.05: Module cells carry more %MT within a donor; the size is read against the 18B bands.
+    - Median below 0.5 with FDR < 0.05 is reported as its own outcome.
+  - **Control.** HKG8 read by common rule 5.
+  
+
+SECTION A -- inputs
+[PASS] 23-02 04_cell_labels.csv.gz matches the 04_Labels log | Part12_rerun/04_Labels/04_cell_labels.csv.gz
+[PASS] 23-03 labels carry this labels version | 36967 cells
+[PASS] 23-04 %MT and Module membership on every cell | checked
+
+SECTION B -- 18B, cells pooled over donors
+  M4     NeoC     Module  1656 | non-Module   474 | AUC 0.586 (does not recover) | kappa 0.173 | best cut 1.21%
+  M4     NonNeoC  Module  1474 | non-Module   513 | AUC 0.547 (does not recover) | kappa 0.178 | best cut 1.30%
+  PVM_3  NeoC     Module  9454 | non-Module  3877 | AUC 0.579 (does not recover) | kappa 0.218 | best cut 0.85%
+  PVM_3  NonNeoC  Module  7735 | non-Module  3397 | AUC 0.559 (does not recover) | kappa 0.208 | best cut 1.19%
+  PVM_1  NeoC     Module  2202 | non-Module  1016 | AUC 0.633 (partial) | kappa 0.271 | best cut 0.64%
+  PVM_1  NonNeoC  Module  1936 | non-Module   722 | AUC 0.615 (partial) | kappa 0.242 | best cut 0.97%
+  HKG8   NeoC     Module   526 | non-Module   906 | AUC 0.513 (does not recover) | kappa 0.033 | best cut 1.34%
+  HKG8   NonNeoC  Module   431 | non-Module   648 | AUC 0.520 (does not recover) | kappa 0.044 | best cut 0.40%
+
+SECTION C -- 18C, within donor (20 or more cells per side)
+  M4     NeoC     donors   5 | median AUC untestable | FDR NA
+  PVM_3  NeoC     donors  59 | median AUC 0.527 [0.477, 0.599] | FDR 5.04e-01
+  PVM_1  NeoC     donors  13 | median AUC 0.576 [0.504, 0.667] | FDR 6.60e-02
+  HKG8   NeoC     donors   5 | median AUC untestable | FDR NA
+  M4     NonNeoC  donors   6 | median AUC untestable | FDR NA
+  PVM_3  NonNeoC  donors  47 | median AUC 0.504 [0.469, 0.535] | FDR 6.64e-01
+  PVM_1  NonNeoC  donors  10 | median AUC 0.603 [0.459, 0.719] | FDR 2.23e-01
+  HKG8   NonNeoC  donors   3 | median AUC untestable | FDR NA
+
+SECTION D -- write
+[PASS] 23-05 stats and plot files written | 18B 32 | 18C 8 rows | 148 donor AUCs
+
+Outputs:
+  Part12_rerun/10_Fig18/18BC_MTOverlap/Stats_18B.csv | 0.0 MB | md5 b69fe51409846da08db22b7bf4913201
+  Part12_rerun/10_Fig18/18BC_MTOverlap/Stats_18C.csv | 0.0 MB | md5 9353efc49e2d71a68a4f3f1d064484ab
+  Part12_rerun/10_Fig18/18BC_MTOverlap/Plot_18B_cells.csv | 2.5 MB | md5 b9548f945e92281380f874cefb635982
+  Part12_rerun/10_Fig18/18BC_MTOverlap/Plot_18C_donors.csv | 0.0 MB | md5 4c5c0f6d97579dbe56392416d0a09a74
+Checks: 5 PASS, 0 FAIL, 0 WARN | duration 0.1 min
+VERDICT: PASS

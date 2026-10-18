@@ -1,0 +1,38 @@
+========================================================================
+Part 10b SKCS — Guardrail Log [CP10K]
+Date: 2026-08-18 22:55:02
+Arm : PVM3_all
+Normalisation: adata.X = log1p(UMIs/total x 10000), exported unchanged
+========================================================================
+
+  [PASS]  GR-01-NeoC        norm.mtx max = 8.1332  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NeoC        expm1(norm) row sums: mean = 10000.000000, max |dev| = 4.89e-10, n = 50
+  [PASS]  GR-04-NeoC        raw max = 3187, integer-like = TRUE
+  [PASS]  GR-01-NonNeoC     norm.mtx max = 7.6610  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NonNeoC     expm1(norm) row sums: mean = 10000.000000, max |dev| = 7.57e-10, n = 50
+  [PASS]  GR-04-NonNeoC     raw max = 1552, integer-like = TRUE
+  [PASS]  GR-05-NonNeoC     Scores CSV: Part10_PVM_3_NonNeoC/Part10_CP10K_PVM_3_Module1_MTCO3_cDFG_NonNeoC_Pooled_SKCS_scores.csv
+  [PASS]  GR-05-NeoC        Scores CSV: Part10_PVM_3_NeoC/Part10_CP10K_PVM_3_Module1_MTCO3_cDFG_NeoC_Pooled_SKCS_scores.csv
+  [PASS]  GR-11-NonNeoC     this file's fixed cut (S>0.05, K>0.50) vs Part 10's is_skcs: 0 cell(s) differ -- the two parts are cutting at the same thresholds
+  [PASS]  GR-11-NeoC        this file's fixed cut (S>0.05, K>0.50) vs Part 10's is_skcs: 0 cell(s) differ -- the two parts are cutting at the same thresholds
+  [PASS]  GR-06-NonNeoC     GOI-positive cells (total) = 11132  (min = 50)
+  [PASS]  GR-07-NonNeoC     Fixed-threshold cells (S_norm>0.05, K>0.5) = 6941  (min = 50)
+  [PASS]  GR-08-NonNeoC     Fixed-threshold DE = 85.64%
+  [PASS]  GR-14-NonNeoC     Pre/Post split on cDFG (IP_CLASS_AXIS = cDFG) | threshold used = 1.887917 | IP_y from IPRS = 1.887917
+  [PASS]  GR-09-NonNeoC     IP_thresh = 2.657153  (IPRS R(x)=0, full population)
+  [PASS]  GR-10-NonNeoC     donor RE on 4/4 fit(s); donors per fit [83, 83]; 0 fallback(s)
+  [PASS]  GR-06-NeoC        GOI-positive cells (total) = 13331  (min = 50)
+  [PASS]  GR-07-NeoC        Fixed-threshold cells (S_norm>0.05, K>0.5) = 8407  (min = 50)
+  [PASS]  GR-08-NeoC        Fixed-threshold DE = 86.31%
+  [PASS]  GR-14-NeoC        Pre/Post split on cDFG (IP_CLASS_AXIS = cDFG) | threshold used = 1.664802 | IP_y from IPRS = 1.664802
+  [PASS]  GR-09-NeoC        IP_thresh = 2.495273  (IPRS R(x)=0, full population)
+  [PASS]  GR-10-NeoC        donor RE on 4/4 fit(s); donors per fit [84, 84]; 0 fallback(s)
+
+========================================================================
+  Total : 22
+  PASS  : 22
+  WARN  : 0
+  FAIL  : 0
+
+  Result: no failures, no warnings
+========================================================================

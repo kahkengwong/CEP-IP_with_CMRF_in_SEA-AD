@@ -1,0 +1,114 @@
+Part 12 rerun -- step 26
+Script: Part12_Fig19_Analysis.r | md5 87e3a3e952c93113bff84d7fe4fd612f
+Shared file: Part12_03_Config.r | md5 df0cc2f82a0fd0947b3bb0b93bae800a
+Run ID: 20260925-1025-windows
+Start: 2026-09-25 10:25:38
+Machine: LAPTOP-M7LQ95IS | R version 4.6.1 (2026-06-24 ucrt)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16 | md5 de727a6a529ece74865c9387be6d8831
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 26-01 script saved in Part12_rerun | Part12_Fig19_Analysis.r
+
+Battery 5 config: Part12_rerun/Part12_Fig19_config.json | version 1 | md5 edbb1f1b6225c5f7ce29611b7142b88b
+Battery 5 readings: Part12_rerun/Part12_Preset_Readings_Battery5.md | md5 45660b915ba3b704eaf3216421dd2ba1
+[PASS] 26-02 Battery 5 readings file present | Part12_rerun/Part12_Preset_Readings_Battery5.md
+
+Pre-set reading for Battery 5 definitions | Part12_rerun/Part12_Preset_Readings_Battery5.md | md5 45660b915ba3b704eaf3216421dd2ba1
+  ### Battery 5 definitions.
+  
+  - Why a separate battery. All 84 donors are primary in Batteries 1 to 4, and the eleven SA donors were pre-specified as a sensitivity analysis of the clinical association only (Supplementary Figure 10). The Methods state that the between-donor results may depend on them. Battery 5 tests that statement on the panels exposed to a donor-level shift, instead of leaving it open.
+  - Change of decision, recorded. On 2026-09-23 no further reruns of Batteries 1 to 4 were planned. Battery 5 does not rerun them: it reads their stats files and inputs, reproduces the all-donor estimates it retests, and computes new statistics only without the eleven and under random removal. It is recorded in the migration summary as a dated entry.
+  - Files left unchanged. Part12_01_config.json (version 16), Part12_Preset_Readings.md, Part12_03_Config.r and the Figure 15 to 18 analysis files are not edited. Every Battery 1 to 4 log prints their checksums; editing them would make those logs disagree with the files they name. Battery 5 has its own configuration (Part12_Fig19_config.json) and this readings file. Section 26 stops if any Battery 1 to 4 file differs from its recorded checksum.
+  - What is held fixed. Cell labels, the inflection point, the units, the Module post-IP% of every unit and donor, the %MT, the nuclear panel genes of 18A and every donor panel score are those of the all-donor run. Only donor rows are removed from each statistic. Battery 5 therefore asks whether the eleven donors carry the statistics, not whether they shaped the Module definition.
+  - The SA flag. The SEA-AD column "Severely Affected Donor" of obs_dataset.csv, every arm and region set. Exactly eleven donors must be flagged, the flag must be constant within donor, and every flagged donor must have ADNC_rank 3 (High). Otherwise section 26 fails.
+  - Frames. A frame is the donor set a statistic is drawn from: the arm's donors in the unit table (16A, 16B, 16F); the arm's donors joined to histology or CPS (17A, 17B); the arm's donors joined to histology (17C); the arm's donor-table rows in one region set (15A, 17D, 18A). Removing the eleven removes those of them present in the frame; k is that number.
+  - Without the eleven. Each retested statistic is recomputed on the frame less its SA donors, with the method, floors and multiple-testing families of the all-donor run, and a new resampling seed (Part12_Fig19_config.json). FDR is BH within the same family as in the all-donor run.
+  - Random removal (the null). In each frame, k donors are drawn without replacement from the frame's High-ADNC donors that are not SA, 1,000 times; the draws are made once in section 26 and written, so every later section uses the same draws. A contrast between two arms uses draw r of each arm's frame. Each draw recomputes the estimate only.
+  - Change. For a row with all-donor estimate e and sign s = sign(e), the change on removing a set is s x (e_removed - e). A negative change is attenuation toward zero. The SA change is compared with the 1,000 random-removal changes of the same row; p_null = (1 + number of random changes at or below the SA change) / (1 + number of finite random changes), one-sided, descriptive.
+  - Reproduction check. Before anything is removed, each section recomputes the all-donor estimates it retests and compares them with the Battery 1 to 4 stats files (estimate, units and donors; and the OLS p for 15A, 17D and 18A). A difference above 1e-8 fails the section.
+  - Row classes. Significant means FDR < 0.05; the all-donor FDR is the one in the Battery 1 to 4 stats file.
+    - Holds: significant with and without the eleven, same sign.
+    - Reversed: significant with and without, opposite sign.
+    - Lost, beyond random removal: significant with, not without, and the SA change is below the 5th percentile of the random-removal changes.
+    - Lost, within random removal: significant with, not without, and the SA change is at or above that percentile.
+    - Lost, null untestable: significant with, not without, and the frame has fewer non-SA High-ADNC donors than k.
+    - Untestable without the eleven: significant with, below the donor floor without.
+    - Gained: not significant with, significant without.
+    - Neither: significant in neither.
+    - Untestable: untestable in the all-donor run.
+  - Panel reading. A panel holds without the eleven when none of its rows is Reversed or Lost, beyond random removal. Otherwise the panel is reported as depending on the eleven for that number of rows, named. Rows lost within random removal are reported as lost with power, not as dependence. The counts of every class are reported for every panel, whatever they are.
+  - Placement. Figure 19 of the Part 12 rerun files (the manuscript number is set at assembly), in the main text, whatever the outcome. Every row of every retested panel is in the Figure 19 stats and readout files.
+  
+
+SECTION A -- the Battery 1 to 4 files are unchanged
+[PASS] 26-03 Part12_01_config.json unchanged | md5 de727a6a529ece74865c9387be6d8831 (recorded de727a6a529ece74865c9387be6d8831)
+[PASS] 26-04 Part12_Preset_Readings.md unchanged | md5 3f0611bff1fb3e2ab9d959117f1f9479 (recorded 3f0611bff1fb3e2ab9d959117f1f9479)
+[PASS] 26-05 Part12_Fig15_Analysis.r unchanged | md5 410a9ce09b24f8bb94b171686b69dd0b (recorded 410a9ce09b24f8bb94b171686b69dd0b)
+[PASS] 26-06 Part12_Fig16_Analysis.r unchanged | md5 b40e70eac4ef82cfb4dfd36917428310 (recorded b40e70eac4ef82cfb4dfd36917428310)
+[PASS] 26-07 Part12_Fig17_Analysis.r unchanged | md5 2ec0fe20e58388f27586a92d44d7e34f (recorded 2ec0fe20e58388f27586a92d44d7e34f)
+[PASS] 26-08 Part12_Fig18_Analysis.r unchanged | md5 400e7e6b5d59719ac3dfca8ed173ee84 (recorded 400e7e6b5d59719ac3dfca8ed173ee84)
+[PASS] 26-09 15A log: PASS, and its analysis file, Part12_03_Config.r, config and readings are the files now in Part12_rerun | Part12_Fig15_Analysis.r same | shared same | config same | readings same
+[PASS] 26-10 16A log: PASS, and its analysis file, Part12_03_Config.r, config and readings are the files now in Part12_rerun | Part12_Fig16_Analysis.r same | shared same | config same | readings same
+[PASS] 26-11 16F log: PASS, and its analysis file, Part12_03_Config.r, config and readings are the files now in Part12_rerun | Part12_Fig16_Analysis.r same | shared same | config same | readings same
+[PASS] 26-12 17AB log: PASS, and its analysis file, Part12_03_Config.r, config and readings are the files now in Part12_rerun | Part12_Fig17_Analysis.r same | shared same | config same | readings same
+[PASS] 26-13 17CD log: PASS, and its analysis file, Part12_03_Config.r, config and readings are the files now in Part12_rerun | Part12_Fig17_Analysis.r same | shared same | config same | readings same
+[PASS] 26-14 18A log: PASS, and its analysis file, Part12_03_Config.r, config and readings are the files now in Part12_rerun | Part12_Fig18_Analysis.r same | shared same | config same | readings same
+
+SECTION B -- the SA flag
+  input M4 NeoC obs_dataset          R_export_CP10K/Mic13_PVM3/neocortex/metadata/obs_dataset.csv | 137.5 MB | md5 ee12bda38df8c58c6646652d26552dff
+  input M4 NonNeoC obs_dataset       R_export_CP10K/Mic13_PVM3/nonneocortex/metadata/obs_dataset.csv | 115.5 MB | md5 b4ae8412026006fd921770c4a2e65077
+  input PVM_3 NeoC obs_dataset       R_export_CP10K/PVM3_all/neocortex/metadata/obs_dataset.csv | 127.5 MB | md5 331dcf19ea9bb5bb4d3c51d719498d8f
+  input PVM_3 NonNeoC obs_dataset    R_export_CP10K/PVM3_all/nonneocortex/metadata/obs_dataset.csv | 107.5 MB | md5 0bf2bf613d6ed5a8c4c8dde8e9caa478
+  input PVM_1 NeoC obs_dataset       R_export_CP10K/PVM1_all/neocortex/metadata/obs_dataset.csv | 127.5 MB | md5 331dcf19ea9bb5bb4d3c51d719498d8f
+  input PVM_1 NonNeoC obs_dataset    R_export_CP10K/PVM1_all/nonneocortex/metadata/obs_dataset.csv | 107.5 MB | md5 0bf2bf613d6ed5a8c4c8dde8e9caa478
+  input HKG8 NeoC obs_dataset        R_export_CP10K/HKG8_matched/neocortex/metadata/obs_dataset.csv | 137.5 MB | md5 ee12bda38df8c58c6646652d26552dff
+  input HKG8 NonNeoC obs_dataset     R_export_CP10K/HKG8_matched/nonneocortex/metadata/obs_dataset.csv | 115.5 MB | md5 b4ae8412026006fd921770c4a2e65077
+[PASS] 26-15 every SA value is a listed true or false value | values: n, y
+[PASS] 26-16 the SA flag is constant within donor | 84 donors | 0 with both values
+[PASS] 26-17 05_donors.csv matches the 05_Units log | Part12_rerun/05_Units/05_donors.csv
+[PASS] 26-18 donor table carries this labels version | 643 donor rows
+[PASS] 26-19 every donor of the donor table has an SA value | 84 of 84 donors
+[PASS] 26-20 ADNC_rank takes only the listed values | values: 0, 1, 2, 3 | missing 0
+[PASS] 26-21 exactly 11 donors are flagged | 11 flagged
+[PASS] 26-22 every SA donor is in the donor table | 11 of 11
+[PASS] 26-23 every SA donor has ADNC_rank 3 (High) | H2033028:3 H2033033:3 H2033037:3 H2033038:3 H2033046:3 H2133009:3 H2133020:3 H2133033:3 H2133034:3 H2133039:3 H2133045:3
+[NOTE] SA donors | H20.33.028, H20.33.033, H20.33.037, H20.33.038, H20.33.046, H21.33.009, H21.33.020, H21.33.033, H21.33.034, H21.33.039, H21.33.045
+[NOTE] donors | 84 | SA 11 | High ADNC 42 | High ADNC not SA 31
+
+SECTION C -- frames
+[PASS] 26-24 05_units.csv matches the 05_Units log | Part12_rerun/05_Units/05_units.csv
+[PASS] 26-25 unit table carries this labels version | 856 units
+[PASS] 26-26 Joined_17AB_units.csv matches the 09_Fig17/17AB_Histology log | Part12_rerun/09_Fig17/17AB_Histology/Joined_17AB_units.csv
+[PASS] 26-27 the joined histology table holds the unit table's units in its order | 856 units
+  U|M4             donors  51 | SA  9 | pool  26 | testable | 1000 distinct draws of 1000
+  J19|M4           donors  51 | SA  9 | pool  26 | testable | 1000 distinct draws of 1000
+  JHU|M4           donors  51 | SA  9 | pool  26 | testable | 999 distinct draws of 1000
+  U|PVM_3          donors  83 | SA 11 | pool  31 | testable | 1000 distinct draws of 1000
+  J19|PVM_3        donors  83 | SA 11 | pool  31 | testable | 1000 distinct draws of 1000
+  JHU|PVM_3        donors  83 | SA 11 | pool  31 | testable | 1000 distinct draws of 1000
+  U|PVM_1          donors  66 | SA  9 | pool  29 | testable | 1000 distinct draws of 1000
+  J19|PVM_1        donors  66 | SA  9 | pool  29 | testable | 1000 distinct draws of 1000
+  JHU|PVM_1        donors  66 | SA  9 | pool  29 | testable | 1000 distinct draws of 1000
+  U|HKG8           donors  38 | SA  8 | pool  19 | testable | 997 distinct draws of 1000
+  J19|HKG8         donors  38 | SA  8 | pool  19 | testable | 992 distinct draws of 1000
+  JHU|HKG8         donors  38 | SA  8 | pool  19 | testable | 994 distinct draws of 1000
+  DN|M4|NeoC       donors  78 | SA 11 | pool  31 | testable | 1000 distinct draws of 1000
+  DN|M4|NonNeoC    donors  80 | SA 10 | pool  30 | testable | 1000 distinct draws of 1000
+  DN|PVM_3|NeoC    donors  84 | SA 11 | pool  31 | testable | 1000 distinct draws of 1000
+  DN|PVM_3|NonNeoC donors  83 | SA 11 | pool  30 | testable | 1000 distinct draws of 1000
+  DN|PVM_1|NeoC    donors  84 | SA 11 | pool  31 | testable | 1000 distinct draws of 1000
+  DN|PVM_1|NonNeoC donors  83 | SA 11 | pool  30 | testable | 999 distinct draws of 1000
+  DN|HKG8|NeoC     donors  74 | SA 10 | pool  31 | testable | 1000 distinct draws of 1000
+  DN|HKG8|NonNeoC  donors  77 | SA 10 | pool  29 | testable | 1000 distinct draws of 1000
+[PASS] 26-28 every frame with SA donors has a pool of at least k donors | 
+[PASS] 26-29 no draw removes an SA donor | 20000 draws
+
+SECTION D -- write
+[PASS] 26-30 tables written | 84 donors | 20 frames | 20000 draws
+
+Outputs:
+  Part12_rerun/11_Fig19/19_SADonors/SA_donors_19.csv | 0.0 MB | md5 10a9bd066fbc34cc84d1ce74fa99565b
+  Part12_rerun/11_Fig19/19_SADonors/Frames_19.csv | 0.0 MB | md5 e80d007eda6df68003b8ebcfccf2baa2
+  Part12_rerun/11_Fig19/19_SADonors/NullDraws_19.csv | 2.5 MB | md5 4db076436d37d07eed2ffb79fec1ab72
+Checks: 30 PASS, 0 FAIL, 0 WARN | duration 0.4 min
+VERDICT: PASS

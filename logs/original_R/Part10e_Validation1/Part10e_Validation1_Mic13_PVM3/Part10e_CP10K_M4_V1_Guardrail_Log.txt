@@ -1,0 +1,33 @@
+========================================================================
+Part 10e Validation1 — Guardrail Log [CP10K]
+Date: 2026-08-28 16:30:58
+Arm : Mic13_PVM3
+Normalisation: adata.X = log1p(UMIs/total x 10000), exported unchanged
+========================================================================
+
+  [PASS]  GR-01-NeoC        norm.mtx max = 8.0564  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NeoC        expm1(norm) row sums: mean = 10000.000000, max |dev| = 8.44e-10, n = 50
+  [PASS]  GR-04-NeoC        raw max = 2389, integer-like = TRUE
+  [PASS]  GR-01-NonNeoC     norm.mtx max = 7.6610  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NonNeoC     expm1(norm) row sums: mean = 10000.000000, max |dev| = 5.86e-10, n = 50
+  [PASS]  GR-04-NonNeoC     raw max = 1552, integer-like = TRUE
+  [PASS]  GR-03-NeoC        CMRF workbook: Part10e_CMRF_Mic13_PVM3/Part10e_CP10K_M4_CMRF_NeoC_SK_interaction_analysis.xlsx
+  [PASS]  GR-03-NonNeoC     CMRF workbook: Part10e_CMRF_Mic13_PVM3/Part10e_CP10K_M4_CMRF_NonNeoC_SK_interaction_analysis.xlsx
+  [PASS]  GR-05-IPRS        IP values (IPRS_full): NonNeoC=2.8025, NeoC=2.6794
+  [PASS]  GR-06-NeoC        module = 1656 cell(s) (OrigRef 1358 + Recovered 298) | cDFG DE = 88.56% (donor-aware) | TREP 1530 / non-TREP 126
+  [PASS]  GR-07-NeoC        cDFG refit: donor RE = YES (75 donors) | k = 10 | inverse-donor weights
+  [PASS]  GR-08-NeoC        Pre/Post split on cDFG at 1.875476 | IP_x = 2.679411 | IP_y = 1.875476
+  [PASS]  GR-09-NeoC        Refitted vs Part10b TREP: 97.3% agreement on 1358 cell(s)
+  [PASS]  GR-06-NonNeoC     module = 1474 cell(s) (OrigRef 1232 + Recovered 242) | cDFG DE = 88.94% (donor-aware) | TREP 1366 / non-TREP 108
+  [PASS]  GR-07-NonNeoC     cDFG refit: donor RE = YES (79 donors) | k = 10 | inverse-donor weights
+  [PASS]  GR-08-NonNeoC     Pre/Post split on cDFG at 2.038718 | IP_x = 2.802522 | IP_y = 2.038718
+  [PASS]  GR-09-NonNeoC     Refitted vs Part10b TREP: 97.7% agreement on 1232 cell(s)
+
+========================================================================
+  Total : 17
+  PASS  : 17
+  WARN  : 0
+  FAIL  : 0
+
+  Result: no failures, no warnings
+========================================================================

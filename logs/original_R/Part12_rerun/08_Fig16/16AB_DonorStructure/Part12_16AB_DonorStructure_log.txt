@@ -1,0 +1,84 @@
+Part 12 rerun -- step 13
+Script: Part12_Fig16_Analysis.r | md5 b40e70eac4ef82cfb4dfd36917428310
+Shared file: Part12_03_Config.r | md5 df0cc2f82a0fd0947b3bb0b93bae800a
+Run ID: 20260923-1042-windows
+Start: 2026-09-23 10:42:39
+Machine: LAPTOP-M7LQ95IS | R version 4.6.1 (2026-06-24 ucrt)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16 | md5 de727a6a529ece74865c9387be6d8831
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 13-01 script saved in Part12_rerun | Part12_Fig16_Analysis.r
+
+Pre-set reading for 16A | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### 16A. Is Module post-IP% donor-structured?
+  
+  - **Estimate.** Across units, the share of variance explained by donor (donor entered first, then region), for five quantities per arm: Module post-IP%, its TQR residual, log1p %MT, contamination, and the matched non-MT share (`ctrl_pct_null`). Null: donor labels shuffled within region, 10,000 times; p = (k+1)/(R+1). This is the section 4 exception: the question is whether donor structure exceeds what region imbalance produces, which a bootstrap interval cannot answer.
+  - **Family.** Within arm, over the 5 quantities (4 families of 5; the archived run used one family of 20).
+  - **Reading.**
+    - Module post-IP% donor share above the null with FDR < 0.05 on M4: Module post-IP% is donor-structured.
+    - The TQR residual also above the null: the donor structure is not explained by the four tissue-quality fields.
+    - The same result on HKG8 is read by common rule 5: donor structure comes from the construction or the preparation, not from the Module.
+    - %MT, contamination and `ctrl_pct_null` are reported beside the Module as comparators, with no reading of their own.
+  - **No equivalence test.** The archived 55% equivalence bound on HKG8 is dropped; rule 5 reads HKG8.
+  
+
+Pre-set reading for 16B | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### 16B. Does a donor keep its value across regions?
+  
+  - **Estimate.** For donors with at least two units, each split puts a random half of the donor's units in each half; the donor's mean in each half is taken; rs across donors between the halves. 200 random splits, fixed from the step seed; the estimate is the median rs over the splits. Donor bootstrap on that median (the same splits in every resample), 10-donor floor. All four arms.
+  - **Quantities.** Module post-IP%, its TQR residual and log1p %MT.
+  - **Family.** Within arm, over the quantities.
+  - **Reading.**
+    - Module post-IP% split-half rs > 0 with FDR < 0.05 on M4: a donor keeps its Module post-IP% across regions.
+    - HKG8 is read by rule 5. An arm below the donor floor is untestable, which may apply to M4 because of few units per donor.
+  
+
+SECTION A -- inputs
+[PASS] 13-02 05_units.csv matches the 05_Units log | Part12_rerun/05_Units/05_units.csv
+[PASS] 13-03 unit table carries this labels version | 856 units
+
+SECTION B -- 16A, donor share against 10000 within-region shuffles
+  M4     module_post_pct   units  125 | donors  51 | donor share  69.6% | null median  37.4%, 95th  47.8% | p <=1.00e-04
+  M4     module_resid_tq4  units  124 | donors  50 | donor share  58.3% | null median  37.6%, 95th  48.2% | p 1.20e-03
+  M4     mito_log1p        units  125 | donors  51 | donor share  72.7% | null median  36.6%, 95th  46.2% | p <=1.00e-04
+  M4     contamination     units  125 | donors  51 | donor share  56.3% | null median  41.5%, 95th  61.5% | p 1.75e-01
+  M4     ctrl_pct_null     units  125 | donors  51 | donor share  60.7% | null median  41.6%, 95th  51.3% | p 7.00e-04
+  PVM_3  module_post_pct   units  450 | donors  83 | donor share  73.2% | null median  18.0%, 95th  22.2% | p <=1.00e-04
+  PVM_3  module_resid_tq4  units  447 | donors  82 | donor share  66.7% | null median  17.0%, 95th  20.9% | p <=1.00e-04
+  PVM_3  mito_log1p        units  450 | donors  83 | donor share  66.7% | null median  17.2%, 95th  21.5% | p <=1.00e-04
+  PVM_3  contamination     units  450 | donors  83 | donor share  37.1% | null median  17.0%, 95th  21.1% | p <=1.00e-04
+  PVM_3  ctrl_pct_null     units  450 | donors  83 | donor share  40.8% | null median  17.4%, 95th  21.5% | p <=1.00e-04
+  PVM_1  module_post_pct   units  201 | donors  66 | donor share  73.9% | null median  32.4%, 95th  40.0% | p <=1.00e-04
+  PVM_1  module_resid_tq4  units  199 | donors  65 | donor share  66.1% | null median  30.3%, 95th  37.4% | p <=1.00e-04
+  PVM_1  mito_log1p        units  201 | donors  66 | donor share  64.8% | null median  30.2%, 95th  38.9% | p <=1.00e-04
+  PVM_1  contamination     units  201 | donors  66 | donor share  40.6% | null median  31.3%, 95th  40.2% | p 4.37e-02
+  PVM_1  ctrl_pct_null     units  201 | donors  66 | donor share  51.3% | null median  27.8%, 95th  35.9% | p <=1.00e-04
+  HKG8   module_post_pct   units   80 | donors  38 | donor share  41.7% | null median  41.6%, 95th  56.4% | p 4.98e-01
+  HKG8   module_resid_tq4  units   80 | donors  38 | donor share  40.9% | null median  41.3%, 95th  55.7% | p 5.20e-01
+  HKG8   mito_log1p        units   80 | donors  38 | donor share  80.6% | null median  44.8%, 95th  57.5% | p <=1.00e-04
+  HKG8   contamination     units   80 | donors  38 | donor share  64.8% | null median  48.2%, 95th  66.0% | p 6.71e-02
+  HKG8   ctrl_pct_null     units   80 | donors  38 | donor share  67.6% | null median  49.5%, 95th  62.8% | p 1.25e-02
+
+SECTION C -- 16B, split-half rs over 200 splits (B = 10000)
+[NOTE] workers | 15 of 16 logical cores (PSOCK)
+  M4     module_post_pct   donors  30 | split-half rs +0.692 [+0.494, +0.817] | p <=2.00e-04
+  M4     module_resid_tq4  donors  30 | split-half rs +0.469 [+0.180, +0.693] | p 2.40e-03
+  M4     mito_log1p        donors  30 | split-half rs +0.733 [+0.533, +0.855] | p <=2.00e-04
+  PVM_3  module_post_pct   donors  80 | split-half rs +0.839 [+0.760, +0.885] | p <=2.00e-04
+  PVM_3  module_resid_tq4  donors  79 | split-half rs +0.790 [+0.684, +0.859] | p <=2.00e-04
+  PVM_3  mito_log1p        donors  80 | split-half rs +0.786 [+0.709, +0.842] | p <=2.00e-04
+  PVM_1  module_post_pct   donors  46 | split-half rs +0.721 [+0.522, +0.832] | p <=2.00e-04
+  PVM_1  module_resid_tq4  donors  45 | split-half rs +0.615 [+0.377, +0.791] | p <=2.00e-04
+  PVM_1  mito_log1p        donors  46 | split-half rs +0.617 [+0.381, +0.762] | p <=2.00e-04
+  HKG8   module_post_pct   donors  22 | split-half rs +0.066 [-0.334, +0.434] | p 7.61e-01
+  HKG8   module_resid_tq4  donors  22 | split-half rs +0.012 [-0.412, +0.418] | p 9.70e-01
+  HKG8   mito_log1p        donors  22 | split-half rs +0.802 [+0.605, +0.904] | p <=2.00e-04
+
+SECTION D -- write
+[PASS] 13-04 stats files written | 16A 20 rows | 16B 12 rows
+
+Outputs:
+  Part12_rerun/08_Fig16/16AB_DonorStructure/Stats_16A.csv | 0.0 MB | md5 7b50096a36b98723b8c69436a4eb3a03
+  Part12_rerun/08_Fig16/16AB_DonorStructure/Stats_16B.csv | 0.0 MB | md5 3023cfd579a1f940af12b63b2395b8bb
+Checks: 4 PASS, 0 FAIL, 0 WARN | duration 2.4 min
+VERDICT: PASS

@@ -1,0 +1,82 @@
+Part 12 rerun -- step 08
+Script: Part12_Fig15_Analysis.r | md5 410a9ce09b24f8bb94b171686b69dd0b
+Shared file: Part12_03_Config.r | md5 df0cc2f82a0fd0947b3bb0b93bae800a
+Run ID: 20260922-0816-windows
+Start: 2026-09-22 08:16:42
+Machine: LAPTOP-M7LQ95IS | R version 4.6.1 (2026-06-24 ucrt)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16 | md5 de727a6a529ece74865c9387be6d8831
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 08-01 script saved in Part12_rerun | Part12_Fig15_Analysis.r
+
+Pre-set reading for 15C | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### 15C. Are Module post-IP cells more contaminated?
+  
+  - **Estimate.** Per donor, the median DecontX contamination of each cell group; per contrast, the median over donors of the donor-level difference. Three contrasts: Module post-IP minus Module pre-IP (primary), Module post-IP minus non-Module, Module pre-IP minus non-Module. NeoC and NonNeoC pooled within donor. All four arms.
+  - **Family.** Within arm, over the 3 contrasts.
+  - **Reading.**
+    - The primary contrast is at or below zero, or FDR >= 0.05: no evidence that Module post-IP cells are more contaminated.
+    - The primary contrast is positive with FDR < 0.05 on M4, and HKG8 shows no such shift: Module post-IP cells carry more contamination, and 15D and 15E to 15G decide whether it drives the co-expression.
+    - The same positive shift on HKG8: the difference comes from the post-IP construction and is not specific to the Module.
+  
+
+Pre-set reading for 15D | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### 15D. Does co-expression rise with contamination?
+  
+  - **Estimate.** Module cells of each arm, split into contamination tertiles within donor (D25) and pooled per tertile across donors. Spearman rs of MT-CO3 with the cDFG composite in each tertile (ACTB with cHKG8 on HKG8). Primary estimate: rs(top tertile) minus rs(bottom tertile).
+  - **Family.** The 4 arms, one test each.
+  - **Reading.**
+    - The difference is at or below zero, or FDR >= 0.05: the co-expression does not rise with contamination, which an ambient source would predict.
+    - The difference is positive with FDR < 0.05 on M4 and not on HKG8: contamination contributes to the co-expression.
+    - Positive on both M4 and HKG8: the rise is a general effect of contamination on any composite and is not specific to the mitochondrial axis.
+  
+
+SECTION A -- inputs
+[PASS] 08-02 04_cell_labels.csv.gz matches the 04_Labels log | Part12_rerun/04_Labels/04_cell_labels.csv.gz
+[PASS] 08-03 labels carry this labels version | checked
+[PASS] 08-04 02_counts.mtx.gz matches the 02_Extract log | Part12_rerun/02_Extract/02_counts.mtx.gz
+[PASS] 08-05 02_counts_genes.tsv matches the 02_Extract log | Part12_rerun/02_Extract/02_counts_genes.tsv
+[PASS] 08-06 02_counts_cells.tsv matches the 02_Extract log | Part12_rerun/02_Extract/02_counts_cells.tsv
+[PASS] 08-07 step 02 count matrix matches its cell and gene lists | checked
+[PASS] 08-08 every labelled cell has a contamination value | 0 missing
+
+SECTION B -- 15C, donor-level contrasts (20 cells per group, 10 donors, B = 10000)
+  M4     post_minus_pre         donors  13 | median difference -0.0791 [-0.0969, +0.0048] | p 1.42e-01
+  M4     post_minus_nonmodule   donors  13 | median difference -0.0285 [-0.0665, -0.0033] | p 3.48e-02
+  M4     pre_minus_nonmodule    donors  15 | median difference +0.0336 [+0.0001, +0.0611] | p 4.70e-02
+  PVM_3  post_minus_pre         donors  52 | median difference -0.1059 [-0.1459, -0.0287] | p <=2.00e-04
+  PVM_3  post_minus_nonmodule   donors  55 | median difference -0.0603 [-0.0922, -0.0050] | p <=2.00e-04
+  PVM_3  pre_minus_nonmodule    donors  70 | median difference +0.0222 [+0.0082, +0.0348] | p 3.00e-03
+  PVM_1  post_minus_pre         donors  18 | median difference +0.0006 [-0.0005, +0.0376] | p 2.83e-01
+  PVM_1  post_minus_nonmodule   donors  19 | median difference +0.0005 [-0.0008, +0.0149] | p 2.31e-01
+  PVM_1  pre_minus_nonmodule    donors  26 | median difference -0.0001 [-0.0091, +0.0000] | p 5.46e-01
+  HKG8   post_minus_pre         donors   1 | median difference NA [NA, NA] | p NA
+  HKG8   post_minus_nonmodule   donors   7 | median difference NA [NA, NA] | p NA
+  HKG8   pre_minus_nonmodule    donors   3 | median difference NA [NA, NA] | p NA
+
+SECTION C -- 15D, co-expression by within-donor contamination tertile (B = 10000)
+[NOTE] workers | 15 of 16 logical cores (PSOCK)
+[PASS] 08-09 every labelled cell is in the step 02 count matrix | 0 missing
+[PASS] 08-10 02_cells.csv.gz matches the 02_Extract log | Part12_rerun/02_Extract/02_cells.csv.gz
+  M4     GOI MT-CO3 donors  48 | Module cells  2863 | cells at zero contamination 23.0%
+         bootstrap 0.0 min
+         rs T1 0.957 | T2 0.950 | T3 0.944 | T3 - T1 -0.013 [-0.024, -0.005] | p 5.20e-03
+  PVM_3  GOI MT-CO3 donors  82 | Module cells 17165 | cells at zero contamination 15.6%
+         bootstrap 0.1 min
+         rs T1 0.952 | T2 0.949 | T3 0.944 | T3 - T1 -0.008 [-0.018, -0.001] | p 2.70e-02
+  PVM_1  GOI MT-CO3 donors  58 | Module cells  3826 | cells at zero contamination 35.3%
+         bootstrap 0.0 min
+         rs T1 0.957 | T2 0.959 | T3 0.949 | T3 - T1 -0.008 [-0.018, +0.001] | p 8.60e-02
+  HKG8   GOI ACTB   donors  19 | Module cells   576 | cells at zero contamination 20.5%
+         bootstrap 0.0 min
+         rs T1 0.897 | T2 0.907 | T3 0.912 | T3 - T1 +0.015 [-0.028, +0.059] | p 4.19e-01
+
+SECTION D -- write
+[PASS] 08-11 stats files written and read back | 15C 24 rows | 15D 16 rows
+
+Outputs:
+  Part12_rerun/07_Fig15/15CD_DecontXStrata/Stats_15C.csv | 0.0 MB | md5 c12e526857be714cd6e27bb5b13b3591
+  Part12_rerun/07_Fig15/15CD_DecontXStrata/Stats_15D.csv | 0.0 MB | md5 121871ceb1977a9c43e00afafb2f3577
+  Part12_rerun/07_Fig15/15CD_DecontXStrata/Plot_15D_tertiles.csv | 0.0 MB | md5 21fa9bba07715df76bafb903c8c59d99
+Checks: 11 PASS, 0 FAIL, 0 WARN | duration 0.2 min
+VERDICT: PASS

@@ -1,0 +1,118 @@
+Part 12 rerun -- step 22
+Script: Part12_Fig18_Analysis.r | md5 400e7e6b5d59719ac3dfca8ed173ee84
+Shared file: Part12_03_Config.r | md5 df0cc2f82a0fd0947b3bb0b93bae800a
+Run ID: 20260923-2110-windows
+Start: 2026-09-23 21:10:47
+Machine: LAPTOP-M7LQ95IS | R version 4.6.1 (2026-06-24 ucrt)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16 | md5 de727a6a529ece74865c9387be6d8831
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 22-01 script saved in Part12_rerun | Part12_Fig18_Analysis.r
+
+Pre-set reading for Figure 18 definitions, | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### Figure 18 definitions, shared by 18A to 18E
+  
+  - **Arms and region sets.** All four arms. 18A, 18B and 18C keep NeoC and NonNeoC apart (18A is a clinical model, D11; 18B and 18C work on cells within a region set). 18D and 18E use the step 05 unit table with the region sets pooled within donor, as 16A and 16B do.
+  - **%MT.** The 13-gene %MT of the arm's own cells (D5): per cell for 18B and 18C, the donor mean in log1p form (`mito_log1p`) for 18A.
+  - **Module cells.** The arm's Module cells (step 04 `is_module`) against its non-Module labelled cells.
+  - **Inference.** Common rule 3 for the 18C test. 18A keeps OLS p (section 4 exception 1). 18B, 18D and 18E carry no test (exceptions 4 and 5). Simulation draws are made from the step seed per simulation cell, so the result does not depend on the worker count.
+  
+
+Pre-set reading for 18A | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### 18A. Can a nuclear-encoded mitochondrial panel replace the Module?
+  
+  - **Panels.** The 15 nuclear-encoded panels of the config (all nuclear-encoded mito, OXPHOS core, Complex I to V, assembly factors, biogenesis, mitoribosome, protein import, fission and fusion, mitophagy, TCA cycle, glycolysis) and the 300-gene matched reference (the null), from `02_matched_sets.csv`. Each panel keeps the genes detected in at least 10% of the arm's cells in that region set, and needs at least 3 such genes.
+  - **Donor score.** Per cell, the mean over the panel's genes of log1p(count / total UMIs x 10,000). Per donor, the median over the donor's labelled cells of the arm in that region set (choice A1: donors with at least 20 cells, common rule 4; the archived run used 5).
+  - **Model.** Per arm, region set, panel and second predictor (Module post-IP% or %MT): outcome ~ cov4 + second predictor + panel score, all standardised, the 9 outcomes of Figure 12, APOE e4 dose leaving the covariates when it is the outcome. 10-donor floor. OLS p.
+  - **Readability (choice A2).** VIF of the two predictors from the two predictor columns, as 17D; 5 or more is unreadable.
+  - **Family.** Within arm, region set, panel and predictor, over the 9 outcomes, each coefficient separately, as 17D.
+  - **Verdict.** Module only (or %MT only), NE panel only, Both, Neither, Unreadable, Untestable, from the two FDRs at 0.05.
+  - **Reading.** The primary rows are the M4 cognition rows (3 outcomes in each region set) on the 15 real panels.
+    - Module only or Both on the primary rows, and no NE panel only row: no nuclear-encoded panel replaces the Module; the Module carries the association beyond each panel.
+    - NE panel only on a primary row: that panel carries the association on that outcome and the Module stands in for it there.
+    - The matched reference is the null. A real panel that wins no more rows than the reference has shown nothing. Reference wins are read as expression level, not mitochondrial biology.
+    - The %MT tally is read the same way and reported beside the Module tally.
+  - **Control.** HKG8 read by common rule 5; its %MT is its own column (D5).
+  
+
+SECTION A -- inputs
+[PASS] 22-02 04_cell_labels.csv.gz matches the 04_Labels log | Part12_rerun/04_Labels/04_cell_labels.csv.gz
+[PASS] 22-03 02_counts.mtx.gz matches the 02_Extract log | Part12_rerun/02_Extract/02_counts.mtx.gz
+[PASS] 22-04 02_counts_genes.tsv matches the 02_Extract log | Part12_rerun/02_Extract/02_counts_genes.tsv
+[PASS] 22-05 02_counts_cells.tsv matches the 02_Extract log | Part12_rerun/02_Extract/02_counts_cells.tsv
+[PASS] 22-06 02_matched_sets.csv matches the 02_Extract log | Part12_rerun/02_Extract/02_matched_sets.csv
+[PASS] 22-07 05_donors.csv matches the 05_Units log | Part12_rerun/05_Units/05_donors.csv
+[PASS] 22-08 labels and donor table carry this labels version | checked
+[PASS] 22-09 count matrix, gene list and cell list agree | 37714 x 955
+[PASS] 22-10 every labelled cell is in the count matrix | 36967 cells
+[PASS] 22-11 M4: every panel set is in 02_matched_sets.csv | 16 sets for Micro-PVM_3-SEAAD
+[PASS] 22-12 PVM_3: every panel set is in 02_matched_sets.csv | 16 sets for Micro-PVM_3-SEAAD
+[PASS] 22-13 PVM_1: every panel set is in 02_matched_sets.csv | 16 sets for Micro-PVM_1
+[PASS] 22-14 HKG8: every panel set is in 02_matched_sets.csv | 16 sets for Micro-PVM_3-SEAAD
+
+SECTION B -- donor panel scores
+  M4     NeoC     cells  2130 | donors with 20 or more cells:  34 of  78
+  M4     NonNeoC  cells  1987 | donors with 20 or more cells:  31 of  80
+  PVM_3  NeoC     cells 13331 | donors with 20 or more cells:  78 of  84
+  PVM_3  NonNeoC  cells 11132 | donors with 20 or more cells:  75 of  83
+  PVM_1  NeoC     cells  3218 | donors with 20 or more cells:  54 of  84
+  PVM_1  NonNeoC  cells  2658 | donors with 20 or more cells:  44 of  83
+  HKG8   NeoC     cells  1432 | donors with 20 or more cells:  28 of  74
+  HKG8   NonNeoC  cells  1079 | donors with 20 or more cells:  19 of  77
+[NOTE] panels below the gene floor | none
+[PASS] 22-15 every panel gene is in the count matrix | 128 panel rows
+
+SECTION C -- models
+  M4 primary rows (cognition, both region sets), verdict counts per panel:
+   second predictor: module
+    nuclear_mito_all   second only 3, Both 0, NE panel only 0, Neither 3, Unreadable 0, Untestable 0
+    oxphos_core        second only 4, Both 0, NE panel only 0, Neither 2, Unreadable 0, Untestable 0
+    ci_nduf            second only 4, Both 0, NE panel only 0, Neither 2, Unreadable 0, Untestable 0
+    cii_sdh            second only 2, Both 0, NE panel only 0, Neither 4, Unreadable 0, Untestable 0
+    ciii_uqcr          second only 1, Both 2, NE panel only 0, Neither 3, Unreadable 0, Untestable 0
+    civ_cox            second only 1, Both 0, NE panel only 0, Neither 5, Unreadable 0, Untestable 0
+    cv_atp5            second only 2, Both 0, NE panel only 0, Neither 4, Unreadable 0, Untestable 0
+    assembly           second only 1, Both 0, NE panel only 0, Neither 5, Unreadable 0, Untestable 0
+    biogenesis         second only 1, Both 0, NE panel only 0, Neither 5, Unreadable 0, Untestable 0
+    mitoribo           second only 3, Both 0, NE panel only 0, Neither 3, Unreadable 0, Untestable 0
+    import             second only 3, Both 0, NE panel only 0, Neither 3, Unreadable 0, Untestable 0
+    dynamics           second only 2, Both 0, NE panel only 0, Neither 4, Unreadable 0, Untestable 0
+    mitophagy          second only 1, Both 0, NE panel only 0, Neither 5, Unreadable 0, Untestable 0
+    tca                second only 2, Both 0, NE panel only 0, Neither 4, Unreadable 0, Untestable 0
+    glycolysis         second only 1, Both 0, NE panel only 0, Neither 5, Unreadable 0, Untestable 0
+    reference          second only 1, Both 0, NE panel only 0, Neither 5, Unreadable 0, Untestable 0
+   second predictor: mito
+    nuclear_mito_all   second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    oxphos_core        second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    ci_nduf            second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    cii_sdh            second only 1, Both 0, NE panel only 0, Neither 5, Unreadable 0, Untestable 0
+    ciii_uqcr          second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    civ_cox            second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    cv_atp5            second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    assembly           second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    biogenesis         second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    mitoribo           second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    import             second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    dynamics           second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    mitophagy          second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    tca                second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    glycolysis         second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    reference          second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+  M4     module all rows: second only 65, Both 4, NE panel only 4, Neither 215, Unreadable 0, Untestable 0 | max VIF 1.30
+  M4     mito   all rows: second only 11, Both 0, NE panel only 6, Neither 271, Unreadable 0, Untestable 0 | max VIF 1.66
+  PVM_3  module all rows: second only 221, Both 3, NE panel only 0, Neither 64, Unreadable 0, Untestable 0 | max VIF 1.57
+  PVM_3  mito   all rows: second only 227, Both 1, NE panel only 0, Neither 60, Unreadable 0, Untestable 0 | max VIF 2.01
+  PVM_1  module all rows: second only 192, Both 0, NE panel only 1, Neither 95, Unreadable 0, Untestable 0 | max VIF 1.08
+  PVM_1  mito   all rows: second only 224, Both 0, NE panel only 1, Neither 63, Unreadable 0, Untestable 0 | max VIF 1.13
+  HKG8   module all rows: second only 0, Both 0, NE panel only 1, Neither 287, Unreadable 0, Untestable 0 | max VIF 1.52
+  HKG8   mito   all rows: second only 63, Both 0, NE panel only 0, Neither 225, Unreadable 0, Untestable 0 | max VIF 1.68
+
+SECTION D -- write
+[PASS] 22-16 stats and plot files written | 18A 6912 rows | 2304 verdicts
+
+Outputs:
+  Part12_rerun/10_Fig18/18A_NuclearPanels/Stats_18A.csv | 1.4 MB | md5 a55118f72e81844dd927e4d2b2b22148
+  Part12_rerun/10_Fig18/18A_NuclearPanels/Plot_18A_verdicts.csv | 0.4 MB | md5 b117d0186d8c4cbeb26ad21dd63b4da0
+  Part12_rerun/10_Fig18/18A_NuclearPanels/Plot_18A_panels.csv | 0.0 MB | md5 7a0968ba66a4d8b5c20ac8ecbb4f719a
+Checks: 16 PASS, 0 FAIL, 0 WARN | duration 0.3 min
+VERDICT: PASS

@@ -1,0 +1,70 @@
+========================================================================
+Part 10 -- Guardrail Log [CP10K]
+Date: 2026-08-17 21:20:52
+Arm : Mic13_PVM3
+Normalisation: adata.X = log1p(UMIs/total x 10000), exported unchanged
+========================================================================
+
+  [PASS]  GR-07-NeoC      Part 9 NeoC RDS: Part9_CP10K_M4_NeoC_GAM_models.rds
+  [PASS]  GR-07-NonNeoC   Part 9 NonNeoC RDS: Part9_CP10K_M4_NonNeoC_GAM_models.rds
+  [PASS]  GR-01-NeoC      norm.mtx max = 8.0564  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NeoC      expm1(norm) row sums: mean = 10000.000000, max |dev| = 8.44e-10, n = 50
+  [PASS]  GR-04-NeoC      raw max = 2389, integer-like = TRUE
+  [PASS]  GR-05-NeoC-DFC  GOI max=5.914  cDFG max=4.917  (ceiling=9.2104)
+  [PASS]  GR-06-NeoC-DFC  expected=719  observed=719
+  [PASS]  GR-05-NeoC-MTG  GOI max=4.328  cDFG max=3.913  (ceiling=9.2104)
+  [PASS]  GR-06-NeoC-MTG  expected=444  observed=444
+  [PASS]  GR-05-NeoC-AnG  GOI max=6.275  cDFG max=5.989  (ceiling=9.2104)
+  [PASS]  GR-06-NeoC-AnG  expected=183  observed=183
+  [PASS]  GR-05-NeoC-STG  GOI max=5.504  cDFG max=4.828  (ceiling=9.2104)
+  [PASS]  GR-06-NeoC-STG  expected=272  observed=272
+  [PASS]  GR-05-NeoC-V1C  GOI max=6.046  cDFG max=5.375  (ceiling=9.2104)
+  [PASS]  GR-06-NeoC-V1C  expected=302  observed=302
+  [PASS]  GR-05-NeoC-ITG  GOI max=5.238  cDFG max=4.700  (ceiling=9.2104)
+  [PASS]  GR-06-NeoC-ITG  expected=210  observed=210
+  [PASS]  GR-01-NonNeoC   norm.mtx max = 7.6610  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NonNeoC   expm1(norm) row sums: mean = 10000.000000, max |dev| = 5.86e-10, n = 50
+  [PASS]  GR-04-NonNeoC   raw max = 1552, integer-like = TRUE
+  [PASS]  GR-05-NonNeoC-HIP  GOI max=5.309  cDFG max=4.893  (ceiling=9.2104)
+  [PASS]  GR-06-NonNeoC-HIP  expected=445  observed=445
+  [PASS]  GR-05-NonNeoC-MEC  GOI max=5.732  cDFG max=5.159  (ceiling=9.2104)
+  [PASS]  GR-06-NonNeoC-MEC  expected=1156  observed=1156
+  [PASS]  GR-05-NonNeoC-LEC  GOI max=5.455  cDFG max=5.278  (ceiling=9.2104)
+  [PASS]  GR-06-NonNeoC-LEC  expected=190  observed=190
+  [PASS]  GR-05-NonNeoC-FI  GOI max=5.647  cDFG max=5.642  (ceiling=9.2104)
+  [PASS]  GR-06-NonNeoC-FI  expected=196  observed=196
+  [PASS]  GR-08-NeoC-DFC  SKCS-core=468/719 (65.1%)
+  [PASS]  GR-08-NeoC-MTG  SKCS-core=286/444 (64.4%)
+  [PASS]  GR-08-NeoC-AnG  SKCS-core=120/183 (65.6%)
+  [PASS]  GR-08-NeoC-STG  SKCS-core=188/272 (69.1%)
+  [PASS]  GR-08-NeoC-V1C  SKCS-core=217/302 (71.9%)
+  [PASS]  GR-08-NeoC-ITG  SKCS-core=143/210 (68.1%)
+  [WARN]  GR-09-NeoC      SKCS-core GAM DE range: [-22.2%, 91.2%]  (n=14, donor-aware null)
+  [PASS]  GR-11-NeoC      donor RE on 14/14 fit(s); donors per fit [33, 74]; 0 fallback(s)
+  [PASS]  GR-10-NeoC-DFC  TREP=433/468 (92.5%) | sizing DE=0.9261 (B10-08)
+  [PASS]  GR-10-NeoC-MTG  TREP=258/286 (90.2%) | sizing DE=0.9037 (B10-08)
+  [PASS]  GR-10-NeoC-AnG  TREP=109/120 (90.8%) | sizing DE=0.9046 (B10-08)
+  [PASS]  GR-10-NeoC-STG  TREP=174/188 (92.6%) | sizing DE=0.9269 (B10-08)
+  [PASS]  GR-10-NeoC-V1C  TREP=197/217 (90.8%) | sizing DE=0.9099 (B10-08)
+  [PASS]  GR-10-NeoC-ITG  TREP=134/143 (93.7%) | sizing DE=0.9398 (B10-08)
+  [PASS]  GR-10-NeoC-Pooled  TREP=1308/1419 (92.2%) | sizing DE=0.9217 (B10-08)
+  [PASS]  GR-08-NonNeoC-HIP  SKCS-core=288/445 (64.7%)
+  [PASS]  GR-08-NonNeoC-MEC  SKCS-core=778/1156 (67.3%)
+  [PASS]  GR-08-NonNeoC-LEC  SKCS-core=112/190 (58.9%)
+  [PASS]  GR-08-NonNeoC-FI  SKCS-core=124/196 (63.3%)
+  [WARN]  GR-09-NonNeoC   SKCS-core GAM DE range: [-21.0%, 89.5%]  (n=10, donor-aware null)
+  [PASS]  GR-11-NonNeoC   donor RE on 10/10 fit(s); donors per fit [21, 79]; 0 fallback(s)
+  [PASS]  GR-10-NonNeoC-HIP  TREP=262/288 (91.0%) | sizing DE=0.9090 (B10-08)
+  [PASS]  GR-10-NonNeoC-MEC  TREP=717/778 (92.2%) | sizing DE=0.9217 (B10-08)
+  [PASS]  GR-10-NonNeoC-LEC  TREP=98/112 (87.5%) | sizing DE=0.8718 (B10-08)
+  [PASS]  GR-10-NonNeoC-FI  TREP=113/124 (91.1%) | sizing DE=0.9129 (B10-08)
+  [PASS]  GR-10-NonNeoC-Pooled  TREP=1202/1303 (92.2%) | sizing DE=0.9228 (B10-08)
+
+========================================================================
+  Total : 54
+  PASS  : 52
+  WARN  : 2
+  FAIL  : 0
+
+  Result: no failures; review the warnings above
+========================================================================

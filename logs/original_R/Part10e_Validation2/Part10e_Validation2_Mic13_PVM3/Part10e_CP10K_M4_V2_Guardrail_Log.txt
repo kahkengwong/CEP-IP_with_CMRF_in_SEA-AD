@@ -1,0 +1,42 @@
+========================================================================
+Part 10e Validation2 - Guardrail Log [CP10K]
+Date: 2026-08-28 21:13:55
+Arm : Mic13_PVM3
+Embedding source: counts_raw_selected
+========================================================================
+
+  [PASS]  GR-V2-01-NeoC       Validation1 workbook: Part10e_Validation1_Mic13_PVM3/Part10e_CP10K_M4_V1_NeoC_SK_interaction_analysis.xlsx
+  [PASS]  GR-V2-01-NonNeoC    Validation1 workbook: Part10e_Validation1_Mic13_PVM3/Part10e_CP10K_M4_V1_NonNeoC_SK_interaction_analysis.xlsx
+  [PASS]  GR-V2-02-NeoC       raw_selected present: <SEA-AD>/R_export_CP10K/Mic13_PVM3/neocortex/counts/raw_selected
+  [PASS]  GR-V2-02-NonNeoC    raw_selected present: <SEA-AD>/R_export_CP10K/Mic13_PVM3/nonneocortex/counts/raw_selected
+  [PASS]  GR-V2-03-NeoC       embedded 2130 cell(s): OrigRef 1358, Recovered 298, Orig-only 61, Excluded 413
+  [PASS]  GR-V2-04-NeoC       raw_selected max = 2389, integer-like = TRUE | 23954 gene(s), 50 PCA dim
+  [PASS]  GR-V2-05-NeoC       test axes: UMAP_1, UMAP_2, UMAP_3
+  [PASS]  GR-V2-06-NeoC       Recovered donors: n = 60 | largest donor share = 0.094 | TVD vs OrigRef = 0.212 against a null p95 of 0.224
+  [PASS]  GR-V2-07-NeoC       tested: Recovered 298, Original-only 61, OrigRef with a subgroup label 1358 (minimum 5)
+  [WARN]  GR-V2-08-NeoC       4 of 6 cell-unit PERMANOVA pair(s) subsampled to 500 per group
+  [PASS]  GR-V2-10-NeoC       every Original+Refined cell carries one of the four IP x TREP subgroups from `group_refined`
+  [PASS]  GR-V2-11-NeoC       Pre->Post projection axis: axis from 618 Pre-IP TREP to 702 Post-IP TREP cell(s), centroid separation 13.734
+  [PASS]  GR-V2-12-NeoC       complete donor blocks: projection 52, spine residual 32 (minimum 5; below it the donor unit is not evaluable and the cell unit stands alone)
+  [PASS]  GR-V2-13-NeoC       copula method check on (u_SK, v_SK) = (F(Si_norm), F(Ki)), the pitcher-plot axes: copula (u_SK, v_SK) axis from Validation1 RDS, centroid separation 0.296, max |RDS - recomputed| = 0.00e+00. Position and off-axis distance here are imposed by the CMRF selection rule and are reported as a method check, not a finding
+  [PASS]  GR-V2-09-NeoC       donor-unit (inverse-donor-weighted) tests: 12 TOST, 4 PERMANOVA | thresholds >= 3 donor(s) per group, >= 3 cell(s) per donor
+  [PASS]  GR-V2-03-NonNeoC    embedded 1987 cell(s): OrigRef 1232, Recovered 242, Orig-only 71, Excluded 442
+  [PASS]  GR-V2-04-NonNeoC    raw_selected max = 1552, integer-like = TRUE | 23186 gene(s), 50 PCA dim
+  [PASS]  GR-V2-05-NonNeoC    test axes: UMAP_1, UMAP_2, UMAP_3
+  [PASS]  GR-V2-06-NonNeoC    Recovered donors: n = 51 | largest donor share = 0.103 | TVD vs OrigRef = 0.227 against a null p95 of 0.252
+  [PASS]  GR-V2-07-NonNeoC    tested: Recovered 242, Original-only 71, OrigRef with a subgroup label 1232 (minimum 5)
+  [WARN]  GR-V2-08-NonNeoC    4 of 6 cell-unit PERMANOVA pair(s) subsampled to 500 per group
+  [PASS]  GR-V2-10-NonNeoC    every Original+Refined cell carries one of the four IP x TREP subgroups from `group_refined`
+  [PASS]  GR-V2-11-NonNeoC    Pre->Post projection axis: axis from 563 Pre-IP TREP to 644 Post-IP TREP cell(s), centroid separation 13.002
+  [PASS]  GR-V2-12-NonNeoC    complete donor blocks: projection 40, spine residual 27 (minimum 5; below it the donor unit is not evaluable and the cell unit stands alone)
+  [PASS]  GR-V2-13-NonNeoC    copula method check on (u_SK, v_SK) = (F(Si_norm), F(Ki)), the pitcher-plot axes: copula (u_SK, v_SK) axis from Validation1 RDS, centroid separation 0.203, max |RDS - recomputed| = 0.00e+00. Position and off-axis distance here are imposed by the CMRF selection rule and are reported as a method check, not a finding
+  [PASS]  GR-V2-09-NonNeoC    donor-unit (inverse-donor-weighted) tests: 12 TOST, 4 PERMANOVA | thresholds >= 3 donor(s) per group, >= 3 cell(s) per donor
+
+========================================================================
+  Total : 26
+  PASS  : 24
+  WARN  : 2
+  FAIL  : 0
+
+  Result: no failures; review the warnings above
+========================================================================

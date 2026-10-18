@@ -1,0 +1,44 @@
+Part 12 rerun -- step 15
+Script: Part12_Fig16_Analysis.r | md5 b40e70eac4ef82cfb4dfd36917428310
+Shared file: Part12_03_Config.r | md5 df0cc2f82a0fd0947b3bb0b93bae800a
+Run ID: 20260923-1045-windows
+Start: 2026-09-23 10:45:07
+Machine: LAPTOP-M7LQ95IS | R version 4.6.1 (2026-06-24 ucrt)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16 | md5 de727a6a529ece74865c9387be6d8831
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 15-01 script saved in Part12_rerun | Part12_Fig16_Analysis.r
+
+Pre-set reading for 16D | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### 16D. Does the MT-CO3 to cDFG relationship hold inside single donors?
+  
+  - **Estimate.** On the PVM_3 arm population (MT-CO3-positive Micro-PVM_3 cells), per donor with at least 20 cells, rs of MT-CO3 with the cDFG composite (log1p CP10K), raw and with log depth partialled out. The median over donors, with a donor-bootstrap interval. Beside it, the pooled rs over all cells and the between-donor rs of donor means. Control pair: ACTB with the cHKG8 composite on the same cells.
+  - **Family.** No test; the median is read against fixed marks.
+  - **Reading.** Marks kept from the archived run, on the raw within-donor median.
+    - At or above 0.75: the relationship holds inside donors and is not produced by pooling.
+    - 0.40 to 0.75: it holds partly inside donors.
+    - Below 0.40: the pooled relationship is mostly between donors.
+  
+
+SECTION A -- inputs
+[PASS] 15-02 04_cell_labels.csv.gz matches the 04_Labels log | Part12_rerun/04_Labels/04_cell_labels.csv.gz
+[PASS] 15-03 labels carry this labels version | checked
+[PASS] 15-04 02_counts.mtx.gz matches the 02_Extract log | Part12_rerun/02_Extract/02_counts.mtx.gz
+[PASS] 15-05 02_counts_genes.tsv matches the 02_Extract log | Part12_rerun/02_Extract/02_counts_genes.tsv
+[PASS] 15-06 02_counts_cells.tsv matches the 02_Extract log | Part12_rerun/02_Extract/02_counts_cells.tsv
+[PASS] 15-07 every PVM_3 arm cell is in the step 02 count matrix | 24463 of 24463
+  population: 24463 cells from 84 donors
+
+SECTION B -- per-donor rs (donors with at least 20 cells, B = 10000)
+  MT-CO3 vs cDFG  donors  83 | within median raw 0.7473 | partial 0.7432 | pooled 0.8174 | between 0.9550
+  ACTB vs cHKG8   donors  83 | within median raw 0.4025 | partial 0.3816 | pooled 0.4415 | between 0.5240
+[NOTE] pre-set marks on the raw within-donor median | 0.7473 -> 0.40 to 0.75
+
+SECTION C -- write
+[PASS] 15-08 stats and plot files written | 10 stats rows | 166 donor rows
+
+Outputs:
+  Part12_rerun/08_Fig16/16D_WithinDonorRho/Stats_16D.csv | 0.0 MB | md5 09c03e2378722544e88ca79da0f5d803
+  Part12_rerun/08_Fig16/16D_WithinDonorRho/Plot_16D_donors.csv | 0.0 MB | md5 43cc715e0108eff720b23d652b512aa8
+Checks: 8 PASS, 0 FAIL, 0 WARN | duration 0.1 min
+VERDICT: PASS

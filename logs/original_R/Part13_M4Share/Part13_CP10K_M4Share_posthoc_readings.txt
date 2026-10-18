@@ -1,0 +1,18 @@
+Part13_CP10K_M4Share post-hoc readings: Module state against %MT within the same M4 cells
+Added 2026-10-10 after the first Part 13 run had been read (pre-set reading R0; m1b 'state beyond abundance'). This test is POST-HOC. The text is fixed before its models are first fitted; a changed text stops the run unless ALLOW_PRESET_REWRITE = TRUE.
+
+Question: within the same M4 cells, does the Module state carry cognition beyond the cells' %MT?
+- Both predictors come from the donor's M4 cells in the region set: the within-M4 fraction (Module post-IP cells as a percentage of M4 cells) and %MT (log1p of the donor mean of per-cell %MT over the M4 cells, as Figure 14D). Donors with at least 5 M4 cells.
+- p1 = cov4 + within-M4 fraction + %MT (S15; the 9 clinical outcomes; BH within region set and predictor, as Figure 14D).
+- p2 = cov4 + Braak + Thal + CERAD + within-M4 fraction + %MT (S16; cognition; BH within region set and predictor over the cognition outcomes, as Figure 9B).
+- p3 = p1 + M4 share (S17; sensitivity, no reading).
+- Holds: FDR < 0.05 with the expected sign (negative for MMSE and CASI, positive for cognitive status) and every full-model VIF < 5.
+
+Primary test: NeoC MMSE in p1. Readings (first that applies)
+P0 Not separable: a predictor VIF >= 5 in p1.
+P1 Module state beyond %MT: the fraction holds in p1 and %MT does not reach FDR < 0.05.
+P2 Both: the fraction holds in p1 and %MT reaches FDR < 0.05.
+P3 %MT beyond the Module state: %MT reaches FDR < 0.05 in p1 and the fraction does not hold.
+P4 Neither: neither reaches FDR < 0.05 in p1.
+
+Reported without a reading: p2, p3, NonNeoC and the other outcomes.

@@ -1,0 +1,1725 @@
+Part10e CMRF — log started: 2026-08-27 01:01:09.412678
+
+
+============================================================================
+  ARM: PVM3_all   config: R_config.R
+============================================================================
+R_config.R loaded (Module 1: MT-CO3 + 8 DFGs, ≥8/10 regions).
+  ARM_TAG   : PVM3_all 
+  ARM_DIR   : <SEA-AD>/R_export_CP10K/PVM3_all 
+  NEOC_DIR  : <SEA-AD>/R_export_CP10K/PVM3_all/neocortex 
+  NONNC_DIR : <SEA-AD>/R_export_CP10K/PVM3_all/nonneocortex 
+  SHARED_DIR: <SEA-AD>/R_export_CP10K/shared 
+  GOI       : MT-CO3 
+  DFG_NEOC  : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  DFG_NONNC : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Composite : cDFG 
+  RUN_SUFFIX: _PVM3all 
+  Supertype : Micro-PVM_3-SEAAD 
+  Mod1 genes: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 ( 9 )
+  HKG_GENES : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 13331 NeoC / 11132 NonNeoC
+  Config OK: PVM3_all | MT-CO3 + 8 DFG | CP10K
+
+  [IPRS] Part10b_IPRS_CP10K_PVM_3_results.rds | definition: IPRS_full
+  [IPRS] NonNeoC    IP_x = 2.657153 | IP_y = 1.887917
+  [IPRS] NeoC       IP_x = 2.495273 | IP_y = 1.664802
+
+ ======================================================================== 
+  Part10e — Si x Ki copula and CMRF
+  Arm          : PVM3_all 
+  GOI          : MT-CO3 
+  DFG          : cDFG  —  MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Normalisation: CP10K  log1p(UMIs/total x  10000 )
+  Spine        : mgcv s(u) + s(donor, bs = "re") | inverse-donor weights | monotonicity checked, not imposed
+  PRSS         : phase 1 = 8 iterations, phase 2 = at most 5 
+  Output dir   : <SEA-AD>/Part10e_CMRF/Part10e_CMRF_PVM_3 
+======================================================================== 
+
+
+ ======================================================================== 
+  SECTION A0 — PRE-ANALYSIS GUARDRAILS
+======================================================================== 
+
+  -- Dataset: NeoC --------------------------------------
+  [PASS]  GR-01-NeoC        norm.mtx max = 8.1332  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NeoC        expm1(norm) row sums: mean = 10000.000000, max |dev| = 4.89e-10, n = 50
+  [PASS]  GR-04-NeoC        raw max = 3187, integer-like = TRUE
+  -- Dataset: NonNeoC --------------------------------------
+  [PASS]  GR-01-NonNeoC     norm.mtx max = 7.6610  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NonNeoC     expm1(norm) row sums: mean = 10000.000000, max |dev| = 7.57e-10, n = 50
+  [PASS]  GR-04-NonNeoC     raw max = 1552, integer-like = TRUE
+  [PASS]  GR-05-NonNeoC     Part 10b EP/TREP CSV: Part10b_SKCS_PVM_3/Part10b_CP10K_PVM_3_SKCS_NonNeoC_EP_TREP_values.csv
+  [PASS]  GR-05-NeoC        Part 10b EP/TREP CSV: Part10b_SKCS_PVM_3/Part10b_CP10K_PVM_3_SKCS_NeoC_EP_TREP_values.csv
+  [PASS]  GR-06-Part10d     Part 10d RDS: Part10d_Copula2_PVM_3/Part10d_CP10K_PVM_3_Copula2_all_results.rds
+  [PASS]  GR-07-IPRS        IPRS IP values (IPRS_full): IP_x NonNeoC=2.6572, NeoC=2.4953 | IP_y NonNeoC=1.8879, NeoC=1.6648
+  Guardrail log written: <SEA-AD>/Part10e_CMRF/Part10e_CMRF_PVM_3/Part10e_CP10K_PVM_3_CMRF_Guardrail_Log.txt 
+
+  Pre-analysis guardrails: 10 PASS / 0 WARN / 0 FAIL
+  *** ALL PRE-ANALYSIS GUARDRAILS PASSED ***
+
+
+ ======================================================================== 
+  Part10e CMRF: NonNeoC  [ PVM3_all ]
+======================================================================== 
+
+  IP_x = 2.657153 (SKCS-core, from Part10b_IPRS)
+  IP_y = 1.887917 = f(IP_x), from Part10b_IPRS
+  Loaded 6941 SKCS-core cells from Part10d RDS
+  Part10d IP_u = 0.5951 (full-pop; for comparison only)
+  Spine: fitted in this part, not read from Part 10d
+  EP/TREP CSV aligned to the Part 10d cells by barcode: 6941 cells
+  Donors on the SKCS-core cells: 83
+  Group counts: Pre-IP TREP=3103  Pre-IP non-TREP=116  Post-IP TREP=3214  Post-IP non-TREP=508
+
+  STEP 1 -- Rank-transform to copula marginals
+  p_i range [0.0001, 0.9999] | q_i range [0.0002, 0.9999]
+  KS test p_i ~ Uniform: p=1.0000  q_i ~ Uniform: p=1.0000
+
+  STEP 2a -- Si-Ki copula statistics
+  Spearman rho(Si,Ki)=0.7625 | Kendall tau(Si,Ki)=0.5746
+
+  STEP 2d -- Full-population Si-Ki pitcher plant copula
+  Full GOI-positive population: 11132 cells
+  Part 10b Pre/Post labels reproduce: 1.0000 on the cDFG axis at IP_y, 0.9849 on the GOI axis at IP_x  (n=6941)
+  SKCS matched: 6941 | Non-SKCS: 4191
+  p_thresh=0.307 | q_thresh=0.200
+
+  STEP 3b -- Per-group dependence statistics
+
+  STEP 4 -- CMRF two-stage membership filter
+  Reconstructed u_all/v_all from GOI_expr/cDFG_expr ranks
+  IP_u = 0.595078  (IP_x=2.657153 projected onto full-pop copula; n=11132)
+  cf. Part10d IP_u = 0.595078  (delta = 0.000000)
+  IP_v = 0.527441  (IP_y=1.887917 projected onto full-pop copula; n=11132)
+  Fitting the spine g(u) on TREP SKCS-core cells ...
+    g(u) CEP-IP spine phase1 iter 1 | k=3 | PRSS=0.56937 | 7.9 s
+    g(u) CEP-IP spine: fits 2-8 ran on 7 worker(s)
+    g(u) CEP-IP spine phase1 iter 2 | k=4 | PRSS=0.44325 | 11.7 s
+    g(u) CEP-IP spine phase1 iter 3 | k=5 | PRSS=0.43996 | 14.9 s
+    g(u) CEP-IP spine phase1 iter 4 | k=6 | PRSS=0.41513 | 20.0 s
+    g(u) CEP-IP spine phase1 iter 5 | k=7 | PRSS=0.41506 | 25.0 s
+    g(u) CEP-IP spine phase1 iter 6 | k=8 | PRSS=0.41217 | 45.8 s
+    g(u) CEP-IP spine phase1 iter 7 | k=9 | PRSS=0.41084 | 46.6 s
+    g(u) CEP-IP spine phase1 iter 8 | k=10 | PRSS=0.40485 | 48.0 s
+    g(u) CEP-IP spine phase1 best: k=10 | PRSS=0.40485
+    g(u) CEP-IP spine refine iter 9 | k=9 | PRSS=0.41084
+    g(u) CEP-IP spine refine iter 10 | k=10 | PRSS=0.40485
+    g(u) CEP-IP spine refine iter 11 | k=10 | PRSS=0.40485
+    g(u) CEP-IP spine refine iter 12 | k=10 | PRSS=0.40485
+    g(u) CEP-IP spine refine iter 13 | k=10 | PRSS=0.40485
+    g(u): n=6317 | best_k=10 | donor RE=YES (83 donors) | weights=inverse donor | PRSS=0.40485 | iters=13
+    monotonicity: min consecutive difference = 1.934e-04 over 501 grid points -- non-decreasing
+    spine at the IP: g(IP_u) = 0.6875 (IP_v = 0.5274) | g_inv(IP_v) = 0.5120 (IP_u = 0.5951)
+  IP coordinates: IP_u = 0.5951 | IP_v = 0.5274 | IP_x = 2.6572 | IP_y = 1.8879 | g(IP_u) = 0.6875 | g_inv(IP_v) = 0.5120
+
+  STEP 3e -- Threshold translation summary
+  Step 3e threshold translation table built.
+  Original SKCS-core: 6941 cells (of 11132 full-pop)
+  Calibration weights: 83 donor(s) over the original SKCS-core; sum(w) = 83.0000
+  Calibrating CMRF delta_base: weighted quantile(|v - g(u)|, 0.95) over all original SKCS-core cells ...
+  Calibration cells: 6941 | sum(w) = 83.0000 | 95th weighted pctile |v - g(u)| = 0.166913 (delta_base)
+  Calibration resid range: [0.000028, 0.236950] | median=0.061481
+
+  Applying CMRF Stage 1 (band proximity for all cells) ...
+  Stage 1 SKCS anchor: 6646 (band pass) of 6941 total SKCS
+  CMRF Stage 2 (B2): 6646 Orig+Ref anchor cells, 1708 Stage1 candidates
+  RSk-fCV: n_repeats=40, k_folds=5 (200 total folds) | Wilcoxon alpha=0.050
+  Effect-size gate: calibrated on background variability (Formulation B)
+  Step 1: Orig+Ref-alone RSk-fCV baseline ...
+  RSk-fCV: one 200-fold run took 0.54 s sequentially
+  RSk-fCV: staying sequential -- one run takes 0.54 s, below the 2.0 s at which
+              splitting it across workers pays for the round trips.
+  Orig+Ref baseline RMSE: mean=0.078060  sd=0.001163  median=0.078074  IQR=0.001448
+  Background variability BV (IQR/median): 0.018540 (1.85% relative threshold)
+  PAVA removal residuals: mean=0.104747, max=0.271112 (initial union, n=8354)
+  Spine removal residuals: mean=0.114728, max=0.247143 (for comparison)
+  Iter 1: n_active=1708 | union RMSE mean=0.090443 | Wilcoxon p=0.0000 | dRMSE=0.1588 [WORSE & exceeds noise -- removing worst]
+  Iter 2: n_active=1707 | union RMSE mean=0.090382 | Wilcoxon p=0.0000 | dRMSE=0.1575 [WORSE & exceeds noise -- removing worst]
+  Iter 3: n_active=1706 | union RMSE mean=0.090344 | Wilcoxon p=0.0000 | dRMSE=0.1570 [WORSE & exceeds noise -- removing worst]
+  Iter 4: n_active=1705 | union RMSE mean=0.090297 | Wilcoxon p=0.0000 | dRMSE=0.1569 [WORSE & exceeds noise -- removing worst]
+  Iter 5: n_active=1704 | union RMSE mean=0.090250 | Wilcoxon p=0.0000 | dRMSE=0.1563 [WORSE & exceeds noise -- removing worst]
+  Iter 6: n_active=1703 | union RMSE mean=0.090221 | Wilcoxon p=0.0000 | dRMSE=0.1572 [WORSE & exceeds noise -- removing worst]
+  Iter 7: n_active=1702 | union RMSE mean=0.090179 | Wilcoxon p=0.0000 | dRMSE=0.1552 [WORSE & exceeds noise -- removing worst]
+  Iter 8: n_active=1701 | union RMSE mean=0.090143 | Wilcoxon p=0.0000 | dRMSE=0.1539 [WORSE & exceeds noise -- removing worst]
+  Iter 9: n_active=1700 | union RMSE mean=0.090096 | Wilcoxon p=0.0000 | dRMSE=0.1561 [WORSE & exceeds noise -- removing worst]
+  Iter 10: n_active=1699 | union RMSE mean=0.090087 | Wilcoxon p=0.0000 | dRMSE=0.1550 [WORSE & exceeds noise -- removing worst]
+  Iter 11: n_active=1698 | union RMSE mean=0.090029 | Wilcoxon p=0.0000 | dRMSE=0.1521 [WORSE & exceeds noise -- removing worst]
+  Iter 12: n_active=1697 | union RMSE mean=0.090007 | Wilcoxon p=0.0000 | dRMSE=0.1538 [WORSE & exceeds noise -- removing worst]
+  Iter 13: n_active=1696 | union RMSE mean=0.089963 | Wilcoxon p=0.0000 | dRMSE=0.1533 [WORSE & exceeds noise -- removing worst]
+  Iter 14: n_active=1695 | union RMSE mean=0.089917 | Wilcoxon p=0.0000 | dRMSE=0.1505 [WORSE & exceeds noise -- removing worst]
+  Iter 15: n_active=1694 | union RMSE mean=0.089880 | Wilcoxon p=0.0000 | dRMSE=0.1513 [WORSE & exceeds noise -- removing worst]
+  Iter 16: n_active=1693 | union RMSE mean=0.089847 | Wilcoxon p=0.0000 | dRMSE=0.1485 [WORSE & exceeds noise -- removing worst]
+  Iter 17: n_active=1692 | union RMSE mean=0.089803 | Wilcoxon p=0.0000 | dRMSE=0.1509 [WORSE & exceeds noise -- removing worst]
+  Iter 18: n_active=1691 | union RMSE mean=0.089784 | Wilcoxon p=0.0000 | dRMSE=0.1490 [WORSE & exceeds noise -- removing worst]
+  Iter 19: n_active=1690 | union RMSE mean=0.089733 | Wilcoxon p=0.0000 | dRMSE=0.1503 [WORSE & exceeds noise -- removing worst]
+  Iter 20: n_active=1689 | union RMSE mean=0.089694 | Wilcoxon p=0.0000 | dRMSE=0.1509 [WORSE & exceeds noise -- removing worst]
+  Iter 21: n_active=1688 | union RMSE mean=0.089671 | Wilcoxon p=0.0000 | dRMSE=0.1490 [WORSE & exceeds noise -- removing worst]
+  Iter 22: n_active=1687 | union RMSE mean=0.089640 | Wilcoxon p=0.0000 | dRMSE=0.1486 [WORSE & exceeds noise -- removing worst]
+  Iter 23: n_active=1686 | union RMSE mean=0.089602 | Wilcoxon p=0.0000 | dRMSE=0.1477 [WORSE & exceeds noise -- removing worst]
+  Iter 24: n_active=1685 | union RMSE mean=0.089577 | Wilcoxon p=0.0000 | dRMSE=0.1480 [WORSE & exceeds noise -- removing worst]
+  Iter 25: n_active=1684 | union RMSE mean=0.089546 | Wilcoxon p=0.0000 | dRMSE=0.1493 [WORSE & exceeds noise -- removing worst]
+  Iter 26: n_active=1683 | union RMSE mean=0.089507 | Wilcoxon p=0.0000 | dRMSE=0.1478 [WORSE & exceeds noise -- removing worst]
+  Iter 27: n_active=1682 | union RMSE mean=0.089485 | Wilcoxon p=0.0000 | dRMSE=0.1457 [WORSE & exceeds noise -- removing worst]
+  Iter 28: n_active=1681 | union RMSE mean=0.089462 | Wilcoxon p=0.0000 | dRMSE=0.1455 [WORSE & exceeds noise -- removing worst]
+  Iter 29: n_active=1680 | union RMSE mean=0.089436 | Wilcoxon p=0.0000 | dRMSE=0.1460 [WORSE & exceeds noise -- removing worst]
+  Iter 30: n_active=1679 | union RMSE mean=0.089409 | Wilcoxon p=0.0000 | dRMSE=0.1463 [WORSE & exceeds noise -- removing worst]
+  Iter 31: n_active=1678 | union RMSE mean=0.089377 | Wilcoxon p=0.0000 | dRMSE=0.1462 [WORSE & exceeds noise -- removing worst]
+  Iter 32: n_active=1677 | union RMSE mean=0.089365 | Wilcoxon p=0.0000 | dRMSE=0.1443 [WORSE & exceeds noise -- removing worst]
+  Iter 33: n_active=1676 | union RMSE mean=0.089326 | Wilcoxon p=0.0000 | dRMSE=0.1457 [WORSE & exceeds noise -- removing worst]
+  Iter 34: n_active=1675 | union RMSE mean=0.089298 | Wilcoxon p=0.0000 | dRMSE=0.1434 [WORSE & exceeds noise -- removing worst]
+  Iter 35: n_active=1674 | union RMSE mean=0.089274 | Wilcoxon p=0.0000 | dRMSE=0.1443 [WORSE & exceeds noise -- removing worst]
+  Iter 36: n_active=1673 | union RMSE mean=0.089245 | Wilcoxon p=0.0000 | dRMSE=0.1438 [WORSE & exceeds noise -- removing worst]
+  Iter 37: n_active=1672 | union RMSE mean=0.089219 | Wilcoxon p=0.0000 | dRMSE=0.1423 [WORSE & exceeds noise -- removing worst]
+  Iter 38: n_active=1671 | union RMSE mean=0.089199 | Wilcoxon p=0.0000 | dRMSE=0.1411 [WORSE & exceeds noise -- removing worst]
+  Iter 39: n_active=1670 | union RMSE mean=0.089167 | Wilcoxon p=0.0000 | dRMSE=0.1407 [WORSE & exceeds noise -- removing worst]
+  Iter 40: n_active=1669 | union RMSE mean=0.089131 | Wilcoxon p=0.0000 | dRMSE=0.1423 [WORSE & exceeds noise -- removing worst]
+  Iter 41: n_active=1668 | union RMSE mean=0.089126 | Wilcoxon p=0.0000 | dRMSE=0.1418 [WORSE & exceeds noise -- removing worst]
+  Iter 42: n_active=1667 | union RMSE mean=0.089100 | Wilcoxon p=0.0000 | dRMSE=0.1413 [WORSE & exceeds noise -- removing worst]
+  Iter 43: n_active=1666 | union RMSE mean=0.089060 | Wilcoxon p=0.0000 | dRMSE=0.1405 [WORSE & exceeds noise -- removing worst]
+  Iter 44: n_active=1665 | union RMSE mean=0.089040 | Wilcoxon p=0.0000 | dRMSE=0.1415 [WORSE & exceeds noise -- removing worst]
+  Iter 45: n_active=1664 | union RMSE mean=0.088993 | Wilcoxon p=0.0000 | dRMSE=0.1393 [WORSE & exceeds noise -- removing worst]
+  Iter 46: n_active=1663 | union RMSE mean=0.088973 | Wilcoxon p=0.0000 | dRMSE=0.1379 [WORSE & exceeds noise -- removing worst]
+  Iter 47: n_active=1662 | union RMSE mean=0.088950 | Wilcoxon p=0.0000 | dRMSE=0.1389 [WORSE & exceeds noise -- removing worst]
+  Iter 48: n_active=1661 | union RMSE mean=0.088921 | Wilcoxon p=0.0000 | dRMSE=0.1402 [WORSE & exceeds noise -- removing worst]
+  Iter 49: n_active=1660 | union RMSE mean=0.088898 | Wilcoxon p=0.0000 | dRMSE=0.1395 [WORSE & exceeds noise -- removing worst]
+  Iter 50: n_active=1659 | union RMSE mean=0.088871 | Wilcoxon p=0.0000 | dRMSE=0.1386 [WORSE & exceeds noise -- removing worst]
+  Iter 51: n_active=1658 | union RMSE mean=0.088865 | Wilcoxon p=0.0000 | dRMSE=0.1377 [WORSE & exceeds noise -- removing worst]
+  Iter 52: n_active=1657 | union RMSE mean=0.088824 | Wilcoxon p=0.0000 | dRMSE=0.1367 [WORSE & exceeds noise -- removing worst]
+  Iter 53: n_active=1656 | union RMSE mean=0.088792 | Wilcoxon p=0.0000 | dRMSE=0.1367 [WORSE & exceeds noise -- removing worst]
+  Iter 54: n_active=1655 | union RMSE mean=0.088773 | Wilcoxon p=0.0000 | dRMSE=0.1359 [WORSE & exceeds noise -- removing worst]
+  Iter 55: n_active=1654 | union RMSE mean=0.088747 | Wilcoxon p=0.0000 | dRMSE=0.1372 [WORSE & exceeds noise -- removing worst]
+  Iter 56: n_active=1653 | union RMSE mean=0.088734 | Wilcoxon p=0.0000 | dRMSE=0.1366 [WORSE & exceeds noise -- removing worst]
+  Iter 57: n_active=1652 | union RMSE mean=0.088700 | Wilcoxon p=0.0000 | dRMSE=0.1355 [WORSE & exceeds noise -- removing worst]
+  Iter 58: n_active=1651 | union RMSE mean=0.088665 | Wilcoxon p=0.0000 | dRMSE=0.1351 [WORSE & exceeds noise -- removing worst]
+  Iter 59: n_active=1650 | union RMSE mean=0.088643 | Wilcoxon p=0.0000 | dRMSE=0.1346 [WORSE & exceeds noise -- removing worst]
+  Iter 60: n_active=1649 | union RMSE mean=0.088613 | Wilcoxon p=0.0000 | dRMSE=0.1336 [WORSE & exceeds noise -- removing worst]
+  Iter 61: n_active=1648 | union RMSE mean=0.088607 | Wilcoxon p=0.0000 | dRMSE=0.1333 [WORSE & exceeds noise -- removing worst]
+  Iter 62: n_active=1647 | union RMSE mean=0.088568 | Wilcoxon p=0.0000 | dRMSE=0.1329 [WORSE & exceeds noise -- removing worst]
+  Iter 63: n_active=1646 | union RMSE mean=0.088548 | Wilcoxon p=0.0000 | dRMSE=0.1345 [WORSE & exceeds noise -- removing worst]
+  Iter 64: n_active=1645 | union RMSE mean=0.088503 | Wilcoxon p=0.0000 | dRMSE=0.1336 [WORSE & exceeds noise -- removing worst]
+  Iter 65: n_active=1644 | union RMSE mean=0.088481 | Wilcoxon p=0.0000 | dRMSE=0.1336 [WORSE & exceeds noise -- removing worst]
+  Iter 66: n_active=1643 | union RMSE mean=0.088459 | Wilcoxon p=0.0000 | dRMSE=0.1313 [WORSE & exceeds noise -- removing worst]
+  Iter 67: n_active=1642 | union RMSE mean=0.088422 | Wilcoxon p=0.0000 | dRMSE=0.1328 [WORSE & exceeds noise -- removing worst]
+  Iter 68: n_active=1641 | union RMSE mean=0.088413 | Wilcoxon p=0.0000 | dRMSE=0.1319 [WORSE & exceeds noise -- removing worst]
+  Iter 69: n_active=1640 | union RMSE mean=0.088378 | Wilcoxon p=0.0000 | dRMSE=0.1319 [WORSE & exceeds noise -- removing worst]
+  Iter 70: n_active=1639 | union RMSE mean=0.088358 | Wilcoxon p=0.0000 | dRMSE=0.1326 [WORSE & exceeds noise -- removing worst]
+  Iter 71: n_active=1638 | union RMSE mean=0.088345 | Wilcoxon p=0.0000 | dRMSE=0.1311 [WORSE & exceeds noise -- removing worst]
+  Iter 72: n_active=1637 | union RMSE mean=0.088311 | Wilcoxon p=0.0000 | dRMSE=0.1317 [WORSE & exceeds noise -- removing worst]
+  Iter 73: n_active=1636 | union RMSE mean=0.088293 | Wilcoxon p=0.0000 | dRMSE=0.1309 [WORSE & exceeds noise -- removing worst]
+  Iter 74: n_active=1635 | union RMSE mean=0.088258 | Wilcoxon p=0.0000 | dRMSE=0.1303 [WORSE & exceeds noise -- removing worst]
+  Iter 75: n_active=1634 | union RMSE mean=0.088236 | Wilcoxon p=0.0000 | dRMSE=0.1316 [WORSE & exceeds noise -- removing worst]
+  Iter 76: n_active=1633 | union RMSE mean=0.088199 | Wilcoxon p=0.0000 | dRMSE=0.1307 [WORSE & exceeds noise -- removing worst]
+  Iter 77: n_active=1632 | union RMSE mean=0.088177 | Wilcoxon p=0.0000 | dRMSE=0.1309 [WORSE & exceeds noise -- removing worst]
+  Iter 78: n_active=1631 | union RMSE mean=0.088139 | Wilcoxon p=0.0000 | dRMSE=0.1287 [WORSE & exceeds noise -- removing worst]
+  Iter 79: n_active=1630 | union RMSE mean=0.088116 | Wilcoxon p=0.0000 | dRMSE=0.1290 [WORSE & exceeds noise -- removing worst]
+  Iter 80: n_active=1629 | union RMSE mean=0.088115 | Wilcoxon p=0.0000 | dRMSE=0.1279 [WORSE & exceeds noise -- removing worst]
+  Iter 81: n_active=1628 | union RMSE mean=0.088067 | Wilcoxon p=0.0000 | dRMSE=0.1290 [WORSE & exceeds noise -- removing worst]
+  Iter 82: n_active=1627 | union RMSE mean=0.088047 | Wilcoxon p=0.0000 | dRMSE=0.1276 [WORSE & exceeds noise -- removing worst]
+  Iter 83: n_active=1626 | union RMSE mean=0.088008 | Wilcoxon p=0.0000 | dRMSE=0.1274 [WORSE & exceeds noise -- removing worst]
+  Iter 84: n_active=1625 | union RMSE mean=0.088009 | Wilcoxon p=0.0000 | dRMSE=0.1266 [WORSE & exceeds noise -- removing worst]
+  Iter 85: n_active=1624 | union RMSE mean=0.087976 | Wilcoxon p=0.0000 | dRMSE=0.1275 [WORSE & exceeds noise -- removing worst]
+  Iter 86: n_active=1623 | union RMSE mean=0.087942 | Wilcoxon p=0.0000 | dRMSE=0.1266 [WORSE & exceeds noise -- removing worst]
+  Iter 87: n_active=1622 | union RMSE mean=0.087932 | Wilcoxon p=0.0000 | dRMSE=0.1260 [WORSE & exceeds noise -- removing worst]
+  Iter 88: n_active=1621 | union RMSE mean=0.087910 | Wilcoxon p=0.0000 | dRMSE=0.1261 [WORSE & exceeds noise -- removing worst]
+  Iter 89: n_active=1620 | union RMSE mean=0.087885 | Wilcoxon p=0.0000 | dRMSE=0.1289 [WORSE & exceeds noise -- removing worst]
+  Iter 90: n_active=1619 | union RMSE mean=0.087846 | Wilcoxon p=0.0000 | dRMSE=0.1258 [WORSE & exceeds noise -- removing worst]
+  Iter 91: n_active=1618 | union RMSE mean=0.087852 | Wilcoxon p=0.0000 | dRMSE=0.1261 [WORSE & exceeds noise -- removing worst]
+  Iter 92: n_active=1617 | union RMSE mean=0.087818 | Wilcoxon p=0.0000 | dRMSE=0.1248 [WORSE & exceeds noise -- removing worst]
+  Iter 93: n_active=1616 | union RMSE mean=0.087798 | Wilcoxon p=0.0000 | dRMSE=0.1260 [WORSE & exceeds noise -- removing worst]
+  Iter 94: n_active=1615 | union RMSE mean=0.087793 | Wilcoxon p=0.0000 | dRMSE=0.1251 [WORSE & exceeds noise -- removing worst]
+  Iter 95: n_active=1614 | union RMSE mean=0.087773 | Wilcoxon p=0.0000 | dRMSE=0.1248 [WORSE & exceeds noise -- removing worst]
+  Iter 96: n_active=1613 | union RMSE mean=0.087736 | Wilcoxon p=0.0000 | dRMSE=0.1240 [WORSE & exceeds noise -- removing worst]
+  Iter 97: n_active=1612 | union RMSE mean=0.087715 | Wilcoxon p=0.0000 | dRMSE=0.1248 [WORSE & exceeds noise -- removing worst]
+  Iter 98: n_active=1611 | union RMSE mean=0.087696 | Wilcoxon p=0.0000 | dRMSE=0.1235 [WORSE & exceeds noise -- removing worst]
+  Iter 99: n_active=1610 | union RMSE mean=0.087674 | Wilcoxon p=0.0000 | dRMSE=0.1250 [WORSE & exceeds noise -- removing worst]
+  Iter 100: n_active=1609 | union RMSE mean=0.087647 | Wilcoxon p=0.0000 | dRMSE=0.1225 [WORSE & exceeds noise -- removing worst]
+  Iter 101: n_active=1608 | union RMSE mean=0.087634 | Wilcoxon p=0.0000 | dRMSE=0.1219 [WORSE & exceeds noise -- removing worst]
+  Iter 102: n_active=1607 | union RMSE mean=0.087602 | Wilcoxon p=0.0000 | dRMSE=0.1202 [WORSE & exceeds noise -- removing worst]
+  Iter 103: n_active=1606 | union RMSE mean=0.087581 | Wilcoxon p=0.0000 | dRMSE=0.1235 [WORSE & exceeds noise -- removing worst]
+  Iter 104: n_active=1605 | union RMSE mean=0.087563 | Wilcoxon p=0.0000 | dRMSE=0.1218 [WORSE & exceeds noise -- removing worst]
+  Iter 105: n_active=1604 | union RMSE mean=0.087534 | Wilcoxon p=0.0000 | dRMSE=0.1217 [WORSE & exceeds noise -- removing worst]
+  Iter 106: n_active=1603 | union RMSE mean=0.087493 | Wilcoxon p=0.0000 | dRMSE=0.1211 [WORSE & exceeds noise -- removing worst]
+  Iter 107: n_active=1602 | union RMSE mean=0.087473 | Wilcoxon p=0.0000 | dRMSE=0.1206 [WORSE & exceeds noise -- removing worst]
+  Iter 108: n_active=1601 | union RMSE mean=0.087461 | Wilcoxon p=0.0000 | dRMSE=0.1223 [WORSE & exceeds noise -- removing worst]
+  Iter 109: n_active=1600 | union RMSE mean=0.087425 | Wilcoxon p=0.0000 | dRMSE=0.1202 [WORSE & exceeds noise -- removing worst]
+  Iter 110: n_active=1599 | union RMSE mean=0.087400 | Wilcoxon p=0.0000 | dRMSE=0.1198 [WORSE & exceeds noise -- removing worst]
+  Iter 111: n_active=1598 | union RMSE mean=0.087388 | Wilcoxon p=0.0000 | dRMSE=0.1204 [WORSE & exceeds noise -- removing worst]
+  Iter 112: n_active=1597 | union RMSE mean=0.087383 | Wilcoxon p=0.0000 | dRMSE=0.1185 [WORSE & exceeds noise -- removing worst]
+  Iter 113: n_active=1596 | union RMSE mean=0.087350 | Wilcoxon p=0.0000 | dRMSE=0.1192 [WORSE & exceeds noise -- removing worst]
+  Iter 114: n_active=1595 | union RMSE mean=0.087325 | Wilcoxon p=0.0000 | dRMSE=0.1175 [WORSE & exceeds noise -- removing worst]
+  Iter 115: n_active=1594 | union RMSE mean=0.087292 | Wilcoxon p=0.0000 | dRMSE=0.1181 [WORSE & exceeds noise -- removing worst]
+  Iter 116: n_active=1593 | union RMSE mean=0.087267 | Wilcoxon p=0.0000 | dRMSE=0.1181 [WORSE & exceeds noise -- removing worst]
+  Iter 117: n_active=1592 | union RMSE mean=0.087244 | Wilcoxon p=0.0000 | dRMSE=0.1172 [WORSE & exceeds noise -- removing worst]
+  Iter 118: n_active=1591 | union RMSE mean=0.087226 | Wilcoxon p=0.0000 | dRMSE=0.1186 [WORSE & exceeds noise -- removing worst]
+  Iter 119: n_active=1590 | union RMSE mean=0.087208 | Wilcoxon p=0.0000 | dRMSE=0.1173 [WORSE & exceeds noise -- removing worst]
+  Iter 120: n_active=1589 | union RMSE mean=0.087187 | Wilcoxon p=0.0000 | dRMSE=0.1178 [WORSE & exceeds noise -- removing worst]
+  Iter 121: n_active=1588 | union RMSE mean=0.087166 | Wilcoxon p=0.0000 | dRMSE=0.1182 [WORSE & exceeds noise -- removing worst]
+  Iter 122: n_active=1587 | union RMSE mean=0.087151 | Wilcoxon p=0.0000 | dRMSE=0.1158 [WORSE & exceeds noise -- removing worst]
+  Iter 123: n_active=1586 | union RMSE mean=0.087116 | Wilcoxon p=0.0000 | dRMSE=0.1167 [WORSE & exceeds noise -- removing worst]
+  Iter 124: n_active=1585 | union RMSE mean=0.087092 | Wilcoxon p=0.0000 | dRMSE=0.1149 [WORSE & exceeds noise -- removing worst]
+  Iter 125: n_active=1584 | union RMSE mean=0.087077 | Wilcoxon p=0.0000 | dRMSE=0.1159 [WORSE & exceeds noise -- removing worst]
+  Iter 126: n_active=1583 | union RMSE mean=0.087044 | Wilcoxon p=0.0000 | dRMSE=0.1156 [WORSE & exceeds noise -- removing worst]
+  Iter 127: n_active=1582 | union RMSE mean=0.087036 | Wilcoxon p=0.0000 | dRMSE=0.1149 [WORSE & exceeds noise -- removing worst]
+  Iter 128: n_active=1581 | union RMSE mean=0.087003 | Wilcoxon p=0.0000 | dRMSE=0.1152 [WORSE & exceeds noise -- removing worst]
+  Iter 129: n_active=1580 | union RMSE mean=0.086990 | Wilcoxon p=0.0000 | dRMSE=0.1138 [WORSE & exceeds noise -- removing worst]
+  Iter 130: n_active=1579 | union RMSE mean=0.086962 | Wilcoxon p=0.0000 | dRMSE=0.1137 [WORSE & exceeds noise -- removing worst]
+  Iter 131: n_active=1578 | union RMSE mean=0.086950 | Wilcoxon p=0.0000 | dRMSE=0.1125 [WORSE & exceeds noise -- removing worst]
+  Iter 132: n_active=1577 | union RMSE mean=0.086923 | Wilcoxon p=0.0000 | dRMSE=0.1122 [WORSE & exceeds noise -- removing worst]
+  Iter 133: n_active=1576 | union RMSE mean=0.086897 | Wilcoxon p=0.0000 | dRMSE=0.1122 [WORSE & exceeds noise -- removing worst]
+  Iter 134: n_active=1575 | union RMSE mean=0.086874 | Wilcoxon p=0.0000 | dRMSE=0.1123 [WORSE & exceeds noise -- removing worst]
+  Iter 135: n_active=1574 | union RMSE mean=0.086870 | Wilcoxon p=0.0000 | dRMSE=0.1113 [WORSE & exceeds noise -- removing worst]
+  Iter 136: n_active=1573 | union RMSE mean=0.086843 | Wilcoxon p=0.0000 | dRMSE=0.1119 [WORSE & exceeds noise -- removing worst]
+  Iter 137: n_active=1572 | union RMSE mean=0.086822 | Wilcoxon p=0.0000 | dRMSE=0.1106 [WORSE & exceeds noise -- removing worst]
+  Iter 138: n_active=1571 | union RMSE mean=0.086797 | Wilcoxon p=0.0000 | dRMSE=0.1112 [WORSE & exceeds noise -- removing worst]
+  Iter 139: n_active=1570 | union RMSE mean=0.086767 | Wilcoxon p=0.0000 | dRMSE=0.1119 [WORSE & exceeds noise -- removing worst]
+  Iter 140: n_active=1569 | union RMSE mean=0.086735 | Wilcoxon p=0.0000 | dRMSE=0.1100 [WORSE & exceeds noise -- removing worst]
+  Iter 141: n_active=1568 | union RMSE mean=0.086719 | Wilcoxon p=0.0000 | dRMSE=0.1110 [WORSE & exceeds noise -- removing worst]
+  Iter 142: n_active=1567 | union RMSE mean=0.086684 | Wilcoxon p=0.0000 | dRMSE=0.1102 [WORSE & exceeds noise -- removing worst]
+  Iter 143: n_active=1566 | union RMSE mean=0.086679 | Wilcoxon p=0.0000 | dRMSE=0.1101 [WORSE & exceeds noise -- removing worst]
+  Iter 144: n_active=1565 | union RMSE mean=0.086646 | Wilcoxon p=0.0000 | dRMSE=0.1102 [WORSE & exceeds noise -- removing worst]
+  Iter 145: n_active=1564 | union RMSE mean=0.086625 | Wilcoxon p=0.0000 | dRMSE=0.1111 [WORSE & exceeds noise -- removing worst]
+  Iter 146: n_active=1563 | union RMSE mean=0.086597 | Wilcoxon p=0.0000 | dRMSE=0.1082 [WORSE & exceeds noise -- removing worst]
+  Iter 147: n_active=1562 | union RMSE mean=0.086574 | Wilcoxon p=0.0000 | dRMSE=0.1098 [WORSE & exceeds noise -- removing worst]
+  Iter 148: n_active=1561 | union RMSE mean=0.086549 | Wilcoxon p=0.0000 | dRMSE=0.1102 [WORSE & exceeds noise -- removing worst]
+  Iter 149: n_active=1560 | union RMSE mean=0.086535 | Wilcoxon p=0.0000 | dRMSE=0.1084 [WORSE & exceeds noise -- removing worst]
+  Iter 150: n_active=1559 | union RMSE mean=0.086501 | Wilcoxon p=0.0000 | dRMSE=0.1081 [WORSE & exceeds noise -- removing worst]
+  Iter 151: n_active=1558 | union RMSE mean=0.086485 | Wilcoxon p=0.0000 | dRMSE=0.1063 [WORSE & exceeds noise -- removing worst]
+  Iter 152: n_active=1557 | union RMSE mean=0.086461 | Wilcoxon p=0.0000 | dRMSE=0.1084 [WORSE & exceeds noise -- removing worst]
+  Iter 153: n_active=1556 | union RMSE mean=0.086433 | Wilcoxon p=0.0000 | dRMSE=0.1090 [WORSE & exceeds noise -- removing worst]
+  Iter 154: n_active=1555 | union RMSE mean=0.086419 | Wilcoxon p=0.0000 | dRMSE=0.1067 [WORSE & exceeds noise -- removing worst]
+  Iter 155: n_active=1554 | union RMSE mean=0.086403 | Wilcoxon p=0.0000 | dRMSE=0.1079 [WORSE & exceeds noise -- removing worst]
+  Iter 156: n_active=1553 | union RMSE mean=0.086399 | Wilcoxon p=0.0000 | dRMSE=0.1085 [WORSE & exceeds noise -- removing worst]
+  Iter 157: n_active=1552 | union RMSE mean=0.086379 | Wilcoxon p=0.0000 | dRMSE=0.1085 [WORSE & exceeds noise -- removing worst]
+  Iter 158: n_active=1551 | union RMSE mean=0.086343 | Wilcoxon p=0.0000 | dRMSE=0.1083 [WORSE & exceeds noise -- removing worst]
+  Iter 159: n_active=1550 | union RMSE mean=0.086328 | Wilcoxon p=0.0000 | dRMSE=0.1069 [WORSE & exceeds noise -- removing worst]
+  Iter 160: n_active=1549 | union RMSE mean=0.086301 | Wilcoxon p=0.0000 | dRMSE=0.1058 [WORSE & exceeds noise -- removing worst]
+  Iter 161: n_active=1548 | union RMSE mean=0.086290 | Wilcoxon p=0.0000 | dRMSE=0.1061 [WORSE & exceeds noise -- removing worst]
+  Iter 162: n_active=1547 | union RMSE mean=0.086272 | Wilcoxon p=0.0000 | dRMSE=0.1047 [WORSE & exceeds noise -- removing worst]
+  Iter 163: n_active=1546 | union RMSE mean=0.086266 | Wilcoxon p=0.0000 | dRMSE=0.1053 [WORSE & exceeds noise -- removing worst]
+  Iter 164: n_active=1545 | union RMSE mean=0.086233 | Wilcoxon p=0.0000 | dRMSE=0.1056 [WORSE & exceeds noise -- removing worst]
+  Iter 165: n_active=1544 | union RMSE mean=0.086225 | Wilcoxon p=0.0000 | dRMSE=0.1058 [WORSE & exceeds noise -- removing worst]
+  Iter 166: n_active=1543 | union RMSE mean=0.086208 | Wilcoxon p=0.0000 | dRMSE=0.1055 [WORSE & exceeds noise -- removing worst]
+  Iter 167: n_active=1542 | union RMSE mean=0.086189 | Wilcoxon p=0.0000 | dRMSE=0.1055 [WORSE & exceeds noise -- removing worst]
+  Iter 168: n_active=1541 | union RMSE mean=0.086156 | Wilcoxon p=0.0000 | dRMSE=0.1048 [WORSE & exceeds noise -- removing worst]
+  Iter 169: n_active=1540 | union RMSE mean=0.086142 | Wilcoxon p=0.0000 | dRMSE=0.1033 [WORSE & exceeds noise -- removing worst]
+  Iter 170: n_active=1539 | union RMSE mean=0.086097 | Wilcoxon p=0.0000 | dRMSE=0.1072 [WORSE & exceeds noise -- removing worst]
+  Iter 171: n_active=1538 | union RMSE mean=0.086098 | Wilcoxon p=0.0000 | dRMSE=0.1035 [WORSE & exceeds noise -- removing worst]
+  Iter 172: n_active=1537 | union RMSE mean=0.086091 | Wilcoxon p=0.0000 | dRMSE=0.1040 [WORSE & exceeds noise -- removing worst]
+  Iter 173: n_active=1536 | union RMSE mean=0.086061 | Wilcoxon p=0.0000 | dRMSE=0.1032 [WORSE & exceeds noise -- removing worst]
+  Iter 174: n_active=1535 | union RMSE mean=0.086047 | Wilcoxon p=0.0000 | dRMSE=0.1039 [WORSE & exceeds noise -- removing worst]
+  Iter 175: n_active=1534 | union RMSE mean=0.086028 | Wilcoxon p=0.0000 | dRMSE=0.1046 [WORSE & exceeds noise -- removing worst]
+  Iter 176: n_active=1533 | union RMSE mean=0.086009 | Wilcoxon p=0.0000 | dRMSE=0.1027 [WORSE & exceeds noise -- removing worst]
+  Iter 177: n_active=1532 | union RMSE mean=0.085989 | Wilcoxon p=0.0000 | dRMSE=0.1036 [WORSE & exceeds noise -- removing worst]
+  Iter 178: n_active=1531 | union RMSE mean=0.085966 | Wilcoxon p=0.0000 | dRMSE=0.1018 [WORSE & exceeds noise -- removing worst]
+  Iter 179: n_active=1530 | union RMSE mean=0.085950 | Wilcoxon p=0.0000 | dRMSE=0.1015 [WORSE & exceeds noise -- removing worst]
+  Iter 180: n_active=1529 | union RMSE mean=0.085928 | Wilcoxon p=0.0000 | dRMSE=0.0989 [WORSE & exceeds noise -- removing worst]
+  Iter 181: n_active=1528 | union RMSE mean=0.085910 | Wilcoxon p=0.0000 | dRMSE=0.1011 [WORSE & exceeds noise -- removing worst]
+  Iter 182: n_active=1527 | union RMSE mean=0.085882 | Wilcoxon p=0.0000 | dRMSE=0.1003 [WORSE & exceeds noise -- removing worst]
+  Iter 183: n_active=1526 | union RMSE mean=0.085865 | Wilcoxon p=0.0000 | dRMSE=0.0987 [WORSE & exceeds noise -- removing worst]
+  Iter 184: n_active=1525 | union RMSE mean=0.085849 | Wilcoxon p=0.0000 | dRMSE=0.0974 [WORSE & exceeds noise -- removing worst]
+  Iter 185: n_active=1524 | union RMSE mean=0.085815 | Wilcoxon p=0.0000 | dRMSE=0.0994 [WORSE & exceeds noise -- removing worst]
+  Iter 186: n_active=1523 | union RMSE mean=0.085796 | Wilcoxon p=0.0000 | dRMSE=0.0988 [WORSE & exceeds noise -- removing worst]
+  Iter 187: n_active=1522 | union RMSE mean=0.085771 | Wilcoxon p=0.0000 | dRMSE=0.0981 [WORSE & exceeds noise -- removing worst]
+  Iter 188: n_active=1521 | union RMSE mean=0.085760 | Wilcoxon p=0.0000 | dRMSE=0.0979 [WORSE & exceeds noise -- removing worst]
+  Iter 189: n_active=1520 | union RMSE mean=0.085739 | Wilcoxon p=0.0000 | dRMSE=0.0979 [WORSE & exceeds noise -- removing worst]
+  Iter 190: n_active=1519 | union RMSE mean=0.085710 | Wilcoxon p=0.0000 | dRMSE=0.0981 [WORSE & exceeds noise -- removing worst]
+  Iter 191: n_active=1518 | union RMSE mean=0.085679 | Wilcoxon p=0.0000 | dRMSE=0.0957 [WORSE & exceeds noise -- removing worst]
+  Iter 192: n_active=1517 | union RMSE mean=0.085661 | Wilcoxon p=0.0000 | dRMSE=0.0980 [WORSE & exceeds noise -- removing worst]
+  Iter 193: n_active=1516 | union RMSE mean=0.085644 | Wilcoxon p=0.0000 | dRMSE=0.0981 [WORSE & exceeds noise -- removing worst]
+  Iter 194: n_active=1515 | union RMSE mean=0.085629 | Wilcoxon p=0.0000 | dRMSE=0.0964 [WORSE & exceeds noise -- removing worst]
+  Iter 195: n_active=1514 | union RMSE mean=0.085608 | Wilcoxon p=0.0000 | dRMSE=0.0961 [WORSE & exceeds noise -- removing worst]
+  Iter 196: n_active=1513 | union RMSE mean=0.085582 | Wilcoxon p=0.0000 | dRMSE=0.0953 [WORSE & exceeds noise -- removing worst]
+  Iter 197: n_active=1512 | union RMSE mean=0.085565 | Wilcoxon p=0.0000 | dRMSE=0.0964 [WORSE & exceeds noise -- removing worst]
+  Iter 198: n_active=1511 | union RMSE mean=0.085555 | Wilcoxon p=0.0000 | dRMSE=0.0943 [WORSE & exceeds noise -- removing worst]
+  Iter 199: n_active=1510 | union RMSE mean=0.085521 | Wilcoxon p=0.0000 | dRMSE=0.0969 [WORSE & exceeds noise -- removing worst]
+  Iter 200: n_active=1509 | union RMSE mean=0.085508 | Wilcoxon p=0.0000 | dRMSE=0.0960 [WORSE & exceeds noise -- removing worst]
+  Iter 201: n_active=1508 | union RMSE mean=0.085502 | Wilcoxon p=0.0000 | dRMSE=0.0959 [WORSE & exceeds noise -- removing worst]
+  Iter 202: n_active=1507 | union RMSE mean=0.085495 | Wilcoxon p=0.0000 | dRMSE=0.0959 [WORSE & exceeds noise -- removing worst]
+  Iter 203: n_active=1506 | union RMSE mean=0.085463 | Wilcoxon p=0.0000 | dRMSE=0.0957 [WORSE & exceeds noise -- removing worst]
+  Iter 204: n_active=1505 | union RMSE mean=0.085442 | Wilcoxon p=0.0000 | dRMSE=0.0963 [WORSE & exceeds noise -- removing worst]
+  Iter 205: n_active=1504 | union RMSE mean=0.085427 | Wilcoxon p=0.0000 | dRMSE=0.0940 [WORSE & exceeds noise -- removing worst]
+  Iter 206: n_active=1503 | union RMSE mean=0.085411 | Wilcoxon p=0.0000 | dRMSE=0.0936 [WORSE & exceeds noise -- removing worst]
+  Iter 207: n_active=1502 | union RMSE mean=0.085388 | Wilcoxon p=0.0000 | dRMSE=0.0935 [WORSE & exceeds noise -- removing worst]
+  Iter 208: n_active=1501 | union RMSE mean=0.085367 | Wilcoxon p=0.0000 | dRMSE=0.0934 [WORSE & exceeds noise -- removing worst]
+  Iter 209: n_active=1500 | union RMSE mean=0.085349 | Wilcoxon p=0.0000 | dRMSE=0.0922 [WORSE & exceeds noise -- removing worst]
+  Iter 210: n_active=1499 | union RMSE mean=0.085329 | Wilcoxon p=0.0000 | dRMSE=0.0937 [WORSE & exceeds noise -- removing worst]
+  Iter 211: n_active=1498 | union RMSE mean=0.085297 | Wilcoxon p=0.0000 | dRMSE=0.0907 [WORSE & exceeds noise -- removing worst]
+  Iter 212: n_active=1497 | union RMSE mean=0.085283 | Wilcoxon p=0.0000 | dRMSE=0.0923 [WORSE & exceeds noise -- removing worst]
+  Iter 213: n_active=1496 | union RMSE mean=0.085259 | Wilcoxon p=0.0000 | dRMSE=0.0885 [WORSE & exceeds noise -- removing worst]
+  Iter 214: n_active=1495 | union RMSE mean=0.085255 | Wilcoxon p=0.0000 | dRMSE=0.0900 [WORSE & exceeds noise -- removing worst]
+  Iter 215: n_active=1494 | union RMSE mean=0.085222 | Wilcoxon p=0.0000 | dRMSE=0.0903 [WORSE & exceeds noise -- removing worst]
+  Iter 216: n_active=1493 | union RMSE mean=0.085220 | Wilcoxon p=0.0000 | dRMSE=0.0915 [WORSE & exceeds noise -- removing worst]
+  Iter 217: n_active=1492 | union RMSE mean=0.085198 | Wilcoxon p=0.0000 | dRMSE=0.0916 [WORSE & exceeds noise -- removing worst]
+  Iter 218: n_active=1491 | union RMSE mean=0.085168 | Wilcoxon p=0.0000 | dRMSE=0.0910 [WORSE & exceeds noise -- removing worst]
+  Iter 219: n_active=1490 | union RMSE mean=0.085139 | Wilcoxon p=0.0000 | dRMSE=0.0913 [WORSE & exceeds noise -- removing worst]
+  Iter 220: n_active=1489 | union RMSE mean=0.085124 | Wilcoxon p=0.0000 | dRMSE=0.0897 [WORSE & exceeds noise -- removing worst]
+  Iter 221: n_active=1488 | union RMSE mean=0.085114 | Wilcoxon p=0.0000 | dRMSE=0.0895 [WORSE & exceeds noise -- removing worst]
+  Iter 222: n_active=1487 | union RMSE mean=0.085093 | Wilcoxon p=0.0000 | dRMSE=0.0903 [WORSE & exceeds noise -- removing worst]
+  Iter 223: n_active=1486 | union RMSE mean=0.085098 | Wilcoxon p=0.0000 | dRMSE=0.0888 [WORSE & exceeds noise -- removing worst]
+  Iter 224: n_active=1485 | union RMSE mean=0.085075 | Wilcoxon p=0.0000 | dRMSE=0.0903 [WORSE & exceeds noise -- removing worst]
+  Iter 225: n_active=1484 | union RMSE mean=0.085057 | Wilcoxon p=0.0000 | dRMSE=0.0882 [WORSE & exceeds noise -- removing worst]
+  Iter 226: n_active=1483 | union RMSE mean=0.085037 | Wilcoxon p=0.0000 | dRMSE=0.0878 [WORSE & exceeds noise -- removing worst]
+  Iter 227: n_active=1482 | union RMSE mean=0.085023 | Wilcoxon p=0.0000 | dRMSE=0.0890 [WORSE & exceeds noise -- removing worst]
+  Iter 228: n_active=1481 | union RMSE mean=0.084999 | Wilcoxon p=0.0000 | dRMSE=0.0900 [WORSE & exceeds noise -- removing worst]
+  Iter 229: n_active=1480 | union RMSE mean=0.084976 | Wilcoxon p=0.0000 | dRMSE=0.0886 [WORSE & exceeds noise -- removing worst]
+  Iter 230: n_active=1479 | union RMSE mean=0.084959 | Wilcoxon p=0.0000 | dRMSE=0.0867 [WORSE & exceeds noise -- removing worst]
+  Iter 231: n_active=1478 | union RMSE mean=0.084938 | Wilcoxon p=0.0000 | dRMSE=0.0877 [WORSE & exceeds noise -- removing worst]
+  Iter 232: n_active=1477 | union RMSE mean=0.084927 | Wilcoxon p=0.0000 | dRMSE=0.0876 [WORSE & exceeds noise -- removing worst]
+  Iter 233: n_active=1476 | union RMSE mean=0.084890 | Wilcoxon p=0.0000 | dRMSE=0.0857 [WORSE & exceeds noise -- removing worst]
+  Iter 234: n_active=1475 | union RMSE mean=0.084880 | Wilcoxon p=0.0000 | dRMSE=0.0869 [WORSE & exceeds noise -- removing worst]
+  Iter 235: n_active=1474 | union RMSE mean=0.084863 | Wilcoxon p=0.0000 | dRMSE=0.0879 [WORSE & exceeds noise -- removing worst]
+  Iter 236: n_active=1473 | union RMSE mean=0.084843 | Wilcoxon p=0.0000 | dRMSE=0.0858 [WORSE & exceeds noise -- removing worst]
+  Iter 237: n_active=1472 | union RMSE mean=0.084839 | Wilcoxon p=0.0000 | dRMSE=0.0851 [WORSE & exceeds noise -- removing worst]
+  Iter 238: n_active=1471 | union RMSE mean=0.084805 | Wilcoxon p=0.0000 | dRMSE=0.0854 [WORSE & exceeds noise -- removing worst]
+  Iter 239: n_active=1470 | union RMSE mean=0.084775 | Wilcoxon p=0.0000 | dRMSE=0.0864 [WORSE & exceeds noise -- removing worst]
+  Iter 240: n_active=1469 | union RMSE mean=0.084774 | Wilcoxon p=0.0000 | dRMSE=0.0868 [WORSE & exceeds noise -- removing worst]
+  Iter 241: n_active=1468 | union RMSE mean=0.084771 | Wilcoxon p=0.0000 | dRMSE=0.0858 [WORSE & exceeds noise -- removing worst]
+  Iter 242: n_active=1467 | union RMSE mean=0.084749 | Wilcoxon p=0.0000 | dRMSE=0.0849 [WORSE & exceeds noise -- removing worst]
+  Iter 243: n_active=1466 | union RMSE mean=0.084731 | Wilcoxon p=0.0000 | dRMSE=0.0856 [WORSE & exceeds noise -- removing worst]
+  Iter 244: n_active=1465 | union RMSE mean=0.084709 | Wilcoxon p=0.0000 | dRMSE=0.0858 [WORSE & exceeds noise -- removing worst]
+  Iter 245: n_active=1464 | union RMSE mean=0.084699 | Wilcoxon p=0.0000 | dRMSE=0.0838 [WORSE & exceeds noise -- removing worst]
+  Iter 246: n_active=1463 | union RMSE mean=0.084688 | Wilcoxon p=0.0000 | dRMSE=0.0854 [WORSE & exceeds noise -- removing worst]
+  Iter 247: n_active=1462 | union RMSE mean=0.084653 | Wilcoxon p=0.0000 | dRMSE=0.0853 [WORSE & exceeds noise -- removing worst]
+  Iter 248: n_active=1461 | union RMSE mean=0.084619 | Wilcoxon p=0.0000 | dRMSE=0.0833 [WORSE & exceeds noise -- removing worst]
+  Iter 249: n_active=1460 | union RMSE mean=0.084629 | Wilcoxon p=0.0000 | dRMSE=0.0837 [WORSE & exceeds noise -- removing worst]
+  Iter 250: n_active=1459 | union RMSE mean=0.084599 | Wilcoxon p=0.0000 | dRMSE=0.0838 [WORSE & exceeds noise -- removing worst]
+  Iter 251: n_active=1458 | union RMSE mean=0.084584 | Wilcoxon p=0.0000 | dRMSE=0.0822 [WORSE & exceeds noise -- removing worst]
+  Iter 252: n_active=1457 | union RMSE mean=0.084565 | Wilcoxon p=0.0000 | dRMSE=0.0847 [WORSE & exceeds noise -- removing worst]
+  Iter 253: n_active=1456 | union RMSE mean=0.084548 | Wilcoxon p=0.0000 | dRMSE=0.0843 [WORSE & exceeds noise -- removing worst]
+  Iter 254: n_active=1455 | union RMSE mean=0.084529 | Wilcoxon p=0.0000 | dRMSE=0.0841 [WORSE & exceeds noise -- removing worst]
+  Iter 255: n_active=1454 | union RMSE mean=0.084519 | Wilcoxon p=0.0000 | dRMSE=0.0836 [WORSE & exceeds noise -- removing worst]
+  Iter 256: n_active=1453 | union RMSE mean=0.084499 | Wilcoxon p=0.0000 | dRMSE=0.0820 [WORSE & exceeds noise -- removing worst]
+  Iter 257: n_active=1452 | union RMSE mean=0.084477 | Wilcoxon p=0.0000 | dRMSE=0.0815 [WORSE & exceeds noise -- removing worst]
+  Iter 258: n_active=1451 | union RMSE mean=0.084458 | Wilcoxon p=0.0000 | dRMSE=0.0818 [WORSE & exceeds noise -- removing worst]
+  Iter 259: n_active=1450 | union RMSE mean=0.084433 | Wilcoxon p=0.0000 | dRMSE=0.0822 [WORSE & exceeds noise -- removing worst]
+  Iter 260: n_active=1449 | union RMSE mean=0.084403 | Wilcoxon p=0.0000 | dRMSE=0.0821 [WORSE & exceeds noise -- removing worst]
+  Iter 261: n_active=1448 | union RMSE mean=0.084385 | Wilcoxon p=0.0000 | dRMSE=0.0804 [WORSE & exceeds noise -- removing worst]
+  Iter 262: n_active=1447 | union RMSE mean=0.084363 | Wilcoxon p=0.0000 | dRMSE=0.0815 [WORSE & exceeds noise -- removing worst]
+  Iter 263: n_active=1446 | union RMSE mean=0.084348 | Wilcoxon p=0.0000 | dRMSE=0.0806 [WORSE & exceeds noise -- removing worst]
+  Iter 264: n_active=1445 | union RMSE mean=0.084333 | Wilcoxon p=0.0000 | dRMSE=0.0804 [WORSE & exceeds noise -- removing worst]
+  Iter 265: n_active=1444 | union RMSE mean=0.084329 | Wilcoxon p=0.0000 | dRMSE=0.0810 [WORSE & exceeds noise -- removing worst]
+  Iter 266: n_active=1443 | union RMSE mean=0.084329 | Wilcoxon p=0.0000 | dRMSE=0.0805 [WORSE & exceeds noise -- removing worst]
+  Iter 267: n_active=1442 | union RMSE mean=0.084310 | Wilcoxon p=0.0000 | dRMSE=0.0800 [WORSE & exceeds noise -- removing worst]
+  Iter 268: n_active=1441 | union RMSE mean=0.084296 | Wilcoxon p=0.0000 | dRMSE=0.0789 [WORSE & exceeds noise -- removing worst]
+  Iter 269: n_active=1440 | union RMSE mean=0.084274 | Wilcoxon p=0.0000 | dRMSE=0.0783 [WORSE & exceeds noise -- removing worst]
+  Iter 270: n_active=1439 | union RMSE mean=0.084242 | Wilcoxon p=0.0000 | dRMSE=0.0797 [WORSE & exceeds noise -- removing worst]
+  Iter 271: n_active=1438 | union RMSE mean=0.084221 | Wilcoxon p=0.0000 | dRMSE=0.0776 [WORSE & exceeds noise -- removing worst]
+  Iter 272: n_active=1437 | union RMSE mean=0.084206 | Wilcoxon p=0.0000 | dRMSE=0.0788 [WORSE & exceeds noise -- removing worst]
+  Iter 273: n_active=1436 | union RMSE mean=0.084193 | Wilcoxon p=0.0000 | dRMSE=0.0765 [WORSE & exceeds noise -- removing worst]
+  Iter 274: n_active=1435 | union RMSE mean=0.084172 | Wilcoxon p=0.0000 | dRMSE=0.0774 [WORSE & exceeds noise -- removing worst]
+  Iter 275: n_active=1434 | union RMSE mean=0.084164 | Wilcoxon p=0.0000 | dRMSE=0.0788 [WORSE & exceeds noise -- removing worst]
+  Iter 276: n_active=1433 | union RMSE mean=0.084153 | Wilcoxon p=0.0000 | dRMSE=0.0777 [WORSE & exceeds noise -- removing worst]
+  Iter 277: n_active=1432 | union RMSE mean=0.084133 | Wilcoxon p=0.0000 | dRMSE=0.0775 [WORSE & exceeds noise -- removing worst]
+  Iter 278: n_active=1431 | union RMSE mean=0.084129 | Wilcoxon p=0.0000 | dRMSE=0.0783 [WORSE & exceeds noise -- removing worst]
+  Iter 279: n_active=1430 | union RMSE mean=0.084114 | Wilcoxon p=0.0000 | dRMSE=0.0768 [WORSE & exceeds noise -- removing worst]
+  Iter 280: n_active=1429 | union RMSE mean=0.084079 | Wilcoxon p=0.0000 | dRMSE=0.0758 [WORSE & exceeds noise -- removing worst]
+  Iter 281: n_active=1428 | union RMSE mean=0.084070 | Wilcoxon p=0.0000 | dRMSE=0.0765 [WORSE & exceeds noise -- removing worst]
+  Iter 282: n_active=1427 | union RMSE mean=0.084047 | Wilcoxon p=0.0000 | dRMSE=0.0755 [WORSE & exceeds noise -- removing worst]
+  Iter 283: n_active=1426 | union RMSE mean=0.084018 | Wilcoxon p=0.0000 | dRMSE=0.0754 [WORSE & exceeds noise -- removing worst]
+  Iter 284: n_active=1425 | union RMSE mean=0.084002 | Wilcoxon p=0.0000 | dRMSE=0.0756 [WORSE & exceeds noise -- removing worst]
+  Iter 285: n_active=1424 | union RMSE mean=0.083990 | Wilcoxon p=0.0000 | dRMSE=0.0735 [WORSE & exceeds noise -- removing worst]
+  Iter 286: n_active=1423 | union RMSE mean=0.083971 | Wilcoxon p=0.0000 | dRMSE=0.0752 [WORSE & exceeds noise -- removing worst]
+  Iter 287: n_active=1422 | union RMSE mean=0.083943 | Wilcoxon p=0.0000 | dRMSE=0.0751 [WORSE & exceeds noise -- removing worst]
+  Iter 288: n_active=1421 | union RMSE mean=0.083928 | Wilcoxon p=0.0000 | dRMSE=0.0751 [WORSE & exceeds noise -- removing worst]
+  Iter 289: n_active=1420 | union RMSE mean=0.083913 | Wilcoxon p=0.0000 | dRMSE=0.0746 [WORSE & exceeds noise -- removing worst]
+  Iter 290: n_active=1419 | union RMSE mean=0.083911 | Wilcoxon p=0.0000 | dRMSE=0.0744 [WORSE & exceeds noise -- removing worst]
+  Iter 291: n_active=1418 | union RMSE mean=0.083884 | Wilcoxon p=0.0000 | dRMSE=0.0748 [WORSE & exceeds noise -- removing worst]
+  Iter 292: n_active=1417 | union RMSE mean=0.083856 | Wilcoxon p=0.0000 | dRMSE=0.0744 [WORSE & exceeds noise -- removing worst]
+  Iter 293: n_active=1416 | union RMSE mean=0.083852 | Wilcoxon p=0.0000 | dRMSE=0.0730 [WORSE & exceeds noise -- removing worst]
+  Iter 294: n_active=1415 | union RMSE mean=0.083831 | Wilcoxon p=0.0000 | dRMSE=0.0726 [WORSE & exceeds noise -- removing worst]
+  Iter 295: n_active=1414 | union RMSE mean=0.083796 | Wilcoxon p=0.0000 | dRMSE=0.0727 [WORSE & exceeds noise -- removing worst]
+  Iter 296: n_active=1413 | union RMSE mean=0.083775 | Wilcoxon p=0.0000 | dRMSE=0.0733 [WORSE & exceeds noise -- removing worst]
+  Iter 297: n_active=1412 | union RMSE mean=0.083762 | Wilcoxon p=0.0000 | dRMSE=0.0730 [WORSE & exceeds noise -- removing worst]
+  Iter 298: n_active=1411 | union RMSE mean=0.083755 | Wilcoxon p=0.0000 | dRMSE=0.0733 [WORSE & exceeds noise -- removing worst]
+  Iter 299: n_active=1410 | union RMSE mean=0.083758 | Wilcoxon p=0.0000 | dRMSE=0.0733 [WORSE & exceeds noise -- removing worst]
+  Iter 300: n_active=1409 | union RMSE mean=0.083743 | Wilcoxon p=0.0000 | dRMSE=0.0719 [WORSE & exceeds noise -- removing worst]
+  Iter 301: n_active=1408 | union RMSE mean=0.083706 | Wilcoxon p=0.0000 | dRMSE=0.0714 [WORSE & exceeds noise -- removing worst]
+  Iter 302: n_active=1407 | union RMSE mean=0.083688 | Wilcoxon p=0.0000 | dRMSE=0.0723 [WORSE & exceeds noise -- removing worst]
+  Iter 303: n_active=1406 | union RMSE mean=0.083679 | Wilcoxon p=0.0000 | dRMSE=0.0710 [WORSE & exceeds noise -- removing worst]
+  Iter 304: n_active=1405 | union RMSE mean=0.083662 | Wilcoxon p=0.0000 | dRMSE=0.0706 [WORSE & exceeds noise -- removing worst]
+  Iter 305: n_active=1404 | union RMSE mean=0.083647 | Wilcoxon p=0.0000 | dRMSE=0.0683 [WORSE & exceeds noise -- removing worst]
+  Iter 306: n_active=1403 | union RMSE mean=0.083634 | Wilcoxon p=0.0000 | dRMSE=0.0694 [WORSE & exceeds noise -- removing worst]
+  Iter 307: n_active=1402 | union RMSE mean=0.083607 | Wilcoxon p=0.0000 | dRMSE=0.0689 [WORSE & exceeds noise -- removing worst]
+  Iter 308: n_active=1401 | union RMSE mean=0.083612 | Wilcoxon p=0.0000 | dRMSE=0.0709 [WORSE & exceeds noise -- removing worst]
+  Iter 309: n_active=1400 | union RMSE mean=0.083583 | Wilcoxon p=0.0000 | dRMSE=0.0693 [WORSE & exceeds noise -- removing worst]
+  Iter 310: n_active=1399 | union RMSE mean=0.083581 | Wilcoxon p=0.0000 | dRMSE=0.0706 [WORSE & exceeds noise -- removing worst]
+  Iter 311: n_active=1398 | union RMSE mean=0.083546 | Wilcoxon p=0.0000 | dRMSE=0.0708 [WORSE & exceeds noise -- removing worst]
+  Iter 312: n_active=1397 | union RMSE mean=0.083530 | Wilcoxon p=0.0000 | dRMSE=0.0698 [WORSE & exceeds noise -- removing worst]
+  Iter 313: n_active=1396 | union RMSE mean=0.083509 | Wilcoxon p=0.0000 | dRMSE=0.0693 [WORSE & exceeds noise -- removing worst]
+  Iter 314: n_active=1395 | union RMSE mean=0.083485 | Wilcoxon p=0.0000 | dRMSE=0.0687 [WORSE & exceeds noise -- removing worst]
+  Iter 315: n_active=1394 | union RMSE mean=0.083464 | Wilcoxon p=0.0000 | dRMSE=0.0686 [WORSE & exceeds noise -- removing worst]
+  Iter 316: n_active=1393 | union RMSE mean=0.083454 | Wilcoxon p=0.0000 | dRMSE=0.0691 [WORSE & exceeds noise -- removing worst]
+  Iter 317: n_active=1392 | union RMSE mean=0.083442 | Wilcoxon p=0.0000 | dRMSE=0.0703 [WORSE & exceeds noise -- removing worst]
+  Iter 318: n_active=1391 | union RMSE mean=0.083438 | Wilcoxon p=0.0000 | dRMSE=0.0685 [WORSE & exceeds noise -- removing worst]
+  Iter 319: n_active=1390 | union RMSE mean=0.083413 | Wilcoxon p=0.0000 | dRMSE=0.0675 [WORSE & exceeds noise -- removing worst]
+  Iter 320: n_active=1389 | union RMSE mean=0.083382 | Wilcoxon p=0.0000 | dRMSE=0.0671 [WORSE & exceeds noise -- removing worst]
+  Iter 321: n_active=1388 | union RMSE mean=0.083383 | Wilcoxon p=0.0000 | dRMSE=0.0690 [WORSE & exceeds noise -- removing worst]
+  Iter 322: n_active=1387 | union RMSE mean=0.083356 | Wilcoxon p=0.0000 | dRMSE=0.0688 [WORSE & exceeds noise -- removing worst]
+  Iter 323: n_active=1386 | union RMSE mean=0.083355 | Wilcoxon p=0.0000 | dRMSE=0.0689 [WORSE & exceeds noise -- removing worst]
+  Iter 324: n_active=1385 | union RMSE mean=0.083341 | Wilcoxon p=0.0000 | dRMSE=0.0684 [WORSE & exceeds noise -- removing worst]
+  Iter 325: n_active=1384 | union RMSE mean=0.083318 | Wilcoxon p=0.0000 | dRMSE=0.0676 [WORSE & exceeds noise -- removing worst]
+  Iter 326: n_active=1383 | union RMSE mean=0.083299 | Wilcoxon p=0.0000 | dRMSE=0.0679 [WORSE & exceeds noise -- removing worst]
+  Iter 327: n_active=1382 | union RMSE mean=0.083275 | Wilcoxon p=0.0000 | dRMSE=0.0669 [WORSE & exceeds noise -- removing worst]
+  Iter 328: n_active=1381 | union RMSE mean=0.083267 | Wilcoxon p=0.0000 | dRMSE=0.0670 [WORSE & exceeds noise -- removing worst]
+  Iter 329: n_active=1380 | union RMSE mean=0.083239 | Wilcoxon p=0.0000 | dRMSE=0.0659 [WORSE & exceeds noise -- removing worst]
+  Iter 330: n_active=1379 | union RMSE mean=0.083226 | Wilcoxon p=0.0000 | dRMSE=0.0661 [WORSE & exceeds noise -- removing worst]
+  Iter 331: n_active=1378 | union RMSE mean=0.083203 | Wilcoxon p=0.0000 | dRMSE=0.0637 [WORSE & exceeds noise -- removing worst]
+  Iter 332: n_active=1377 | union RMSE mean=0.083179 | Wilcoxon p=0.0000 | dRMSE=0.0659 [WORSE & exceeds noise -- removing worst]
+  Iter 333: n_active=1376 | union RMSE mean=0.083178 | Wilcoxon p=0.0000 | dRMSE=0.0659 [WORSE & exceeds noise -- removing worst]
+  Iter 334: n_active=1375 | union RMSE mean=0.083156 | Wilcoxon p=0.0000 | dRMSE=0.0642 [WORSE & exceeds noise -- removing worst]
+  Iter 335: n_active=1374 | union RMSE mean=0.083139 | Wilcoxon p=0.0000 | dRMSE=0.0644 [WORSE & exceeds noise -- removing worst]
+  Iter 336: n_active=1373 | union RMSE mean=0.083122 | Wilcoxon p=0.0000 | dRMSE=0.0642 [WORSE & exceeds noise -- removing worst]
+  Iter 337: n_active=1372 | union RMSE mean=0.083104 | Wilcoxon p=0.0000 | dRMSE=0.0638 [WORSE & exceeds noise -- removing worst]
+  Iter 338: n_active=1371 | union RMSE mean=0.083082 | Wilcoxon p=0.0000 | dRMSE=0.0648 [WORSE & exceeds noise -- removing worst]
+  Iter 339: n_active=1370 | union RMSE mean=0.083072 | Wilcoxon p=0.0000 | dRMSE=0.0637 [WORSE & exceeds noise -- removing worst]
+  Iter 340: n_active=1369 | union RMSE mean=0.083047 | Wilcoxon p=0.0000 | dRMSE=0.0630 [WORSE & exceeds noise -- removing worst]
+  Iter 341: n_active=1368 | union RMSE mean=0.083047 | Wilcoxon p=0.0000 | dRMSE=0.0641 [WORSE & exceeds noise -- removing worst]
+  Iter 342: n_active=1367 | union RMSE mean=0.083022 | Wilcoxon p=0.0000 | dRMSE=0.0631 [WORSE & exceeds noise -- removing worst]
+  Iter 343: n_active=1366 | union RMSE mean=0.083021 | Wilcoxon p=0.0000 | dRMSE=0.0641 [WORSE & exceeds noise -- removing worst]
+  Iter 344: n_active=1365 | union RMSE mean=0.082991 | Wilcoxon p=0.0000 | dRMSE=0.0626 [WORSE & exceeds noise -- removing worst]
+  Iter 345: n_active=1364 | union RMSE mean=0.082980 | Wilcoxon p=0.0000 | dRMSE=0.0628 [WORSE & exceeds noise -- removing worst]
+  Iter 346: n_active=1363 | union RMSE mean=0.082962 | Wilcoxon p=0.0000 | dRMSE=0.0626 [WORSE & exceeds noise -- removing worst]
+  Iter 347: n_active=1362 | union RMSE mean=0.082961 | Wilcoxon p=0.0000 | dRMSE=0.0623 [WORSE & exceeds noise -- removing worst]
+  Iter 348: n_active=1361 | union RMSE mean=0.082932 | Wilcoxon p=0.0000 | dRMSE=0.0625 [WORSE & exceeds noise -- removing worst]
+  Iter 349: n_active=1360 | union RMSE mean=0.082939 | Wilcoxon p=0.0000 | dRMSE=0.0615 [WORSE & exceeds noise -- removing worst]
+  Iter 350: n_active=1359 | union RMSE mean=0.082903 | Wilcoxon p=0.0000 | dRMSE=0.0611 [WORSE & exceeds noise -- removing worst]
+  Iter 351: n_active=1358 | union RMSE mean=0.082884 | Wilcoxon p=0.0000 | dRMSE=0.0594 [WORSE & exceeds noise -- removing worst]
+  Iter 352: n_active=1357 | union RMSE mean=0.082890 | Wilcoxon p=0.0000 | dRMSE=0.0616 [WORSE & exceeds noise -- removing worst]
+  Iter 353: n_active=1356 | union RMSE mean=0.082854 | Wilcoxon p=0.0000 | dRMSE=0.0611 [WORSE & exceeds noise -- removing worst]
+  Iter 354: n_active=1355 | union RMSE mean=0.082837 | Wilcoxon p=0.0000 | dRMSE=0.0602 [WORSE & exceeds noise -- removing worst]
+  Iter 355: n_active=1354 | union RMSE mean=0.082822 | Wilcoxon p=0.0000 | dRMSE=0.0607 [WORSE & exceeds noise -- removing worst]
+  Iter 356: n_active=1353 | union RMSE mean=0.082806 | Wilcoxon p=0.0000 | dRMSE=0.0615 [WORSE & exceeds noise -- removing worst]
+  Iter 357: n_active=1352 | union RMSE mean=0.082787 | Wilcoxon p=0.0000 | dRMSE=0.0607 [WORSE & exceeds noise -- removing worst]
+  Iter 358: n_active=1351 | union RMSE mean=0.082784 | Wilcoxon p=0.0000 | dRMSE=0.0612 [WORSE & exceeds noise -- removing worst]
+  Iter 359: n_active=1350 | union RMSE mean=0.082760 | Wilcoxon p=0.0000 | dRMSE=0.0601 [WORSE & exceeds noise -- removing worst]
+  Iter 360: n_active=1349 | union RMSE mean=0.082765 | Wilcoxon p=0.0000 | dRMSE=0.0597 [WORSE & exceeds noise -- removing worst]
+  Iter 361: n_active=1348 | union RMSE mean=0.082730 | Wilcoxon p=0.0000 | dRMSE=0.0604 [WORSE & exceeds noise -- removing worst]
+  Iter 362: n_active=1347 | union RMSE mean=0.082717 | Wilcoxon p=0.0000 | dRMSE=0.0613 [WORSE & exceeds noise -- removing worst]
+  Iter 363: n_active=1346 | union RMSE mean=0.082701 | Wilcoxon p=0.0000 | dRMSE=0.0586 [WORSE & exceeds noise -- removing worst]
+  Iter 364: n_active=1345 | union RMSE mean=0.082690 | Wilcoxon p=0.0000 | dRMSE=0.0592 [WORSE & exceeds noise -- removing worst]
+  Iter 365: n_active=1344 | union RMSE mean=0.082664 | Wilcoxon p=0.0000 | dRMSE=0.0602 [WORSE & exceeds noise -- removing worst]
+  Iter 366: n_active=1343 | union RMSE mean=0.082647 | Wilcoxon p=0.0000 | dRMSE=0.0587 [WORSE & exceeds noise -- removing worst]
+  Iter 367: n_active=1342 | union RMSE mean=0.082648 | Wilcoxon p=0.0000 | dRMSE=0.0587 [WORSE & exceeds noise -- removing worst]
+  Iter 368: n_active=1341 | union RMSE mean=0.082632 | Wilcoxon p=0.0000 | dRMSE=0.0594 [WORSE & exceeds noise -- removing worst]
+  Iter 369: n_active=1340 | union RMSE mean=0.082620 | Wilcoxon p=0.0000 | dRMSE=0.0591 [WORSE & exceeds noise -- removing worst]
+  Iter 370: n_active=1339 | union RMSE mean=0.082606 | Wilcoxon p=0.0000 | dRMSE=0.0573 [WORSE & exceeds noise -- removing worst]
+  Iter 371: n_active=1338 | union RMSE mean=0.082601 | Wilcoxon p=0.0000 | dRMSE=0.0574 [WORSE & exceeds noise -- removing worst]
+  Iter 372: n_active=1337 | union RMSE mean=0.082584 | Wilcoxon p=0.0000 | dRMSE=0.0576 [WORSE & exceeds noise -- removing worst]
+  Iter 373: n_active=1336 | union RMSE mean=0.082565 | Wilcoxon p=0.0000 | dRMSE=0.0582 [WORSE & exceeds noise -- removing worst]
+  Iter 374: n_active=1335 | union RMSE mean=0.082553 | Wilcoxon p=0.0000 | dRMSE=0.0578 [WORSE & exceeds noise -- removing worst]
+  Iter 375: n_active=1334 | union RMSE mean=0.082538 | Wilcoxon p=0.0000 | dRMSE=0.0582 [WORSE & exceeds noise -- removing worst]
+  Iter 376: n_active=1333 | union RMSE mean=0.082532 | Wilcoxon p=0.0000 | dRMSE=0.0579 [WORSE & exceeds noise -- removing worst]
+  Iter 377: n_active=1332 | union RMSE mean=0.082511 | Wilcoxon p=0.0000 | dRMSE=0.0571 [WORSE & exceeds noise -- removing worst]
+  Iter 378: n_active=1331 | union RMSE mean=0.082500 | Wilcoxon p=0.0000 | dRMSE=0.0582 [WORSE & exceeds noise -- removing worst]
+  Iter 379: n_active=1330 | union RMSE mean=0.082494 | Wilcoxon p=0.0000 | dRMSE=0.0563 [WORSE & exceeds noise -- removing worst]
+  Iter 380: n_active=1329 | union RMSE mean=0.082469 | Wilcoxon p=0.0000 | dRMSE=0.0574 [WORSE & exceeds noise -- removing worst]
+  Iter 381: n_active=1328 | union RMSE mean=0.082461 | Wilcoxon p=0.0000 | dRMSE=0.0563 [WORSE & exceeds noise -- removing worst]
+  Iter 382: n_active=1327 | union RMSE mean=0.082445 | Wilcoxon p=0.0000 | dRMSE=0.0562 [WORSE & exceeds noise -- removing worst]
+  Iter 383: n_active=1326 | union RMSE mean=0.082430 | Wilcoxon p=0.0000 | dRMSE=0.0554 [WORSE & exceeds noise -- removing worst]
+  Iter 384: n_active=1325 | union RMSE mean=0.082407 | Wilcoxon p=0.0000 | dRMSE=0.0562 [WORSE & exceeds noise -- removing worst]
+  Iter 385: n_active=1324 | union RMSE mean=0.082400 | Wilcoxon p=0.0000 | dRMSE=0.0549 [WORSE & exceeds noise -- removing worst]
+  Iter 386: n_active=1323 | union RMSE mean=0.082383 | Wilcoxon p=0.0000 | dRMSE=0.0555 [WORSE & exceeds noise -- removing worst]
+  Iter 387: n_active=1322 | union RMSE mean=0.082359 | Wilcoxon p=0.0000 | dRMSE=0.0547 [WORSE & exceeds noise -- removing worst]
+  Iter 388: n_active=1321 | union RMSE mean=0.082350 | Wilcoxon p=0.0000 | dRMSE=0.0556 [WORSE & exceeds noise -- removing worst]
+  Iter 389: n_active=1320 | union RMSE mean=0.082321 | Wilcoxon p=0.0000 | dRMSE=0.0542 [WORSE & exceeds noise -- removing worst]
+  Iter 390: n_active=1319 | union RMSE mean=0.082311 | Wilcoxon p=0.0000 | dRMSE=0.0552 [WORSE & exceeds noise -- removing worst]
+  Iter 391: n_active=1318 | union RMSE mean=0.082306 | Wilcoxon p=0.0000 | dRMSE=0.0560 [WORSE & exceeds noise -- removing worst]
+  Iter 392: n_active=1317 | union RMSE mean=0.082281 | Wilcoxon p=0.0000 | dRMSE=0.0523 [WORSE & exceeds noise -- removing worst]
+  Iter 393: n_active=1316 | union RMSE mean=0.082277 | Wilcoxon p=0.0000 | dRMSE=0.0534 [WORSE & exceeds noise -- removing worst]
+  Iter 394: n_active=1315 | union RMSE mean=0.082270 | Wilcoxon p=0.0000 | dRMSE=0.0535 [WORSE & exceeds noise -- removing worst]
+  Iter 395: n_active=1314 | union RMSE mean=0.082250 | Wilcoxon p=0.0000 | dRMSE=0.0533 [WORSE & exceeds noise -- removing worst]
+  Iter 396: n_active=1313 | union RMSE mean=0.082244 | Wilcoxon p=0.0000 | dRMSE=0.0534 [WORSE & exceeds noise -- removing worst]
+  Iter 397: n_active=1312 | union RMSE mean=0.082241 | Wilcoxon p=0.0000 | dRMSE=0.0525 [WORSE & exceeds noise -- removing worst]
+  Iter 398: n_active=1311 | union RMSE mean=0.082220 | Wilcoxon p=0.0000 | dRMSE=0.0530 [WORSE & exceeds noise -- removing worst]
+  Iter 399: n_active=1310 | union RMSE mean=0.082218 | Wilcoxon p=0.0000 | dRMSE=0.0536 [WORSE & exceeds noise -- removing worst]
+  Iter 400: n_active=1309 | union RMSE mean=0.082197 | Wilcoxon p=0.0000 | dRMSE=0.0543 [WORSE & exceeds noise -- removing worst]
+  Iter 401: n_active=1308 | union RMSE mean=0.082190 | Wilcoxon p=0.0000 | dRMSE=0.0534 [WORSE & exceeds noise -- removing worst]
+  Iter 402: n_active=1307 | union RMSE mean=0.082172 | Wilcoxon p=0.0000 | dRMSE=0.0512 [WORSE & exceeds noise -- removing worst]
+  Iter 403: n_active=1306 | union RMSE mean=0.082151 | Wilcoxon p=0.0000 | dRMSE=0.0532 [WORSE & exceeds noise -- removing worst]
+  Iter 404: n_active=1305 | union RMSE mean=0.082133 | Wilcoxon p=0.0000 | dRMSE=0.0514 [WORSE & exceeds noise -- removing worst]
+  Iter 405: n_active=1304 | union RMSE mean=0.082114 | Wilcoxon p=0.0000 | dRMSE=0.0519 [WORSE & exceeds noise -- removing worst]
+  Iter 406: n_active=1303 | union RMSE mean=0.082099 | Wilcoxon p=0.0000 | dRMSE=0.0522 [WORSE & exceeds noise -- removing worst]
+  Iter 407: n_active=1302 | union RMSE mean=0.082079 | Wilcoxon p=0.0000 | dRMSE=0.0508 [WORSE & exceeds noise -- removing worst]
+  Iter 408: n_active=1301 | union RMSE mean=0.082063 | Wilcoxon p=0.0000 | dRMSE=0.0518 [WORSE & exceeds noise -- removing worst]
+  Iter 409: n_active=1300 | union RMSE mean=0.082052 | Wilcoxon p=0.0000 | dRMSE=0.0505 [WORSE & exceeds noise -- removing worst]
+  Iter 410: n_active=1299 | union RMSE mean=0.082032 | Wilcoxon p=0.0000 | dRMSE=0.0510 [WORSE & exceeds noise -- removing worst]
+  Iter 411: n_active=1298 | union RMSE mean=0.082031 | Wilcoxon p=0.0000 | dRMSE=0.0513 [WORSE & exceeds noise -- removing worst]
+  Iter 412: n_active=1297 | union RMSE mean=0.082015 | Wilcoxon p=0.0000 | dRMSE=0.0511 [WORSE & exceeds noise -- removing worst]
+  Iter 413: n_active=1296 | union RMSE mean=0.081986 | Wilcoxon p=0.0000 | dRMSE=0.0501 [WORSE & exceeds noise -- removing worst]
+  Iter 414: n_active=1295 | union RMSE mean=0.081975 | Wilcoxon p=0.0000 | dRMSE=0.0492 [WORSE & exceeds noise -- removing worst]
+  Iter 415: n_active=1294 | union RMSE mean=0.081968 | Wilcoxon p=0.0000 | dRMSE=0.0475 [WORSE & exceeds noise -- removing worst]
+  Iter 416: n_active=1293 | union RMSE mean=0.081956 | Wilcoxon p=0.0000 | dRMSE=0.0503 [WORSE & exceeds noise -- removing worst]
+  Iter 417: n_active=1292 | union RMSE mean=0.081949 | Wilcoxon p=0.0000 | dRMSE=0.0477 [WORSE & exceeds noise -- removing worst]
+  Iter 418: n_active=1291 | union RMSE mean=0.081949 | Wilcoxon p=0.0000 | dRMSE=0.0491 [WORSE & exceeds noise -- removing worst]
+  Iter 419: n_active=1290 | union RMSE mean=0.081918 | Wilcoxon p=0.0000 | dRMSE=0.0488 [WORSE & exceeds noise -- removing worst]
+  Iter 420: n_active=1289 | union RMSE mean=0.081909 | Wilcoxon p=0.0000 | dRMSE=0.0495 [WORSE & exceeds noise -- removing worst]
+  Iter 421: n_active=1288 | union RMSE mean=0.081892 | Wilcoxon p=0.0000 | dRMSE=0.0488 [WORSE & exceeds noise -- removing worst]
+  Iter 422: n_active=1287 | union RMSE mean=0.081897 | Wilcoxon p=0.0000 | dRMSE=0.0489 [WORSE & exceeds noise -- removing worst]
+  Iter 423: n_active=1286 | union RMSE mean=0.081864 | Wilcoxon p=0.0000 | dRMSE=0.0490 [WORSE & exceeds noise -- removing worst]
+  Iter 424: n_active=1285 | union RMSE mean=0.081854 | Wilcoxon p=0.0000 | dRMSE=0.0472 [WORSE & exceeds noise -- removing worst]
+  Iter 425: n_active=1284 | union RMSE mean=0.081844 | Wilcoxon p=0.0000 | dRMSE=0.0470 [WORSE & exceeds noise -- removing worst]
+  Iter 426: n_active=1283 | union RMSE mean=0.081819 | Wilcoxon p=0.0000 | dRMSE=0.0473 [WORSE & exceeds noise -- removing worst]
+  Iter 427: n_active=1282 | union RMSE mean=0.081804 | Wilcoxon p=0.0000 | dRMSE=0.0468 [WORSE & exceeds noise -- removing worst]
+  Iter 428: n_active=1281 | union RMSE mean=0.081799 | Wilcoxon p=0.0000 | dRMSE=0.0490 [WORSE & exceeds noise -- removing worst]
+  Iter 429: n_active=1280 | union RMSE mean=0.081773 | Wilcoxon p=0.0000 | dRMSE=0.0470 [WORSE & exceeds noise -- removing worst]
+  Iter 430: n_active=1279 | union RMSE mean=0.081733 | Wilcoxon p=0.0000 | dRMSE=0.0484 [WORSE & exceeds noise -- removing worst]
+  Iter 431: n_active=1278 | union RMSE mean=0.081744 | Wilcoxon p=0.0000 | dRMSE=0.0491 [WORSE & exceeds noise -- removing worst]
+  Iter 432: n_active=1277 | union RMSE mean=0.081728 | Wilcoxon p=0.0000 | dRMSE=0.0471 [WORSE & exceeds noise -- removing worst]
+  Iter 433: n_active=1276 | union RMSE mean=0.081711 | Wilcoxon p=0.0000 | dRMSE=0.0476 [WORSE & exceeds noise -- removing worst]
+  Iter 434: n_active=1275 | union RMSE mean=0.081695 | Wilcoxon p=0.0000 | dRMSE=0.0476 [WORSE & exceeds noise -- removing worst]
+  Iter 435: n_active=1274 | union RMSE mean=0.081673 | Wilcoxon p=0.0000 | dRMSE=0.0481 [WORSE & exceeds noise -- removing worst]
+  Iter 436: n_active=1273 | union RMSE mean=0.081672 | Wilcoxon p=0.0000 | dRMSE=0.0461 [WORSE & exceeds noise -- removing worst]
+  Iter 437: n_active=1272 | union RMSE mean=0.081647 | Wilcoxon p=0.0000 | dRMSE=0.0463 [WORSE & exceeds noise -- removing worst]
+  Iter 438: n_active=1271 | union RMSE mean=0.081630 | Wilcoxon p=0.0000 | dRMSE=0.0487 [WORSE & exceeds noise -- removing worst]
+  Iter 439: n_active=1270 | union RMSE mean=0.081604 | Wilcoxon p=0.0000 | dRMSE=0.0470 [WORSE & exceeds noise -- removing worst]
+  Iter 440: n_active=1269 | union RMSE mean=0.081594 | Wilcoxon p=0.0000 | dRMSE=0.0462 [WORSE & exceeds noise -- removing worst]
+  Iter 441: n_active=1268 | union RMSE mean=0.081581 | Wilcoxon p=0.0000 | dRMSE=0.0457 [WORSE & exceeds noise -- removing worst]
+  Iter 442: n_active=1267 | union RMSE mean=0.081565 | Wilcoxon p=0.0000 | dRMSE=0.0441 [WORSE & exceeds noise -- removing worst]
+  Iter 443: n_active=1266 | union RMSE mean=0.081556 | Wilcoxon p=0.0000 | dRMSE=0.0435 [WORSE & exceeds noise -- removing worst]
+  Iter 444: n_active=1265 | union RMSE mean=0.081537 | Wilcoxon p=0.0000 | dRMSE=0.0443 [WORSE & exceeds noise -- removing worst]
+  Iter 445: n_active=1264 | union RMSE mean=0.081531 | Wilcoxon p=0.0000 | dRMSE=0.0459 [WORSE & exceeds noise -- removing worst]
+  Iter 446: n_active=1263 | union RMSE mean=0.081517 | Wilcoxon p=0.0000 | dRMSE=0.0459 [WORSE & exceeds noise -- removing worst]
+  Iter 447: n_active=1262 | union RMSE mean=0.081498 | Wilcoxon p=0.0000 | dRMSE=0.0451 [WORSE & exceeds noise -- removing worst]
+  Iter 448: n_active=1261 | union RMSE mean=0.081499 | Wilcoxon p=0.0000 | dRMSE=0.0454 [WORSE & exceeds noise -- removing worst]
+  Iter 449: n_active=1260 | union RMSE mean=0.081476 | Wilcoxon p=0.0000 | dRMSE=0.0448 [WORSE & exceeds noise -- removing worst]
+  Iter 450: n_active=1259 | union RMSE mean=0.081477 | Wilcoxon p=0.0000 | dRMSE=0.0443 [WORSE & exceeds noise -- removing worst]
+  Iter 451: n_active=1258 | union RMSE mean=0.081444 | Wilcoxon p=0.0000 | dRMSE=0.0444 [WORSE & exceeds noise -- removing worst]
+  Iter 452: n_active=1257 | union RMSE mean=0.081446 | Wilcoxon p=0.0000 | dRMSE=0.0448 [WORSE & exceeds noise -- removing worst]
+  Iter 453: n_active=1256 | union RMSE mean=0.081433 | Wilcoxon p=0.0000 | dRMSE=0.0447 [WORSE & exceeds noise -- removing worst]
+  Iter 454: n_active=1255 | union RMSE mean=0.081411 | Wilcoxon p=0.0000 | dRMSE=0.0440 [WORSE & exceeds noise -- removing worst]
+  Iter 455: n_active=1254 | union RMSE mean=0.081411 | Wilcoxon p=0.0000 | dRMSE=0.0453 [WORSE & exceeds noise -- removing worst]
+  Iter 456: n_active=1253 | union RMSE mean=0.081395 | Wilcoxon p=0.0000 | dRMSE=0.0424 [WORSE & exceeds noise -- removing worst]
+  Iter 457: n_active=1252 | union RMSE mean=0.081392 | Wilcoxon p=0.0000 | dRMSE=0.0432 [WORSE & exceeds noise -- removing worst]
+  Iter 458: n_active=1251 | union RMSE mean=0.081366 | Wilcoxon p=0.0000 | dRMSE=0.0423 [WORSE & exceeds noise -- removing worst]
+  Iter 459: n_active=1250 | union RMSE mean=0.081346 | Wilcoxon p=0.0000 | dRMSE=0.0421 [WORSE & exceeds noise -- removing worst]
+  Iter 460: n_active=1249 | union RMSE mean=0.081338 | Wilcoxon p=0.0000 | dRMSE=0.0408 [WORSE & exceeds noise -- removing worst]
+  Iter 461: n_active=1248 | union RMSE mean=0.081323 | Wilcoxon p=0.0000 | dRMSE=0.0431 [WORSE & exceeds noise -- removing worst]
+  Iter 462: n_active=1247 | union RMSE mean=0.081316 | Wilcoxon p=0.0000 | dRMSE=0.0408 [WORSE & exceeds noise -- removing worst]
+  Iter 463: n_active=1246 | union RMSE mean=0.081313 | Wilcoxon p=0.0000 | dRMSE=0.0418 [WORSE & exceeds noise -- removing worst]
+  Iter 464: n_active=1245 | union RMSE mean=0.081303 | Wilcoxon p=0.0000 | dRMSE=0.0420 [WORSE & exceeds noise -- removing worst]
+  Iter 465: n_active=1244 | union RMSE mean=0.081282 | Wilcoxon p=0.0000 | dRMSE=0.0413 [WORSE & exceeds noise -- removing worst]
+  Iter 466: n_active=1243 | union RMSE mean=0.081274 | Wilcoxon p=0.0000 | dRMSE=0.0409 [WORSE & exceeds noise -- removing worst]
+  Iter 467: n_active=1242 | union RMSE mean=0.081261 | Wilcoxon p=0.0000 | dRMSE=0.0401 [WORSE & exceeds noise -- removing worst]
+  Iter 468: n_active=1241 | union RMSE mean=0.081246 | Wilcoxon p=0.0000 | dRMSE=0.0410 [WORSE & exceeds noise -- removing worst]
+  Iter 469: n_active=1240 | union RMSE mean=0.081220 | Wilcoxon p=0.0000 | dRMSE=0.0387 [WORSE & exceeds noise -- removing worst]
+  Iter 470: n_active=1239 | union RMSE mean=0.081201 | Wilcoxon p=0.0000 | dRMSE=0.0403 [WORSE & exceeds noise -- removing worst]
+  Iter 471: n_active=1238 | union RMSE mean=0.081200 | Wilcoxon p=0.0000 | dRMSE=0.0392 [WORSE & exceeds noise -- removing worst]
+  Iter 472: n_active=1237 | union RMSE mean=0.081171 | Wilcoxon p=0.0000 | dRMSE=0.0392 [WORSE & exceeds noise -- removing worst]
+  Iter 473: n_active=1236 | union RMSE mean=0.081162 | Wilcoxon p=0.0000 | dRMSE=0.0400 [WORSE & exceeds noise -- removing worst]
+  Iter 474: n_active=1235 | union RMSE mean=0.081152 | Wilcoxon p=0.0000 | dRMSE=0.0404 [WORSE & exceeds noise -- removing worst]
+  Iter 475: n_active=1234 | union RMSE mean=0.081144 | Wilcoxon p=0.0000 | dRMSE=0.0387 [WORSE & exceeds noise -- removing worst]
+  Iter 476: n_active=1233 | union RMSE mean=0.081142 | Wilcoxon p=0.0000 | dRMSE=0.0390 [WORSE & exceeds noise -- removing worst]
+  Iter 477: n_active=1232 | union RMSE mean=0.081145 | Wilcoxon p=0.0000 | dRMSE=0.0386 [WORSE & exceeds noise -- removing worst]
+  Iter 478: n_active=1231 | union RMSE mean=0.081125 | Wilcoxon p=0.0000 | dRMSE=0.0382 [WORSE & exceeds noise -- removing worst]
+  Iter 479: n_active=1230 | union RMSE mean=0.081107 | Wilcoxon p=0.0000 | dRMSE=0.0383 [WORSE & exceeds noise -- removing worst]
+  Iter 480: n_active=1229 | union RMSE mean=0.081097 | Wilcoxon p=0.0000 | dRMSE=0.0373 [WORSE & exceeds noise -- removing worst]
+  Iter 481: n_active=1228 | union RMSE mean=0.081087 | Wilcoxon p=0.0000 | dRMSE=0.0396 [WORSE & exceeds noise -- removing worst]
+  Iter 482: n_active=1227 | union RMSE mean=0.081073 | Wilcoxon p=0.0000 | dRMSE=0.0385 [WORSE & exceeds noise -- removing worst]
+  Iter 483: n_active=1226 | union RMSE mean=0.081060 | Wilcoxon p=0.0000 | dRMSE=0.0373 [WORSE & exceeds noise -- removing worst]
+  Iter 484: n_active=1225 | union RMSE mean=0.081055 | Wilcoxon p=0.0000 | dRMSE=0.0381 [WORSE & exceeds noise -- removing worst]
+  Iter 485: n_active=1224 | union RMSE mean=0.081035 | Wilcoxon p=0.0000 | dRMSE=0.0385 [WORSE & exceeds noise -- removing worst]
+  Iter 486: n_active=1223 | union RMSE mean=0.081021 | Wilcoxon p=0.0000 | dRMSE=0.0370 [WORSE & exceeds noise -- removing worst]
+  Iter 487: n_active=1222 | union RMSE mean=0.081009 | Wilcoxon p=0.0000 | dRMSE=0.0379 [WORSE & exceeds noise -- removing worst]
+  Iter 488: n_active=1221 | union RMSE mean=0.080996 | Wilcoxon p=0.0000 | dRMSE=0.0360 [WORSE & exceeds noise -- removing worst]
+  Iter 489: n_active=1220 | union RMSE mean=0.081000 | Wilcoxon p=0.0000 | dRMSE=0.0356 [WORSE & exceeds noise -- removing worst]
+  Iter 490: n_active=1219 | union RMSE mean=0.080975 | Wilcoxon p=0.0000 | dRMSE=0.0358 [WORSE & exceeds noise -- removing worst]
+  Iter 491: n_active=1218 | union RMSE mean=0.080941 | Wilcoxon p=0.0000 | dRMSE=0.0358 [WORSE & exceeds noise -- removing worst]
+  Iter 492: n_active=1217 | union RMSE mean=0.080936 | Wilcoxon p=0.0000 | dRMSE=0.0355 [WORSE & exceeds noise -- removing worst]
+  Iter 493: n_active=1216 | union RMSE mean=0.080917 | Wilcoxon p=0.0000 | dRMSE=0.0359 [WORSE & exceeds noise -- removing worst]
+  Iter 494: n_active=1215 | union RMSE mean=0.080916 | Wilcoxon p=0.0000 | dRMSE=0.0368 [WORSE & exceeds noise -- removing worst]
+  Iter 495: n_active=1214 | union RMSE mean=0.080909 | Wilcoxon p=0.0000 | dRMSE=0.0353 [WORSE & exceeds noise -- removing worst]
+  Iter 496: n_active=1213 | union RMSE mean=0.080898 | Wilcoxon p=0.0000 | dRMSE=0.0346 [WORSE & exceeds noise -- removing worst]
+  Iter 497: n_active=1212 | union RMSE mean=0.080885 | Wilcoxon p=0.0000 | dRMSE=0.0342 [WORSE & exceeds noise -- removing worst]
+  Iter 498: n_active=1211 | union RMSE mean=0.080870 | Wilcoxon p=0.0000 | dRMSE=0.0340 [WORSE & exceeds noise -- removing worst]
+  Iter 499: n_active=1210 | union RMSE mean=0.080860 | Wilcoxon p=0.0000 | dRMSE=0.0343 [WORSE & exceeds noise -- removing worst]
+  Iter 500: n_active=1209 | union RMSE mean=0.080852 | Wilcoxon p=0.0000 | dRMSE=0.0337 [WORSE & exceeds noise -- removing worst]
+  Iter 501: n_active=1208 | union RMSE mean=0.080820 | Wilcoxon p=0.0000 | dRMSE=0.0363 [WORSE & exceeds noise -- removing worst]
+  Iter 502: n_active=1207 | union RMSE mean=0.080811 | Wilcoxon p=0.0000 | dRMSE=0.0342 [WORSE & exceeds noise -- removing worst]
+  Iter 503: n_active=1206 | union RMSE mean=0.080794 | Wilcoxon p=0.0000 | dRMSE=0.0335 [WORSE & exceeds noise -- removing worst]
+  Iter 504: n_active=1205 | union RMSE mean=0.080781 | Wilcoxon p=0.0000 | dRMSE=0.0345 [WORSE & exceeds noise -- removing worst]
+  Iter 505: n_active=1204 | union RMSE mean=0.080760 | Wilcoxon p=0.0000 | dRMSE=0.0346 [WORSE & exceeds noise -- removing worst]
+  Iter 506: n_active=1203 | union RMSE mean=0.080758 | Wilcoxon p=0.0000 | dRMSE=0.0330 [WORSE & exceeds noise -- removing worst]
+  Iter 507: n_active=1202 | union RMSE mean=0.080757 | Wilcoxon p=0.0000 | dRMSE=0.0334 [WORSE & exceeds noise -- removing worst]
+  Iter 508: n_active=1201 | union RMSE mean=0.080744 | Wilcoxon p=0.0000 | dRMSE=0.0349 [WORSE & exceeds noise -- removing worst]
+  Iter 509: n_active=1200 | union RMSE mean=0.080710 | Wilcoxon p=0.0000 | dRMSE=0.0325 [WORSE & exceeds noise -- removing worst]
+  Iter 510: n_active=1199 | union RMSE mean=0.080705 | Wilcoxon p=0.0000 | dRMSE=0.0333 [WORSE & exceeds noise -- removing worst]
+  Iter 511: n_active=1198 | union RMSE mean=0.080715 | Wilcoxon p=0.0000 | dRMSE=0.0345 [WORSE & exceeds noise -- removing worst]
+  Iter 512: n_active=1197 | union RMSE mean=0.080692 | Wilcoxon p=0.0000 | dRMSE=0.0321 [WORSE & exceeds noise -- removing worst]
+  Iter 513: n_active=1196 | union RMSE mean=0.080696 | Wilcoxon p=0.0000 | dRMSE=0.0330 [WORSE & exceeds noise -- removing worst]
+  Iter 514: n_active=1195 | union RMSE mean=0.080682 | Wilcoxon p=0.0000 | dRMSE=0.0325 [WORSE & exceeds noise -- removing worst]
+  Iter 515: n_active=1194 | union RMSE mean=0.080660 | Wilcoxon p=0.0000 | dRMSE=0.0330 [WORSE & exceeds noise -- removing worst]
+  Iter 516: n_active=1193 | union RMSE mean=0.080648 | Wilcoxon p=0.0000 | dRMSE=0.0327 [WORSE & exceeds noise -- removing worst]
+  Iter 517: n_active=1192 | union RMSE mean=0.080640 | Wilcoxon p=0.0000 | dRMSE=0.0306 [WORSE & exceeds noise -- removing worst]
+  Iter 518: n_active=1191 | union RMSE mean=0.080631 | Wilcoxon p=0.0000 | dRMSE=0.0353 [WORSE & exceeds noise -- removing worst]
+  Iter 519: n_active=1190 | union RMSE mean=0.080627 | Wilcoxon p=0.0000 | dRMSE=0.0305 [WORSE & exceeds noise -- removing worst]
+  Iter 520: n_active=1189 | union RMSE mean=0.080604 | Wilcoxon p=0.0000 | dRMSE=0.0326 [WORSE & exceeds noise -- removing worst]
+  Iter 521: n_active=1188 | union RMSE mean=0.080600 | Wilcoxon p=0.0000 | dRMSE=0.0331 [WORSE & exceeds noise -- removing worst]
+  Iter 522: n_active=1187 | union RMSE mean=0.080582 | Wilcoxon p=0.0000 | dRMSE=0.0346 [WORSE & exceeds noise -- removing worst]
+  Iter 523: n_active=1186 | union RMSE mean=0.080583 | Wilcoxon p=0.0000 | dRMSE=0.0335 [WORSE & exceeds noise -- removing worst]
+  Iter 524: n_active=1185 | union RMSE mean=0.080577 | Wilcoxon p=0.0000 | dRMSE=0.0327 [WORSE & exceeds noise -- removing worst]
+  Iter 525: n_active=1184 | union RMSE mean=0.080564 | Wilcoxon p=0.0000 | dRMSE=0.0318 [WORSE & exceeds noise -- removing worst]
+  Iter 526: n_active=1183 | union RMSE mean=0.080533 | Wilcoxon p=0.0000 | dRMSE=0.0322 [WORSE & exceeds noise -- removing worst]
+  Iter 527: n_active=1182 | union RMSE mean=0.080518 | Wilcoxon p=0.0000 | dRMSE=0.0313 [WORSE & exceeds noise -- removing worst]
+  Iter 528: n_active=1181 | union RMSE mean=0.080496 | Wilcoxon p=0.0000 | dRMSE=0.0322 [WORSE & exceeds noise -- removing worst]
+  Iter 529: n_active=1180 | union RMSE mean=0.080498 | Wilcoxon p=0.0000 | dRMSE=0.0317 [WORSE & exceeds noise -- removing worst]
+  Iter 530: n_active=1179 | union RMSE mean=0.080496 | Wilcoxon p=0.0000 | dRMSE=0.0306 [WORSE & exceeds noise -- removing worst]
+  Iter 531: n_active=1178 | union RMSE mean=0.080476 | Wilcoxon p=0.0000 | dRMSE=0.0320 [WORSE & exceeds noise -- removing worst]
+  Iter 532: n_active=1177 | union RMSE mean=0.080467 | Wilcoxon p=0.0000 | dRMSE=0.0301 [WORSE & exceeds noise -- removing worst]
+  Iter 533: n_active=1176 | union RMSE mean=0.080452 | Wilcoxon p=0.0000 | dRMSE=0.0307 [WORSE & exceeds noise -- removing worst]
+  Iter 534: n_active=1175 | union RMSE mean=0.080445 | Wilcoxon p=0.0000 | dRMSE=0.0294 [WORSE & exceeds noise -- removing worst]
+  Iter 535: n_active=1174 | union RMSE mean=0.080430 | Wilcoxon p=0.0000 | dRMSE=0.0296 [WORSE & exceeds noise -- removing worst]
+  Iter 536: n_active=1173 | union RMSE mean=0.080423 | Wilcoxon p=0.0000 | dRMSE=0.0287 [WORSE & exceeds noise -- removing worst]
+  Iter 537: n_active=1172 | union RMSE mean=0.080422 | Wilcoxon p=0.0000 | dRMSE=0.0310 [WORSE & exceeds noise -- removing worst]
+  Iter 538: n_active=1171 | union RMSE mean=0.080400 | Wilcoxon p=0.0000 | dRMSE=0.0268 [WORSE & exceeds noise -- removing worst]
+  Iter 539: n_active=1170 | union RMSE mean=0.080411 | Wilcoxon p=0.0000 | dRMSE=0.0289 [WORSE & exceeds noise -- removing worst]
+  Iter 540: n_active=1169 | union RMSE mean=0.080387 | Wilcoxon p=0.0000 | dRMSE=0.0288 [WORSE & exceeds noise -- removing worst]
+  Iter 541: n_active=1168 | union RMSE mean=0.080381 | Wilcoxon p=0.0000 | dRMSE=0.0283 [WORSE & exceeds noise -- removing worst]
+  Iter 542: n_active=1167 | union RMSE mean=0.080380 | Wilcoxon p=0.0000 | dRMSE=0.0281 [WORSE & exceeds noise -- removing worst]
+  Iter 543: n_active=1166 | union RMSE mean=0.080367 | Wilcoxon p=0.0000 | dRMSE=0.0272 [WORSE & exceeds noise -- removing worst]
+  Iter 544: n_active=1165 | union RMSE mean=0.080361 | Wilcoxon p=0.0000 | dRMSE=0.0285 [WORSE & exceeds noise -- removing worst]
+  Iter 545: n_active=1164 | union RMSE mean=0.080342 | Wilcoxon p=0.0000 | dRMSE=0.0275 [WORSE & exceeds noise -- removing worst]
+  Iter 546: n_active=1163 | union RMSE mean=0.080327 | Wilcoxon p=0.0000 | dRMSE=0.0276 [WORSE & exceeds noise -- removing worst]
+  Iter 547: n_active=1162 | union RMSE mean=0.080316 | Wilcoxon p=0.0000 | dRMSE=0.0278 [WORSE & exceeds noise -- removing worst]
+  Iter 548: n_active=1161 | union RMSE mean=0.080310 | Wilcoxon p=0.0000 | dRMSE=0.0271 [WORSE & exceeds noise -- removing worst]
+  Iter 549: n_active=1160 | union RMSE mean=0.080302 | Wilcoxon p=0.0000 | dRMSE=0.0285 [WORSE & exceeds noise -- removing worst]
+  Iter 550: n_active=1159 | union RMSE mean=0.080292 | Wilcoxon p=0.0000 | dRMSE=0.0259 [WORSE & exceeds noise -- removing worst]
+  Iter 551: n_active=1158 | union RMSE mean=0.080266 | Wilcoxon p=0.0000 | dRMSE=0.0289 [WORSE & exceeds noise -- removing worst]
+  Iter 552: n_active=1157 | union RMSE mean=0.080266 | Wilcoxon p=0.0000 | dRMSE=0.0273 [WORSE & exceeds noise -- removing worst]
+  Iter 553: n_active=1156 | union RMSE mean=0.080245 | Wilcoxon p=0.0000 | dRMSE=0.0286 [WORSE & exceeds noise -- removing worst]
+  Iter 554: n_active=1155 | union RMSE mean=0.080240 | Wilcoxon p=0.0000 | dRMSE=0.0288 [WORSE & exceeds noise -- removing worst]
+  Iter 555: n_active=1154 | union RMSE mean=0.080230 | Wilcoxon p=0.0000 | dRMSE=0.0280 [WORSE & exceeds noise -- removing worst]
+  Iter 556: n_active=1153 | union RMSE mean=0.080216 | Wilcoxon p=0.0000 | dRMSE=0.0283 [WORSE & exceeds noise -- removing worst]
+  Iter 557: n_active=1152 | union RMSE mean=0.080211 | Wilcoxon p=0.0000 | dRMSE=0.0288 [WORSE & exceeds noise -- removing worst]
+  Iter 558: n_active=1151 | union RMSE mean=0.080206 | Wilcoxon p=0.0000 | dRMSE=0.0276 [WORSE & exceeds noise -- removing worst]
+  Iter 559: n_active=1150 | union RMSE mean=0.080195 | Wilcoxon p=0.0000 | dRMSE=0.0264 [WORSE & exceeds noise -- removing worst]
+  Iter 560: n_active=1149 | union RMSE mean=0.080186 | Wilcoxon p=0.0000 | dRMSE=0.0272 [WORSE & exceeds noise -- removing worst]
+  Iter 561: n_active=1148 | union RMSE mean=0.080169 | Wilcoxon p=0.0000 | dRMSE=0.0266 [WORSE & exceeds noise -- removing worst]
+  Iter 562: n_active=1147 | union RMSE mean=0.080188 | Wilcoxon p=0.0000 | dRMSE=0.0282 [WORSE & exceeds noise -- removing worst]
+  Iter 563: n_active=1146 | union RMSE mean=0.080158 | Wilcoxon p=0.0000 | dRMSE=0.0260 [WORSE & exceeds noise -- removing worst]
+  Iter 564: n_active=1145 | union RMSE mean=0.080157 | Wilcoxon p=0.0000 | dRMSE=0.0261 [WORSE & exceeds noise -- removing worst]
+  Iter 565: n_active=1144 | union RMSE mean=0.080151 | Wilcoxon p=0.0000 | dRMSE=0.0267 [WORSE & exceeds noise -- removing worst]
+  Iter 566: n_active=1143 | union RMSE mean=0.080141 | Wilcoxon p=0.0000 | dRMSE=0.0264 [WORSE & exceeds noise -- removing worst]
+  Iter 567: n_active=1142 | union RMSE mean=0.080124 | Wilcoxon p=0.0000 | dRMSE=0.0252 [WORSE & exceeds noise -- removing worst]
+  Iter 568: n_active=1141 | union RMSE mean=0.080120 | Wilcoxon p=0.0000 | dRMSE=0.0267 [WORSE & exceeds noise -- removing worst]
+  Iter 569: n_active=1140 | union RMSE mean=0.080090 | Wilcoxon p=0.0000 | dRMSE=0.0250 [WORSE & exceeds noise -- removing worst]
+  Iter 570: n_active=1139 | union RMSE mean=0.080084 | Wilcoxon p=0.0000 | dRMSE=0.0245 [WORSE & exceeds noise -- removing worst]
+  Iter 571: n_active=1138 | union RMSE mean=0.080076 | Wilcoxon p=0.0000 | dRMSE=0.0270 [WORSE & exceeds noise -- removing worst]
+  Iter 572: n_active=1137 | union RMSE mean=0.080077 | Wilcoxon p=0.0000 | dRMSE=0.0258 [WORSE & exceeds noise -- removing worst]
+  Iter 573: n_active=1136 | union RMSE mean=0.080060 | Wilcoxon p=0.0000 | dRMSE=0.0245 [WORSE & exceeds noise -- removing worst]
+  Iter 574: n_active=1135 | union RMSE mean=0.080039 | Wilcoxon p=0.0000 | dRMSE=0.0249 [WORSE & exceeds noise -- removing worst]
+  Iter 575: n_active=1134 | union RMSE mean=0.080041 | Wilcoxon p=0.0000 | dRMSE=0.0252 [WORSE & exceeds noise -- removing worst]
+  Iter 576: n_active=1133 | union RMSE mean=0.080022 | Wilcoxon p=0.0000 | dRMSE=0.0254 [WORSE & exceeds noise -- removing worst]
+  Iter 577: n_active=1132 | union RMSE mean=0.080005 | Wilcoxon p=0.0000 | dRMSE=0.0256 [WORSE & exceeds noise -- removing worst]
+  Iter 578: n_active=1131 | union RMSE mean=0.079989 | Wilcoxon p=0.0000 | dRMSE=0.0245 [WORSE & exceeds noise -- removing worst]
+  Iter 579: n_active=1130 | union RMSE mean=0.079964 | Wilcoxon p=0.0000 | dRMSE=0.0234 [WORSE & exceeds noise -- removing worst]
+  Iter 580: n_active=1129 | union RMSE mean=0.079956 | Wilcoxon p=0.0000 | dRMSE=0.0240 [WORSE & exceeds noise -- removing worst]
+  Iter 581: n_active=1128 | union RMSE mean=0.079957 | Wilcoxon p=0.0000 | dRMSE=0.0251 [WORSE & exceeds noise -- removing worst]
+  Iter 582: n_active=1127 | union RMSE mean=0.079943 | Wilcoxon p=0.0000 | dRMSE=0.0234 [WORSE & exceeds noise -- removing worst]
+  Iter 583: n_active=1126 | union RMSE mean=0.079926 | Wilcoxon p=0.0000 | dRMSE=0.0249 [WORSE & exceeds noise -- removing worst]
+  Iter 584: n_active=1125 | union RMSE mean=0.079929 | Wilcoxon p=0.0000 | dRMSE=0.0231 [WORSE & exceeds noise -- removing worst]
+  Iter 585: n_active=1124 | union RMSE mean=0.079918 | Wilcoxon p=0.0000 | dRMSE=0.0230 [WORSE & exceeds noise -- removing worst]
+  Iter 586: n_active=1123 | union RMSE mean=0.079912 | Wilcoxon p=0.0000 | dRMSE=0.0238 [WORSE & exceeds noise -- removing worst]
+  Iter 587: n_active=1122 | union RMSE mean=0.079900 | Wilcoxon p=0.0000 | dRMSE=0.0232 [WORSE & exceeds noise -- removing worst]
+  Iter 588: n_active=1121 | union RMSE mean=0.079893 | Wilcoxon p=0.0000 | dRMSE=0.0245 [WORSE & exceeds noise -- removing worst]
+  Iter 589: n_active=1120 | union RMSE mean=0.079879 | Wilcoxon p=0.0000 | dRMSE=0.0240 [WORSE & exceeds noise -- removing worst]
+  Iter 590: n_active=1119 | union RMSE mean=0.079884 | Wilcoxon p=0.0000 | dRMSE=0.0234 [WORSE & exceeds noise -- removing worst]
+  Iter 591: n_active=1118 | union RMSE mean=0.079864 | Wilcoxon p=0.0000 | dRMSE=0.0228 [WORSE & exceeds noise -- removing worst]
+  Iter 592: n_active=1117 | union RMSE mean=0.079849 | Wilcoxon p=0.0000 | dRMSE=0.0228 [WORSE & exceeds noise -- removing worst]
+  Iter 593: n_active=1116 | union RMSE mean=0.079855 | Wilcoxon p=0.0000 | dRMSE=0.0215 [WORSE & exceeds noise -- removing worst]
+  Iter 594: n_active=1115 | union RMSE mean=0.079845 | Wilcoxon p=0.0000 | dRMSE=0.0219 [WORSE & exceeds noise -- removing worst]
+  Iter 595: n_active=1114 | union RMSE mean=0.079842 | Wilcoxon p=0.0000 | dRMSE=0.0208 [WORSE & exceeds noise -- removing worst]
+  Iter 596: n_active=1113 | union RMSE mean=0.079837 | Wilcoxon p=0.0000 | dRMSE=0.0228 [WORSE & exceeds noise -- removing worst]
+  Iter 597: n_active=1112 | union RMSE mean=0.079827 | Wilcoxon p=0.0000 | dRMSE=0.0221 [WORSE & exceeds noise -- removing worst]
+  Iter 598: n_active=1111 | union RMSE mean=0.079811 | Wilcoxon p=0.0000 | dRMSE=0.0212 [WORSE & exceeds noise -- removing worst]
+  Iter 599: n_active=1110 | union RMSE mean=0.079797 | Wilcoxon p=0.0000 | dRMSE=0.0222 [WORSE & exceeds noise -- removing worst]
+  Iter 600: n_active=1109 | union RMSE mean=0.079797 | Wilcoxon p=0.0000 | dRMSE=0.0217 [WORSE & exceeds noise -- removing worst]
+  Iter 601: n_active=1108 | union RMSE mean=0.079782 | Wilcoxon p=0.0000 | dRMSE=0.0222 [WORSE & exceeds noise -- removing worst]
+  Iter 602: n_active=1107 | union RMSE mean=0.079769 | Wilcoxon p=0.0000 | dRMSE=0.0226 [WORSE & exceeds noise -- removing worst]
+  Iter 603: n_active=1106 | union RMSE mean=0.079761 | Wilcoxon p=0.0000 | dRMSE=0.0206 [WORSE & exceeds noise -- removing worst]
+  Iter 604: n_active=1105 | union RMSE mean=0.079762 | Wilcoxon p=0.0000 | dRMSE=0.0200 [WORSE & exceeds noise -- removing worst]
+  Iter 605: n_active=1104 | union RMSE mean=0.079727 | Wilcoxon p=0.0000 | dRMSE=0.0210 [WORSE & exceeds noise -- removing worst]
+  Iter 606: n_active=1103 | union RMSE mean=0.079724 | Wilcoxon p=0.0000 | dRMSE=0.0201 [WORSE & exceeds noise -- removing worst]
+  Iter 607: n_active=1102 | union RMSE mean=0.079729 | Wilcoxon p=0.0000 | dRMSE=0.0213 [WORSE & exceeds noise -- removing worst]
+  Iter 608: n_active=1101 | union RMSE mean=0.079735 | Wilcoxon p=0.0000 | dRMSE=0.0211 [WORSE & exceeds noise -- removing worst]
+  Iter 609: n_active=1100 | union RMSE mean=0.079726 | Wilcoxon p=0.0000 | dRMSE=0.0219 [WORSE & exceeds noise -- removing worst]
+  Iter 610: n_active=1099 | union RMSE mean=0.079689 | Wilcoxon p=0.0000 | dRMSE=0.0221 [WORSE & exceeds noise -- removing worst]
+  Iter 611: n_active=1098 | union RMSE mean=0.079701 | Wilcoxon p=0.0000 | dRMSE=0.0214 [WORSE & exceeds noise -- removing worst]
+  Iter 612: n_active=1097 | union RMSE mean=0.079695 | Wilcoxon p=0.0000 | dRMSE=0.0191 [WORSE & exceeds noise -- removing worst]
+  Iter 613: n_active=1096 | union RMSE mean=0.079674 | Wilcoxon p=0.0000 | dRMSE=0.0225 [WORSE & exceeds noise -- removing worst]
+  Iter 614: n_active=1095 | union RMSE mean=0.079660 | Wilcoxon p=0.0000 | dRMSE=0.0201 [WORSE & exceeds noise -- removing worst]
+  Iter 615: n_active=1094 | union RMSE mean=0.079650 | Wilcoxon p=0.0000 | dRMSE=0.0205 [WORSE & exceeds noise -- removing worst]
+  Iter 616: n_active=1093 | union RMSE mean=0.079638 | Wilcoxon p=0.0000 | dRMSE=0.0198 [WORSE & exceeds noise -- removing worst]
+  Iter 617: n_active=1092 | union RMSE mean=0.079633 | Wilcoxon p=0.0000 | dRMSE=0.0201 [WORSE & exceeds noise -- removing worst]
+  Iter 618: n_active=1091 | union RMSE mean=0.079615 | Wilcoxon p=0.0000 | dRMSE=0.0201 [WORSE & exceeds noise -- removing worst]
+  Iter 619: n_active=1090 | union RMSE mean=0.079603 | Wilcoxon p=0.0000 | dRMSE=0.0187 [WORSE & exceeds noise -- removing worst]
+  Iter 620: n_active=1089 | union RMSE mean=0.079592 | Wilcoxon p=0.0000 | dRMSE=0.0182 [p<alpha BUT dRMSE=0.0182 <= BV=0.0185 -- accepting (within background variability)]
+  Stage 2 result: 1089 accepted, 619 removed | final Wilcoxon p=0.0000 | dRMSE=0.0182 | BV=0.0185
+  delta_base = 0.166913 (95th pctile, weighted, all original SKCS-core; n=6941)
+  Delta cal resid: median=0.061481  max=0.236950
+  delta_adapt range: [0.166913, 0.250369] (kappa=0.50, bw=0.10)
+  Stage 2 RSk-fCV Wilcoxon p (final): 0.0000 | Removed by gate: 619
+  Original + Refined (Orig+Ref anchor):  6646
+  Original only (failed Stage 1 -- outside band):  295
+  Recovered (Grp 1b, passed both stages):1089
+  Excluded:                              3102
+  CMRF-core (union):                     7735
+  Recovered labelled on the cDFG axis at IP_y = 1.887917: 592 Pre-IP / 497 Post-IP
+
+  STEP 3f -- CMRF diagnostic plots (spine + adaptive delta band)
+  Plot 1 saved (CMRF diagnostics)
+
+  STEP 3g -- CMRF summary panel (gate, post-hoc, calibration, RMSE)
+  Plot 2 saved (CMRF summary panel)
+
+  STEP 3h -- Before vs After CMRF in (u,v) copula space
+  Plot 3 saved (Before vs After CMRF)
+
+  STEP 3i -- RSk-fCV mechanism and evidence
+  Plot 4 saved (RSk-fCV mechanism and evidence)
+
+  RSk-fCV audit Excel export...
+  RSk-fCV audit Excel saved: Part10e_CP10K_PVM_3_CMRF_NonNeoC_RSk_fCV_Audit.xlsx (8 sheets)
+
+  STEP 4 -- Plot 5: Orig-only & Recovered with delta band
+  Plot 5 saved
+
+  STEP 4 -- Plot 6: CMRF in (u,v) space
+  Plot 6 saved
+
+  STEP 5 -- Quantitative comparison original vs CMRF
+  Plot 7 saved
+  GOI-negative cells: 0 (will be appended to Step4_Refined_Cells)
+  Step4_Refined_Cells: 11132 total rows (11132 GOI-pos + 0 GOI-neg)
+  CMRF-core: 7735 cells (6646 Orig+Refined + 1089 Recovered)
+
+  Assembling Excel output ...
+  Excel saved: Part10e_CP10K_PVM_3_CMRF_NonNeoC_SK_interaction_analysis.xlsx
+  Displaying plots in RStudio ...
+  [closed 1 leaked device(s) before display loop]
+    -> 01_CMRF_diagnostics 
+    -> 02_CMRF_summary_panel 
+    -> 03_before_after_CMRF 
+    -> 04_RSk_fCV_mechanism 
+    -> 05_waist_zoom_with_orig_only 
+    -> 06_CMRF_band_uv_space 
+    -> 07_recovery_bar_comparison 
+
+ ======================================================================== 
+  Part10e CMRF: NeoC  [ PVM3_all ]
+======================================================================== 
+
+  IP_x = 2.495273 (SKCS-core, from Part10b_IPRS)
+  IP_y = 1.664802 = f(IP_x), from Part10b_IPRS
+  Loaded 8407 SKCS-core cells from Part10d RDS
+  Part10d IP_u = 0.6453 (full-pop; for comparison only)
+  Spine: fitted in this part, not read from Part 10d
+  EP/TREP CSV aligned to the Part 10d cells by barcode: 8407 cells
+  Donors on the SKCS-core cells: 84
+  Group counts: Pre-IP TREP=3781  Pre-IP non-TREP=101  Post-IP TREP=3836  Post-IP non-TREP=689
+
+  STEP 1 -- Rank-transform to copula marginals
+  p_i range [0.0001, 0.9999] | q_i range [0.0001, 0.9999]
+  KS test p_i ~ Uniform: p=1.0000  q_i ~ Uniform: p=1.0000
+
+  STEP 2a -- Si-Ki copula statistics
+  Spearman rho(Si,Ki)=0.7097 | Kendall tau(Si,Ki)=0.5273
+
+  STEP 2d -- Full-population Si-Ki pitcher plant copula
+  Full GOI-positive population: 13331 cells
+  Part 10b Pre/Post labels reproduce: 1.0000 on the cDFG axis at IP_y, 0.9491 on the GOI axis at IP_x  (n=8407)
+  SKCS matched: 8407 | Non-SKCS: 4924
+  p_thresh=0.304 | q_thresh=0.188
+
+  STEP 3b -- Per-group dependence statistics
+
+  STEP 4 -- CMRF two-stage membership filter
+  Reconstructed u_all/v_all from GOI_expr/cDFG_expr ranks
+  IP_u = 0.645290  (IP_x=2.495273 projected onto full-pop copula; n=13331)
+  cf. Part10d IP_u = 0.645290  (delta = 0.000000)
+  IP_v = 0.558881  (IP_y=1.664802 projected onto full-pop copula; n=13331)
+  Fitting the spine g(u) on TREP SKCS-core cells ...
+    g(u) CEP-IP spine phase1 iter 1 | k=3 | PRSS=0.65778 | 6.6 s
+    g(u) CEP-IP spine: fits 2-8 ran on 7 worker(s)
+    g(u) CEP-IP spine phase1 iter 2 | k=4 | PRSS=0.52647 | 12.4 s
+    g(u) CEP-IP spine phase1 iter 3 | k=5 | PRSS=0.52365 | 11.4 s
+    g(u) CEP-IP spine phase1 iter 4 | k=6 | PRSS=0.49471 | 19.4 s
+    g(u) CEP-IP spine phase1 iter 5 | k=7 | PRSS=0.49460 | 19.5 s
+    g(u) CEP-IP spine phase1 iter 6 | k=8 | PRSS=0.48858 | 46.6 s
+    g(u) CEP-IP spine phase1 iter 7 | k=9 | PRSS=0.48678 | 44.6 s
+    g(u) CEP-IP spine phase1 iter 8 | k=10 | PRSS=0.47963 | 42.2 s
+    g(u) CEP-IP spine phase1 best: k=10 | PRSS=0.47963
+    g(u) CEP-IP spine refine iter 9 | k=9 | PRSS=0.48678
+    g(u) CEP-IP spine refine iter 10 | k=10 | PRSS=0.47963
+    g(u) CEP-IP spine refine iter 11 | k=10 | PRSS=0.47963
+    g(u) CEP-IP spine refine iter 12 | k=10 | PRSS=0.47963
+    g(u) CEP-IP spine refine iter 13 | k=10 | PRSS=0.47963
+    g(u): n=7617 | best_k=10 | donor RE=YES (84 donors) | weights=inverse donor | PRSS=0.47963 | iters=13
+    monotonicity: min consecutive difference = 1.523e-04 over 501 grid points -- non-decreasing
+    spine at the IP: g(IP_u) = 0.7385 (IP_v = 0.5589) | g_inv(IP_v) = 0.5255 (IP_u = 0.6453)
+  IP coordinates: IP_u = 0.6453 | IP_v = 0.5589 | IP_x = 2.4953 | IP_y = 1.6648 | g(IP_u) = 0.7385 | g_inv(IP_v) = 0.5255
+
+  STEP 3e -- Threshold translation summary
+  Step 3e threshold translation table built.
+  Original SKCS-core: 8407 cells (of 13331 full-pop)
+  Calibration weights: 84 donor(s) over the original SKCS-core; sum(w) = 84.0000
+  Calibrating CMRF delta_base: weighted quantile(|v - g(u)|, 0.95) over all original SKCS-core cells ...
+  Calibration cells: 8407 | sum(w) = 84.0000 | 95th weighted pctile |v - g(u)| = 0.169290 (delta_base)
+  Calibration resid range: [0.000003, 0.229601] | median=0.059201
+
+  Applying CMRF Stage 1 (band proximity for all cells) ...
+  Stage 1 SKCS anchor: 8103 (band pass) of 8407 total SKCS
+  CMRF Stage 2 (B2): 8103 Orig+Ref anchor cells, 1994 Stage1 candidates
+  RSk-fCV: n_repeats=40, k_folds=5 (200 total folds) | Wilcoxon alpha=0.050
+  Effect-size gate: calibrated on background variability (Formulation B)
+  Step 1: Orig+Ref-alone RSk-fCV baseline ...
+  RSk-fCV: one 200-fold run took 0.43 s sequentially
+  RSk-fCV: staying sequential -- one run takes 0.43 s, below the 2.0 s at which
+              splitting it across workers pays for the round trips.
+  Orig+Ref baseline RMSE: mean=0.078173  sd=0.001132  median=0.078164  IQR=0.001582
+  Background variability BV (IQR/median): 0.020245 (2.02% relative threshold)
+  PAVA removal residuals: mean=0.099327, max=0.286433 (initial union, n=10097)
+  Spine removal residuals: mean=0.112522, max=0.253025 (for comparison)
+  Iter 1: n_active=1994 | union RMSE mean=0.088705 | Wilcoxon p=0.0000 | dRMSE=0.1345 [WORSE & exceeds noise -- removing worst]
+  Iter 2: n_active=1993 | union RMSE mean=0.088654 | Wilcoxon p=0.0000 | dRMSE=0.1352 [WORSE & exceeds noise -- removing worst]
+  Iter 3: n_active=1992 | union RMSE mean=0.088610 | Wilcoxon p=0.0000 | dRMSE=0.1342 [WORSE & exceeds noise -- removing worst]
+  Iter 4: n_active=1991 | union RMSE mean=0.088577 | Wilcoxon p=0.0000 | dRMSE=0.1316 [WORSE & exceeds noise -- removing worst]
+  Iter 5: n_active=1990 | union RMSE mean=0.088532 | Wilcoxon p=0.0000 | dRMSE=0.1348 [WORSE & exceeds noise -- removing worst]
+  Iter 6: n_active=1989 | union RMSE mean=0.088503 | Wilcoxon p=0.0000 | dRMSE=0.1317 [WORSE & exceeds noise -- removing worst]
+  Iter 7: n_active=1988 | union RMSE mean=0.088459 | Wilcoxon p=0.0000 | dRMSE=0.1319 [WORSE & exceeds noise -- removing worst]
+  Iter 8: n_active=1987 | union RMSE mean=0.088419 | Wilcoxon p=0.0000 | dRMSE=0.1320 [WORSE & exceeds noise -- removing worst]
+  Iter 9: n_active=1986 | union RMSE mean=0.088382 | Wilcoxon p=0.0000 | dRMSE=0.1303 [WORSE & exceeds noise -- removing worst]
+  Iter 10: n_active=1985 | union RMSE mean=0.088360 | Wilcoxon p=0.0000 | dRMSE=0.1295 [WORSE & exceeds noise -- removing worst]
+  Iter 11: n_active=1984 | union RMSE mean=0.088320 | Wilcoxon p=0.0000 | dRMSE=0.1307 [WORSE & exceeds noise -- removing worst]
+  Iter 12: n_active=1983 | union RMSE mean=0.088274 | Wilcoxon p=0.0000 | dRMSE=0.1292 [WORSE & exceeds noise -- removing worst]
+  Iter 13: n_active=1982 | union RMSE mean=0.088253 | Wilcoxon p=0.0000 | dRMSE=0.1297 [WORSE & exceeds noise -- removing worst]
+  Iter 14: n_active=1981 | union RMSE mean=0.088215 | Wilcoxon p=0.0000 | dRMSE=0.1283 [WORSE & exceeds noise -- removing worst]
+  Iter 15: n_active=1980 | union RMSE mean=0.088191 | Wilcoxon p=0.0000 | dRMSE=0.1294 [WORSE & exceeds noise -- removing worst]
+  Iter 16: n_active=1979 | union RMSE mean=0.088160 | Wilcoxon p=0.0000 | dRMSE=0.1280 [WORSE & exceeds noise -- removing worst]
+  Iter 17: n_active=1978 | union RMSE mean=0.088135 | Wilcoxon p=0.0000 | dRMSE=0.1280 [WORSE & exceeds noise -- removing worst]
+  Iter 18: n_active=1977 | union RMSE mean=0.088097 | Wilcoxon p=0.0000 | dRMSE=0.1280 [WORSE & exceeds noise -- removing worst]
+  Iter 19: n_active=1976 | union RMSE mean=0.088065 | Wilcoxon p=0.0000 | dRMSE=0.1282 [WORSE & exceeds noise -- removing worst]
+  Iter 20: n_active=1975 | union RMSE mean=0.088042 | Wilcoxon p=0.0000 | dRMSE=0.1261 [WORSE & exceeds noise -- removing worst]
+  Iter 21: n_active=1974 | union RMSE mean=0.088008 | Wilcoxon p=0.0000 | dRMSE=0.1263 [WORSE & exceeds noise -- removing worst]
+  Iter 22: n_active=1973 | union RMSE mean=0.088000 | Wilcoxon p=0.0000 | dRMSE=0.1251 [WORSE & exceeds noise -- removing worst]
+  Iter 23: n_active=1972 | union RMSE mean=0.087957 | Wilcoxon p=0.0000 | dRMSE=0.1282 [WORSE & exceeds noise -- removing worst]
+  Iter 24: n_active=1971 | union RMSE mean=0.087927 | Wilcoxon p=0.0000 | dRMSE=0.1248 [WORSE & exceeds noise -- removing worst]
+  Iter 25: n_active=1970 | union RMSE mean=0.087913 | Wilcoxon p=0.0000 | dRMSE=0.1255 [WORSE & exceeds noise -- removing worst]
+  Iter 26: n_active=1969 | union RMSE mean=0.087882 | Wilcoxon p=0.0000 | dRMSE=0.1232 [WORSE & exceeds noise -- removing worst]
+  Iter 27: n_active=1968 | union RMSE mean=0.087859 | Wilcoxon p=0.0000 | dRMSE=0.1237 [WORSE & exceeds noise -- removing worst]
+  Iter 28: n_active=1967 | union RMSE mean=0.087833 | Wilcoxon p=0.0000 | dRMSE=0.1234 [WORSE & exceeds noise -- removing worst]
+  Iter 29: n_active=1966 | union RMSE mean=0.087803 | Wilcoxon p=0.0000 | dRMSE=0.1236 [WORSE & exceeds noise -- removing worst]
+  Iter 30: n_active=1965 | union RMSE mean=0.087775 | Wilcoxon p=0.0000 | dRMSE=0.1225 [WORSE & exceeds noise -- removing worst]
+  Iter 31: n_active=1964 | union RMSE mean=0.087760 | Wilcoxon p=0.0000 | dRMSE=0.1230 [WORSE & exceeds noise -- removing worst]
+  Iter 32: n_active=1963 | union RMSE mean=0.087723 | Wilcoxon p=0.0000 | dRMSE=0.1228 [WORSE & exceeds noise -- removing worst]
+  Iter 33: n_active=1962 | union RMSE mean=0.087685 | Wilcoxon p=0.0000 | dRMSE=0.1225 [WORSE & exceeds noise -- removing worst]
+  Iter 34: n_active=1961 | union RMSE mean=0.087659 | Wilcoxon p=0.0000 | dRMSE=0.1226 [WORSE & exceeds noise -- removing worst]
+  Iter 35: n_active=1960 | union RMSE mean=0.087649 | Wilcoxon p=0.0000 | dRMSE=0.1205 [WORSE & exceeds noise -- removing worst]
+  Iter 36: n_active=1959 | union RMSE mean=0.087616 | Wilcoxon p=0.0000 | dRMSE=0.1216 [WORSE & exceeds noise -- removing worst]
+  Iter 37: n_active=1958 | union RMSE mean=0.087591 | Wilcoxon p=0.0000 | dRMSE=0.1207 [WORSE & exceeds noise -- removing worst]
+  Iter 38: n_active=1957 | union RMSE mean=0.087566 | Wilcoxon p=0.0000 | dRMSE=0.1207 [WORSE & exceeds noise -- removing worst]
+  Iter 39: n_active=1956 | union RMSE mean=0.087536 | Wilcoxon p=0.0000 | dRMSE=0.1192 [WORSE & exceeds noise -- removing worst]
+  Iter 40: n_active=1955 | union RMSE mean=0.087505 | Wilcoxon p=0.0000 | dRMSE=0.1176 [WORSE & exceeds noise -- removing worst]
+  Iter 41: n_active=1954 | union RMSE mean=0.087485 | Wilcoxon p=0.0000 | dRMSE=0.1188 [WORSE & exceeds noise -- removing worst]
+  Iter 42: n_active=1953 | union RMSE mean=0.087459 | Wilcoxon p=0.0000 | dRMSE=0.1199 [WORSE & exceeds noise -- removing worst]
+  Iter 43: n_active=1952 | union RMSE mean=0.087436 | Wilcoxon p=0.0000 | dRMSE=0.1183 [WORSE & exceeds noise -- removing worst]
+  Iter 44: n_active=1951 | union RMSE mean=0.087420 | Wilcoxon p=0.0000 | dRMSE=0.1162 [WORSE & exceeds noise -- removing worst]
+  Iter 45: n_active=1950 | union RMSE mean=0.087393 | Wilcoxon p=0.0000 | dRMSE=0.1181 [WORSE & exceeds noise -- removing worst]
+  Iter 46: n_active=1949 | union RMSE mean=0.087379 | Wilcoxon p=0.0000 | dRMSE=0.1172 [WORSE & exceeds noise -- removing worst]
+  Iter 47: n_active=1948 | union RMSE mean=0.087356 | Wilcoxon p=0.0000 | dRMSE=0.1169 [WORSE & exceeds noise -- removing worst]
+  Iter 48: n_active=1947 | union RMSE mean=0.087323 | Wilcoxon p=0.0000 | dRMSE=0.1174 [WORSE & exceeds noise -- removing worst]
+  Iter 49: n_active=1946 | union RMSE mean=0.087296 | Wilcoxon p=0.0000 | dRMSE=0.1176 [WORSE & exceeds noise -- removing worst]
+  Iter 50: n_active=1945 | union RMSE mean=0.087271 | Wilcoxon p=0.0000 | dRMSE=0.1173 [WORSE & exceeds noise -- removing worst]
+  Iter 51: n_active=1944 | union RMSE mean=0.087246 | Wilcoxon p=0.0000 | dRMSE=0.1164 [WORSE & exceeds noise -- removing worst]
+  Iter 52: n_active=1943 | union RMSE mean=0.087228 | Wilcoxon p=0.0000 | dRMSE=0.1146 [WORSE & exceeds noise -- removing worst]
+  Iter 53: n_active=1942 | union RMSE mean=0.087203 | Wilcoxon p=0.0000 | dRMSE=0.1159 [WORSE & exceeds noise -- removing worst]
+  Iter 54: n_active=1941 | union RMSE mean=0.087183 | Wilcoxon p=0.0000 | dRMSE=0.1163 [WORSE & exceeds noise -- removing worst]
+  Iter 55: n_active=1940 | union RMSE mean=0.087150 | Wilcoxon p=0.0000 | dRMSE=0.1133 [WORSE & exceeds noise -- removing worst]
+  Iter 56: n_active=1939 | union RMSE mean=0.087135 | Wilcoxon p=0.0000 | dRMSE=0.1140 [WORSE & exceeds noise -- removing worst]
+  Iter 57: n_active=1938 | union RMSE mean=0.087110 | Wilcoxon p=0.0000 | dRMSE=0.1126 [WORSE & exceeds noise -- removing worst]
+  Iter 58: n_active=1937 | union RMSE mean=0.087085 | Wilcoxon p=0.0000 | dRMSE=0.1139 [WORSE & exceeds noise -- removing worst]
+  Iter 59: n_active=1936 | union RMSE mean=0.087076 | Wilcoxon p=0.0000 | dRMSE=0.1145 [WORSE & exceeds noise -- removing worst]
+  Iter 60: n_active=1935 | union RMSE mean=0.087040 | Wilcoxon p=0.0000 | dRMSE=0.1121 [WORSE & exceeds noise -- removing worst]
+  Iter 61: n_active=1934 | union RMSE mean=0.087029 | Wilcoxon p=0.0000 | dRMSE=0.1142 [WORSE & exceeds noise -- removing worst]
+  Iter 62: n_active=1933 | union RMSE mean=0.087017 | Wilcoxon p=0.0000 | dRMSE=0.1137 [WORSE & exceeds noise -- removing worst]
+  Iter 63: n_active=1932 | union RMSE mean=0.086994 | Wilcoxon p=0.0000 | dRMSE=0.1138 [WORSE & exceeds noise -- removing worst]
+  Iter 64: n_active=1931 | union RMSE mean=0.086980 | Wilcoxon p=0.0000 | dRMSE=0.1118 [WORSE & exceeds noise -- removing worst]
+  Iter 65: n_active=1930 | union RMSE mean=0.086964 | Wilcoxon p=0.0000 | dRMSE=0.1139 [WORSE & exceeds noise -- removing worst]
+  Iter 66: n_active=1929 | union RMSE mean=0.086928 | Wilcoxon p=0.0000 | dRMSE=0.1122 [WORSE & exceeds noise -- removing worst]
+  Iter 67: n_active=1928 | union RMSE mean=0.086911 | Wilcoxon p=0.0000 | dRMSE=0.1132 [WORSE & exceeds noise -- removing worst]
+  Iter 68: n_active=1927 | union RMSE mean=0.086897 | Wilcoxon p=0.0000 | dRMSE=0.1113 [WORSE & exceeds noise -- removing worst]
+  Iter 69: n_active=1926 | union RMSE mean=0.086874 | Wilcoxon p=0.0000 | dRMSE=0.1126 [WORSE & exceeds noise -- removing worst]
+  Iter 70: n_active=1925 | union RMSE mean=0.086853 | Wilcoxon p=0.0000 | dRMSE=0.1127 [WORSE & exceeds noise -- removing worst]
+  Iter 71: n_active=1924 | union RMSE mean=0.086833 | Wilcoxon p=0.0000 | dRMSE=0.1121 [WORSE & exceeds noise -- removing worst]
+  Iter 72: n_active=1923 | union RMSE mean=0.086809 | Wilcoxon p=0.0000 | dRMSE=0.1100 [WORSE & exceeds noise -- removing worst]
+  Iter 73: n_active=1922 | union RMSE mean=0.086792 | Wilcoxon p=0.0000 | dRMSE=0.1114 [WORSE & exceeds noise -- removing worst]
+  Iter 74: n_active=1921 | union RMSE mean=0.086765 | Wilcoxon p=0.0000 | dRMSE=0.1112 [WORSE & exceeds noise -- removing worst]
+  Iter 75: n_active=1920 | union RMSE mean=0.086738 | Wilcoxon p=0.0000 | dRMSE=0.1086 [WORSE & exceeds noise -- removing worst]
+  Iter 76: n_active=1919 | union RMSE mean=0.086718 | Wilcoxon p=0.0000 | dRMSE=0.1107 [WORSE & exceeds noise -- removing worst]
+  Iter 77: n_active=1918 | union RMSE mean=0.086704 | Wilcoxon p=0.0000 | dRMSE=0.1095 [WORSE & exceeds noise -- removing worst]
+  Iter 78: n_active=1917 | union RMSE mean=0.086680 | Wilcoxon p=0.0000 | dRMSE=0.1096 [WORSE & exceeds noise -- removing worst]
+  Iter 79: n_active=1916 | union RMSE mean=0.086660 | Wilcoxon p=0.0000 | dRMSE=0.1090 [WORSE & exceeds noise -- removing worst]
+  Iter 80: n_active=1915 | union RMSE mean=0.086651 | Wilcoxon p=0.0000 | dRMSE=0.1075 [WORSE & exceeds noise -- removing worst]
+  Iter 81: n_active=1914 | union RMSE mean=0.086625 | Wilcoxon p=0.0000 | dRMSE=0.1088 [WORSE & exceeds noise -- removing worst]
+  Iter 82: n_active=1913 | union RMSE mean=0.086616 | Wilcoxon p=0.0000 | dRMSE=0.1068 [WORSE & exceeds noise -- removing worst]
+  Iter 83: n_active=1912 | union RMSE mean=0.086595 | Wilcoxon p=0.0000 | dRMSE=0.1091 [WORSE & exceeds noise -- removing worst]
+  Iter 84: n_active=1911 | union RMSE mean=0.086554 | Wilcoxon p=0.0000 | dRMSE=0.1069 [WORSE & exceeds noise -- removing worst]
+  Iter 85: n_active=1910 | union RMSE mean=0.086550 | Wilcoxon p=0.0000 | dRMSE=0.1070 [WORSE & exceeds noise -- removing worst]
+  Iter 86: n_active=1909 | union RMSE mean=0.086523 | Wilcoxon p=0.0000 | dRMSE=0.1068 [WORSE & exceeds noise -- removing worst]
+  Iter 87: n_active=1908 | union RMSE mean=0.086503 | Wilcoxon p=0.0000 | dRMSE=0.1060 [WORSE & exceeds noise -- removing worst]
+  Iter 88: n_active=1907 | union RMSE mean=0.086489 | Wilcoxon p=0.0000 | dRMSE=0.1062 [WORSE & exceeds noise -- removing worst]
+  Iter 89: n_active=1906 | union RMSE mean=0.086490 | Wilcoxon p=0.0000 | dRMSE=0.1062 [WORSE & exceeds noise -- removing worst]
+  Iter 90: n_active=1905 | union RMSE mean=0.086478 | Wilcoxon p=0.0000 | dRMSE=0.1069 [WORSE & exceeds noise -- removing worst]
+  Iter 91: n_active=1904 | union RMSE mean=0.086440 | Wilcoxon p=0.0000 | dRMSE=0.1064 [WORSE & exceeds noise -- removing worst]
+  Iter 92: n_active=1903 | union RMSE mean=0.086428 | Wilcoxon p=0.0000 | dRMSE=0.1049 [WORSE & exceeds noise -- removing worst]
+  Iter 93: n_active=1902 | union RMSE mean=0.086396 | Wilcoxon p=0.0000 | dRMSE=0.1044 [WORSE & exceeds noise -- removing worst]
+  Iter 94: n_active=1901 | union RMSE mean=0.086371 | Wilcoxon p=0.0000 | dRMSE=0.1053 [WORSE & exceeds noise -- removing worst]
+  Iter 95: n_active=1900 | union RMSE mean=0.086356 | Wilcoxon p=0.0000 | dRMSE=0.1026 [WORSE & exceeds noise -- removing worst]
+  Iter 96: n_active=1899 | union RMSE mean=0.086341 | Wilcoxon p=0.0000 | dRMSE=0.1051 [WORSE & exceeds noise -- removing worst]
+  Iter 97: n_active=1898 | union RMSE mean=0.086320 | Wilcoxon p=0.0000 | dRMSE=0.1047 [WORSE & exceeds noise -- removing worst]
+  Iter 98: n_active=1897 | union RMSE mean=0.086315 | Wilcoxon p=0.0000 | dRMSE=0.1042 [WORSE & exceeds noise -- removing worst]
+  Iter 99: n_active=1896 | union RMSE mean=0.086291 | Wilcoxon p=0.0000 | dRMSE=0.1027 [WORSE & exceeds noise -- removing worst]
+  Iter 100: n_active=1895 | union RMSE mean=0.086271 | Wilcoxon p=0.0000 | dRMSE=0.1039 [WORSE & exceeds noise -- removing worst]
+  Iter 101: n_active=1894 | union RMSE mean=0.086250 | Wilcoxon p=0.0000 | dRMSE=0.1034 [WORSE & exceeds noise -- removing worst]
+  Iter 102: n_active=1893 | union RMSE mean=0.086221 | Wilcoxon p=0.0000 | dRMSE=0.1053 [WORSE & exceeds noise -- removing worst]
+  Iter 103: n_active=1892 | union RMSE mean=0.086211 | Wilcoxon p=0.0000 | dRMSE=0.1023 [WORSE & exceeds noise -- removing worst]
+  Iter 104: n_active=1891 | union RMSE mean=0.086213 | Wilcoxon p=0.0000 | dRMSE=0.1037 [WORSE & exceeds noise -- removing worst]
+  Iter 105: n_active=1890 | union RMSE mean=0.086197 | Wilcoxon p=0.0000 | dRMSE=0.1041 [WORSE & exceeds noise -- removing worst]
+  Iter 106: n_active=1889 | union RMSE mean=0.086190 | Wilcoxon p=0.0000 | dRMSE=0.1022 [WORSE & exceeds noise -- removing worst]
+  Iter 107: n_active=1888 | union RMSE mean=0.086175 | Wilcoxon p=0.0000 | dRMSE=0.1035 [WORSE & exceeds noise -- removing worst]
+  Iter 108: n_active=1887 | union RMSE mean=0.086154 | Wilcoxon p=0.0000 | dRMSE=0.1021 [WORSE & exceeds noise -- removing worst]
+  Iter 109: n_active=1886 | union RMSE mean=0.086140 | Wilcoxon p=0.0000 | dRMSE=0.1023 [WORSE & exceeds noise -- removing worst]
+  Iter 110: n_active=1885 | union RMSE mean=0.086122 | Wilcoxon p=0.0000 | dRMSE=0.1018 [WORSE & exceeds noise -- removing worst]
+  Iter 111: n_active=1884 | union RMSE mean=0.086102 | Wilcoxon p=0.0000 | dRMSE=0.1012 [WORSE & exceeds noise -- removing worst]
+  Iter 112: n_active=1883 | union RMSE mean=0.086076 | Wilcoxon p=0.0000 | dRMSE=0.1014 [WORSE & exceeds noise -- removing worst]
+  Iter 113: n_active=1882 | union RMSE mean=0.086054 | Wilcoxon p=0.0000 | dRMSE=0.1013 [WORSE & exceeds noise -- removing worst]
+  Iter 114: n_active=1881 | union RMSE mean=0.086039 | Wilcoxon p=0.0000 | dRMSE=0.1001 [WORSE & exceeds noise -- removing worst]
+  Iter 115: n_active=1880 | union RMSE mean=0.086032 | Wilcoxon p=0.0000 | dRMSE=0.0998 [WORSE & exceeds noise -- removing worst]
+  Iter 116: n_active=1879 | union RMSE mean=0.085996 | Wilcoxon p=0.0000 | dRMSE=0.0999 [WORSE & exceeds noise -- removing worst]
+  Iter 117: n_active=1878 | union RMSE mean=0.085984 | Wilcoxon p=0.0000 | dRMSE=0.1008 [WORSE & exceeds noise -- removing worst]
+  Iter 118: n_active=1877 | union RMSE mean=0.085969 | Wilcoxon p=0.0000 | dRMSE=0.0998 [WORSE & exceeds noise -- removing worst]
+  Iter 119: n_active=1876 | union RMSE mean=0.085928 | Wilcoxon p=0.0000 | dRMSE=0.1002 [WORSE & exceeds noise -- removing worst]
+  Iter 120: n_active=1875 | union RMSE mean=0.085910 | Wilcoxon p=0.0000 | dRMSE=0.1007 [WORSE & exceeds noise -- removing worst]
+  Iter 121: n_active=1874 | union RMSE mean=0.085893 | Wilcoxon p=0.0000 | dRMSE=0.0987 [WORSE & exceeds noise -- removing worst]
+  Iter 122: n_active=1873 | union RMSE mean=0.085886 | Wilcoxon p=0.0000 | dRMSE=0.0994 [WORSE & exceeds noise -- removing worst]
+  Iter 123: n_active=1872 | union RMSE mean=0.085861 | Wilcoxon p=0.0000 | dRMSE=0.0982 [WORSE & exceeds noise -- removing worst]
+  Iter 124: n_active=1871 | union RMSE mean=0.085847 | Wilcoxon p=0.0000 | dRMSE=0.0977 [WORSE & exceeds noise -- removing worst]
+  Iter 125: n_active=1870 | union RMSE mean=0.085837 | Wilcoxon p=0.0000 | dRMSE=0.0985 [WORSE & exceeds noise -- removing worst]
+  Iter 126: n_active=1869 | union RMSE mean=0.085812 | Wilcoxon p=0.0000 | dRMSE=0.0978 [WORSE & exceeds noise -- removing worst]
+  Iter 127: n_active=1868 | union RMSE mean=0.085806 | Wilcoxon p=0.0000 | dRMSE=0.0970 [WORSE & exceeds noise -- removing worst]
+  Iter 128: n_active=1867 | union RMSE mean=0.085781 | Wilcoxon p=0.0000 | dRMSE=0.0963 [WORSE & exceeds noise -- removing worst]
+  Iter 129: n_active=1866 | union RMSE mean=0.085777 | Wilcoxon p=0.0000 | dRMSE=0.0965 [WORSE & exceeds noise -- removing worst]
+  Iter 130: n_active=1865 | union RMSE mean=0.085752 | Wilcoxon p=0.0000 | dRMSE=0.0969 [WORSE & exceeds noise -- removing worst]
+  Iter 131: n_active=1864 | union RMSE mean=0.085734 | Wilcoxon p=0.0000 | dRMSE=0.0965 [WORSE & exceeds noise -- removing worst]
+  Iter 132: n_active=1863 | union RMSE mean=0.085734 | Wilcoxon p=0.0000 | dRMSE=0.0985 [WORSE & exceeds noise -- removing worst]
+  Iter 133: n_active=1862 | union RMSE mean=0.085717 | Wilcoxon p=0.0000 | dRMSE=0.0967 [WORSE & exceeds noise -- removing worst]
+  Iter 134: n_active=1861 | union RMSE mean=0.085681 | Wilcoxon p=0.0000 | dRMSE=0.0963 [WORSE & exceeds noise -- removing worst]
+  Iter 135: n_active=1860 | union RMSE mean=0.085669 | Wilcoxon p=0.0000 | dRMSE=0.0958 [WORSE & exceeds noise -- removing worst]
+  Iter 136: n_active=1859 | union RMSE mean=0.085664 | Wilcoxon p=0.0000 | dRMSE=0.0975 [WORSE & exceeds noise -- removing worst]
+  Iter 137: n_active=1858 | union RMSE mean=0.085648 | Wilcoxon p=0.0000 | dRMSE=0.0962 [WORSE & exceeds noise -- removing worst]
+  Iter 138: n_active=1857 | union RMSE mean=0.085643 | Wilcoxon p=0.0000 | dRMSE=0.0962 [WORSE & exceeds noise -- removing worst]
+  Iter 139: n_active=1856 | union RMSE mean=0.085620 | Wilcoxon p=0.0000 | dRMSE=0.0953 [WORSE & exceeds noise -- removing worst]
+  Iter 140: n_active=1855 | union RMSE mean=0.085605 | Wilcoxon p=0.0000 | dRMSE=0.0953 [WORSE & exceeds noise -- removing worst]
+  Iter 141: n_active=1854 | union RMSE mean=0.085587 | Wilcoxon p=0.0000 | dRMSE=0.0968 [WORSE & exceeds noise -- removing worst]
+  Iter 142: n_active=1853 | union RMSE mean=0.085584 | Wilcoxon p=0.0000 | dRMSE=0.0943 [WORSE & exceeds noise -- removing worst]
+  Iter 143: n_active=1852 | union RMSE mean=0.085550 | Wilcoxon p=0.0000 | dRMSE=0.0941 [WORSE & exceeds noise -- removing worst]
+  Iter 144: n_active=1851 | union RMSE mean=0.085535 | Wilcoxon p=0.0000 | dRMSE=0.0961 [WORSE & exceeds noise -- removing worst]
+  Iter 145: n_active=1850 | union RMSE mean=0.085532 | Wilcoxon p=0.0000 | dRMSE=0.0954 [WORSE & exceeds noise -- removing worst]
+  Iter 146: n_active=1849 | union RMSE mean=0.085506 | Wilcoxon p=0.0000 | dRMSE=0.0927 [WORSE & exceeds noise -- removing worst]
+  Iter 147: n_active=1848 | union RMSE mean=0.085493 | Wilcoxon p=0.0000 | dRMSE=0.0929 [WORSE & exceeds noise -- removing worst]
+  Iter 148: n_active=1847 | union RMSE mean=0.085469 | Wilcoxon p=0.0000 | dRMSE=0.0934 [WORSE & exceeds noise -- removing worst]
+  Iter 149: n_active=1846 | union RMSE mean=0.085459 | Wilcoxon p=0.0000 | dRMSE=0.0938 [WORSE & exceeds noise -- removing worst]
+  Iter 150: n_active=1845 | union RMSE mean=0.085447 | Wilcoxon p=0.0000 | dRMSE=0.0936 [WORSE & exceeds noise -- removing worst]
+  Iter 151: n_active=1844 | union RMSE mean=0.085432 | Wilcoxon p=0.0000 | dRMSE=0.0941 [WORSE & exceeds noise -- removing worst]
+  Iter 152: n_active=1843 | union RMSE mean=0.085405 | Wilcoxon p=0.0000 | dRMSE=0.0928 [WORSE & exceeds noise -- removing worst]
+  Iter 153: n_active=1842 | union RMSE mean=0.085389 | Wilcoxon p=0.0000 | dRMSE=0.0925 [WORSE & exceeds noise -- removing worst]
+  Iter 154: n_active=1841 | union RMSE mean=0.085367 | Wilcoxon p=0.0000 | dRMSE=0.0920 [WORSE & exceeds noise -- removing worst]
+  Iter 155: n_active=1840 | union RMSE mean=0.085367 | Wilcoxon p=0.0000 | dRMSE=0.0911 [WORSE & exceeds noise -- removing worst]
+  Iter 156: n_active=1839 | union RMSE mean=0.085354 | Wilcoxon p=0.0000 | dRMSE=0.0916 [WORSE & exceeds noise -- removing worst]
+  Iter 157: n_active=1838 | union RMSE mean=0.085344 | Wilcoxon p=0.0000 | dRMSE=0.0914 [WORSE & exceeds noise -- removing worst]
+  Iter 158: n_active=1837 | union RMSE mean=0.085325 | Wilcoxon p=0.0000 | dRMSE=0.0916 [WORSE & exceeds noise -- removing worst]
+  Iter 159: n_active=1836 | union RMSE mean=0.085312 | Wilcoxon p=0.0000 | dRMSE=0.0916 [WORSE & exceeds noise -- removing worst]
+  Iter 160: n_active=1835 | union RMSE mean=0.085294 | Wilcoxon p=0.0000 | dRMSE=0.0921 [WORSE & exceeds noise -- removing worst]
+  Iter 161: n_active=1834 | union RMSE mean=0.085288 | Wilcoxon p=0.0000 | dRMSE=0.0918 [WORSE & exceeds noise -- removing worst]
+  Iter 162: n_active=1833 | union RMSE mean=0.085265 | Wilcoxon p=0.0000 | dRMSE=0.0914 [WORSE & exceeds noise -- removing worst]
+  Iter 163: n_active=1832 | union RMSE mean=0.085246 | Wilcoxon p=0.0000 | dRMSE=0.0913 [WORSE & exceeds noise -- removing worst]
+  Iter 164: n_active=1831 | union RMSE mean=0.085240 | Wilcoxon p=0.0000 | dRMSE=0.0923 [WORSE & exceeds noise -- removing worst]
+  Iter 165: n_active=1830 | union RMSE mean=0.085214 | Wilcoxon p=0.0000 | dRMSE=0.0914 [WORSE & exceeds noise -- removing worst]
+  Iter 166: n_active=1829 | union RMSE mean=0.085199 | Wilcoxon p=0.0000 | dRMSE=0.0902 [WORSE & exceeds noise -- removing worst]
+  Iter 167: n_active=1828 | union RMSE mean=0.085179 | Wilcoxon p=0.0000 | dRMSE=0.0893 [WORSE & exceeds noise -- removing worst]
+  Iter 168: n_active=1827 | union RMSE mean=0.085152 | Wilcoxon p=0.0000 | dRMSE=0.0912 [WORSE & exceeds noise -- removing worst]
+  Iter 169: n_active=1826 | union RMSE mean=0.085138 | Wilcoxon p=0.0000 | dRMSE=0.0902 [WORSE & exceeds noise -- removing worst]
+  Iter 170: n_active=1825 | union RMSE mean=0.085128 | Wilcoxon p=0.0000 | dRMSE=0.0897 [WORSE & exceeds noise -- removing worst]
+  Iter 171: n_active=1824 | union RMSE mean=0.085108 | Wilcoxon p=0.0000 | dRMSE=0.0885 [WORSE & exceeds noise -- removing worst]
+  Iter 172: n_active=1823 | union RMSE mean=0.085085 | Wilcoxon p=0.0000 | dRMSE=0.0889 [WORSE & exceeds noise -- removing worst]
+  Iter 173: n_active=1822 | union RMSE mean=0.085067 | Wilcoxon p=0.0000 | dRMSE=0.0871 [WORSE & exceeds noise -- removing worst]
+  Iter 174: n_active=1821 | union RMSE mean=0.085061 | Wilcoxon p=0.0000 | dRMSE=0.0873 [WORSE & exceeds noise -- removing worst]
+  Iter 175: n_active=1820 | union RMSE mean=0.085043 | Wilcoxon p=0.0000 | dRMSE=0.0890 [WORSE & exceeds noise -- removing worst]
+  Iter 176: n_active=1819 | union RMSE mean=0.085025 | Wilcoxon p=0.0000 | dRMSE=0.0889 [WORSE & exceeds noise -- removing worst]
+  Iter 177: n_active=1818 | union RMSE mean=0.085004 | Wilcoxon p=0.0000 | dRMSE=0.0887 [WORSE & exceeds noise -- removing worst]
+  Iter 178: n_active=1817 | union RMSE mean=0.085007 | Wilcoxon p=0.0000 | dRMSE=0.0864 [WORSE & exceeds noise -- removing worst]
+  Iter 179: n_active=1816 | union RMSE mean=0.084994 | Wilcoxon p=0.0000 | dRMSE=0.0868 [WORSE & exceeds noise -- removing worst]
+  Iter 180: n_active=1815 | union RMSE mean=0.084979 | Wilcoxon p=0.0000 | dRMSE=0.0884 [WORSE & exceeds noise -- removing worst]
+  Iter 181: n_active=1814 | union RMSE mean=0.084961 | Wilcoxon p=0.0000 | dRMSE=0.0869 [WORSE & exceeds noise -- removing worst]
+  Iter 182: n_active=1813 | union RMSE mean=0.084926 | Wilcoxon p=0.0000 | dRMSE=0.0863 [WORSE & exceeds noise -- removing worst]
+  Iter 183: n_active=1812 | union RMSE mean=0.084911 | Wilcoxon p=0.0000 | dRMSE=0.0873 [WORSE & exceeds noise -- removing worst]
+  Iter 184: n_active=1811 | union RMSE mean=0.084907 | Wilcoxon p=0.0000 | dRMSE=0.0868 [WORSE & exceeds noise -- removing worst]
+  Iter 185: n_active=1810 | union RMSE mean=0.084906 | Wilcoxon p=0.0000 | dRMSE=0.0859 [WORSE & exceeds noise -- removing worst]
+  Iter 186: n_active=1809 | union RMSE mean=0.084883 | Wilcoxon p=0.0000 | dRMSE=0.0867 [WORSE & exceeds noise -- removing worst]
+  Iter 187: n_active=1808 | union RMSE mean=0.084872 | Wilcoxon p=0.0000 | dRMSE=0.0858 [WORSE & exceeds noise -- removing worst]
+  Iter 188: n_active=1807 | union RMSE mean=0.084854 | Wilcoxon p=0.0000 | dRMSE=0.0857 [WORSE & exceeds noise -- removing worst]
+  Iter 189: n_active=1806 | union RMSE mean=0.084832 | Wilcoxon p=0.0000 | dRMSE=0.0855 [WORSE & exceeds noise -- removing worst]
+  Iter 190: n_active=1805 | union RMSE mean=0.084813 | Wilcoxon p=0.0000 | dRMSE=0.0836 [WORSE & exceeds noise -- removing worst]
+  Iter 191: n_active=1804 | union RMSE mean=0.084805 | Wilcoxon p=0.0000 | dRMSE=0.0859 [WORSE & exceeds noise -- removing worst]
+  Iter 192: n_active=1803 | union RMSE mean=0.084783 | Wilcoxon p=0.0000 | dRMSE=0.0836 [WORSE & exceeds noise -- removing worst]
+  Iter 193: n_active=1802 | union RMSE mean=0.084764 | Wilcoxon p=0.0000 | dRMSE=0.0848 [WORSE & exceeds noise -- removing worst]
+  Iter 194: n_active=1801 | union RMSE mean=0.084766 | Wilcoxon p=0.0000 | dRMSE=0.0835 [WORSE & exceeds noise -- removing worst]
+  Iter 195: n_active=1800 | union RMSE mean=0.084740 | Wilcoxon p=0.0000 | dRMSE=0.0848 [WORSE & exceeds noise -- removing worst]
+  Iter 196: n_active=1799 | union RMSE mean=0.084737 | Wilcoxon p=0.0000 | dRMSE=0.0829 [WORSE & exceeds noise -- removing worst]
+  Iter 197: n_active=1798 | union RMSE mean=0.084725 | Wilcoxon p=0.0000 | dRMSE=0.0834 [WORSE & exceeds noise -- removing worst]
+  Iter 198: n_active=1797 | union RMSE mean=0.084722 | Wilcoxon p=0.0000 | dRMSE=0.0832 [WORSE & exceeds noise -- removing worst]
+  Iter 199: n_active=1796 | union RMSE mean=0.084698 | Wilcoxon p=0.0000 | dRMSE=0.0829 [WORSE & exceeds noise -- removing worst]
+  Iter 200: n_active=1795 | union RMSE mean=0.084682 | Wilcoxon p=0.0000 | dRMSE=0.0854 [WORSE & exceeds noise -- removing worst]
+  Iter 201: n_active=1794 | union RMSE mean=0.084668 | Wilcoxon p=0.0000 | dRMSE=0.0838 [WORSE & exceeds noise -- removing worst]
+  Iter 202: n_active=1793 | union RMSE mean=0.084638 | Wilcoxon p=0.0000 | dRMSE=0.0826 [WORSE & exceeds noise -- removing worst]
+  Iter 203: n_active=1792 | union RMSE mean=0.084616 | Wilcoxon p=0.0000 | dRMSE=0.0823 [WORSE & exceeds noise -- removing worst]
+  Iter 204: n_active=1791 | union RMSE mean=0.084609 | Wilcoxon p=0.0000 | dRMSE=0.0830 [WORSE & exceeds noise -- removing worst]
+  Iter 205: n_active=1790 | union RMSE mean=0.084605 | Wilcoxon p=0.0000 | dRMSE=0.0828 [WORSE & exceeds noise -- removing worst]
+  Iter 206: n_active=1789 | union RMSE mean=0.084590 | Wilcoxon p=0.0000 | dRMSE=0.0833 [WORSE & exceeds noise -- removing worst]
+  Iter 207: n_active=1788 | union RMSE mean=0.084584 | Wilcoxon p=0.0000 | dRMSE=0.0824 [WORSE & exceeds noise -- removing worst]
+  Iter 208: n_active=1787 | union RMSE mean=0.084572 | Wilcoxon p=0.0000 | dRMSE=0.0835 [WORSE & exceeds noise -- removing worst]
+  Iter 209: n_active=1786 | union RMSE mean=0.084558 | Wilcoxon p=0.0000 | dRMSE=0.0818 [WORSE & exceeds noise -- removing worst]
+  Iter 210: n_active=1785 | union RMSE mean=0.084538 | Wilcoxon p=0.0000 | dRMSE=0.0819 [WORSE & exceeds noise -- removing worst]
+  Iter 211: n_active=1784 | union RMSE mean=0.084520 | Wilcoxon p=0.0000 | dRMSE=0.0803 [WORSE & exceeds noise -- removing worst]
+  Iter 212: n_active=1783 | union RMSE mean=0.084504 | Wilcoxon p=0.0000 | dRMSE=0.0814 [WORSE & exceeds noise -- removing worst]
+  Iter 213: n_active=1782 | union RMSE mean=0.084489 | Wilcoxon p=0.0000 | dRMSE=0.0796 [WORSE & exceeds noise -- removing worst]
+  Iter 214: n_active=1781 | union RMSE mean=0.084474 | Wilcoxon p=0.0000 | dRMSE=0.0801 [WORSE & exceeds noise -- removing worst]
+  Iter 215: n_active=1780 | union RMSE mean=0.084476 | Wilcoxon p=0.0000 | dRMSE=0.0818 [WORSE & exceeds noise -- removing worst]
+  Iter 216: n_active=1779 | union RMSE mean=0.084451 | Wilcoxon p=0.0000 | dRMSE=0.0824 [WORSE & exceeds noise -- removing worst]
+  Iter 217: n_active=1778 | union RMSE mean=0.084438 | Wilcoxon p=0.0000 | dRMSE=0.0800 [WORSE & exceeds noise -- removing worst]
+  Iter 218: n_active=1777 | union RMSE mean=0.084420 | Wilcoxon p=0.0000 | dRMSE=0.0809 [WORSE & exceeds noise -- removing worst]
+  Iter 219: n_active=1776 | union RMSE mean=0.084397 | Wilcoxon p=0.0000 | dRMSE=0.0798 [WORSE & exceeds noise -- removing worst]
+  Iter 220: n_active=1775 | union RMSE mean=0.084380 | Wilcoxon p=0.0000 | dRMSE=0.0791 [WORSE & exceeds noise -- removing worst]
+  Iter 221: n_active=1774 | union RMSE mean=0.084375 | Wilcoxon p=0.0000 | dRMSE=0.0794 [WORSE & exceeds noise -- removing worst]
+  Iter 222: n_active=1773 | union RMSE mean=0.084372 | Wilcoxon p=0.0000 | dRMSE=0.0788 [WORSE & exceeds noise -- removing worst]
+  Iter 223: n_active=1772 | union RMSE mean=0.084347 | Wilcoxon p=0.0000 | dRMSE=0.0789 [WORSE & exceeds noise -- removing worst]
+  Iter 224: n_active=1771 | union RMSE mean=0.084337 | Wilcoxon p=0.0000 | dRMSE=0.0774 [WORSE & exceeds noise -- removing worst]
+  Iter 225: n_active=1770 | union RMSE mean=0.084321 | Wilcoxon p=0.0000 | dRMSE=0.0783 [WORSE & exceeds noise -- removing worst]
+  Iter 226: n_active=1769 | union RMSE mean=0.084313 | Wilcoxon p=0.0000 | dRMSE=0.0778 [WORSE & exceeds noise -- removing worst]
+  Iter 227: n_active=1768 | union RMSE mean=0.084300 | Wilcoxon p=0.0000 | dRMSE=0.0783 [WORSE & exceeds noise -- removing worst]
+  Iter 228: n_active=1767 | union RMSE mean=0.084286 | Wilcoxon p=0.0000 | dRMSE=0.0770 [WORSE & exceeds noise -- removing worst]
+  Iter 229: n_active=1766 | union RMSE mean=0.084265 | Wilcoxon p=0.0000 | dRMSE=0.0765 [WORSE & exceeds noise -- removing worst]
+  Iter 230: n_active=1765 | union RMSE mean=0.084252 | Wilcoxon p=0.0000 | dRMSE=0.0758 [WORSE & exceeds noise -- removing worst]
+  Iter 231: n_active=1764 | union RMSE mean=0.084249 | Wilcoxon p=0.0000 | dRMSE=0.0782 [WORSE & exceeds noise -- removing worst]
+  Iter 232: n_active=1763 | union RMSE mean=0.084224 | Wilcoxon p=0.0000 | dRMSE=0.0774 [WORSE & exceeds noise -- removing worst]
+  Iter 233: n_active=1762 | union RMSE mean=0.084206 | Wilcoxon p=0.0000 | dRMSE=0.0781 [WORSE & exceeds noise -- removing worst]
+  Iter 234: n_active=1761 | union RMSE mean=0.084209 | Wilcoxon p=0.0000 | dRMSE=0.0764 [WORSE & exceeds noise -- removing worst]
+  Iter 235: n_active=1760 | union RMSE mean=0.084181 | Wilcoxon p=0.0000 | dRMSE=0.0766 [WORSE & exceeds noise -- removing worst]
+  Iter 236: n_active=1759 | union RMSE mean=0.084170 | Wilcoxon p=0.0000 | dRMSE=0.0764 [WORSE & exceeds noise -- removing worst]
+  Iter 237: n_active=1758 | union RMSE mean=0.084153 | Wilcoxon p=0.0000 | dRMSE=0.0768 [WORSE & exceeds noise -- removing worst]
+  Iter 238: n_active=1757 | union RMSE mean=0.084149 | Wilcoxon p=0.0000 | dRMSE=0.0770 [WORSE & exceeds noise -- removing worst]
+  Iter 239: n_active=1756 | union RMSE mean=0.084141 | Wilcoxon p=0.0000 | dRMSE=0.0765 [WORSE & exceeds noise -- removing worst]
+  Iter 240: n_active=1755 | union RMSE mean=0.084125 | Wilcoxon p=0.0000 | dRMSE=0.0753 [WORSE & exceeds noise -- removing worst]
+  Iter 241: n_active=1754 | union RMSE mean=0.084113 | Wilcoxon p=0.0000 | dRMSE=0.0767 [WORSE & exceeds noise -- removing worst]
+  Iter 242: n_active=1753 | union RMSE mean=0.084099 | Wilcoxon p=0.0000 | dRMSE=0.0746 [WORSE & exceeds noise -- removing worst]
+  Iter 243: n_active=1752 | union RMSE mean=0.084084 | Wilcoxon p=0.0000 | dRMSE=0.0762 [WORSE & exceeds noise -- removing worst]
+  Iter 244: n_active=1751 | union RMSE mean=0.084075 | Wilcoxon p=0.0000 | dRMSE=0.0754 [WORSE & exceeds noise -- removing worst]
+  Iter 245: n_active=1750 | union RMSE mean=0.084051 | Wilcoxon p=0.0000 | dRMSE=0.0761 [WORSE & exceeds noise -- removing worst]
+  Iter 246: n_active=1749 | union RMSE mean=0.084034 | Wilcoxon p=0.0000 | dRMSE=0.0738 [WORSE & exceeds noise -- removing worst]
+  Iter 247: n_active=1748 | union RMSE mean=0.084020 | Wilcoxon p=0.0000 | dRMSE=0.0743 [WORSE & exceeds noise -- removing worst]
+  Iter 248: n_active=1747 | union RMSE mean=0.084006 | Wilcoxon p=0.0000 | dRMSE=0.0745 [WORSE & exceeds noise -- removing worst]
+  Iter 249: n_active=1746 | union RMSE mean=0.083983 | Wilcoxon p=0.0000 | dRMSE=0.0728 [WORSE & exceeds noise -- removing worst]
+  Iter 250: n_active=1745 | union RMSE mean=0.083981 | Wilcoxon p=0.0000 | dRMSE=0.0734 [WORSE & exceeds noise -- removing worst]
+  Iter 251: n_active=1744 | union RMSE mean=0.083956 | Wilcoxon p=0.0000 | dRMSE=0.0748 [WORSE & exceeds noise -- removing worst]
+  Iter 252: n_active=1743 | union RMSE mean=0.083954 | Wilcoxon p=0.0000 | dRMSE=0.0749 [WORSE & exceeds noise -- removing worst]
+  Iter 253: n_active=1742 | union RMSE mean=0.083946 | Wilcoxon p=0.0000 | dRMSE=0.0744 [WORSE & exceeds noise -- removing worst]
+  Iter 254: n_active=1741 | union RMSE mean=0.083924 | Wilcoxon p=0.0000 | dRMSE=0.0715 [WORSE & exceeds noise -- removing worst]
+  Iter 255: n_active=1740 | union RMSE mean=0.083918 | Wilcoxon p=0.0000 | dRMSE=0.0726 [WORSE & exceeds noise -- removing worst]
+  Iter 256: n_active=1739 | union RMSE mean=0.083921 | Wilcoxon p=0.0000 | dRMSE=0.0714 [WORSE & exceeds noise -- removing worst]
+  Iter 257: n_active=1738 | union RMSE mean=0.083906 | Wilcoxon p=0.0000 | dRMSE=0.0715 [WORSE & exceeds noise -- removing worst]
+  Iter 258: n_active=1737 | union RMSE mean=0.083899 | Wilcoxon p=0.0000 | dRMSE=0.0720 [WORSE & exceeds noise -- removing worst]
+  Iter 259: n_active=1736 | union RMSE mean=0.083890 | Wilcoxon p=0.0000 | dRMSE=0.0719 [WORSE & exceeds noise -- removing worst]
+  Iter 260: n_active=1735 | union RMSE mean=0.083856 | Wilcoxon p=0.0000 | dRMSE=0.0732 [WORSE & exceeds noise -- removing worst]
+  Iter 261: n_active=1734 | union RMSE mean=0.083842 | Wilcoxon p=0.0000 | dRMSE=0.0723 [WORSE & exceeds noise -- removing worst]
+  Iter 262: n_active=1733 | union RMSE mean=0.083832 | Wilcoxon p=0.0000 | dRMSE=0.0737 [WORSE & exceeds noise -- removing worst]
+  Iter 263: n_active=1732 | union RMSE mean=0.083815 | Wilcoxon p=0.0000 | dRMSE=0.0728 [WORSE & exceeds noise -- removing worst]
+  Iter 264: n_active=1731 | union RMSE mean=0.083818 | Wilcoxon p=0.0000 | dRMSE=0.0726 [WORSE & exceeds noise -- removing worst]
+  Iter 265: n_active=1730 | union RMSE mean=0.083800 | Wilcoxon p=0.0000 | dRMSE=0.0715 [WORSE & exceeds noise -- removing worst]
+  Iter 266: n_active=1729 | union RMSE mean=0.083783 | Wilcoxon p=0.0000 | dRMSE=0.0703 [WORSE & exceeds noise -- removing worst]
+  Iter 267: n_active=1728 | union RMSE mean=0.083776 | Wilcoxon p=0.0000 | dRMSE=0.0712 [WORSE & exceeds noise -- removing worst]
+  Iter 268: n_active=1727 | union RMSE mean=0.083765 | Wilcoxon p=0.0000 | dRMSE=0.0710 [WORSE & exceeds noise -- removing worst]
+  Iter 269: n_active=1726 | union RMSE mean=0.083738 | Wilcoxon p=0.0000 | dRMSE=0.0708 [WORSE & exceeds noise -- removing worst]
+  Iter 270: n_active=1725 | union RMSE mean=0.083733 | Wilcoxon p=0.0000 | dRMSE=0.0709 [WORSE & exceeds noise -- removing worst]
+  Iter 271: n_active=1724 | union RMSE mean=0.083711 | Wilcoxon p=0.0000 | dRMSE=0.0707 [WORSE & exceeds noise -- removing worst]
+  Iter 272: n_active=1723 | union RMSE mean=0.083701 | Wilcoxon p=0.0000 | dRMSE=0.0715 [WORSE & exceeds noise -- removing worst]
+  Iter 273: n_active=1722 | union RMSE mean=0.083683 | Wilcoxon p=0.0000 | dRMSE=0.0729 [WORSE & exceeds noise -- removing worst]
+  Iter 274: n_active=1721 | union RMSE mean=0.083678 | Wilcoxon p=0.0000 | dRMSE=0.0708 [WORSE & exceeds noise -- removing worst]
+  Iter 275: n_active=1720 | union RMSE mean=0.083669 | Wilcoxon p=0.0000 | dRMSE=0.0710 [WORSE & exceeds noise -- removing worst]
+  Iter 276: n_active=1719 | union RMSE mean=0.083655 | Wilcoxon p=0.0000 | dRMSE=0.0711 [WORSE & exceeds noise -- removing worst]
+  Iter 277: n_active=1718 | union RMSE mean=0.083643 | Wilcoxon p=0.0000 | dRMSE=0.0699 [WORSE & exceeds noise -- removing worst]
+  Iter 278: n_active=1717 | union RMSE mean=0.083624 | Wilcoxon p=0.0000 | dRMSE=0.0702 [WORSE & exceeds noise -- removing worst]
+  Iter 279: n_active=1716 | union RMSE mean=0.083614 | Wilcoxon p=0.0000 | dRMSE=0.0692 [WORSE & exceeds noise -- removing worst]
+  Iter 280: n_active=1715 | union RMSE mean=0.083612 | Wilcoxon p=0.0000 | dRMSE=0.0694 [WORSE & exceeds noise -- removing worst]
+  Iter 281: n_active=1714 | union RMSE mean=0.083591 | Wilcoxon p=0.0000 | dRMSE=0.0689 [WORSE & exceeds noise -- removing worst]
+  Iter 282: n_active=1713 | union RMSE mean=0.083577 | Wilcoxon p=0.0000 | dRMSE=0.0685 [WORSE & exceeds noise -- removing worst]
+  Iter 283: n_active=1712 | union RMSE mean=0.083568 | Wilcoxon p=0.0000 | dRMSE=0.0686 [WORSE & exceeds noise -- removing worst]
+  Iter 284: n_active=1711 | union RMSE mean=0.083569 | Wilcoxon p=0.0000 | dRMSE=0.0683 [WORSE & exceeds noise -- removing worst]
+  Iter 285: n_active=1710 | union RMSE mean=0.083548 | Wilcoxon p=0.0000 | dRMSE=0.0684 [WORSE & exceeds noise -- removing worst]
+  Iter 286: n_active=1709 | union RMSE mean=0.083534 | Wilcoxon p=0.0000 | dRMSE=0.0678 [WORSE & exceeds noise -- removing worst]
+  Iter 287: n_active=1708 | union RMSE mean=0.083517 | Wilcoxon p=0.0000 | dRMSE=0.0692 [WORSE & exceeds noise -- removing worst]
+  Iter 288: n_active=1707 | union RMSE mean=0.083511 | Wilcoxon p=0.0000 | dRMSE=0.0678 [WORSE & exceeds noise -- removing worst]
+  Iter 289: n_active=1706 | union RMSE mean=0.083497 | Wilcoxon p=0.0000 | dRMSE=0.0677 [WORSE & exceeds noise -- removing worst]
+  Iter 290: n_active=1705 | union RMSE mean=0.083475 | Wilcoxon p=0.0000 | dRMSE=0.0675 [WORSE & exceeds noise -- removing worst]
+  Iter 291: n_active=1704 | union RMSE mean=0.083466 | Wilcoxon p=0.0000 | dRMSE=0.0673 [WORSE & exceeds noise -- removing worst]
+  Iter 292: n_active=1703 | union RMSE mean=0.083442 | Wilcoxon p=0.0000 | dRMSE=0.0688 [WORSE & exceeds noise -- removing worst]
+  Iter 293: n_active=1702 | union RMSE mean=0.083432 | Wilcoxon p=0.0000 | dRMSE=0.0668 [WORSE & exceeds noise -- removing worst]
+  Iter 294: n_active=1701 | union RMSE mean=0.083423 | Wilcoxon p=0.0000 | dRMSE=0.0649 [WORSE & exceeds noise -- removing worst]
+  Iter 295: n_active=1700 | union RMSE mean=0.083415 | Wilcoxon p=0.0000 | dRMSE=0.0671 [WORSE & exceeds noise -- removing worst]
+  Iter 296: n_active=1699 | union RMSE mean=0.083407 | Wilcoxon p=0.0000 | dRMSE=0.0666 [WORSE & exceeds noise -- removing worst]
+  Iter 297: n_active=1698 | union RMSE mean=0.083395 | Wilcoxon p=0.0000 | dRMSE=0.0671 [WORSE & exceeds noise -- removing worst]
+  Iter 298: n_active=1697 | union RMSE mean=0.083387 | Wilcoxon p=0.0000 | dRMSE=0.0666 [WORSE & exceeds noise -- removing worst]
+  Iter 299: n_active=1696 | union RMSE mean=0.083386 | Wilcoxon p=0.0000 | dRMSE=0.0666 [WORSE & exceeds noise -- removing worst]
+  Iter 300: n_active=1695 | union RMSE mean=0.083368 | Wilcoxon p=0.0000 | dRMSE=0.0659 [WORSE & exceeds noise -- removing worst]
+  Iter 301: n_active=1694 | union RMSE mean=0.083358 | Wilcoxon p=0.0000 | dRMSE=0.0667 [WORSE & exceeds noise -- removing worst]
+  Iter 302: n_active=1693 | union RMSE mean=0.083347 | Wilcoxon p=0.0000 | dRMSE=0.0664 [WORSE & exceeds noise -- removing worst]
+  Iter 303: n_active=1692 | union RMSE mean=0.083338 | Wilcoxon p=0.0000 | dRMSE=0.0655 [WORSE & exceeds noise -- removing worst]
+  Iter 304: n_active=1691 | union RMSE mean=0.083319 | Wilcoxon p=0.0000 | dRMSE=0.0677 [WORSE & exceeds noise -- removing worst]
+  Iter 305: n_active=1690 | union RMSE mean=0.083296 | Wilcoxon p=0.0000 | dRMSE=0.0657 [WORSE & exceeds noise -- removing worst]
+  Iter 306: n_active=1689 | union RMSE mean=0.083282 | Wilcoxon p=0.0000 | dRMSE=0.0665 [WORSE & exceeds noise -- removing worst]
+  Iter 307: n_active=1688 | union RMSE mean=0.083269 | Wilcoxon p=0.0000 | dRMSE=0.0658 [WORSE & exceeds noise -- removing worst]
+  Iter 308: n_active=1687 | union RMSE mean=0.083252 | Wilcoxon p=0.0000 | dRMSE=0.0664 [WORSE & exceeds noise -- removing worst]
+  Iter 309: n_active=1686 | union RMSE mean=0.083241 | Wilcoxon p=0.0000 | dRMSE=0.0672 [WORSE & exceeds noise -- removing worst]
+  Iter 310: n_active=1685 | union RMSE mean=0.083227 | Wilcoxon p=0.0000 | dRMSE=0.0660 [WORSE & exceeds noise -- removing worst]
+  Iter 311: n_active=1684 | union RMSE mean=0.083201 | Wilcoxon p=0.0000 | dRMSE=0.0653 [WORSE & exceeds noise -- removing worst]
+  Iter 312: n_active=1683 | union RMSE mean=0.083214 | Wilcoxon p=0.0000 | dRMSE=0.0643 [WORSE & exceeds noise -- removing worst]
+  Iter 313: n_active=1682 | union RMSE mean=0.083192 | Wilcoxon p=0.0000 | dRMSE=0.0650 [WORSE & exceeds noise -- removing worst]
+  Iter 314: n_active=1681 | union RMSE mean=0.083175 | Wilcoxon p=0.0000 | dRMSE=0.0656 [WORSE & exceeds noise -- removing worst]
+  Iter 315: n_active=1680 | union RMSE mean=0.083174 | Wilcoxon p=0.0000 | dRMSE=0.0641 [WORSE & exceeds noise -- removing worst]
+  Iter 316: n_active=1679 | union RMSE mean=0.083165 | Wilcoxon p=0.0000 | dRMSE=0.0622 [WORSE & exceeds noise -- removing worst]
+  Iter 317: n_active=1678 | union RMSE mean=0.083159 | Wilcoxon p=0.0000 | dRMSE=0.0621 [WORSE & exceeds noise -- removing worst]
+  Iter 318: n_active=1677 | union RMSE mean=0.083148 | Wilcoxon p=0.0000 | dRMSE=0.0637 [WORSE & exceeds noise -- removing worst]
+  Iter 319: n_active=1676 | union RMSE mean=0.083125 | Wilcoxon p=0.0000 | dRMSE=0.0626 [WORSE & exceeds noise -- removing worst]
+  Iter 320: n_active=1675 | union RMSE mean=0.083110 | Wilcoxon p=0.0000 | dRMSE=0.0616 [WORSE & exceeds noise -- removing worst]
+  Iter 321: n_active=1674 | union RMSE mean=0.083097 | Wilcoxon p=0.0000 | dRMSE=0.0628 [WORSE & exceeds noise -- removing worst]
+  Iter 322: n_active=1673 | union RMSE mean=0.083101 | Wilcoxon p=0.0000 | dRMSE=0.0626 [WORSE & exceeds noise -- removing worst]
+  Iter 323: n_active=1672 | union RMSE mean=0.083078 | Wilcoxon p=0.0000 | dRMSE=0.0628 [WORSE & exceeds noise -- removing worst]
+  Iter 324: n_active=1671 | union RMSE mean=0.083068 | Wilcoxon p=0.0000 | dRMSE=0.0624 [WORSE & exceeds noise -- removing worst]
+  Iter 325: n_active=1670 | union RMSE mean=0.083056 | Wilcoxon p=0.0000 | dRMSE=0.0608 [WORSE & exceeds noise -- removing worst]
+  Iter 326: n_active=1669 | union RMSE mean=0.083046 | Wilcoxon p=0.0000 | dRMSE=0.0626 [WORSE & exceeds noise -- removing worst]
+  Iter 327: n_active=1668 | union RMSE mean=0.083035 | Wilcoxon p=0.0000 | dRMSE=0.0621 [WORSE & exceeds noise -- removing worst]
+  Iter 328: n_active=1667 | union RMSE mean=0.083022 | Wilcoxon p=0.0000 | dRMSE=0.0620 [WORSE & exceeds noise -- removing worst]
+  Iter 329: n_active=1666 | union RMSE mean=0.083011 | Wilcoxon p=0.0000 | dRMSE=0.0627 [WORSE & exceeds noise -- removing worst]
+  Iter 330: n_active=1665 | union RMSE mean=0.083000 | Wilcoxon p=0.0000 | dRMSE=0.0622 [WORSE & exceeds noise -- removing worst]
+  Iter 331: n_active=1664 | union RMSE mean=0.082991 | Wilcoxon p=0.0000 | dRMSE=0.0609 [WORSE & exceeds noise -- removing worst]
+  Iter 332: n_active=1663 | union RMSE mean=0.082967 | Wilcoxon p=0.0000 | dRMSE=0.0620 [WORSE & exceeds noise -- removing worst]
+  Iter 333: n_active=1662 | union RMSE mean=0.082958 | Wilcoxon p=0.0000 | dRMSE=0.0610 [WORSE & exceeds noise -- removing worst]
+  Iter 334: n_active=1661 | union RMSE mean=0.082941 | Wilcoxon p=0.0000 | dRMSE=0.0615 [WORSE & exceeds noise -- removing worst]
+  Iter 335: n_active=1660 | union RMSE mean=0.082917 | Wilcoxon p=0.0000 | dRMSE=0.0619 [WORSE & exceeds noise -- removing worst]
+  Iter 336: n_active=1659 | union RMSE mean=0.082907 | Wilcoxon p=0.0000 | dRMSE=0.0623 [WORSE & exceeds noise -- removing worst]
+  Iter 337: n_active=1658 | union RMSE mean=0.082908 | Wilcoxon p=0.0000 | dRMSE=0.0601 [WORSE & exceeds noise -- removing worst]
+  Iter 338: n_active=1657 | union RMSE mean=0.082892 | Wilcoxon p=0.0000 | dRMSE=0.0595 [WORSE & exceeds noise -- removing worst]
+  Iter 339: n_active=1656 | union RMSE mean=0.082883 | Wilcoxon p=0.0000 | dRMSE=0.0598 [WORSE & exceeds noise -- removing worst]
+  Iter 340: n_active=1655 | union RMSE mean=0.082869 | Wilcoxon p=0.0000 | dRMSE=0.0605 [WORSE & exceeds noise -- removing worst]
+  Iter 341: n_active=1654 | union RMSE mean=0.082853 | Wilcoxon p=0.0000 | dRMSE=0.0612 [WORSE & exceeds noise -- removing worst]
+  Iter 342: n_active=1653 | union RMSE mean=0.082865 | Wilcoxon p=0.0000 | dRMSE=0.0597 [WORSE & exceeds noise -- removing worst]
+  Iter 343: n_active=1652 | union RMSE mean=0.082854 | Wilcoxon p=0.0000 | dRMSE=0.0591 [WORSE & exceeds noise -- removing worst]
+  Iter 344: n_active=1651 | union RMSE mean=0.082825 | Wilcoxon p=0.0000 | dRMSE=0.0608 [WORSE & exceeds noise -- removing worst]
+  Iter 345: n_active=1650 | union RMSE mean=0.082823 | Wilcoxon p=0.0000 | dRMSE=0.0595 [WORSE & exceeds noise -- removing worst]
+  Iter 346: n_active=1649 | union RMSE mean=0.082804 | Wilcoxon p=0.0000 | dRMSE=0.0597 [WORSE & exceeds noise -- removing worst]
+  Iter 347: n_active=1648 | union RMSE mean=0.082790 | Wilcoxon p=0.0000 | dRMSE=0.0594 [WORSE & exceeds noise -- removing worst]
+  Iter 348: n_active=1647 | union RMSE mean=0.082788 | Wilcoxon p=0.0000 | dRMSE=0.0595 [WORSE & exceeds noise -- removing worst]
+  Iter 349: n_active=1646 | union RMSE mean=0.082772 | Wilcoxon p=0.0000 | dRMSE=0.0598 [WORSE & exceeds noise -- removing worst]
+  Iter 350: n_active=1645 | union RMSE mean=0.082760 | Wilcoxon p=0.0000 | dRMSE=0.0606 [WORSE & exceeds noise -- removing worst]
+  Iter 351: n_active=1644 | union RMSE mean=0.082734 | Wilcoxon p=0.0000 | dRMSE=0.0595 [WORSE & exceeds noise -- removing worst]
+  Iter 352: n_active=1643 | union RMSE mean=0.082735 | Wilcoxon p=0.0000 | dRMSE=0.0592 [WORSE & exceeds noise -- removing worst]
+  Iter 353: n_active=1642 | union RMSE mean=0.082718 | Wilcoxon p=0.0000 | dRMSE=0.0581 [WORSE & exceeds noise -- removing worst]
+  Iter 354: n_active=1641 | union RMSE mean=0.082707 | Wilcoxon p=0.0000 | dRMSE=0.0583 [WORSE & exceeds noise -- removing worst]
+  Iter 355: n_active=1640 | union RMSE mean=0.082681 | Wilcoxon p=0.0000 | dRMSE=0.0582 [WORSE & exceeds noise -- removing worst]
+  Iter 356: n_active=1639 | union RMSE mean=0.082669 | Wilcoxon p=0.0000 | dRMSE=0.0582 [WORSE & exceeds noise -- removing worst]
+  Iter 357: n_active=1638 | union RMSE mean=0.082660 | Wilcoxon p=0.0000 | dRMSE=0.0574 [WORSE & exceeds noise -- removing worst]
+  Iter 358: n_active=1637 | union RMSE mean=0.082656 | Wilcoxon p=0.0000 | dRMSE=0.0569 [WORSE & exceeds noise -- removing worst]
+  Iter 359: n_active=1636 | union RMSE mean=0.082634 | Wilcoxon p=0.0000 | dRMSE=0.0575 [WORSE & exceeds noise -- removing worst]
+  Iter 360: n_active=1635 | union RMSE mean=0.082618 | Wilcoxon p=0.0000 | dRMSE=0.0586 [WORSE & exceeds noise -- removing worst]
+  Iter 361: n_active=1634 | union RMSE mean=0.082602 | Wilcoxon p=0.0000 | dRMSE=0.0569 [WORSE & exceeds noise -- removing worst]
+  Iter 362: n_active=1633 | union RMSE mean=0.082573 | Wilcoxon p=0.0000 | dRMSE=0.0571 [WORSE & exceeds noise -- removing worst]
+  Iter 363: n_active=1632 | union RMSE mean=0.082580 | Wilcoxon p=0.0000 | dRMSE=0.0569 [WORSE & exceeds noise -- removing worst]
+  Iter 364: n_active=1631 | union RMSE mean=0.082560 | Wilcoxon p=0.0000 | dRMSE=0.0574 [WORSE & exceeds noise -- removing worst]
+  Iter 365: n_active=1630 | union RMSE mean=0.082559 | Wilcoxon p=0.0000 | dRMSE=0.0574 [WORSE & exceeds noise -- removing worst]
+  Iter 366: n_active=1629 | union RMSE mean=0.082548 | Wilcoxon p=0.0000 | dRMSE=0.0584 [WORSE & exceeds noise -- removing worst]
+  Iter 367: n_active=1628 | union RMSE mean=0.082533 | Wilcoxon p=0.0000 | dRMSE=0.0567 [WORSE & exceeds noise -- removing worst]
+  Iter 368: n_active=1627 | union RMSE mean=0.082530 | Wilcoxon p=0.0000 | dRMSE=0.0547 [WORSE & exceeds noise -- removing worst]
+  Iter 369: n_active=1626 | union RMSE mean=0.082524 | Wilcoxon p=0.0000 | dRMSE=0.0564 [WORSE & exceeds noise -- removing worst]
+  Iter 370: n_active=1625 | union RMSE mean=0.082519 | Wilcoxon p=0.0000 | dRMSE=0.0559 [WORSE & exceeds noise -- removing worst]
+  Iter 371: n_active=1624 | union RMSE mean=0.082504 | Wilcoxon p=0.0000 | dRMSE=0.0556 [WORSE & exceeds noise -- removing worst]
+  Iter 372: n_active=1623 | union RMSE mean=0.082485 | Wilcoxon p=0.0000 | dRMSE=0.0558 [WORSE & exceeds noise -- removing worst]
+  Iter 373: n_active=1622 | union RMSE mean=0.082468 | Wilcoxon p=0.0000 | dRMSE=0.0540 [WORSE & exceeds noise -- removing worst]
+  Iter 374: n_active=1621 | union RMSE mean=0.082455 | Wilcoxon p=0.0000 | dRMSE=0.0562 [WORSE & exceeds noise -- removing worst]
+  Iter 375: n_active=1620 | union RMSE mean=0.082459 | Wilcoxon p=0.0000 | dRMSE=0.0552 [WORSE & exceeds noise -- removing worst]
+  Iter 376: n_active=1619 | union RMSE mean=0.082438 | Wilcoxon p=0.0000 | dRMSE=0.0532 [WORSE & exceeds noise -- removing worst]
+  Iter 377: n_active=1618 | union RMSE mean=0.082428 | Wilcoxon p=0.0000 | dRMSE=0.0529 [WORSE & exceeds noise -- removing worst]
+  Iter 378: n_active=1617 | union RMSE mean=0.082400 | Wilcoxon p=0.0000 | dRMSE=0.0521 [WORSE & exceeds noise -- removing worst]
+  Iter 379: n_active=1616 | union RMSE mean=0.082406 | Wilcoxon p=0.0000 | dRMSE=0.0526 [WORSE & exceeds noise -- removing worst]
+  Iter 380: n_active=1615 | union RMSE mean=0.082398 | Wilcoxon p=0.0000 | dRMSE=0.0533 [WORSE & exceeds noise -- removing worst]
+  Iter 381: n_active=1614 | union RMSE mean=0.082382 | Wilcoxon p=0.0000 | dRMSE=0.0536 [WORSE & exceeds noise -- removing worst]
+  Iter 382: n_active=1613 | union RMSE mean=0.082375 | Wilcoxon p=0.0000 | dRMSE=0.0548 [WORSE & exceeds noise -- removing worst]
+  Iter 383: n_active=1612 | union RMSE mean=0.082360 | Wilcoxon p=0.0000 | dRMSE=0.0530 [WORSE & exceeds noise -- removing worst]
+  Iter 384: n_active=1611 | union RMSE mean=0.082351 | Wilcoxon p=0.0000 | dRMSE=0.0531 [WORSE & exceeds noise -- removing worst]
+  Iter 385: n_active=1610 | union RMSE mean=0.082341 | Wilcoxon p=0.0000 | dRMSE=0.0539 [WORSE & exceeds noise -- removing worst]
+  Iter 386: n_active=1609 | union RMSE mean=0.082327 | Wilcoxon p=0.0000 | dRMSE=0.0547 [WORSE & exceeds noise -- removing worst]
+  Iter 387: n_active=1608 | union RMSE mean=0.082312 | Wilcoxon p=0.0000 | dRMSE=0.0532 [WORSE & exceeds noise -- removing worst]
+  Iter 388: n_active=1607 | union RMSE mean=0.082305 | Wilcoxon p=0.0000 | dRMSE=0.0548 [WORSE & exceeds noise -- removing worst]
+  Iter 389: n_active=1606 | union RMSE mean=0.082293 | Wilcoxon p=0.0000 | dRMSE=0.0535 [WORSE & exceeds noise -- removing worst]
+  Iter 390: n_active=1605 | union RMSE mean=0.082280 | Wilcoxon p=0.0000 | dRMSE=0.0530 [WORSE & exceeds noise -- removing worst]
+  Iter 391: n_active=1604 | union RMSE mean=0.082270 | Wilcoxon p=0.0000 | dRMSE=0.0525 [WORSE & exceeds noise -- removing worst]
+  Iter 392: n_active=1603 | union RMSE mean=0.082251 | Wilcoxon p=0.0000 | dRMSE=0.0520 [WORSE & exceeds noise -- removing worst]
+  Iter 393: n_active=1602 | union RMSE mean=0.082238 | Wilcoxon p=0.0000 | dRMSE=0.0519 [WORSE & exceeds noise -- removing worst]
+  Iter 394: n_active=1601 | union RMSE mean=0.082234 | Wilcoxon p=0.0000 | dRMSE=0.0511 [WORSE & exceeds noise -- removing worst]
+  Iter 395: n_active=1600 | union RMSE mean=0.082214 | Wilcoxon p=0.0000 | dRMSE=0.0511 [WORSE & exceeds noise -- removing worst]
+  Iter 396: n_active=1599 | union RMSE mean=0.082193 | Wilcoxon p=0.0000 | dRMSE=0.0521 [WORSE & exceeds noise -- removing worst]
+  Iter 397: n_active=1598 | union RMSE mean=0.082182 | Wilcoxon p=0.0000 | dRMSE=0.0500 [WORSE & exceeds noise -- removing worst]
+  Iter 398: n_active=1597 | union RMSE mean=0.082180 | Wilcoxon p=0.0000 | dRMSE=0.0524 [WORSE & exceeds noise -- removing worst]
+  Iter 399: n_active=1596 | union RMSE mean=0.082171 | Wilcoxon p=0.0000 | dRMSE=0.0529 [WORSE & exceeds noise -- removing worst]
+  Iter 400: n_active=1595 | union RMSE mean=0.082164 | Wilcoxon p=0.0000 | dRMSE=0.0528 [WORSE & exceeds noise -- removing worst]
+  Iter 401: n_active=1594 | union RMSE mean=0.082158 | Wilcoxon p=0.0000 | dRMSE=0.0509 [WORSE & exceeds noise -- removing worst]
+  Iter 402: n_active=1593 | union RMSE mean=0.082138 | Wilcoxon p=0.0000 | dRMSE=0.0521 [WORSE & exceeds noise -- removing worst]
+  Iter 403: n_active=1592 | union RMSE mean=0.082129 | Wilcoxon p=0.0000 | dRMSE=0.0520 [WORSE & exceeds noise -- removing worst]
+  Iter 404: n_active=1591 | union RMSE mean=0.082113 | Wilcoxon p=0.0000 | dRMSE=0.0515 [WORSE & exceeds noise -- removing worst]
+  Iter 405: n_active=1590 | union RMSE mean=0.082114 | Wilcoxon p=0.0000 | dRMSE=0.0519 [WORSE & exceeds noise -- removing worst]
+  Iter 406: n_active=1589 | union RMSE mean=0.082105 | Wilcoxon p=0.0000 | dRMSE=0.0511 [WORSE & exceeds noise -- removing worst]
+  Iter 407: n_active=1588 | union RMSE mean=0.082084 | Wilcoxon p=0.0000 | dRMSE=0.0504 [WORSE & exceeds noise -- removing worst]
+  Iter 408: n_active=1587 | union RMSE mean=0.082052 | Wilcoxon p=0.0000 | dRMSE=0.0495 [WORSE & exceeds noise -- removing worst]
+  Iter 409: n_active=1586 | union RMSE mean=0.082049 | Wilcoxon p=0.0000 | dRMSE=0.0495 [WORSE & exceeds noise -- removing worst]
+  Iter 410: n_active=1585 | union RMSE mean=0.082026 | Wilcoxon p=0.0000 | dRMSE=0.0499 [WORSE & exceeds noise -- removing worst]
+  Iter 411: n_active=1584 | union RMSE mean=0.082014 | Wilcoxon p=0.0000 | dRMSE=0.0500 [WORSE & exceeds noise -- removing worst]
+  Iter 412: n_active=1583 | union RMSE mean=0.081998 | Wilcoxon p=0.0000 | dRMSE=0.0492 [WORSE & exceeds noise -- removing worst]
+  Iter 413: n_active=1582 | union RMSE mean=0.082001 | Wilcoxon p=0.0000 | dRMSE=0.0475 [WORSE & exceeds noise -- removing worst]
+  Iter 414: n_active=1581 | union RMSE mean=0.081972 | Wilcoxon p=0.0000 | dRMSE=0.0488 [WORSE & exceeds noise -- removing worst]
+  Iter 415: n_active=1580 | union RMSE mean=0.081974 | Wilcoxon p=0.0000 | dRMSE=0.0499 [WORSE & exceeds noise -- removing worst]
+  Iter 416: n_active=1579 | union RMSE mean=0.081971 | Wilcoxon p=0.0000 | dRMSE=0.0487 [WORSE & exceeds noise -- removing worst]
+  Iter 417: n_active=1578 | union RMSE mean=0.081960 | Wilcoxon p=0.0000 | dRMSE=0.0480 [WORSE & exceeds noise -- removing worst]
+  Iter 418: n_active=1577 | union RMSE mean=0.081948 | Wilcoxon p=0.0000 | dRMSE=0.0482 [WORSE & exceeds noise -- removing worst]
+  Iter 419: n_active=1576 | union RMSE mean=0.081931 | Wilcoxon p=0.0000 | dRMSE=0.0482 [WORSE & exceeds noise -- removing worst]
+  Iter 420: n_active=1575 | union RMSE mean=0.081926 | Wilcoxon p=0.0000 | dRMSE=0.0482 [WORSE & exceeds noise -- removing worst]
+  Iter 421: n_active=1574 | union RMSE mean=0.081909 | Wilcoxon p=0.0000 | dRMSE=0.0482 [WORSE & exceeds noise -- removing worst]
+  Iter 422: n_active=1573 | union RMSE mean=0.081898 | Wilcoxon p=0.0000 | dRMSE=0.0469 [WORSE & exceeds noise -- removing worst]
+  Iter 423: n_active=1572 | union RMSE mean=0.081884 | Wilcoxon p=0.0000 | dRMSE=0.0476 [WORSE & exceeds noise -- removing worst]
+  Iter 424: n_active=1571 | union RMSE mean=0.081882 | Wilcoxon p=0.0000 | dRMSE=0.0479 [WORSE & exceeds noise -- removing worst]
+  Iter 425: n_active=1570 | union RMSE mean=0.081860 | Wilcoxon p=0.0000 | dRMSE=0.0470 [WORSE & exceeds noise -- removing worst]
+  Iter 426: n_active=1569 | union RMSE mean=0.081860 | Wilcoxon p=0.0000 | dRMSE=0.0478 [WORSE & exceeds noise -- removing worst]
+  Iter 427: n_active=1568 | union RMSE mean=0.081843 | Wilcoxon p=0.0000 | dRMSE=0.0463 [WORSE & exceeds noise -- removing worst]
+  Iter 428: n_active=1567 | union RMSE mean=0.081839 | Wilcoxon p=0.0000 | dRMSE=0.0467 [WORSE & exceeds noise -- removing worst]
+  Iter 429: n_active=1566 | union RMSE mean=0.081830 | Wilcoxon p=0.0000 | dRMSE=0.0458 [WORSE & exceeds noise -- removing worst]
+  Iter 430: n_active=1565 | union RMSE mean=0.081823 | Wilcoxon p=0.0000 | dRMSE=0.0456 [WORSE & exceeds noise -- removing worst]
+  Iter 431: n_active=1564 | union RMSE mean=0.081811 | Wilcoxon p=0.0000 | dRMSE=0.0469 [WORSE & exceeds noise -- removing worst]
+  Iter 432: n_active=1563 | union RMSE mean=0.081806 | Wilcoxon p=0.0000 | dRMSE=0.0466 [WORSE & exceeds noise -- removing worst]
+  Iter 433: n_active=1562 | union RMSE mean=0.081784 | Wilcoxon p=0.0000 | dRMSE=0.0460 [WORSE & exceeds noise -- removing worst]
+  Iter 434: n_active=1561 | union RMSE mean=0.081775 | Wilcoxon p=0.0000 | dRMSE=0.0460 [WORSE & exceeds noise -- removing worst]
+  Iter 435: n_active=1560 | union RMSE mean=0.081750 | Wilcoxon p=0.0000 | dRMSE=0.0464 [WORSE & exceeds noise -- removing worst]
+  Iter 436: n_active=1559 | union RMSE mean=0.081754 | Wilcoxon p=0.0000 | dRMSE=0.0454 [WORSE & exceeds noise -- removing worst]
+  Iter 437: n_active=1558 | union RMSE mean=0.081735 | Wilcoxon p=0.0000 | dRMSE=0.0454 [WORSE & exceeds noise -- removing worst]
+  Iter 438: n_active=1557 | union RMSE mean=0.081733 | Wilcoxon p=0.0000 | dRMSE=0.0459 [WORSE & exceeds noise -- removing worst]
+  Iter 439: n_active=1556 | union RMSE mean=0.081723 | Wilcoxon p=0.0000 | dRMSE=0.0465 [WORSE & exceeds noise -- removing worst]
+  Iter 440: n_active=1555 | union RMSE mean=0.081707 | Wilcoxon p=0.0000 | dRMSE=0.0458 [WORSE & exceeds noise -- removing worst]
+  Iter 441: n_active=1554 | union RMSE mean=0.081700 | Wilcoxon p=0.0000 | dRMSE=0.0455 [WORSE & exceeds noise -- removing worst]
+  Iter 442: n_active=1553 | union RMSE mean=0.081694 | Wilcoxon p=0.0000 | dRMSE=0.0475 [WORSE & exceeds noise -- removing worst]
+  Iter 443: n_active=1552 | union RMSE mean=0.081681 | Wilcoxon p=0.0000 | dRMSE=0.0461 [WORSE & exceeds noise -- removing worst]
+  Iter 444: n_active=1551 | union RMSE mean=0.081668 | Wilcoxon p=0.0000 | dRMSE=0.0448 [WORSE & exceeds noise -- removing worst]
+  Iter 445: n_active=1550 | union RMSE mean=0.081661 | Wilcoxon p=0.0000 | dRMSE=0.0457 [WORSE & exceeds noise -- removing worst]
+  Iter 446: n_active=1549 | union RMSE mean=0.081677 | Wilcoxon p=0.0000 | dRMSE=0.0457 [WORSE & exceeds noise -- removing worst]
+  Iter 447: n_active=1548 | union RMSE mean=0.081665 | Wilcoxon p=0.0000 | dRMSE=0.0440 [WORSE & exceeds noise -- removing worst]
+  Iter 448: n_active=1547 | union RMSE mean=0.081648 | Wilcoxon p=0.0000 | dRMSE=0.0444 [WORSE & exceeds noise -- removing worst]
+  Iter 449: n_active=1546 | union RMSE mean=0.081619 | Wilcoxon p=0.0000 | dRMSE=0.0452 [WORSE & exceeds noise -- removing worst]
+  Iter 450: n_active=1545 | union RMSE mean=0.081597 | Wilcoxon p=0.0000 | dRMSE=0.0452 [WORSE & exceeds noise -- removing worst]
+  Iter 451: n_active=1544 | union RMSE mean=0.081599 | Wilcoxon p=0.0000 | dRMSE=0.0458 [WORSE & exceeds noise -- removing worst]
+  Iter 452: n_active=1543 | union RMSE mean=0.081580 | Wilcoxon p=0.0000 | dRMSE=0.0441 [WORSE & exceeds noise -- removing worst]
+  Iter 453: n_active=1542 | union RMSE mean=0.081580 | Wilcoxon p=0.0000 | dRMSE=0.0442 [WORSE & exceeds noise -- removing worst]
+  Iter 454: n_active=1541 | union RMSE mean=0.081573 | Wilcoxon p=0.0000 | dRMSE=0.0446 [WORSE & exceeds noise -- removing worst]
+  Iter 455: n_active=1540 | union RMSE mean=0.081563 | Wilcoxon p=0.0000 | dRMSE=0.0413 [WORSE & exceeds noise -- removing worst]
+  Iter 456: n_active=1539 | union RMSE mean=0.081559 | Wilcoxon p=0.0000 | dRMSE=0.0430 [WORSE & exceeds noise -- removing worst]
+  Iter 457: n_active=1538 | union RMSE mean=0.081552 | Wilcoxon p=0.0000 | dRMSE=0.0415 [WORSE & exceeds noise -- removing worst]
+  Iter 458: n_active=1537 | union RMSE mean=0.081545 | Wilcoxon p=0.0000 | dRMSE=0.0415 [WORSE & exceeds noise -- removing worst]
+  Iter 459: n_active=1536 | union RMSE mean=0.081530 | Wilcoxon p=0.0000 | dRMSE=0.0431 [WORSE & exceeds noise -- removing worst]
+  Iter 460: n_active=1535 | union RMSE mean=0.081523 | Wilcoxon p=0.0000 | dRMSE=0.0436 [WORSE & exceeds noise -- removing worst]
+  Iter 461: n_active=1534 | union RMSE mean=0.081501 | Wilcoxon p=0.0000 | dRMSE=0.0438 [WORSE & exceeds noise -- removing worst]
+  Iter 462: n_active=1533 | union RMSE mean=0.081505 | Wilcoxon p=0.0000 | dRMSE=0.0433 [WORSE & exceeds noise -- removing worst]
+  Iter 463: n_active=1532 | union RMSE mean=0.081486 | Wilcoxon p=0.0000 | dRMSE=0.0418 [WORSE & exceeds noise -- removing worst]
+  Iter 464: n_active=1531 | union RMSE mean=0.081462 | Wilcoxon p=0.0000 | dRMSE=0.0411 [WORSE & exceeds noise -- removing worst]
+  Iter 465: n_active=1530 | union RMSE mean=0.081461 | Wilcoxon p=0.0000 | dRMSE=0.0417 [WORSE & exceeds noise -- removing worst]
+  Iter 466: n_active=1529 | union RMSE mean=0.081453 | Wilcoxon p=0.0000 | dRMSE=0.0429 [WORSE & exceeds noise -- removing worst]
+  Iter 467: n_active=1528 | union RMSE mean=0.081445 | Wilcoxon p=0.0000 | dRMSE=0.0409 [WORSE & exceeds noise -- removing worst]
+  Iter 468: n_active=1527 | union RMSE mean=0.081438 | Wilcoxon p=0.0000 | dRMSE=0.0430 [WORSE & exceeds noise -- removing worst]
+  Iter 469: n_active=1526 | union RMSE mean=0.081439 | Wilcoxon p=0.0000 | dRMSE=0.0425 [WORSE & exceeds noise -- removing worst]
+  Iter 470: n_active=1525 | union RMSE mean=0.081427 | Wilcoxon p=0.0000 | dRMSE=0.0410 [WORSE & exceeds noise -- removing worst]
+  Iter 471: n_active=1524 | union RMSE mean=0.081420 | Wilcoxon p=0.0000 | dRMSE=0.0417 [WORSE & exceeds noise -- removing worst]
+  Iter 472: n_active=1523 | union RMSE mean=0.081391 | Wilcoxon p=0.0000 | dRMSE=0.0413 [WORSE & exceeds noise -- removing worst]
+  Iter 473: n_active=1522 | union RMSE mean=0.081381 | Wilcoxon p=0.0000 | dRMSE=0.0416 [WORSE & exceeds noise -- removing worst]
+  Iter 474: n_active=1521 | union RMSE mean=0.081371 | Wilcoxon p=0.0000 | dRMSE=0.0402 [WORSE & exceeds noise -- removing worst]
+  Iter 475: n_active=1520 | union RMSE mean=0.081365 | Wilcoxon p=0.0000 | dRMSE=0.0405 [WORSE & exceeds noise -- removing worst]
+  Iter 476: n_active=1519 | union RMSE mean=0.081351 | Wilcoxon p=0.0000 | dRMSE=0.0399 [WORSE & exceeds noise -- removing worst]
+  Iter 477: n_active=1518 | union RMSE mean=0.081342 | Wilcoxon p=0.0000 | dRMSE=0.0394 [WORSE & exceeds noise -- removing worst]
+  Iter 478: n_active=1517 | union RMSE mean=0.081325 | Wilcoxon p=0.0000 | dRMSE=0.0408 [WORSE & exceeds noise -- removing worst]
+  Iter 479: n_active=1516 | union RMSE mean=0.081322 | Wilcoxon p=0.0000 | dRMSE=0.0384 [WORSE & exceeds noise -- removing worst]
+  Iter 480: n_active=1515 | union RMSE mean=0.081313 | Wilcoxon p=0.0000 | dRMSE=0.0390 [WORSE & exceeds noise -- removing worst]
+  Iter 481: n_active=1514 | union RMSE mean=0.081307 | Wilcoxon p=0.0000 | dRMSE=0.0398 [WORSE & exceeds noise -- removing worst]
+  Iter 482: n_active=1513 | union RMSE mean=0.081296 | Wilcoxon p=0.0000 | dRMSE=0.0398 [WORSE & exceeds noise -- removing worst]
+  Iter 483: n_active=1512 | union RMSE mean=0.081290 | Wilcoxon p=0.0000 | dRMSE=0.0393 [WORSE & exceeds noise -- removing worst]
+  Iter 484: n_active=1511 | union RMSE mean=0.081258 | Wilcoxon p=0.0000 | dRMSE=0.0382 [WORSE & exceeds noise -- removing worst]
+  Iter 485: n_active=1510 | union RMSE mean=0.081272 | Wilcoxon p=0.0000 | dRMSE=0.0403 [WORSE & exceeds noise -- removing worst]
+  Iter 486: n_active=1509 | union RMSE mean=0.081256 | Wilcoxon p=0.0000 | dRMSE=0.0385 [WORSE & exceeds noise -- removing worst]
+  Iter 487: n_active=1508 | union RMSE mean=0.081253 | Wilcoxon p=0.0000 | dRMSE=0.0380 [WORSE & exceeds noise -- removing worst]
+  Iter 488: n_active=1507 | union RMSE mean=0.081241 | Wilcoxon p=0.0000 | dRMSE=0.0389 [WORSE & exceeds noise -- removing worst]
+  Iter 489: n_active=1506 | union RMSE mean=0.081222 | Wilcoxon p=0.0000 | dRMSE=0.0378 [WORSE & exceeds noise -- removing worst]
+  Iter 490: n_active=1505 | union RMSE mean=0.081211 | Wilcoxon p=0.0000 | dRMSE=0.0389 [WORSE & exceeds noise -- removing worst]
+  Iter 491: n_active=1504 | union RMSE mean=0.081206 | Wilcoxon p=0.0000 | dRMSE=0.0363 [WORSE & exceeds noise -- removing worst]
+  Iter 492: n_active=1503 | union RMSE mean=0.081198 | Wilcoxon p=0.0000 | dRMSE=0.0384 [WORSE & exceeds noise -- removing worst]
+  Iter 493: n_active=1502 | union RMSE mean=0.081185 | Wilcoxon p=0.0000 | dRMSE=0.0383 [WORSE & exceeds noise -- removing worst]
+  Iter 494: n_active=1501 | union RMSE mean=0.081191 | Wilcoxon p=0.0000 | dRMSE=0.0384 [WORSE & exceeds noise -- removing worst]
+  Iter 495: n_active=1500 | union RMSE mean=0.081158 | Wilcoxon p=0.0000 | dRMSE=0.0388 [WORSE & exceeds noise -- removing worst]
+  Iter 496: n_active=1499 | union RMSE mean=0.081163 | Wilcoxon p=0.0000 | dRMSE=0.0394 [WORSE & exceeds noise -- removing worst]
+  Iter 497: n_active=1498 | union RMSE mean=0.081154 | Wilcoxon p=0.0000 | dRMSE=0.0388 [WORSE & exceeds noise -- removing worst]
+  Iter 498: n_active=1497 | union RMSE mean=0.081146 | Wilcoxon p=0.0000 | dRMSE=0.0372 [WORSE & exceeds noise -- removing worst]
+  Iter 499: n_active=1496 | union RMSE mean=0.081143 | Wilcoxon p=0.0000 | dRMSE=0.0373 [WORSE & exceeds noise -- removing worst]
+  Iter 500: n_active=1495 | union RMSE mean=0.081135 | Wilcoxon p=0.0000 | dRMSE=0.0376 [WORSE & exceeds noise -- removing worst]
+  Iter 501: n_active=1494 | union RMSE mean=0.081113 | Wilcoxon p=0.0000 | dRMSE=0.0365 [WORSE & exceeds noise -- removing worst]
+  Iter 502: n_active=1493 | union RMSE mean=0.081112 | Wilcoxon p=0.0000 | dRMSE=0.0382 [WORSE & exceeds noise -- removing worst]
+  Iter 503: n_active=1492 | union RMSE mean=0.081100 | Wilcoxon p=0.0000 | dRMSE=0.0377 [WORSE & exceeds noise -- removing worst]
+  Iter 504: n_active=1491 | union RMSE mean=0.081076 | Wilcoxon p=0.0000 | dRMSE=0.0361 [WORSE & exceeds noise -- removing worst]
+  Iter 505: n_active=1490 | union RMSE mean=0.081087 | Wilcoxon p=0.0000 | dRMSE=0.0383 [WORSE & exceeds noise -- removing worst]
+  Iter 506: n_active=1489 | union RMSE mean=0.081067 | Wilcoxon p=0.0000 | dRMSE=0.0381 [WORSE & exceeds noise -- removing worst]
+  Iter 507: n_active=1488 | union RMSE mean=0.081063 | Wilcoxon p=0.0000 | dRMSE=0.0373 [WORSE & exceeds noise -- removing worst]
+  Iter 508: n_active=1487 | union RMSE mean=0.081058 | Wilcoxon p=0.0000 | dRMSE=0.0364 [WORSE & exceeds noise -- removing worst]
+  Iter 509: n_active=1486 | union RMSE mean=0.081050 | Wilcoxon p=0.0000 | dRMSE=0.0361 [WORSE & exceeds noise -- removing worst]
+  Iter 510: n_active=1485 | union RMSE mean=0.081046 | Wilcoxon p=0.0000 | dRMSE=0.0361 [WORSE & exceeds noise -- removing worst]
+  Iter 511: n_active=1484 | union RMSE mean=0.081033 | Wilcoxon p=0.0000 | dRMSE=0.0341 [WORSE & exceeds noise -- removing worst]
+  Iter 512: n_active=1483 | union RMSE mean=0.081024 | Wilcoxon p=0.0000 | dRMSE=0.0345 [WORSE & exceeds noise -- removing worst]
+  Iter 513: n_active=1482 | union RMSE mean=0.081002 | Wilcoxon p=0.0000 | dRMSE=0.0348 [WORSE & exceeds noise -- removing worst]
+  Iter 514: n_active=1481 | union RMSE mean=0.080997 | Wilcoxon p=0.0000 | dRMSE=0.0368 [WORSE & exceeds noise -- removing worst]
+  Iter 515: n_active=1480 | union RMSE mean=0.080986 | Wilcoxon p=0.0000 | dRMSE=0.0357 [WORSE & exceeds noise -- removing worst]
+  Iter 516: n_active=1479 | union RMSE mean=0.080971 | Wilcoxon p=0.0000 | dRMSE=0.0367 [WORSE & exceeds noise -- removing worst]
+  Iter 517: n_active=1478 | union RMSE mean=0.080958 | Wilcoxon p=0.0000 | dRMSE=0.0359 [WORSE & exceeds noise -- removing worst]
+  Iter 518: n_active=1477 | union RMSE mean=0.080953 | Wilcoxon p=0.0000 | dRMSE=0.0356 [WORSE & exceeds noise -- removing worst]
+  Iter 519: n_active=1476 | union RMSE mean=0.080940 | Wilcoxon p=0.0000 | dRMSE=0.0359 [WORSE & exceeds noise -- removing worst]
+  Iter 520: n_active=1475 | union RMSE mean=0.080933 | Wilcoxon p=0.0000 | dRMSE=0.0361 [WORSE & exceeds noise -- removing worst]
+  Iter 521: n_active=1474 | union RMSE mean=0.080926 | Wilcoxon p=0.0000 | dRMSE=0.0359 [WORSE & exceeds noise -- removing worst]
+  Iter 522: n_active=1473 | union RMSE mean=0.080912 | Wilcoxon p=0.0000 | dRMSE=0.0361 [WORSE & exceeds noise -- removing worst]
+  Iter 523: n_active=1472 | union RMSE mean=0.080887 | Wilcoxon p=0.0000 | dRMSE=0.0363 [WORSE & exceeds noise -- removing worst]
+  Iter 524: n_active=1471 | union RMSE mean=0.080871 | Wilcoxon p=0.0000 | dRMSE=0.0342 [WORSE & exceeds noise -- removing worst]
+  Iter 525: n_active=1470 | union RMSE mean=0.080855 | Wilcoxon p=0.0000 | dRMSE=0.0361 [WORSE & exceeds noise -- removing worst]
+  Iter 526: n_active=1469 | union RMSE mean=0.080856 | Wilcoxon p=0.0000 | dRMSE=0.0355 [WORSE & exceeds noise -- removing worst]
+  Iter 527: n_active=1468 | union RMSE mean=0.080842 | Wilcoxon p=0.0000 | dRMSE=0.0346 [WORSE & exceeds noise -- removing worst]
+  Iter 528: n_active=1467 | union RMSE mean=0.080839 | Wilcoxon p=0.0000 | dRMSE=0.0358 [WORSE & exceeds noise -- removing worst]
+  Iter 529: n_active=1466 | union RMSE mean=0.080831 | Wilcoxon p=0.0000 | dRMSE=0.0351 [WORSE & exceeds noise -- removing worst]
+  Iter 530: n_active=1465 | union RMSE mean=0.080825 | Wilcoxon p=0.0000 | dRMSE=0.0344 [WORSE & exceeds noise -- removing worst]
+  Iter 531: n_active=1464 | union RMSE mean=0.080799 | Wilcoxon p=0.0000 | dRMSE=0.0351 [WORSE & exceeds noise -- removing worst]
+  Iter 532: n_active=1463 | union RMSE mean=0.080805 | Wilcoxon p=0.0000 | dRMSE=0.0328 [WORSE & exceeds noise -- removing worst]
+  Iter 533: n_active=1462 | union RMSE mean=0.080791 | Wilcoxon p=0.0000 | dRMSE=0.0339 [WORSE & exceeds noise -- removing worst]
+  Iter 534: n_active=1461 | union RMSE mean=0.080777 | Wilcoxon p=0.0000 | dRMSE=0.0330 [WORSE & exceeds noise -- removing worst]
+  Iter 535: n_active=1460 | union RMSE mean=0.080769 | Wilcoxon p=0.0000 | dRMSE=0.0312 [WORSE & exceeds noise -- removing worst]
+  Iter 536: n_active=1459 | union RMSE mean=0.080754 | Wilcoxon p=0.0000 | dRMSE=0.0314 [WORSE & exceeds noise -- removing worst]
+  Iter 537: n_active=1458 | union RMSE mean=0.080743 | Wilcoxon p=0.0000 | dRMSE=0.0316 [WORSE & exceeds noise -- removing worst]
+  Iter 538: n_active=1457 | union RMSE mean=0.080741 | Wilcoxon p=0.0000 | dRMSE=0.0320 [WORSE & exceeds noise -- removing worst]
+  Iter 539: n_active=1456 | union RMSE mean=0.080731 | Wilcoxon p=0.0000 | dRMSE=0.0302 [WORSE & exceeds noise -- removing worst]
+  Iter 540: n_active=1455 | union RMSE mean=0.080722 | Wilcoxon p=0.0000 | dRMSE=0.0315 [WORSE & exceeds noise -- removing worst]
+  Iter 541: n_active=1454 | union RMSE mean=0.080708 | Wilcoxon p=0.0000 | dRMSE=0.0323 [WORSE & exceeds noise -- removing worst]
+  Iter 542: n_active=1453 | union RMSE mean=0.080699 | Wilcoxon p=0.0000 | dRMSE=0.0319 [WORSE & exceeds noise -- removing worst]
+  Iter 543: n_active=1452 | union RMSE mean=0.080696 | Wilcoxon p=0.0000 | dRMSE=0.0334 [WORSE & exceeds noise -- removing worst]
+  Iter 544: n_active=1451 | union RMSE mean=0.080675 | Wilcoxon p=0.0000 | dRMSE=0.0324 [WORSE & exceeds noise -- removing worst]
+  Iter 545: n_active=1450 | union RMSE mean=0.080657 | Wilcoxon p=0.0000 | dRMSE=0.0330 [WORSE & exceeds noise -- removing worst]
+  Iter 546: n_active=1449 | union RMSE mean=0.080645 | Wilcoxon p=0.0000 | dRMSE=0.0329 [WORSE & exceeds noise -- removing worst]
+  Iter 547: n_active=1448 | union RMSE mean=0.080645 | Wilcoxon p=0.0000 | dRMSE=0.0327 [WORSE & exceeds noise -- removing worst]
+  Iter 548: n_active=1447 | union RMSE mean=0.080633 | Wilcoxon p=0.0000 | dRMSE=0.0321 [WORSE & exceeds noise -- removing worst]
+  Iter 549: n_active=1446 | union RMSE mean=0.080620 | Wilcoxon p=0.0000 | dRMSE=0.0302 [WORSE & exceeds noise -- removing worst]
+  Iter 550: n_active=1445 | union RMSE mean=0.080615 | Wilcoxon p=0.0000 | dRMSE=0.0295 [WORSE & exceeds noise -- removing worst]
+  Iter 551: n_active=1444 | union RMSE mean=0.080602 | Wilcoxon p=0.0000 | dRMSE=0.0305 [WORSE & exceeds noise -- removing worst]
+  Iter 552: n_active=1443 | union RMSE mean=0.080603 | Wilcoxon p=0.0000 | dRMSE=0.0306 [WORSE & exceeds noise -- removing worst]
+  Iter 553: n_active=1442 | union RMSE mean=0.080579 | Wilcoxon p=0.0000 | dRMSE=0.0308 [WORSE & exceeds noise -- removing worst]
+  Iter 554: n_active=1441 | union RMSE mean=0.080567 | Wilcoxon p=0.0000 | dRMSE=0.0313 [WORSE & exceeds noise -- removing worst]
+  Iter 555: n_active=1440 | union RMSE mean=0.080565 | Wilcoxon p=0.0000 | dRMSE=0.0306 [WORSE & exceeds noise -- removing worst]
+  Iter 556: n_active=1439 | union RMSE mean=0.080560 | Wilcoxon p=0.0000 | dRMSE=0.0298 [WORSE & exceeds noise -- removing worst]
+  Iter 557: n_active=1438 | union RMSE mean=0.080549 | Wilcoxon p=0.0000 | dRMSE=0.0309 [WORSE & exceeds noise -- removing worst]
+  Iter 558: n_active=1437 | union RMSE mean=0.080549 | Wilcoxon p=0.0000 | dRMSE=0.0298 [WORSE & exceeds noise -- removing worst]
+  Iter 559: n_active=1436 | union RMSE mean=0.080539 | Wilcoxon p=0.0000 | dRMSE=0.0294 [WORSE & exceeds noise -- removing worst]
+  Iter 560: n_active=1435 | union RMSE mean=0.080529 | Wilcoxon p=0.0000 | dRMSE=0.0294 [WORSE & exceeds noise -- removing worst]
+  Iter 561: n_active=1434 | union RMSE mean=0.080511 | Wilcoxon p=0.0000 | dRMSE=0.0302 [WORSE & exceeds noise -- removing worst]
+  Iter 562: n_active=1433 | union RMSE mean=0.080504 | Wilcoxon p=0.0000 | dRMSE=0.0283 [WORSE & exceeds noise -- removing worst]
+  Iter 563: n_active=1432 | union RMSE mean=0.080483 | Wilcoxon p=0.0000 | dRMSE=0.0289 [WORSE & exceeds noise -- removing worst]
+  Iter 564: n_active=1431 | union RMSE mean=0.080492 | Wilcoxon p=0.0000 | dRMSE=0.0297 [WORSE & exceeds noise -- removing worst]
+  Iter 565: n_active=1430 | union RMSE mean=0.080479 | Wilcoxon p=0.0000 | dRMSE=0.0292 [WORSE & exceeds noise -- removing worst]
+  Iter 566: n_active=1429 | union RMSE mean=0.080468 | Wilcoxon p=0.0000 | dRMSE=0.0317 [WORSE & exceeds noise -- removing worst]
+  Iter 567: n_active=1428 | union RMSE mean=0.080454 | Wilcoxon p=0.0000 | dRMSE=0.0306 [WORSE & exceeds noise -- removing worst]
+  Iter 568: n_active=1427 | union RMSE mean=0.080448 | Wilcoxon p=0.0000 | dRMSE=0.0288 [WORSE & exceeds noise -- removing worst]
+  Iter 569: n_active=1426 | union RMSE mean=0.080440 | Wilcoxon p=0.0000 | dRMSE=0.0300 [WORSE & exceeds noise -- removing worst]
+  Iter 570: n_active=1425 | union RMSE mean=0.080432 | Wilcoxon p=0.0000 | dRMSE=0.0289 [WORSE & exceeds noise -- removing worst]
+  Iter 571: n_active=1424 | union RMSE mean=0.080417 | Wilcoxon p=0.0000 | dRMSE=0.0296 [WORSE & exceeds noise -- removing worst]
+  Iter 572: n_active=1423 | union RMSE mean=0.080415 | Wilcoxon p=0.0000 | dRMSE=0.0289 [WORSE & exceeds noise -- removing worst]
+  Iter 573: n_active=1422 | union RMSE mean=0.080421 | Wilcoxon p=0.0000 | dRMSE=0.0284 [WORSE & exceeds noise -- removing worst]
+  Iter 574: n_active=1421 | union RMSE mean=0.080406 | Wilcoxon p=0.0000 | dRMSE=0.0299 [WORSE & exceeds noise -- removing worst]
+  Iter 575: n_active=1420 | union RMSE mean=0.080397 | Wilcoxon p=0.0000 | dRMSE=0.0282 [WORSE & exceeds noise -- removing worst]
+  Iter 576: n_active=1419 | union RMSE mean=0.080376 | Wilcoxon p=0.0000 | dRMSE=0.0280 [WORSE & exceeds noise -- removing worst]
+  Iter 577: n_active=1418 | union RMSE mean=0.080370 | Wilcoxon p=0.0000 | dRMSE=0.0284 [WORSE & exceeds noise -- removing worst]
+  Iter 578: n_active=1417 | union RMSE mean=0.080365 | Wilcoxon p=0.0000 | dRMSE=0.0275 [WORSE & exceeds noise -- removing worst]
+  Iter 579: n_active=1416 | union RMSE mean=0.080354 | Wilcoxon p=0.0000 | dRMSE=0.0278 [WORSE & exceeds noise -- removing worst]
+  Iter 580: n_active=1415 | union RMSE mean=0.080346 | Wilcoxon p=0.0000 | dRMSE=0.0284 [WORSE & exceeds noise -- removing worst]
+  Iter 581: n_active=1414 | union RMSE mean=0.080350 | Wilcoxon p=0.0000 | dRMSE=0.0281 [WORSE & exceeds noise -- removing worst]
+  Iter 582: n_active=1413 | union RMSE mean=0.080337 | Wilcoxon p=0.0000 | dRMSE=0.0272 [WORSE & exceeds noise -- removing worst]
+  Iter 583: n_active=1412 | union RMSE mean=0.080324 | Wilcoxon p=0.0000 | dRMSE=0.0266 [WORSE & exceeds noise -- removing worst]
+  Iter 584: n_active=1411 | union RMSE mean=0.080319 | Wilcoxon p=0.0000 | dRMSE=0.0272 [WORSE & exceeds noise -- removing worst]
+  Iter 585: n_active=1410 | union RMSE mean=0.080323 | Wilcoxon p=0.0000 | dRMSE=0.0274 [WORSE & exceeds noise -- removing worst]
+  Iter 586: n_active=1409 | union RMSE mean=0.080307 | Wilcoxon p=0.0000 | dRMSE=0.0265 [WORSE & exceeds noise -- removing worst]
+  Iter 587: n_active=1408 | union RMSE mean=0.080296 | Wilcoxon p=0.0000 | dRMSE=0.0274 [WORSE & exceeds noise -- removing worst]
+  Iter 588: n_active=1407 | union RMSE mean=0.080294 | Wilcoxon p=0.0000 | dRMSE=0.0278 [WORSE & exceeds noise -- removing worst]
+  Iter 589: n_active=1406 | union RMSE mean=0.080289 | Wilcoxon p=0.0000 | dRMSE=0.0276 [WORSE & exceeds noise -- removing worst]
+  Iter 590: n_active=1405 | union RMSE mean=0.080280 | Wilcoxon p=0.0000 | dRMSE=0.0266 [WORSE & exceeds noise -- removing worst]
+  Iter 591: n_active=1404 | union RMSE mean=0.080269 | Wilcoxon p=0.0000 | dRMSE=0.0266 [WORSE & exceeds noise -- removing worst]
+  Iter 592: n_active=1403 | union RMSE mean=0.080245 | Wilcoxon p=0.0000 | dRMSE=0.0267 [WORSE & exceeds noise -- removing worst]
+  Iter 593: n_active=1402 | union RMSE mean=0.080242 | Wilcoxon p=0.0000 | dRMSE=0.0275 [WORSE & exceeds noise -- removing worst]
+  Iter 594: n_active=1401 | union RMSE mean=0.080245 | Wilcoxon p=0.0000 | dRMSE=0.0259 [WORSE & exceeds noise -- removing worst]
+  Iter 595: n_active=1400 | union RMSE mean=0.080223 | Wilcoxon p=0.0000 | dRMSE=0.0265 [WORSE & exceeds noise -- removing worst]
+  Iter 596: n_active=1399 | union RMSE mean=0.080219 | Wilcoxon p=0.0000 | dRMSE=0.0275 [WORSE & exceeds noise -- removing worst]
+  Iter 597: n_active=1398 | union RMSE mean=0.080203 | Wilcoxon p=0.0000 | dRMSE=0.0270 [WORSE & exceeds noise -- removing worst]
+  Iter 598: n_active=1397 | union RMSE mean=0.080195 | Wilcoxon p=0.0000 | dRMSE=0.0261 [WORSE & exceeds noise -- removing worst]
+  Iter 599: n_active=1396 | union RMSE mean=0.080185 | Wilcoxon p=0.0000 | dRMSE=0.0254 [WORSE & exceeds noise -- removing worst]
+  Iter 600: n_active=1395 | union RMSE mean=0.080179 | Wilcoxon p=0.0000 | dRMSE=0.0261 [WORSE & exceeds noise -- removing worst]
+  Iter 601: n_active=1394 | union RMSE mean=0.080172 | Wilcoxon p=0.0000 | dRMSE=0.0251 [WORSE & exceeds noise -- removing worst]
+  Iter 602: n_active=1393 | union RMSE mean=0.080160 | Wilcoxon p=0.0000 | dRMSE=0.0258 [WORSE & exceeds noise -- removing worst]
+  Iter 603: n_active=1392 | union RMSE mean=0.080147 | Wilcoxon p=0.0000 | dRMSE=0.0246 [WORSE & exceeds noise -- removing worst]
+  Iter 604: n_active=1391 | union RMSE mean=0.080140 | Wilcoxon p=0.0000 | dRMSE=0.0265 [WORSE & exceeds noise -- removing worst]
+  Iter 605: n_active=1390 | union RMSE mean=0.080119 | Wilcoxon p=0.0000 | dRMSE=0.0232 [WORSE & exceeds noise -- removing worst]
+  Iter 606: n_active=1389 | union RMSE mean=0.080122 | Wilcoxon p=0.0000 | dRMSE=0.0253 [WORSE & exceeds noise -- removing worst]
+  Iter 607: n_active=1388 | union RMSE mean=0.080118 | Wilcoxon p=0.0000 | dRMSE=0.0250 [WORSE & exceeds noise -- removing worst]
+  Iter 608: n_active=1387 | union RMSE mean=0.080101 | Wilcoxon p=0.0000 | dRMSE=0.0261 [WORSE & exceeds noise -- removing worst]
+  Iter 609: n_active=1386 | union RMSE mean=0.080083 | Wilcoxon p=0.0000 | dRMSE=0.0248 [WORSE & exceeds noise -- removing worst]
+  Iter 610: n_active=1385 | union RMSE mean=0.080078 | Wilcoxon p=0.0000 | dRMSE=0.0237 [WORSE & exceeds noise -- removing worst]
+  Iter 611: n_active=1384 | union RMSE mean=0.080063 | Wilcoxon p=0.0000 | dRMSE=0.0240 [WORSE & exceeds noise -- removing worst]
+  Iter 612: n_active=1383 | union RMSE mean=0.080063 | Wilcoxon p=0.0000 | dRMSE=0.0243 [WORSE & exceeds noise -- removing worst]
+  Iter 613: n_active=1382 | union RMSE mean=0.080052 | Wilcoxon p=0.0000 | dRMSE=0.0233 [WORSE & exceeds noise -- removing worst]
+  Iter 614: n_active=1381 | union RMSE mean=0.080039 | Wilcoxon p=0.0000 | dRMSE=0.0228 [WORSE & exceeds noise -- removing worst]
+  Iter 615: n_active=1380 | union RMSE mean=0.080041 | Wilcoxon p=0.0000 | dRMSE=0.0242 [WORSE & exceeds noise -- removing worst]
+  Iter 616: n_active=1379 | union RMSE mean=0.080032 | Wilcoxon p=0.0000 | dRMSE=0.0230 [WORSE & exceeds noise -- removing worst]
+  Iter 617: n_active=1378 | union RMSE mean=0.080022 | Wilcoxon p=0.0000 | dRMSE=0.0221 [WORSE & exceeds noise -- removing worst]
+  Iter 618: n_active=1377 | union RMSE mean=0.080016 | Wilcoxon p=0.0000 | dRMSE=0.0230 [WORSE & exceeds noise -- removing worst]
+  Iter 619: n_active=1376 | union RMSE mean=0.080000 | Wilcoxon p=0.0000 | dRMSE=0.0236 [WORSE & exceeds noise -- removing worst]
+  Iter 620: n_active=1375 | union RMSE mean=0.079989 | Wilcoxon p=0.0000 | dRMSE=0.0223 [WORSE & exceeds noise -- removing worst]
+  Iter 621: n_active=1374 | union RMSE mean=0.079984 | Wilcoxon p=0.0000 | dRMSE=0.0239 [WORSE & exceeds noise -- removing worst]
+  Iter 622: n_active=1373 | union RMSE mean=0.079981 | Wilcoxon p=0.0000 | dRMSE=0.0224 [WORSE & exceeds noise -- removing worst]
+  Iter 623: n_active=1372 | union RMSE mean=0.079971 | Wilcoxon p=0.0000 | dRMSE=0.0234 [WORSE & exceeds noise -- removing worst]
+  Iter 624: n_active=1371 | union RMSE mean=0.079958 | Wilcoxon p=0.0000 | dRMSE=0.0233 [WORSE & exceeds noise -- removing worst]
+  Iter 625: n_active=1370 | union RMSE mean=0.079954 | Wilcoxon p=0.0000 | dRMSE=0.0238 [WORSE & exceeds noise -- removing worst]
+  Iter 626: n_active=1369 | union RMSE mean=0.079937 | Wilcoxon p=0.0000 | dRMSE=0.0222 [WORSE & exceeds noise -- removing worst]
+  Iter 627: n_active=1368 | union RMSE mean=0.079930 | Wilcoxon p=0.0000 | dRMSE=0.0218 [WORSE & exceeds noise -- removing worst]
+  Iter 628: n_active=1367 | union RMSE mean=0.079919 | Wilcoxon p=0.0000 | dRMSE=0.0216 [WORSE & exceeds noise -- removing worst]
+  Iter 629: n_active=1366 | union RMSE mean=0.079913 | Wilcoxon p=0.0000 | dRMSE=0.0231 [WORSE & exceeds noise -- removing worst]
+  Iter 630: n_active=1365 | union RMSE mean=0.079907 | Wilcoxon p=0.0000 | dRMSE=0.0224 [WORSE & exceeds noise -- removing worst]
+  Iter 631: n_active=1364 | union RMSE mean=0.079885 | Wilcoxon p=0.0000 | dRMSE=0.0216 [WORSE & exceeds noise -- removing worst]
+  Iter 632: n_active=1363 | union RMSE mean=0.079875 | Wilcoxon p=0.0000 | dRMSE=0.0226 [WORSE & exceeds noise -- removing worst]
+  Iter 633: n_active=1362 | union RMSE mean=0.079877 | Wilcoxon p=0.0000 | dRMSE=0.0216 [WORSE & exceeds noise -- removing worst]
+  Iter 634: n_active=1361 | union RMSE mean=0.079875 | Wilcoxon p=0.0000 | dRMSE=0.0219 [WORSE & exceeds noise -- removing worst]
+  Iter 635: n_active=1360 | union RMSE mean=0.079869 | Wilcoxon p=0.0000 | dRMSE=0.0219 [WORSE & exceeds noise -- removing worst]
+  Iter 636: n_active=1359 | union RMSE mean=0.079861 | Wilcoxon p=0.0000 | dRMSE=0.0224 [WORSE & exceeds noise -- removing worst]
+  Iter 637: n_active=1358 | union RMSE mean=0.079853 | Wilcoxon p=0.0000 | dRMSE=0.0223 [WORSE & exceeds noise -- removing worst]
+  Iter 638: n_active=1357 | union RMSE mean=0.079865 | Wilcoxon p=0.0000 | dRMSE=0.0227 [WORSE & exceeds noise -- removing worst]
+  Iter 639: n_active=1356 | union RMSE mean=0.079856 | Wilcoxon p=0.0000 | dRMSE=0.0214 [WORSE & exceeds noise -- removing worst]
+  Iter 640: n_active=1355 | union RMSE mean=0.079839 | Wilcoxon p=0.0000 | dRMSE=0.0222 [WORSE & exceeds noise -- removing worst]
+  Iter 641: n_active=1354 | union RMSE mean=0.079846 | Wilcoxon p=0.0000 | dRMSE=0.0220 [WORSE & exceeds noise -- removing worst]
+  Iter 642: n_active=1353 | union RMSE mean=0.079820 | Wilcoxon p=0.0000 | dRMSE=0.0220 [WORSE & exceeds noise -- removing worst]
+  Iter 643: n_active=1352 | union RMSE mean=0.079830 | Wilcoxon p=0.0000 | dRMSE=0.0204 [WORSE & exceeds noise -- removing worst]
+  Iter 644: n_active=1351 | union RMSE mean=0.079813 | Wilcoxon p=0.0000 | dRMSE=0.0192 [p<alpha BUT dRMSE=0.0192 <= BV=0.0202 -- accepting (within background variability)]
+  Stage 2 result: 1351 accepted, 643 removed | final Wilcoxon p=0.0000 | dRMSE=0.0192 | BV=0.0202
+  delta_base = 0.169290 (95th pctile, weighted, all original SKCS-core; n=8407)
+  Delta cal resid: median=0.059201  max=0.229601
+  delta_adapt range: [0.169290, 0.253935] (kappa=0.50, bw=0.10)
+  Stage 2 RSk-fCV Wilcoxon p (final): 0.0000 | Removed by gate: 643
+  Original + Refined (Orig+Ref anchor):  8103
+  Original only (failed Stage 1 -- outside band):  304
+  Recovered (Grp 1b, passed both stages):1351
+  Excluded:                              3573
+  CMRF-core (union):                     9454
+  Recovered labelled on the cDFG axis at IP_y = 1.664802: 905 Pre-IP / 446 Post-IP
+
+  STEP 3f -- CMRF diagnostic plots (spine + adaptive delta band)
+  Plot 1 saved (CMRF diagnostics)
+
+  STEP 3g -- CMRF summary panel (gate, post-hoc, calibration, RMSE)
+  Plot 2 saved (CMRF summary panel)
+
+  STEP 3h -- Before vs After CMRF in (u,v) copula space
+  Plot 3 saved (Before vs After CMRF)
+
+  STEP 3i -- RSk-fCV mechanism and evidence
+  Plot 4 saved (RSk-fCV mechanism and evidence)
+
+  RSk-fCV audit Excel export...
+  RSk-fCV audit Excel saved: Part10e_CP10K_PVM_3_CMRF_NeoC_RSk_fCV_Audit.xlsx (8 sheets)
+
+  STEP 4 -- Plot 5: Orig-only & Recovered with delta band
+  Plot 5 saved
+
+  STEP 4 -- Plot 6: CMRF in (u,v) space
+  Plot 6 saved
+
+  STEP 5 -- Quantitative comparison original vs CMRF
+  Plot 7 saved
+  GOI-negative cells: 0 (will be appended to Step4_Refined_Cells)
+  Step4_Refined_Cells: 13331 total rows (13331 GOI-pos + 0 GOI-neg)
+  CMRF-core: 9454 cells (8103 Orig+Refined + 1351 Recovered)
+
+  Assembling Excel output ...
+  Excel saved: Part10e_CP10K_PVM_3_CMRF_NeoC_SK_interaction_analysis.xlsx
+  Displaying plots in RStudio ...
+  [closed 1 leaked device(s) before display loop]
+    -> 01_CMRF_diagnostics 
+    -> 02_CMRF_summary_panel 
+    -> 03_before_after_CMRF 
+    -> 04_RSk_fCV_mechanism 
+    -> 05_waist_zoom_with_orig_only 
+    -> 06_CMRF_band_uv_space 
+    -> 07_recovery_bar_comparison 
+  Results object saved: Part10e_CP10K_PVM_3_CMRF_all_results.rds  (15.6 MB, plots dropped)
+  IP_u comparison log saved: Part10e_CP10K_PVM_3_CMRF_IP_u_comparison.txt
+
+  Building CMRF verification Excel ...
+  NonNeoC T3 JT: stat=3325160.00 p=0.0001
+  NonNeoC T7 Hoeffding D=0.1708 p=0.0001 (permutation, R=9999)
+  NonNeoC T8 dCor=0.6843 p=0.0010
+  NonNeoC: 6 statistical tests computed
+  NonNeoC: building verification plots (VP1, VP3) ...
+  NonNeoC: VP1 (T1/T2/T3) saved
+  NonNeoC: VP3 (T6/T7/T8) saved
+  NonNeoC: VP plot data Excel saved: Part10e_CP10K_PVM_3_CMRF_NonNeoC_VP_PlotData_T1_to_T7A.xlsx
+  NeoC T3 JT: stat=4859771.00 p=0.0001
+  NeoC T7 Hoeffding D=0.1755 p=0.0001 (permutation, R=9999)
+  NeoC T8 dCor=0.6937 p=0.0010
+  NeoC: 6 statistical tests computed
+  NeoC: building verification plots (VP1, VP3) ...
+  NeoC: VP1 (T1/T2/T3) saved
+  NeoC: VP3 (T6/T7/T8) saved
+  NeoC: VP plot data Excel saved: Part10e_CP10K_PVM_3_CMRF_NeoC_VP_PlotData_T1_to_T7A.xlsx
+  CMRF verification Excel saved: Part10e_CP10K_PVM_3_CMRF_Verification.xlsx
+
+  GUIDE TO CMRF (Copula Monotone Recovery Filter):
+
+  CMRF operates in (u,v) GOI-cDFG copula space. Two-stage filter:
+
+  STAGE 1 -- Monotone Band Admission:
+  Stage 1 (spine proximity + adaptive delta): |v_i - g(u_i)| <= delta_adapt(u_i)
+    g(u): mgcv spine, donor RE + inverse-donor weights [PRSS, 8+5 iter];
+          non-decreasing is verified per fit (GR-10), not imposed.
+    delta_adapt(u) = delta_base*(1+kappa*K(u,IP_u,bw)).
+    delta_base = weighted quantile(|v - g(u)|, 0.95), all original SKCS-core.
+    delta is a RESIDUAL TOLERANCE -- NOT Kendall tau (Ki). No circularity.
+    The adaptive band follows the diagonal spine; any cell within delta_adapt
+    is geometrically consistent with the monotonic pattern.  No hard arm-
+    concordance cutoff imposed -- one geometric criterion (band proximity), one statistical
+    criterion (RSk-fCV).  Clean, consistent, immune to circularity.
+
+  STAGE 2 -- Isotonic Fidelity Gate (paired Wilcoxon, iterative removal):
+    Pool = OriRef + active candidates. Standard K-fold CV on the pool.
+    RSk-fCV: K=5 folds x 40 repeats = 200 total fold-RMSEs; stratified by u-quantile decile.
+    Curve A: OriRef-only CV, folds from OriRef, computed once -> RMSE_A.
+    Curve B: pool CV, folds from the pool, recomputed each iteration -> RMSE_B.
+    Matched by (repeat, fold) index. dRMSE therefore carries the candidates'
+    effect on the fit, their presence in Curve B's test set, and Curve B's
+    larger training set (B10E-31).
+    Tests collective isotonic coherence: does the union form a coherent monotonic group?
+    Paired Wilcoxon (H1: RMSE_B > RMSE_A, alpha=0.05) + BV effect-size gate; structurally matched fold pairs.
+    If RMSE_B significantly worse: remove candidate with highest PAVA isotonic residual, repeat.
+    PAVA removal ranking decouples Stage 2 removal from spine admission (Stage 1).
+    Stops when p>=0.05 OR dRMSE within the background variability BV (dual gate).
+  Group labels:
+    Orig+Ref (Original + Refined): original SKCS-core passing Stage 1 (constitutes CMRF-core with Recovered).
+    Grp 1b (Recovered):          non-SKCS cells passing Stage 1 AND Stage 2.
+    Orig-only:                   original SKCS-core failing Stage 1 (outside band; retained in dataset, excluded from CMRF-core).
+    Excluded:                    non-SKCS cells failing Stage 1 or Stage 2.
+
+  Key outputs:
+  Plot 1: 4-panel CMRF diagnostics (PAVA in u,v, residuals, boxplot, delta hist).
+  Plot 2: CMRF summary panel (Stage 2 gate, post-hoc, delta calibration).
+  Plot 3: before vs after CMRF in (u,v) copula space.
+  Plot 4: RSk-fCV Stage 2 gate -- mechanism and evidence.
+  Plot 5: Orig-only and Recovered with the delta band, (p_full,q_full).
+  Plot 6: CMRF in (u,v) space: PAVA step + delta_adapt band.
+  Plot 7: cell counts -- Original SKCS vs Recovered vs Orig-only.
+  Excel: Step4_CMRF_Delta_Params, Step4_CMRF_Delta_Cal, Step4_CMRF_Stage2_Gate.
+  Verification: <prefix>_Verification.xlsx -- statistical tests per dataset.
+  Verification plots (3 panel sets per dataset):
+    VP1 (_VP1_ConfGate_FidelityGrad): T1 RSk-fCV gate | T2 resid 4-class | T3 JT ordered trend
+
+ ######################################################################## 
+  SECTION C1 — POST-ANALYSIS GUARDRAILS
+######################################################################## 
+
+  [PASS]  GR-08-NonNeoC     CMRF classification: Original + Refined=6646 | Original only=295 | Recovered=1089 | Excluded=3102
+  [PASS]  GR-09-NonNeoC     Recovered cells = 1089 | original SKCS-core = 6941 | refined = 7735
+  [PASS]  GR-10-NonNeoC     spine non-decreasing: min consecutive difference = 1.934e-04 over 501 grid points
+  [PASS]  GR-11-NonNeoC     spine on 6317 TREP SKCS-core cell(s), u in [0.0001, 0.9999] | donor RE = YES (83 donors) | k = 10 | 13 iteration(s)
+  [PASS]  GR-12-NonNeoC     classification axis = cDFG at IP_y | IP_y = 1.887917 | IP_v = 0.527441 | Part 10b Pre/Post labels reproduce 1.0000 on the cDFG axis at IP_y and 0.9849 on the GOI axis at IP_x, over 6941 cell(s)
+  [PASS]  GR-08-NeoC        CMRF classification: Original + Refined=8103 | Original only=304 | Recovered=1351 | Excluded=3573
+  [PASS]  GR-09-NeoC        Recovered cells = 1351 | original SKCS-core = 8407 | refined = 9454
+  [PASS]  GR-10-NeoC        spine non-decreasing: min consecutive difference = 1.523e-04 over 501 grid points
+  [PASS]  GR-11-NeoC        spine on 7617 TREP SKCS-core cell(s), u in [0.0001, 0.9999] | donor RE = YES (84 donors) | k = 10 | 13 iteration(s)
+  [PASS]  GR-12-NeoC        classification axis = cDFG at IP_y | IP_y = 1.664802 | IP_v = 0.558881 | Part 10b Pre/Post labels reproduce 1.0000 on the cDFG axis at IP_y and 0.9491 on the GOI axis at IP_x, over 8407 cell(s)
+  Guardrail log written: <SEA-AD>/Part10e_CMRF/Part10e_CMRF_PVM_3/Part10e_CP10K_PVM_3_CMRF_Guardrail_Log.txt 
+
+  Final guardrail tally: 20 PASS / 0 WARN / 0 FAIL
+  All 20 checks passed.
+
+ ======================================================================== 
+  Part10e CMRF COMPLETE [ PVM3_all ]
+  Output directory: <SEA-AD>/Part10e_CMRF/Part10e_CMRF_PVM_3 
+  Files generated:
+    Part10e_CP10K_PVM_3_CMRF_all_results.rds                        15606 KB
+    Part10e_CP10K_PVM_3_CMRF_console_log_20260827_010109.txt          188 KB
+    Part10e_CP10K_PVM_3_CMRF_Guardrail_Log.txt                          3 KB
+    Part10e_CP10K_PVM_3_CMRF_IP_u_comparison.txt                        1 KB
+    Part10e_CP10K_PVM_3_CMRF_NeoC_01_CMRF_diagnostics.pdf            1426 KB
+    Part10e_CP10K_PVM_3_CMRF_NeoC_01_CMRF_diagnostics.png             577 KB
+    Part10e_CP10K_PVM_3_CMRF_NeoC_02_CMRF_summary_panel.pdf            31 KB
+    Part10e_CP10K_PVM_3_CMRF_NeoC_02_CMRF_summary_panel.png           138 KB
+    Part10e_CP10K_PVM_3_CMRF_NeoC_03_before_after_CMRF.pdf           1466 KB
+    Part10e_CP10K_PVM_3_CMRF_NeoC_03_before_after_CMRF.png            720 KB
+    Part10e_CP10K_PVM_3_CMRF_NeoC_04_RSk_fCV_mechanism.pdf            160 KB
+    Part10e_CP10K_PVM_3_CMRF_NeoC_04_RSk_fCV_mechanism.png            151 KB
+    Part10e_CP10K_PVM_3_CMRF_NeoC_05_waist_zoom_with_orig_only.pdf    734 KB
+    Part10e_CP10K_PVM_3_CMRF_NeoC_05_waist_zoom_with_orig_only.png    597 KB
+    Part10e_CP10K_PVM_3_CMRF_NeoC_06_CMRF_band_uv_space.pdf           756 KB
+    Part10e_CP10K_PVM_3_CMRF_NeoC_06_CMRF_band_uv_space.png           565 KB
+    Part10e_CP10K_PVM_3_CMRF_NeoC_07_recovery_bar_comparison.pdf        5 KB
+    Part10e_CP10K_PVM_3_CMRF_NeoC_07_recovery_bar_comparison.png       59 KB
+    Part10e_CP10K_PVM_3_CMRF_NeoC_RSk_fCV_Audit.xlsx                 4795 KB
+    Part10e_CP10K_PVM_3_CMRF_NeoC_SK_interaction_analysis.xlsx       6788 KB
+    Part10e_CP10K_PVM_3_CMRF_NeoC_VP_PlotData_T1_to_T7A.xlsx          870 KB
+    Part10e_CP10K_PVM_3_CMRF_NeoC_VP1_ConfGate_FidelityGrad.pdf      1563 KB
+    Part10e_CP10K_PVM_3_CMRF_NeoC_VP1_ConfGate_FidelityGrad.png       401 KB
+    Part10e_CP10K_PVM_3_CMRF_NeoC_VP3_MonotoneSignal.pdf              403 KB
+    Part10e_CP10K_PVM_3_CMRF_NeoC_VP3_MonotoneSignal.png              294 KB
+    Part10e_CP10K_PVM_3_CMRF_NonNeoC_01_CMRF_diagnostics.pdf         1199 KB
+    Part10e_CP10K_PVM_3_CMRF_NonNeoC_01_CMRF_diagnostics.png          541 KB
+    Part10e_CP10K_PVM_3_CMRF_NonNeoC_02_CMRF_summary_panel.pdf         31 KB
+    Part10e_CP10K_PVM_3_CMRF_NonNeoC_02_CMRF_summary_panel.png        138 KB
+    Part10e_CP10K_PVM_3_CMRF_NonNeoC_03_before_after_CMRF.pdf        1224 KB
+    Part10e_CP10K_PVM_3_CMRF_NonNeoC_03_before_after_CMRF.png         644 KB
+    Part10e_CP10K_PVM_3_CMRF_NonNeoC_04_RSk_fCV_mechanism.pdf         140 KB
+    Part10e_CP10K_PVM_3_CMRF_NonNeoC_04_RSk_fCV_mechanism.png         147 KB
+    Part10e_CP10K_PVM_3_CMRF_NonNeoC_05_waist_zoom_with_orig_only.pdf    616 KB
+    Part10e_CP10K_PVM_3_CMRF_NonNeoC_05_waist_zoom_with_orig_only.png    544 KB
+    Part10e_CP10K_PVM_3_CMRF_NonNeoC_06_CMRF_band_uv_space.pdf        634 KB
+    Part10e_CP10K_PVM_3_CMRF_NonNeoC_06_CMRF_band_uv_space.png        508 KB
+    Part10e_CP10K_PVM_3_CMRF_NonNeoC_07_recovery_bar_comparison.pdf      5 KB
+    Part10e_CP10K_PVM_3_CMRF_NonNeoC_07_recovery_bar_comparison.png     69 KB
+    Part10e_CP10K_PVM_3_CMRF_NonNeoC_RSk_fCV_Audit.xlsx              4291 KB
+    Part10e_CP10K_PVM_3_CMRF_NonNeoC_SK_interaction_analysis.xlsx    5962 KB
+    Part10e_CP10K_PVM_3_CMRF_NonNeoC_VP_PlotData_T1_to_T7A.xlsx       804 KB
+    Part10e_CP10K_PVM_3_CMRF_NonNeoC_VP1_ConfGate_FidelityGrad.pdf   1311 KB
+    Part10e_CP10K_PVM_3_CMRF_NonNeoC_VP1_ConfGate_FidelityGrad.png    376 KB
+    Part10e_CP10K_PVM_3_CMRF_NonNeoC_VP3_MonotoneSignal.pdf           334 KB
+    Part10e_CP10K_PVM_3_CMRF_NonNeoC_VP3_MonotoneSignal.png           269 KB
+    Part10e_CP10K_PVM_3_CMRF_Verification.xlsx                        341 KB
+  Load the results with: readRDS("<SEA-AD>/Part10e_CMRF/Part10e_CMRF_PVM_3/Part10e_CP10K_PVM_3_CMRF_all_results.rds")
+======================================================================== 
+
+  Log written to: <SEA-AD>/Part10e_CMRF/Part10e_CMRF_PVM_3/Part10e_CP10K_PVM_3_CMRF_console_log_20260827_010109.txt  (console output and warnings) 
+
+Part10e CMRF — log ended: 2026-08-27 01:32:20.526096

@@ -1,0 +1,23 @@
+========================================================================
+  Part10c: NeoC  —  Console Log
+  Generated: 2026-08-19 18:20:19.475546
+========================================================================
+
+  GOI-positive cells: 2130
+
+  ── Test 2C: Uniformity of copula marginals ──────────────────────
+  KS u: D=0.00068  p_BH=1.0000
+  KS v: D=0.00305  p_BH=1.0000
+  AD u: A=0.00235  p_BH=1.0000
+  AD v: A=0.01505  p_BH=1.0000
+  All p > 0.05 -> UNIFORM (fail to reject H0)
+
+  Spearman rho = 0.8557
+  CvM copula distance = 0.00707 (p < 0.001)
+
+  ── Exhaustive marginal integration (all slices) ──────────────────
+  DIRECTION 1 — int c(u,v) dv: sum/n = 0.99670517  mean = 0.996705  sd = 0.006266  max|I-1| = 0.028529  -> PASS
+  DIRECTION 2 — int c(u,v) du: sum/n = 0.99766231  mean = 0.997662  sd = 0.005370  max|I-1| = 0.017888  -> PASS
+  OVERALL: BOTH MARGINALS VERIFIED  (tolerance: max|I-1| < 0.05 in boundary-safe zone)
+
+========================================================================

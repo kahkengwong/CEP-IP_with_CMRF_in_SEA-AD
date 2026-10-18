@@ -1,0 +1,42 @@
+Part 12 rerun -- step 14
+Script: Part12_Fig16_Analysis.r | md5 b40e70eac4ef82cfb4dfd36917428310
+Shared file: Part12_03_Config.r | md5 df0cc2f82a0fd0947b3bb0b93bae800a
+Run ID: 20260923-1045-windows
+Start: 2026-09-23 10:45:05
+Machine: LAPTOP-M7LQ95IS | R version 4.6.1 (2026-06-24 ucrt)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16 | md5 de727a6a529ece74865c9387be6d8831
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 14-01 script saved in Part12_rerun | Part12_Fig16_Analysis.r
+
+Pre-set reading for 16C | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### 16C. Do two arms label the same cells?
+  
+  - **Estimate.** Cohen's kappa for Module membership on cells shared with the PVM_3 reference: M4 against PVM_3 (positive control) and HKG8 against PVM_3 (negative control). Pooled over regions with at least 20 shared cells; donor bootstrap interval. PVM_3 is the reference and PVM_1 shares no cells with it (D24).
+  - **Family.** None: two estimates read against fixed thresholds.
+  - **Reading.** Thresholds kept from the archived run.
+    - M4 kappa above 0.60 and HKG8 |kappa| below 0.20: the Module is reproduced on a shared axis and not by the construction.
+    - Otherwise the failing arm is named.
+  - The thresholds are read on the point estimate, as in the archived run; the interval is reported beside it. Per-region-set rows (NeoC, NonNeoC) are reported and drawn as in the archived figure.
+  
+
+SECTION A -- inputs
+[PASS] 14-02 04_cell_labels.csv.gz matches the 04_Labels log | Part12_rerun/04_Labels/04_cell_labels.csv.gz
+[PASS] 14-03 labels carry this labels version | checked
+
+SECTION B -- kappa against PVM_3 (regions with at least 20 shared cells)
+  M4    pooled   shared cells   4117 | donors  83 | kappa 0.827 [0.804, 0.847] | both 71.1% test only 5.0% ref only 1.7% neither 22.3%
+  M4    NeoC     shared cells   2130 | donors  78 | kappa 0.802 [0.773, 0.829] | both 72.1% test only 5.6% ref only 1.6% neither 20.6%
+  M4    NonNeoC  shared cells   1987 | donors  80 | kappa 0.851 [0.818, 0.878] | both 70.0% test only 4.2% ref only 1.7% neither 24.2%
+  HKG8  pooled   shared cells   2511 | donors  82 | kappa 0.004 [-0.020, 0.032] | both 28.9% test only 9.2% ref only 46.7% neither 15.2%
+  HKG8  NeoC     shared cells   1432 | donors  74 | kappa 0.010 [-0.020, 0.040] | both 28.5% test only 8.2% ref only 48.3% neither 14.9%
+  HKG8  NonNeoC  shared cells   1079 | donors  77 | kappa -0.003 [-0.050, 0.054] | both 29.5% test only 10.5% ref only 44.5% neither 15.6%
+[NOTE] pre-set thresholds, pooled kappa | M4 0.827 (> 0.60: TRUE) | HKG8 0.004 (|kappa| < 0.20: TRUE)
+
+SECTION C -- write
+[PASS] 14-04 stats file written | 30 rows
+
+Outputs:
+  Part12_rerun/08_Fig16/16C_LabelAgreement/Stats_16C.csv | 0.0 MB | md5 e110e05b8939d5dbb23cea537cc6cbe9
+Checks: 4 PASS, 0 FAIL, 0 WARN | duration 0.0 min
+VERDICT: PASS

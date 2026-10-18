@@ -1,0 +1,87 @@
+Part 12 rerun -- step 07
+Script: Part12_Fig15_Analysis.r | md5 410a9ce09b24f8bb94b171686b69dd0b
+Shared file: Part12_03_Config.r | md5 df0cc2f82a0fd0947b3bb0b93bae800a
+Run ID: 20260922-0816-windows
+Start: 2026-09-22 08:16:39
+Machine: LAPTOP-M7LQ95IS | R version 4.6.1 (2026-06-24 ucrt)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16 | md5 de727a6a529ece74865c9387be6d8831
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 07-01 script saved in Part12_rerun | Part12_Fig15_Analysis.r
+
+Pre-set reading for 15A | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### 15A. Does contamination explain the clinical association?
+  
+  - **Model.** The Figure 12A clinical model: cov4 OLS on the donor Module post-IP%, region sets split, 9 outcomes, all Figure 12A patients. Refit with donor-mean supertype non-Module DecontX contamination added as a covariate.
+  - **Estimate.** For each arm, region set and outcome: the Module coefficient's FDR before and after adjustment, and retention = dR2 after / dR2 before.
+  - **Family.** Arm x region set x adjustment state, over the 9 outcomes.
+  - **Rows read.** The rows significant before adjustment. The primary rows are the M4 cognition rows (cognitive status, MMSE, CASI in each region set).
+  - **Reading.**
+    - Every primary row significant before adjustment is still significant after: contamination does not account for the cognition association.
+    - One or more primary rows lose significance, with retention below 0.5: contamination accounts for part of the association on those rows.
+    - Rows that lose significance with retention of 0.5 or more are reported as borderline, because the loss is a shift across the threshold without a large drop in dR2.
+  - **Control.** HKG8 rows significant before adjustment are read the same way and reported beside M4.
+  
+
+Pre-set reading for 15B | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### 15B. Do doublets drive the clinical association?
+  
+  - **Model.** As 15A, refitted after Module post-IP nuclei with a doublet score at or above 0.15, 0.20 and 0.30 are removed and Module post-IP% is recomputed. The share of Module post-IP nuclei removed at each threshold is reported per arm.
+  - **Family.** Arm x region set x threshold, over the 9 outcomes.
+  - **Reading.**
+    - Every primary row significant before is still significant at all three thresholds: doublets do not drive the association.
+    - A primary row loses significance at 0.30, where only high-scoring nuclei are removed: doublets contribute to that row.
+    - A primary row loses significance only at 0.15, with at least a quarter of Module post-IP nuclei removed: reported as a loss of cells and power, not attributed to doublets.
+  
+
+SECTION A -- inputs
+[PASS] 07-02 05_donors.csv matches the 05_Units log | Part12_rerun/05_Units/05_donors.csv
+[PASS] 07-03 04_cell_labels.csv.gz matches the 04_Labels log | Part12_rerun/04_Labels/04_cell_labels.csv.gz
+[PASS] 07-04 donor table and labels carry this labels version | checked
+[NOTE] Module post-IP% denominator | supertype
+
+SECTION B -- 15A, Module post-IP% before and after the contamination covariate
+  M4     NeoC     donors  78/ 78 | FDR<0.05 before 8, after 8 | lost 1
+  M4     NonNeoC  donors  80/ 79 | FDR<0.05 before 8, after 7 | lost 1
+  PVM_3  NeoC     donors  84/ 83 | FDR<0.05 before 7, after 6 | lost 1
+  PVM_3  NonNeoC  donors  83/ 79 | FDR<0.05 before 7, after 7 | lost 0
+  PVM_1  NeoC     donors  84/ 77 | FDR<0.05 before 7, after 7 | lost 0
+  PVM_1  NonNeoC  donors  83/ 63 | FDR<0.05 before 7, after 0 | lost 7
+  HKG8   NeoC     donors  74/ 74 | FDR<0.05 before 3, after 0 | lost 3
+  HKG8   NonNeoC  donors  77/ 76 | FDR<0.05 before 1, after 1 | lost 0
+
+SECTION C -- 15B, Module post-IP nuclei removed at each doublet threshold
+  cut 0.15 M4     NeoC     Module post-IP nuclei removed   4.9%
+  cut 0.15 M4     NonNeoC  Module post-IP nuclei removed   3.4%
+  cut 0.15 PVM_3  NeoC     Module post-IP nuclei removed   3.2%
+  cut 0.15 PVM_3  NonNeoC  Module post-IP nuclei removed   2.9%
+  cut 0.15 PVM_1  NeoC     Module post-IP nuclei removed   3.3%
+  cut 0.15 PVM_1  NonNeoC  Module post-IP nuclei removed   7.2%
+  cut 0.15 HKG8   NeoC     Module post-IP nuclei removed   5.9%
+  cut 0.15 HKG8   NonNeoC  Module post-IP nuclei removed   2.0%
+  cut 0.20 M4     NeoC     Module post-IP nuclei removed   3.5%
+  cut 0.20 M4     NonNeoC  Module post-IP nuclei removed   1.5%
+  cut 0.20 PVM_3  NeoC     Module post-IP nuclei removed   2.1%
+  cut 0.20 PVM_3  NonNeoC  Module post-IP nuclei removed   1.6%
+  cut 0.20 PVM_1  NeoC     Module post-IP nuclei removed   2.0%
+  cut 0.20 PVM_1  NonNeoC  Module post-IP nuclei removed   3.7%
+  cut 0.20 HKG8   NeoC     Module post-IP nuclei removed   4.5%
+  cut 0.20 HKG8   NonNeoC  Module post-IP nuclei removed   0.4%
+  cut 0.30 M4     NeoC     Module post-IP nuclei removed   0.8%
+  cut 0.30 M4     NonNeoC  Module post-IP nuclei removed   0.9%
+  cut 0.30 PVM_3  NeoC     Module post-IP nuclei removed   0.7%
+  cut 0.30 PVM_3  NonNeoC  Module post-IP nuclei removed   0.8%
+  cut 0.30 PVM_1  NeoC     Module post-IP nuclei removed   0.9%
+  cut 0.30 PVM_1  NonNeoC  Module post-IP nuclei removed   1.2%
+  cut 0.30 HKG8   NeoC     Module post-IP nuclei removed   1.4%
+  cut 0.30 HKG8   NonNeoC  Module post-IP nuclei removed   0.4%
+
+SECTION D -- write
+[PASS] 07-05 15A unadjusted model fitted for every arm, region set and outcome | 72 of 72
+[PASS] 07-06 stats files written and read back | 15A 432 rows | 15B 456 rows
+
+Outputs:
+  Part12_rerun/07_Fig15/15AB_ContamDoublets/Stats_15A.csv | 0.1 MB | md5 be47a75ca47d223ffa76dcccb306a7ff
+  Part12_rerun/07_Fig15/15AB_ContamDoublets/Stats_15B.csv | 0.1 MB | md5 854074fc7b77d51514e7952a433a78c8
+Checks: 6 PASS, 0 FAIL, 0 WARN | duration 0.1 min
+VERDICT: PASS

@@ -1,0 +1,231 @@
+Part10h Prognosis Comparator - log started: 2026-08-31 14:22:01.939074
+
+
+============================================================================
+  ARM: PVM3_all   config: R_config.R
+============================================================================
+R_config.R loaded (Module 1: MT-CO3 + 8 DFGs, ≥8/10 regions).
+  ARM_TAG   : PVM3_all 
+  ARM_DIR   : <SEA-AD>/R_export_CP10K/PVM3_all 
+  NEOC_DIR  : <SEA-AD>/R_export_CP10K/PVM3_all/neocortex 
+  NONNC_DIR : <SEA-AD>/R_export_CP10K/PVM3_all/nonneocortex 
+  SHARED_DIR: <SEA-AD>/R_export_CP10K/shared 
+  GOI       : MT-CO3 
+  DFG_NEOC  : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  DFG_NONNC : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Composite : cDFG 
+  RUN_SUFFIX: _PVM3all 
+  Supertype : Micro-PVM_3-SEAAD 
+  Mod1 genes: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 ( 9 )
+  HKG_GENES : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 13331 NeoC / 11132 NonNeoC
+  Config OK: PVM3_all | MT-CO3 + 8 DFG | CP10K
+
+
+ ======================================================================== 
+  Part10h Comparator - external baselines against the CMRF module
+  Arm          : PVM3_all 
+  GOI          : MT-CO3 | CP10K 
+  Primary input: Part10h_CP10K_PVM_3_Prognosis_results.rds 
+  Also read    : obs_dataset.csv and the dataset raw matrix, to
+                 build the five external baselines
+  Unit         : DONOR. Every predictor is one number per donor
+  Output dir   : <SEA-AD>/Part10h_Prognosis_1_Comparator/Part10h_Prognosis_1_Comparator_PVM_3 
+======================================================================== 
+
+STEP 1 -- Part 10h results object
+  [PASS]  GR-10HC-02          module predictor = prop_df$pct_post keyed on donor_id, over NeoC 84 and NonNeoC 83 | 167 donor-dataset row(s), 66 column(s). The same frame carries the outcomes, so there is no join
+  [PASS]  GR-10HC-01          Part10h_CP10K_PVM_3_Prognosis_results.rds (schema M10H-33 v1, written 2026-08-29 03:18:52) | 167 donor-dataset row(s), 15 outcome(s) of 28 declared, 6 covariate block(s): cov4(4) cov7(7) covM(6) covT(8) covP(9) covE(6) | covariate map via Part 10h COV_MAP, outcome map via built-in | classes: clinical 9, control 6 | resolved here but NOT modelled by Part 10h, so dropped to keep one outcome set and one BH family: LATE stage, Lewy body stage, Atherosclerosis, Arteriolosclerosis, Microinfarcts, Years of education, Months from last MMSE, Mito fraction (donor mean), UMIs per cell (donor mean), Genes detected (donor mean), Doublet score (donor mean), Intronic:exonic ratio (donor mean), Sequencing saturation (donor mean)
+
+STEP 2 -- external baselines
+
+  NeoC
+    B1: Micro-PVM_3-SEAAD is 12.70% of 131,598 microglial cell(s) over 84 donor(s)
+    matrix: 36601 gene(s) x 16707 Micro-PVM_3-SEAAD cell(s)
+  parallel: 14 PSOCK worker(s)
+    AUCell + UCell: 16707 cell(s) in 9 chunk(s), 8.1 sec
+    B2: AUCell over 9 signature gene(s), top 1830 rank(s); donor means 0.0684-0.9243
+    B2 cross-check vs the AUCell package on 500 cell(s): Spearman 0.9957
+    B4: UCell over 9 signature gene(s), maxRank 1500; donor means 0.0553-0.9125
+    B4 cross-check vs the UCell package on 500 cell(s): Spearman 1.0000
+    B5: AddModuleScore, 715 control gene(s) from 1 bin(s); donor means -0.7264-2.3697
+        control set: 4 of 715 gene(s) match '^MT-', mean expression 1.0638 against the signature's 1.4560
+    B3: breakpoint on the MT-CO3 axis at 1.5771 (SE 0.0213), 55.7% of cells past it
+
+  NonNeoC
+    B1: Micro-PVM_3-SEAAD is 12.55% of 104,404 microglial cell(s) over 83 donor(s)
+    matrix: 36601 gene(s) x 13098 Micro-PVM_3-SEAAD cell(s)
+    AUCell + UCell: 13098 cell(s) in 7 chunk(s), 4.4 sec
+    B2: AUCell over 9 signature gene(s), top 1830 rank(s); donor means 0.0558-0.9949
+    B2 cross-check vs the AUCell package on 500 cell(s): Spearman 0.9946
+    B4: UCell over 9 signature gene(s), maxRank 1500; donor means 0.0371-0.9937
+    B4 cross-check vs the UCell package on 500 cell(s): Spearman 1.0000
+    B5: AddModuleScore, 715 control gene(s) from 1 bin(s); donor means -0.8132-3.0830
+        control set: 4 of 715 gene(s) match '^MT-', mean expression 1.0456 against the signature's 1.7567
+    B3: breakpoint on the MT-CO3 axis at 1.6977 (SE 0.0283), 64.0% of cells past it
+  [PASS]  GR-10HC-03          baselines built: B1 cluster proportion 167 row(s), B2 AUCell 167, B3 changepoint 167, B4 UCell 167, B5 AddModuleScore 167, over 2 dataset(s).
+  [PASS]  GR-10HC-04          changepoint on the MT-CO3 axis: NeoC psi=1.5771 (SE 0.0213, 16,707 of 16,707 cell(s) used), 55.7% past; Part 10h IP 2.4953 (Provenance$IP_x_reported), difference -0.9181 | NonNeoC psi=1.6977 (SE 0.0283, 13,098 of 13,098 cell(s) used), 64.0% past; Part 10h IP 2.6572 (Provenance$IP_x_reported), difference -0.9595. Compare against Part 10h's IP_x for the same dataset -- if the two coincide, the inflection point is a reparameterisation of a standard breakpoint and should be described as one
+  [PASS]  GR-10HC-05          built-in AUCell against the AUCell package: NeoC_B2 rho 0.9957 on 500 cell(s) | NonNeoC_B2 rho 0.9946 on 500 cell(s). Below 0.99 the two implementations disagree on the ranking and B2 should be taken from the package instead
+  [PASS]  GR-10HC-14          built-in UCell against the UCell package: NeoC_B4 rho 1.0000 on 500 cell(s) | NonNeoC_B4 rho 1.0000 on 500 cell(s). Below 0.99 the two implementations disagree on the ranking and B4 should be taken from the package instead
+  [PASS]  GR-10HC-16          B5 control set: NeoC 715 control gene(s) from 1 bin(s), 4 matching '^MT-', 4 already in the signature; mean expression 1.0638 against the signature's 1.4560 | NonNeoC 715 control gene(s) from 1 bin(s), 4 matching '^MT-', 4 already in the signature; mean expression 1.0456 against the signature's 1.7567.
+
+STEP 3 -- donor frame
+  167 donor-dataset row(s) over 84 donor(s), 72 column(s) | join on prop_df$donor_id, 84 donor(s) matched
+  [PASS]  GR-10HC-11          donor join: 84 of 84 obs_dataset donor(s) matched a prop_df row, on prop_df$donor_id. A baseline joins to NA for any donor that does not match, and such a donor is dropped from every model that baseline enters
+  predictors with at least 20 donor(s): CMRF module Post-IP, Cluster proportion (supertype), Module score (AUCell), Changepoint split (segmented), Module score (UCell), Module score (AddModuleScore)
+   dataset                              a
+1     NeoC            CMRF module Post-IP
+2     NeoC            CMRF module Post-IP
+3     NeoC            CMRF module Post-IP
+4     NeoC            CMRF module Post-IP
+5     NeoC            CMRF module Post-IP
+6     NeoC Cluster proportion (supertype)
+7     NeoC Cluster proportion (supertype)
+8     NeoC Cluster proportion (supertype)
+9     NeoC Cluster proportion (supertype)
+10    NeoC          Module score (AUCell)
+11    NeoC          Module score (AUCell)
+12    NeoC          Module score (AUCell)
+13    NeoC  Changepoint split (segmented)
+14    NeoC  Changepoint split (segmented)
+15    NeoC           Module score (UCell)
+16 NonNeoC            CMRF module Post-IP
+17 NonNeoC            CMRF module Post-IP
+18 NonNeoC            CMRF module Post-IP
+19 NonNeoC            CMRF module Post-IP
+20 NonNeoC            CMRF module Post-IP
+21 NonNeoC Cluster proportion (supertype)
+22 NonNeoC Cluster proportion (supertype)
+23 NonNeoC Cluster proportion (supertype)
+24 NonNeoC Cluster proportion (supertype)
+25 NonNeoC          Module score (AUCell)
+26 NonNeoC          Module score (AUCell)
+27 NonNeoC          Module score (AUCell)
+28 NonNeoC  Changepoint split (segmented)
+29 NonNeoC  Changepoint split (segmented)
+30 NonNeoC           Module score (UCell)
+                                b  n spearman
+1  Cluster proportion (supertype) 84    0.530
+2           Module score (AUCell) 84    0.972
+3   Changepoint split (segmented) 84    0.953
+4            Module score (UCell) 84    0.977
+5   Module score (AddModuleScore) 84    0.971
+6           Module score (AUCell) 84    0.527
+7   Changepoint split (segmented) 84    0.494
+8            Module score (UCell) 84    0.531
+9   Module score (AddModuleScore) 84    0.521
+10  Changepoint split (segmented) 84    0.979
+11           Module score (UCell) 84    0.999
+12  Module score (AddModuleScore) 84    0.995
+13           Module score (UCell) 84    0.978
+14  Module score (AddModuleScore) 84    0.975
+15  Module score (AddModuleScore) 84    0.996
+16 Cluster proportion (supertype) 83    0.333
+17          Module score (AUCell) 83    0.975
+18  Changepoint split (segmented) 83    0.954
+19           Module score (UCell) 83    0.977
+20  Module score (AddModuleScore) 83    0.978
+21          Module score (AUCell) 83    0.374
+22  Changepoint split (segmented) 83    0.316
+23           Module score (UCell) 83    0.370
+24  Module score (AddModuleScore) 83    0.361
+25  Changepoint split (segmented) 83    0.969
+26           Module score (UCell) 83    0.999
+27  Module score (AddModuleScore) 83    0.990
+28           Module score (UCell) 83    0.969
+29  Module score (AddModuleScore) 83    0.964
+30  Module score (AddModuleScore) 83    0.991
+
+STEP 4 -- marginal models
+
+  NeoC [cov4], CLINICAL outcomes significant after BH:
+    CMRF module Post-IP              7 of 9 | median |beta| 0.444 | median dR2 0.177
+    Cluster proportion (supertype)   7 of 9 | median |beta| 0.403 | median dR2 0.159
+    Module score (AUCell)            7 of 9 | median |beta| 0.476 | median dR2 0.197
+    Changepoint split (segmented)    7 of 9 | median |beta| 0.433 | median dR2 0.161
+    Module score (UCell)             7 of 9 | median |beta| 0.477 | median dR2 0.200
+    Module score (AddModuleScore)    7 of 9 | median |beta| 0.477 | median dR2 0.199
+
+  NonNeoC [cov4], CLINICAL outcomes significant after BH:
+    CMRF module Post-IP              7 of 9 | median |beta| 0.391 | median dR2 0.143
+    Cluster proportion (supertype)   7 of 9 | median |beta| 0.369 | median dR2 0.135
+    Module score (AUCell)            7 of 9 | median |beta| 0.406 | median dR2 0.150
+    Changepoint split (segmented)    7 of 9 | median |beta| 0.361 | median dR2 0.117
+    Module score (UCell)             7 of 9 | median |beta| 0.405 | median dR2 0.150
+    Module score (AddModuleScore)    7 of 9 | median |beta| 0.404 | median dR2 0.149
+
+STEP 5 -- duels: module against each baseline
+  NeoC module_vs_B1                              module only 4, rival only 1, both 2, neither 2 of 9
+  NeoC module_vs_B2                              module only 0, rival only 0, both 0, neither 9 of 9 | 9 row(s) not separately readable
+  NeoC module_vs_B3                              module only 3, rival only 0, both 0, neither 6 of 9 | 9 row(s) not separately readable
+  NeoC module_vs_B4                              module only 0, rival only 0, both 0, neither 9 of 9 | 9 row(s) not separately readable
+  NeoC module_vs_B5                              module only 0, rival only 0, both 0, neither 9 of 9 | 9 row(s) not separately readable
+  NonNeoC module_vs_B1                           module only 3, rival only 1, both 3, neither 2 of 9
+  NonNeoC module_vs_B2                           module only 0, rival only 0, both 0, neither 9 of 9 | 9 row(s) not separately readable
+  NonNeoC module_vs_B3                           module only 3, rival only 0, both 0, neither 6 of 9 | 8 row(s) not separately readable
+  NonNeoC module_vs_B4                           module only 0, rival only 0, both 0, neither 9 of 9 | 9 row(s) not separately readable
+  NonNeoC module_vs_B5                           module only 0, rival only 0, both 0, neither 9 of 9 | 9 row(s) not separately readable
+
+STEP 6 -- stress tests
+  block sweep (non-control outcomes, significant after BH):
+    NeoC       CMRF module Post-IP              cov4 7/9  cov7 7/9  covM 1/9  covT 2/9  covP 7/9  covE 7/9
+    NeoC       Cluster proportion (supertype)   cov4 7/9  cov7 7/9  covM 4/9  covT 4/9  covP 7/9  covE 7/9
+    NeoC       Module score (AUCell)            cov4 7/9  cov7 7/9  covM 1/9  covT 2/9  covP 7/9  covE 7/9
+    NeoC       Changepoint split (segmented)    cov4 7/9  cov7 7/9  covM 0/9  covT 0/9  covP 7/9  covE 7/9
+    NeoC       Module score (UCell)             cov4 7/9  cov7 7/9  covM 3/9  covT 2/9  covP 7/9  covE 7/9
+    NeoC       Module score (AddModuleScore)    cov4 7/9  cov7 7/9  covM 3/9  covT 2/9  covP 7/9  covE 7/9
+    NonNeoC    CMRF module Post-IP              cov4 7/9  cov7 7/9  covM 0/9  covT 0/9  covP 7/9  covE 7/9
+    NonNeoC    Cluster proportion (supertype)   cov4 7/9  cov7 6/9  covM 4/9  covT 4/9  covP 7/9  covE 7/9
+    NonNeoC    Module score (AUCell)            cov4 7/9  cov7 7/9  covM 0/9  covT 0/9  covP 7/9  covE 7/9
+    NonNeoC    Changepoint split (segmented)    cov4 7/9  cov7 5/9  covM 0/9  covT 0/9  covP 6/9  covE 7/9
+    NonNeoC    Module score (UCell)             cov4 7/9  cov7 7/9  covM 0/9  covT 0/9  covP 7/9  covE 7/9
+    NonNeoC    Module score (AddModuleScore)    cov4 7/9  cov7 7/9  covM 0/9  covT 0/9  covP 7/9  covE 7/9
+  bootstrap outcomes (top 8 CLINICAL by |module beta| at cov4): CASI score, CERAD score, Cognitive status, MMSE score, ADNC rank, Braak stage, Thal phase, CAA score
+  donor bootstrap: 80 row(s) at 10000 replicate(s), 7 with a CI excluding zero
+  replicates dropped: 0 rank-deficient, 0 below MIN_DONORS, 0 fit error; 0 row(s) below the requested count
+  leave-one-donor-out: 108 row(s); 2 lose significance to a single donor, 0 flip sign
+    CMRF module Post-IP              largest shift 59.3% (H20.33.045 on APOE e4 dose)
+    Cluster proportion (supertype)   largest shift 73.8% (H20.33.045 on APOE e4 dose)
+    Module score (AUCell)            largest shift 34.5% (H20.33.045 on APOE e4 dose)
+    Changepoint split (segmented)    largest shift 48.4% (H21.33.008 on CAA score)
+    Module score (UCell)             largest shift 36.5% (H20.33.045 on APOE e4 dose)
+    Module score (AddModuleScore)    largest shift 45.8% (H20.33.045 on APOE e4 dose)
+
+STEP 7 -- figures
+
+STEP 8 -- output
+  11 sheet(s) written to Part10h_CP10K_PVM_3_Comparator.xlsx
+  Part10h_CP10K_PVM_3_Comparator_results.rds written (0.83 MB)
+
+STEP 9 -- guardrails
+  [PASS]  GR-10HC-13          module row at cov4 against Part 10h's own Multivariate sheet (tier 'all') over 30 matched dataset-outcome row(s): max |d beta| 0.0000, max |d n| 0, max |d delta-R2| 0.0000. The comparator reproduces Part 10h exactly on the shared row, so the baselines are judged on the same yardstick.
+  [PASS]  GR-10HC-06          PRE-REGISTERED ROW -- module against the cluster proportion, over 9 CLINICAL outcome(s) and 2 dataset(s): module only 7, rival only 2, both 5, neither 4. The module wins or ties; the row is reported either way.
+  [PASS]  GR-10HC-15          score family (Module score (AUCell), Module score (UCell), Module score (AddModuleScore)), CLINICAL rows, module only / rival only / both / neither: B2 0/0/0/18 | B4 0/0/0/18 | B5 0/0/0/18. Lowest pairwise Spearman among the scores 0.990. The three scores give the same verdict tally, so the module-versus-score result is not specific to AUCell and can be stated that way.
+  [WARN]  GR-10HC-07          joint VIF on the module term: 119 of 150 duel row(s) at or above 5. There the module and the rival are near restatements of each other and neither coefficient is separately readable; a 'neither' verdict on those rows is a collinearity result, not a null
+  [PASS]  GR-10HC-08          stress tests: block sweep over 6 block(s); donor bootstrap 80 row(s) over the 8 outcome(s) with the largest module coefficient (of 9 non-control), 7 with a CI excluding zero; leave-one-donor-out 180 row(s), 16 losing significance to one donor. Resampling is by DONOR throughout
+  [PASS]  GR-10HC-17          bootstrap replicate accounting over 80 row(s) at 10000 requested replicate(s): 0 dropped for rank deficiency, 0 for fewer than MIN_DONORS complete donors, 0 for a fit error. Every row used its full requested count. The difference is R2(module) - R2(rival) on the SAME resampled donors, both at full rank, so it is on the same scale as delta_r2 in the Marginal sheet (BUGFIX-10HC-10)
+  [PASS]  GR-10HC-12          14 PSOCK worker(s). Parallelised: the AUCell scan over cell chunks of 2000, and the donor bootstrap over 40 rival x outcome task(s) per dataset. Task closures are rebuilt against a clean environment (M10HC-13), so the Part 10h results object is not shipped to any worker
+  [PASS]  GR-10HC-09          3 figure(s) written as PDF and PNG. Nothing appears in a figure that is not in a sheet
+  [PASS]  GR-10HC-10          outputs: Part10h_CP10K_PVM_3_Comparator_results.rds written | Part10h_CP10K_PVM_3_Comparator.xlsx written
+
+  Final guardrail tally: 16 PASS / 1 WARN / 0 FAIL
+
+ ======================================================================== 
+  Part10h Comparator COMPLETE [PVM3_all]
+  Output directory: <SEA-AD>/Part10h_Prognosis_1_Comparator/Part10h_Prognosis_1_Comparator_PVM_3 
+======================================================================== 
+
+========================================================================
+  MESSAGE STREAM (warnings, messages, errors)
+========================================================================
+G2;H2;Warningh in BiocParallel::MulticoreParam(workers = ncores) :
+  MulticoreParam() not supported on Windows, use SnowParam()g
+G2;H2;Warningh in BiocParallel::MulticoreParam(workers = ncores) :
+  MulticoreParam() not supported on Windows, use SnowParam()g
+`height` was translated to `width`.
+`height` was translated to `width`.
+`height` was translated to `width`.
+

@@ -1,0 +1,32 @@
+============================================================================
+Part 11 -- high-level summary panel. Started 2026-08-30 23:30:39
+  Read : <SEA-AD>/Part10e_Validation1
+  Write: <SEA-AD>/Part11_Identity/Part11_CogVsPath_HighLevel
+============================================================================
+
+STEP 1 -- refined cells
+  [PASS]  GR-11HL-01   M4 NeoC from Part10e_CP10K_M4_V1_NeoC_SK_interaction_analysis.xlsx: 2130 refined cell(s), 37 column(s). Same file, sheet and filter as Part11_Identity_BandAblation_code.r, so this panel and the band-shape figure draw the same cells
+
+STEP 2 -- the IP and the module boundary
+  [PASS]  GR-11HL-02   IP_y = 1.8748 on the cDFG axis maps to v = 0.5386 by interpolation; Spearman(cDFG, v) = 1.000000 and a split at that v reproduces the cDFG split on 100.00% of cells. Below 1 on either, the horizontal line is not the IP and the panel must not be used
+  [PASS]  GR-11HL-03   four populations over 2130 cell(s): Non-module Pre-IP 346; Module Pre-IP 801; Non-module Post-IP 128; Module Post-IP 855. They partition the cells, so every cell appears in exactly one and the panel cannot show a cell twice or drop one
+  [PASS]  GR-11HL-04   colours drawn: Non-module Pre-IP #A8C8E0; Module Pre-IP #5A7FA6; Non-module Post-IP #B08968; Module Post-IP #2D2D2D. Sampled from the legend swatches of Part 10h's DeltaR2 figure, so the same four colours carry the same four populations in (E) and in (A)
+  [WARN]  GR-11HL-10   INTERLEAVING. Recorded for the DEFERRED package work; NOTHING IN THIS PANEL IS DRAWN FROM IT. Post-IP: 3 of 48 non-module cells (6.2%) sit between the lowest and highest module v of their own u-slice, over 40 slices of median height 0.224. Pre-IP: 7 of 308 (2.3%) over 40 slices, median height 0.267. No boundary drawn as one interval per u can exclude these, whatever the knot count, span or basis, so this is the floor any gate in this plane would have to accept. Below it the labels are separable and the remainder is construction slack; a gate that must reach 0% has to leave this family or be the generating band
+
+STEP 3 -- figure
+  [PASS]  GR-11HL-05   2 of 2 device(s) written (PDF and PNG at 300 dpi, 7.5 x 8.5 in)
+  [PASS]  GR-11HL-06   population counts and the guardrail table written beside the figure, so the panel's numbers are auditable without reopening the source workbook
+
+============================================================================
+  Total: 7 | PASS 6 | WARN 1 | FAIL 0
+  Output: <SEA-AD>/Part11_Identity/Part11_CogVsPath_HighLevel
+    Dots_mod-vs-nonmod.emf                                    1.9 KB
+    Part11_CogVsPath_HighLevel.pdf                          122.7 KB
+    Part11_CogVsPath_HighLevel.png                          171.8 KB
+    Part11_CogVsPath_HighLevel_guardrails.csv                 1.8 KB
+    Part11_CogVsPath_HighLevel_log_20260830_223952.txt        4.0 KB
+    Part11_CogVsPath_HighLevel_log_20260830_233039.txt        3.0 KB
+    Part11_CogVsPath_HighLevel_populations.csv                0.3 KB
+    Rplot.pdf                                               125.3 KB
+    Rplot01.pdf                                             129.4 KB
+============================================================================

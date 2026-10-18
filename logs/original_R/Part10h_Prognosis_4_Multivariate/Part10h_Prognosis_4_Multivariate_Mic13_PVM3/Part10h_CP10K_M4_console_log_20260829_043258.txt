@@ -1,0 +1,164 @@
+Part10h multivariate - log started: 2026-08-29 04:32:58.31369
+
+
+============================================================================
+  ARM: Mic13_PVM3   config: R_config.R
+============================================================================
+R_config.R loaded (Module 1: MT-CO3 + 8 DFGs, ≥8/10 regions).
+  ARM_TAG   : Mic13_PVM3 
+  ARM_DIR   : <SEA-AD>/R_export_CP10K/Mic13_PVM3 
+  NEOC_DIR  : <SEA-AD>/R_export_CP10K/Mic13_PVM3/neocortex 
+  NONNC_DIR : <SEA-AD>/R_export_CP10K/Mic13_PVM3/nonneocortex 
+  SHARED_DIR: <SEA-AD>/R_export_CP10K/shared 
+  GOI       : MT-CO3 
+  DFG_NEOC  : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  DFG_NONNC : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Composite : cDFG 
+  RUN_SUFFIX: (none) 
+  Supertype : Micro-PVM_3-SEAAD 
+  Mod1 genes: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 ( 9 )
+  HKG_GENES : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 2130 NeoC / 1987 NonNeoC
+  Config OK: Mic13_PVM3 | MT-CO3 + 8 DFG | CP10K
+
+
+ ======================================================================== 
+  Part10h MULTIVARIATE -- does the module offer anything the
+                          baselines do not?
+  Baselines entered as covariates. Module unchanged. Every model
+  fitted is reported, not only the favourable ones.
+  Arm          : Mic13_PVM3 
+  GOI          : MT-CO3 | CP10K 
+  Primary input: Part10h_CP10K_M4_Comparator_results.rds 
+  Unit         : DONOR. Nothing upstream is refitted.
+  Output dir   : <SEA-AD>/Part10h_Prognosis_4_Multivariate/Part10h_Prognosis_4_Multivariate_Mic13_PVM3 
+======================================================================== 
+
+PRE-SPECIFICATION (declared before any model was fitted)
+  QUESTION. Is the CMRF module percentage more than a gene score plus a
+  cell count -- that is, does it survive when AUCell and the supertype
+  cluster proportion are both already in the model?
+  
+  PRIMARY TEST. Nested F, 1 df, of
+      y ~ covariates + AUCell + cluster proportion + module
+  against
+      y ~ covariates + AUCell + cluster proportion
+  fitted on one common complete-case set per dataset x block x outcome.
+  
+  FAMILY. Benjamini-Hochberg within dataset x block, over the outcomes.
+  
+  VERDICT RULE, fixed before any model was fitted:
+    HOLDS       BH q < 0.05 AND the module coefficient carries its
+                expected sign (negative for MMSE and CASI).
+    WRONG SIGN  BH q < 0.05 but the sign is inverted -- a suppression
+                artefact, NOT support.
+    DOES NOT HOLD   BH q >= 0.05 with joint VIF below 5.
+    NOT READABLE    joint VIF at or above 5 on any of the three terms.
+  
+  INTERPRETATION, fixed in advance:
+    If the module HOLDS on a majority of readable rows, it is not
+    decomposable into its two rivals and no rearrangement of a gene-set
+    score reproduces it.
+    If it DOES NOT HOLD, the module is a score times an abundance. That is
+    a clean negative result and is to be reported as the answer, not
+    retested with a different predictor.
+  
+  SCOPE. The module is unchanged and the question is the one Part 10h has
+  asked throughout: does the module offer anything the baselines do not.
+  The baselines are entered as covariates, as +BTC enters pathology. Every
+  model fitted is reported, not only those that favour the module.
+  
+  SCORE ARMS (M10MV-10). The same specification is run three times with the
+  score term SWAPPED, never stacked: AUCell, UCell, AddModuleScore. They
+  correlate 0.986-0.999, so two of them in one model is the same variable
+  twice. AUCell is the PRIMARY arm and carries the verdict above; the other
+  two are ROBUSTNESS arms whose only job is to say whether the verdict
+  depends on which score is used. A disagreement is reported, not resolved.
+
+STEP 1 -- comparator donor frame
+  [PASS]  GR-10MV-01          Part10h_CP10K_M4_Comparator_results.rds (schema M10HC v1) | 167 row(s) over NeoC + NonNeoC | base = Age_num + APOE_e4_dose + Sex_num + PMI_num | outcomes MMSE score, CASI score | +BTC = Braak stage + Thal phase + CERAD score | outcome map via comparator outcome map | score arm(s): AUCell (PRIMARY), UCell, AddModuleScore. Every predictor is READ from the comparator, never rebuilt
+
+STEP 2 -- how the predictors relate
+  NeoC     CMRF module Post-IP (state x abundance)    vs Cluster proportion (supertype) -- pure abundance Spearman +0.565 (n = 84)
+  NeoC     CMRF module Post-IP (state x abundance)    vs Module score (AUCell) -- pure state        Spearman +0.815 (n = 84)
+  NeoC     CMRF module Post-IP (state x abundance)    vs Module score (UCell) -- pure state         Spearman +0.821 (n = 84)
+  NeoC     CMRF module Post-IP (state x abundance)    vs Module score (AddModuleScore) -- pure state Spearman +0.817 (n = 84)
+  NeoC     Cluster proportion (supertype) -- pure abundance vs Module score (AUCell) -- pure state        Spearman +0.527 (n = 84)
+  NeoC     Cluster proportion (supertype) -- pure abundance vs Module score (UCell) -- pure state         Spearman +0.531 (n = 84)
+  NeoC     Cluster proportion (supertype) -- pure abundance vs Module score (AddModuleScore) -- pure state Spearman +0.521 (n = 84)
+  NeoC     Module score (AUCell) -- pure state        vs Module score (UCell) -- pure state         Spearman +0.999 (n = 84)
+  NeoC     Module score (AUCell) -- pure state        vs Module score (AddModuleScore) -- pure state Spearman +0.995 (n = 84)
+  NeoC     Module score (UCell) -- pure state         vs Module score (AddModuleScore) -- pure state Spearman +0.996 (n = 84)
+  NonNeoC  CMRF module Post-IP (state x abundance)    vs Cluster proportion (supertype) -- pure abundance Spearman +0.466 (n = 83)
+  NonNeoC  CMRF module Post-IP (state x abundance)    vs Module score (AUCell) -- pure state        Spearman +0.729 (n = 83)
+  NonNeoC  CMRF module Post-IP (state x abundance)    vs Module score (UCell) -- pure state         Spearman +0.728 (n = 83)
+  NonNeoC  CMRF module Post-IP (state x abundance)    vs Module score (AddModuleScore) -- pure state Spearman +0.732 (n = 83)
+  NonNeoC  Cluster proportion (supertype) -- pure abundance vs Module score (AUCell) -- pure state        Spearman +0.374 (n = 83)
+  NonNeoC  Cluster proportion (supertype) -- pure abundance vs Module score (UCell) -- pure state         Spearman +0.370 (n = 83)
+  NonNeoC  Cluster proportion (supertype) -- pure abundance vs Module score (AddModuleScore) -- pure state Spearman +0.361 (n = 83)
+  NonNeoC  Module score (AUCell) -- pure state        vs Module score (UCell) -- pure state         Spearman +0.999 (n = 83)
+  NonNeoC  Module score (AUCell) -- pure state        vs Module score (AddModuleScore) -- pure state Spearman +0.990 (n = 83)
+  NonNeoC  Module score (UCell) -- pure state         vs Module score (AddModuleScore) -- pure state Spearman +0.991 (n = 83)
+
+STEP 3 -- models per dataset x block x outcome, 3 score arm(s)
+
+STEP 4 -- the pre-specified verdict
+  NeoC     cov4  MMSE score   AUCell         n= 80 | dR2 +0.0586 | F   8.27 q 0.0106 | VIF  3.4 | HOLDS
+  NeoC     cov4  MMSE score   UCell          n= 80 | dR2 +0.0550 | F   7.77 q 0.0136 | VIF  3.5 | HOLDS
+  NeoC     cov4  MMSE score   AddModuleScore n= 80 | dR2 +0.0496 | F   7.06 q 0.0194 | VIF  3.2 | HOLDS
+  NeoC     cov4  CASI score   AUCell         n= 69 | dR2 +0.0489 | F   4.95 q 0.0299 | VIF  3.2 | HOLDS
+  NeoC     cov4  CASI score   UCell          n= 69 | dR2 +0.0437 | F   4.44 q 0.0393 | VIF  3.3 | HOLDS
+  NeoC     cov4  CASI score   AddModuleScore n= 69 | dR2 +0.0365 | F   3.77 q 0.0570 | VIF  3.1 | does not hold
+  NeoC     +BTC  MMSE score   AUCell         n= 80 | dR2 +0.0554 | F   7.77 q 0.0137 | VIF  3.6 | HOLDS
+  NeoC     +BTC  MMSE score   UCell          n= 80 | dR2 +0.0529 | F   7.41 q 0.0164 | VIF  3.7 | HOLDS
+  NeoC     +BTC  MMSE score   AddModuleScore n= 80 | dR2 +0.0473 | F   6.66 q 0.0240 | VIF  3.5 | HOLDS
+  NeoC     +BTC  CASI score   AUCell         n= 69 | dR2 +0.0363 | F   3.90 q 0.0529 | VIF  3.4 | does not hold
+  NeoC     +BTC  CASI score   UCell          n= 69 | dR2 +0.0333 | F   3.58 q 0.0634 | VIF  3.5 | does not hold
+  NeoC     +BTC  CASI score   AddModuleScore n= 69 | dR2 +0.0265 | F   2.88 q 0.0951 | VIF  3.2 | does not hold
+  NonNeoC  cov4  MMSE score   AUCell         n= 79 | dR2 +0.0193 | F   2.38 q 0.2543 | VIF  2.3 | does not hold
+  NonNeoC  cov4  MMSE score   UCell          n= 79 | dR2 +0.0173 | F   2.15 q 0.2939 | VIF  2.3 | does not hold
+  NonNeoC  cov4  MMSE score   AddModuleScore n= 79 | dR2 +0.0214 | F   2.70 q 0.2092 | VIF  2.1 | does not hold
+  NonNeoC  cov4  CASI score   AUCell         n= 68 | dR2 +0.0132 | F   1.17 q 0.2839 | VIF  2.4 | does not hold
+  NonNeoC  cov4  CASI score   UCell          n= 68 | dR2 +0.0112 | F   1.00 q 0.3214 | VIF  2.4 | does not hold
+  NonNeoC  cov4  CASI score   AddModuleScore n= 68 | dR2 +0.0082 | F   0.78 q 0.3813 | VIF  2.2 | does not hold
+  NonNeoC  +BTC  MMSE score   AUCell         n= 79 | dR2 +0.0194 | F   2.44 q 0.2255 | VIF  2.3 | does not hold
+  NonNeoC  +BTC  MMSE score   UCell          n= 79 | dR2 +0.0177 | F   2.24 q 0.2509 | VIF  2.3 | does not hold
+  NonNeoC  +BTC  MMSE score   AddModuleScore n= 79 | dR2 +0.0210 | F   2.66 q 0.2145 | VIF  2.1 | does not hold
+  NonNeoC  +BTC  CASI score   AUCell         n= 68 | dR2 +0.0153 | F   1.50 q 0.2255 | VIF  2.4 | does not hold
+  NonNeoC  +BTC  CASI score   UCell          n= 68 | dR2 +0.0136 | F   1.34 q 0.2509 | VIF  2.4 | does not hold
+  NonNeoC  +BTC  CASI score   AddModuleScore n= 68 | dR2 +0.0095 | F   0.98 q 0.3274 | VIF  2.2 | does not hold
+  [PASS]  GR-10MV-02          24 decomposition row(s) over 8 dataset x block x outcome set(s) and 3 score arm(s), 120 model fit(s). ONE complete-case set and one standardisation pass per set, spanning every score, so all models AND all arms of a set sit on the same donors. Donor counts 68-80
+  [WARN]  GR-10MV-03          THE PRE-SPECIFIED VERDICT, AUCell ARM ONLY (the rule was fixed before any model was fitted). Nested F, 1 df, of `cov + score + cluster + module` against `cov + score + cluster`: NeoC/cov4/MMSE score HOLDS; NeoC/cov4/CASI score HOLDS; NeoC/+BTC/MMSE score HOLDS; NeoC/+BTC/CASI score does not hold; NonNeoC/cov4/MMSE score does not hold; NonNeoC/cov4/CASI score does not hold; NonNeoC/+BTC/MMSE score does not hold; NonNeoC/+BTC/CASI score does not hold. Of 8 readable row(s) of 8, HOLDS 3, does not hold 5, WRONG SIGN 0. MIXED, AND THE PRE-SPECIFIED MAJORITY IS NOT MET. Some rows carry information neither rival supplies and some do not. The pre-specified verdict is therefore NOT MET on this arm; report the per-row column and say which rows held. ANY PATTERN AMONG THEM -- by dataset, block or outcome -- IS AN OBSERVATION AND NOT A PRE-SPECIFIED FINDING, because the rule fixed in advance was a majority over all readable rows.
+  [PASS]  GR-10MV-04          COLLINEARITY. The three terms are not nested by construction, which is why this test is readable where the CMRF mask edge was not. Joint VIF ranges: module 2.13-3.31, score 1.82-3.71, cluster 1.44-1.86 (refusal at 5). Predictor correlations: NeoC Module/Cluster % rho +0.56; NeoC Module/AUCell rho +0.81; NeoC Module/UCell rho +0.82; NeoC Module/AddModuleScore rho +0.82; NeoC Cluster %/AUCell rho +0.53; NeoC Cluster %/UCell rho +0.53; NeoC Cluster %/AddModuleScore rho +0.52; NeoC AUCell/UCell rho +1.00; NeoC AUCell/AddModuleScore rho +0.99; NeoC UCell/AddModuleScore rho +1.00; NonNeoC Module/Cluster % rho +0.47; NonNeoC Module/AUCell rho +0.73; NonNeoC Module/UCell rho +0.73; NonNeoC Module/AddModuleScore rho +0.73; NonNeoC Cluster %/AUCell rho +0.37; NonNeoC Cluster %/UCell rho +0.37; NonNeoC Cluster %/AddModuleScore rho +0.36; NonNeoC AUCell/UCell rho +1.00; NonNeoC AUCell/AddModuleScore rho +0.99; NonNeoC UCell/AddModuleScore rho +0.99
+  [PASS]  GR-10MV-09          DESCRIPTIVE, NO VERDICT ATTACHES (AUCell arm). The module against the score ALONE (M6) beside the module against score PLUS cluster (M5), so what the abundance term absorbs is visible. M6 carries its OWN VIF: 8 of 8 row(s) readable, VIF 1.95-3.48. Module significant with the score alone on 4; with abundance also present, 3. Per row: NeoC/cov4/MMSE score sig -> HOLDS; NeoC/cov4/CASI score sig -> HOLDS; NeoC/+BTC/MMSE score sig -> HOLDS; NeoC/+BTC/CASI score sig -> does not hold; NonNeoC/cov4/MMSE score ns -> does not hold; NonNeoC/cov4/CASI score ns -> does not hold; NonNeoC/+BTC/MMSE score ns -> does not hold; NonNeoC/+BTC/CASI score ns -> does not hold
+  [WARN]  GR-10MV-10          SCORE-ARM ROBUSTNESS, substituted not stacked. AUCell HOLDS 3 / does not hold 5 / wrong sign 0 / not readable 0; UCell HOLDS 3 / does not hold 5 / wrong sign 0 / not readable 0; AddModuleScore HOLDS 2 / does not hold 6 / wrong sign 0 / not readable 0. The three scores agree on 7 of 8 row(s). THE VERDICT DIFFERS BY SCORE on 1 row(s); report it per score rather than as one finding, and name which arm gives which. The pre-specified verdict remains the primary arm's.
+  [PASS]  GR-10MV-06          the nested F (1 df) and the module's t-test in the full model agree on 24 of 24 comparable row(s), max |dp| = 4.11e-15. They are the SAME test in two parameterisations, so a disagreement is an error
+
+STEP 5 -- figure
+
+STEP 6 -- output
+  5 sheet(s) written to Part10h_CP10K_M4_Multivariate.xlsx
+  Part10h_CP10K_M4_Multivariate_results.rds written (0.01 MB)
+
+STEP 7 -- guardrails
+  [PASS]  GR-10MV-05          EVERY MODEL FITTED IS REPORTED: 120 fitted, 120 present in the Models sheet (nominal, if every specification had fitted on every row: 120). 7 specification(s): M0 covariates only; M1 + module; M3 + cluster proportion; M2 + AUCell; M4 + AUCell + cluster proportion  (THE RIVAL); M5 + AUCell + cluster proportion + module  (THE TEST); M6 + AUCell + module  (DESCRIPTIVE). Selective reporting is the failure mode this most has to guard against -- the partial models are published whether or not they favour the module.
+  [PASS]  GR-10MV-07          2 figure(s) written as PDF and PNG, showing ALL THREE coefficients from the full model -- plotting the module alone would hide what happens to its rivals when it is present
+  [PASS]  GR-10MV-08          outputs: Part10h_CP10K_M4_Multivariate_results.rds written | Part10h_CP10K_M4_Multivariate.xlsx written
+
+  Final guardrail tally: 8 PASS / 2 WARN / 0 FAIL
+
+ ======================================================================== 
+  Part10h stage 4 MULTIVARIATE COMPLETE [Mic13_PVM3]
+  Output directory: <SEA-AD>/Part10h_Prognosis_4_Multivariate/Part10h_Prognosis_4_Multivariate_Mic13_PVM3 
+======================================================================== 
+
+========================================================================
+  MESSAGE STREAM (warnings, messages, errors)
+========================================================================
+`height` was translated to `width`.
+`height` was translated to `width`.
+`height` was translated to `width`.
+

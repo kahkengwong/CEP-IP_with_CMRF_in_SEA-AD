@@ -1,0 +1,295 @@
+Figure 17 summary (Fig17_Summary_code.r); FIG_MODE = preprint
+Run: 2026-10-16 23:26:45
+Script: C:\Users\<user>\Downloads\Fig17_Summary_code.r
+R 4.6.1; ggplot2 4.0.3; readxl 1.5.0
+Root: <SEA-AD>
+
+== 1. Sources
+  [PASS] C1 source SuppTable_S12: present, modified 2026-10-14 10:37 (<SEA-AD>/Manuscript/Supp_Tables/Supplementary_Table_S12_Prognosis_&_Ablation.xlsx)
+  [PASS] C1 source SuppTable_Fig15: present, modified 2026-09-24 22:24 (<SEA-AD>/Part12_rerun/07_Fig15/SuppTable_Fig15.xlsx)
+  [PASS] C1 source SuppTable_Fig16: present, modified 2026-09-24 22:24 (<SEA-AD>/Part12_rerun/08_Fig16/SuppTable_Fig16.xlsx)
+  [PASS] C1 source SuppTable_Fig17: present, modified 2026-09-24 22:28 (<SEA-AD>/Part12_rerun/09_Fig17/SuppTable_Fig17.xlsx)
+  [PASS] C1 source SuppTable_Fig18: present, modified 2026-09-24 22:29 (<SEA-AD>/Part12_rerun/10_Fig18/SuppTable_Fig18.xlsx)
+  [PASS] C1 source SuppTable_Fig19: present, modified 2026-09-26 14:19 (<SEA-AD>/Part12_rerun/11_Fig19/SuppTable_Fig19.xlsx)
+  [PASS] C1 source Part13 SuppTable: present, modified 2026-10-10 16:21 (<SEA-AD>/Part13_M4Share/Part13_CP10K_M4Share_SuppTable.xlsx)
+  [PASS] C1 source Part13b SuppTable: present, modified 2026-10-10 18:17 (<SEA-AD>/Part13b_M4RandomSubset/Part13b_CP10K_M4RandomSubset_SuppTable.xlsx)
+  read SuppTable_S12    B_Fig9A_variance                288 rows
+  read SuppTable_S12    C_Fig9B_cognition                64 rows
+  read SuppTable_S12    D_Fig9C_pathology                64 rows
+  read SuppTable_S12    E_Fig9D_mod_vs_nonmod            48 rows
+  read SuppTable_S12    F_Fig10A_benchmark              432 rows
+  read SuppTable_S12    G_Fig10B_competitors            320 rows
+  read SuppTable_S12    H_Fig10CD_decomposition          48 rows
+  read SuppTable_S12    I_Fig11A_boundary_assoc         128 rows
+  read SuppTable_S12    M_Fig11C_tests                 2304 rows
+  read SuppTable_S12    P_SuppFig14_cov4_cov7           240 rows
+  read SuppTable_S12    Q_SuppFig14_leave_one_in       1440 rows
+  read SuppTable_Fig15  Fig15A_readout                   72 rows
+  read SuppTable_Fig15  Fig15B_readout                  216 rows
+  read SuppTable_Fig16  Fig16A_readout                   20 rows
+  read SuppTable_Fig16  Fig16B_stats                     12 rows
+  read SuppTable_Fig16  Fig16C_readout                    6 rows
+  read SuppTable_Fig16  Fig16D_stats                     10 rows
+  read SuppTable_Fig16  Fig16E_readout                    4 rows
+  read SuppTable_Fig16  Fig16F_stats                     54 rows
+  read SuppTable_Fig17  Fig17D_verdicts                  72 rows
+  read SuppTable_Fig18  Fig18A_verdicts                2304 rows
+  read SuppTable_Fig18  Fig18A_panels                   128 rows
+  read SuppTable_Fig18  Fig18B_readout                    8 rows
+  read SuppTable_Fig18  Fig18C_readout                    8 rows
+  read SuppTable_Fig19  Fig19A_readout                   59 rows
+  read SuppTable_Fig19  Fig19C_clinical                  72 rows
+  read SuppTable_Fig19  Verdicts_17D                     72 rows
+  read SuppTable_Fig19  Verdicts_18A                   2304 rows
+  read Part13 SuppTable C_Models                        902 rows
+  read Part13b SuppTable D_Summary                        66 rows
+
+== 2. Models
+  T1     32 applicable models: holds   27, fails    5, unreadable   0, untestable   0
+  T2     53 applicable models: holds   38, fails   15, unreadable   0, untestable   0
+  T3     27 applicable models: holds   20, fails    7, unreadable   0, untestable   0
+  T4    486 applicable models: holds  446, fails   40, unreadable   0, untestable   0
+  T5     27 applicable models: holds    6, fails   21, unreadable   0, untestable   0
+  T6     27 applicable models: holds   17, fails   10, unreadable   0, untestable   0
+  T7     42 applicable models: holds    8, fails   18, unreadable  16, untestable   0
+  T8    160 applicable models: holds  153, fails    7, unreadable   0, untestable   0
+  T9     27 applicable models: holds   19, fails    8, unreadable   0, untestable   0
+  T10    81 applicable models: holds   73, fails    8, unreadable   0, untestable   0
+  T11    27 applicable models: holds    2, fails    9, unreadable  16, untestable   0
+  T12   432 applicable models: holds  275, fails  157, unreadable   0, untestable   0
+  T13    27 applicable models: holds   15, fails   10, unreadable   0, untestable   2
+  T14     8 applicable models: holds    6, fails    2, unreadable   0, untestable   0
+  T15     8 applicable models: holds    6, fails    2, unreadable   0, untestable   0
+  T16     4 applicable models: holds    1, fails    0, unreadable   0, untestable   3
+  T17     8 applicable models: holds    2, fails    6, unreadable   0, untestable   0
+  T18    16 applicable models: holds   10, fails    2, unreadable   0, untestable   4
+  T19    12 applicable models: holds   12, fails    0, unreadable   0, untestable   0
+  T20    12 applicable models: holds    9, fails    3, unreadable   0, untestable   0
+  T21     4 applicable models: holds    0, fails    4, unreadable   0, untestable   0
+
+== 3. Cells
+     verdict
+test  holds lost M4 only not applicable partial unreadable untestable
+  T1      6    1       0              0       1          0          0
+  T2      6    1       0              1       0          0          0
+  T3      6    1       0              1       0          0          0
+  T4      3    0       0              1       4          0          0
+  T5      2    3       0              1       2          0          0
+  T6      5    1       0              1       1          0          0
+  T7      0    2       0              1       1          4          0
+  T8      6    0       0              1       1          0          0
+  T9      5    2       0              1       0          0          0
+  T10     6    1       0              1       0          0          0
+  T11     0    1       0              1       2          4          0
+  T12     4    1       0              1       2          0          0
+  T13     4    2       0              1       0          0          1
+  T14     3    1       0              0       0          0          0
+  T15     3    1       0              0       0          0          0
+  T16     1    0       0              0       0          0          3
+  T17     0    2       0              0       2          0          0
+  T18     3    0       0              0       1          0          0
+  T19     3    0       0              1       0          0          0
+  T20     2    0       6              0       0          0          0
+  T21     0    2       6              0       0          0          0
+
+  Grid (k/n; verdict initial h/p/l, u = unreadable or untestable, - = not applicable):
+  T1   M4 NeoC:h 2/2  M4 NonNeoC:h 2/2  PVM_3 NeoC:h 2/2  PVM_3 NonNeoC:h 2/2  PVM_1 NeoC:h 2/2  PVM_1 NonNeoC:h 2/2  HKG8 NeoC:p 1/2  HKG8 NonNeoC:l 0/2 
+  T2   M4 NeoC:h 6/6  M4 NonNeoC:h 6/6  PVM_3 NeoC:h 6/6  PVM_3 NonNeoC:h 6/6  PVM_1 NeoC:h 6/6  PVM_1 NonNeoC:h 6/6  HKG8 NeoC:l 0/3  HKG8 NonNeoC:-     
+  T3   M4 NeoC:h 2/2  M4 NonNeoC:h 2/2  PVM_3 NeoC:h 2/2  PVM_3 NonNeoC:h 2/2  PVM_1 NeoC:h 2/2  PVM_1 NonNeoC:h 2/2  HKG8 NeoC:l 0/1  HKG8 NonNeoC:-     
+  T4   M4 NeoC:h 36/36 M4 NonNeoC:h 36/36 PVM_3 NeoC:p 35/36 PVM_3 NonNeoC:p 35/36 PVM_1 NeoC:p 34/36 PVM_1 NonNeoC:h 36/36 HKG8 NeoC:p 13/18 HKG8 NonNeoC:-     
+  T5   M4 NeoC:h 2/2  M4 NonNeoC:l 0/2  PVM_3 NeoC:p 1/2  PVM_3 NonNeoC:p 1/2  PVM_1 NeoC:l 0/2  PVM_1 NonNeoC:h 2/2  HKG8 NeoC:l 0/1  HKG8 NonNeoC:-     
+  T6   M4 NeoC:h 2/2  M4 NonNeoC:p 1/2  PVM_3 NeoC:h 2/2  PVM_3 NonNeoC:h 2/2  PVM_1 NeoC:h 2/2  PVM_1 NonNeoC:h 2/2  HKG8 NeoC:l 0/1  HKG8 NonNeoC:-     
+  T7   M4 NeoC:p 8/12 M4 NonNeoC:l 0/12 PVM_3 NeoC:u      PVM_3 NonNeoC:u      PVM_1 NeoC:u      PVM_1 NonNeoC:u      HKG8 NeoC:l 0/2  HKG8 NonNeoC:-     
+  T8   M4 NeoC:h 16/16 M4 NonNeoC:h 16/16 PVM_3 NeoC:h 16/16 PVM_3 NonNeoC:h 16/16 PVM_1 NeoC:h 16/16 PVM_1 NonNeoC:h 16/16 HKG8 NeoC:p 4/8  HKG8 NonNeoC:-     
+  T9   M4 NeoC:h 2/2  M4 NonNeoC:h 2/2  PVM_3 NeoC:h 2/2  PVM_3 NonNeoC:h 2/2  PVM_1 NeoC:h 2/2  PVM_1 NonNeoC:l 0/2  HKG8 NeoC:l 0/1  HKG8 NonNeoC:-     
+  T10  M4 NeoC:h 6/6  M4 NonNeoC:h 6/6  PVM_3 NeoC:h 6/6  PVM_3 NonNeoC:h 6/6  PVM_1 NeoC:h 6/6  PVM_1 NonNeoC:h 6/6  HKG8 NeoC:l 0/3  HKG8 NonNeoC:-     
+  T11  M4 NeoC:p 1/2  M4 NonNeoC:p 1/2  PVM_3 NeoC:u      PVM_3 NonNeoC:u      PVM_1 NeoC:u      PVM_1 NonNeoC:u      HKG8 NeoC:l 0/1  HKG8 NonNeoC:-     
+  T12  M4 NeoC:p 22/32 M4 NonNeoC:p 8/32 PVM_3 NeoC:h 32/32 PVM_3 NonNeoC:h 32/32 PVM_1 NeoC:h 32/32 PVM_1 NonNeoC:h 32/32 HKG8 NeoC:l 0/16 HKG8 NonNeoC:-     
+  T13  M4 NeoC:h 2/2  M4 NonNeoC:h 2/2  PVM_3 NeoC:h 2/2  PVM_3 NonNeoC:h 2/2  PVM_1 NeoC:l 0/2  PVM_1 NonNeoC:l 0/2  HKG8 NeoC:u      HKG8 NonNeoC:-     
+  T20  M4 NeoC:h 4/4  M4 NonNeoC:h 4/4  PVM_3 NeoC:.      PVM_3 NonNeoC:.      PVM_1 NeoC:.      PVM_1 NonNeoC:.      HKG8 NeoC:.      HKG8 NonNeoC:.     
+  T21  M4 NeoC:l 0/2  M4 NonNeoC:l 0/2  PVM_3 NeoC:.      PVM_3 NonNeoC:.      PVM_1 NeoC:.      PVM_1 NonNeoC:.      HKG8 NeoC:.      HKG8 NonNeoC:.     
+  T14  M4 both:h 2/2  PVM_3 both:h 2/2  PVM_1 both:h 2/2  HKG8 both:l 0/2 
+  T15  M4 both:h 2/2  PVM_3 both:h 2/2  PVM_1 both:h 2/2  HKG8 both:l 0/2 
+  T16  M4 both:u      PVM_3 both:h 1/1  PVM_1 both:u      HKG8 both:u     
+  T17  M4 both:p 1/2  PVM_3 both:l 0/2  PVM_1 both:l 0/2  HKG8 both:p 1/2 
+  T18  M4 both:h 2/2  PVM_3 both:h 4/4  PVM_1 both:p 2/4  HKG8 both:h 2/2 
+  T19  M4 both:h 4/4  PVM_3 both:h 4/4  PVM_1 both:h 4/4  HKG8 both:-     
+
+  Tests held in both region sets (1-13 without 7, 11):
+   arm label.MMSE score label.CASI score label.Thal phase label.Braak stage
+    M4             9/11             8/11             7/11              4/11
+ PVM_3            10/11            10/11             6/11              8/11
+ PVM_1             7/11             7/11             3/11              3/11
+  HKG8              0/1              0/1              0/1               0/1
+
+  Lead results by outcome (tests 1-15; held/read over tests 1-13):
+  M4     NeoC    MMSE score  1:1/1 2:3/3 3:1/1 4:18/18 5:1/1 6:1/1 7:6/6 8:8/8 9:1/1 10:3/3 11:1/1 12:15/16 13:1/1 14:2/2 15:0/1 | held 10/11
+                             mean % per test  99.4; pooled 53/54 =  98.1%
+  M4     NeoC    CASI score  1:1/1 2:3/3 3:1/1 4:18/18 5:1/1 6:1/1 7:2/6 8:8/8 9:1/1 10:3/3 11:0/1 12:7/16 13:1/1 14:2/2 15:0/1 | held 10/11
+                             mean % per test  94.9; pooled 45/54 =  83.3%
+  M4     NeoC    Thal phase  1:1/1 2:1/1 3:1/1 4:18/18 5:0/1 6:1/1 7:nr 8:4/4 9:1/1 10:3/3 11:0/1 12:0/16 13:1/1 14:0/1 15:nr | held 9/11
+                             mean % per test  81.8; pooled 31/48 =  64.6%
+  M4     NeoC    Braak stage 1:1/1 2:0/1 3:1/1 4:18/18 5:0/1 6:1/1 7:nr 8:4/4 9:1/1 10:3/3 11:0/1 12:4/16 13:1/1 14:0/1 15:nr | held 8/11
+                             mean % per test  75.0; pooled 34/48 =  70.8%
+  PVM_3  NeoC    MMSE score  1:1/1 2:3/3 3:1/1 4:18/18 5:0/1 6:1/1 7:u 8:8/8 9:1/1 10:3/3 11:u 12:16/16 13:1/1 14:. 15:. | held 10/11
+                             mean % per test  90.9; pooled 53/54 =  98.1%
+  PVM_3  NeoC    CASI score  1:1/1 2:3/3 3:1/1 4:17/18 5:1/1 6:1/1 7:u 8:8/8 9:1/1 10:3/3 11:u 12:16/16 13:1/1 14:. 15:. | held 10/11
+                             mean % per test  99.5; pooled 53/54 =  98.1%
+  PVM_3  NeoC    Thal phase  1:1/1 2:1/1 3:1/1 4:16/18 5:0/1 6:0/1 7:nr 8:4/4 9:0/1 10:3/3 11:u 12:16/16 13:1/1 14:. 15:. | held 7/11
+                             mean % per test  71.7; pooled 43/48 =  89.6%
+  PVM_3  NeoC    Braak stage 1:1/1 2:0/1 3:1/1 4:17/18 5:0/1 6:1/1 7:nr 8:4/4 9:1/1 10:3/3 11:u 12:16/16 13:1/1 14:. 15:. | held 8/11
+                             mean % per test  81.3; pooled 45/48 =  93.8%
+  PVM_1  NeoC    MMSE score  1:1/1 2:3/3 3:1/1 4:17/18 5:0/1 6:1/1 7:u 8:8/8 9:1/1 10:3/3 11:u 12:16/16 13:0/1 14:. 15:. | held 8/11
+                             mean % per test  81.3; pooled 51/54 =  94.4%
+  PVM_1  NeoC    CASI score  1:1/1 2:3/3 3:1/1 4:17/18 5:0/1 6:1/1 7:u 8:8/8 9:1/1 10:3/3 11:u 12:16/16 13:0/1 14:. 15:. | held 8/11
+                             mean % per test  81.3; pooled 51/54 =  94.4%
+  PVM_1  NeoC    Thal phase  1:1/1 2:0/1 3:1/1 4:16/18 5:0/1 6:1/1 7:nr 8:4/4 9:1/1 10:3/3 11:u 12:3/16 13:0/1 14:. 15:. | held 6/11
+                             mean % per test  64.3; pooled 30/48 =  62.5%
+  PVM_1  NeoC    Braak stage 1:1/1 2:0/1 3:0/1 4:15/18 5:0/1 6:1/1 7:nr 8:4/4 9:1/1 10:3/3 11:u 12:5/16 13:0/1 14:. 15:. | held 5/11
+                             mean % per test  55.9; pooled 30/48 =  62.5%
+  HKG8   NeoC    MMSE score  1:0/1 2:n 3:n 4:n 5:n 6:n 7:n 8:n 9:n 10:n 11:n 12:n 13:n 14:. 15:. | held 0/1
+                             mean % per test   0.0; pooled 0/1 =   0.0%
+  HKG8   NeoC    CASI score  1:1/1 2:0/3 3:0/1 4:13/18 5:0/1 6:0/1 7:0/2 8:4/8 9:0/1 10:0/3 11:0/1 12:0/16 13:u 14:. 15:. | held 1/10
+                             mean % per test  22.2; pooled 18/53 =  34.0%
+  HKG8   NeoC    Thal phase  1:1/1 2:0/1 3:0/1 4:15/18 5:0/1 6:0/1 7:nr 8:2/4 9:0/1 10:0/3 11:0/1 12:0/16 13:u 14:. 15:. | held 1/10
+                             mean % per test  23.3; pooled 18/47 =  38.3%
+  HKG8   NeoC    Braak stage 1:1/1 2:0/1 3:0/1 4:15/18 5:0/1 6:0/1 7:nr 8:3/4 9:0/1 10:1/3 11:0/1 12:0/16 13:0/1 14:. 15:. | held 1/11
+                             mean % per test  26.5; pooled 20/48 =  41.7%
+  M4     NonNeoC MMSE score  1:1/1 2:3/3 3:1/1 4:18/18 5:0/1 6:1/1 7:0/6 8:8/8 9:1/1 10:3/3 11:1/1 12:1/16 13:1/1 14:2/2 15:0/1 | held 9/11
+                             mean % per test  82.4; pooled 38/54 =  70.4%
+  M4     NonNeoC CASI score  1:1/1 2:3/3 3:1/1 4:18/18 5:0/1 6:0/1 7:0/6 8:8/8 9:1/1 10:3/3 11:0/1 12:7/16 13:1/1 14:2/2 15:0/1 | held 8/11
+                             mean % per test  76.7; pooled 43/54 =  79.6%
+  M4     NonNeoC Thal phase  1:1/1 2:0/1 3:1/1 4:18/18 5:0/1 6:0/1 7:nr 8:4/4 9:1/1 10:3/3 11:0/1 12:0/16 13:1/1 14:1/1 15:nr | held 7/11
+                             mean % per test  63.6; pooled 29/48 =  60.4%
+  M4     NonNeoC Braak stage 1:1/1 2:0/1 3:0/1 4:16/18 5:0/1 6:0/1 7:nr 8:4/4 9:1/1 10:3/3 11:0/1 12:9/16 13:0/1 14:0/1 15:nr | held 4/11
+                             mean % per test  49.6; pooled 34/48 =  70.8%
+  PVM_3  NonNeoC MMSE score  1:1/1 2:3/3 3:1/1 4:18/18 5:0/1 6:1/1 7:u 8:8/8 9:1/1 10:3/3 11:u 12:16/16 13:1/1 14:. 15:. | held 10/11
+                             mean % per test  90.9; pooled 53/54 =  98.1%
+  PVM_3  NonNeoC CASI score  1:1/1 2:3/3 3:1/1 4:17/18 5:1/1 6:1/1 7:u 8:8/8 9:1/1 10:3/3 11:u 12:16/16 13:1/1 14:. 15:. | held 10/11
+                             mean % per test  99.5; pooled 53/54 =  98.1%
+  PVM_3  NonNeoC Thal phase  1:1/1 2:0/1 3:1/1 4:17/18 5:0/1 6:0/1 7:nr 8:4/4 9:1/1 10:3/3 11:u 12:16/16 13:1/1 14:. 15:. | held 7/11
+                             mean % per test  72.2; pooled 44/48 =  91.7%
+  PVM_3  NonNeoC Braak stage 1:1/1 2:0/1 3:1/1 4:17/18 5:0/1 6:1/1 7:nr 8:4/4 9:1/1 10:3/3 11:u 12:16/16 13:1/1 14:. 15:. | held 8/11
+                             mean % per test  81.3; pooled 45/48 =  93.8%
+  PVM_1  NonNeoC MMSE score  1:1/1 2:3/3 3:1/1 4:18/18 5:1/1 6:1/1 7:u 8:8/8 9:0/1 10:3/3 11:u 12:16/16 13:0/1 14:. 15:. | held 9/11
+                             mean % per test  81.8; pooled 52/54 =  96.3%
+  PVM_1  NonNeoC CASI score  1:1/1 2:3/3 3:1/1 4:18/18 5:1/1 6:1/1 7:u 8:8/8 9:0/1 10:3/3 11:u 12:16/16 13:0/1 14:. 15:. | held 9/11
+                             mean % per test  81.8; pooled 52/54 =  96.3%
+  PVM_1  NonNeoC Thal phase  1:1/1 2:0/1 3:0/1 4:9/18 5:0/1 6:0/1 7:nr 8:4/4 9:0/1 10:3/3 11:u 12:16/16 13:0/1 14:. 15:. | held 4/11
+                             mean % per test  40.9; pooled 33/48 =  68.8%
+  PVM_1  NonNeoC Braak stage 1:1/1 2:0/1 3:0/1 4:14/18 5:0/1 6:0/1 7:nr 8:4/4 9:0/1 10:3/3 11:u 12:16/16 13:0/1 14:. 15:. | held 4/11
+                             mean % per test  43.4; pooled 38/48 =  79.2%
+  HKG8   NonNeoC MMSE score  1:0/1 2:n 3:n 4:n 5:n 6:n 7:n 8:n 9:n 10:n 11:n 12:n 13:n 14:. 15:. | held 0/1
+                             mean % per test   0.0; pooled 0/1 =   0.0%
+  HKG8   NonNeoC CASI score  1:0/1 2:n 3:n 4:n 5:n 6:n 7:n 8:n 9:n 10:n 11:n 12:n 13:n 14:. 15:. | held 0/1
+                             mean % per test   0.0; pooled 0/1 =   0.0%
+  HKG8   NonNeoC Thal phase  1:0/1 2:n 3:n 4:n 5:n 6:n 7:nr 8:n 9:n 10:n 11:n 12:n 13:n 14:. 15:. | held 0/1
+                             mean % per test   0.0; pooled 0/1 =   0.0%
+  HKG8   NonNeoC Braak stage 1:0/1 2:n 3:n 4:n 5:n 6:n 7:nr 8:n 9:n 10:n 11:n 12:n 13:n 14:. 15:. | held 0/1
+                             mean % per test   0.0; pooled 0/1 =   0.0%
+  M4     Both    MMSE score  1:2/2 2:6/6 3:2/2 4:36/36 5:1/2 6:2/2 7:6/12 8:16/16 9:2/2 10:6/6 11:2/2 12:16/32 13:2/2 14:4/4 15:0/2 | held 9/11
+                             mean % per test  90.9; pooled 91/108 =  84.3%
+  M4     Both    CASI score  1:2/2 2:6/6 3:2/2 4:36/36 5:1/2 6:1/2 7:2/12 8:16/16 9:2/2 10:6/6 11:0/2 12:14/32 13:2/2 14:4/4 15:0/2 | held 8/11
+                             mean % per test  85.8; pooled 88/108 =  81.5%
+  M4     Both    Thal phase  1:2/2 2:1/2 3:2/2 4:36/36 5:0/2 6:1/2 7:nr 8:8/8 9:2/2 10:6/6 11:0/2 12:0/32 13:2/2 14:1/2 15:nr | held 7/11
+                             mean % per test  72.7; pooled 60/96 =  62.5%
+  M4     Both    Braak stage 1:2/2 2:0/2 3:1/2 4:34/36 5:0/2 6:1/2 7:nr 8:8/8 9:2/2 10:6/6 11:0/2 12:13/32 13:1/2 14:0/2 15:nr | held 4/11
+                             mean % per test  62.3; pooled 68/96 =  70.8%
+  PVM_3  Both    MMSE score  1:2/2 2:6/6 3:2/2 4:36/36 5:0/2 6:2/2 7:u 8:16/16 9:2/2 10:6/6 11:u 12:32/32 13:2/2 14:. 15:. | held 10/11
+                             mean % per test  90.9; pooled 106/108 =  98.1%
+  PVM_3  Both    CASI score  1:2/2 2:6/6 3:2/2 4:34/36 5:2/2 6:2/2 7:u 8:16/16 9:2/2 10:6/6 11:u 12:32/32 13:2/2 14:. 15:. | held 10/11
+                             mean % per test  99.5; pooled 106/108 =  98.1%
+  PVM_3  Both    Thal phase  1:2/2 2:1/2 3:2/2 4:33/36 5:0/2 6:0/2 7:nr 8:8/8 9:1/2 10:6/6 11:u 12:32/32 13:2/2 14:. 15:. | held 6/11
+                             mean % per test  72.0; pooled 87/96 =  90.6%
+  PVM_3  Both    Braak stage 1:2/2 2:0/2 3:2/2 4:34/36 5:0/2 6:2/2 7:nr 8:8/8 9:2/2 10:6/6 11:u 12:32/32 13:2/2 14:. 15:. | held 8/11
+                             mean % per test  81.3; pooled 90/96 =  93.8%
+  PVM_1  Both    MMSE score  1:2/2 2:6/6 3:2/2 4:35/36 5:1/2 6:2/2 7:u 8:16/16 9:1/2 10:6/6 11:u 12:32/32 13:0/2 14:. 15:. | held 7/11
+                             mean % per test  81.6; pooled 103/108 =  95.4%
+  PVM_1  Both    CASI score  1:2/2 2:6/6 3:2/2 4:35/36 5:1/2 6:2/2 7:u 8:16/16 9:1/2 10:6/6 11:u 12:32/32 13:0/2 14:. 15:. | held 7/11
+                             mean % per test  81.6; pooled 103/108 =  95.4%
+  PVM_1  Both    Thal phase  1:2/2 2:0/2 3:1/2 4:25/36 5:0/2 6:1/2 7:nr 8:8/8 9:1/2 10:6/6 11:u 12:19/32 13:0/2 14:. 15:. | held 3/11
+                             mean % per test  52.6; pooled 63/96 =  65.6%
+  PVM_1  Both    Braak stage 1:2/2 2:0/2 3:0/2 4:29/36 5:0/2 6:1/2 7:nr 8:8/8 9:1/2 10:6/6 11:u 12:21/32 13:0/2 14:. 15:. | held 3/11
+                             mean % per test  49.7; pooled 68/96 =  70.8%
+  HKG8   Both    MMSE score  1:0/2 2:n 3:n 4:n 5:n 6:n 7:n 8:n 9:n 10:n 11:n 12:n 13:n 14:. 15:. | held 0/1
+                             mean % per test   0.0; pooled 0/2 =   0.0%
+  HKG8   Both    CASI score  1:1/2 2:0/3 3:0/1 4:13/18 5:0/1 6:0/1 7:0/2 8:4/8 9:0/1 10:0/3 11:0/1 12:0/16 13:u 14:. 15:. | held 0/10
+                             mean % per test  17.2; pooled 18/54 =  33.3%
+  HKG8   Both    Thal phase  1:1/2 2:0/1 3:0/1 4:15/18 5:0/1 6:0/1 7:nr 8:2/4 9:0/1 10:0/3 11:0/1 12:0/16 13:u 14:. 15:. | held 0/10
+                             mean % per test  18.3; pooled 18/48 =  37.5%
+  HKG8   Both    Braak stage 1:1/2 2:0/1 3:0/1 4:15/18 5:0/1 6:0/1 7:nr 8:3/4 9:0/1 10:1/3 11:0/1 12:0/16 13:0/1 14:. 15:. | held 0/11
+                             mean % per test  22.0; pooled 20/49 =  40.8%
+
+  Tally, tests 1-13 (held / read):
+   arm region_set tests_held tests_partial tests_lost tests_read
+    M4       NeoC         10             1          0         11
+    M4    NonNeoC          8             2          1         11
+ PVM_3       NeoC          9             2          0         11
+ PVM_3    NonNeoC          9             2          0         11
+ PVM_1       NeoC          8             1          2         11
+ PVM_1    NonNeoC          9             0          2         11
+  HKG8       NeoC          0             3          7         10
+  HKG8    NonNeoC          0             0          1          1
+
+== 4. Checks
+  [PASS] C2 test 1 models: 32 models (expected 32)
+  [PASS] C3 grid complete: 144 cells (expected 144)
+  [PASS] C4 applicable outcomes present: every applicable outcome has models
+  [PASS] C5 9A vs S14 cov4 beta: 32 models, max |diff| 0.00e+00
+  [PASS] C6 9A vs 10A Module beta: 32 models, max |diff| 4.88e-05 (10A rounded to 4 dp)
+  [PASS] C7 14D verdicts recomputed: 72 of 72 agree with Fig19 Verdicts_17D
+  [PASS] C8 15A verdicts recomputed: 2304 of 2304 agree with Fig19 Verdicts_18A
+  [PASS] C9 9A vs 12A unadjusted (open item c): 9A significant 51 of 72; 12A unadjusted 48 of 72; 3 differ: HKG8 NeoC ADNC rank (9A FDR 0.022, n 84; 12A FDR 0.085, n 74); HKG8 NeoC CASI score (9A FDR 0.034, n 69; 12A FDR 0.102, n 60); HKG8 NeoC Thal phase (9A FDR 0.022, n 84; 12A FDR 0.065, n 74)
+  [PASS] C10 legend values: kappa M4 0.827, HKG8 0.004; within-donor rs 0.747 vs 0.402
+  Legend sentence: Not per arm: Module labels of M4 and HKG8 against PVM_3, Cohen's kappa 0.83 and 0.00 (Figure 13C); within-donor rs of MT-CO3 with cDFG on PVM_3, median 0.75 (ACTB with cHKG8: 0.40; Figure 13D); external data, Gerrits et al. (Figure 12E-12H).
+  [PASS] C11 recount test 1: 27 holds; direct count 27
+  [PASS] C12 recount test 2: 36 holds; direct count 36
+  [PASS] C13 recount test 9: 19 holds; direct count 19
+  [PASS] C15 9A vs 11C CMRF module-only cov4 beta: 32 of 32 models matched, max |diff| 6.11e-16 (confirms the sheet M reading)
+  [PASS] C16 recount test 14: 9 holds; direct count 9
+  [PASS] C17 Part 13 S01 vs 9A (M4): 8 of 8 models matched, max |diff| 5.00e-16
+  [PASS] C18 Part 13b own-label MA vs 9A (M4): 4 of 4 models matched, max |diff| 5.00e-16
+  [PASS] C19 both-region tally recount: 16 of 16 arm x outcome cells agree
+  [PASS] C20 combined cells recount: 216 of 216 combined cells agree (k and n from the models)
+  [PASS] C21 combined glyphs vs both-region tally: 16 of 16 arm x outcome cells agree
+  [PASS] C22 tests left out of the tallies: derived {T7, T11}; TALLY_EXCLUDE {T7, T11}
+  Cells without a reading, tests left out of the tallies (for the legend):
+  T7 (test 7):
+                 
+                  holds lost not run partial unreadable
+  M4 cognition        1    2       0       1          0
+  M4 pathology        0    0       4       0          0
+  PVM_1 cognition     0    0       0       0          4
+  PVM_1 pathology     0    0       4       0          0
+  PVM_3 cognition     0    0       0       0          4
+  PVM_3 pathology     0    0       4       0          0
+  T11 (test 11):
+                 
+                  holds lost unreadable
+  M4 cognition        2    2          0
+  M4 pathology        0    4          0
+  PVM_1 cognition     0    0          4
+  PVM_1 pathology     0    0          4
+  PVM_3 cognition     0    0          4
+  PVM_3 pathology     0    0          4
+  [PASS] C14 verdict spread: T1 2, T10 2, T11 3, T12 2, T13 3, T14 2, T15 2, T16 2, T17 2, T18 3, T19 1, T2 2, T20 2, T21 1, T3 2, T4 2, T5 2, T6 2, T7 3, T8 2, T9 2
+
+== 5. Figures
+  wrote Fig17_Summary_landscape_pathology_BothRegions.pdf (11.00 x 9.35 in)
+  wrote Fig17_Summary_landscape_pathology_BothRegions.png (11.00 x 9.35 in)
+  wrote Fig17_Summary_landscape_pathology_BothRegions.svg (11.00 x 9.35 in)
+
+  Tests 16-21 (per arm, NeoC + NonNeoC; for the landscape legend):
+  16 Donor-structured (raw and TQR)             M4 holds (2/2); PVM_3 holds (2/2); PVM_1 holds (2/2); HKG8 lost (0/2)
+  17 Repeatable between regions                 M4 holds (2/2); PVM_3 holds (2/2); PVM_1 holds (2/2); HKG8 lost (0/2)
+  18 Offset share within the 10 pp margin       M4 untestable; PVM_3 holds (1/1); PVM_1 untestable; HKG8 untestable
+  19 No association with library intronic rate  M4 partial (1/2); PVM_3 lost (0/2); PVM_1 lost (0/2); HKG8 partial (1/2)
+  20 Not recovered by per-cell %MT              M4 holds (2/2); PVM_3 holds (4/4); PVM_1 partial (2/4); HKG8 holds (2/2)
+  21 Donor structure holds without SA donors    M4 holds (4/4); PVM_3 holds (4/4); PVM_1 holds (4/4); HKG8 not applicable
+
+== 6. Tables
+  wrote Fig17_Summary.xlsx
+
+== Summary: 29 PASS, 0 WARN, 0 FAIL
+VERDICT: PASS
+Log: <SEA-AD>/Manuscript/Fig17/Preprint/Fig17_Summary_log.txt

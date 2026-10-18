@@ -1,0 +1,71 @@
+Part 12 rerun -- step 10
+Script: Part12_Fig15_Analysis.r | md5 410a9ce09b24f8bb94b171686b69dd0b
+Shared file: Part12_03_Config.r | md5 df0cc2f82a0fd0947b3bb0b93bae800a
+Run ID: 20260922-0817-windows
+Start: 2026-09-22 08:17:15
+Machine: LAPTOP-M7LQ95IS | R version 4.6.1 (2026-06-24 ucrt)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16 | md5 de727a6a529ece74865c9387be6d8831
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 10-01 script saved in Part12_rerun | Part12_Fig15_Analysis.r
+
+Pre-set reading for 15H | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### 15H. Do depth and mitochondrial content explain the gap to Gerrits? (simulation)
+  
+  - **Population.** The PVM_3 arm population (Micro-PVM_3 cells with MT-CO3 > 0), as the Methods state and as 16D uses.
+  - **Simulation.** Binomial thinning of each cell's counts to the nine target depths, with and without matching the mitochondrial fraction to Gerrits', 20 repeats. The median rs over repeats and its range are drawn. No test.
+  - **Reference.** The interquartile range of the Gerrits per-sample raw rs, read from the 15F stats file, so 15H runs after 15EG. Gerrits' depth and mitochondrial fraction come from the 06 output.
+  - **Reading.**
+    - At Gerrits' depth with matched mitochondrial content, the SEA-AD rs falls inside the Gerrits interquartile range: depth and mitochondrial content account for the gap.
+    - It stays above the range: depth and mitochondrial content do not account for the whole gap, and the remainder is attributed to protocol differences, not tested here.
+    - Matching depth alone brings it inside the range: depth alone accounts for the gap.
+  
+
+SECTION A -- inputs
+[PASS] 10-02 04_cell_labels.csv.gz matches the 04_Labels log | Part12_rerun/04_Labels/04_cell_labels.csv.gz
+[PASS] 10-03 labels carry this labels version | checked
+[PASS] 10-04 02_counts.mtx.gz matches the 02_Extract log | Part12_rerun/02_Extract/02_counts.mtx.gz
+[PASS] 10-05 02_counts_genes.tsv matches the 02_Extract log | Part12_rerun/02_Extract/02_counts_genes.tsv
+[PASS] 10-06 02_counts_cells.tsv matches the 02_Extract log | Part12_rerun/02_Extract/02_counts_cells.tsv
+[PASS] 10-07 02_cells.csv.gz matches the 02_Extract log | Part12_rerun/02_Extract/02_cells.csv.gz
+[PASS] 10-08 06_gerrits_samples.csv matches the 06_GerritsCells log | Part12_rerun/06_GerritsCells/06_gerrits_samples.csv
+[PASS] 10-09 Stats_15F.csv matches the 07_Fig15/15EG_GerritsAmbient log | Part12_rerun/07_Fig15/15EG_GerritsAmbient/Stats_15F.csv
+[PASS] 10-10 every PVM_3 arm cell is in the step 02 count matrix | 24463 of 24463
+[PASS] 10-11 every PVM_3 arm cell has MT-CO3 above zero (the arm population) | 24463 of 24463
+[PASS] 10-12 Gerrits reference range read from Stats_15F | IQR 0.228 to 0.309 (median 0.267)
+  population: 24463 cells | median depth 5650 UMIs | median MT fraction 0.0057
+  Gerrits: depth 1504 UMIs | MT fraction 0.00124 | targets: 8000, 6000, 4000, 3000, 2000, 1504, 1500, 1000, 750, 500 | repeats 20
+
+SECTION B -- thinning
+[PASS] 10-13 every repeat gave a finite rs | 20 of 20 condition-target cells complete
+  observed: rs 0.711 | 24463 cells | median MT fraction 0.0057
+  depth      target  8000 | rs 0.702 [0.701, 0.703] | housekeeping 0.205 | cells  24107 | MT fraction 0.00573 | MT UMIs 28.0 | MT keep 1.0000
+  depth      target  6000 | rs 0.690 [0.689, 0.692] | housekeeping 0.196 | cells  23632 | MT fraction 0.00570 | MT UMIs 25.0 | MT keep 1.0000
+  depth      target  4000 | rs 0.661 [0.658, 0.663] | housekeeping 0.178 | cells  22486 | MT fraction 0.00575 | MT UMIs 19.0 | MT keep 1.0000
+  depth      target  3000 | rs 0.630 [0.626, 0.632] | housekeeping 0.161 | cells  21259 | MT fraction 0.00567 | MT UMIs 16.0 | MT keep 1.0000
+  depth      target  2000 | rs 0.577 [0.573, 0.583] | housekeeping 0.132 | cells  19126 | MT fraction 0.00599 | MT UMIs 11.0 | MT keep 1.0000
+  depth      target  1504 | rs 0.534 [0.529, 0.538] | housekeeping 0.123 | cells  17393 | MT fraction 0.00598 | MT UMIs 9.0 | MT keep 1.0000
+  depth      target  1500 | rs 0.534 [0.529, 0.539] | housekeeping 0.124 | cells  17396 | MT fraction 0.00600 | MT UMIs 8.5 | MT keep 1.0000
+  depth      target  1000 | rs 0.471 [0.460, 0.479] | housekeeping 0.103 | cells  14732 | MT fraction 0.00600 | MT UMIs 6.0 | MT keep 1.0000
+  depth      target   750 | rs 0.429 [0.421, 0.437] | housekeeping 0.087 | cells  12874 | MT fraction 0.00533 | MT UMIs 4.0 | MT keep 1.0000
+  depth      target   500 | rs 0.367 [0.352, 0.383] | housekeeping 0.064 | cells  10311 | MT fraction 0.00600 | MT UMIs 3.0 | MT keep 1.0000
+  depth+mito target  8000 | rs 0.420 [0.412, 0.431] | housekeeping 0.205 | cells  14782 | MT fraction 0.00124 | MT UMIs 6.0 | MT keep 0.2165
+  depth+mito target  6000 | rs 0.416 [0.405, 0.420] | housekeeping 0.196 | cells  14103 | MT fraction 0.00122 | MT UMIs 5.0 | MT keep 0.2176
+  depth+mito target  4000 | rs 0.389 [0.381, 0.402] | housekeeping 0.178 | cells  12504 | MT fraction 0.00125 | MT UMIs 4.0 | MT keep 0.2158
+  depth+mito target  3000 | rs 0.371 [0.363, 0.384] | housekeeping 0.161 | cells  11290 | MT fraction 0.00133 | MT UMIs 3.0 | MT keep 0.2190
+  depth+mito target  2000 | rs 0.334 [0.322, 0.349] | housekeeping 0.132 | cells   8918 | MT fraction 0.00100 | MT UMIs 2.0 | MT keep 0.2070
+  depth+mito target  1504 | rs 0.300 [0.289, 0.320] | housekeeping 0.123 | cells   7508 | MT fraction 0.00133 | MT UMIs 2.0 | MT keep 0.2074
+  depth+mito target  1500 | rs 0.296 [0.278, 0.315] | housekeeping 0.124 | cells   7470 | MT fraction 0.00133 | MT UMIs 2.0 | MT keep 0.2068
+  depth+mito target  1000 | rs 0.244 [0.225, 0.254] | housekeeping 0.103 | cells   5658 | MT fraction 0.00100 | MT UMIs 1.0 | MT keep 0.2068
+  depth+mito target   750 | rs 0.234 [0.211, 0.256] | housekeeping 0.087 | cells   5022 | MT fraction 0.00133 | MT UMIs 1.0 | MT keep 0.2327
+  depth+mito target   500 | rs 0.189 [0.170, 0.213] | housekeeping 0.064 | cells   3294 | MT fraction 0.00000 | MT UMIs 0.0 | MT keep 0.2068
+  at Gerrits' depth, depth      rs 0.534 against the Gerrits IQR 0.228 to 0.309: above
+  at Gerrits' depth, depth+mito rs 0.300 against the Gerrits IQR 0.228 to 0.309: inside
+
+SECTION C -- write
+[PASS] 10-14 stats file written and read back | 86 rows
+
+Outputs:
+  Part12_rerun/07_Fig15/15H_DepthThinning/Stats_15H.csv | 0.0 MB | md5 052b2e8ec2de024684ae04f224d28406
+Checks: 14 PASS, 0 FAIL, 0 WARN | duration 0.8 min
+VERDICT: PASS

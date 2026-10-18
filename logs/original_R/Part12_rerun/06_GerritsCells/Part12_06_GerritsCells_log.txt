@@ -1,0 +1,118 @@
+Part 12 rerun -- step 06
+Script: Part12_06_GerritsCells.r | md5 2660121258d7fad855a61ca258600915
+Shared file: Part12_03_Config.r | md5 4a85657985b26ec6b5c8ef6b606e6dd3
+Run ID: 20260921-1752-windows
+Start: 2026-09-21 17:52:46
+Machine: LAPTOP-M7LQ95IS | R version 4.6.1 (2026-06-24 ucrt)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6 | DropletUtils 1.32.0 | BiocParallel 1.46.0
+Config: Part12_rerun/Part12_01_config.json | version 11 | md5 0b398584700487f5e103450fdee07c59
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 06-01 script saved in Part12_rerun | Part12_06_GerritsCells.r
+
+SECTION A -- samples and donors (GSE148822 series matrix)
+  input series matrix                Gerrits/Metadata/GSE148822_series_matrix.txt.gz | 0.0 MB | md5 4eee2bef718d2cf43c575175565c5a83
+[PASS] 06-02 single-nucleus samples in the series matrix | 36 (expected 36)
+[PASS] 06-03 donors and samples per donor | 18 donors | samples per donor: 2
+[PASS] 06-04 every sample is the sorted fraction | NEUNnegOLIG2neg
+  groups: AD 20 | CTR 10 | CTR+ 6
+
+SECTION B -- deposit matrices
+[NOTE] matrix files in the deposit | 36 | 36 match a single-nucleus sample
+[PASS] 06-05 each single-nucleus sample has exactly one matrix file | 36 files for 36 samples | 0 duplicated
+[PASS] 06-06 a features file for every sample | 36 of 36
+[PASS] 06-07 every sample has the same feature list | 33538 genes | 0 samples differ
+[PASS] 06-08 13 MT genes, MT-CO3 and its eight partners present | checked
+[PASS] 06-09 lineage panel neuronal genes present | all
+[PASS] 06-10 lineage panel oligo genes present | all
+[PASS] 06-11 lineage panel astro genes present | all
+[PASS] 06-12 lineage panel opc genes present | all
+[PASS] 06-13 lineage panel endo genes present | all
+[PASS] 06-14 lineage panel microglia genes present | all
+
+SECTION C -- cell calling (emptyDrops, lower 100, FDR 0.01, 10000 iterations)
+[NOTE] workers | 15 of 16 logical cores (PSOCK); each holds one raw matrix at a time
+[NOTE] cell calling time | 5.6 min
+[PASS] 06-15 SN_Donor1OC emptyDrops called cells | 12431 called
+  SN_Donor1OC        barcodes  6794880 | called  12431 | median UMIs   1162 | median %MT 1.057 | ambient %MT 9.649 | MT-CO3+ 8123
+[PASS] 06-16 SN_Donor1OTC emptyDrops called cells | 12670 called
+  SN_Donor1OTC       barcodes  6794880 | called  12670 | median UMIs   1305 | median %MT 0.644 | ambient %MT 7.310 | MT-CO3+ 7107
+[PASS] 06-17 SN_Donor2OC emptyDrops called cells | 12128 called
+  SN_Donor2OC        barcodes  6794880 | called  12128 | median UMIs   1280 | median %MT 0.223 | ambient %MT 1.272 | MT-CO3+ 5084
+[PASS] 06-18 SN_Donor2OTC emptyDrops called cells | 11358 called
+  SN_Donor2OTC       barcodes  6794880 | called  11358 | median UMIs   1612 | median %MT 0.142 | ambient %MT 0.813 | MT-CO3+ 2884
+[PASS] 06-19 SN_Donor6OC emptyDrops called cells | 10652 called
+  SN_Donor6OC        barcodes  6794880 | called  10652 | median UMIs   1620 | median %MT 0.144 | ambient %MT 0.970 | MT-CO3+ 3279
+[PASS] 06-20 SN_Donor6OTC emptyDrops called cells | 6708 called
+  SN_Donor6OTC       barcodes  6794880 | called   6708 | median UMIs   1282 | median %MT 0.119 | ambient %MT 0.944 | MT-CO3+ 1612
+[PASS] 06-21 SN_Donor3OC emptyDrops called cells | 14639 called
+  SN_Donor3OC        barcodes  6794880 | called  14639 | median UMIs   1068 | median %MT 0.162 | ambient %MT 1.032 | MT-CO3+ 4218
+[PASS] 06-22 SN_Donor3OTC emptyDrops called cells | 10617 called
+  SN_Donor3OTC       barcodes  6794880 | called  10617 | median UMIs    980 | median %MT 0.157 | ambient %MT 1.003 | MT-CO3+ 2840
+[PASS] 06-23 SN_Donor7OC emptyDrops called cells | 7475 called
+  SN_Donor7OC        barcodes  6794880 | called   7475 | median UMIs   1634 | median %MT 0.177 | ambient %MT 1.505 | MT-CO3+ 2798
+[PASS] 06-24 SN_Donor7OTC emptyDrops called cells | 12027 called
+  SN_Donor7OTC       barcodes  6794880 | called  12027 | median UMIs   1518 | median %MT 0.105 | ambient %MT 0.784 | MT-CO3+ 3054
+[PASS] 06-25 SN_Donor4OC emptyDrops called cells | 17639 called
+  SN_Donor4OC        barcodes  6794880 | called  17639 | median UMIs   1059 | median %MT 0.129 | ambient %MT 0.855 | MT-CO3+ 4250
+[PASS] 06-26 SN_Donor4OTC emptyDrops called cells | 15890 called
+  SN_Donor4OTC       barcodes  6794880 | called  15890 | median UMIs   1642 | median %MT 0.083 | ambient %MT 0.746 | MT-CO3+ 3724
+[PASS] 06-27 SN_Donor5OC emptyDrops called cells | 12846 called
+  SN_Donor5OC        barcodes  6794880 | called  12846 | median UMIs    899 | median %MT 0.000 | ambient %MT 0.404 | MT-CO3+ 897
+[PASS] 06-28 SN_Donor5OTC emptyDrops called cells | 16916 called
+  SN_Donor5OTC       barcodes  6794880 | called  16916 | median UMIs   1783 | median %MT 0.000 | ambient %MT 0.363 | MT-CO3+ 1890
+[PASS] 06-29 SN_Donor8OC emptyDrops called cells | 23711 called
+  SN_Donor8OC        barcodes  6794880 | called  23711 | median UMIs   1522 | median %MT 0.101 | ambient %MT 0.411 | MT-CO3+ 5720
+[PASS] 06-30 SN_Donor8OTC emptyDrops called cells | 19022 called
+  SN_Donor8OTC       barcodes  6794880 | called  19022 | median UMIs   1412 | median %MT 0.038 | ambient %MT 0.344 | MT-CO3+ 2620
+[PASS] 06-31 SN_Donor9OC emptyDrops called cells | 17013 called
+  SN_Donor9OC        barcodes  6794880 | called  17013 | median UMIs   1549 | median %MT 0.151 | ambient %MT 1.547 | MT-CO3+ 5290
+[PASS] 06-32 SN_Donor9OTC emptyDrops called cells | 18722 called
+  SN_Donor9OTC       barcodes  6794880 | called  18722 | median UMIs   1370 | median %MT 0.211 | ambient %MT 1.337 | MT-CO3+ 7215
+[PASS] 06-33 SN_Donor10OC emptyDrops called cells | 13109 called
+  SN_Donor10OC       barcodes  6794880 | called  13109 | median UMIs   1809 | median %MT 0.282 | ambient %MT 1.186 | MT-CO3+ 6107
+[PASS] 06-34 SN_Donor10OTC emptyDrops called cells | 15642 called
+  SN_Donor10OTC      barcodes  6794880 | called  15642 | median UMIs   1471 | median %MT 0.232 | ambient %MT 1.971 | MT-CO3+ 6202
+[PASS] 06-35 SN_Donor11OC emptyDrops called cells | 10175 called
+  SN_Donor11OC       barcodes  6794880 | called  10175 | median UMIs   2617 | median %MT 0.025 | ambient %MT 0.570 | MT-CO3+ 1621
+[PASS] 06-36 SN_Donor11OTC emptyDrops called cells | 14187 called
+  SN_Donor11OTC      barcodes  6794880 | called  14187 | median UMIs   2221 | median %MT 0.042 | ambient %MT 0.597 | MT-CO3+ 3157
+[PASS] 06-37 SN_Donor12OC emptyDrops called cells | 15338 called
+  SN_Donor12OC       barcodes  6794880 | called  15338 | median UMIs   1761 | median %MT 0.068 | ambient %MT 0.552 | MT-CO3+ 3460
+[PASS] 06-38 SN_Donor12OTC emptyDrops called cells | 16484 called
+  SN_Donor12OTC      barcodes  6794880 | called  16484 | median UMIs   1225 | median %MT 0.079 | ambient %MT 0.553 | MT-CO3+ 3511
+[PASS] 06-39 SN_Donor13OC emptyDrops called cells | 17033 called
+  SN_Donor13OC       barcodes  6794880 | called  17033 | median UMIs   1297 | median %MT 0.134 | ambient %MT 1.033 | MT-CO3+ 4565
+[PASS] 06-40 SN_Donor13OTC emptyDrops called cells | 17744 called
+  SN_Donor13OTC      barcodes  6794880 | called  17744 | median UMIs   1294 | median %MT 0.073 | ambient %MT 0.669 | MT-CO3+ 3089
+[PASS] 06-41 SN_Donor14OC emptyDrops called cells | 17586 called
+  SN_Donor14OC       barcodes  6794880 | called  17586 | median UMIs   2052 | median %MT 0.051 | ambient %MT 0.585 | MT-CO3+ 3155
+[PASS] 06-42 SN_Donor14OTC emptyDrops called cells | 17163 called
+  SN_Donor14OTC      barcodes  6794880 | called  17163 | median UMIs   2177 | median %MT 0.046 | ambient %MT 0.572 | MT-CO3+ 3015
+[PASS] 06-43 SN_Donor15OC emptyDrops called cells | 15381 called
+  SN_Donor15OC       barcodes  6794880 | called  15381 | median UMIs   1854 | median %MT 0.161 | ambient %MT 0.721 | MT-CO3+ 6099
+[PASS] 06-44 SN_Donor15OTC emptyDrops called cells | 16127 called
+  SN_Donor15OTC      barcodes  6794880 | called  16127 | median UMIs   1330 | median %MT 0.088 | ambient %MT 0.544 | MT-CO3+ 3667
+[PASS] 06-45 SN_Donor16OC emptyDrops called cells | 20943 called
+  SN_Donor16OC       barcodes  6794880 | called  20943 | median UMIs   1724 | median %MT 0.150 | ambient %MT 0.522 | MT-CO3+ 6757
+[PASS] 06-46 SN_Donor16OTC emptyDrops called cells | 17983 called
+  SN_Donor16OTC      barcodes  6794880 | called  17983 | median UMIs   2016 | median %MT 0.093 | ambient %MT 0.413 | MT-CO3+ 5264
+[PASS] 06-47 SN_Donor17OC emptyDrops called cells | 12439 called
+  SN_Donor17OC       barcodes  6794880 | called  12439 | median UMIs   1099 | median %MT 0.392 | ambient %MT 2.086 | MT-CO3+ 6191
+[PASS] 06-48 SN_Donor17OTC emptyDrops called cells | 15317 called
+  SN_Donor17OTC      barcodes  6794880 | called  15317 | median UMIs   1489 | median %MT 0.167 | ambient %MT 0.949 | MT-CO3+ 5844
+[PASS] 06-49 SN_Donor18OC emptyDrops called cells | 15728 called
+  SN_Donor18OC       barcodes  6794880 | called  15728 | median UMIs   1227 | median %MT 0.077 | ambient %MT 0.415 | MT-CO3+ 2965
+[PASS] 06-50 SN_Donor18OTC emptyDrops called cells | 18124 called
+  SN_Donor18OTC      barcodes  6794880 | called  18124 | median UMIs   1755 | median %MT 0.048 | ambient %MT 0.346 | MT-CO3+ 3235
+
+SECTION D -- totals
+[PASS] 06-51 every sample produced a cell set | 36 of 36
+[PASS] 06-52 samples with at least 200 called nuclei | all
+  538967 nuclei called | median per sample 15512 | lineage share: astro 0.30 | endo 0.05 | microglia 0.41 | neuronal 0.06 | oligo 0.13 | opc 0.01
+[PASS] 06-53 tables written and read back | samples 36 | nuclei 538967
+
+Outputs:
+  Part12_rerun/06_GerritsCells/tables/06_gerrits_samples.csv | 0.0 MB | md5 edba40afb12aa80fcd9ef570c13f9e2f
+  Part12_rerun/06_GerritsCells/tables/06_gerrits_cells.csv.gz | 15.3 MB | md5 3cf8f5eb6a2a71b316f00e407a02ff7a
+Checks: 53 PASS, 0 FAIL, 0 WARN | duration 6.2 min
+VERDICT: PASS

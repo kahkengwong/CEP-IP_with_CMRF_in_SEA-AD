@@ -1,0 +1,338 @@
+Part10f Band Formation - log started: 2026-08-26 01:34:53.031873
+
+
+============================================================================
+  ARM: HKG8_matched   config: R_config_HKG8.R
+============================================================================
+R_config_HKG8.R loaded (HKG specificity control: ACTB + 8 cHKGs).
+  ARM_TAG   : HKG8_matched 
+  ARM_DIR   : <SEA-AD>/R_export_CP10K/HKG8_matched 
+  NEOC_DIR  : <SEA-AD>/R_export_CP10K/HKG8_matched/neocortex 
+  NONNC_DIR : <SEA-AD>/R_export_CP10K/HKG8_matched/nonneocortex 
+  SHARED_DIR: <SEA-AD>/R_export_CP10K/shared 
+  GOI       : ACTB 
+  DFG       : EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 
+  DFG_LABEL : cHKG8 
+  RUN_SUFFIX: _HKG8 
+  Selected  : MT-CO3>0 AND ACTB>0 
+  Mod1 genes: ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 1432 NeoC / 1079 NonNeoC
+  Config OK: HKG8_matched | ACTB + 8 DFG | CP10K
+
+
+ ======================================================================== 
+  Part10f - progressive band formation in copula space
+  Arm          : HKG8_matched 
+  GOI          : ACTB 
+  Normalisation: CP10K 
+  Band         : kappa = 0.5 | bw = 0.1 | coverage = 0.95 
+  Colour by    : group_orig (SKCS core, all 11 panels)
+  Labels loaded: group_refined 
+  Part 10e RDS : <SEA-AD>/Part10e_CMRF/Part10e_CMRF_HKG8/Part10e_CP10K_HKG8_CMRF_all_results.rds 
+  Output dir   : <SEA-AD>/Part10f_Band_Formation/Part10f_Band_Formation_HKG8 
+======================================================================== 
+
+  SECTION A0 - PRE-ANALYSIS GUARDRAILS
+
+  [PASS]  GR-10F-01-CMRF      Part 10e results: Part10e_CMRF_HKG8/Part10e_CP10K_HKG8_CMRF_all_results.rds (1.1 MB)
+  [PASS]  GR-10F-02-NeoC      Validation1 RDS present; group_refined loaded for the axis check (colours come from group_orig)
+  [PASS]  GR-10F-02-NonNeoC   Validation1 RDS present; group_refined loaded for the axis check (colours come from group_orig)
+
+  Pre-analysis guardrails: 3 PASS / 0 WARN / 0 FAIL
+
+
+ ======================================================================== 
+  Part10f Band Formation: NeoC  [ HKG8_matched ]
+======================================================================== 
+
+    Spine (GR-10): spine DECREASING somewhere on the grid (min diff -1.741e-03) 
+    Cells 1432 | donors 74 distinct | 0 without a donor
+    Subgroup labels from: Validation1 group_refined (1432 of 1432 cells matched) 
+    Pre/Post boundary in copula space: IP_v = 0.476622  (Part 10e RDS)
+    Label axis check: group_refined = 100.00% of 537 cell(s) [loaded, not drawn] | group_orig = 100.00% of 250 cell(s) [all 11 panels] | rule `cDFG_expr < IP_y`, IP_y = 1.245230
+    Band verified against Part 10e: max |dev| = 0.000e+00
+    31 tied u value(s); approx() collapses them
+    Coloured cells: 250 under group_orig (the SKCS core, used on all 11 panels) | 537 under group_refined (loaded, not drawn) | difference 287
+    Spine training set: 218 TREP SKCS-core cells (Pre-IP 71, Post-IP 147) | Part 10e spine_n_cells: 218
+    delta_base = 0.15295, a donor-weighted 95% quantile of |v - g(u)| over the original SKCS-core (Part 10e B10E-06).
+Spine = mgcv penalised thin-plate spline, s(u, bs='tp') + s(donor, bs='re'), inverse-donor weights, REML; drawn as the population curve (exclude = s(donor)). No shape-constrained basis is used; monotonicity is verified per fit: spine DECREASING somewhere on the grid (min diff -1.741e-03).
+Subgroup labels: Part 10e group_orig, the SKCS-core labels Part 10b assigned (250 core cell(s); pre-CMRF).  Arm: HKG8_matched.
+Navy vertical = IP_u (band-kernel centre); dark red dashed = IP_v = Fc(IP_y) = 0.4766, the Pre/Post boundary the four-group colours are assigned on (cDFG at IP_y).
+    Gap zone 57 = non-SKCS 57 (dark fill) + SKCS-core 0 (drawn as ordinary core cells) | Stage 1 flat candidates 295
+  BF01: Spine only ...
+    g(IP_u) = 0.534326 | cDFG median line v = 0.5 | deviation +0.034326
+  BF01 saved
+  BF02: Spine + 5-class cells (no band) ...
+  BF02 saved
+  BF03: Flat band + 5-class cells ...
+  BF03 saved
+  BF04: Adaptive band (no gap circles) ...
+  BF04 saved
+  BF05: Full band + gap circles ...
+  BF05 saved
+  BF06: Waist zoom ...
+  BF06 saved
+  BF07: Waist zoom with QC annotations ...
+  BF07 saved
+  BF08: Plot #6 -- Stage 1 candidate pool ...
+    Original only (C2-fail, outside band): n=11
+    BF09 legend classes:
+      Pre-IP TREP                71
+      Pre-IP non-TREP            0
+      Post-IP TREP               147
+      Post-IP non-TREP           21
+      Original only              11
+      Stage 1 within delta_base  295
+      Gap cells (non-SKCS)       57
+      Non-selected               830
+      TOTAL                      1432 (must equal 1432)
+  BF08 saved
+  BF09: Plot #7 -- Gap cells + all Original only ...
+    Original only (outside band): n=11
+  BF09 saved
+  BF10: Plot #8 -- RSk-fCV outcome ...
+    Recovered: n=287
+    Stage 2 set from: Part 10e removed_by_stage2 (agrees with the derived set) 
+    Stage 2 removed: n=65
+    Check: Recovered(287) + Removed(65) = 352 against the non-SKCS Stage 1 pool (352) -- agree
+  BF10 saved
+  BF11: Plot #9 (final) -- Complete CMRF classification ...
+    Original+Refined: 239
+    Recovered: 287
+    CMRF-core: 526
+    Original only: 11
+    BF11 legend classes:
+      Pre-IP TREP          71
+      Pre-IP non-TREP      0
+      Post-IP TREP         147
+      Post-IP non-TREP     21
+      Recovered            287
+      Original only        11
+      Excluded (RSk-fCV)   65
+      Non-selected         830
+      TOTAL                1432 (must equal 1432)
+  BF11 saved
+
+  Counts and donor spread
+    Original + Refined         n=   239 | donors= 54 | top share=0.096 | TVD=0.000 (null p95 0.310)  [reference set]
+    Recovered                  n=   287 | donors= 59 | top share=0.087 | TVD=0.341 (null p95 0.302)  [above null]
+    Original only              n=    11 | donors= 11 | top share=0.091 | TVD=0.775 (null p95 0.829)
+    Excluded                   n=   895 | donors= 72 | top share=0.089 | TVD=0.277 (null p95 0.252)  [above null]
+    Gap zone (all)             n=    57 | donors= 33 | top share=0.158 | TVD=0.516 (null p95 0.477)  [above null]
+    Gap zone (non-SKCS)        n=    57 | donors= 33 | top share=0.158 | TVD=0.516 (null p95 0.477)  [above null]
+    Stage 1 flat candidates    n=   295 | donors= 61 | top share=0.085 | TVD=0.342 (null p95 0.295)  [above null]
+    Stage 1 pool (blue+dark)   n=   352 | donors= 62 | top share=0.082 | TVD=0.324 (null p95 0.289)  [above null]
+
+ ======================================================================== 
+  Part10f Band Formation: NonNeoC  [ HKG8_matched ]
+======================================================================== 
+
+    Spine (GR-10): spine DECREASING somewhere on the grid (min diff -1.523e-03) 
+    Cells 1079 | donors 77 distinct | 0 without a donor
+    Subgroup labels from: Validation1 group_refined (1079 of 1079 cells matched) 
+    Pre/Post boundary in copula space: IP_v = 0.490741  (Part 10e RDS)
+    Label axis check: group_refined = 100.00% of 439 cell(s) [loaded, not drawn] | group_orig = 100.00% of 199 cell(s) [all 11 panels] | rule `cDFG_expr < IP_y`, IP_y = 1.174491
+    Band verified against Part 10e: max |dev| = 0.000e+00
+    17 tied u value(s); approx() collapses them
+    Coloured cells: 199 under group_orig (the SKCS core, used on all 11 panels) | 439 under group_refined (loaded, not drawn) | difference 240
+    Spine training set: 159 TREP SKCS-core cells (Pre-IP 43, Post-IP 116) | Part 10e spine_n_cells: 159
+    delta_base = 0.16913, a donor-weighted 95% quantile of |v - g(u)| over the original SKCS-core (Part 10e B10E-06).
+Spine = mgcv penalised thin-plate spline, s(u, bs='tp') + s(donor, bs='re'), inverse-donor weights, REML; drawn as the population curve (exclude = s(donor)). No shape-constrained basis is used; monotonicity is verified per fit: spine DECREASING somewhere on the grid (min diff -1.523e-03).
+Subgroup labels: Part 10e group_orig, the SKCS-core labels Part 10b assigned (199 core cell(s); pre-CMRF).  Arm: HKG8_matched.
+Navy vertical = IP_u (band-kernel centre); dark red dashed = IP_v = Fc(IP_y) = 0.4907, the Pre/Post boundary the four-group colours are assigned on (cDFG at IP_y).
+    Gap zone 28 = non-SKCS 27 (dark fill) + SKCS-core 1 (drawn as ordinary core cells) | Stage 1 flat candidates 235
+  BF01: Spine only ...
+    g(IP_u) = 0.864222 | cDFG median line v = 0.5 | deviation +0.364222
+  BF01 saved
+  BF02: Spine + 5-class cells (no band) ...
+  BF02 saved
+  BF03: Flat band + 5-class cells ...
+  BF03 saved
+  BF04: Adaptive band (no gap circles) ...
+  BF04 saved
+  BF05: Full band + gap circles ...
+  BF05 saved
+  BF06: Waist zoom ...
+  BF06 saved
+  BF07: Waist zoom with QC annotations ...
+  BF07 saved
+  BF08: Plot #6 -- Stage 1 candidate pool ...
+    Original only (C2-fail, outside band): n=8
+    BF09 legend classes:
+      Pre-IP TREP                43
+      Pre-IP non-TREP            0
+      Post-IP TREP               116
+      Post-IP non-TREP           32
+      Original only              8
+      Stage 1 within delta_base  235
+      Gap cells (non-SKCS)       27
+      Non-selected               618
+      TOTAL                      1079 (must equal 1079)
+  BF08 saved
+  BF09: Plot #7 -- Gap cells + all Original only ...
+    Original only (outside band): n=8
+  BF09 saved
+  BF10: Plot #8 -- RSk-fCV outcome ...
+    Recovered: n=240
+    Stage 2 set from: Part 10e removed_by_stage2 (agrees with the derived set) 
+    Stage 2 removed: n=22
+    Check: Recovered(240) + Removed(22) = 262 against the non-SKCS Stage 1 pool (262) -- agree
+  BF10 saved
+  BF11: Plot #9 (final) -- Complete CMRF classification ...
+    Original+Refined: 191
+    Recovered: 240
+    CMRF-core: 431
+    Original only: 8
+    BF11 legend classes:
+      Pre-IP TREP          43
+      Pre-IP non-TREP      0
+      Post-IP TREP         116
+      Post-IP non-TREP     32
+      Recovered            240
+      Original only        8
+      Excluded (RSk-fCV)   22
+      Non-selected         618
+      TOTAL                1079 (must equal 1079)
+  BF11 saved
+
+  Counts and donor spread
+    Original + Refined         n=   191 | donors= 55 | top share=0.115 | TVD=0.000 (null p95 0.351)  [reference set]
+    Recovered                  n=   240 | donors= 61 | top share=0.075 | TVD=0.372 (null p95 0.342)  [above null]
+    Original only              n=     8 | donors=  8 | top share=0.125 | TVD=0.707 (null p95 0.900)
+    Excluded                   n=   640 | donors= 72 | top share=0.102 | TVD=0.320 (null p95 0.294)  [above null]
+    Gap zone (all)             n=    28 | donors= 19 | top share=0.107 | TVD=0.491 (null p95 0.656)
+    Gap zone (non-SKCS)        n=    27 | donors= 19 | top share=0.111 | TVD=0.485 (null p95 0.669)
+    Stage 1 flat candidates    n=   235 | donors= 61 | top share=0.077 | TVD=0.372 (null p95 0.338)  [above null]
+    Stage 1 pool (blue+dark)   n=   262 | donors= 63 | top share=0.080 | TVD=0.349 (null p95 0.329)  [above null]
+
+ ======================================================================== 
+  SAVING COUNTS WORKBOOK
+======================================================================== 
+
+  Excel saved: Part10f_CP10K_HKG8_Band_Formation_Counts.xlsx (2 sheet(s))
+
+  POST-ANALYSIS GUARDRAILS
+
+  [PASS]  GR-10F-03-NeoC      1432 cell(s): OrigRef 239, Recovered 287, Orig-only 11, Excluded 895 | gap zone 57 = non-SKCS 57 (dark fill) + SKCS-core 0 (no symbol, ordinary four-group dot)
+  [PASS]  GR-10F-04-NeoC      band recomputed vs stored delta_adapt: max |dev| = 0.000e+00 (tolerance 1.0e-08, kappa 0.50, bw 0.10)
+  [WARN]  GR-10F-05-NeoC      spine DECREASING somewhere on the grid (min diff -1.741e-03) -- the figure subtitles carry this verdict rather than asserting a monotone basis
+  [PASS]  GR-10F-14-NeoC      BF11 legend: Pre-IP TREP 71, Pre-IP non-TREP 0, Post-IP TREP 147, Post-IP non-TREP 21, Recovered 287, Original only 11, Excluded (RSk-fCV) 65, Non-selected 830 | total 1432 against n_cells 1432
+  [PASS]  GR-10F-15-NeoC      BF09 legend: Pre-IP TREP 71, Pre-IP non-TREP 0, Post-IP TREP 147, Post-IP non-TREP 21, Original only 11, Stage 1 within delta_base 295, Gap cells (non-SKCS) 57, Non-selected 830 | total 1432 against n_cells 1432
+  [PASS]  GR-10F-10-NeoC      rule `cDFG_expr < IP_y` (IP_y = 1.245230, drawn at IP_v = 0.476622): group_refined reproduces 100.00% over 537 cell(s) [loaded, not drawn]; group_orig reproduces 100.00% over 250 cell(s) [all 11 panels]
+  [PASS]  GR-10F-06-NeoC      subgroup labels loaded: Validation1 group_refined (1432 of 1432 cells matched) (colours come from group_orig on all 11 panels)
+  [PASS]  GR-10F-13-NeoC      all 11 panels colour 250 SKCS-core cell(s) from group_orig = OrigRef 239 + Orig-only 11; group_refined would colour 537, a difference of 287 against Recovered 287 -- BUGFIX-10F-34 keeps the Recovered cells out of the colour layer
+  [WARN]  GR-10F-07-NeoC      Recovered: 287 cell(s) over 59 donor(s), largest share 0.087, TVD vs OrigRef 0.341 against a null p95 of 0.302 | also above their own null p95 (expected for gate-defined sets): Recovered, Excluded, Gap zone (all), Gap zone (non-SKCS), Stage 1 flat candidates, Stage 1 pool (blue+dark)
+  [PASS]  GR-10F-09-NeoC      BF10 Stage 2 removals: 65 cell(s) | Recovered 287 + Removed 65 = 352 against the non-SKCS Stage 1 pool 352 (agree) | Part 10e removed_by_stage2 (agrees with the derived set)
+  [PASS]  GR-10F-11-NeoC      BF01 spine training set: 218 cell(s) (Pre-IP 71, Post-IP 147) against Part 10e spine_n_cells = 218
+  [PASS]  GR-10F-12-NeoC      Gate closed with rel. RMSE increase 0.1280 against background variability 0.1347 (effect-size criterion); Wilcoxon alpha = 0.05
+  [PASS]  GR-10F-08-NeoC      RSk-fCV Wilcoxon p = 0.0003 (quoted in BF11)
+  [PASS]  GR-10F-03-NonNeoC   1079 cell(s): OrigRef 191, Recovered 240, Orig-only 8, Excluded 640 | gap zone 28 = non-SKCS 27 (dark fill) + SKCS-core 1 (no symbol, ordinary four-group dot)
+  [PASS]  GR-10F-04-NonNeoC   band recomputed vs stored delta_adapt: max |dev| = 0.000e+00 (tolerance 1.0e-08, kappa 0.50, bw 0.10)
+  [WARN]  GR-10F-05-NonNeoC   spine DECREASING somewhere on the grid (min diff -1.523e-03) -- the figure subtitles carry this verdict rather than asserting a monotone basis
+  [PASS]  GR-10F-14-NonNeoC   BF11 legend: Pre-IP TREP 43, Pre-IP non-TREP 0, Post-IP TREP 116, Post-IP non-TREP 32, Recovered 240, Original only 8, Excluded (RSk-fCV) 22, Non-selected 618 | total 1079 against n_cells 1079
+  [PASS]  GR-10F-15-NonNeoC   BF09 legend: Pre-IP TREP 43, Pre-IP non-TREP 0, Post-IP TREP 116, Post-IP non-TREP 32, Original only 8, Stage 1 within delta_base 235, Gap cells (non-SKCS) 27, Non-selected 618 | total 1079 against n_cells 1079
+  [PASS]  GR-10F-10-NonNeoC   rule `cDFG_expr < IP_y` (IP_y = 1.174491, drawn at IP_v = 0.490741): group_refined reproduces 100.00% over 439 cell(s) [loaded, not drawn]; group_orig reproduces 100.00% over 199 cell(s) [all 11 panels]
+  [PASS]  GR-10F-06-NonNeoC   subgroup labels loaded: Validation1 group_refined (1079 of 1079 cells matched) (colours come from group_orig on all 11 panels)
+  [PASS]  GR-10F-13-NonNeoC   all 11 panels colour 199 SKCS-core cell(s) from group_orig = OrigRef 191 + Orig-only 8; group_refined would colour 439, a difference of 240 against Recovered 240 -- BUGFIX-10F-34 keeps the Recovered cells out of the colour layer
+  [WARN]  GR-10F-07-NonNeoC   Recovered: 240 cell(s) over 61 donor(s), largest share 0.075, TVD vs OrigRef 0.372 against a null p95 of 0.342 | also above their own null p95 (expected for gate-defined sets): Recovered, Excluded, Stage 1 flat candidates, Stage 1 pool (blue+dark)
+  [PASS]  GR-10F-09-NonNeoC   BF10 Stage 2 removals: 22 cell(s) | Recovered 240 + Removed 22 = 262 against the non-SKCS Stage 1 pool 262 (agree) | Part 10e removed_by_stage2 (agrees with the derived set)
+  [PASS]  GR-10F-11-NonNeoC   BF01 spine training set: 159 cell(s) (Pre-IP 43, Post-IP 116) against Part 10e spine_n_cells = 159
+  [PASS]  GR-10F-12-NonNeoC   Gate closed with rel. RMSE increase 0.1621 against background variability 0.1696 (effect-size criterion); Wilcoxon alpha = 0.05
+  [PASS]  GR-10F-08-NonNeoC   RSk-fCV Wilcoxon p = 0.0004 (quoted in BF11)
+  Guardrail log written: <SEA-AD>/Part10f_Band_Formation/Part10f_Band_Formation_HKG8/Part10f_CP10K_HKG8_Guardrail_Log.txt 
+
+  Final guardrail tally: 25 PASS / 4 WARN / 0 FAIL
+  25 passed, 4 warning(s), no failures.
+
+ ======================================================================== 
+  Part10f Band Formation COMPLETE [ HKG8_matched ]
+  Output directory: <SEA-AD>/Part10f_Band_Formation/Part10f_Band_Formation_HKG8 
+  Files generated:
+    Part10f_CP10K_HKG8_Band_Formation_Counts.xlsx                          8 KB
+    Part10f_CP10K_HKG8_BF01_spine_only_NeoC.pdf                          109 KB
+    Part10f_CP10K_HKG8_BF01_spine_only_NeoC.png                          116 KB
+    Part10f_CP10K_HKG8_BF01_spine_only_NonNeoC.pdf                        85 KB
+    Part10f_CP10K_HKG8_BF01_spine_only_NonNeoC.png                       110 KB
+    Part10f_CP10K_HKG8_BF02_cells_only_NeoC.pdf                           94 KB
+    Part10f_CP10K_HKG8_BF02_cells_only_NeoC.png                           99 KB
+    Part10f_CP10K_HKG8_BF02_cells_only_NonNeoC.pdf                        74 KB
+    Part10f_CP10K_HKG8_BF02_cells_only_NonNeoC.png                        93 KB
+    Part10f_CP10K_HKG8_BF03_flat_band_NeoC.pdf                           115 KB
+    Part10f_CP10K_HKG8_BF03_flat_band_NeoC.png                           121 KB
+    Part10f_CP10K_HKG8_BF03_flat_band_NonNeoC.pdf                         94 KB
+    Part10f_CP10K_HKG8_BF03_flat_band_NonNeoC.png                        114 KB
+    Part10f_CP10K_HKG8_BF04_adaptive_band_NeoC.pdf                       129 KB
+    Part10f_CP10K_HKG8_BF04_adaptive_band_NeoC.png                       142 KB
+    Part10f_CP10K_HKG8_BF04_adaptive_band_NonNeoC.pdf                    107 KB
+    Part10f_CP10K_HKG8_BF04_adaptive_band_NonNeoC.png                    133 KB
+    Part10f_CP10K_HKG8_BF05_full_band_NeoC.pdf                           147 KB
+    Part10f_CP10K_HKG8_BF05_full_band_NeoC.png                           210 KB
+    Part10f_CP10K_HKG8_BF05_full_band_NonNeoC.pdf                        123 KB
+    Part10f_CP10K_HKG8_BF05_full_band_NonNeoC.png                        183 KB
+    Part10f_CP10K_HKG8_BF06_waist_zoom_NeoC.pdf                           95 KB
+    Part10f_CP10K_HKG8_BF06_waist_zoom_NeoC.png                          160 KB
+    Part10f_CP10K_HKG8_BF06_waist_zoom_NonNeoC.pdf                        84 KB
+    Part10f_CP10K_HKG8_BF06_waist_zoom_NonNeoC.png                       139 KB
+    Part10f_CP10K_HKG8_BF07_QC_zoom_NeoC.pdf                             135 KB
+    Part10f_CP10K_HKG8_BF07_QC_zoom_NeoC.png                             126 KB
+    Part10f_CP10K_HKG8_BF07_QC_zoom_NonNeoC.pdf                          113 KB
+    Part10f_CP10K_HKG8_BF07_QC_zoom_NonNeoC.png                          117 KB
+    Part10f_CP10K_HKG8_BF08_stage1_pool_NeoC.pdf                         147 KB
+    Part10f_CP10K_HKG8_BF08_stage1_pool_NeoC.png                         194 KB
+    Part10f_CP10K_HKG8_BF08_stage1_pool_NonNeoC.pdf                      122 KB
+    Part10f_CP10K_HKG8_BF08_stage1_pool_NonNeoC.png                      166 KB
+    Part10f_CP10K_HKG8_BF09_all_orig_only_NeoC.pdf                       148 KB
+    Part10f_CP10K_HKG8_BF09_all_orig_only_NeoC.png                       218 KB
+    Part10f_CP10K_HKG8_BF09_all_orig_only_NonNeoC.pdf                    123 KB
+    Part10f_CP10K_HKG8_BF09_all_orig_only_NonNeoC.png                    190 KB
+    Part10f_CP10K_HKG8_BF10_rskfcv_outcome_NeoC.pdf                      139 KB
+    Part10f_CP10K_HKG8_BF10_rskfcv_outcome_NeoC.png                      202 KB
+    Part10f_CP10K_HKG8_BF10_rskfcv_outcome_NonNeoC.pdf                   115 KB
+    Part10f_CP10K_HKG8_BF10_rskfcv_outcome_NonNeoC.png                   177 KB
+    Part10f_CP10K_HKG8_BF11_final_classification_NeoC.pdf                124 KB
+    Part10f_CP10K_HKG8_BF11_final_classification_NeoC.png                195 KB
+    Part10f_CP10K_HKG8_BF11_final_classification_NonNeoC.pdf             103 KB
+    Part10f_CP10K_HKG8_BF11_final_classification_NonNeoC.png             179 KB
+    Part10f_CP10K_HKG8_console_log_20260826_013453.txt                    21 KB
+    Part10f_CP10K_HKG8_Guardrail_Log.txt                                   6 KB
+======================================================================== 
+
+  Log written to: <SEA-AD>/Part10f_Band_Formation/Part10f_Band_Formation_HKG8/Part10f_CP10K_HKG8_console_log_20260826_013453.txt 
+
+Part10f Band Formation - log ended: 2026-08-26 01:36:33.618875
+
+========================================================================
+  MESSAGE STREAM (warnings, messages, errors)
+========================================================================
+G2;H2;Warningh in regularize.values(x, y, ties, missing(ties), na.rm = na.rm) :
+  collapsing to unique 'x' valuesg
+G2;H2;Warningh: Duplicated `override.aes` is ignored.g
+G2;H2;Warningh: Duplicated `override.aes` is ignored.g
+G2;H2;Warningh: Duplicated `override.aes` is ignored.g
+G2;H2;Warningh: Duplicated `override.aes` is ignored.g
+G2;H2;Warningh: Duplicated `override.aes` is ignored.g
+G2;H2;Warningh: Duplicated `override.aes` is ignored.g
+G2;H2;Warningh: Duplicated `override.aes` is ignored.g
+G2;H2;Warningh: Duplicated `override.aes` is ignored.g
+G2;H2;Warningh: Duplicated `override.aes` is ignored.g
+G2;H2;Warningh: Duplicated `override.aes` is ignored.g
+G2;H2;Warningh: Duplicated `override.aes` is ignored.g
+G2;H2;Warningh: Duplicated `override.aes` is ignored.g
+G2;H2;Warningh in regularize.values(x, y, ties, missing(ties), na.rm = na.rm) :
+  collapsing to unique 'x' valuesg
+G2;H2;Warningh: Duplicated `override.aes` is ignored.g
+G2;H2;Warningh: Duplicated `override.aes` is ignored.g
+G2;H2;Warningh: Duplicated `override.aes` is ignored.g
+G2;H2;Warningh: Duplicated `override.aes` is ignored.g
+G2;H2;Warningh: Duplicated `override.aes` is ignored.g
+G2;H2;Warningh: Duplicated `override.aes` is ignored.g
+G2;H2;Warningh: Duplicated `override.aes` is ignored.g
+G2;H2;Warningh: Duplicated `override.aes` is ignored.g
+G2;H2;Warningh: Duplicated `override.aes` is ignored.g
+G2;H2;Warningh: Duplicated `override.aes` is ignored.g
+G2;H2;Warningh: Duplicated `override.aes` is ignored.g
+G2;H2;Warningh: Duplicated `override.aes` is ignored.g
+

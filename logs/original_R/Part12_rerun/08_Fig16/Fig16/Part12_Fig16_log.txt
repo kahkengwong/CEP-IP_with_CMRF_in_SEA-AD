@@ -1,0 +1,60 @@
+Part 12 rerun -- step 18
+Script: Part12_Fig16_Plots.r | md5 a49c22c9c7ca8677a8c327c1e99e5af4
+Shared file: Part12_03_Config.r | md5 df0cc2f82a0fd0947b3bb0b93bae800a
+Run ID: 20260923-1838-windows
+Start: 2026-09-23 18:38:43
+Machine: LAPTOP-M7LQ95IS | R version 4.6.1 (2026-06-24 ucrt)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16 | md5 de727a6a529ece74865c9387be6d8831
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 18-01 script saved in Part12_rerun | Part12_Fig16_Plots.r
+
+SECTION A -- inputs
+[PASS] 18-02 Stats_16A.csv matches the 08_Fig16/16AB_DonorStructure log | Part12_rerun/08_Fig16/16AB_DonorStructure/Stats_16A.csv
+[PASS] 18-03 Stats_16B.csv matches the 08_Fig16/16AB_DonorStructure log | Part12_rerun/08_Fig16/16AB_DonorStructure/Stats_16B.csv
+[PASS] 18-04 Stats_16C.csv matches the 08_Fig16/16C_LabelAgreement log | Part12_rerun/08_Fig16/16C_LabelAgreement/Stats_16C.csv
+[PASS] 18-05 Stats_16D.csv matches the 08_Fig16/16D_WithinDonorRho log | Part12_rerun/08_Fig16/16D_WithinDonorRho/Stats_16D.csv
+[PASS] 18-06 Plot_16D_donors.csv matches the 08_Fig16/16D_WithinDonorRho log | Part12_rerun/08_Fig16/16D_WithinDonorRho/Plot_16D_donors.csv
+[PASS] 18-07 Stats_16E.csv matches the 08_Fig16/16E_Offset log | Part12_rerun/08_Fig16/16E_Offset/Stats_16E.csv
+[PASS] 18-08 Stats_16F.csv matches the 08_Fig16/16FG_LibraryFields log | Part12_rerun/08_Fig16/16FG_LibraryFields/Stats_16F.csv
+[PASS] 18-09 Stats_16G.csv matches the 08_Fig16/16FG_LibraryFields log | Part12_rerun/08_Fig16/16FG_LibraryFields/Stats_16G.csv
+[PASS] 18-10 16D plot data agree with the stats file | within-donor median 0.747328 against 0.747328
+[PASS] 18-11 figure labels are ASCII | 9 labels
+[PASS] 18-12 figure script text is ASCII | 672 lines
+
+SECTION B -- figures
+[PASS] 18-13 Fig16A_donor_share drawn | pdf and png
+[PASS] 18-14 Fig16B_split_half drawn | pdf and png
+[PASS] 18-15 Fig16C_label_agreement drawn | pdf and png
+[PASS] 18-16 Fig16D_within_donor_rs drawn | pdf and png
+[PASS] 18-17 Fig16E_offset_share drawn | pdf and png
+[PASS] 18-18 Fig16F_intronic_rate drawn | pdf and png
+[PASS] 18-19 Fig16G_library_fields_M4 drawn | pdf and png
+[PASS] 18-20 Fig16G_library_fields_PVM_3 drawn | pdf and png
+[PASS] 18-21 Fig16G_library_fields_PVM_1 drawn | pdf and png
+[PASS] 18-22 Fig16G_library_fields_HKG8 drawn | pdf and png
+
+
+Outputs:
+  Part12_rerun/08_Fig16/Fig16/Fig16A_donor_share.pdf | 0.0 MB | md5 b26470535fc0e2a7e6e5c987b069deee
+  Part12_rerun/08_Fig16/Fig16/Fig16A_donor_share.png | 0.1 MB | md5 57a50082e309d7eceb5133d5d2b4fc0f
+  Part12_rerun/08_Fig16/Fig16/Fig16B_split_half.pdf | 0.0 MB | md5 2c3e4b33873fb1359c54f2df35620d86
+  Part12_rerun/08_Fig16/Fig16/Fig16B_split_half.png | 0.1 MB | md5 c38f255cbf291e242ecae399589ae11b
+  Part12_rerun/08_Fig16/Fig16/Fig16C_label_agreement.pdf | 0.0 MB | md5 53cd787d276ff2179aa661ccce325385
+  Part12_rerun/08_Fig16/Fig16/Fig16C_label_agreement.png | 0.1 MB | md5 44918b58a10d11eb4a929644e4ea4911
+  Part12_rerun/08_Fig16/Fig16/Fig16D_within_donor_rs.pdf | 0.0 MB | md5 37fff8b757efa12e6acceaacfbd0a2df
+  Part12_rerun/08_Fig16/Fig16/Fig16D_within_donor_rs.png | 0.0 MB | md5 95714bc57a24c5c9e72081f48101a5b6
+  Part12_rerun/08_Fig16/Fig16/Fig16E_offset_share.pdf | 0.0 MB | md5 233f7d4f97cdc8db9195bc1beaec29d4
+  Part12_rerun/08_Fig16/Fig16/Fig16E_offset_share.png | 0.1 MB | md5 e80a0503db327d8554394e5fa5cbd635
+  Part12_rerun/08_Fig16/Fig16/Fig16F_intronic_rate.pdf | 0.0 MB | md5 5471158f502f0c0c222026a206c3577d
+  Part12_rerun/08_Fig16/Fig16/Fig16F_intronic_rate.png | 0.1 MB | md5 743a19af9c72b72957d050aec59e84d1
+  Part12_rerun/08_Fig16/Fig16/Fig16G_library_fields_M4.pdf | 0.0 MB | md5 ac77fb6f2e11fef1d24959724d2fcf73
+  Part12_rerun/08_Fig16/Fig16/Fig16G_library_fields_M4.png | 0.1 MB | md5 5ba8eee7466a31e764319da8d6720d5d
+  Part12_rerun/08_Fig16/Fig16/Fig16G_library_fields_PVM_3.pdf | 0.0 MB | md5 a9a68b440c6a00a8c251932f8f61b671
+  Part12_rerun/08_Fig16/Fig16/Fig16G_library_fields_PVM_3.png | 0.1 MB | md5 4137771aaac0a28d11cbab7d2d7e1fb6
+  Part12_rerun/08_Fig16/Fig16/Fig16G_library_fields_PVM_1.pdf | 0.0 MB | md5 0096733e342a10add0f5e67bf23916b0
+  Part12_rerun/08_Fig16/Fig16/Fig16G_library_fields_PVM_1.png | 0.1 MB | md5 5cf7e7048fed1ae41a3b01d50200aa94
+  Part12_rerun/08_Fig16/Fig16/Fig16G_library_fields_HKG8.pdf | 0.0 MB | md5 0bd3e49bc76b51c616403b0d2d13b997
+  Part12_rerun/08_Fig16/Fig16/Fig16G_library_fields_HKG8.png | 0.1 MB | md5 2c8b371116b14be340afef3f69a2379b
+Checks: 22 PASS, 0 FAIL, 0 WARN | duration 0.0 min
+VERDICT: PASS

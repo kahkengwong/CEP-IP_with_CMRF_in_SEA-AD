@@ -1,0 +1,24 @@
+Part13_CP10K_M4Share pre-set readings
+Fixed before the first run. A changed text stops the run unless ALLOW_PRESET_REWRITE = TRUE.
+
+Definitions
+- M4 share: the donor's M4 arm cells (M4-selected Micro-PVM_3 cells with MT-CO3 > 0, every CMRF class) as a percentage of the donor's Micro-PVM_3 cells, per region set = pct_pre + pct_post + pct_excl_pre + pct_excl_post of Part 10h prop_df (the four Figure 9 populations). Donors without M4 cells score 0, as in Figure 9.
+- Within-M4 fraction: 100 x pct_post / M4 share, the Module post-IP cells as a percentage of the donor's M4 cells; computed only for donors with at least 5 M4 cells in the region set, otherwise excluded.
+- With Module post-IP% and the M4 share in one model, the Module coefficient is the association of a larger Module post-IP fraction of the M4 cells at a fixed M4 share (Module post-IP% = M4 share x within-M4 fraction).
+- Holds: the Module post-IP% coefficient reaches FDR < 0.05 with the expected sign (negative for MMSE and CASI, positive for cognitive status) and the full-model VIF of every predictor is < 5.
+- BH families: each model with the M4 share uses the family of the figure it extends (Fig 10B: the 15 outcomes; Fig 9B: the cognition outcomes per block; Fig 14D: the 9 clinical outcomes; Fig 10C/10D: MMSE and CASI per block and model). Bootstrap p-values: BH within region set over the nine cognition tests.
+
+Primary test: M4 NeoC MMSE, in three models
+  m1 = cov4 + Module post-IP% + M4 share (S03, Fig 10B family)
+  m2 = cov4 + Braak + Thal + CERAD + Module post-IP% + M4 share (S07, Fig 9B family)
+  m3 = cov4 + Module post-IP% + %MT + M4 share (S10, Fig 14D family)
+
+Readings (first that applies)
+R0 Not separable: a predictor VIF >= 5 in m1, m2 or m3. The question is then read on m1b = cov4 + M4 share + within-M4 fraction (S08): 'state beyond abundance' if the fraction holds (FDR < 0.05, negative, VIF < 5); 'abundance only' if only the share reaches FDR < 0.05; otherwise 'inconclusive'.
+R1 Not explained by the M4 share: Module post-IP% holds in m1, m2 and m3, and in m1 either the donor-bootstrap 95% CI of the change in its coefficient includes 0 or the attenuation is 25% or less.
+R2 Partly explained by the M4 share: Module post-IP% holds in at least one of m1 to m3 and R1 is not met.
+R3 Explained by the M4 share: Module post-IP% holds in none of m1 to m3 and the M4 share reaches FDR < 0.05 in at least one.
+R4 Inconclusive: neither Module post-IP% nor the M4 share reaches FDR < 0.05 in m1 to m3.
+
+Sensitivity without a reading: when SEL_FILE is supplied, m1 to m3 are refitted with the M4 share built from all M4-selected Micro-PVM_3 cells (MT-CO3 = 0 included) in place of the MT-CO3+ share (S03s, S07s, S10s).
+Reported without a reading: every other outcome, NonNeoC, the Figure 14D verdicts that change, the decomposition models (Fig 10C/10D) and m1b when R0 does not apply.

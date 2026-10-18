@@ -1,0 +1,85 @@
+
+========================================================================
+
+  SECTION 13: Saving Part10b_IPRS_CP10K_M4_results.rds + Verification
+
+  Run timestamp: 2026-08-17 22:53:04
+
+========================================================================
+
+
+  Part 10b copy : <SEA-AD>/Part10b_SKCS/Part10b_SKCS_Mic13_PVM3/Part10b_CP10K_M4_IPRS_results.rds
+
+  RDS saved : <SEA-AD>/Part10b_IPRS/Part10b_IPRS_Mic13_PVM3/Part10b_IPRS_CP10K_M4_results.rds
+
+  File size : 206.5 KB
+
+  mtime     : 2026-08-17 22:53:04
+
+
+------------------------------------------------------------------------
+
+  VERIFICATION (independent read-back from disk)
+
+------------------------------------------------------------------------
+
+
+  CHECK 1 [inflection_points_DFG names]  PASS  expected names=NeoC,NonNeoC  read_back names=NeoC,NonNeoC
+
+  CHECK 2 [IP value fidelity]            PASS  NonNeoC: 2.802522 OK | NeoC: 2.679411 OK
+
+  CHECK 3 [ip_table row count]           PASS  expected=2 rows  read_back=2 rows
+
+  CHECK 4 [ip_results keys]              PASS  keys match=TRUE  n_keys=2
+
+  CHECK 5 [IP_y value fidelity]          PASS  NeoC: 1.875476 OK | NonNeoC: 2.038718 OK
+
+
+
+------------------------------------------------------------------------
+
+  OVERALL RESULT: ALL CHECKS PASSED
+
+------------------------------------------------------------------------
+
+
+  HOW PART 10b PICKS THIS UP
+
+  Nothing to add: Part 10b already reads
+
+    <SEA-AD>/Part10b_SKCS/Part10b_SKCS_Mic13_PVM3/Part10b_CP10K_M4_IPRS_results.rds
+
+  and sets DATASET_META$<ds>$IP_thresh from inflection_points_DFG
+
+  and DATASET_META$<ds>$IP_y_thresh from inflection_points_DFG_y.
+
+  That file is written by B-IPRS-03 above.
+
+
+  IP values to be applied (full GOI-positive population):
+
+    NonNeoC     IP_thresh = 2.802522            IP_y_thresh = 2.038718
+
+    NeoC        IP_thresh = 2.679411            IP_y_thresh = 1.875476
+
+
+========================================================================
+
+  SECTION 13 COMPLETE
+
+  IPRS RDS  : Part10b_IPRS_CP10K_M4_results.rds
+
+  Excel     : Part10b_IPRS_CP10K_M4_results.xlsx
+
+  Summary   : Part10b_IPRS_CP10K_M4_summary.csv
+
+  Plots     : Part10b_IPRS_CP10K_M4_{dataset}_scatter.pdf/png
+
+              Part10b_IPRS_CP10K_M4_{dataset}_Rx.pdf/png
+
+              Part10b_IPRS_CP10K_M4_{dataset}_pitcher_Ki_expr.pdf/png
+
+              Part10b_IPRS_CP10K_M4_{dataset}_pitcher_Si_expr.pdf/png
+
+========================================================================
+

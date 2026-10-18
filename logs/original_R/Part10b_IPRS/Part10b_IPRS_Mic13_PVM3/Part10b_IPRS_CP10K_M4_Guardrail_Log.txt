@@ -1,0 +1,40 @@
+========================================================================
+Part 10b IPRS — Guardrail Log
+Arm : Mic13_PVM3
+Date: 2026-08-17 22:53:04
+Normalisation: CP10K log1p(UMIs/total x 10000)
+Estimator: donor random intercept | weights: inverse donor cell count
+========================================================================
+
+  [PASS]  GR-01-NeoC        norm.mtx max = 8.0564  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NeoC        expm1(norm) row sums: mean = 10000.000000, max |dev| = 1.82e-12, n = 50
+  [PASS]  GR-04-NeoC        raw max = 2389, integer-like = TRUE
+  [PASS]  GR-01-NonNeoC     norm.mtx max = 7.6610  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NonNeoC     expm1(norm) row sums: mean = 10000.000000, max |dev| = 1.82e-12, n = 50
+  [PASS]  GR-04-NonNeoC     raw max = 1552, integer-like = TRUE
+  [PASS]  GR-05-NonNeoC     Part 10 RDS: Part10_Mic13_PVM3_NonNeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_GAM_models.rds  loadable=TRUE
+  [PASS]  GR-05-NeoC        Part 10 RDS: Part10_Mic13_PVM3_NeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_GAM_models.rds  loadable=TRUE
+  [PASS]  GR-06-NonNeoC     Pooled full GOI-positive cells = 1987  (min = 10)
+  [PASS]  GR-06-NeoC        Pooled full GOI-positive cells = 2130  (min = 10)
+  [PASS]  GR-07-NonNeoC     Full-population pooled GAM DE = 65.2% (donor-aware null) | vs flat null = 85.2%
+  [PASS]  GR-07-NeoC        Full-population pooled GAM DE = 67.4% (donor-aware null) | vs flat null = 83.1%
+  [PASS]  GR-11-NonNeoC     full-population GAM donor RE = YES | donors = 80 | sum(w) = 80.0000
+  [PASS]  GR-11-NeoC        full-population GAM donor RE = YES | donors = 78 | sum(w) = 78.0000
+  [PASS]  GR-08-NonNeoC     IP = 2.802522  finite = TRUE
+  [PASS]  GR-08-NeoC        IP = 2.679411  finite = TRUE
+  [PASS]  GR-09-NonNeoC     IPRS = 0.7861  tier = Strong  (expected [0, 1])
+  [PASS]  GR-09-NeoC        IPRS = 0.7612  tier = Strong  (expected [0, 1])
+  [PASS]  GR-15-NonNeoC     IP_y = 2.038718 | cDFG range [0.0000, 5.6423] | classification threshold (B-IPRS-09)
+  [PASS]  GR-15-NeoC        IP_y = 1.875476 | cDFG range [0.0000, 5.9887] | classification threshold (B-IPRS-09)
+  [PASS]  GR-12-NonNeoC     residual GAM R(x) donor RE = YES | donors = 80
+  [PASS]  GR-12-NeoC        residual GAM R(x) donor RE = YES | donors = 75
+  [PASS]  GR-10             RDS readback verification: 5/5 checks passed
+
+========================================================================
+  Total : 23
+  PASS  : 23
+  WARN  : 0
+  FAIL  : 0
+
+  *** ALL GUARDRAILS PASSED ***
+========================================================================

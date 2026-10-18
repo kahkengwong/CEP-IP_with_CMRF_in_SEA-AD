@@ -1,0 +1,70 @@
+========================================================================
+Part 10h multivariate - Guardrail Log [CP10K]
+Date: 2026-08-29 04:33:12
+Arm : HKG8_matched
+Module unchanged; baselines entered as covariates. Every model
+fitted is reported.
+========================================================================
+
+PRE-SPECIFICATION (fixed before any model was fitted):
+  QUESTION. Is the CMRF module percentage more than a gene score plus a
+  cell count -- that is, does it survive when AUCell and the supertype
+  cluster proportion are both already in the model?
+  
+  PRIMARY TEST. Nested F, 1 df, of
+      y ~ covariates + AUCell + cluster proportion + module
+  against
+      y ~ covariates + AUCell + cluster proportion
+  fitted on one common complete-case set per dataset x block x outcome.
+  
+  FAMILY. Benjamini-Hochberg within dataset x block, over the outcomes.
+  
+  VERDICT RULE, fixed before any model was fitted:
+    HOLDS       BH q < 0.05 AND the module coefficient carries its
+                expected sign (negative for MMSE and CASI).
+    WRONG SIGN  BH q < 0.05 but the sign is inverted -- a suppression
+                artefact, NOT support.
+    DOES NOT HOLD   BH q >= 0.05 with joint VIF below 5.
+    NOT READABLE    joint VIF at or above 5 on any of the three terms.
+  
+  INTERPRETATION, fixed in advance:
+    If the module HOLDS on a majority of readable rows, it is not
+    decomposable into its two rivals and no rearrangement of a gene-set
+    score reproduces it.
+    If it DOES NOT HOLD, the module is a score times an abundance. That is
+    a clean negative result and is to be reported as the answer, not
+    retested with a different predictor.
+  
+  SCOPE. The module is unchanged and the question is the one Part 10h has
+  asked throughout: does the module offer anything the baselines do not.
+  The baselines are entered as covariates, as +BTC enters pathology. Every
+  model fitted is reported, not only those that favour the module.
+  
+  SCORE ARMS (M10MV-10). The same specification is run three times with the
+  score term SWAPPED, never stacked: AUCell, UCell, AddModuleScore. They
+  correlate 0.986-0.999, so two of them in one model is the same variable
+  twice. AUCell is the PRIMARY arm and carries the verdict above; the other
+  two are ROBUSTNESS arms whose only job is to say whether the verdict
+  depends on which score is used. A disagreement is reported, not resolved.
+
+========================================================================
+
+  [PASS]  GR-10MV-01          Part10h_CP10K_HKG8_Comparator_results.rds (schema M10HC v1) | 167 row(s) over NeoC + NonNeoC | base = Age_num + APOE_e4_dose + Sex_num + PMI_num | outcomes MMSE score, CASI score | +BTC = Braak stage + Thal phase + CERAD score | outcome map via comparator outcome map | score arm(s): AUCell (PRIMARY), UCell, AddModuleScore. Every predictor is READ from the comparator, never rebuilt
+  [PASS]  GR-10MV-02          24 decomposition row(s) over 8 dataset x block x outcome set(s) and 3 score arm(s), 120 model fit(s). ONE complete-case set and one standardisation pass per set, spanning every score, so all models AND all arms of a set sit on the same donors. Donor counts 68-80
+  [WARN]  GR-10MV-03          THE PRE-SPECIFIED VERDICT, AUCell ARM ONLY (the rule was fixed before any model was fitted). Nested F, 1 df, of `cov + score + cluster + module` against `cov + score + cluster`: NeoC/cov4/MMSE score does not hold; NeoC/cov4/CASI score does not hold; NeoC/+BTC/MMSE score does not hold; NeoC/+BTC/CASI score does not hold; NonNeoC/cov4/MMSE score does not hold; NonNeoC/cov4/CASI score does not hold; NonNeoC/+BTC/MMSE score does not hold; NonNeoC/+BTC/CASI score does not hold. Of 8 readable row(s) of 8, HOLDS 0, does not hold 8, WRONG SIGN 0. THE MODULE IS A SCORE TIMES AN ABUNDANCE on this arm: once both rivals are in the model it adds nothing. That is the answer, it is a clean negative, and it is to be reported rather than retested with a different predictor.
+  [PASS]  GR-10MV-04          COLLINEARITY. The three terms are not nested by construction, which is why this test is readable where the CMRF mask edge was not. Joint VIF ranges: module 1.25-1.83, score 1.13-1.81, cluster 1.13-1.7 (refusal at 5). Predictor correlations: NeoC Module/Cluster % rho +0.47; NeoC Module/AUCell rho +0.43; NeoC Module/UCell rho +0.43; NeoC Module/AddModuleScore rho +0.29; NeoC Cluster %/AUCell rho +0.14; NeoC Cluster %/UCell rho +0.16; NeoC Cluster %/AddModuleScore rho +0.03; NeoC AUCell/UCell rho +0.99; NeoC AUCell/AddModuleScore rho +0.89; NeoC UCell/AddModuleScore rho +0.90; NonNeoC Module/Cluster % rho +0.26; NonNeoC Module/AUCell rho +0.51; NonNeoC Module/UCell rho +0.52; NonNeoC Module/AddModuleScore rho +0.52; NonNeoC Cluster %/AUCell rho -0.11; NonNeoC Cluster %/UCell rho -0.10; NonNeoC Cluster %/AddModuleScore rho -0.10; NonNeoC AUCell/UCell rho +1.00; NonNeoC AUCell/AddModuleScore rho +0.93; NonNeoC UCell/AddModuleScore rho +0.94
+  [PASS]  GR-10MV-09          DESCRIPTIVE, NO VERDICT ATTACHES (AUCell arm). The module against the score ALONE (M6) beside the module against score PLUS cluster (M5), so what the abundance term absorbs is visible. M6 carries its OWN VIF: 8 of 8 row(s) readable, VIF 1.25-1.67. Module significant with the score alone on 3; with abundance also present, 0. Per row: NeoC/cov4/MMSE score ns -> does not hold; NeoC/cov4/CASI score sig -> does not hold; NeoC/+BTC/MMSE score ns -> does not hold; NeoC/+BTC/CASI score ns -> does not hold; NonNeoC/cov4/MMSE score sig -> does not hold; NonNeoC/cov4/CASI score sig -> does not hold; NonNeoC/+BTC/MMSE score ns -> does not hold; NonNeoC/+BTC/CASI score ns -> does not hold
+  [PASS]  GR-10MV-10          SCORE-ARM ROBUSTNESS, substituted not stacked. AUCell HOLDS 0 / does not hold 8 / wrong sign 0 / not readable 0; UCell HOLDS 0 / does not hold 8 / wrong sign 0 / not readable 0; AddModuleScore HOLDS 0 / does not hold 8 / wrong sign 0 / not readable 0. The three scores agree on 8 of 8 row(s). The verdict does not depend on which score is in the model, so it can be stated without naming one.
+  [PASS]  GR-10MV-06          the nested F (1 df) and the module's t-test in the full model agree on 24 of 24 comparable row(s), max |dp| = 2.24e-13. They are the SAME test in two parameterisations, so a disagreement is an error
+  [PASS]  GR-10MV-05          EVERY MODEL FITTED IS REPORTED: 120 fitted, 120 present in the Models sheet (nominal, if every specification had fitted on every row: 120). 7 specification(s): M0 covariates only; M1 + module; M3 + cluster proportion; M2 + AUCell; M4 + AUCell + cluster proportion  (THE RIVAL); M5 + AUCell + cluster proportion + module  (THE TEST); M6 + AUCell + module  (DESCRIPTIVE). Selective reporting is the failure mode this most has to guard against -- the partial models are published whether or not they favour the module.
+  [PASS]  GR-10MV-07          2 figure(s) written as PDF and PNG, showing ALL THREE coefficients from the full model -- plotting the module alone would hide what happens to its rivals when it is present
+  [PASS]  GR-10MV-08          outputs: Part10h_CP10K_HKG8_Multivariate_results.rds written | Part10h_CP10K_HKG8_Multivariate.xlsx written
+
+========================================================================
+  Total : 10
+  PASS  : 9
+  WARN  : 1
+  FAIL  : 0
+
+  Result: no failures; review the warnings above
+========================================================================

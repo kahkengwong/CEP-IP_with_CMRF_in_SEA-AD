@@ -1,0 +1,27 @@
+Part13b_CP10K_M4RandomSubset pre-set readings
+Fixed before the first run. A changed text stops the run unless ALLOW_PRESET_REWRITE = TRUE.
+
+Question: are the M4 results a property of the M4 cells, or would any PVM_3 cells of the same number per donor give the same results?
+
+Definitions
+- Pool: the PVM_3 arm cells (Micro-PVM_3 cells with MT-CO3 > 0). The M4 share counts only MT-CO3 > 0 cells, so the pool holds the same condition. The M4 cells are part of the pool.
+- Labels: every cell, M4 or random, carries its PVM_3 arm labels (PVM_3 Module and PVM_3 IP_y), so the M4 cells and the random cells are defined the same way. The M4 arm's own labels are reported as a reference without a reading.
+- Random subset: in each donor and region (each donor when the label file has no region column), as many pool cells as the donor has M4 cells there, drawn without replacement. The M4 share is the same in every draw.
+- Draws: B = 10,000 per region set, seed 20261011.
+- Per cell set and donor: Module post-IP% = Module post-IP cells in the set / the donor's Micro-PVM_3 cells x 100 (Part 10h denominator); fraction = Module post-IP cells in the set / cells in the set x 100, donors with at least 5 M4 cells; %MT = log1p of the mean per-cell %MT over the set (as Figure 14D).
+- Models at cov4, outcome and predictors standardized after the complete-case filter: MA outcome ~ Module post-IP% (as Figure 9A); MB outcome ~ Module post-IP% + %MT (as Figure 14D, BH over the nine clinical outcomes); MC outcome ~ M4 share + fraction (as Part 13 S08); MD outcome ~ fraction + %MT (as Part 13 S15).
+- Empirical p: p_upper = (1 + draws >= observed) / (B + 1); p_lower = (1 + draws <= observed) / (B + 1); two-sided p = min(1, 2 x the smaller).
+- BH FDR within region set: each model coefficient over the three cognition outcomes; the three collinearity readouts (r of Module post-IP% with %MT, r of the fraction with %MT, mean fraction) as one family. Every reading uses the FDR.
+
+Primary test: NeoC MMSE, the MA coefficient of the M4 cells (PVM_3 labels) against the random subsets.
+I1 Identity adds: FDR < 0.05 and the M4 coefficient lies further in the expected direction (negative) than the median of the random subsets.
+I2 Identity weakens: FDR < 0.05 and the M4 coefficient lies on the other side of that median.
+I0 No evidence that identity matters: FDR >= 0.05.
+
+Second test: NeoC, the donor-level Pearson r between Module post-IP% and %MT (donors with M4 cells), M4 cells (PVM_3 labels) against the random subsets.
+S1 M4 cells less collinear with %MT than random subsets: FDR < 0.05 and r below the median of the random subsets.
+S2 M4 cells more collinear with %MT: FDR < 0.05 and r above that median.
+S0 No difference: FDR >= 0.05.
+
+Reported without a reading: NonNeoC, CASI and cognitive status, MB, MC, MD, the mean fraction, the r of the fraction with %MT, and every comparison that uses the M4 arm's own labels.
+Limit: the random subsets are matched on the number of cells per donor and region only. A difference can reflect any property that separates Mic.13-like cells from other PVM_3 cells, for example sequencing depth.

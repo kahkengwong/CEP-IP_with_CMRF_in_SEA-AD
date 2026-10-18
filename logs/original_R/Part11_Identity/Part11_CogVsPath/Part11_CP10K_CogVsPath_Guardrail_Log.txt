@@ -1,0 +1,23 @@
+========================================================================
+Part 11 - Cognition vs Pathology - Guardrail Log [CP10K]
+Date: 2026-08-30 09:37:19
+Read: <SEA-AD>
+Write: <SEA-AD>/Part11_Identity/Part11_CogVsPath
+========================================================================
+
+  [PASS]  GR-11-01     4 of 4 arm RDS resolved under <SEA-AD> (Mic13_PVM3: Part10h_CP10K_M4_Prognosis_results.rds; PVM3_all: Part10h_CP10K_PVM_3_Prognosis_results.rds; PVM1_all: Part10h_CP10K_PVM_1_Prognosis_results.rds; HKG8_matched: Part10h_CP10K_HKG8_Prognosis_results.rds). The main arm is matched by exact basename, not by elimination | main arm from the tagged name 'Part10h_CP10K_M4_Prognosis_results.rds'
+  [PASS]  GR-11-02     8 arm/dataset frame(s) built on the COMMON donor set (complete on all six outcomes and cov4); nothing skipped. The common set costs donors relative to Part 10h's per-outcome fits and section D quantifies that cost
+  [WARN]  GR-11-03     38 of 48 ratio rows had a denominator below 0.10 in more than 10% of resamples and their intervals must not be read; the sheet's `unstable` column carries this verdict and `boot_below_floor` is the raw count behind it, which is non-zero on 46 rows and is NOT the verdict. On the real arms 10 of 10 cognition rows with a computable interval COVER 100% (2 further row(s) had no finite interval), which is why this statistic is reported and not led on
+  [PASS]  GR-11-04     6 of 48 contrast rows are significant after BH within arm x dataset (Mic13_PVM3/NeoC MMSE; Mic13_PVM3/NeoC CASI; PVM3_all/NeoC CASI; PVM3_all/NonNeoC CASI; PVM1_all/NonNeoC MMSE; PVM1_all/NonNeoC CASI). A significant contrast means the two populations differ on that outcome in ONE model, on the same donors
+  [WARN]  GR-11-08     42 of 48 rows are non-significant with |delta| BELOW the minimum effect detectable at 80% power, so their null is uninterpretable and must be reported as 'not detectable' rather than 'no difference'
+  [PASS]  GR-11-07     control arm HKG8_matched: 0 of 12 contrast rows significant after BH. A control that separates its own module from its own non-module would undermine every real arm's row
+  [PASS]  GR-11-05     balance difference significant on 2 of 8 arm/dataset rows (Mic13_PVM3/NeoC; PVM1_all/NonNeoC). p_bh_if_pooled is carried for transparency: correcting across all 8 rows as one family would leave 1 significant, and the family choice is one test per population, declared in advance
+  [WARN]  GR-11-06     common-donor against per-outcome donor sets: 4 sign flip(s) and 1 verdict disagreement(s) of 48 comparable rows; donors gained range 0 to 15. A sign flip would mean the common-set restriction, not the biology, drove section B
+  [PASS]  GR-11-09     5 of 5 figures written as PDF and PNG; workbook written; RDS written to <SEA-AD>/Part11_Identity/Part11_CogVsPath
+
+========================================================================
+  Total : 9
+  PASS  : 6
+  WARN  : 3
+  FAIL  : 0
+========================================================================

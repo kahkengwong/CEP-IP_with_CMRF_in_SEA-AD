@@ -1,0 +1,61 @@
+Part 12 rerun -- step 11
+Script: Part12_Fig15_Analysis.r | md5 410a9ce09b24f8bb94b171686b69dd0b
+Shared file: Part12_03_Config.r | md5 df0cc2f82a0fd0947b3bb0b93bae800a
+Run ID: 20260922-0818-windows
+Start: 2026-09-22 08:18:04
+Machine: LAPTOP-M7LQ95IS | R version 4.6.1 (2026-06-24 ucrt)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16 | md5 de727a6a529ece74865c9387be6d8831
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 11-01 script saved in Part12_rerun | Part12_Fig15_Analysis.r
+
+Pre-set reading for Supplementary Figure 10 | Part12_rerun/Part12_Preset_Readings.md | md5 3f0611bff1fb3e2ab9d959117f1f9479
+  ### Supplementary Figure 10. Is the extra material the cell's own cytoplasm or another lineage's?
+  
+  - **Estimate.** Paired within-donor differences, Module post-IP minus Module pre-IP, in four metrics: own-ER share, ribosomal share, NEAT1 share and the combined other-lineage index (12c per-dataset guard, D21). NeoC and NonNeoC pooled within donor. All four arms.
+  - **Family.** Within arm, over the 4 metrics.
+  - **Reading.**
+    - Own-ER and ribosomal shares higher with FDR < 0.05, and the other-lineage index not higher: the extra material is the cell's own cytoplasm.
+    - Other-lineage index higher with FDR < 0.05, and own-ER and ribosomal shares not higher: the extra material comes from other cells.
+    - Both higher: both sources contribute; the sizes are reported side by side.
+    - NEAT1 share lower with FDR < 0.05 is read as loss of nuclear RNA and reported beside the cytoplasmic result.
+    - The same shifts on HKG8 are read by common rule 5.
+  
+
+SECTION A -- inputs
+[PASS] 11-02 04_cell_labels.csv.gz matches the 04_Labels log | Part12_rerun/04_Labels/04_cell_labels.csv.gz
+[PASS] 11-03 labels carry this labels version | checked
+[PASS] 11-04 own_er finite on every Module cell | 0 missing
+[PASS] 11-05 ribosome finite on every Module cell | 0 missing
+[PASS] 11-06 neat1 finite on every Module cell | 0 missing
+[PASS] 11-07 other_lineage finite on every Module cell | 0 missing
+
+SECTION B -- post-IP minus pre-IP, per donor (20 cells per group, 10 donors, B = 10000)
+  M4     donors with 20 or more cells in both groups: 13
+    own_er         +0.0057 [-0.0029, +0.0120] | p 1.44e-01
+    ribosome       +0.0047 [+0.0000, +0.0115] | p 1.35e-01
+    neat1          -0.0333 [-0.0712, +0.0237] | p 1.41e-01
+    other_lineage  +0.0193 [+0.0030, +0.0339] | p 3.14e-02
+  PVM_3  donors with 20 or more cells in both groups: 52
+    own_er         +0.0060 [+0.0039, +0.0089] | p <=2.00e-04
+    ribosome       +0.0039 [+0.0002, +0.0083] | p 3.46e-02
+    neat1          -0.0189 [-0.0293, -0.0040] | p 1.58e-02
+    other_lineage  +0.0171 [+0.0102, +0.0232] | p <=2.00e-04
+  PVM_1  donors with 20 or more cells in both groups: 18
+    own_er         +0.0308 [+0.0174, +0.0361] | p <=2.00e-04
+    ribosome       +0.0093 [+0.0065, +0.0169] | p <=2.00e-04
+    neat1          -0.0918 [-0.1541, -0.0504] | p <=2.00e-04
+    other_lineage  +0.0043 [-0.0034, +0.0190] | p 2.07e-01
+  HKG8   donors with 20 or more cells in both groups: 1
+    own_er         NA [NA, NA] | p NA
+    ribosome       NA [NA, NA] | p NA
+    neat1          NA [NA, NA] | p NA
+    other_lineage  NA [NA, NA] | p NA
+
+SECTION C -- write
+[PASS] 11-08 stats file written and read back | 48 rows
+
+Outputs:
+  Part12_rerun/07_Fig15/S10_Cargo/Stats_S10.csv | 0.0 MB | md5 98aa95d3fab47349385e101c2e1b53aa
+Checks: 8 PASS, 0 FAIL, 0 WARN | duration 0.1 min
+VERDICT: PASS

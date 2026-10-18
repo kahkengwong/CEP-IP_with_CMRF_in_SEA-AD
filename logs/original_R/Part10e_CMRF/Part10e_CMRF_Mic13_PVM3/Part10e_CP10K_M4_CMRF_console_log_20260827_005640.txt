@@ -1,0 +1,557 @@
+Part10e CMRF — log started: 2026-08-27 00:56:40.226556
+
+
+============================================================================
+  ARM: Mic13_PVM3   config: R_config.R
+============================================================================
+R_config.R loaded (Module 1: MT-CO3 + 8 DFGs, ≥8/10 regions).
+  ARM_TAG   : Mic13_PVM3 
+  ARM_DIR   : <SEA-AD>/R_export_CP10K/Mic13_PVM3 
+  NEOC_DIR  : <SEA-AD>/R_export_CP10K/Mic13_PVM3/neocortex 
+  NONNC_DIR : <SEA-AD>/R_export_CP10K/Mic13_PVM3/nonneocortex 
+  SHARED_DIR: <SEA-AD>/R_export_CP10K/shared 
+  GOI       : MT-CO3 
+  DFG_NEOC  : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  DFG_NONNC : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Composite : cDFG 
+  RUN_SUFFIX: (none) 
+  Supertype : Micro-PVM_3-SEAAD 
+  Mod1 genes: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 ( 9 )
+  HKG_GENES : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 2130 NeoC / 1987 NonNeoC
+  Config OK: Mic13_PVM3 | MT-CO3 + 8 DFG | CP10K
+
+  [IPRS] Part10b_IPRS_CP10K_M4_results.rds | definition: IPRS_full
+  [IPRS] NonNeoC    IP_x = 2.802522 | IP_y = 2.038718
+  [IPRS] NeoC       IP_x = 2.679411 | IP_y = 1.875476
+
+ ======================================================================== 
+  Part10e — Si x Ki copula and CMRF
+  Arm          : Mic13_PVM3 
+  GOI          : MT-CO3 
+  DFG          : cDFG  —  MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Normalisation: CP10K  log1p(UMIs/total x  10000 )
+  Spine        : mgcv s(u) + s(donor, bs = "re") | inverse-donor weights | monotonicity checked, not imposed
+  PRSS         : phase 1 = 8 iterations, phase 2 = at most 5 
+  Output dir   : <SEA-AD>/Part10e_CMRF/Part10e_CMRF_Mic13_PVM3 
+======================================================================== 
+
+
+ ======================================================================== 
+  SECTION A0 — PRE-ANALYSIS GUARDRAILS
+======================================================================== 
+
+  -- Dataset: NeoC --------------------------------------
+  [PASS]  GR-01-NeoC        norm.mtx max = 8.0564  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NeoC        expm1(norm) row sums: mean = 10000.000000, max |dev| = 8.44e-10, n = 50
+  [PASS]  GR-04-NeoC        raw max = 2389, integer-like = TRUE
+  -- Dataset: NonNeoC --------------------------------------
+  [PASS]  GR-01-NonNeoC     norm.mtx max = 7.6610  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NonNeoC     expm1(norm) row sums: mean = 10000.000000, max |dev| = 5.86e-10, n = 50
+  [PASS]  GR-04-NonNeoC     raw max = 1552, integer-like = TRUE
+  [PASS]  GR-05-NonNeoC     Part 10b EP/TREP CSV: Part10b_SKCS_Mic13_PVM3/Part10b_CP10K_M4_SKCS_NonNeoC_EP_TREP_values.csv
+  [PASS]  GR-05-NeoC        Part 10b EP/TREP CSV: Part10b_SKCS_Mic13_PVM3/Part10b_CP10K_M4_SKCS_NeoC_EP_TREP_values.csv
+  [PASS]  GR-06-Part10d     Part 10d RDS: Part10d_Copula2_Mic13_PVM3/Part10d_CP10K_M4_Copula2_all_results.rds
+  [PASS]  GR-07-IPRS        IPRS IP values (IPRS_full): IP_x NonNeoC=2.8025, NeoC=2.6794 | IP_y NonNeoC=2.0387, NeoC=1.8755
+  Guardrail log written: <SEA-AD>/Part10e_CMRF/Part10e_CMRF_Mic13_PVM3/Part10e_CP10K_M4_CMRF_Guardrail_Log.txt 
+
+  Pre-analysis guardrails: 10 PASS / 0 WARN / 0 FAIL
+  *** ALL PRE-ANALYSIS GUARDRAILS PASSED ***
+
+
+ ======================================================================== 
+  Part10e CMRF: NonNeoC  [ Mic13_PVM3 ]
+======================================================================== 
+
+  IP_x = 2.802522 (SKCS-core, from Part10b_IPRS)
+  IP_y = 2.038718 = f(IP_x), from Part10b_IPRS
+  Loaded 1303 SKCS-core cells from Part10d RDS
+  Part10d IP_u = 0.5880 (full-pop; for comparison only)
+  Spine: fitted in this part, not read from Part 10d
+  EP/TREP CSV aligned to the Part 10d cells by barcode: 1303 cells
+  Donors on the SKCS-core cells: 79
+  Group counts: Pre-IP TREP=582  Pre-IP non-TREP=44  Post-IP TREP=620  Post-IP non-TREP=57
+
+  STEP 1 -- Rank-transform to copula marginals
+  p_i range [0.0008, 0.9992] | q_i range [0.0008, 0.9992]
+  KS test p_i ~ Uniform: p=1.0000  q_i ~ Uniform: p=1.0000
+
+  STEP 2a -- Si-Ki copula statistics
+  Spearman rho(Si,Ki)=0.6958 | Kendall tau(Si,Ki)=0.5146
+
+  STEP 2d -- Full-population Si-Ki pitcher plant copula
+  Full GOI-positive population: 1987 cells
+  Part 10b Pre/Post labels reproduce: 1.0000 on the cDFG axis at IP_y, 0.9900 on the GOI axis at IP_x  (n=1303)
+  SKCS matched: 1303 | Non-SKCS: 684
+  p_thresh=0.290 | q_thresh=0.152
+
+  STEP 3b -- Per-group dependence statistics
+
+  STEP 4 -- CMRF two-stage membership filter
+  Reconstructed u_all/v_all from GOI_expr/cDFG_expr ranks
+  IP_u = 0.588028  (IP_x=2.802522 projected onto full-pop copula; n=1987)
+  cf. Part10d IP_u = 0.588028  (delta = 0.000000)
+  IP_v = 0.527163  (IP_y=2.038718 projected onto full-pop copula; n=1987)
+  Fitting the spine g(u) on TREP SKCS-core cells ...
+    g(u) CEP-IP spine phase1 iter 1 | k=3 | PRSS=0.44254 | 2.0 s
+    g(u) CEP-IP spine: fits 2-8 ran on 7 worker(s)
+    g(u) CEP-IP spine phase1 iter 2 | k=4 | PRSS=0.35651 | 2.8 s
+    g(u) CEP-IP spine phase1 iter 3 | k=5 | PRSS=0.35620 | 2.7 s
+    g(u) CEP-IP spine phase1 iter 4 | k=6 | PRSS=0.30252 | 3.8 s
+    g(u) CEP-IP spine phase1 iter 5 | k=7 | PRSS=0.30107 | 3.8 s
+    g(u) CEP-IP spine phase1 iter 6 | k=8 | PRSS=0.30099 | 7.7 s
+    g(u) CEP-IP spine phase1 iter 7 | k=9 | PRSS=0.30050 | 7.4 s
+    g(u) CEP-IP spine phase1 iter 8 | k=10 | PRSS=0.29978 | 8.3 s
+    g(u) CEP-IP spine phase1 best: k=10 | PRSS=0.29978
+    g(u) CEP-IP spine refine iter 9 | k=9 | PRSS=0.30050
+    g(u) CEP-IP spine refine iter 10 | k=10 | PRSS=0.29978
+    g(u) CEP-IP spine refine iter 11 | k=10 | PRSS=0.29978
+    g(u) CEP-IP spine refine iter 12 | k=10 | PRSS=0.29978
+    g(u) CEP-IP spine refine iter 13 | k=10 | PRSS=0.29978
+    g(u): n=1202 | best_k=10 | donor RE=YES (79 donors) | weights=inverse donor | PRSS=0.29978 | iters=13
+    monotonicity: min consecutive difference = 2.012e-04 over 501 grid points -- non-decreasing
+    spine at the IP: g(IP_u) = 0.6499 (IP_v = 0.5272) | g_inv(IP_v) = 0.5215 (IP_u = 0.5880)
+  IP coordinates: IP_u = 0.5880 | IP_v = 0.5272 | IP_x = 2.8025 | IP_y = 2.0387 | g(IP_u) = 0.6499 | g_inv(IP_v) = 0.5215
+
+  STEP 3e -- Threshold translation summary
+  Step 3e threshold translation table built.
+  Original SKCS-core: 1303 cells (of 1987 full-pop)
+  Calibration weights: 79 donor(s) over the original SKCS-core; sum(w) = 79.0000
+  Calibrating CMRF delta_base: weighted quantile(|v - g(u)|, 0.95) over all original SKCS-core cells ...
+  Calibration cells: 1303 | sum(w) = 79.0000 | 95th weighted pctile |v - g(u)| = 0.159322 (delta_base)
+  Calibration resid range: [0.000103, 0.258739] | median=0.063155
+
+  Applying CMRF Stage 1 (band proximity for all cells) ...
+  Stage 1 SKCS anchor: 1232 (band pass) of 1303 total SKCS
+  CMRF Stage 2 (B2): 1232 Orig+Ref anchor cells, 283 Stage1 candidates
+  RSk-fCV: n_repeats=40, k_folds=5 (200 total folds) | Wilcoxon alpha=0.050
+  Effect-size gate: calibrated on background variability (Formulation B)
+  Step 1: Orig+Ref-alone RSk-fCV baseline ...
+  RSk-fCV: one 200-fold run took 0.12 s sequentially
+  RSk-fCV: staying sequential -- one run takes 0.12 s, below the 2.0 s at which
+              splitting it across workers pays for the round trips.
+  Orig+Ref baseline RMSE: mean=0.078733  sd=0.003737  median=0.078547  IQR=0.004763
+  Background variability BV (IQR/median): 0.060632 (6.06% relative threshold)
+  PAVA removal residuals: mean=0.095067, max=0.241423 (initial union, n=1515)
+  Spine removal residuals: mean=0.104792, max=0.235455 (for comparison)
+  Iter 1: n_active=283 | union RMSE mean=0.088733 | Wilcoxon p=0.0000 | dRMSE=0.1324 [WORSE & exceeds noise -- removing worst]
+  Iter 2: n_active=282 | union RMSE mean=0.088530 | Wilcoxon p=0.0000 | dRMSE=0.1259 [WORSE & exceeds noise -- removing worst]
+  Iter 3: n_active=281 | union RMSE mean=0.088259 | Wilcoxon p=0.0000 | dRMSE=0.1243 [WORSE & exceeds noise -- removing worst]
+  Iter 4: n_active=280 | union RMSE mean=0.088041 | Wilcoxon p=0.0000 | dRMSE=0.1183 [WORSE & exceeds noise -- removing worst]
+  Iter 5: n_active=279 | union RMSE mean=0.087840 | Wilcoxon p=0.0000 | dRMSE=0.1193 [WORSE & exceeds noise -- removing worst]
+  Iter 6: n_active=278 | union RMSE mean=0.087662 | Wilcoxon p=0.0000 | dRMSE=0.1177 [WORSE & exceeds noise -- removing worst]
+  Iter 7: n_active=277 | union RMSE mean=0.087484 | Wilcoxon p=0.0000 | dRMSE=0.1125 [WORSE & exceeds noise -- removing worst]
+  Iter 8: n_active=276 | union RMSE mean=0.087326 | Wilcoxon p=0.0000 | dRMSE=0.1129 [WORSE & exceeds noise -- removing worst]
+  Iter 9: n_active=275 | union RMSE mean=0.087183 | Wilcoxon p=0.0000 | dRMSE=0.1110 [WORSE & exceeds noise -- removing worst]
+  Iter 10: n_active=274 | union RMSE mean=0.087004 | Wilcoxon p=0.0000 | dRMSE=0.1114 [WORSE & exceeds noise -- removing worst]
+  Iter 11: n_active=273 | union RMSE mean=0.086845 | Wilcoxon p=0.0000 | dRMSE=0.1056 [WORSE & exceeds noise -- removing worst]
+  Iter 12: n_active=272 | union RMSE mean=0.086720 | Wilcoxon p=0.0000 | dRMSE=0.1030 [WORSE & exceeds noise -- removing worst]
+  Iter 13: n_active=271 | union RMSE mean=0.086498 | Wilcoxon p=0.0000 | dRMSE=0.1012 [WORSE & exceeds noise -- removing worst]
+  Iter 14: n_active=270 | union RMSE mean=0.086434 | Wilcoxon p=0.0000 | dRMSE=0.0992 [WORSE & exceeds noise -- removing worst]
+  Iter 15: n_active=269 | union RMSE mean=0.086231 | Wilcoxon p=0.0000 | dRMSE=0.0964 [WORSE & exceeds noise -- removing worst]
+  Iter 16: n_active=268 | union RMSE mean=0.086151 | Wilcoxon p=0.0000 | dRMSE=0.0923 [WORSE & exceeds noise -- removing worst]
+  Iter 17: n_active=267 | union RMSE mean=0.085968 | Wilcoxon p=0.0000 | dRMSE=0.0940 [WORSE & exceeds noise -- removing worst]
+  Iter 18: n_active=266 | union RMSE mean=0.085886 | Wilcoxon p=0.0000 | dRMSE=0.0937 [WORSE & exceeds noise -- removing worst]
+  Iter 19: n_active=265 | union RMSE mean=0.085751 | Wilcoxon p=0.0000 | dRMSE=0.0915 [WORSE & exceeds noise -- removing worst]
+  Iter 20: n_active=264 | union RMSE mean=0.085552 | Wilcoxon p=0.0000 | dRMSE=0.0965 [WORSE & exceeds noise -- removing worst]
+  Iter 21: n_active=263 | union RMSE mean=0.085443 | Wilcoxon p=0.0000 | dRMSE=0.0869 [WORSE & exceeds noise -- removing worst]
+  Iter 22: n_active=262 | union RMSE mean=0.085369 | Wilcoxon p=0.0000 | dRMSE=0.0832 [WORSE & exceeds noise -- removing worst]
+  Iter 23: n_active=261 | union RMSE mean=0.085261 | Wilcoxon p=0.0000 | dRMSE=0.0843 [WORSE & exceeds noise -- removing worst]
+  Iter 24: n_active=260 | union RMSE mean=0.085186 | Wilcoxon p=0.0000 | dRMSE=0.0848 [WORSE & exceeds noise -- removing worst]
+  Iter 25: n_active=259 | union RMSE mean=0.085118 | Wilcoxon p=0.0000 | dRMSE=0.0812 [WORSE & exceeds noise -- removing worst]
+  Iter 26: n_active=258 | union RMSE mean=0.084983 | Wilcoxon p=0.0000 | dRMSE=0.0830 [WORSE & exceeds noise -- removing worst]
+  Iter 27: n_active=257 | union RMSE mean=0.084888 | Wilcoxon p=0.0000 | dRMSE=0.0839 [WORSE & exceeds noise -- removing worst]
+  Iter 28: n_active=256 | union RMSE mean=0.084814 | Wilcoxon p=0.0000 | dRMSE=0.0850 [WORSE & exceeds noise -- removing worst]
+  Iter 29: n_active=255 | union RMSE mean=0.084672 | Wilcoxon p=0.0000 | dRMSE=0.0800 [WORSE & exceeds noise -- removing worst]
+  Iter 30: n_active=254 | union RMSE mean=0.084514 | Wilcoxon p=0.0000 | dRMSE=0.0776 [WORSE & exceeds noise -- removing worst]
+  Iter 31: n_active=253 | union RMSE mean=0.084427 | Wilcoxon p=0.0000 | dRMSE=0.0799 [WORSE & exceeds noise -- removing worst]
+  Iter 32: n_active=252 | union RMSE mean=0.084215 | Wilcoxon p=0.0000 | dRMSE=0.0784 [WORSE & exceeds noise -- removing worst]
+  Iter 33: n_active=251 | union RMSE mean=0.084180 | Wilcoxon p=0.0000 | dRMSE=0.0689 [WORSE & exceeds noise -- removing worst]
+  Iter 34: n_active=250 | union RMSE mean=0.084080 | Wilcoxon p=0.0000 | dRMSE=0.0686 [WORSE & exceeds noise -- removing worst]
+  Iter 35: n_active=249 | union RMSE mean=0.083905 | Wilcoxon p=0.0000 | dRMSE=0.0661 [WORSE & exceeds noise -- removing worst]
+  Iter 36: n_active=248 | union RMSE mean=0.083777 | Wilcoxon p=0.0000 | dRMSE=0.0650 [WORSE & exceeds noise -- removing worst]
+  Iter 37: n_active=247 | union RMSE mean=0.083612 | Wilcoxon p=0.0000 | dRMSE=0.0658 [WORSE & exceeds noise -- removing worst]
+  Iter 38: n_active=246 | union RMSE mean=0.083530 | Wilcoxon p=0.0000 | dRMSE=0.0667 [WORSE & exceeds noise -- removing worst]
+  Iter 39: n_active=245 | union RMSE mean=0.083414 | Wilcoxon p=0.0000 | dRMSE=0.0657 [WORSE & exceeds noise -- removing worst]
+  Iter 40: n_active=244 | union RMSE mean=0.083305 | Wilcoxon p=0.0000 | dRMSE=0.0609 [WORSE & exceeds noise -- removing worst]
+  Iter 41: n_active=243 | union RMSE mean=0.083222 | Wilcoxon p=0.0000 | dRMSE=0.0615 [WORSE & exceeds noise -- removing worst]
+  Iter 42: n_active=242 | union RMSE mean=0.083147 | Wilcoxon p=0.0000 | dRMSE=0.0586 [p<alpha BUT dRMSE=0.0586 <= BV=0.0606 -- accepting (within background variability)]
+  Stage 2 result: 242 accepted, 41 removed | final Wilcoxon p=0.0000 | dRMSE=0.0586 | BV=0.0606
+  delta_base = 0.159322 (95th pctile, weighted, all original SKCS-core; n=1303)
+  Delta cal resid: median=0.063155  max=0.258739
+  delta_adapt range: [0.159322, 0.238983] (kappa=0.50, bw=0.10)
+  Stage 2 RSk-fCV Wilcoxon p (final): 0.0000 | Removed by gate: 41
+  Original + Refined (Orig+Ref anchor):  1232
+  Original only (failed Stage 1 -- outside band):  71
+  Recovered (Grp 1b, passed both stages):242
+  Excluded:                              442
+  CMRF-core (union):                     1474
+  Recovered labelled on the cDFG axis at IP_y = 2.038718: 135 Pre-IP / 107 Post-IP
+
+  STEP 3f -- CMRF diagnostic plots (spine + adaptive delta band)
+  Plot 1 saved (CMRF diagnostics)
+
+  STEP 3g -- CMRF summary panel (gate, post-hoc, calibration, RMSE)
+  Plot 2 saved (CMRF summary panel)
+
+  STEP 3h -- Before vs After CMRF in (u,v) copula space
+  Plot 3 saved (Before vs After CMRF)
+
+  STEP 3i -- RSk-fCV mechanism and evidence
+  Plot 4 saved (RSk-fCV mechanism and evidence)
+
+  RSk-fCV audit Excel export...
+  RSk-fCV audit Excel saved: Part10e_CP10K_M4_CMRF_NonNeoC_RSk_fCV_Audit.xlsx (8 sheets)
+
+  STEP 4 -- Plot 5: Orig-only & Recovered with delta band
+  Plot 5 saved
+
+  STEP 4 -- Plot 6: CMRF in (u,v) space
+  Plot 6 saved
+
+  STEP 5 -- Quantitative comparison original vs CMRF
+  Plot 7 saved
+  GOI-negative cells: 0 (will be appended to Step4_Refined_Cells)
+  Step4_Refined_Cells: 1987 total rows (1987 GOI-pos + 0 GOI-neg)
+  CMRF-core: 1474 cells (1232 Orig+Refined + 242 Recovered)
+
+  Assembling Excel output ...
+  Excel saved: Part10e_CP10K_M4_CMRF_NonNeoC_SK_interaction_analysis.xlsx
+  Displaying plots in RStudio ...
+    -> 01_CMRF_diagnostics 
+    -> 02_CMRF_summary_panel 
+    -> 03_before_after_CMRF 
+    -> 04_RSk_fCV_mechanism 
+    -> 05_waist_zoom_with_orig_only 
+    -> 06_CMRF_band_uv_space 
+    -> 07_recovery_bar_comparison 
+
+ ======================================================================== 
+  Part10e CMRF: NeoC  [ Mic13_PVM3 ]
+======================================================================== 
+
+  IP_x = 2.679411 (SKCS-core, from Part10b_IPRS)
+  IP_y = 1.875476 = f(IP_x), from Part10b_IPRS
+  Loaded 1419 SKCS-core cells from Part10d RDS
+  Part10d IP_u = 0.6330 (full-pop; for comparison only)
+  Spine: fitted in this part, not read from Part 10d
+  EP/TREP CSV aligned to the Part 10d cells by barcode: 1419 cells
+  Donors on the SKCS-core cells: 74
+  Group counts: Pre-IP TREP=640  Pre-IP non-TREP=31  Post-IP TREP=668  Post-IP non-TREP=80
+
+  STEP 1 -- Rank-transform to copula marginals
+  p_i range [0.0007, 0.9993] | q_i range [0.0007, 0.9993]
+  KS test p_i ~ Uniform: p=1.0000  q_i ~ Uniform: p=1.0000
+
+  STEP 2a -- Si-Ki copula statistics
+  Spearman rho(Si,Ki)=0.6579 | Kendall tau(Si,Ki)=0.4831
+
+  STEP 2d -- Full-population Si-Ki pitcher plant copula
+  Full GOI-positive population: 2130 cells
+  Part 10b Pre/Post labels reproduce: 1.0000 on the cDFG axis at IP_y, 0.9648 on the GOI axis at IP_x  (n=1419)
+  SKCS matched: 1419 | Non-SKCS: 711
+  p_thresh=0.284 | q_thresh=0.139
+
+  STEP 3b -- Per-group dependence statistics
+
+  STEP 4 -- CMRF two-stage membership filter
+  Reconstructed u_all/v_all from GOI_expr/cDFG_expr ranks
+  IP_u = 0.633036  (IP_x=2.679411 projected onto full-pop copula; n=2130)
+  cf. Part10d IP_u = 0.633036  (delta = 0.000000)
+  IP_v = 0.538245  (IP_y=1.875476 projected onto full-pop copula; n=2130)
+  Fitting the spine g(u) on TREP SKCS-core cells ...
+    g(u) CEP-IP spine phase1 iter 1 | k=3 | PRSS=0.43046 | 1.5 s
+    g(u) CEP-IP spine: fits 2-8 ran on 7 worker(s)
+    g(u) CEP-IP spine phase1 iter 2 | k=4 | PRSS=0.36213 | 2.4 s
+    g(u) CEP-IP spine phase1 iter 3 | k=5 | PRSS=0.36086 | 2.6 s
+    g(u) CEP-IP spine phase1 iter 4 | k=6 | PRSS=0.34185 | 4.3 s
+    g(u) CEP-IP spine phase1 iter 5 | k=7 | PRSS=0.34227 | 5.1 s
+    g(u) CEP-IP spine phase1 iter 6 | k=8 | PRSS=0.34094 | 8.8 s
+    g(u) CEP-IP spine phase1 iter 7 | k=9 | PRSS=0.34008 | 8.6 s
+    g(u) CEP-IP spine phase1 iter 8 | k=10 | PRSS=0.33830 | 9.3 s
+    g(u) CEP-IP spine phase1 best: k=10 | PRSS=0.33830
+    g(u) CEP-IP spine refine iter 9 | k=9 | PRSS=0.34008
+    g(u) CEP-IP spine refine iter 10 | k=10 | PRSS=0.33830
+    g(u) CEP-IP spine refine iter 11 | k=10 | PRSS=0.33830
+    g(u) CEP-IP spine refine iter 12 | k=10 | PRSS=0.33830
+    g(u) CEP-IP spine refine iter 13 | k=10 | PRSS=0.33830
+    g(u): n=1308 | best_k=10 | donor RE=YES (74 donors) | weights=inverse donor | PRSS=0.33830 | iters=13
+    monotonicity: min consecutive difference = 4.560e-04 over 501 grid points -- non-decreasing
+    spine at the IP: g(IP_u) = 0.6959 (IP_v = 0.5382) | g_inv(IP_v) = 0.5235 (IP_u = 0.6330)
+  IP coordinates: IP_u = 0.6330 | IP_v = 0.5382 | IP_x = 2.6794 | IP_y = 1.8755 | g(IP_u) = 0.6959 | g_inv(IP_v) = 0.5235
+
+  STEP 3e -- Threshold translation summary
+  Step 3e threshold translation table built.
+  Original SKCS-core: 1419 cells (of 2130 full-pop)
+  Calibration weights: 74 donor(s) over the original SKCS-core; sum(w) = 74.0000
+  Calibrating CMRF delta_base: weighted quantile(|v - g(u)|, 0.95) over all original SKCS-core cells ...
+  Calibration cells: 1419 | sum(w) = 74.0000 | 95th weighted pctile |v - g(u)| = 0.164198 (delta_base)
+  Calibration resid range: [0.000156, 0.241912] | median=0.053480
+
+  Applying CMRF Stage 1 (band proximity for all cells) ...
+  Stage 1 SKCS anchor: 1358 (band pass) of 1419 total SKCS
+  CMRF Stage 2 (B2): 1358 Orig+Ref anchor cells, 352 Stage1 candidates
+  RSk-fCV: n_repeats=40, k_folds=5 (200 total folds) | Wilcoxon alpha=0.050
+  Effect-size gate: calibrated on background variability (Formulation B)
+  Step 1: Orig+Ref-alone RSk-fCV baseline ...
+  RSk-fCV: one 200-fold run took 0.11 s sequentially
+  RSk-fCV: staying sequential -- one run takes 0.11 s, below the 2.0 s at which
+              splitting it across workers pays for the round trips.
+  Orig+Ref baseline RMSE: mean=0.075488  sd=0.003499  median=0.075146  IQR=0.004608
+  Background variability BV (IQR/median): 0.061324 (6.13% relative threshold)
+  PAVA removal residuals: mean=0.089599, max=0.261571 (initial union, n=1710)
+  Spine removal residuals: mean=0.104250, max=0.243159 (for comparison)
+  Iter 1: n_active=352 | union RMSE mean=0.085241 | Wilcoxon p=0.0000 | dRMSE=0.1324 [WORSE & exceeds noise -- removing worst]
+  Iter 2: n_active=351 | union RMSE mean=0.085011 | Wilcoxon p=0.0000 | dRMSE=0.1290 [WORSE & exceeds noise -- removing worst]
+  Iter 3: n_active=350 | union RMSE mean=0.084769 | Wilcoxon p=0.0000 | dRMSE=0.1229 [WORSE & exceeds noise -- removing worst]
+  Iter 4: n_active=349 | union RMSE mean=0.084625 | Wilcoxon p=0.0000 | dRMSE=0.1245 [WORSE & exceeds noise -- removing worst]
+  Iter 5: n_active=348 | union RMSE mean=0.084468 | Wilcoxon p=0.0000 | dRMSE=0.1229 [WORSE & exceeds noise -- removing worst]
+  Iter 6: n_active=347 | union RMSE mean=0.084342 | Wilcoxon p=0.0000 | dRMSE=0.1209 [WORSE & exceeds noise -- removing worst]
+  Iter 7: n_active=346 | union RMSE mean=0.084208 | Wilcoxon p=0.0000 | dRMSE=0.1229 [WORSE & exceeds noise -- removing worst]
+  Iter 8: n_active=345 | union RMSE mean=0.084092 | Wilcoxon p=0.0000 | dRMSE=0.1177 [WORSE & exceeds noise -- removing worst]
+  Iter 9: n_active=344 | union RMSE mean=0.083917 | Wilcoxon p=0.0000 | dRMSE=0.1174 [WORSE & exceeds noise -- removing worst]
+  Iter 10: n_active=343 | union RMSE mean=0.083826 | Wilcoxon p=0.0000 | dRMSE=0.1127 [WORSE & exceeds noise -- removing worst]
+  Iter 11: n_active=342 | union RMSE mean=0.083741 | Wilcoxon p=0.0000 | dRMSE=0.1130 [WORSE & exceeds noise -- removing worst]
+  Iter 12: n_active=341 | union RMSE mean=0.083593 | Wilcoxon p=0.0000 | dRMSE=0.1123 [WORSE & exceeds noise -- removing worst]
+  Iter 13: n_active=340 | union RMSE mean=0.083465 | Wilcoxon p=0.0000 | dRMSE=0.1092 [WORSE & exceeds noise -- removing worst]
+  Iter 14: n_active=339 | union RMSE mean=0.083340 | Wilcoxon p=0.0000 | dRMSE=0.1117 [WORSE & exceeds noise -- removing worst]
+  Iter 15: n_active=338 | union RMSE mean=0.083192 | Wilcoxon p=0.0000 | dRMSE=0.1079 [WORSE & exceeds noise -- removing worst]
+  Iter 16: n_active=337 | union RMSE mean=0.083073 | Wilcoxon p=0.0000 | dRMSE=0.1047 [WORSE & exceeds noise -- removing worst]
+  Iter 17: n_active=336 | union RMSE mean=0.082938 | Wilcoxon p=0.0000 | dRMSE=0.1029 [WORSE & exceeds noise -- removing worst]
+  Iter 18: n_active=335 | union RMSE mean=0.082838 | Wilcoxon p=0.0000 | dRMSE=0.0982 [WORSE & exceeds noise -- removing worst]
+  Iter 19: n_active=334 | union RMSE mean=0.082732 | Wilcoxon p=0.0000 | dRMSE=0.1020 [WORSE & exceeds noise -- removing worst]
+  Iter 20: n_active=333 | union RMSE mean=0.082674 | Wilcoxon p=0.0000 | dRMSE=0.0989 [WORSE & exceeds noise -- removing worst]
+  Iter 21: n_active=332 | union RMSE mean=0.082550 | Wilcoxon p=0.0000 | dRMSE=0.0943 [WORSE & exceeds noise -- removing worst]
+  Iter 22: n_active=331 | union RMSE mean=0.082516 | Wilcoxon p=0.0000 | dRMSE=0.0977 [WORSE & exceeds noise -- removing worst]
+  Iter 23: n_active=330 | union RMSE mean=0.082411 | Wilcoxon p=0.0000 | dRMSE=0.1005 [WORSE & exceeds noise -- removing worst]
+  Iter 24: n_active=329 | union RMSE mean=0.082357 | Wilcoxon p=0.0000 | dRMSE=0.0960 [WORSE & exceeds noise -- removing worst]
+  Iter 25: n_active=328 | union RMSE mean=0.082187 | Wilcoxon p=0.0000 | dRMSE=0.0943 [WORSE & exceeds noise -- removing worst]
+  Iter 26: n_active=327 | union RMSE mean=0.082158 | Wilcoxon p=0.0000 | dRMSE=0.0932 [WORSE & exceeds noise -- removing worst]
+  Iter 27: n_active=326 | union RMSE mean=0.082076 | Wilcoxon p=0.0000 | dRMSE=0.0932 [WORSE & exceeds noise -- removing worst]
+  Iter 28: n_active=325 | union RMSE mean=0.081930 | Wilcoxon p=0.0000 | dRMSE=0.0864 [WORSE & exceeds noise -- removing worst]
+  Iter 29: n_active=324 | union RMSE mean=0.081854 | Wilcoxon p=0.0000 | dRMSE=0.0830 [WORSE & exceeds noise -- removing worst]
+  Iter 30: n_active=323 | union RMSE mean=0.081768 | Wilcoxon p=0.0000 | dRMSE=0.0849 [WORSE & exceeds noise -- removing worst]
+  Iter 31: n_active=322 | union RMSE mean=0.081690 | Wilcoxon p=0.0000 | dRMSE=0.0838 [WORSE & exceeds noise -- removing worst]
+  Iter 32: n_active=321 | union RMSE mean=0.081630 | Wilcoxon p=0.0000 | dRMSE=0.0832 [WORSE & exceeds noise -- removing worst]
+  Iter 33: n_active=320 | union RMSE mean=0.081529 | Wilcoxon p=0.0000 | dRMSE=0.0770 [WORSE & exceeds noise -- removing worst]
+  Iter 34: n_active=319 | union RMSE mean=0.081453 | Wilcoxon p=0.0000 | dRMSE=0.0782 [WORSE & exceeds noise -- removing worst]
+  Iter 35: n_active=318 | union RMSE mean=0.081336 | Wilcoxon p=0.0000 | dRMSE=0.0808 [WORSE & exceeds noise -- removing worst]
+  Iter 36: n_active=317 | union RMSE mean=0.081269 | Wilcoxon p=0.0000 | dRMSE=0.0776 [WORSE & exceeds noise -- removing worst]
+  Iter 37: n_active=316 | union RMSE mean=0.081168 | Wilcoxon p=0.0000 | dRMSE=0.0754 [WORSE & exceeds noise -- removing worst]
+  Iter 38: n_active=315 | union RMSE mean=0.081114 | Wilcoxon p=0.0000 | dRMSE=0.0756 [WORSE & exceeds noise -- removing worst]
+  Iter 39: n_active=314 | union RMSE mean=0.081055 | Wilcoxon p=0.0000 | dRMSE=0.0709 [WORSE & exceeds noise -- removing worst]
+  Iter 40: n_active=313 | union RMSE mean=0.080985 | Wilcoxon p=0.0000 | dRMSE=0.0736 [WORSE & exceeds noise -- removing worst]
+  Iter 41: n_active=312 | union RMSE mean=0.080984 | Wilcoxon p=0.0000 | dRMSE=0.0684 [WORSE & exceeds noise -- removing worst]
+  Iter 42: n_active=311 | union RMSE mean=0.080899 | Wilcoxon p=0.0000 | dRMSE=0.0713 [WORSE & exceeds noise -- removing worst]
+  Iter 43: n_active=310 | union RMSE mean=0.080826 | Wilcoxon p=0.0000 | dRMSE=0.0713 [WORSE & exceeds noise -- removing worst]
+  Iter 44: n_active=309 | union RMSE mean=0.080782 | Wilcoxon p=0.0000 | dRMSE=0.0751 [WORSE & exceeds noise -- removing worst]
+  Iter 45: n_active=308 | union RMSE mean=0.080647 | Wilcoxon p=0.0000 | dRMSE=0.0677 [WORSE & exceeds noise -- removing worst]
+  Iter 46: n_active=307 | union RMSE mean=0.080549 | Wilcoxon p=0.0000 | dRMSE=0.0724 [WORSE & exceeds noise -- removing worst]
+  Iter 47: n_active=306 | union RMSE mean=0.080501 | Wilcoxon p=0.0000 | dRMSE=0.0707 [WORSE & exceeds noise -- removing worst]
+  Iter 48: n_active=305 | union RMSE mean=0.080409 | Wilcoxon p=0.0000 | dRMSE=0.0677 [WORSE & exceeds noise -- removing worst]
+  Iter 49: n_active=304 | union RMSE mean=0.080320 | Wilcoxon p=0.0000 | dRMSE=0.0664 [WORSE & exceeds noise -- removing worst]
+  Iter 50: n_active=303 | union RMSE mean=0.080271 | Wilcoxon p=0.0000 | dRMSE=0.0656 [WORSE & exceeds noise -- removing worst]
+  Iter 51: n_active=302 | union RMSE mean=0.080233 | Wilcoxon p=0.0000 | dRMSE=0.0620 [WORSE & exceeds noise -- removing worst]
+  Iter 52: n_active=301 | union RMSE mean=0.080161 | Wilcoxon p=0.0000 | dRMSE=0.0621 [WORSE & exceeds noise -- removing worst]
+  Iter 53: n_active=300 | union RMSE mean=0.080108 | Wilcoxon p=0.0000 | dRMSE=0.0641 [WORSE & exceeds noise -- removing worst]
+  Iter 54: n_active=299 | union RMSE mean=0.079925 | Wilcoxon p=0.0000 | dRMSE=0.0615 [WORSE & exceeds noise -- removing worst]
+  Iter 55: n_active=298 | union RMSE mean=0.079888 | Wilcoxon p=0.0000 | dRMSE=0.0587 [p<alpha BUT dRMSE=0.0587 <= BV=0.0613 -- accepting (within background variability)]
+  Stage 2 result: 298 accepted, 54 removed | final Wilcoxon p=0.0000 | dRMSE=0.0587 | BV=0.0613
+  delta_base = 0.164198 (95th pctile, weighted, all original SKCS-core; n=1419)
+  Delta cal resid: median=0.053480  max=0.241912
+  delta_adapt range: [0.164198, 0.246297] (kappa=0.50, bw=0.10)
+  Stage 2 RSk-fCV Wilcoxon p (final): 0.0000 | Removed by gate: 54
+  Original + Refined (Orig+Ref anchor):  1358
+  Original only (failed Stage 1 -- outside band):  61
+  Recovered (Grp 1b, passed both stages):298
+  Excluded:                              413
+  CMRF-core (union):                     1656
+  Recovered labelled on the cDFG axis at IP_y = 1.875476: 183 Pre-IP / 115 Post-IP
+
+  STEP 3f -- CMRF diagnostic plots (spine + adaptive delta band)
+  Plot 1 saved (CMRF diagnostics)
+
+  STEP 3g -- CMRF summary panel (gate, post-hoc, calibration, RMSE)
+  Plot 2 saved (CMRF summary panel)
+
+  STEP 3h -- Before vs After CMRF in (u,v) copula space
+  Plot 3 saved (Before vs After CMRF)
+
+  STEP 3i -- RSk-fCV mechanism and evidence
+  Plot 4 saved (RSk-fCV mechanism and evidence)
+
+  RSk-fCV audit Excel export...
+  RSk-fCV audit Excel saved: Part10e_CP10K_M4_CMRF_NeoC_RSk_fCV_Audit.xlsx (8 sheets)
+
+  STEP 4 -- Plot 5: Orig-only & Recovered with delta band
+  Plot 5 saved
+
+  STEP 4 -- Plot 6: CMRF in (u,v) space
+  Plot 6 saved
+
+  STEP 5 -- Quantitative comparison original vs CMRF
+  Plot 7 saved
+  GOI-negative cells: 0 (will be appended to Step4_Refined_Cells)
+  Step4_Refined_Cells: 2130 total rows (2130 GOI-pos + 0 GOI-neg)
+  CMRF-core: 1656 cells (1358 Orig+Refined + 298 Recovered)
+
+  Assembling Excel output ...
+  Excel saved: Part10e_CP10K_M4_CMRF_NeoC_SK_interaction_analysis.xlsx
+  Displaying plots in RStudio ...
+  [closed 1 leaked device(s) before display loop]
+    -> 01_CMRF_diagnostics 
+    -> 02_CMRF_summary_panel 
+    -> 03_before_after_CMRF 
+    -> 04_RSk_fCV_mechanism 
+    -> 05_waist_zoom_with_orig_only 
+    -> 06_CMRF_band_uv_space 
+    -> 07_recovery_bar_comparison 
+  Results object saved: Part10e_CP10K_M4_CMRF_all_results.rds  (3.2 MB, plots dropped)
+  IP_u comparison log saved: Part10e_CP10K_M4_CMRF_IP_u_comparison.txt
+
+  Building CMRF verification Excel ...
+  NonNeoC T3 JT: stat=112973.00 p=0.0001
+  NonNeoC T7 Hoeffding D=0.1246 p=0.0001 (permutation, R=9999)
+  NonNeoC T8 dCor=0.6168 p=0.0010
+  NonNeoC: 6 statistical tests computed
+  NonNeoC: building verification plots (VP1, VP3) ...
+  NonNeoC: VP1 (T1/T2/T3) saved
+  NonNeoC: VP3 (T6/T7/T8) saved
+  NonNeoC: VP plot data Excel saved: Part10e_CP10K_M4_CMRF_NonNeoC_VP_PlotData_T1_to_T7A.xlsx
+  NeoC T3 JT: stat=145128.00 p=0.0001
+  NeoC T7 Hoeffding D=0.0969 p=0.0001 (permutation, R=9999)
+  NeoC T8 dCor=0.5573 p=0.0010
+  NeoC: 6 statistical tests computed
+  NeoC: building verification plots (VP1, VP3) ...
+  NeoC: VP1 (T1/T2/T3) saved
+  NeoC: VP3 (T6/T7/T8) saved
+  NeoC: VP plot data Excel saved: Part10e_CP10K_M4_CMRF_NeoC_VP_PlotData_T1_to_T7A.xlsx
+  CMRF verification Excel saved: Part10e_CP10K_M4_CMRF_Verification.xlsx
+
+  GUIDE TO CMRF (Copula Monotone Recovery Filter):
+
+  CMRF operates in (u,v) GOI-cDFG copula space. Two-stage filter:
+
+  STAGE 1 -- Monotone Band Admission:
+  Stage 1 (spine proximity + adaptive delta): |v_i - g(u_i)| <= delta_adapt(u_i)
+    g(u): mgcv spine, donor RE + inverse-donor weights [PRSS, 8+5 iter];
+          non-decreasing is verified per fit (GR-10), not imposed.
+    delta_adapt(u) = delta_base*(1+kappa*K(u,IP_u,bw)).
+    delta_base = weighted quantile(|v - g(u)|, 0.95), all original SKCS-core.
+    delta is a RESIDUAL TOLERANCE -- NOT Kendall tau (Ki). No circularity.
+    The adaptive band follows the diagonal spine; any cell within delta_adapt
+    is geometrically consistent with the monotonic pattern.  No hard arm-
+    concordance cutoff imposed -- one geometric criterion (band proximity), one statistical
+    criterion (RSk-fCV).  Clean, consistent, immune to circularity.
+
+  STAGE 2 -- Isotonic Fidelity Gate (paired Wilcoxon, iterative removal):
+    Pool = OriRef + active candidates. Standard K-fold CV on the pool.
+    RSk-fCV: K=5 folds x 40 repeats = 200 total fold-RMSEs; stratified by u-quantile decile.
+    Curve A: OriRef-only CV, folds from OriRef, computed once -> RMSE_A.
+    Curve B: pool CV, folds from the pool, recomputed each iteration -> RMSE_B.
+    Matched by (repeat, fold) index. dRMSE therefore carries the candidates'
+    effect on the fit, their presence in Curve B's test set, and Curve B's
+    larger training set (B10E-31).
+    Tests collective isotonic coherence: does the union form a coherent monotonic group?
+    Paired Wilcoxon (H1: RMSE_B > RMSE_A, alpha=0.05) + BV effect-size gate; structurally matched fold pairs.
+    If RMSE_B significantly worse: remove candidate with highest PAVA isotonic residual, repeat.
+    PAVA removal ranking decouples Stage 2 removal from spine admission (Stage 1).
+    Stops when p>=0.05 OR dRMSE within the background variability BV (dual gate).
+  Group labels:
+    Orig+Ref (Original + Refined): original SKCS-core passing Stage 1 (constitutes CMRF-core with Recovered).
+    Grp 1b (Recovered):          non-SKCS cells passing Stage 1 AND Stage 2.
+    Orig-only:                   original SKCS-core failing Stage 1 (outside band; retained in dataset, excluded from CMRF-core).
+    Excluded:                    non-SKCS cells failing Stage 1 or Stage 2.
+
+  Key outputs:
+  Plot 1: 4-panel CMRF diagnostics (PAVA in u,v, residuals, boxplot, delta hist).
+  Plot 2: CMRF summary panel (Stage 2 gate, post-hoc, delta calibration).
+  Plot 3: before vs after CMRF in (u,v) copula space.
+  Plot 4: RSk-fCV Stage 2 gate -- mechanism and evidence.
+  Plot 5: Orig-only and Recovered with the delta band, (p_full,q_full).
+  Plot 6: CMRF in (u,v) space: PAVA step + delta_adapt band.
+  Plot 7: cell counts -- Original SKCS vs Recovered vs Orig-only.
+  Excel: Step4_CMRF_Delta_Params, Step4_CMRF_Delta_Cal, Step4_CMRF_Stage2_Gate.
+  Verification: <prefix>_Verification.xlsx -- statistical tests per dataset.
+  Verification plots (3 panel sets per dataset):
+    VP1 (_VP1_ConfGate_FidelityGrad): T1 RSk-fCV gate | T2 resid 4-class | T3 JT ordered trend
+
+ ######################################################################## 
+  SECTION C1 — POST-ANALYSIS GUARDRAILS
+######################################################################## 
+
+  [PASS]  GR-08-NonNeoC     CMRF classification: Original + Refined=1232 | Original only=71 | Recovered=242 | Excluded=442
+  [PASS]  GR-09-NonNeoC     Recovered cells = 242 | original SKCS-core = 1303 | refined = 1474
+  [PASS]  GR-10-NonNeoC     spine non-decreasing: min consecutive difference = 2.012e-04 over 501 grid points
+  [PASS]  GR-11-NonNeoC     spine on 1202 TREP SKCS-core cell(s), u in [0.0005, 0.9995] | donor RE = YES (79 donors) | k = 10 | 13 iteration(s)
+  [PASS]  GR-12-NonNeoC     classification axis = cDFG at IP_y | IP_y = 2.038718 | IP_v = 0.527163 | Part 10b Pre/Post labels reproduce 1.0000 on the cDFG axis at IP_y and 0.9900 on the GOI axis at IP_x, over 1303 cell(s)
+  [PASS]  GR-08-NeoC        CMRF classification: Original + Refined=1358 | Original only=61 | Recovered=298 | Excluded=413
+  [PASS]  GR-09-NeoC        Recovered cells = 298 | original SKCS-core = 1419 | refined = 1656
+  [PASS]  GR-10-NeoC        spine non-decreasing: min consecutive difference = 4.560e-04 over 501 grid points
+  [PASS]  GR-11-NeoC        spine on 1308 TREP SKCS-core cell(s), u in [0.0005, 0.9995] | donor RE = YES (74 donors) | k = 10 | 13 iteration(s)
+  [PASS]  GR-12-NeoC        classification axis = cDFG at IP_y | IP_y = 1.875476 | IP_v = 0.538245 | Part 10b Pre/Post labels reproduce 1.0000 on the cDFG axis at IP_y and 0.9648 on the GOI axis at IP_x, over 1419 cell(s)
+  Guardrail log written: <SEA-AD>/Part10e_CMRF/Part10e_CMRF_Mic13_PVM3/Part10e_CP10K_M4_CMRF_Guardrail_Log.txt 
+
+  Final guardrail tally: 20 PASS / 0 WARN / 0 FAIL
+  All 20 checks passed.
+
+ ======================================================================== 
+  Part10e CMRF COMPLETE [ Mic13_PVM3 ]
+  Output directory: <SEA-AD>/Part10e_CMRF/Part10e_CMRF_Mic13_PVM3 
+  Files generated:
+    Part10e_CP10K_M4_CMRF_all_results.rds                            3209 KB
+    Part10e_CP10K_M4_CMRF_console_log_20260827_005640.txt              35 KB
+    Part10e_CP10K_M4_CMRF_Guardrail_Log.txt                             3 KB
+    Part10e_CP10K_M4_CMRF_IP_u_comparison.txt                           1 KB
+    Part10e_CP10K_M4_CMRF_NeoC_01_CMRF_diagnostics.pdf                246 KB
+    Part10e_CP10K_M4_CMRF_NeoC_01_CMRF_diagnostics.png                264 KB
+    Part10e_CP10K_M4_CMRF_NeoC_02_CMRF_summary_panel.pdf               31 KB
+    Part10e_CP10K_M4_CMRF_NeoC_02_CMRF_summary_panel.png              140 KB
+    Part10e_CP10K_M4_CMRF_NeoC_03_before_after_CMRF.pdf               248 KB
+    Part10e_CP10K_M4_CMRF_NeoC_03_before_after_CMRF.png               230 KB
+    Part10e_CP10K_M4_CMRF_NeoC_04_RSk_fCV_mechanism.pdf                56 KB
+    Part10e_CP10K_M4_CMRF_NeoC_04_RSk_fCV_mechanism.png               123 KB
+    Part10e_CP10K_M4_CMRF_NeoC_05_waist_zoom_with_orig_only.pdf       120 KB
+    Part10e_CP10K_M4_CMRF_NeoC_05_waist_zoom_with_orig_only.png       213 KB
+    Part10e_CP10K_M4_CMRF_NeoC_06_CMRF_band_uv_space.pdf              136 KB
+    Part10e_CP10K_M4_CMRF_NeoC_06_CMRF_band_uv_space.png              189 KB
+    Part10e_CP10K_M4_CMRF_NeoC_07_recovery_bar_comparison.pdf           5 KB
+    Part10e_CP10K_M4_CMRF_NeoC_07_recovery_bar_comparison.png          66 KB
+    Part10e_CP10K_M4_CMRF_NeoC_RSk_fCV_Audit.xlsx                     855 KB
+    Part10e_CP10K_M4_CMRF_NeoC_SK_interaction_analysis.xlsx          1194 KB
+    Part10e_CP10K_M4_CMRF_NeoC_VP_PlotData_T1_to_T7A.xlsx             154 KB
+    Part10e_CP10K_M4_CMRF_NeoC_VP1_ConfGate_FidelityGrad.pdf          276 KB
+    Part10e_CP10K_M4_CMRF_NeoC_VP1_ConfGate_FidelityGrad.png          238 KB
+    Part10e_CP10K_M4_CMRF_NeoC_VP3_MonotoneSignal.pdf                  81 KB
+    Part10e_CP10K_M4_CMRF_NeoC_VP3_MonotoneSignal.png                 125 KB
+    Part10e_CP10K_M4_CMRF_NonNeoC_01_CMRF_diagnostics.pdf             231 KB
+    Part10e_CP10K_M4_CMRF_NonNeoC_01_CMRF_diagnostics.png             257 KB
+    Part10e_CP10K_M4_CMRF_NonNeoC_02_CMRF_summary_panel.pdf            31 KB
+    Part10e_CP10K_M4_CMRF_NonNeoC_02_CMRF_summary_panel.png           139 KB
+    Part10e_CP10K_M4_CMRF_NonNeoC_03_before_after_CMRF.pdf            233 KB
+    Part10e_CP10K_M4_CMRF_NonNeoC_03_before_after_CMRF.png            219 KB
+    Part10e_CP10K_M4_CMRF_NonNeoC_04_RSk_fCV_mechanism.pdf             51 KB
+    Part10e_CP10K_M4_CMRF_NonNeoC_04_RSk_fCV_mechanism.png            121 KB
+    Part10e_CP10K_M4_CMRF_NonNeoC_05_waist_zoom_with_orig_only.pdf    114 KB
+    Part10e_CP10K_M4_CMRF_NonNeoC_05_waist_zoom_with_orig_only.png    206 KB
+    Part10e_CP10K_M4_CMRF_NonNeoC_06_CMRF_band_uv_space.pdf           128 KB
+    Part10e_CP10K_M4_CMRF_NonNeoC_06_CMRF_band_uv_space.png           181 KB
+    Part10e_CP10K_M4_CMRF_NonNeoC_07_recovery_bar_comparison.pdf        5 KB
+    Part10e_CP10K_M4_CMRF_NonNeoC_07_recovery_bar_comparison.png       66 KB
+    Part10e_CP10K_M4_CMRF_NonNeoC_RSk_fCV_Audit.xlsx                  750 KB
+    Part10e_CP10K_M4_CMRF_NonNeoC_SK_interaction_analysis.xlsx       1061 KB
+    Part10e_CP10K_M4_CMRF_NonNeoC_VP_PlotData_T1_to_T7A.xlsx          140 KB
+    Part10e_CP10K_M4_CMRF_NonNeoC_VP1_ConfGate_FidelityGrad.pdf       260 KB
+    Part10e_CP10K_M4_CMRF_NonNeoC_VP1_ConfGate_FidelityGrad.png       230 KB
+    Part10e_CP10K_M4_CMRF_NonNeoC_VP3_MonotoneSignal.pdf               74 KB
+    Part10e_CP10K_M4_CMRF_NonNeoC_VP3_MonotoneSignal.png              120 KB
+    Part10e_CP10K_M4_CMRF_Verification.xlsx                            90 KB
+  Load the results with: readRDS("<SEA-AD>/Part10e_CMRF/Part10e_CMRF_Mic13_PVM3/Part10e_CP10K_M4_CMRF_all_results.rds")
+======================================================================== 
+
+  Log written to: <SEA-AD>/Part10e_CMRF/Part10e_CMRF_Mic13_PVM3/Part10e_CP10K_M4_CMRF_console_log_20260827_005640.txt  (console output and warnings) 
+
+Part10e CMRF — log ended: 2026-08-27 01:01:09.38315

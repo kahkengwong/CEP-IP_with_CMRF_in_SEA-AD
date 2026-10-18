@@ -83,7 +83,7 @@ GERRITS_CITATION
 | `renv.lock` | Exact R package versions (R 4.6.1, Bioconductor 3.23; 280 packages). |
 | `requirements-python.txt` | Exact Python package versions (Python 3.13.14). |
 | `verification/` | `run_rest.sh` (runs the scripts in order from a named step), `compare_rerun.py`, and the comparison of the container rerun with the original results (`compare_all_log.txt`, `compare_all_detail.csv`). |
-| `logs/` | Console logs of the container rerun (`container_rerun/`, R Part 9 onward and the Part 12 Python step) and logs of the original Python Parts 1 to 8 (`original_python/`). `logs/README.md` maps each log to its script. |
+| `logs/` | Console logs of the container rerun (`container_rerun/`, R Part 9 onward and the Part 12 Python step), logs of the original runs from Part 9 onward (`original_R/`), and logs of the original Python Parts 1 to 8 (`original_python/`). `logs/README.md` describes each folder and maps the Python logs to their scripts. |
 
 ---
 

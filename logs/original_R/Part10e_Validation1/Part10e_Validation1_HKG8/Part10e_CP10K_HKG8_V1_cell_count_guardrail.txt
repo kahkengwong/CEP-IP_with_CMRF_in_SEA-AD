@@ -1,0 +1,74 @@
+========================================================================
+Part10e Validation1 [HKG8_matched] — Cell Count Guardrail Report
+Generated: 2026-08-28 16:45:34.727877
+========================================================================
+
+[NeoC] Cell Count Reconciliation  (arm HKG8_matched, GOI ACTB)
+------------------------------------------------------------------------------
+Identity                                               Observed     Status
+------------------------------------------------------------------------------
+OrigRef (239) + Recovered (287) = module (526)              526       PASS
+the four CMRF classes (239+287+11+895) = ACTB-positive (1432)       1432       PASS
+ACTB-positive (1432) + ACTB-negative (0) = sheet rows (1432)       1432       PASS
+module (526) + non-module (906) = ACTB-positive (1432)       1432       PASS
+TREP (461) + non-TREP (65) = module (526)                   526       PASS
+------------------------------------------------------------------------------
+Dataset NeoC: ALL RECONCILE
+
+  ACTB-positive (plotted):                    1432
+  Non-module (gray):             906
+  GAM DE (donor-aware):          84.13%
+  TREP sizing DE (flat null):    87.63%
+  IP threshold:                  1.5552
+  TREP / non-TREP:               461 / 65
+
+  4-group breakdown:
+    Pre-IP TREP               233
+    Pre-IP non-TREP           4
+    Post-IP TREP              228
+    Post-IP non-TREP          61
+
+  TREP Concordance (OrigRef cells: refitted vs original Part10b):
+    Agreement: 230 / 239 (96.2%)
+    Original \ Refitted      Post-IP non-TREP       Post-IP TREP        Pre-IP TREP
+    Post-IP non-TREP                       12                  9                  0
+    Post-IP TREP                            0                147                  0
+    Pre-IP TREP                             0                  0                 71
+
+
+[NonNeoC] Cell Count Reconciliation  (arm HKG8_matched, GOI ACTB)
+------------------------------------------------------------------------------
+Identity                                               Observed     Status
+------------------------------------------------------------------------------
+OrigRef (191) + Recovered (240) = module (431)              431       PASS
+the four CMRF classes (191+240+8+640) = ACTB-positive (1079)       1079       PASS
+ACTB-positive (1079) + ACTB-negative (0) = sheet rows (1079)       1079       PASS
+module (431) + non-module (648) = ACTB-positive (1079)       1079       PASS
+TREP (367) + non-TREP (64) = module (431)                   431       PASS
+------------------------------------------------------------------------------
+Dataset NonNeoC: ALL RECONCILE
+
+  ACTB-positive (plotted):                    1079
+  Non-module (gray):             648
+  GAM DE (donor-aware):          78.10%
+  TREP sizing DE (flat null):    85.15%
+  IP threshold:                  1.8130
+  TREP / non-TREP:               367 / 64
+
+  4-group breakdown:
+    Pre-IP TREP               180
+    Pre-IP non-TREP           2
+    Post-IP TREP              187
+    Post-IP non-TREP          62
+
+  TREP Concordance (OrigRef cells: refitted vs original Part10b):
+    Agreement: 175 / 191 (91.6%)
+    Original \ Refitted      Post-IP non-TREP       Post-IP TREP        Pre-IP TREP
+    Post-IP non-TREP                       16                 16                  0
+    Post-IP TREP                            0                116                  0
+    Pre-IP TREP                             0                  0                 43
+
+
+========================================================================
+OVERALL GUARDRAIL: ALL COUNTS RECONCILE — PASS
+========================================================================
