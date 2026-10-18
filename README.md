@@ -1,6 +1,6 @@
 <div align="center">
 
-# CEP-IP with CMRF in SEA-AD Microglia: A Mitochondrial Co-expression Module Linked to Cognition
+# CEP-IP with CMRF in SEA-AD Microglia:<br>A Mitochondrial Co-expression Module Linked to Cognition
 
 [![Project Page](https://img.shields.io/badge/Code-GitHub-4E81BE?logo=github&logoColor=white&style=flat-square)](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
 [![Dataset](https://img.shields.io/badge/Dataset-HuggingFace-B08C00?logo=huggingface&logoColor=F3D34E&style=flat-square)](https://huggingface.co/datasets/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
@@ -331,6 +331,9 @@ The original analysis ran R on Windows 11 and Python on Fedora 44. The whole pip
   - quote marks written by R's `shQuote()` (double on Windows, single on Linux);
   - the settings version recorded in the Part 12 tables;
   - dates, times, and folder paths.
+
+> [!NOTE]
+> These differences come from the operating system and from how values are printed. A GAM basis function and its sign-flipped copy give the same fit, and a value printed as -0 is zero. The quote marks, the settings version, and the dates, times, and folder paths only record how a run was made and are not used in any calculation. None of them changes a fitted value, a test result, or a finding.
 
 The full comparisons are in `verification/`:
 - **R parts:** `compare_all_log.txt` (summary) and `compare_all_detail.csv` (one row per table).
