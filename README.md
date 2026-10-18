@@ -75,8 +75,8 @@ GERRITS_CITATION
 ## 🗂️ Repository Contents
 | Path | Contents |
 |---|---|
-| `Python/` | The 23 Python scripts: Parts 1 to 8 and the Part 12 extraction step (`Part12_02_Extract.py`). |
-| `R/` | The R scripts of Parts 9 to 13 and `Fig17_Summary_code.r`; the shared arm table and settings (`CEP_arms.R`, `R_config.R`, `R_config_HKG8.R`); the Part 12 settings (`Part12_01_config.json`, `Part12_Fig19_config.json`) and pre-specified readings (`Part12_Preset_Readings.md`, `Part12_Preset_Readings_Battery5.md`). |
+| `scripts/Python/` | The 23 Python scripts: Parts 1 to 8 and the Part 12 extraction step (`Part12_02_Extract.py`). |
+| `scripts/R/` | The R scripts of Parts 9 to 13 and `Fig17_Summary_code.r`; the shared arm table and settings (`CEP_arms.R`, `R_config.R`, `R_config_HKG8.R`); the Part 12 settings (`Part12_01_config.json`, `Part12_Fig19_config.json`) and pre-specified readings (`Part12_Preset_Readings.md`, `Part12_Preset_Readings_Battery5.md`). |
 | `Containerfile` | Recipe for the container image (R 4.6.1, Python 3.13.14, all packages). Works with Podman or Docker. |
 | `seaad-setup.sh` | Run once inside the container: copies the settings into the data folder and checks the inputs. |
 | `README_container.md` | Container build, inputs, and the full run order. |

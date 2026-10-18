@@ -1,0 +1,48 @@
+========================================================================
+Part 8 — Normalisation Guardrail Log (CP10K)
+Date: 2026-07-31 19:09:30
+ARM: PVM1_bulk
+h5ad: <SEA-AD>/SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad
+Normalisation: adata.X (CP10K — log1p(UMIs/total × 10000), natural log)
+========================================================================
+
+  [PASS]  GR-00             uns['X_normalization'] = 'ln(UP10K+1)'  (expected 'ln(UP10K+1)')
+  [PASS]  GR-00b            obs index unique across 240,651 cells
+  [PASS]  GR-01             layers['UMIs'] present  (available: ['UMIs', None])
+  [PASS]  GR-02             layers['UMIs'] values are integer-like (sampled 10,000 nz)
+  [PASS]  GR-03             layers['UMIs'] max = 5121 (>> 20, consistent with raw UMIs)
+  [INFO]  GR-04-info        adata.raw is None = True  (if True, code using adata.raw.X falls through to adata.X)
+  [PASS]  GR-05             adata.X dtype = float64  (float → consistent with CP10K)
+  [PASS]  GR-06             adata.X max = 8.1820  (<= 9.2104 ceiling, consistent with CP10K)
+  [PASS]  GR-07             adata.X min(nz) = 0.118260  (>= 0, consistent with log1p(...))
+  [PASS]  GR-08             max(X_raw)/max(X_norm) = 625.9x  (5121 vs 8.1820 — raw counts >> CP10K)
+  [PASS]  GR-09             X_raw and X_norm are distinct objects
+  [PASS]  GR-10a            X_norm == adata.X spot-check MATCH  (max_diff=0.00e+00, n=200 cells × 500 genes)
+  [PASS]  GR-10b            X_norm == log1p(UMIs/total × 10000)  (max_diff=4.44e-16) — CONFIRMED CP10K
+  [PASS]  GR-10c            X_norm != log2(CP10K(adata.X)+1)  (max_diff=1.5186) — NOT double-normalised
+  [PASS]  GR-10d            expm1(X_norm) row sums pin 10000  (mean=10000.000000, CV=1.23e-16, n=50)
+  [PASS]  GR-11             nnz(X_raw) == nnz(X_norm) = 650,073,978  (same sparsity pattern)
+  [PASS]  GR-15-goi         panel GOI 'MT-CO3' resolved at var_names index 36565
+  [PASS]  GR-15-neoc        all 8 NeoC DFGs resolved
+  [PASS]  GR-15-nonnc       all 8 NonNeoC DFGs resolved
+  [PASS]  GR-15-select      all 1 selection genes resolved: ['MT-CO3']
+  [PASS]  GR-20-braak       Braak: all 6 observed levels covered by the map
+  [PASS]  GR-20-cerad       CERAD score: all 4 observed levels covered by the map
+  [PASS]  GR-20-thal        Thal: all 6 observed levels covered by the map
+  [PASS]  GR-20-caa         Overall CAA Score: all 4 observed levels covered by the map
+  [INFO]  GR-16-neoc        all 6 neocortex regions produced a GAM CSV
+  [INFO]  GR-16-nonn        all 4 nonneocortex regions produced a GAM CSV
+  [PASS]  GR-12-neoc        norm.mtx max = 7.6178  (<= 9.2104, consistent with CP10K)
+  [PASS]  GR-13-neoc        ON-DISK norm.mtx vs adata.X (CP10K): max_diff = 0.00e+00  (14 genes x 50 cells) — MATCH
+  [PASS]  GR-14-neoc        raw_selected/matrix.mtx: integer-valued, max=3138  — genuine raw counts
+  [PASS]  GR-12-nonn        norm.mtx max = 7.7520  (<= 9.2104, consistent with CP10K)
+  [PASS]  GR-13-nonn        ON-DISK norm.mtx vs adata.X (CP10K): max_diff = 0.00e+00  (14 genes x 50 cells) — MATCH
+  [PASS]  GR-14-nonn        raw_selected/matrix.mtx: integer-valued, max=3293  — genuine raw counts
+
+========================================================================
+  Total : 29
+  PASS  : 29
+  FAIL  : 0
+
+  *** ALL GUARDRAILS PASSED ***
+========================================================================

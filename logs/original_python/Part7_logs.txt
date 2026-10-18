@@ -1,0 +1,206 @@
+======================================================================
+Part7_DecontX.py  (v9 — spawn + SharedMemory)
+PART 7 — DecontX REDUCED MODE - spawn-based multiprocessing
+  Run method:     python3 Code/Part7_DecontX.py (NOT exec)
+  Start method:   spawn (no fork, no CoW)
+  Shared memory:  CSR data/indices/indptr + cluster labels
+  Worker count:   measured at runtime from MemAvailable
+======================================================================
+  RSS at start: 0.1 GB
+
+Loading h5ad ...
+  Shape: 240,651 x 36,601
+  Loaded in 28s,  RSS: 15.2 GB
+  CSR: (240651, 36601),  nnz: 650,073,978,  data: 5.20 GB
+  Clusters: 8,  Batches: 905
+  To process: 897  (skip 8)
+  Released adata,  RSS: 7.8 GB
+
+--- Sizing the worker pool ---
+  Largest batch: 994 cells, peak estimate 1.00 GB/worker
+  MemAvailable 39.1 GB, shared CSR 7.8 GB, budget 15.7 GB
+  Workers set to 15
+
+--- Setting up SharedMemory ---
+  SharedMemory blocks created:
+    data:     psm_b036db88  (5.20 GB)
+    indices:  psm_607ea109  (2.60 GB)
+    indptr:   psm_5b7092c6
+    clusters: psm_13f51938
+  Released parent CSR copy,  RSS: 7.8 GB
+
+  Starting fresh: 905 batches
+
+======================================================================
+RUNNING DecontX — SPAWN + SHARED MEMORY
+  MODE:       REDUCED (no background / no empty droplets)
+  WORKERS:    15 (spawn, no fork)
+  BATCHES:    905 total, 905 remaining
+
+  The raw Cell Ranger outputs (with empty droplets) are behind
+  controlled access on the Sage Bionetworks AD Knowledge Portal.
+  This run estimates contamination from cross-cluster expression
+  profiles only.
+======================================================================
+  [  20/905]  1.3 min  RSS=7.8 GB  free=33.0 GB  ETA≈0h00m
+  [  40/905]  2.2 min  RSS=7.8 GB  free=32.2 GB  ETA≈0h00m
+  [  60/905]  3.2 min  RSS=7.8 GB  free=31.9 GB  ETA≈0h00m
+  [  80/905]  4.6 min  RSS=7.8 GB  free=31.7 GB  ETA≈0h00m
+  [ 100/905]  6.0 min  RSS=7.8 GB  free=31.8 GB  ETA≈0h00m
+  [ 120/905]  7.1 min  RSS=7.8 GB  free=32.3 GB  ETA≈0h00m
+  [ 140/905]  7.7 min  RSS=7.8 GB  free=32.7 GB  ETA≈0h00m
+  [ 160/905]  8.2 min  RSS=7.8 GB  free=33.2 GB  ETA≈0h00m
+  [ 180/905]  8.7 min  RSS=7.8 GB  free=33.5 GB  ETA≈0h00m
+  [ 200/905]  9.3 min  RSS=7.8 GB  free=32.6 GB  ETA≈0h00m
+  [ 220/905]  9.9 min  RSS=7.8 GB  free=33.4 GB  ETA≈0h00m
+  [ 240/905]  10.5 min  RSS=7.8 GB  free=32.6 GB  ETA≈0h00m
+  [ 260/905]  11.3 min  RSS=7.8 GB  free=33.0 GB  ETA≈0h00m
+  [ 280/905]  11.9 min  RSS=7.8 GB  free=33.7 GB  ETA≈0h00m
+  [ 300/905]  12.5 min  RSS=7.8 GB  free=33.5 GB  ETA≈0h00m
+  [ 320/905]  13.2 min  RSS=7.8 GB  free=33.4 GB  ETA≈0h00m
+  [ 340/905]  14.1 min  RSS=7.8 GB  free=33.4 GB  ETA≈0h00m
+  [ 360/905]  14.9 min  RSS=7.8 GB  free=33.6 GB  ETA≈0h00m
+  [ 380/905]  15.4 min  RSS=7.8 GB  free=33.7 GB  ETA≈0h00m
+  [ 400/905]  15.9 min  RSS=7.8 GB  free=33.8 GB  ETA≈0h00m
+  [ 420/905]  16.6 min  RSS=7.8 GB  free=32.9 GB  ETA≈0h00m
+  [ 440/905]  17.5 min  RSS=7.8 GB  free=33.4 GB  ETA≈0h00m
+  [ 460/905]  18.0 min  RSS=7.8 GB  free=33.3 GB  ETA≈0h00m
+  [ 480/905]  18.6 min  RSS=7.8 GB  free=32.6 GB  ETA≈0h00m
+  [ 500/905]  19.9 min  RSS=7.8 GB  free=31.7 GB  ETA≈0h00m
+  [ 520/905]  21.5 min  RSS=7.8 GB  free=31.4 GB  ETA≈0h00m
+  [ 540/905]  22.8 min  RSS=7.8 GB  free=31.2 GB  ETA≈0h00m
+  [ 560/905]  23.8 min  RSS=7.8 GB  free=31.2 GB  ETA≈0h00m
+  [ 580/905]  25.4 min  RSS=7.8 GB  free=31.4 GB  ETA≈0h00m
+  [ 600/905]  26.9 min  RSS=7.8 GB  free=30.6 GB  ETA≈0h00m
+  [ 620/905]  28.4 min  RSS=7.8 GB  free=30.2 GB  ETA≈0h00m
+  [ 640/905]  29.8 min  RSS=7.8 GB  free=29.6 GB  ETA≈0h00m
+  [ 660/905]  30.4 min  RSS=7.8 GB  free=30.9 GB  ETA≈0h00m
+  [ 680/905]  30.8 min  RSS=7.8 GB  free=32.2 GB  ETA≈0h00m
+  [ 700/905]  31.2 min  RSS=7.8 GB  free=31.5 GB  ETA≈0h00m
+  [ 720/905]  32.2 min  RSS=7.8 GB  free=31.2 GB  ETA≈0h00m
+  [ 740/905]  33.1 min  RSS=7.8 GB  free=30.7 GB  ETA≈0h00m
+  [ 760/905]  34.1 min  RSS=7.8 GB  free=31.9 GB  ETA≈0h00m
+  [ 780/905]  34.9 min  RSS=7.8 GB  free=32.0 GB  ETA≈0h00m
+  [ 800/905]  35.9 min  RSS=7.8 GB  free=32.2 GB  ETA≈0h00m
+  [ 820/905]  36.5 min  RSS=7.8 GB  free=32.4 GB  ETA≈0h00m
+  [ 840/905]  36.9 min  RSS=7.8 GB  free=33.3 GB  ETA≈0h00m
+  [ 860/905]  37.6 min  RSS=7.8 GB  free=31.2 GB  ETA≈0h00m
+  [ 880/905]  39.5 min  RSS=7.8 GB  free=31.5 GB  ETA≈0h00m
+  [ 900/905]  40.6 min  RSS=7.8 GB  free=33.1 GB  ETA≈0h00m
+  [ 905/905]  41.4 min  RSS=7.8 GB  free=35.0 GB  ETA≈0h00m
+
+DecontX finished: 905 batches in 41.4 min (8 skipped),  RSS: 7.8 GB
+
+--- Reassembling from disk ---
+    Scanned 200/905
+    Scanned 400/905
+    Scanned 600/905
+    Scanned 800/905
+    Loaded 200/905
+    Loaded 400/905
+    Loaded 600/905
+    Loaded 800/905
+  Reassembled: (240651, 36601), nnz=602,121,592
+  Took 21.0s,  RSS: 14.6 GB
+
+======================================================================
+CONTAMINATION SUMMARY (all 240,651 cells)
+======================================================================
+  mean   0.1947
+  median 0.1405
+  q25    0.0345
+  q75    0.2945
+  q95    0.5971
+  max    1.0000
+
+--- Per-supertype contamination ---
+  Lymphocyte                      n=  4,607  mean=0.0028  median=0.0000  q95=0.0121
+  Micro-PVM_1                     n=  7,909  mean=0.1372  median=0.0011  q95=0.7364
+  Micro-PVM_2                     n=141,248  mean=0.1938  median=0.1506  q95=0.5411
+  Micro-PVM_2_1-SEAAD             n=  1,458  mean=0.1199  median=0.0005  q95=0.5481
+  Micro-PVM_2_3-SEAAD             n= 53,815  mean=0.1942  median=0.1420  q95=0.5856
+  Micro-PVM_3-SEAAD               n= 29,805  mean=0.2510  median=0.1749  q95=0.7331
+  Micro-PVM_4-SEAAD               n=  1,767  mean=0.1511  median=0.0015  q95=0.6639
+  Monocyte                        n=     42  mean=0.0000  median=0.0000  q95=0.0001
+
+======================================================================
+MITO-GENE CONTAMINATION DIAGNOSTIC
+======================================================================
+
+  Per-gene in Micro-PVM_3-SEAAD (n=29,805):
+  gene            before     after  retained   removed    module
+  ------------  --------  --------  --------  --------  --------
+  MT-CO3           6.598     5.598    0.8485    0.1515    MODULE
+  MT-ATP6          5.864     4.959    0.8457    0.1543    MODULE
+  MT-CO2           5.992     5.060    0.8445    0.1555    MODULE
+  MT-ND3           7.034     6.079    0.8643    0.1357    MODULE
+  MT-ND4           5.152     4.390    0.8520    0.1480    MODULE
+  MT-CYB           4.063     3.453    0.8499    0.1501    MODULE
+  MT-ND1           2.591     2.215    0.8550    0.1450    MODULE
+  MT-ND2           2.962     2.566    0.8665    0.1335    MODULE
+  MT-CO1           3.731     3.169    0.8493    0.1507    MODULE
+  MT-ND5           1.280     1.118    0.8734    0.1266          
+  MT-ND4L          0.670     0.593    0.8844    0.1156          
+  MT-ATP8          0.650     0.565    0.8689    0.1311          
+  MT-ND6           0.086     0.073    0.8571    0.1429          
+  ACTB             1.835     1.349    0.7354    0.2646          
+  B2M              1.971     1.502    0.7619    0.2381          
+  GAPDH            0.577     0.434    0.7517    0.2483          
+  TMSB4X           2.347     1.671    0.7121    0.2879          
+  FTL              6.672     5.495    0.8235    0.1765          
+    Module           mean 0.8529  [0.8445, 0.8665]
+    Non-mod mito     mean 0.8710  [0.8571, 0.8844]
+    Non-mito ref     mean 0.7569  [0.7121, 0.8235]
+
+--- Contamination by MT-CO3 quartile (Micro-PVM_3-SEAAD) ---
+  MT-CO3 = 0  (n= 5,342):  mean=0.2206  med=0.1193
+  MT-CO3 > 0  (n=24,463):  mean=0.2576  med=0.1878
+  Q1 (n= 4,441, 1-2):  mean=0.2489  med=0.1696
+  Q2 (n= 5,939, 2-4):  mean=0.2621  med=0.1941
+  Q3 (n= 7,246, 4-9):  mean=0.2829  med=0.2367
+  Q4 (n= 6,837, 9-366):  mean=0.2326  med=0.1402
+
+======================================================================
+MODULE DIAGNOSTIC: rho(MT-CO3, cDFG) before vs after
+======================================================================
+  Lymphocyte                      n=  4,007  before=+0.7896  after=+0.7896  delta=-0.0001
+  Micro-PVM_1                     n=  5,876  before=+0.8077  after=+0.7950  delta=-0.0127
+  Micro-PVM_2                     n= 98,528  before=+0.7249  after=+0.6898  delta=-0.0351
+  Micro-PVM_2_1-SEAAD             n=  1,204  before=+0.8582  after=+0.8484  delta=-0.0098
+  Micro-PVM_2_3-SEAAD             n= 40,401  before=+0.7531  after=+0.7439  delta=-0.0092
+  Micro-PVM_3-SEAAD               n= 24,463  before=+0.8174  after=+0.8019  delta=-0.0155 <<<
+  Micro-PVM_4-SEAAD               n=  1,155  before=+0.5936  after=+0.5617  delta=-0.0319
+  Monocyte                        n=     41  before=+0.8930  after=+0.8930  delta=+0.0000
+
+--- Micro-PVM_3-SEAAD per arm ---
+  NeoC      n=13,331  before=+0.8184  after=+0.8027  delta=-0.0158
+  NonNeoC   n=11,132  before=+0.8061  after=+0.7888  delta=-0.0173
+
+======================================================================
+  VERDICT: Module SURVIVES (delta=-0.0155)
+======================================================================
+
+--- Saving outputs ---
+  PVM3_decontX.h5ad  (29,805 cells)
+  AllImmune_decontX.h5ad  (240,651 cells)
+
+======================================================================
+SUMMARY
+======================================================================
+  Mode:              REDUCED (no empty droplets)
+  Parallelisation:   spawn + SharedMemory, 15 workers
+  Cells:             240,651
+  Batches:           905
+  Mean contamination:0.1947
+  Module rho before: +0.8174
+  Module rho after:  +0.8019
+  Delta:             -0.0155
+  DecontX time:      41.4 min
+  Total time:        42.5 min
+  Final RSS:         0.6 GB
+
+  For full-mode or CellBender, apply for controlled access at:
+  https://adknowledgeportal.synapse.org/
+======================================================================
+  Log file: <SEA-AD>/Part7_DecontX/decontx_log_20260730_223621.txt
+Done.

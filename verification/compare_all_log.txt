@@ -1,0 +1,633 @@
+compare_rerun.py   2026-10-18 01:09:48
+Rerun   : /data
+Reference: /win
+Tolerance: relative 1e-06, absolute 1e-09
+Parts   : Part10, Part10b_IPRS, Part10b_SKCS, Part10c_Copula1, Part10d_Copula2, Part10e_CMRF, Part10e_Validation1, Part10e_Validation2, Part10f_Band_Formation, Part10f_RSkfCV_Mechanism, Part10g_DEGs, Part10h_Prognosis, Part10h_Prognosis_1_Comparator, Part10h_Prognosis_2_CogVsPath, Part10h_Prognosis_4_Multivariate, Part11_Identity, Part12_rerun, Part13_M4Share, Part13b_M4RandomSubset, Part9, Part9b, SuppTable_S11_build, Manuscript/Fig17
+
+How to read this log
+  The reference results were produced on Windows; the rerun used the container on
+  Linux. Results are not expected to be identical to the last digit across operating
+  systems and linear algebra libraries, and statistics based on random subsamples,
+  permutations or nearest neighbours can change more. Each table is given one result:
+    SAME                      all numbers within 1e-6 (relative), text identical
+    SAME UP TO SIGN           only opposite signs of equal size (eigenvector signs)
+    SAME VALUES, OTHER ORDER  the same rows in a different order
+    TEXT ONLY                 numbers the same, some text differs
+    WITHIN 0.1%               numbers differ by more than 1e-6 but at most 0.1%
+    OUTSIDE 0.1%              some numbers differ by more than 0.1%
+  Tables only in the reference come from scripts or steps that are not part of the
+  deposit. Known causes are given as notes under the entries.
+
+== Part10
+   tables (file or sheet): SAME 96
+   other files (figures, RDS, logs): rerun 396 | reference 396 | same name in both 396
+
+== Part10b_IPRS
+   tables (file or sheet): SAME 12 | TEXT ONLY 4
+   other files (figures, RDS, logs): rerun 80 | reference 80 | same name in both 76
+   [TEXT ONLY] Part10b_IPRS_HKG8/Part10b_IPRS_CP10K_HKG8_results.xlsx :: Method_Steps | 3 text cells differ
+        e.g. r2 c2: 'Cell classification: EP = 1 - model_residual² / null_residual²; top (dev_expl × ' vs 'Cell classification: EP = 1 - model_residual² / null_residual²; top (dev_expl × '
+   [TEXT ONLY] Part10b_IPRS_Mic13_PVM3/Part10b_IPRS_CP10K_M4_results.xlsx :: Method_Steps | 3 text cells differ
+        e.g. r2 c2: 'Cell classification: EP = 1 - model_residual² / null_residual²; top (dev_expl × ' vs 'Cell classification: EP = 1 - model_residual² / null_residual²; top (dev_expl × '
+   [TEXT ONLY] Part10b_IPRS_PVM_1/Part10b_IPRS_CP10K_PVM_1_results.xlsx :: Method_Steps | 3 text cells differ
+        e.g. r2 c2: 'Cell classification: EP = 1 - model_residual² / null_residual²; top (dev_expl × ' vs 'Cell classification: EP = 1 - model_residual² / null_residual²; top (dev_expl × '
+   [TEXT ONLY] Part10b_IPRS_PVM_3/Part10b_IPRS_CP10K_PVM_3_results.xlsx :: Method_Steps | 3 text cells differ
+        e.g. r2 c2: 'Cell classification: EP = 1 - model_residual² / null_residual²; top (dev_expl × ' vs 'Cell classification: EP = 1 - model_residual² / null_residual²; top (dev_expl × '
+
+== Part10b_SKCS
+   tables (file or sheet): SAME 60
+   other files (figures, RDS, logs): rerun 232 | reference 228 | same name in both 224
+
+== Part10c_Copula1
+   tables (file or sheet): SAME 56
+   other files (figures, RDS, logs): rerun 164 | reference 164 | same name in both 160
+
+== Part10d_Copula2
+   tables (file or sheet): SAME 40 | TEXT ONLY 16
+   other files (figures, RDS, logs): rerun 124 | reference 124 | same name in both 120
+   [TEXT ONLY] Part10d_Copula2_HKG8/Part10d_CP10K_HKG8_Copula2_NeoC_copula_SKCS_analysis.xlsx :: Estimation_Basis | 5 text cells differ
+        e.g. r2 c6: 'Cell level: no donor random intercept or donor weights.' vs 'Every quantity in Part 10d is computed cell-level. Parts 9, 10, 10b and the IPRS'
+   [TEXT ONLY] Part10d_Copula2_HKG8/Part10d_CP10K_HKG8_Copula2_NeoC_copula_SKCS_analysis.xlsx :: Step4_IP_CopulaSpace | 1 text cells differ
+        e.g. r2 c31: 'IP_u = Fx(IP_x) = #{x<=IP_x}/(n+1); IP_v = Fc(IP_y). Waist: density at the IP co' vs 'IP_u = Fx(IP_x) = #{x<=IP_x}/(n+1); IP_v = Fc(IP_y). Both are transforms of IPRS'
+   [TEXT ONLY] Part10d_Copula2_HKG8/Part10d_CP10K_HKG8_Copula2_NonNeoC_copula_SKCS_analysis.xlsx :: Estimation_Basis | 5 text cells differ
+        e.g. r2 c6: 'Cell level: no donor random intercept or donor weights.' vs 'Every quantity in Part 10d is computed cell-level. Parts 9, 10, 10b and the IPRS'
+   [TEXT ONLY] Part10d_Copula2_HKG8/Part10d_CP10K_HKG8_Copula2_NonNeoC_copula_SKCS_analysis.xlsx :: Step4_IP_CopulaSpace | 1 text cells differ
+        e.g. r2 c31: 'IP_u = Fx(IP_x) = #{x<=IP_x}/(n+1); IP_v = Fc(IP_y). Waist: density at the IP co' vs 'IP_u = Fx(IP_x) = #{x<=IP_x}/(n+1); IP_v = Fc(IP_y). Both are transforms of IPRS'
+   [TEXT ONLY] Part10d_Copula2_Mic13_PVM3/Part10d_CP10K_M4_Copula2_NeoC_copula_SKCS_analysis.xlsx :: Estimation_Basis | 5 text cells differ
+        e.g. r2 c6: 'Cell level: no donor random intercept or donor weights.' vs 'Every quantity in Part 10d is computed cell-level. Parts 9, 10, 10b and the IPRS'
+   [TEXT ONLY] Part10d_Copula2_Mic13_PVM3/Part10d_CP10K_M4_Copula2_NeoC_copula_SKCS_analysis.xlsx :: Step4_IP_CopulaSpace | 1 text cells differ
+        e.g. r2 c31: 'IP_u = Fx(IP_x) = #{x<=IP_x}/(n+1); IP_v = Fc(IP_y). Waist: density at the IP co' vs 'IP_u = Fx(IP_x) = #{x<=IP_x}/(n+1); IP_v = Fc(IP_y). Both are transforms of IPRS'
+   [TEXT ONLY] Part10d_Copula2_Mic13_PVM3/Part10d_CP10K_M4_Copula2_NonNeoC_copula_SKCS_analysis.xlsx :: Estimation_Basis | 5 text cells differ
+        e.g. r2 c6: 'Cell level: no donor random intercept or donor weights.' vs 'Every quantity in Part 10d is computed cell-level. Parts 9, 10, 10b and the IPRS'
+   [TEXT ONLY] Part10d_Copula2_Mic13_PVM3/Part10d_CP10K_M4_Copula2_NonNeoC_copula_SKCS_analysis.xlsx :: Step4_IP_CopulaSpace | 1 text cells differ
+        e.g. r2 c31: 'IP_u = Fx(IP_x) = #{x<=IP_x}/(n+1); IP_v = Fc(IP_y). Waist: density at the IP co' vs 'IP_u = Fx(IP_x) = #{x<=IP_x}/(n+1); IP_v = Fc(IP_y). Both are transforms of IPRS'
+   [TEXT ONLY] Part10d_Copula2_PVM_1/Part10d_CP10K_PVM_1_Copula2_NeoC_copula_SKCS_analysis.xlsx :: Estimation_Basis | 5 text cells differ
+        e.g. r2 c6: 'Cell level: no donor random intercept or donor weights.' vs 'Every quantity in Part 10d is computed cell-level. Parts 9, 10, 10b and the IPRS'
+   [TEXT ONLY] Part10d_Copula2_PVM_1/Part10d_CP10K_PVM_1_Copula2_NeoC_copula_SKCS_analysis.xlsx :: Step4_IP_CopulaSpace | 1 text cells differ
+        e.g. r2 c31: 'IP_u = Fx(IP_x) = #{x<=IP_x}/(n+1); IP_v = Fc(IP_y). Waist: density at the IP co' vs 'IP_u = Fx(IP_x) = #{x<=IP_x}/(n+1); IP_v = Fc(IP_y). Both are transforms of IPRS'
+   [TEXT ONLY] Part10d_Copula2_PVM_1/Part10d_CP10K_PVM_1_Copula2_NonNeoC_copula_SKCS_analysis.xlsx :: Estimation_Basis | 5 text cells differ
+        e.g. r2 c6: 'Cell level: no donor random intercept or donor weights.' vs 'Every quantity in Part 10d is computed cell-level. Parts 9, 10, 10b and the IPRS'
+   [TEXT ONLY] Part10d_Copula2_PVM_1/Part10d_CP10K_PVM_1_Copula2_NonNeoC_copula_SKCS_analysis.xlsx :: Step4_IP_CopulaSpace | 1 text cells differ
+        e.g. r2 c31: 'IP_u = Fx(IP_x) = #{x<=IP_x}/(n+1); IP_v = Fc(IP_y). Waist: density at the IP co' vs 'IP_u = Fx(IP_x) = #{x<=IP_x}/(n+1); IP_v = Fc(IP_y). Both are transforms of IPRS'
+   [TEXT ONLY] Part10d_Copula2_PVM_3/Part10d_CP10K_PVM_3_Copula2_NeoC_copula_SKCS_analysis.xlsx :: Estimation_Basis | 5 text cells differ
+        e.g. r2 c6: 'Cell level: no donor random intercept or donor weights.' vs 'Every quantity in Part 10d is computed cell-level. Parts 9, 10, 10b and the IPRS'
+   [TEXT ONLY] Part10d_Copula2_PVM_3/Part10d_CP10K_PVM_3_Copula2_NeoC_copula_SKCS_analysis.xlsx :: Step4_IP_CopulaSpace | 1 text cells differ
+        e.g. r2 c31: 'IP_u = Fx(IP_x) = #{x<=IP_x}/(n+1); IP_v = Fc(IP_y). Waist: density at the IP co' vs 'IP_u = Fx(IP_x) = #{x<=IP_x}/(n+1); IP_v = Fc(IP_y). Both are transforms of IPRS'
+   [TEXT ONLY] Part10d_Copula2_PVM_3/Part10d_CP10K_PVM_3_Copula2_NonNeoC_copula_SKCS_analysis.xlsx :: Estimation_Basis | 5 text cells differ
+        e.g. r2 c6: 'Cell level: no donor random intercept or donor weights.' vs 'Every quantity in Part 10d is computed cell-level. Parts 9, 10, 10b and the IPRS'
+   [TEXT ONLY] Part10d_Copula2_PVM_3/Part10d_CP10K_PVM_3_Copula2_NonNeoC_copula_SKCS_analysis.xlsx :: Step4_IP_CopulaSpace | 1 text cells differ
+        e.g. r2 c31: 'IP_u = Fx(IP_x) = #{x<=IP_x}/(n+1); IP_v = Fc(IP_y). Waist: density at the IP co' vs 'IP_u = Fx(IP_x) = #{x<=IP_x}/(n+1); IP_v = Fc(IP_y). Both are transforms of IPRS'
+
+== Part10e_CMRF
+   tables (file or sheet): SAME 256 | TEXT ONLY 24 | SHEET ONLY IN REFERENCE 4
+   other files (figures, RDS, logs): rerun 160 | reference 160 | same name in both 156
+   [TEXT ONLY] Part10e_CMRF_HKG8/Part10e_CP10K_HKG8_CMRF_NeoC_RSk_fCV_Audit.xlsx :: One_Fold_Audit | 1 text cells differ
+        e.g. r113 c1: "SCHEMATIC: both curves scored on one shared pool fold; the gate's RMSE_A is the " vs "SCHEMATIC: both curves scored on ONE SHARED pool fold. The gate's RMSE_A is the "
+   [TEXT ONLY] Part10e_CMRF_HKG8/Part10e_CP10K_HKG8_CMRF_NeoC_SK_interaction_analysis.xlsx :: Step4_CMRF_Delta_Params | 2 text cells differ
+        e.g. r2 c18: 'Stage 1: 95th weighted percentile of the original SKCS-core spine residuals. Sta' vs 'Stage1: 95th pctile = p<0.05 two-tailed; data-driven from the original SKCS-core'
+   [TEXT ONLY] Part10e_CMRF_HKG8/Part10e_CP10K_HKG8_CMRF_NonNeoC_RSk_fCV_Audit.xlsx :: One_Fold_Audit | 1 text cells differ
+        e.g. r95 c1: "SCHEMATIC: both curves scored on one shared pool fold; the gate's RMSE_A is the " vs "SCHEMATIC: both curves scored on ONE SHARED pool fold. The gate's RMSE_A is the "
+   [TEXT ONLY] Part10e_CMRF_HKG8/Part10e_CP10K_HKG8_CMRF_NonNeoC_SK_interaction_analysis.xlsx :: Step4_CMRF_Delta_Params | 2 text cells differ
+        e.g. r2 c18: 'Stage 1: 95th weighted percentile of the original SKCS-core spine residuals. Sta' vs 'Stage1: 95th pctile = p<0.05 two-tailed; data-driven from the original SKCS-core'
+   [SHEET ONLY IN REFERENCE] Part10e_CMRF_HKG8/Part10e_CP10K_HKG8_CMRF_Verification.xlsx :: Formulas_Legend
+        note: Explanatory sheet removed from the deposited script; it holds no results.
+   [TEXT ONLY] Part10e_CMRF_HKG8/Part10e_CP10K_HKG8_CMRF_Verification.xlsx :: NeoC_Delta_Params | 2 text cells differ
+        e.g. r2 c18: 'Stage 1: 95th weighted percentile of the original SKCS-core spine residuals. Sta' vs 'Stage1: 95th pctile = p<0.05 two-tailed; data-driven from the original SKCS-core'
+   [TEXT ONLY] Part10e_CMRF_HKG8/Part10e_CP10K_HKG8_CMRF_Verification.xlsx :: NonNeoC_Delta_Params | 2 text cells differ
+        e.g. r2 c18: 'Stage 1: 95th weighted percentile of the original SKCS-core spine residuals. Sta' vs 'Stage1: 95th pctile = p<0.05 two-tailed; data-driven from the original SKCS-core'
+   [TEXT ONLY] Part10e_CMRF_Mic13_PVM3/Part10e_CP10K_M4_CMRF_NeoC_RSk_fCV_Audit.xlsx :: One_Fold_Audit | 1 text cells differ
+        e.g. r340 c1: "SCHEMATIC: both curves scored on one shared pool fold; the gate's RMSE_A is the " vs "SCHEMATIC: both curves scored on ONE SHARED pool fold. The gate's RMSE_A is the "
+   [TEXT ONLY] Part10e_CMRF_Mic13_PVM3/Part10e_CP10K_M4_CMRF_NeoC_SK_interaction_analysis.xlsx :: Step4_CMRF_Delta_Params | 2 text cells differ
+        e.g. r2 c18: 'Stage 1: 95th weighted percentile of the original SKCS-core spine residuals. Sta' vs 'Stage1: 95th pctile = p<0.05 two-tailed; data-driven from the original SKCS-core'
+   [TEXT ONLY] Part10e_CMRF_Mic13_PVM3/Part10e_CP10K_M4_CMRF_NonNeoC_RSk_fCV_Audit.xlsx :: One_Fold_Audit | 1 text cells differ
+        e.g. r303 c1: "SCHEMATIC: both curves scored on one shared pool fold; the gate's RMSE_A is the " vs "SCHEMATIC: both curves scored on ONE SHARED pool fold. The gate's RMSE_A is the "
+   [TEXT ONLY] Part10e_CMRF_Mic13_PVM3/Part10e_CP10K_M4_CMRF_NonNeoC_SK_interaction_analysis.xlsx :: Step4_CMRF_Delta_Params | 2 text cells differ
+        e.g. r2 c18: 'Stage 1: 95th weighted percentile of the original SKCS-core spine residuals. Sta' vs 'Stage1: 95th pctile = p<0.05 two-tailed; data-driven from the original SKCS-core'
+   [SHEET ONLY IN REFERENCE] Part10e_CMRF_Mic13_PVM3/Part10e_CP10K_M4_CMRF_Verification.xlsx :: Formulas_Legend
+        note: Explanatory sheet removed from the deposited script; it holds no results.
+   [TEXT ONLY] Part10e_CMRF_Mic13_PVM3/Part10e_CP10K_M4_CMRF_Verification.xlsx :: NeoC_Delta_Params | 2 text cells differ
+        e.g. r2 c18: 'Stage 1: 95th weighted percentile of the original SKCS-core spine residuals. Sta' vs 'Stage1: 95th pctile = p<0.05 two-tailed; data-driven from the original SKCS-core'
+   [TEXT ONLY] Part10e_CMRF_Mic13_PVM3/Part10e_CP10K_M4_CMRF_Verification.xlsx :: NonNeoC_Delta_Params | 2 text cells differ
+        e.g. r2 c18: 'Stage 1: 95th weighted percentile of the original SKCS-core spine residuals. Sta' vs 'Stage1: 95th pctile = p<0.05 two-tailed; data-driven from the original SKCS-core'
+   [TEXT ONLY] Part10e_CMRF_PVM_1/Part10e_CP10K_PVM_1_CMRF_NeoC_RSk_fCV_Audit.xlsx :: One_Fold_Audit | 1 text cells differ
+        e.g. r450 c1: "SCHEMATIC: both curves scored on one shared pool fold; the gate's RMSE_A is the " vs "SCHEMATIC: both curves scored on ONE SHARED pool fold. The gate's RMSE_A is the "
+   [TEXT ONLY] Part10e_CMRF_PVM_1/Part10e_CP10K_PVM_1_CMRF_NeoC_SK_interaction_analysis.xlsx :: Step4_CMRF_Delta_Params | 2 text cells differ
+        e.g. r2 c18: 'Stage 1: 95th weighted percentile of the original SKCS-core spine residuals. Sta' vs 'Stage1: 95th pctile = p<0.05 two-tailed; data-driven from the original SKCS-core'
+   [TEXT ONLY] Part10e_CMRF_PVM_1/Part10e_CP10K_PVM_1_CMRF_NonNeoC_RSk_fCV_Audit.xlsx :: One_Fold_Audit | 1 text cells differ
+        e.g. r396 c1: "SCHEMATIC: both curves scored on one shared pool fold; the gate's RMSE_A is the " vs "SCHEMATIC: both curves scored on ONE SHARED pool fold. The gate's RMSE_A is the "
+   [TEXT ONLY] Part10e_CMRF_PVM_1/Part10e_CP10K_PVM_1_CMRF_NonNeoC_SK_interaction_analysis.xlsx :: Step4_CMRF_Delta_Params | 2 text cells differ
+        e.g. r2 c18: 'Stage 1: 95th weighted percentile of the original SKCS-core spine residuals. Sta' vs 'Stage1: 95th pctile = p<0.05 two-tailed; data-driven from the original SKCS-core'
+   [SHEET ONLY IN REFERENCE] Part10e_CMRF_PVM_1/Part10e_CP10K_PVM_1_CMRF_Verification.xlsx :: Formulas_Legend
+        note: Explanatory sheet removed from the deposited script; it holds no results.
+   [TEXT ONLY] Part10e_CMRF_PVM_1/Part10e_CP10K_PVM_1_CMRF_Verification.xlsx :: NeoC_Delta_Params | 2 text cells differ
+        e.g. r2 c18: 'Stage 1: 95th weighted percentile of the original SKCS-core spine residuals. Sta' vs 'Stage1: 95th pctile = p<0.05 two-tailed; data-driven from the original SKCS-core'
+   [TEXT ONLY] Part10e_CMRF_PVM_1/Part10e_CP10K_PVM_1_CMRF_Verification.xlsx :: NonNeoC_Delta_Params | 2 text cells differ
+        e.g. r2 c18: 'Stage 1: 95th weighted percentile of the original SKCS-core spine residuals. Sta' vs 'Stage1: 95th pctile = p<0.05 two-tailed; data-driven from the original SKCS-core'
+   [TEXT ONLY] Part10e_CMRF_PVM_3/Part10e_CP10K_PVM_3_CMRF_NeoC_RSk_fCV_Audit.xlsx :: One_Fold_Audit | 1 text cells differ
+        e.g. r1900 c1: "SCHEMATIC: both curves scored on one shared pool fold; the gate's RMSE_A is the " vs "SCHEMATIC: both curves scored on ONE SHARED pool fold. The gate's RMSE_A is the "
+   [TEXT ONLY] Part10e_CMRF_PVM_3/Part10e_CP10K_PVM_3_CMRF_NeoC_SK_interaction_analysis.xlsx :: Step4_CMRF_Delta_Params | 2 text cells differ
+        e.g. r2 c18: 'Stage 1: 95th weighted percentile of the original SKCS-core spine residuals. Sta' vs 'Stage1: 95th pctile = p<0.05 two-tailed; data-driven from the original SKCS-core'
+   [TEXT ONLY] Part10e_CMRF_PVM_3/Part10e_CP10K_PVM_3_CMRF_NonNeoC_RSk_fCV_Audit.xlsx :: One_Fold_Audit | 1 text cells differ
+        e.g. r1554 c1: "SCHEMATIC: both curves scored on one shared pool fold; the gate's RMSE_A is the " vs "SCHEMATIC: both curves scored on ONE SHARED pool fold. The gate's RMSE_A is the "
+   [TEXT ONLY] Part10e_CMRF_PVM_3/Part10e_CP10K_PVM_3_CMRF_NonNeoC_SK_interaction_analysis.xlsx :: Step4_CMRF_Delta_Params | 2 text cells differ
+        e.g. r2 c18: 'Stage 1: 95th weighted percentile of the original SKCS-core spine residuals. Sta' vs 'Stage1: 95th pctile = p<0.05 two-tailed; data-driven from the original SKCS-core'
+   [SHEET ONLY IN REFERENCE] Part10e_CMRF_PVM_3/Part10e_CP10K_PVM_3_CMRF_Verification.xlsx :: Formulas_Legend
+        note: Explanatory sheet removed from the deposited script; it holds no results.
+   [TEXT ONLY] Part10e_CMRF_PVM_3/Part10e_CP10K_PVM_3_CMRF_Verification.xlsx :: NeoC_Delta_Params | 2 text cells differ
+        e.g. r2 c18: 'Stage 1: 95th weighted percentile of the original SKCS-core spine residuals. Sta' vs 'Stage1: 95th pctile = p<0.05 two-tailed; data-driven from the original SKCS-core'
+   [TEXT ONLY] Part10e_CMRF_PVM_3/Part10e_CP10K_PVM_3_CMRF_Verification.xlsx :: NonNeoC_Delta_Params | 2 text cells differ
+        e.g. r2 c18: 'Stage 1: 95th weighted percentile of the original SKCS-core spine residuals. Sta' vs 'Stage1: 95th pctile = p<0.05 two-tailed; data-driven from the original SKCS-core'
+
+== Part10e_Validation1
+   tables (file or sheet): SAME 16
+   other files (figures, RDS, logs): rerun 100 | reference 100 | same name in both 96
+
+== Part10e_Validation2
+   tables (file or sheet): SAME 39 | TEXT ONLY 8 | WITHIN 0.1% 21 | OUTSIDE 0.1% 44 | ONLY IN REFERENCE 8
+   other files (figures, RDS, logs): rerun 184 | reference 184 | same name in both 180
+   [WITHIN 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: Fig11_Omnibus_BH | 6 of 216 numbers beyond 1e-6, 0 beyond 0.1%, max rel 6.48e-05
+        e.g. r2 c6: 4.455382392252832e-05 vs 4.455541091039456e-05
+   [OUTSIDE 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: Fig11_Summary | 11 of 58 numbers beyond 1e-6, 6 beyond 0.1%, max rel 1.67e-02
+        e.g. r2 c23: 26.0901387737117 vs 26.09009371795409
+   [WITHIN 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NeoC_Fig11_Descriptives | 34 of 240 numbers beyond 1e-6, 0 beyond 0.1%, max rel 7.13e-05
+        e.g. r2 c3: -0.02667470490693516 vs -0.02667313021237059
+   [TEXT ONLY] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NeoC_Fig11_Methods | 1 text cells differ
+        e.g. r9 c2: 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal)' vs 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal); the repeated'
+   [WITHIN 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NeoC_Fig11_Omnibus | 2 of 84 numbers beyond 1e-6, 0 beyond 0.1%, max rel 3.56e-05
+        e.g. r2 c4: 4.455382392252832e-05 vs 4.455541091039456e-05
+   [WITHIN 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NeoC_Fig11_PostHoc | 7 of 300 numbers beyond 1e-6, 0 beyond 0.1%, max rel 9.16e-05
+        e.g. r32 c5: -8.101510951628393 vs -8.101478692113453
+   [OUTSIDE 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NeoC_Neighbour_Proportions | 11 of 54 numbers beyond 1e-6, 11 beyond 0.1%, max rel 1.55e-01
+        e.g. r2 c8: 0.1854 vs 0.1859
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NeoC_PERMANOVA_PERMDISP | 56 of 120 numbers beyond 1e-6, 55 beyond 0.1%, max rel 7.78e-01
+        e.g. r2 c11: 0.026423 vs 0.026634
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NeoC_TOST_Equivalence | 196 of 336 numbers beyond 1e-6, 196 beyond 0.1%, max rel 1.77e+00 | 8 text cells differ
+        e.g. r2 c7: 0.6117 vs 0.5568
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NeoC_iLISI | 50 of 96 numbers beyond 1e-6, 35 beyond 0.1%, max rel 2.62e-02
+        e.g. r2 c6: 1.657 vs 1.6559
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NeoC_kBET | 10 of 54 numbers beyond 1e-6, 10 beyond 0.1%, max rel 2.14e-01
+        e.g. r2 c8: 0.419 vs 0.4553
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [WITHIN 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NonNeoC_Fig11_Descriptives | 6 of 240 numbers beyond 1e-6, 0 beyond 0.1%, max rel 3.57e-06
+        e.g. r2 c3: -0.01529088680041702 vs -0.01529093585458369
+   [TEXT ONLY] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NonNeoC_Fig11_Methods | 1 text cells differ
+        e.g. r9 c2: 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal)' vs 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal); the repeated'
+   [WITHIN 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NonNeoC_Fig11_Omnibus | 4 of 84 numbers beyond 1e-6, 0 beyond 0.1%, max rel 6.48e-05
+        e.g. r2 c4: 0.2007373705496762 vs 0.2007345611918943
+   [WITHIN 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NonNeoC_Fig11_PostHoc | 8 of 303 numbers beyond 1e-6, 0 beyond 0.1%, max rel 6.06e-04
+        e.g. r32 c5: -6.572112019308757 vs -6.571922906933226
+   [OUTSIDE 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NonNeoC_Neighbour_Proportions | 13 of 54 numbers beyond 1e-6, 13 beyond 0.1%, max rel 3.75e-01
+        e.g. r2 c8: 0.1441 vs 0.1429
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NonNeoC_PERMANOVA_PERMDISP | 56 of 120 numbers beyond 1e-6, 54 beyond 0.1%, max rel 9.32e-01 | 1 text cells differ
+        e.g. r2 c11: 0.032899 vs 0.033224
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NonNeoC_TOST_Equivalence | 186 of 336 numbers beyond 1e-6, 180 beyond 0.1%, max rel 1.17e+00 | 3 text cells differ
+        e.g. r2 c7: 0.7887 vs 0.8049
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NonNeoC_iLISI | 52 of 96 numbers beyond 1e-6, 44 beyond 0.1%, max rel 3.56e-02
+        e.g. r2 c6: 1.6321 vs 1.6265
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NonNeoC_kBET | 9 of 54 numbers beyond 1e-6, 9 beyond 0.1%, max rel 3.32e-01
+        e.g. r2 c9: 0.2227 vs 0.2141
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [WITHIN 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: Fig11_Omnibus_BH | 13 of 216 numbers beyond 1e-6, 0 beyond 0.1%, max rel 1.50e-04
+        e.g. r4 c8: 841.2314182859391 vs 841.228636689526
+   [OUTSIDE 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: Fig11_Summary | 16 of 58 numbers beyond 1e-6, 7 beyond 0.1%, max rel 6.00e-01
+        e.g. r2 c22: 23.95738949966344 vs 23.95735017010794
+   [WITHIN 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NeoC_Fig11_Descriptives | 14 of 240 numbers beyond 1e-6, 0 beyond 0.1%, max rel 3.21e-05
+        e.g. r2 c3: -0.04931221507059923 vs -0.04931379753523976
+   [TEXT ONLY] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NeoC_Fig11_Methods | 1 text cells differ
+        e.g. r9 c2: 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal)' vs 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal); the repeated'
+   [WITHIN 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NeoC_Fig11_Omnibus | 6 of 84 numbers beyond 1e-6, 0 beyond 0.1%, max rel 2.58e-05
+        e.g. r4 c6: 841.2314182859391 vs 841.228636689526
+   [WITHIN 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NeoC_Fig11_PostHoc | 18 of 288 numbers beyond 1e-6, 0 beyond 0.1%, max rel 9.95e-04
+        e.g. r8 c5: -9.213918623595365 vs -9.213767677005071
+   [OUTSIDE 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NeoC_Neighbour_Proportions | 20 of 54 numbers beyond 1e-6, 17 beyond 0.1%, max rel 2.67e-01
+        e.g. r2 c8: 0.6344 vs 0.6345
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NeoC_PERMANOVA_PERMDISP | 83 of 150 numbers beyond 1e-6, 77 beyond 0.1%, max rel 9.97e-01 | 1 text cells differ
+        e.g. r2 c11: 0.010035 vs 0.00979
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NeoC_TOST_Equivalence | 239 of 420 numbers beyond 1e-6, 236 beyond 0.1%, max rel 1.85e+00 | 2 text cells differ
+        e.g. r2 c7: 0.8039 vs 0.8423
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NeoC_iLISI | 53 of 96 numbers beyond 1e-6, 41 beyond 0.1%, max rel 4.44e-01
+        e.g. r2 c6: 1.7088 vs 1.7067
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NeoC_kBET | 15 of 54 numbers beyond 1e-6, 15 beyond 0.1%, max rel 3.01e-01
+        e.g. r2 c8: 0.288 vs 0.284
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [WITHIN 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NonNeoC_Fig11_Descriptives | 46 of 240 numbers beyond 1e-6, 0 beyond 0.1%, max rel 2.13e-04
+        e.g. r2 c3: -0.06223023008543938 vs -0.0622434818812457
+   [TEXT ONLY] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NonNeoC_Fig11_Methods | 1 text cells differ
+        e.g. r9 c2: 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal)' vs 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal); the repeated'
+   [WITHIN 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NonNeoC_Fig11_Omnibus | 7 of 84 numbers beyond 1e-6, 0 beyond 0.1%, max rel 1.50e-04
+        e.g. r2 c4: 0.002721114435124609 vs 0.002721294738471641
+   [WITHIN 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NonNeoC_Fig11_PostHoc | 15 of 297 numbers beyond 1e-6, 0 beyond 0.1%, max rel 8.40e-04
+        e.g. r8 c5: -7.952880387614394 vs -7.952953639303073
+   [OUTSIDE 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NonNeoC_Neighbour_Proportions | 15 of 54 numbers beyond 1e-6, 13 beyond 0.1%, max rel 3.05e-02
+        e.g. r2 c8: 0.6933 vs 0.6877
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NonNeoC_PERMANOVA_PERMDISP | 84 of 150 numbers beyond 1e-6, 81 beyond 0.1%, max rel 9.32e-01
+        e.g. r2 c11: 0.006547 vs 0.007141
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NonNeoC_TOST_Equivalence | 244 of 420 numbers beyond 1e-6, 244 beyond 0.1%, max rel 1.41e+00 | 2 text cells differ
+        e.g. r2 c7: 0.8101 vs 0.8523
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NonNeoC_iLISI | 54 of 96 numbers beyond 1e-6, 43 beyond 0.1%, max rel 1.78e-01
+        e.g. r2 c6: 1.6593 vs 1.6571
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NonNeoC_kBET | 12 of 54 numbers beyond 1e-6, 12 beyond 0.1%, max rel 1.91e-01
+        e.g. r2 c8: 0.184 vs 0.172
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [WITHIN 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: Fig11_Omnibus_BH | 4 of 216 numbers beyond 1e-6, 0 beyond 0.1%, max rel 2.94e-06
+        e.g. r11 c8: 1412.354310079624 vs 1412.356890122916
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: Fig11_Summary | 7 of 58 numbers beyond 1e-6, 6 beyond 0.1%, max rel 2.66e-02
+        e.g. r2 c32: 0.012514 vs 0.012549
+   [TEXT ONLY] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NeoC_Fig11_Methods | 1 text cells differ
+        e.g. r9 c2: 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal)' vs 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal); the repeated'
+   [WITHIN 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NeoC_Fig11_Omnibus | 2 of 84 numbers beyond 1e-6, 0 beyond 0.1%, max rel 1.83e-06
+        e.g. r11 c6: 1412.354310079624 vs 1412.356890122916
+   [WITHIN 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NeoC_Fig11_PostHoc | 6 of 288 numbers beyond 1e-6, 0 beyond 0.1%, max rel 9.81e-05
+        e.g. r34 c5: -37.15080929792612 vs -37.15084888922053
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NeoC_Neighbour_Proportions | 13 of 54 numbers beyond 1e-6, 9 beyond 0.1%, max rel 3.03e-02
+        e.g. r2 c8: 0.6465 vs 0.6467
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NeoC_PERMANOVA_PERMDISP | 73 of 135 numbers beyond 1e-6, 63 beyond 0.1%, max rel 2.53e-01
+        e.g. r2 c11: 0.019553 vs 0.018906
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NeoC_TOST_Equivalence | 211 of 378 numbers beyond 1e-6, 209 beyond 0.1%, max rel 1.53e+00 | 5 text cells differ
+        e.g. r2 c7: 1.1476 vs 1.0592
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NeoC_iLISI | 53 of 96 numbers beyond 1e-6, 20 beyond 0.1%, max rel 3.34e-02
+        e.g. r2 c6: 1.6978 vs 1.6986
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NeoC_kBET | 11 of 54 numbers beyond 1e-6, 10 beyond 0.1%, max rel 3.33e-01
+        e.g. r2 c8: 0.35 vs 0.346
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [TEXT ONLY] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NonNeoC_Fig11_Methods | 1 text cells differ
+        e.g. r9 c2: 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal)' vs 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal); the repeated'
+   [WITHIN 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NonNeoC_Fig11_Omnibus | 2 of 84 numbers beyond 1e-6, 0 beyond 0.1%, max rel 2.94e-06
+        e.g. r11 c6: 1210.439861789705 vs 1210.442770403604
+   [WITHIN 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NonNeoC_Fig11_PostHoc | 8 of 288 numbers beyond 1e-6, 0 beyond 0.1%, max rel 2.83e-04
+        e.g. r32 c5: -19.86645665417933 vs -19.8664219316068
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NonNeoC_Neighbour_Proportions | 13 of 54 numbers beyond 1e-6, 9 beyond 0.1%, max rel 8.83e-02
+        e.g. r2 c8: 0.6672 vs 0.6669
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NonNeoC_PERMANOVA_PERMDISP | 101 of 180 numbers beyond 1e-6, 89 beyond 0.1%, max rel 6.00e-01
+        e.g. r2 c11: 0.005625 vs 0.005523
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NonNeoC_TOST_Equivalence | 288 of 504 numbers beyond 1e-6, 288 beyond 0.1%, max rel 1.62e+00 | 2 text cells differ
+        e.g. r2 c7: 0.6749 vs 0.7035
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NonNeoC_iLISI | 52 of 96 numbers beyond 1e-6, 29 beyond 0.1%, max rel 4.55e-02
+        e.g. r2 c6: 1.6292 vs 1.628
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NonNeoC_kBET | 11 of 54 numbers beyond 1e-6, 11 beyond 0.1%, max rel 3.40e-01
+        e.g. r2 c8: 0.288 vs 0.29
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: Fig11_Summary | 7 of 58 numbers beyond 1e-6, 6 beyond 0.1%, max rel 9.09e-02
+        e.g. r2 c32: 0.063256 vs 0.063784
+   [TEXT ONLY] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NeoC_Fig11_Methods | 1 text cells differ
+        e.g. r9 c2: 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal)' vs 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal); the repeated'
+   [WITHIN 0.1%] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NeoC_Fig11_PostHoc | 1 of 288 numbers beyond 1e-6, 0 beyond 0.1%, max rel 1.03e-06
+        e.g. r35 c5: 4.210272990893979 vs 4.210277322990696
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NeoC_Neighbour_Proportions | 21 of 54 numbers beyond 1e-6, 19 beyond 0.1%, max rel 1.47e-01
+        e.g. r2 c8: 0.6771 vs 0.6779
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NeoC_PERMANOVA_PERMDISP | 86 of 180 numbers beyond 1e-6, 74 beyond 0.1%, max rel 5.00e-01 | 3 text cells differ
+        e.g. r2 c11: 0.005065 vs 0.005098
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NeoC_TOST_Equivalence | 225 of 504 numbers beyond 1e-6, 208 beyond 0.1%, max rel 1.38e+00 | 2 text cells differ
+        e.g. r2 c7: 0.9335 vs 0.935
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NeoC_iLISI | 56 of 96 numbers beyond 1e-6, 27 beyond 0.1%, max rel 6.49e-02
+        e.g. r2 c6: 1.5617 vs 1.5614
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NeoC_kBET | 13 of 54 numbers beyond 1e-6, 12 beyond 0.1%, max rel 4.55e-02
+        e.g. r2 c8: 0.418 vs 0.436
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [TEXT ONLY] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NonNeoC_Fig11_Methods | 1 text cells differ
+        e.g. r9 c2: 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal)' vs 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal); the repeated'
+   [WITHIN 0.1%] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NonNeoC_Fig11_PostHoc | 1 of 288 numbers beyond 1e-6, 0 beyond 0.1%, max rel 1.09e-06
+        e.g. r35 c5: 7.914615258085982 vs 7.914606622291648
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NonNeoC_Neighbour_Proportions | 19 of 54 numbers beyond 1e-6, 19 beyond 0.1%, max rel 8.18e-02
+        e.g. r2 c8: 0.6812 vs 0.6825
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NonNeoC_PERMANOVA_PERMDISP | 92 of 180 numbers beyond 1e-6, 86 beyond 0.1%, max rel 9.93e-01
+        e.g. r2 c11: 0.012614 vs 0.012948
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NonNeoC_TOST_Equivalence | 240 of 504 numbers beyond 1e-6, 233 beyond 0.1%, max rel 1.00e+00
+        e.g. r2 c7: 1.1142 vs 1.1261
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NonNeoC_iLISI | 53 of 96 numbers beyond 1e-6, 31 beyond 0.1%, max rel 1.59e-01
+        e.g. r2 c6: 1.5354 vs 1.5327
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NonNeoC_kBET | 13 of 54 numbers beyond 1e-6, 13 beyond 0.1%, max rel 2.94e-01
+        e.g. r2 c8: 0.362 vs 0.368
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [ONLY IN REFERENCE] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_NeoC_Fig8_cells.csv
+   [ONLY IN REFERENCE] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_NonNeoC_Fig8_cells.csv
+   [ONLY IN REFERENCE] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_NeoC_Fig8_cells.csv
+   [ONLY IN REFERENCE] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_NonNeoC_Fig8_cells.csv
+   [ONLY IN REFERENCE] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_NeoC_Fig8_cells.csv
+   [ONLY IN REFERENCE] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_NonNeoC_Fig8_cells.csv
+   [ONLY IN REFERENCE] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_NeoC_Fig8_cells.csv
+   [ONLY IN REFERENCE] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_NonNeoC_Fig8_cells.csv
+
+== Part10f_Band_Formation
+   tables (file or sheet): SAME 4 | OUTSIDE 0.1% 4
+   other files (figures, RDS, logs): rerun 184 | reference 184 | same name in both 180
+   [OUTSIDE 0.1%] Part10f_Band_Formation_HKG8/Part10f_CP10K_HKG8_Band_Formation_Counts.xlsx :: Donor_Spread | 15 of 80 numbers beyond 1e-6, 15 beyond 0.1%, max rel 3.76e-02
+        e.g. r2 c7: 0.3138 vs 0.3096
+        note: TVD_null_p95 is a permutation null threshold; it varies with the order of the permuted cells.
+   [OUTSIDE 0.1%] Part10f_Band_Formation_Mic13_PVM3/Part10f_CP10K_M4_Band_Formation_Counts.xlsx :: Donor_Spread | 14 of 78 numbers beyond 1e-6, 13 beyond 0.1%, max rel 1.85e-02
+        e.g. r3 c7: 0.226 vs 0.2268
+        note: TVD_null_p95 is a permutation null threshold; it varies with the order of the permuted cells.
+   [OUTSIDE 0.1%] Part10f_Band_Formation_PVM_1/Part10f_CP10K_PVM_1_Band_Formation_Counts.xlsx :: Donor_Spread | 14 of 78 numbers beyond 1e-6, 13 beyond 0.1%, max rel 2.85e-02 | 2 text cells differ
+        e.g. r3 c7: 0.2105 vs 0.2133
+        note: TVD_null_p95 is a permutation null threshold; it varies with the order of the permuted cells.
+   [OUTSIDE 0.1%] Part10f_Band_Formation_PVM_3/Part10f_CP10K_PVM_3_Band_Formation_Counts.xlsx :: Donor_Spread | 14 of 78 numbers beyond 1e-6, 14 beyond 0.1%, max rel 3.52e-02
+        e.g. r3 c7: 0.1108 vs 0.1132
+        note: TVD_null_p95 is a permutation null threshold; it varies with the order of the permuted cells.
+
+== Part10f_RSkfCV_Mechanism
+   tables (file or sheet): SAME 6 | TEXT ONLY 1
+   other files (figures, RDS, logs): rerun 8 | reference 8 | same name in both 8
+   [TEXT ONLY] Part10f_RSkfCV_Mechanism_Mic13_PVM3/Part10e_CP10K_M4_RSkfCV_NeoC_RSkfCV_Mechanism.xlsx :: Panel_Index | 6 text cells differ
+        e.g. r18 c2: 'Effect size vs background variability' vs 'Effect size vs background variability (NEW)'
+
+== Part10g_DEGs
+   tables (file or sheet): SAME 72 | SAME VALUES, OTHER ORDER 3 | TEXT ONLY 8 | WITHIN 0.1% 2 | OUTSIDE 0.1% 4 | ONLY IN REFERENCE 25
+   other files (figures, RDS, logs): rerun 528 | reference 646 | same name in both 522
+   [OUTSIDE 0.1%] Part10g_DEGs_HKG8/Part10g_CP10K_HKG8_DEGs_Part1_donor.xlsx :: NeoC_NMPost_vs_NMPre_donor | 321 of 194296 numbers beyond 1e-6, 7 beyond 0.1%, max rel 2.88e-02
+        e.g. r138 c22: 10127.5 vs 10126.5
+   [WITHIN 0.1%] Part10g_DEGs_HKG8/Part10g_CP10K_HKG8_DEGs_Part1_donor.xlsx :: NeoC_PostIP_vs_NMAll_donor | 1 of 194906 numbers beyond 1e-6, 0 beyond 0.1%, max rel 2.30e-05
+        e.g. r7406 c13: 0.43445 vs 0.43444
+   [OUTSIDE 0.1%] Part10g_DEGs_HKG8/Part10g_CP10K_HKG8_DEGs_Part1_donor.xlsx :: NeoC_PostIP_vs_NMPost_donor | 728 of 197428 numbers beyond 1e-6, 16 beyond 0.1%, max rel 1.98e-02
+        e.g. r103 c22: 5044 vs 5044.5
+   [TEXT ONLY] Part10g_DEGs_HKG8/Part10g_CP10K_HKG8_DEGs_Part1_donor.xlsx :: Read_Me | 2 text cells differ
+        e.g. r2 c4: 'primary result' vs 'PRIMARY - enrichment and every later part read this file'
+   [TEXT ONLY] Part10g_DEGs_HKG8/Part10g_CP10K_HKG8_DEGs_Part1_donor.xlsx :: Summary | 18 text cells differ
+        e.g. r2 c18: 'Part10b_CP10K_HKG8_IPRS_results.rds' vs 'Part10b_IPRS_CP10K_HKG8_results.rds'
+   [SAME VALUES, OTHER ORDER] Part10g_DEGs_HKG8/Part10g_CP10K_HKG8_DEGs_Part1_donor.xlsx :: Testable_Universe
+   [OUTSIDE 0.1%] Part10g_DEGs_Mic13_PVM3/Part10g_CP10K_M4_DEGs_Part1_donor.xlsx :: NeoC_PostIP_vs_NMAll_donor | 1027 of 181368 numbers beyond 1e-6, 6 beyond 0.1%, max rel 9.49e-02
+        e.g. r5 c13: 0.84006 vs 0.82957
+   [TEXT ONLY] Part10g_DEGs_Mic13_PVM3/Part10g_CP10K_M4_DEGs_Part1_donor.xlsx :: Read_Me | 2 text cells differ
+        e.g. r2 c4: 'primary result' vs 'PRIMARY - enrichment and every later part read this file'
+   [TEXT ONLY] Part10g_DEGs_Mic13_PVM3/Part10g_CP10K_M4_DEGs_Part1_donor.xlsx :: Summary | 18 text cells differ
+        e.g. r2 c18: 'Part10b_CP10K_M4_IPRS_results.rds' vs 'Part10b_IPRS_CP10K_M4_results.rds'
+   [SAME VALUES, OTHER ORDER] Part10g_DEGs_Mic13_PVM3/Part10g_CP10K_M4_DEGs_Part1_donor.xlsx :: Testable_Universe
+   [WITHIN 0.1%] Part10g_DEGs_PVM_1/Part10g_CP10K_PVM_1_DEGs_Part1_donor.xlsx :: NeoC_PreIP_vs_NMPre_donor | 1 of 181676 numbers beyond 1e-6, 0 beyond 0.1%, max rel 4.58e-05
+        e.g. r3691 c13: 0.21849 vs 0.2185
+   [TEXT ONLY] Part10g_DEGs_PVM_1/Part10g_CP10K_PVM_1_DEGs_Part1_donor.xlsx :: Read_Me | 2 text cells differ
+        e.g. r2 c4: 'primary result' vs 'PRIMARY - enrichment and every later part read this file'
+   [TEXT ONLY] Part10g_DEGs_PVM_1/Part10g_CP10K_PVM_1_DEGs_Part1_donor.xlsx :: Summary | 18 text cells differ
+        e.g. r2 c18: 'Part10b_CP10K_PVM_1_IPRS_results.rds' vs 'Part10b_IPRS_CP10K_PVM_1_results.rds'
+   [OUTSIDE 0.1%] Part10g_DEGs_PVM_3/Part10g_CP10K_PVM_3_DEGs_Part1_donor.xlsx :: NonNeoC_PostIP_vs_BG_donor | 708 of 160107 numbers beyond 1e-6, 126 beyond 0.1%, max rel 6.69e-02
+        e.g. r26 c14: 0.7544 vs 0.75457
+   [TEXT ONLY] Part10g_DEGs_PVM_3/Part10g_CP10K_PVM_3_DEGs_Part1_donor.xlsx :: Read_Me | 2 text cells differ
+        e.g. r2 c4: 'primary result' vs 'PRIMARY - enrichment and every later part read this file'
+   [TEXT ONLY] Part10g_DEGs_PVM_3/Part10g_CP10K_PVM_3_DEGs_Part1_donor.xlsx :: Summary | 18 text cells differ
+        e.g. r2 c18: 'Part10b_CP10K_PVM_3_IPRS_results.rds' vs 'Part10b_IPRS_CP10K_PVM_3_results.rds'
+   [SAME VALUES, OTHER ORDER] Part10g_DEGs_PVM_3/Part10g_CP10K_PVM_3_DEGs_Part1_donor.xlsx :: Testable_Universe
+   [ONLY IN REFERENCE] Fig15_Panel_counts.csv
+   [ONLY IN REFERENCE] Fig15_Panel_donor_scores.csv
+   [ONLY IN REFERENCE] Fig15_Panel_fourgroup_matrix.csv
+   [ONLY IN REFERENCE] Fig15_Panel_gate.csv
+   [ONLY IN REFERENCE] Fig15_Panel_panel_scores.csv
+   [ONLY IN REFERENCE] Fig15_Panel_sign_agreement.csv
+   [ONLY IN REFERENCE] Part10g_Signature_Step3_candidates.csv
+   [ONLY IN REFERENCE] Part10g_Signature_Step3_residual_NeoC.csv
+   [ONLY IN REFERENCE] Part10g_Signature_Step3_residual_NonNeoC.csv
+   [ONLY IN REFERENCE] Part10g_Step4a_PreVsPost_candidates.csv
+   [ONLY IN REFERENCE] Part10g_Step4a_background_delta.csv
+   [ONLY IN REFERENCE] Part10g_Step4b_content_residual.csv
+   [ONLY IN REFERENCE] Part10g_Step4c_noncoding_candidates.csv
+   [ONLY IN REFERENCE] Part10g_Step6_plain_list.csv
+   [ONLY IN REFERENCE] Part10g_Step7_arm_tests.csv
+   [ONLY IN REFERENCE] Part10g_Step7_paired_tests.csv
+   [ONLY IN REFERENCE] Part10g_Step7b_targeted_tests.csv
+   [ONLY IN REFERENCE] Part10g_Step7b_targeted_tests_verdict.csv
+   [ONLY IN REFERENCE] Part10g_Step7c_PvP_targeted_tests.csv
+   [ONLY IN REFERENCE] Part10g_Step8_control_overlap.csv
+   [ONLY IN REFERENCE] Part10g_Step9_ambient_check.csv
+   [ONLY IN REFERENCE] SuppFig_S15_depth_coupling.csv
+   [ONLY IN REFERENCE] SuppFig_S15_omnibus_tests.csv
+   [ONLY IN REFERENCE] SuppFig_S15_pairwise_tests.csv
+   [ONLY IN REFERENCE] SuppTable_Fig15_superseded.xlsx
+
+== Part10h_Prognosis
+   tables (file or sheet): SAME 76 | TEXT ONLY 4
+   other files (figures, RDS, logs): rerun 268 | reference 276 | same name in both 264
+   [TEXT ONLY] Part10h_Prognosis_HKG8/Part10h_CP10K_HKG8_Prognosis.xlsx :: Provenance | 2 text cells differ
+        e.g. r2 c6: 'Part10b_CP10K_HKG8_IPRS_results.rds' vs 'Part10b_IPRS_CP10K_HKG8_results.rds'
+   [TEXT ONLY] Part10h_Prognosis_Mic13_PVM3/Part10h_CP10K_M4_Prognosis.xlsx :: Provenance | 2 text cells differ
+        e.g. r2 c6: 'Part10b_CP10K_M4_IPRS_results.rds' vs 'Part10b_IPRS_CP10K_M4_results.rds'
+   [TEXT ONLY] Part10h_Prognosis_PVM_1/Part10h_CP10K_PVM_1_Prognosis.xlsx :: Provenance | 2 text cells differ
+        e.g. r2 c6: 'Part10b_CP10K_PVM_1_IPRS_results.rds' vs 'Part10b_IPRS_CP10K_PVM_1_results.rds'
+   [TEXT ONLY] Part10h_Prognosis_PVM_3/Part10h_CP10K_PVM_3_Prognosis.xlsx :: Provenance | 2 text cells differ
+        e.g. r2 c6: 'Part10b_CP10K_PVM_3_IPRS_results.rds' vs 'Part10b_IPRS_CP10K_PVM_3_results.rds'
+
+== Part10h_Prognosis_1_Comparator
+   tables (file or sheet): SAME 53 | TEXT ONLY 1 | SHEET ONLY IN REFERENCE 4 | ONLY IN REFERENCE 14
+   other files (figures, RDS, logs): rerun 49 | reference 75 | same name in both 45
+   [TEXT ONLY] Fig13/Fig13_guardrails.csv | 4 text cells differ
+        e.g. r6 c3: '32 of 320 intervals exclude zero: PVM_3, all cells NeoC CASI score vs Changepoin' vs '32 of 320 intervals exclude zero: PVM_3, all cells NeoC CASI score vs Changepoin'
+   [SHEET ONLY IN REFERENCE] Part10h_Prognosis_1_Comparator_HKG8/Part10h_CP10K_HKG8_Comparator.xlsx :: Read_Me
+   [SHEET ONLY IN REFERENCE] Part10h_Prognosis_1_Comparator_Mic13_PVM3/Part10h_CP10K_M4_Comparator.xlsx :: Read_Me
+   [SHEET ONLY IN REFERENCE] Part10h_Prognosis_1_Comparator_PVM_1/Part10h_CP10K_PVM_1_Comparator.xlsx :: Read_Me
+   [SHEET ONLY IN REFERENCE] Part10h_Prognosis_1_Comparator_PVM_3/Part10h_CP10K_PVM_3_Comparator.xlsx :: Read_Me
+   [ONLY IN REFERENCE] Fig13A/Fig13A_Bootstrap_plotted.csv
+   [ONLY IN REFERENCE] Fig13A/Fig13A_DeltaR2_grid_plotted.csv
+   [ONLY IN REFERENCE] Fig13A/Fig13A_Duel_verdicts_plotted.csv
+   [ONLY IN REFERENCE] Fig13A/Fig13A_Pub_DeltaR2_grid_plotted.csv
+   [ONLY IN REFERENCE] Fig13A/Fig13A_baseline_sharing.csv
+   [ONLY IN REFERENCE] Fig13A/Fig13A_guardrails.csv
+   [ONLY IN REFERENCE] Fig13A/Fig13B_Pub_Duel_verdicts_plotted.csv
+   [ONLY IN REFERENCE] Fig13A/SuppFig_Comparator_Bootstrap_cognition_plotted.csv
+   [ONLY IN REFERENCE] Fig13A/SuppFig_Comparator_Forest_HKG8_plotted.csv
+   [ONLY IN REFERENCE] Fig13A/SuppFig_Comparator_Forest_M4_plotted.csv
+   [ONLY IN REFERENCE] Fig13A/SuppFig_Comparator_Forest_PVM_1_plotted.csv
+   [ONLY IN REFERENCE] Fig13A/SuppFig_Comparator_Forest_PVM_3_plotted.csv
+   [ONLY IN REFERENCE] SameCells/Comparator_SameCells.xlsx
+   [ONLY IN REFERENCE] SameCells/Comparator_SameCells_plotted.csv
+
+== Part10h_Prognosis_2_CogVsPath
+   tables (file or sheet): SAME 20 | TEXT ONLY 4
+   other files (figures, RDS, logs): rerun 48 | reference 61 | same name in both 40
+   [TEXT ONLY] Part10h_Prognosis_2_CogVsPath_HKG8/Part10h_CP10K_HKG8_CogVsPath.xlsx :: Read_Me | 1 text cells differ
+        e.g. r3 c2: 'CMRF module Post-IP %, the rest of the 2x2 and the five comparator baselines' vs 'CMRF module Post-IP % (prop_df$pct_post), the rest of the 2x2 (Non-module Post-I'
+   [TEXT ONLY] Part10h_Prognosis_2_CogVsPath_Mic13_PVM3/Part10h_CP10K_M4_CogVsPath.xlsx :: Read_Me | 1 text cells differ
+        e.g. r3 c2: 'CMRF module Post-IP %, the rest of the 2x2 and the five comparator baselines' vs 'CMRF module Post-IP % (prop_df$pct_post), the rest of the 2x2 (Non-module Post-I'
+   [TEXT ONLY] Part10h_Prognosis_2_CogVsPath_PVM_1/Part10h_CP10K_PVM_1_CogVsPath.xlsx :: Read_Me | 1 text cells differ
+        e.g. r3 c2: 'CMRF module Post-IP %, the rest of the 2x2 and the five comparator baselines' vs 'CMRF module Post-IP % (prop_df$pct_post), the rest of the 2x2 (Non-module Post-I'
+   [TEXT ONLY] Part10h_Prognosis_2_CogVsPath_PVM_3/Part10h_CP10K_PVM_3_CogVsPath.xlsx :: Read_Me | 1 text cells differ
+        e.g. r3 c2: 'CMRF module Post-IP %, the rest of the 2x2 and the five comparator baselines' vs 'CMRF module Post-IP % (prop_df$pct_post), the rest of the 2x2 (Non-module Post-I'
+
+== Part10h_Prognosis_4_Multivariate
+   tables (file or sheet): SAME 12 | TEXT ONLY 4 | SHEET ONLY IN REFERENCE 4
+   other files (figures, RDS, logs): rerun 28 | reference 28 | same name in both 24
+   [TEXT ONLY] Part10h_Prognosis_4_Multivariate_HKG8/Part10h_CP10K_HKG8_Multivariate.xlsx :: Prespecification | 1 text cells differ
+        e.g. r35 c1: 'SCORE ARMS. The same specification is run three times with the' vs 'SCORE ARMS (M10MV-10). The same specification is run three times with the'
+   [SHEET ONLY IN REFERENCE] Part10h_Prognosis_4_Multivariate_HKG8/Part10h_CP10K_HKG8_Multivariate.xlsx :: Read_Me
+   [TEXT ONLY] Part10h_Prognosis_4_Multivariate_Mic13_PVM3/Part10h_CP10K_M4_Multivariate.xlsx :: Prespecification | 1 text cells differ
+        e.g. r35 c1: 'SCORE ARMS. The same specification is run three times with the' vs 'SCORE ARMS (M10MV-10). The same specification is run three times with the'
+   [SHEET ONLY IN REFERENCE] Part10h_Prognosis_4_Multivariate_Mic13_PVM3/Part10h_CP10K_M4_Multivariate.xlsx :: Read_Me
+   [TEXT ONLY] Part10h_Prognosis_4_Multivariate_PVM_1/Part10h_CP10K_PVM_1_Multivariate.xlsx :: Prespecification | 1 text cells differ
+        e.g. r35 c1: 'SCORE ARMS. The same specification is run three times with the' vs 'SCORE ARMS (M10MV-10). The same specification is run three times with the'
+   [SHEET ONLY IN REFERENCE] Part10h_Prognosis_4_Multivariate_PVM_1/Part10h_CP10K_PVM_1_Multivariate.xlsx :: Read_Me
+   [TEXT ONLY] Part10h_Prognosis_4_Multivariate_PVM_3/Part10h_CP10K_PVM_3_Multivariate.xlsx :: Prespecification | 1 text cells differ
+        e.g. r35 c1: 'SCORE ARMS. The same specification is run three times with the' vs 'SCORE ARMS (M10MV-10). The same specification is run three times with the'
+   [SHEET ONLY IN REFERENCE] Part10h_Prognosis_4_Multivariate_PVM_3/Part10h_CP10K_PVM_3_Multivariate.xlsx :: Read_Me
+
+== Part11_Identity
+   tables (file or sheet): SAME 20 | TEXT ONLY 1 | SHEET ONLY IN REFERENCE 1 | ONLY IN REFERENCE 7
+   other files (figures, RDS, logs): rerun 26 | reference 64 | same name in both 22
+   [SHEET ONLY IN REFERENCE] Part11_CogVsPath/Part11_CP10K_CogVsPath.xlsx :: Read_Me
+   [TEXT ONLY] Part11_CogVsPath_HighLevel/Part11_CogVsPath_HighLevel_guardrails.csv | 5 text cells differ
+        e.g. r2 c3: 'M4 NeoC from Part10e_CP10K_M4_V1_NeoC_SK_interaction_analysis.xlsx: 2130 refined' vs 'M4 NeoC from Part10e_CP10K_M4_V1_NeoC_SK_interaction_analysis.xlsx: 2130 refined'
+   [ONLY IN REFERENCE] Part11_Identity_AllGroups.xlsx
+   [ONLY IN REFERENCE] Part11_Identity_HKG8/Part11_CP10K_HKG8_Identity.xlsx
+   [ONLY IN REFERENCE] Part11_Identity_Mic13_PVM3/Part11_CP10K_M4_Identity.xlsx
+   [ONLY IN REFERENCE] Part11_Identity_ModvsNonMod/Part11_Identity_ModvsNonMod.xlsx
+   [ONLY IN REFERENCE] Part11_Identity_PVM_1/Part11_CP10K_PVM_1_Identity.xlsx
+   [ONLY IN REFERENCE] Part11_Identity_PVM_3/Part11_CP10K_PVM_3_Identity.xlsx
+   [ONLY IN REFERENCE] Part11_NonModuleSides/Part11_NonModuleSides.xlsx
+
+== Part12_rerun
+   tables (file or sheet): SAME 76 | OUTSIDE 0.1% 1 | DIFFERENT SIZE 1 | ONLY IN REFERENCE 7
+   other files (figures, RDS, logs): rerun 144 | reference 154 | same name in both 144
+   [DIFFERENT SIZE] 04_Labels/04_module_cuts.csv | rerun 9x17, reference 9x18
+        note: The checksum column and its description were removed from the deposited scripts.
+   [OUTSIDE 0.1%] 07_Fig15/15H_DepthThinning/Stats_15H.csv | 41 of 234 numbers beyond 1e-6, 2 beyond 0.1%, max rel 1.01e-03
+        e.g. r13 c8: '0.661205940683635' vs '0.661208746715984'
+        note: Values from random thinning of the counts.
+   [ONLY IN REFERENCE] 04_Labels/04_cell_labels.csv
+   [ONLY IN REFERENCE] 06_GerritsCells/06_gerrits_cells.csv
+   [ONLY IN REFERENCE] 07_Fig15/SuppTable_Fig15.xlsx
+   [ONLY IN REFERENCE] 08_Fig16/SuppTable_Fig16.xlsx
+   [ONLY IN REFERENCE] 09_Fig17/SuppTable_Fig17.xlsx
+   [ONLY IN REFERENCE] 10_Fig18/SuppTable_Fig18.xlsx
+   [ONLY IN REFERENCE] 11_Fig19/SuppTable_Fig19.xlsx
+
+== Part13_M4Share
+   tables (file or sheet): SAME 11 | TEXT ONLY 2 | DIFFERENT SIZE 2
+   other files (figures, RDS, logs): rerun 17 | reference 12 | same name in both 9
+   [TEXT ONLY] Part13_CP10K_M4Share_SuppTable.xlsx :: I_Guardrails | 9 text cells differ
+        e.g. r2 c3: 'pre-set readings match the file written by an earlier run (Part13_CP10K_M4Share_' vs 'pre-set readings match the file written by an earlier run (Part13_CP10K_M4Share_'
+   [DIFFERENT SIZE] Part13_CP10K_M4Share_SuppTable.xlsx :: K_Inputs | rerun 5x2, reference 5x3
+        note: The checksum column and its description were removed from the deposited scripts.
+   [TEXT ONLY] Part13_CP10K_M4Share_SuppTable.xlsx :: README | 1 text cells differ
+        e.g. r12 c2: 'Input files.' vs 'Input files and MD5 checksums.'
+        note: The checksum column and its description were removed from the deposited scripts.
+   [DIFFERENT SIZE] Part13a_CP10K_Find14DpctMT_candidates.csv | rerun 52x11, reference 85x11
+        note: Candidate %MT columns are found by scanning the data folder, and the reference folder holds more files.
+
+== Part13b_M4RandomSubset
+   tables (file or sheet): SAME 11 | TEXT ONLY 2 | DIFFERENT SIZE 1
+   other files (figures, RDS, logs): rerun 10 | reference 16 | same name in both 6
+   [TEXT ONLY] Part13b_CP10K_M4RandomSubset_SuppTable.xlsx :: I_Guardrails | 8 text cells differ
+        e.g. r2 c3: 'pre-set readings match the file written by an earlier run (Part13b_CP10K_M4Rando' vs 'pre-set readings written before any model: Part13b_CP10K_M4RandomSubset_preset_r'
+   [DIFFERENT SIZE] Part13b_CP10K_M4RandomSubset_SuppTable.xlsx :: K_Inputs | rerun 6x2, reference 6x3
+        note: The checksum column and its description were removed from the deposited scripts.
+   [TEXT ONLY] Part13b_CP10K_M4RandomSubset_SuppTable.xlsx :: README | 1 text cells differ
+        e.g. r13 c2: 'Input files. The draws are in the _null_draws.csv file.' vs 'Input files and MD5 checksums. The draws are in the _null_draws.csv file.'
+        note: The checksum column and its description were removed from the deposited scripts.
+
+== Part9
+   tables (file or sheet): SAME 49 | SAME UP TO SIGN 1 | TEXT ONLY 26
+   other files (figures, RDS, logs): rerun 88 | reference 88 | same name in both 88
+   [TEXT ONLY] Part9_HKG8/Part9_CP10K_HKG8_Guardrail_Summary.xlsx :: Check_Ledger | 15 text cells differ
+        e.g. r76 c2: "NeoC 'Overall AD neuropathological Change' NA rate" vs 'NeoC "Overall AD neuropathological Change" NA rate'
+   [TEXT ONLY] Part9_HKG8/Part9_CP10K_HKG8_NeoC_GAM_Results_1.xlsx :: GAM_Performance_DFG | 3 text cells differ
+        e.g. r2 c16: 'f(x) = 1.035876042 + 0.178554552*x + -0.007663544*φ1(x) + 0.000000000*φ2(x)' vs 'f(x) = 1.035876042 + 0.178554552*x + -0.007663544*φ1(x) + -0.000000000*φ2(x)'
+   [TEXT ONLY] Part9_HKG8/Part9_CP10K_HKG8_NeoC_GAM_Results_1.xlsx :: REML_Iterations_BestModel | 32 text cells differ
+        e.g. r9 c9: ' 1.609e-03 -1.663e-32 -8.412e-03 -2.575e-02; -1.663e-32 -4.441e-16 -3.623e-17  1' vs ' 1.609e-03  7.831e-32 -8.412e-03 -2.575e-02;  7.831e-32 -8.882e-16 -2.625e-17  2'
+   [TEXT ONLY] Part9_HKG8/Part9_CP10K_HKG8_NonNeoC_GAM_Results_1.xlsx :: GAM_Performance_DFG | 2 text cells differ
+        e.g. r4 c16: 'f(x) = 0.889530696 + 0.309251329*x + -0.000003525*φ1(x) + -0.000001291*φ2(x) + -' vs 'f(x) = 0.889530696 + 0.309251329*x + -0.000003525*φ1(x) + -0.000001291*φ2(x) + -'
+   [TEXT ONLY] Part9_HKG8/Part9_CP10K_HKG8_NonNeoC_GAM_Results_1.xlsx :: REML_Iterations_BestModel | 21 text cells differ
+        e.g. r2 c7: '1845.038369,   29.636140,    0.986366' vs '1845.038369,   29.636129,    0.986366'
+   [TEXT ONLY] Part9_Mic13_PVM3/Part9_CP10K_M4_Guardrail_Summary.xlsx :: Check_Ledger | 16 text cells differ
+        e.g. r76 c2: "NeoC 'Overall AD neuropathological Change' NA rate" vs 'NeoC "Overall AD neuropathological Change" NA rate'
+   [TEXT ONLY] Part9_Mic13_PVM3/Part9_CP10K_M4_NeoC_GAM_Results_1.xlsx :: GAM_Performance_DFG | 1 text cells differ
+        e.g. r2 c16: 'f(x) = 0.065416754 + 0.690911802*x + -0.166715952*φ1(x) + -0.204582066*φ2(x) + 0' vs 'f(x) = 0.065416754 + 0.690911802*x + -0.166715952*φ1(x) + -0.204582066*φ2(x) + -'
+   [TEXT ONLY] Part9_Mic13_PVM3/Part9_CP10K_M4_NeoC_GAM_Results_1.xlsx :: GAM_Performance_HKG | 2 text cells differ
+        e.g. r5 c16: 'f(x) = 1.021725882 + 0.072673376*x + -0.203811156*φ1(x) + 0.000000000*φ2(x)' vs 'f(x) = 1.021725882 + 0.072673376*x + -0.203811156*φ1(x) + -0.000000000*φ2(x)'
+   [TEXT ONLY] Part9_Mic13_PVM3/Part9_CP10K_M4_NeoC_GAM_Results_1.xlsx :: REML_Iterations_BestModel | 28 text cells differ
+        e.g. r7 c9: ' 7.897e-01 -7.682e-19  3.363e-02 -8.725e-01; -7.682e-19 -1.110e-16  3.347e-18  8' vs ' 7.897e-01  8.491e-19  3.363e-02 -8.725e-01;  8.491e-19 -4.441e-16  4.180e-18  1'
+   [TEXT ONLY] Part9_Mic13_PVM3/Part9_CP10K_M4_NonNeoC_GAM_Results_1.xlsx :: GAM_Performance_DFG | 1 text cells differ
+        e.g. r5 c16: 'f(x) = -0.748568375 + 0.943796264*x + -0.736861352*φ1(x) + -0.000000000*φ2(x)' vs 'f(x) = -0.748568375 + 0.943796264*x + -0.736861352*φ1(x) + 0.000000000*φ2(x)'
+   [TEXT ONLY] Part9_Mic13_PVM3/Part9_CP10K_M4_NonNeoC_GAM_Results_1.xlsx :: GAM_Performance_HKG | 1 text cells differ
+        e.g. r4 c16: 'f(x) = 1.740429171 + -0.253799051*x + 0.000004150*φ1(x) + 0.000003855*φ2(x) + -0' vs 'f(x) = 1.740429171 + -0.253799051*x + 0.000004150*φ1(x) + 0.000003855*φ2(x) + -0'
+   [TEXT ONLY] Part9_Mic13_PVM3/Part9_CP10K_M4_NonNeoC_GAM_Results_1.xlsx :: REML_Iterations_BestModel | 36 text cells differ
+        e.g. r6 c9: ' 3.179e-01  9.810e-20 -4.236e-02 -3.987e-01;  9.810e-20 -1.110e-16 -1.072e-17  1' vs ' 3.179e-01  2.672e-20 -4.236e-02 -3.987e-01;  2.672e-20 -5.551e-17  1.075e-18  7'
+   [TEXT ONLY] Part9_PVM_1/Part9_CP10K_PVM_1_Guardrail_Summary.xlsx :: Check_Ledger | 17 text cells differ
+        e.g. r76 c2: "NeoC 'Overall AD neuropathological Change' NA rate" vs 'NeoC "Overall AD neuropathological Change" NA rate'
+   [TEXT ONLY] Part9_PVM_1/Part9_CP10K_PVM_1_NeoC_GAM_Results_1.xlsx :: GAM_Performance_DFG | 5 text cells differ
+        e.g. r2 c16: 'f(x) = -0.018732064 + 0.638722742*x + -0.160272251*φ1(x) + 0.052531265*φ2(x) + 0' vs 'f(x) = -0.018732064 + 0.638722742*x + -0.160272251*φ1(x) + 0.052531265*φ2(x) + 0'
+   [TEXT ONLY] Part9_PVM_1/Part9_CP10K_PVM_1_NeoC_GAM_Results_1.xlsx :: GAM_Performance_HKG | 4 text cells differ
+        e.g. r5 c16: 'f(x) = 0.820497865 + 0.064065137*x + 0.000004425*φ1(x) + 0.000004436*φ2(x) + -0.' vs 'f(x) = 0.820497865 + 0.064065137*x + 0.000004425*φ1(x) + 0.000004436*φ2(x) + -0.'
+   [TEXT ONLY] Part9_PVM_1/Part9_CP10K_PVM_1_NeoC_GAM_Results_1.xlsx :: REML_Iterations_BestModel | 56 text cells differ
+        e.g. r6 c9: ' 1.285e+00 -1.391e-17 -9.315e-02 -1.499e+00; -1.391e-17  7.216e-16  2.228e-22  4' vs ' 1.285e+00  3.911e-17 -9.315e-02 -1.499e+00;  3.911e-17 -3.331e-16  1.203e-20  1'
+   [SAME UP TO SIGN] Part9_PVM_1/Part9_CP10K_PVM_1_NonNeoC_GAM_Results_1.xlsx :: Basis_Functions | 418 of 78273 numbers differ in sign only
+   [TEXT ONLY] Part9_PVM_1/Part9_CP10K_PVM_1_NonNeoC_GAM_Results_1.xlsx :: GAM_Performance_DFG | 4 text cells differ
+        e.g. r3 c16: 'f(x) = 0.184541577 + 0.661672501*x + -0.168367597*φ1(x) + 0.207431614*φ2(x) + -0' vs 'f(x) = 0.184541577 + 0.661672501*x + -0.168367597*φ1(x) + 0.207431614*φ2(x) + -0'
+   [TEXT ONLY] Part9_PVM_1/Part9_CP10K_PVM_1_NonNeoC_GAM_Results_1.xlsx :: GAM_Performance_HKG | 2 text cells differ
+        e.g. r4 c16: 'f(x) = 0.878140438 + 0.023760752*x + -0.000001397*φ1(x) + 0.000002243*φ2(x) + -0' vs 'f(x) = 0.878140438 + 0.023760752*x + -0.000001397*φ1(x) + 0.000002243*φ2(x) + 0.'
+   [TEXT ONLY] Part9_PVM_1/Part9_CP10K_PVM_1_NonNeoC_GAM_Results_1.xlsx :: REML_Iterations_BestModel | 15 text cells differ
+        e.g. r6 c9: ' 7.945e-01  4.517e-17  3.729e-03 -1.060e+00; 4.517e-17 3.331e-16 7.535e-19 1.221' vs ' 7.945e-01  3.195e-18  3.729e-03 -1.060e+00;  3.195e-18 -2.776e-16  5.329e-19  6'
+   [TEXT ONLY] Part9_PVM_3/Part9_CP10K_PVM_3_Guardrail_Summary.xlsx :: Check_Ledger | 16 text cells differ
+        e.g. r76 c2: "NeoC 'Overall AD neuropathological Change' NA rate" vs 'NeoC "Overall AD neuropathological Change" NA rate'
+   [TEXT ONLY] Part9_PVM_3/Part9_CP10K_PVM_3_NeoC_GAM_Results_1.xlsx :: GAM_Performance_DFG | 3 text cells differ
+        e.g. r4 c16: 'f(x) = 0.176224765 + 0.626129511*x + 0.054268389*φ1(x) + -0.225499655*φ2(x) + 0.' vs 'f(x) = 0.176224765 + 0.626129511*x + 0.054268389*φ1(x) + -0.225499655*φ2(x) + 0.'
+   [TEXT ONLY] Part9_PVM_3/Part9_CP10K_PVM_3_NeoC_GAM_Results_1.xlsx :: GAM_Performance_HKG | 5 text cells differ
+        e.g. r3 c16: 'f(x) = 0.875720617 + 0.085439528*x + -0.107084747*φ1(x) + -0.000000000*φ2(x)' vs 'f(x) = 0.875720617 + 0.085439528*x + -0.107084747*φ1(x) + 0.000000000*φ2(x)'
+   [TEXT ONLY] Part9_PVM_3/Part9_CP10K_PVM_3_NeoC_GAM_Results_1.xlsx :: REML_Iterations_BestModel | 36 text cells differ
+        e.g. r7 c9: ' 1.634e+00 -1.594e-17 -4.049e-03 -2.118e+00; -1.594e-17  1.110e-16  8.036e-20  5' vs ' 1.634e+00 -1.588e-17 -4.049e-03 -2.118e+00; -1.588e-17 -2.220e-16 -7.635e-20  3'
+   [TEXT ONLY] Part9_PVM_3/Part9_CP10K_PVM_3_NonNeoC_GAM_Results_1.xlsx :: GAM_Performance_DFG | 3 text cells differ
+        e.g. r2 c16: 'f(x) = -0.213112855 + 0.866466365*x + -0.089410204*φ1(x) + -0.034008200*φ2(x) + ' vs 'f(x) = -0.213112855 + 0.866466365*x + -0.089410204*φ1(x) + -0.034008200*φ2(x) + '
+   [TEXT ONLY] Part9_PVM_3/Part9_CP10K_PVM_3_NonNeoC_GAM_Results_1.xlsx :: GAM_Performance_HKG | 1 text cells differ
+        e.g. r2 c16: 'f(x) = 0.939968242 + -0.022719076*x + 0.000004628*φ1(x) + 0.000056970*φ2(x) + 0.' vs 'f(x) = 0.939968242 + -0.022719076*x + 0.000004628*φ1(x) + 0.000056970*φ2(x) + 0.'
+   [TEXT ONLY] Part9_PVM_3/Part9_CP10K_PVM_3_NonNeoC_GAM_Results_1.xlsx :: REML_Iterations_BestModel | 48 text cells differ
+        e.g. r2 c7: ' 0.00373871, 39.98279231,  0.07900729' vs ' 0.00373871, 39.98279230,  0.07900729'
+
+== Part9b
+   tables (file or sheet): SAME 5 | TEXT ONLY 1
+   other files (figures, RDS, logs): rerun 13 | reference 13 | same name in both 13
+   [TEXT ONLY] Part9b_Mic13_PVM3/Part9b_CP10K_M4_SiKi_threshold_comparison.xlsx :: Thresholds | 2 text cells differ
+        e.g. r2 c4: 'Adopted threshold' vs 'Conservative round number in safe zone'
+
+== SuppTable_S11_build
+   tables (file or sheet): SAME 10 | ONLY IN REFERENCE 1
+   other files (figures, RDS, logs): rerun 4 | reference 11 | same name in both 0
+   [ONLY IN REFERENCE] S11_14genes_both_regions.csv
+
+== Manuscript/Fig17
+   tables (file or sheet): SAME 13 | ONLY IN REFERENCE 5
+   other files (figures, RDS, logs): rerun 4 | reference 15 | same name in both 4
+   [ONLY IN REFERENCE] Fig17_Summary.xlsx
+   [ONLY IN REFERENCE] Fig17_cells.csv
+   [ONLY IN REFERENCE] Fig17_lead_result.csv
+   [ONLY IN REFERENCE] Fig17_models.csv
+   [ONLY IN REFERENCE] Fig17_plotted.csv
+
+== Overall
+   SAME                       1013
+   SAME UP TO SIGN            1
+   SAME VALUES, OTHER ORDER   3
+   TEXT ONLY                  106
+   WITHIN 0.1%                23
+   OUTSIDE 0.1%               53
+   DIFFERENT SIZE             4
+   SHEET ONLY IN REFERENCE    13
+   ONLY IN REFERENCE          67
+
+Detail: /data/compare/compare_all_detail.csv
+Cells : /data/compare/compare_all_cells.csv
+Done in 4.5 min

@@ -1,0 +1,370 @@
+{
+  "_about": "Part 12 rerun, shared configuration. Read by every script, Python and R. Values are changed only here; any change bumps config_version and adds a changelog line.",
+  "config_version": "16",
+  "changelog": [
+    "1  2026-09-22  first version, from migration summary revision 29",
+    "2  2026-09-22  PVM_1 supertype corrected to Micro-PVM_1 (no -SEAAD suffix), checked in the PVM1_all NeoC obs_dataset",
+    "3  2026-09-22  obs column names and library fields added for step 02",
+    "4  2026-09-22  upstream table column names added for step 04",
+    "5  2026-09-22  Validation 1, Prognosis and comparator inputs searched across the tree (outside the archive and rerun folders), as Part 12a did",
+    "6  2026-09-22  Prognosis Donor_pct donor column is donor_id (read from the M4 workbook)",
+    "7  2026-09-22  obs_dataset barcode column is barcode (read from the M4 NeoC export)",
+    "8  2026-09-22  step 05: Donor_Table sheet and donor column, obs donor fields (fresh brain weight, CASI); fresh brain weight taken from obs_dataset",
+    "9  2026-09-22  tissue-quality fields taken from the Donor_Table (PMI_num, RIN_num, BrainPH_num, BrainWeight_num); obs Fresh Brain Weight kept as a check",
+    "10 2026-09-22  Module post-IP% denominator made explicit (supertype cells, as Part 10h); step 05 reports both",
+    "11 2026-09-22  step 06: Gerrits deposit file names, feature symbol column and lineage panels",
+    "12 2026-09-22  step codes keyed by the run-order script numbers 07 to 24 (same seeds as before)",
+    "13 2026-09-22  figure palette (arms, cell groups, neutral greys and accent) moved into the config",
+    "14 2026-09-22  Figure 17: neuropathology table and sheet named exactly, with their column names; CPS column names; the 28 stain measures, their families and the 17C blocks listed by exact name (replaces the stain-family patterns); CaH has no sequencing; Figure 17 labels and colours",
+    "15 2026-09-22  Figure 17 strip, verdict and grain colours set to the archived Part12q values (strip #1F3864; verdicts #2D2D2D, #7B7B7B, #1275D8, #D9D9D9, #FBE7A2, #F2F2F2; grains #2E7D5B, #D95F02, #24456F)",
+    "16 2026-09-22  Figure 18: panel order and labels, the power-analysis design (effects, donor grid, draws, null draws, split count, detection rate, outcome), the %MT offset and AUC bands, and the archived Figure 18 colours"
+  ],
+
+  "rerun_dir": "Part12_rerun",
+  "archive_dir": "Part12_archive",
+  "readings_file": "Part12_rerun/Part12_Preset_Readings.md",
+  "ledger_file": "Part12_rerun/Part12_run_ledger.txt",
+
+  "inputs": {
+    "_note": "Paths are relative to the root. A 'pattern' input is read only if exactly one file matches after exclusions; zero or several matches stop the run. 'archive_fallback' searches the archive only when no copy exists elsewhere.",
+    "h5ad": {"path": "SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad"},
+    "decontx": {"path": "Part7_DecontX/decontX_contamination_all.csv"},
+    "validation1": {"folder": ".", "recursive": true, "pattern": "^.*_{arm}_V1_{dataset}_SK_interaction_analysis\\.xlsx$"},
+    "prognosis": {"folder": ".", "recursive": true, "pattern": "^Part10h_CP10K_{arm}_Prognosis\\.xlsx$"},
+    "comparator_rds": {"folder": ".", "recursive": true, "pattern": "^.*{arm}.*_Comparator_results\\.rds$"},
+    "iprs_rds": {"folder": ".", "recursive": true, "pattern": "^.*IPRS.*_{arm}_results\\.rds$"},
+    "obs_dataset": {"path": "R_export_CP10K/{export_dir}/{dataset_dir}/metadata/obs_dataset.csv"},
+    "donor_clinical_s5b": {"folder": ".", "recursive": true, "pattern": "^{dataset}_S5b_donor_clinical\\.csv$"},
+    "neuropath_table": {"folder": ".", "recursive": true, "pattern": "^sea-ad-quantitative-neuropathology-063026\\.xlsx$", "archive_fallback": true, "sheet": "Travaglini 2026 (multi-region)", "donor": "Donor ID", "region": "brain region", "analysis_region": "analysis region"},
+    "cps_workbook": {"folder": ".", "recursive": true, "pattern": "^sea-ad_global_and_local_cps_050126\\.xlsx$", "archive_fallback": true, "sheet": "Travaglini 2026", "donor": "Donor ID", "region": "Brain Region"},
+    "gerrits_deposit": {"folder": "Gerrits"},
+    "gerrits_series_matrix": {"path": "Gerrits/Metadata/GSE148822_series_matrix.txt.gz"},
+    "exclude_from_search": ["Part12_archive", "Part12_rerun"],
+    "skip_file_prefix": "~$"
+  },
+
+  "labels": {
+    "labels_version": "2026-09-06_module-pool",
+    "cut_token": "ip_y_threshold",
+    "cut_rule": "ip_y",
+    "module_classes": ["Original + Refined", "Recovered"]
+  },
+
+  "datasets": {"NeoC": "neocortex", "NonNeoC": "nonneocortex"},
+
+  "arms": {
+    "M4":    {"export_dir": "Mic13_PVM3",   "supertype": "Micro-PVM_3-SEAAD", "role": "primary",   "goi": "MT-CO3", "partners": "cdfg",  "colour": "#1B9E77"},
+    "PVM_3": {"export_dir": "PVM3_all",     "supertype": "Micro-PVM_3-SEAAD", "role": "reference", "goi": "MT-CO3", "partners": "cdfg",  "colour": "#F2A950"},
+    "PVM_1": {"export_dir": "PVM1_all",     "supertype": "Micro-PVM_1"      , "role": "reported",  "goi": "MT-CO3", "partners": "cdfg",  "colour": "#B4451F"},
+    "HKG8":  {"export_dir": "HKG8_matched", "supertype": "Micro-PVM_3-SEAAD", "role": "control",   "goi": "ACTB",   "partners": "chkg8", "colour": "#B8B8B8"}
+  },
+  "arm_order": ["M4", "PVM_3", "PVM_1", "HKG8"],
+  "hkg8_workbook_composite_column": "cDFG_expr",
+
+  "obs_columns": {
+    "_note": "h5ad obs columns, matched by exact name ignoring case. A missing column stops step 02.",
+    "donor": "Donor ID",
+    "region": "Brain Region",
+    "supertype": "Supertype",
+    "library": "library_prep",
+    "doublet": "doublet score",
+    "n_umis": "Number of UMIs",
+    "n_genes": "Genes detected",
+    "mito_fraction": "Fraction mitochondrial UMIs",
+    "raw_layer": "UMIs"
+  },
+  "table_columns": {
+    "_note": "Column names in the upstream tables, matched by exact name ignoring case. A missing column stops the step and the log lists the columns the file has.",
+    "decontx": {"barcode": "exp_component_name", "region": "Brain Region", "library": "library_prep", "contamination": "decontX_contamination"},
+    "validation1": {"sheet": "Step4_Refined_Cells", "barcode": "barcode", "composite": "cDFG_expr", "ip_status": "IP_status", "cell_class": "cell_class"},
+    "prognosis_donor_pct": {"sheet": "Donor_pct_{dataset}", "donor": "donor_id", "pct_post": "pct_post", "n_total": "n_total"},
+    "obs_dataset": {"barcode": "barcode", "donor": "Donor ID", "region": "Brain Region"},
+    "iprs": {"ip_x": "inflection_points_DFG", "ip_y": "inflection_points_DFG_y"},
+    "donor_table": {"source_arm": "PVM_3", "sheet": "Donor_Table", "donor": "donor_id"},
+    "obs_donor_fields": {"fresh_brain_weight": "Fresh Brain Weight", "casi": "Last CASI Score"},
+    "ip_status_post": ["post-ip", "post", "postip"],
+    "ip_status_pre": ["pre-ip", "pre", "preip"]
+  },
+  "library_fields": {
+    "_note": "Library-level obs fields carried per cell for 16F and 16G. A missing field is reported, not fatal; the 25% missing rule is applied in R.",
+    "intronic": "GEX_Reads_mapped_confidently_to_intronic_regions",
+    "antisense": "GEX_Reads_mapped_antisense_to_gene",
+    "neun_fans": "NeuN positive fraction on FANS",
+    "cdna_400": "percent_cdna_longer_than_400bp",
+    "pcr_cycles": "pcr_cycles",
+    "saturation": "GEX_sequencing_saturation",
+    "median_umi": "GEX_Median_UMI_counts_per_cell",
+    "method": "method"
+  },
+
+  "genes": {
+    "mt_coding": ["MT-ND1", "MT-ND2", "MT-CO1", "MT-CO2", "MT-ATP8", "MT-ATP6", "MT-CO3", "MT-ND3", "MT-ND4L", "MT-ND4", "MT-ND5", "MT-ND6", "MT-CYB"],
+    "cdfg": ["MT-ATP6", "MT-CO2", "MT-ND3", "MT-ND4", "MT-CYB", "MT-ND1", "MT-ND2", "MT-CO1"],
+    "chkg8": ["EEF1A1", "RPL13A", "B2M", "YWHAZ", "FTL", "PSAP", "RAB7A", "HNRNPA2B1"],
+    "composite_recipe": "mean of log1p(CP10K) over the partner genes"
+  },
+
+  "panels": {
+    "own_er":   ["CALR", "CANX", "HSPA5", "PDIA3", "P4HB", "SEC61A1", "SEC61B", "RPN1", "DDOST", "SSR4"],
+    "ribosome": ["RPLP0", "RPS18", "RPS6"],
+    "nuclear_retained": ["NEAT1"],
+    "other_lineage": {
+      "neuronal": ["SNAP25", "RBFOX3", "SYT1", "NRGN", "STMN2", "MEG3"],
+      "oligo":    ["PLP1", "MBP", "MOBP", "MOG", "ST18", "CNP"],
+      "astro":    ["AQP4", "GFAP", "SLC1A2", "ALDH1L1", "GJA1"],
+      "opc":      ["PDGFRA", "VCAN", "CSPG4"],
+      "endo":     ["CLDN5", "FLT1", "PECAM1"]
+    },
+    "microglia": ["CSF1R", "P2RY12", "C1QA", "C1QB", "CX3CR1", "DOCK8", "APBB1IP", "INPP5D"],
+    "circularity_guard": {
+      "_note": "Removed from the other-lineage index per dataset (D21). These were Post-IP hits in Part 10g Step 7c.",
+      "NeoC": ["RORA", "DPP10", "CNTNAP2", "RBFOX1", "KCNIP4", "SYT1", "CDK14", "MAGI2", "CADM1", "MEG3"],
+      "NonNeoC": ["PPM1E", "LSAMP", "SRGAP2C", "CSMD1"]
+    },
+    "ctrl_pct": {
+      "_note": "Share of total UMIs on a non-mitochondrial gene set matched to the 13 MT genes on abundance and detection.",
+      "n_draws": 200,
+      "pool_k": 30,
+      "exclude_prefixes": ["MT-", "RPL", "RPS", "MRPL", "MRPS", "HSPA", "HSP90", "SEC", "SRP", "PDIA", "CANX", "CALR", "SSR", "DDOST", "RPN", "MALAT", "NEAT", "XIST", "TSIX"]
+    }
+  },
+
+  "nuclear_panels": {
+    "_note": "18A. Scored per cell in step 02; '_det' panels keep genes detected in at least detect_min of the arm's cells. The matched reference is drawn from genes outside every panel.",
+    "prefix": {
+      "ci_nduf": "^NDUF",
+      "ciii_uqcr": "^UQCR",
+      "civ_cox": "^COX[4-8]",
+      "assembly": "^(COX1[0-9]|COA[0-9]|SCO[0-9]|SURF1)",
+      "cv_atp5": "^ATP5",
+      "mitoribo": "^MRP[LS]\\d",
+      "import": "^(TOMM|TIMM)\\d"
+    },
+    "list": {
+      "cii_sdh": ["SDHA", "SDHB", "SDHC", "SDHD"],
+      "tca": ["CS", "ACO2", "IDH3A", "IDH3B", "OGDH", "SUCLA2", "FH", "MDH2", "DLD", "DLST"],
+      "biogenesis": ["PPARGC1A", "PPARGC1B", "NRF1", "TFAM", "TFB1M", "TFB2M", "ESRRA", "POLRMT", "TFAP4", "GABPA"],
+      "dynamics": ["MFN1", "MFN2", "OPA1", "DNM1L", "FIS1", "MFF"],
+      "mitophagy": ["PINK1", "PRKN", "BNIP3", "BNIP3L", "FUNDC1", "SQSTM1", "OPTN", "NBR1"],
+      "glycolysis": ["HK1", "HK2", "PFKFB3", "PFKL", "PFKP", "GAPDH", "PGK1", "ENO1", "PKM", "LDHA", "SLC2A1"]
+    },
+    "unions": {
+      "oxphos_core": ["ci_nduf", "ciii_uqcr", "civ_cox", "cv_atp5", "cii_sdh"],
+      "nuclear_mito_all": ["oxphos_core", "tca", "biogenesis", "mitoribo", "import", "dynamics", "mitophagy", "assembly"]
+    },
+    "detect_min": 0.10,
+    "reference_n": 300,
+    "reference_detect_tol": 0.05
+  },
+
+  "floors": {
+    "cells_per_unit": 10,
+    "finite_units_within_donor": 3,
+    "cells_per_group_per_donor": 20,
+    "donors_per_test": 10,
+    "max_missing_share": 0.25,
+    "vif_readable": 5
+  },
+
+  "inference": {
+    "bootstrap_B": 10000,
+    "ci_level": 0.95,
+    "ci_type": "percentile",
+    "equivalence_ci_level": 0.90,
+    "p_rule": "min(1, 2*(k+1)/(B+1)), k = resamples on the far side of zero",
+    "permutation_R": 10000,
+    "multiple_testing": "BH within family",
+    "alpha": 0.05,
+    "stars": {"*": 0.05, "**": 0.01},
+    "text_number_format": "%.2e",
+    "rng_kind": "L'Ecuyer-CMRG",
+    "master_seed": 20260922,
+    "seed_rule": "step seed = master_seed + step_code",
+    "step_codes": {"02": 2, "04": 4, "05": 5, "06": 6, "07": 1501, "08": 1503, "09": 1505, "10": 1508, "11": 1510, "13": 1601, "14": 1603, "15": 1604, "16": 1605, "17": 1606, "19": 1701, "20": 1703, "22": 1801, "23": 1802, "24": 1804},
+    "resample_chunks": 16,
+    "cluster_type": "PSOCK",
+    "collate_locale": "C"
+  },
+
+  "clinical": {
+    "_note": "The Figure 12 model: cov4 OLS on the donor Module post-IP%, region sets fitted separately. APOE e4 dose leaves the covariate block when it is the outcome.",
+    "cov4": {"age": "Age_num", "apoe": "APOE_e4_dose", "sex": "Sex_num", "pmi": "PMI_num"},
+    "outcomes": {
+      "Cognitive status": {"column": "CogStatus_num", "class": "cognition"},
+      "MMSE score":       {"column": "MMSE_num",      "class": "cognition"},
+      "CASI score":       {"column": "CASI_num",      "class": "cognition", "source": "obs_dataset column 'Last CASI Score', primary-supertype cells, first non-missing value per donor"},
+      "CERAD score":      {"column": "CERAD_num",     "class": "pathology"},
+      "Braak stage":      {"column": "Braak_num",     "class": "pathology"},
+      "Thal phase":       {"column": "Thal_num",      "class": "pathology"},
+      "ADNC rank":        {"column": "ADNC_rank",     "class": "pathology"},
+      "CAA score":        {"column": "CAA_num",       "class": "pathology"},
+      "APOE e4 dose":     {"column": "APOE_e4_dose",  "class": "genotype"}
+    },
+    "donor_table_sheet": "Donor_Table",
+    "module_predictor": "pct_post",
+    "tissue_quality": {
+      "fields": ["PMI_num", "RIN_num", "BrainPH_num", "BrainWeight_num"],
+      "donor_table_fields": ["PMI_num", "RIN_num", "BrainPH_num", "BrainWeight_num"],
+      "fresh_brain_weight_check": "BrainWeight_num is compared with the obs_dataset Fresh Brain Weight"
+    }
+  },
+
+  "quantities": {
+    "_note": "Module post-IP% = Post-IP cells / denominator. 'supertype' = all cells of the arm's supertype in the unit or donor and dataset (Part 10h, Figure 12); 'labelled' = the arm's Validation 1 cells (old Part 12h units).",
+    "module_post_pct_denominator": "supertype"
+  },
+
+  "palette": {
+    "_note": "Two reserved palettes, never mixed: arms, and the four cell groups. Anything else uses the neutral greys with one accent.",
+    "arms": {"M4": "#1B9E77", "PVM_3": "#F2A950", "PVM_1": "#B4451F", "HKG8": "#B8B8B8"},
+    "groups": {"Module post-IP": "#2D2D2D", "Module pre-IP": "#5A7FA6", "non-Module post-IP": "#B08968", "non-Module pre-IP": "#A8C8E0"},
+    "neutral": {"dark": "#3B3B3B", "mid": "#7F7F7F", "light": "#BFBFBF", "rule": "#D5D5D5", "accent": "#6A3D9A", "band": "#E8DFF0"},
+    "header": "#1F3864",
+    "verdict": {"Module only": "#2D2D2D", "Both": "#7B7B7B", "%MT only": "#1275D8", "Neither": "#D9D9D9", "Unreadable": "#FBE7A2", "Untestable": "#F2F2F2"},
+    "grain": {"within donor HU": "#2E7D5B", "between donors HU": "#D95F02", "between donors CG": "#24456F"},
+    "vif_line": "#C0392B"
+  },
+
+  "doublet_cuts": [0.15, 0.20, 0.30],
+
+  "gerrits": {
+    "n_samples": 36,
+    "n_donors": 18,
+    "samples_per_donor": 2,
+    "sample_title_regex": "^SN_Donor(\\d+)(OC|OTC)$",
+    "sorted_fraction": "NEUNnegOLIG2neg",
+    "matrix_suffix": "_matrix.mtx.gz",
+    "features_suffix": "_features.tsv.gz",
+    "features_symbol_column": 2,
+    "lineage_panels": "panels.other_lineage plus panels.microglia, no circularity guard (the guard concerns SEA-AD Post-IP hits)",
+    "cell_calling": {"method": "emptyDrops", "lower": 100, "fdr": 0.01, "niters": 10000, "fallback": "none"},
+    "ambient_umi_range": [1, 100],
+    "min_cells_per_sample": 200,
+    "min_cells_per_lineage": 100,
+    "min_cells_per_tertile": 60,
+    "population": "every MT-CO3-positive called nucleus (D27)"
+  },
+
+  "thinning": {
+    "population": "PVM_3 arm (Micro-PVM_3 cells with MT-CO3 > 0)",
+    "target_depths": [8000, 6000, 4000, 3000, 2000, 1500, 1000, 750, 500],
+    "add_gerrits_depth": true,
+    "repeats": 20,
+    "match_mito_fraction": [false, true]
+  },
+
+  "region_map": {
+    "_note": "Histology and CPS region names to snRNA-seq region names. ESOC and CaH have no sequencing; V2 is kept apart from V1C.",
+    "no_sequencing": ["ESOC", "CaH"],
+    "alias": {
+      "dfc": "DFC", "a9": "DFC", "pfc": "DFC", "dorsolateral prefrontal cortex": "DFC", "prefrontal cortex": "DFC",
+      "mtg": "MTG", "middle temporal gyrus": "MTG",
+      "stg": "STG", "superior temporal gyrus": "STG",
+      "itg": "ITG", "inferior temporal gyrus": "ITG",
+      "ang": "AnG", "angular gyrus": "AnG",
+      "v1c": "V1C", "v1": "V1C", "primary visual cortex": "V1C",
+      "hip": "HIP", "hpc": "HIP", "hippocampus": "HIP",
+      "mec": "MEC", "medial entorhinal cortex": "MEC",
+      "lec": "LEC", "lateral entorhinal cortex": "LEC",
+      "fi": "FI", "insula": "FI", "frontal insula": "FI",
+      "cah": "CaH", "caudate": "CaH", "caudate nucleus": "CaH"
+    }
+  },
+
+  "histology": {
+    "_note": "Figure 17. The 28 stain measures of the neuropathology sheet (its 32 measure columns less the four hematoxylin nucleus measures), by exact column name. Families in drawing order; 'block' groups families for the 17C bars.",
+    "families": [
+      {"key": "amyloid_6E10", "label": "Amyloid 6E10", "block": "Amyloid 6E10", "measures": [
+        "average 6e10 positive object area", "average 6e10 positive object median diameter",
+        "number of 6e10 positive objects colocalized with Iba1 positive objects per area", "number of 6e10 positive objects per area",
+        "percent 6e10 dense core plaque area", "percent 6e10 diffuse plaque area", "percent 6e10 fibrilar plaque area",
+        "percent 6e10 positive area", "percent of 6e10 positive objects colocalized with Iba1 positive objects"]},
+      {"key": "tau_AT8", "label": "Tau AT8", "block": "Tau and TDP43", "measures": [
+        "average AT8 positive cell area", "number of AT8 positive cells per area", "percent AT8 positive area"]},
+      {"key": "TDP43", "label": "TDP43", "block": "Tau and TDP43", "measures": [
+        "average pTDP43 positive cell area", "number of pTDP43 positive cells per area", "percent pTDP43 positive area"]},
+      {"key": "synuclein", "label": "Synuclein", "block": "NeuN and synuclein", "measures": [
+        "average aSyn positive cell area", "number of aSyn positive cells per area", "percent aSyn positive area"]},
+      {"key": "astro_GFAP", "label": "Astro GFAP", "block": "Microglia IBA1 and astrocyte GFAP", "measures": [
+        "percent GFAP positive area"]},
+      {"key": "microglia_IBA1", "label": "Microglia IBA1", "block": "Microglia IBA1 and astrocyte GFAP", "measures": [
+        "average Iba1 positive process area per cell", "average Iba1 positive process length per cell",
+        "number of activated Iba1 positive cells per area", "number of Iba1 positive cells per area",
+        "number of inactivated Iba1 positive cells per area", "percent Iba1 positive area"]},
+      {"key": "neuron_NeuN", "label": "Neuron NeuN", "block": "NeuN and synuclein", "measures": [
+        "average NeuN positive cell area", "number of NeuN positive cells per area", "percent NeuN positive area"]}
+    ],
+    "blocks": ["Amyloid 6E10", "Tau and TDP43", "Microglia IBA1 and astrocyte GFAP", "NeuN and synuclein"],
+    "excluded": ["average Hematoxylin positive nucleus area", "average Hematoxylin positive nucleus perimeter",
+                 "average Hematoxylin positive nucleus roundness", "number of Hematoxylin positive nuclei per area"],
+    "iba1_17A": [
+      {"measure": "average Iba1 positive process area per cell", "label": "Average IBA1+ process area per cell", "predicted_sign": -1},
+      {"measure": "average Iba1 positive process length per cell", "label": "Average IBA1+ process length per cell", "predicted_sign": -1},
+      {"measure": "number of activated Iba1 positive cells per area", "label": "No. of activated IBA1+ cells per area", "predicted_sign": 1},
+      {"measure": "number of Iba1 positive cells per area", "label": "No. of IBA1+ cells per area", "predicted_sign": 0},
+      {"measure": "number of inactivated Iba1 positive cells per area", "label": "No. of inactivated IBA1+ cells per area", "predicted_sign": -1},
+      {"measure": "percent Iba1 positive area", "label": "IBA1+ area (%)", "predicted_sign": 0}
+    ],
+    "cps": [
+      {"column": "CPS_Global", "label": "CPS global", "scope": "global"},
+      {"column": "CPS_Global_ABeta", "label": "CPS global Abeta", "scope": "global"},
+      {"column": "CPS_Global_pTau", "label": "CPS global pTau", "scope": "global"},
+      {"column": "CPS_Local", "label": "CPS local", "scope": "local"},
+      {"column": "CPS_Local_ABeta", "label": "CPS local Abeta", "scope": "local"},
+      {"column": "CPS_Local_pTau", "label": "CPS local pTau", "scope": "local"}
+    ],
+    "quantities": {"module_post_pct": "Module post-IP%", "mito_log1p": "%MT (log1p)", "cyto_share": "Cytoplasmic share",
+                   "contamination": "Contamination", "log_n_cells": "Log cell count"},
+    "drawn": {"17A": ["module_post_pct", "mito_log1p", "cyto_share"],
+              "17B": ["log_n_cells", "cyto_share", "mito_log1p", "module_post_pct"],
+              "S12": ["log_n_cells", "contamination", "mito_log1p", "module_post_pct"]}
+  },
+
+  "figure18": {
+    "_note": "Figure 18. Panels in drawing order; 'set' is the 02_matched_sets.csv set name. Power design kept from Part 12p except where the readings change it (split count 200, as 16B; R3 on the Figure 12 model, D22).",
+    "panels": [
+      {"key": "nuclear_mito_all", "set": "nuclear_nuclear_mito_all", "label": "All nuclear-encoded mito"},
+      {"key": "oxphos_core", "set": "nuclear_oxphos_core", "label": "OXPHOS core"},
+      {"key": "ci_nduf", "set": "nuclear_ci_nduf", "label": "Complex I (NDUF)"},
+      {"key": "cii_sdh", "set": "nuclear_cii_sdh", "label": "Complex II (SDH)"},
+      {"key": "ciii_uqcr", "set": "nuclear_ciii_uqcr", "label": "Complex III (UQCR)"},
+      {"key": "civ_cox", "set": "nuclear_civ_cox", "label": "Complex IV (COX)"},
+      {"key": "cv_atp5", "set": "nuclear_cv_atp5", "label": "Complex V (ATP5)"},
+      {"key": "assembly", "set": "nuclear_assembly", "label": "Assembly factors"},
+      {"key": "biogenesis", "set": "nuclear_biogenesis", "label": "Biogenesis"},
+      {"key": "mitoribo", "set": "nuclear_mitoribo", "label": "Mitoribosome"},
+      {"key": "import", "set": "nuclear_import", "label": "Protein import"},
+      {"key": "dynamics", "set": "nuclear_dynamics", "label": "Fission and fusion"},
+      {"key": "mitophagy", "set": "nuclear_mitophagy", "label": "Mitophagy"},
+      {"key": "tca", "set": "nuclear_tca", "label": "TCA cycle"},
+      {"key": "glycolysis", "set": "nuclear_glycolysis", "label": "Glycolysis"},
+      {"key": "reference", "set": "reference_18A", "label": "Matched reference (null)"}
+    ],
+    "min_panel_genes": 3,
+    "eps_mt": 0.01,
+    "auc_bands": [0.60, 0.80],
+    "power": {"effects": [1.0, 0.75, 0.5], "plan_effect": 0.75, "n_grid": [10, 15, 20, 25, 30, 40, 50, 60, 70, 83],
+              "draws": 300, "null_draws": 20, "null_perm": 25, "split_rule": 0.50, "n_splits": 200,
+              "detect": 0.80, "outcome": "MMSE score", "share_floor_donors": 3, "rise_margin": 0.05},
+    "colours": {"module_cells": "#2D2D2D", "nonmodule_cells": "#B08968", "ne_only": "#2A9D8F", "class_shade": "#F0F0F4",
+                "class_label": "#6A3D9A", "rule_r1": "#3B3B3B", "rule_r2": "#7F7F7F", "rule_r3": "#6A3D9A",
+                "crossing_fill": "#FFD92F", "region_frac": "#4A4A4A", "region_share": "#416788", "region_split": "#E8A798",
+                "grid": "#EDEDED"}
+  },
+
+  "donor_key_rule": "upper-case, then remove every character outside A-Z and 0-9",
+
+  "palettes": {
+    "groups": {"Module post-IP": "#2D2D2D", "Module pre-IP": "#5A7FA6", "non-Module post-IP": "#B08968", "non-Module pre-IP": "#A8C8E0"},
+    "neutral": ["#3B3B3B", "#7F7F7F", "#BFBFBF"],
+    "accent": "#6A3D9A"
+  },
+
+  "stats_columns": ["panel", "arm", "level", "quantity", "measure", "n_units", "n_donors", "estimate", "lo", "hi", "p", "fdr", "family", "run_id", "config_version", "labels_version"],
+
+  "log": {
+    "tags": ["PASS", "FAIL", "WARN", "NOTE"],
+    "check_id": "{step}-{nn}",
+    "ascii_only": true
+  }
+}

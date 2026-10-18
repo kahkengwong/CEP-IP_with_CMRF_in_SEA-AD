@@ -1,0 +1,630 @@
+(base) user@host:~/Desktop/SEA-AD$ cd <SEA-AD>
+python3
+Python 3.13.14 | packaged by conda-forge | (main, Jun 12 2026, 09:50:25) [GCC 14.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> exec(open("Code/Part1a_NormForensics_code.py").read())
+... exec(open("Code/Part1b_MT-audit_code.py").read())
+... exec(open("Code/Part1c_WithinDonor_code.py").read())
+... 
+
+==========================================================================
+  Loading
+==========================================================================
+  shape          : (240651, 36601)
+  uns['log1p']   : {}
+  layers         : ['UMIs']
+  sampled cells  : 4000
+  median depth (this file, all cells) : 5,266.00
+
+==========================================================================
+  T1 — row-sum of expm1(X): constant  <=>  library-size scaling
+==========================================================================
+  base-e  row-sum : min=10,000.000  median=10,000.000  max=10,000.000
+  base-e  CV      : 1.676e-16
+  base-2  row-sum : min=2,881.900  median=4,757.737  max=5,314.930
+  base-2  CV      : 6.648e-02
+
+  >>> CONSTANT under base-e. Library-size scaling, target_sum = 10,000.00
+
+==========================================================================
+  T2 — log base: e (scanpy log1p) vs 2 (scater logNormCounts)
+==========================================================================
+  cells tested                     : 200
+  median within-cell CV, base e    : 1.705e-16
+  median within-cell CV, base 2    : 9.883e-02
+
+  >>> BASE e (natural log). Consistent with scanpy sc.pp.log1p.
+  >>> INCONSISTENT with scater logNormCounts, which defaults to log2.
+
+==========================================================================
+  T3 — implied per-cell size factor, and exact reconstruction
+==========================================================================
+  implied sf: n=200  min=0.050400  median=0.575450  max=3.261600
+  |sf - depth/T| / (depth/T):  max=4.054e-16  mean=9.420e-17
+  >>> sf == depth / target_sum EXACTLY -> pure library-size scaling
+  max |X - reconstruction|  = 8.882e-16
+  mean|X - reconstruction|  = 5.364e-18
+  >>> EXACT. The transform is fully identified.
+
+==========================================================================
+  T4 — is target_sum the median depth of this file? (normalize_total default)
+==========================================================================
+  recovered target_sum     : 10,000.00
+  median depth, this file  : 5,266.00
+  ratio                    : 1.898975
+    vs 1e4 (CP10K)     : 10,000.00  <== MATCH
+    vs 1e5 (CP100K)    : 100,000.00
+    vs 1e6 (CPM)       : 1,000,000.00
+    vs median depth    : 5,266.00
+
+  >>> target_sum is a round constant, or the median of a DIFFERENT
+      parent object (normalisation inherited from the full atlas
+      before subsetting to microglia). Both are worth stating.
+
+==========================================================================
+  T5 — size factor vs depth: the scran discriminator
+==========================================================================
+  spearman(sf, depth) = +1.00000000
+  pearson (sf, depth) = +1.00000000
+  log-log slope       = +1.000000   (1.0 => strictly proportional)
+  residual SD         = 4.763e-16
+
+  >>> sf is a deterministic function of depth. NOT scran.
+      scran computeSumFactors deviates from depth by construction
+      (pooling + deconvolution); typical spearman 0.95-0.99 with
+      visible residual scatter. Zero scatter rules it out.
+
+==========================================================================
+  T6 — zero concordance (catches imputation / ambient rewriting)
+==========================================================================
+  nonzero in X but zero in counts : 0
+  nonzero in counts but zero in X : 0
+  >>> perfect concordance. X is a monotone per-cell rescale of these
+      counts. No imputation, no ambient subtraction applied to X.
+
+==========================================================================
+  T7 — exclude_highly_expressed variant
+==========================================================================
+  (skipped: plain library-size scaling already explains X exactly)
+
+==========================================================================
+  T8 — denominator provenance: was the total taken over THESE genes?
+==========================================================================
+  implied_total / observed_depth :  min=1.000000  median=1.000000  max=1.000000
+  CV of that ratio               :  1.740e-16
+  >>> denominator == this file's row total over these 36,601 genes.
+
+==========================================================================
+  T9 — worked example (manual audit)
+==========================================================================
+    cell     gene    count      depth          X       pred       diff
+    1156       57        1       5051   1.091858   1.091858   0.00e+00
+    1156       83        1       5051   1.091858   1.091858   0.00e+00
+    1411       73        3       3429   2.277155   2.277155   0.00e+00
+    1411       82        2       3429   1.921706   1.921706   0.00e+00
+    1460       24        1       5876   0.993932   0.993932   0.00e+00
+    1460       62        1       5876   0.993932   0.993932   0.00e+00
+    3711       44        1      11626   0.620652   0.620652  -1.11e-16
+    3711       51        1      11626   0.620652   0.620652  -1.11e-16
+    4082       24        1       5590   1.025650   1.025650  -2.22e-16
+    4082       36        2       5590   1.521222   1.521222  -2.22e-16
+
+==========================================================================
+  VERDICT
+==========================================================================
+  X = log1p( counts / total_counts * 10,000 )
+  Method : scanpy normalize_total + log1p  (natural log)
+  NOT scran. NOT scater logNormCounts (which would be log2).
+
+  >>> target_sum = 1e4 = CP10K. This MATCHES the documented SEA-AD
+      convention for the current Multiregion release. Expected for
+      the 2026-06-22 file. Set NORM_TARGET_SUM <- 1e4 and
+      NORM_CEILING <- log1p(1e4) = 9.2104 in the R config.
+
+  IMPLICATIONS
+   - Gene-vs-gene Spearman/Kendall are EXACTLY invariant to target_sum.
+     But cDFG is a mean of logs and is NOT rank-invariant, so
+     rho(GOI, cDFG) shifts by ~0.02 between CP10K and CP100K.
+   - GAM fits and DE shift slightly (log1p is nonlinear at low counts);
+     IP values sit on this target_sum's log scale.
+
+  saved: Part1_PreChecks/S1a_norm_forensics.txt
+
+==========================================================================
+  Q1a/Q2 — Structure and provenance (metadata only, backed mode)
+==========================================================================
+  shape                : (240651, 36601)
+  X dtype (declared)   : float64
+  layers present       : ['UMIs']
+  raw present          : False
+  obsm keys            : ['X_scVI', 'X_umap']
+  uns keys             : ['Brain Region_colors', 'Great Apes Metadata', 'Subclass_colors', 'Supertype_colors', 'UW Clinical Metadata', 'X_normalization', 'batch_condition', 'default_embedding', 'log1p', 'neighbors', 'title', 'umap']
+
+==========================================================================
+  Q0 — obs column resolution and TARGET_STYPE assertion
+==========================================================================
+  obs has 130 columns
+
+    stype_col   default=Supertype                                found=Supertype                                ok
+    region_col  default=Brain Region                             found=Brain Region                             ok
+    donor_col   default=Donor ID                                 found=Donor ID                                 ok
+    adnc_col    default=Overall AD neuropathological Change      found=Overall AD neuropathological Change      ok
+    braak_col   default=Braak                                    found=Braak                                    ok
+
+  distinct supertypes in 'Supertype' : 8
+  'Micro-PVM_3-SEAAD' present : YES  (n=29,805)
+
+  --- uns provenance values (printed in full) ---
+    uns['X_normalization'] = ln(UP10K+1)
+    uns['batch_condition'] = ['library_prep']
+    uns['default_embedding'] = X_umap
+    uns['log1p'] = {}
+    uns['title'] = Immune: Seattle Alzheimer's Disease Atlas (SEA-AD)
+  Quote uns['X_normalization'] verbatim in the methods rather than citing
+  the empirical forensics alone — it is the release's own statement.
+
+  --- other uns keys (may hold donor tables worth mining) ---
+    uns['Brain Region_colors'] : ndarray, len=10
+    uns['Great Apes Metadata'] : str, len=42
+    uns['Subclass_colors'] : ndarray, len=1
+    uns['Supertype_colors'] : ndarray, len=8
+    uns['UW Clinical Metadata'] : str, len=44
+    uns['neighbors'] : dict, len=3
+    uns['umap'] : dict, len=1
+
+==========================================================================
+  Q0b — SEA-AD inclusion flags
+==========================================================================
+  'Used in analysis' value counts:
+    True                   240,651  (100.000%)
+  >>> All nuclei are flagged for analysis. No filtering decision
+      needed; record that fact in methods.
+
+  'Neurotypical reference': 0 nuclei flagged as reference
+  >>> No reference nuclei. This is the aged cohort only, as
+      expected for a cohort file.
+
+  uns['log1p']         : {}
+  -> X was produced by a log1p step (scanpy convention).
+
+  --- ambient-correction keyword hunt (strings only) ---
+  [HIT] normali            in uns key 'X_normalization'
+        X_normalization
+
+  --- all obs columns ---
+    sample_id
+    Neurotypical reference
+    Donor ID
+    Organism
+    Brain Region
+    Sex
+    Gender
+    Age at Death
+    Race (choice=White)
+    Race (choice=Black/ African American)
+    Race (choice=Asian)
+    Race (choice=American Indian/ Alaska Native)
+    Race (choice=Native Hawaiian or Pacific Islander)
+    Race (choice=Unknown or unreported)
+    Race (choice=Other)
+    specify other race
+    Hispanic/Latino
+    Highest level of education
+    Years of education
+    PMI
+    Fresh Brain Weight
+    Brain pH
+    Overall AD neuropathological Change
+    Thal
+    Braak
+    CERAD score
+    Overall CAA Score
+    Highest Lewy Body Disease
+    Total Microinfarcts (not observed grossly)
+    Total microinfarcts in screening sections
+    Atherosclerosis
+    Arteriolosclerosis
+    LATE
+    Cognitive Status
+    Last CASI Score
+    Interval from last CASI in months
+    Last MMSE Score
+    Interval from last MMSE in months
+    Last MOCA Score
+    Interval from last MOCA in months
+    APOE Genotype
+    Primary Study Name
+    Secondary Study Name
+    NeuN positive fraction on FANS
+    RIN
+    cell_prep_type
+    facs_population_plan
+    rna_amplification
+    sample_name
+    sample_quantity_count
+    expc_cell_capture
+    method
+    pcr_cycles
+    percent_cdna_longer_than_400bp
+    rna_amplification_pass_fail
+    amplified_quantity_ng
+    load_name
+    library_prep
+    library_input_ng
+    r1_index
+    avg_size_bp
+    quantification_fmol
+    library_prep_pass_fail
+    exp_component_vendor_name
+    batch_vendor_name
+    experiment_component_failed
+    alignment
+    Genome
+    ar_id
+    bc
+    GEX_Estimated_number_of_cells
+    GEX_number_of_reads
+    GEX_sequencing_saturation
+    GEX_Mean_raw_reads_per_cell
+    GEX_Q30_bases_in_barcode
+    GEX_Q30_bases_in_read_2
+    GEX_Q30_bases_in_UMI
+    GEX_Percent_duplicates
+    GEX_Q30_bases_in_sample_index_i1
+    GEX_Q30_bases_in_sample_index_i2
+    GEX_Reads_with_TSO
+    GEX_Sequenced_read_pairs
+    GEX_Valid_UMIs
+    GEX_Valid_barcodes
+    GEX_Reads_mapped_to_genome
+    GEX_Reads_mapped_confidently_to_genome
+    GEX_Reads_mapped_confidently_to_intergenic_regions
+    GEX_Reads_mapped_confidently_to_intronic_regions
+    GEX_Reads_mapped_confidently_to_exonic_regions
+    GEX_Reads_mapped_confidently_to_transcriptome
+    GEX_Reads_mapped_antisense_to_gene
+    GEX_Fraction_of_transcriptomic_reads_in_cells
+    GEX_Total_genes_detected
+    GEX_Median_UMI_counts_per_cell
+    GEX_Median_genes_per_cell
+    Multiome_Feature_linkages_detected
+    Multiome_Linked_genes
+    Multiome_Linked_peaks
+    ATAC_Confidently_mapped_read_pairs
+    ATAC_Fraction_of_genome_in_peaks
+    ATAC_Fraction_of_high_quality_fragments_in_cells
+    ATAC_Fraction_of_high_quality_fragments_overlapping_TSS
+    ATAC_Fraction_of_high_quality_fragments_overlapping_peaks
+    ATAC_Fraction_of_transposition_events_in_peaks_in_cells
+    ATAC_Mean_raw_read_pairs_per_cell
+    ATAC_Median_high_quality_fragments_per_cell
+    ATAC_Non-nuclear_read_pairs
+    ATAC_Number_of_peaks
+    ATAC_Percent_duplicates
+    ATAC_Q30_bases_in_barcode
+    ATAC_Q30_bases_in_read_1
+    ATAC_Q30_bases_in_read_2
+    ATAC_Q30_bases_in_sample_index_i1
+    ATAC_Sequenced_read_pairs
+    ATAC_TSS_enrichment_score
+    ATAC_Unmapped_read_pairs
+    ATAC_Valid_barcodes
+    Number of mapped reads
+    Number of unmapped reads
+    Number of multimapped reads
+    Number of reads
+    Number of UMIs
+    Genes detected
+    Doublet score
+    Fraction mitochondrial UMIs
+    Severely Affected Donor
+    Class
+    Subclass
+    Supertype
+    Used in analysis
+
+  QC-looking obs columns : ['NeuN positive fraction on FANS', 'GEX_Fraction_of_transcriptomic_reads_in_cells', 'GEX_Median_genes_per_cell', 'ATAC_Fraction_of_genome_in_peaks', 'ATAC_Fraction_of_high_quality_fragments_in_cells', 'ATAC_Fraction_of_high_quality_fragments_overlapping_TSS', 'ATAC_Fraction_of_high_quality_fragments_overlapping_peaks', 'ATAC_Fraction_of_transposition_events_in_peaks_in_cells', 'Doublet score', 'Fraction mitochondrial UMIs']
+
+  --- var columns ---
+    gene_ids
+    feature_types
+    genome
+
+==========================================================================
+  Q3 — Mitochondrial gene inventory in the feature space
+==========================================================================
+  genes starting 'MT-'  : 13
+    ['MT-ATP6', 'MT-ATP8', 'MT-CO1', 'MT-CO2', 'MT-CO3', 'MT-CYB', 'MT-ND1', 'MT-ND2', 'MT-ND3', 'MT-ND4', 'MT-ND4L', 'MT-ND5', 'MT-ND6']
+
+  Module 1 present      : 9/9
+
+  DISJOINT mito axis    : 4 genes
+    ['MT-ATP8', 'MT-ND4L', 'MT-ND5', 'MT-ND6']
+  Non-circular by construction: these track bulk mitochondrial load
+  (ambient AND polycistronic) but are not part of Module 1.
+
+    MT-RNR1    present=False
+    MT-RNR2    present=False
+    MT-ND5     present=True
+    MT-ND4L    present=True
+    MT-ND6     present=True
+    MT-ATP8    present=True
+  MT-RNR1/RNR2 = mt-rRNAs, the strongest bulk-load proxy if present.
+  MT-ND6 = only L-strand protein-coding gene -> transcription-unit control.
+
+==========================================================================
+  Loading full matrix into memory
+==========================================================================
+  loaded                : (240651, 36601)
+  count layer           : UMIs
+
+==========================================================================
+  Q1b — Matrix classification (numeric, in-memory)
+==========================================================================
+  X                      min=0.0000  max=7.7732  mean_nz=1.2933  integer_like=False   [SAMPLED n=3,000]
+                           -> LOG-scale normalised
+  layers['UMIs']         min=0.0000  max=1662.0000  mean_nz=2.2980  integer_like=True   [SAMPLED n=3,000]
+                           -> RAW COUNTS
+
+  --- EXACT global extremes (not sampled) ---
+  X                      exact min=0.0000  exact max=8.1820
+  layers['UMIs']         exact min=0.0000  exact max=5121.0000
+
+  NORM_CEILING = log1p(10,000) = 9.2104
+  headroom     = +1.0285
+  [OK] X sits under the ceiling, as it must for this target_sum.
+
+  the same maximum expressed on the CP100K scale : 10.4843
+  Use THIS when reconciling against exports made from the CP100K
+  pre-release (e.g. Part 8 norm.mtx). A subset's max may still
+  differ from the file's max only by being LOWER, never higher.
+
+  extracting 14 genes in one block slice ...
+  done
+
+==========================================================================
+  Q4 — mito% and depth; association with pathology
+==========================================================================
+  --- ALL nuclei ---
+  mito%              min=0.000  q25=0.097  median=0.245  q75=0.608  q99=5.599  max=59.793 %
+  total counts       min=138.000  q25=3252.000  median=5266.000  q75=8162.000  q99=20583.000  max=79658.000 
+  genes detected     min=127.000  q25=1897.000  median=2632.000  q75=3437.000  q99=5406.000  max=10554.000 
+
+  --- Micro-PVM_3-SEAAD (n=29805) ---
+  mito%              min=0.000  q25=0.172  median=0.435  q75=1.070  q99=7.460  max=45.059 %
+  total counts       min=157.000  q25=3222.000  median=5373.000  q75=8342.000  q99=20214.120  max=40045.000 
+
+  --- per region (NeoC vs NonNeoC asymmetry check) ---
+    region  arm        n_nuclei   n_PVM3  mito%_med  depth_med
+    AnG     NeoC         10,279    1,422      0.230       4130
+    DFC     NeoC         41,553    4,817      0.174       5029
+    FI      NonNeoC      17,445    1,289      0.226       2927
+    HIP     NonNeoC      14,190    2,793      0.533       4308
+    ITG     NeoC         16,111    1,945      0.346       6510
+    LEC     NonNeoC      11,791    1,295      0.196       3703
+    MEC     NonNeoC      63,137    7,721      0.311       6124
+    MTG     NeoC         36,686    4,468      0.169       5368
+    STG     NeoC         15,214    1,942      0.199       7306
+    V1C     NeoC         14,245    2,113      0.268       6742
+
+  --- donor-level: does mito% track pathology? [CENTRAL Q4 RESULT] ---
+  Braak parsed          : 240,651/240,651 nuclei
+  donors in this table  : 84
+    mito_pct  vs adnc  : rho=+0.4370  p=3.233e-05  n=84  <-- CONFOUND RISK
+    depth     vs adnc  : rho=+0.1233  p=0.264  n=84
+    mito_pct  vs braak : rho=+0.4247  p=5.672e-05  n=84  <-- CONFOUND RISK
+    depth     vs braak : rho=+0.1346  p=0.2221  n=84
+  If mito% tracks ADNC, mito fraction is simultaneously the candidate
+  biology and the technical axis -- a limitation to state, not to hide.
+  cross-check: computed mito% vs obs['Fraction mitochondrial UMIs']  rho=+1.0000 p=0
+
+==========================================================================
+  Q5 — MT-CO3 abundance vs ACTB (trace soup, or real signal?)
+==========================================================================
+  (Micro-PVM_3-SEAAD, n=29805)
+   gene  in_module1  detect_pct  mean_counts  max_counts
+ MT-CO3        True   82.076833     6.597685       366.0
+   ACTB       False   60.281832     1.834927        76.0
+MT-ATP6        True   77.023989     5.864285       364.0
+ MT-CO2        True   81.338702     5.991511       421.0
+ MT-ND3        True   75.111558     7.034122       315.0
+ MT-ND4        True   77.705083     5.151988       315.0
+ MT-CYB        True   73.048146     4.062775       208.0
+ MT-ND1        True   64.656937     2.590673       218.0
+ MT-ND2        True   67.700050     2.961852       330.0
+ MT-CO1        True   76.611307     3.730851       245.0
+MT-ATP8       False   33.390371     0.649992        41.0
+MT-ND4L       False   34.880054     0.670290        39.0
+ MT-ND5       False   49.102500     1.280255        61.0
+ MT-ND6       False    7.206844     0.085690         6.0
+
+  MT-CO3: mean 6.60 counts per nucleus, max 366, detected in 82.1% of Micro-PVM_3-SEAAD.
+  Read this as dynamic range, not as absolute abundance: a threshold
+  can only be located if the GOI spans a wide enough range. Note that
+  a high count is equally consistent with heavy ambient load, so this
+  section does not by itself argue against the ambient explanation.
+
+==========================================================================
+  Q6 — CONDITIONING PREVIEW: conditioning on a DISJOINT mito axis
+==========================================================================
+  cells: Micro-PVM_3-SEAAD with MT-CO3 > 0   n=24463
+  cDFG built from 8/8 DFGs
+
+  UNCONDITIONAL    rho(MT-CO3, cDFG) = +0.8174   p=0
+  | cAMB (4 disjoint MT)          rho = +0.7123  p=0   drop=+0.1051
+  | total counts                     rho = +0.8124  p=0   drop=+0.0050
+  | mito% (CIRCULAR, reference only) rho = -0.4885  p=0
+  | cAMB + total counts             rho = +0.6807  p=0   drop=+0.1367
+
+  --- ambient directional prediction: strength vs depth ---
+    depth Q1 (n= 6116, median=     2314): rho=+0.7536
+    depth Q2 (n= 6116, median=     4527): rho=+0.8084
+    depth Q3 (n= 6122, median=     6984): rho=+0.8444
+    depth Q4 (n= 6117, median=    11436): rho=+0.8716
+  Under pure ambient, rho should peak in Q1 (least depth = most soup per
+  nucleus). Flat or rising with depth argues against ambient.
+
+  HOW TO READ Q6
+   rho survives cAMB  -> structure beyond bulk mito load; ambient AND
+                         polycistronic nulls both insufficient. Proceed.
+   rho collapses to 0 -> the module IS bulk mito load. Critical, now.
+
+==========================================================================
+  Q7 — implied size factors vs mito% (did normalisation absorb it?)
+==========================================================================
+  implied size factors for 2965/3000 nuclei
+  implied sf         min=0.026  q25=0.354  median=0.591  q75=0.897  q99=2.071  max=3.197 
+  rho(size factor, mito%) = -0.3568  p=1.057e-89
+  rho(size factor, depth) = +1.0000  p=0
+
+  >>> |rho| = 0.3568 with mito%. Moderate coupling —
+      enough to note as a limitation, not enough to claim the
+      normalisation absorbed the mito axis.
+  >>> rho with depth is +1.0000, i.e. the size factor is
+      depth by construction (pure library-size scaling). Any
+      sf-vs-mito% correlation is therefore just the
+      depth-vs-mito% correlation restated, not an extra fact.
+
+==========================================================================
+  Saving
+==========================================================================
+  saved: Part1_PreChecks/S1b_mito_gene_inventory.csv
+
+  columns used by this run:
+    supertype   Supertype
+    region      Brain Region
+    donor       Donor ID
+    ADNC        Overall AD neuropathological Change
+    Braak       Braak
+  saved: Part1_PreChecks/S1b_precheck_report.txt
+
+==========================================================================
+  PART 1b COMPLETE
+==========================================================================
+
+==========================================================================
+  Part 1c — Within-donor decomposition of rho(MT-CO3, cDFG)
+==========================================================================
+  MIN_CELLS_DONOR : 30
+  N_SIM           : 500
+  GOI             : MT-CO3
+  DFG             : ['MT-ATP6', 'MT-CO2', 'MT-ND3', 'MT-ND4', 'MT-CYB', 'MT-ND1', 'MT-ND2', 'MT-CO1']
+  TARGET_STYPE    : Micro-PVM_3-SEAAD
+
+==========================================================================
+  C0 — Loading h5ad
+==========================================================================
+  shape : (240651, 36601)
+  stype_col  : Supertype
+  donor_col  : Donor ID
+  adnc_col   : Overall AD neuropathological Change
+  count layer: UMIs
+  extracting 9/9 module genes ...
+  done
+  Micro-PVM_3-SEAAD : 29,805 cells
+  sel (GOI > 0)        : 24,463 cells
+
+==========================================================================
+  C1 — Donor table: GOI-positive PVM_3 cells per donor
+==========================================================================
+  Total donors with >=1 GOI+ PVM_3 cell : 84
+  Qualifying (>= 30 cells)              : 82
+  Excluded   (<  30 cells)              : 2
+  Cells in qualifying donors             : 24,424 / 24,463
+
+  Cell-count distribution (qualifying donors):
+    min=36  q25=113  median=215  q75=371  max=1252
+  Cell-count distribution (excluded donors):
+    min=17  max=22
+
+==========================================================================
+  C2 — ADNC distribution of included vs excluded donors
+==========================================================================
+  Included   (n=82): NotAD=8, Low=12, Interm=20, High=42
+  Excluded   (n=2): NotAD=1, Low=0, Interm=1, High=0
+
+  The selection is non-random: donors with more PVM_3 cells tend to be
+  higher-ADNC donors (donor top-% vs ADNC = +0.5014). The included set
+  is enriched for higher pathology relative to the full cohort.
+
+==========================================================================
+  C3 — Within-donor rho(MT-CO3, cDFG)
+==========================================================================
+  cDFG built from 8/8 DFGs: ['MT-ATP6', 'MT-CO2', 'MT-ND3', 'MT-ND4', 'MT-CYB', 'MT-ND1', 'MT-ND2', 'MT-CO1']
+  Computed rho for 82 donors
+
+==========================================================================
+  C4 — Three-number decomposition: pooled / within-donor / between-donor
+==========================================================================
+  1. POOLED rho(MT-CO3, cDFG)
+       unconditional : +0.8174  (n=24,463 cells)
+       | depth       : +0.8124
+
+  2. WITHIN-DONOR rho  (n=82 donors, >=30 GOI+ PVM_3 cells each)
+       unconditional : median=+0.7509  IQR=[+0.6635, +0.8022]  range=[+0.3963, +0.9199]
+       | depth       : median=+0.7399  IQR=[+0.6456, +0.7932]
+       fraction > 0  : 1.000  (82/82)
+
+  3. BETWEEN-DONOR rho  (donor-mean GOI vs donor-mean cDFG)
+       unconditional : +0.9524  p=5.085e-43  (n=82 donors)
+       | depth       : +0.9587  p=1.948e-45
+
+  +--------------------------------------------------------------+
+  |  Pooled rho        : +0.8174  (depth-partialled: +0.8124)   |
+  |  Within-donor med  : +0.7509  (depth-partialled: +0.7399)   |
+  |  Between-donor     : +0.9524  (depth-partialled: +0.9587)   |
+  +--------------------------------------------------------------+
+
+==========================================================================
+  C5 — Noise-floor simulation: expected IQR under true rho = 0.80
+==========================================================================
+  Simulating 500 replicates per donor at each donor's observed n_i.
+  If every donor had true rho = 0.80, the observed IQR would be:
+  Simulated  : median=+0.7850  IQR=[+0.7836, +0.7859]  width=0.0023
+  Observed   : median=+0.7509  IQR=[+0.6635, +0.8022]  width=0.1387
+
+  Observed IQR is substantially wider than simulated.
+  The spread reflects real between-donor heterogeneity in rho,
+  not just estimation noise at small n_i.
+
+==========================================================================
+  C6 — Per-DFG within-donor rho (median across donors)
+==========================================================================
+  gene        med_rho      q25      q75  n_donors
+  ------------------------------------------------
+  MT-ATP6     +0.6010  +0.5225  +0.7364        82
+  MT-CO2      +0.6676  +0.5921  +0.7589        82
+  MT-ND3      +0.6141  +0.5036  +0.7222        82
+  MT-ND4      +0.6220  +0.4864  +0.7043        82
+  MT-CYB      +0.5730  +0.5022  +0.6962        82
+  MT-ND1      +0.4921  +0.3901  +0.5917        82
+  MT-ND2      +0.5280  +0.4322  +0.6244        82
+  MT-CO1      +0.5593  +0.4990  +0.6443        82
+
+==========================================================================
+  C7 — VERDICT
+==========================================================================
+  Within-donor median = +0.7509 (>= 0.75)
+  The module is cell-level co-expression. The pooled rho is not
+  driven by Simpson's paradox. Parts 6/6b stand. The IP estimation
+  at cell level is valid, and the CI width is defensible.
+
+  VERDICT: PASS
+    pooled rho           = +0.8174
+    within-donor median  = +0.7509
+    between-donor rho    = +0.9524
+    depth-partialled:
+      pooled             = +0.8124
+      within-donor med   = +0.7399
+      between-donor      = +0.9587
+
+==========================================================================
+  Saving
+==========================================================================
+  saved: Part1_PreChecks/S1c_within_donor_rho.csv  (82 donors)
+  saved: Part1_PreChecks/S1c_within_donor_report.txt
+
+==========================================================================
+  PART 1c COMPLETE
+==========================================================================
+

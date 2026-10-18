@@ -1,0 +1,402 @@
+Part 12 rerun -- step 26
+Script: Part12_Fig19_Analysis.r
+Shared file: Part12_03_Config.r
+Run ID: 20261018-0053-fedora
+Start: 2026-10-18 00:53:24
+Machine: 49893fbaaa18 | R version 4.6.1 (2026-06-24)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 26-01 script saved in Part12_rerun | Part12_Fig19_Analysis.r
+
+Battery 5 config: Part12_rerun/Part12_Fig19_config.json | version 1
+Battery 5 readings: Part12_rerun/Part12_Preset_Readings_Battery5.md
+[PASS] 26-02 Battery 5 readings file present | Part12_rerun/Part12_Preset_Readings_Battery5.md
+
+Pre-set reading: Battery 5 definitions. | Part12_rerun/Part12_Preset_Readings_Battery5.md
+SECTION A -- the Battery 1 to 4 logs
+[PASS] 26-03 15A log: PASS, and its analysis file is in Part12_rerun | Part12_Fig15_Analysis.r present
+[PASS] 26-04 16A log: PASS, and its analysis file is in Part12_rerun | Part12_Fig16_Analysis.r present
+[PASS] 26-05 16F log: PASS, and its analysis file is in Part12_rerun | Part12_Fig16_Analysis.r present
+[PASS] 26-06 17AB log: PASS, and its analysis file is in Part12_rerun | Part12_Fig17_Analysis.r present
+[PASS] 26-07 17CD log: PASS, and its analysis file is in Part12_rerun | Part12_Fig17_Analysis.r present
+[PASS] 26-08 18A log: PASS, and its analysis file is in Part12_rerun | Part12_Fig18_Analysis.r present
+
+SECTION B -- the SA flag
+  input M4 NeoC obs_dataset          R_export_CP10K/Mic13_PVM3/neocortex/metadata/obs_dataset.csv | 137.5 MB
+  input M4 NonNeoC obs_dataset       R_export_CP10K/Mic13_PVM3/nonneocortex/metadata/obs_dataset.csv | 115.5 MB
+  input PVM_3 NeoC obs_dataset       R_export_CP10K/PVM3_all/neocortex/metadata/obs_dataset.csv | 127.5 MB
+  input PVM_3 NonNeoC obs_dataset    R_export_CP10K/PVM3_all/nonneocortex/metadata/obs_dataset.csv | 107.5 MB
+  input PVM_1 NeoC obs_dataset       R_export_CP10K/PVM1_all/neocortex/metadata/obs_dataset.csv | 127.5 MB
+  input PVM_1 NonNeoC obs_dataset    R_export_CP10K/PVM1_all/nonneocortex/metadata/obs_dataset.csv | 107.5 MB
+  input HKG8 NeoC obs_dataset        R_export_CP10K/HKG8_matched/neocortex/metadata/obs_dataset.csv | 137.5 MB
+  input HKG8 NonNeoC obs_dataset     R_export_CP10K/HKG8_matched/nonneocortex/metadata/obs_dataset.csv | 115.5 MB
+[PASS] 26-09 every SA value is a listed true or false value | values: n, y
+[PASS] 26-10 the SA flag is constant within donor | 84 donors | 0 with both values
+[PASS] 26-11 05_donors.csv listed in the 05_Units log | Part12_rerun/05_Units/05_donors.csv
+[PASS] 26-12 donor table carries this labels version | 643 donor rows
+[PASS] 26-13 every donor of the donor table has an SA value | 84 of 84 donors
+[PASS] 26-14 ADNC_rank takes only the listed values | values: 0, 1, 2, 3 | missing 0
+[PASS] 26-15 exactly 11 donors are flagged | 11 flagged
+[PASS] 26-16 every SA donor is in the donor table | 11 of 11
+[PASS] 26-17 every SA donor has ADNC_rank 3 (High) | H2033028:3 H2033033:3 H2033037:3 H2033038:3 H2033046:3 H2133009:3 H2133020:3 H2133033:3 H2133034:3 H2133039:3 H2133045:3
+[NOTE] SA donors | H20.33.028, H20.33.033, H20.33.037, H20.33.038, H20.33.046, H21.33.009, H21.33.020, H21.33.033, H21.33.034, H21.33.039, H21.33.045
+[NOTE] donors | 84 | SA 11 | High ADNC 42 | High ADNC not SA 31
+
+SECTION C -- frames
+[PASS] 26-18 05_units.csv listed in the 05_Units log | Part12_rerun/05_Units/05_units.csv
+[PASS] 26-19 unit table carries this labels version | 856 units
+[PASS] 26-20 Joined_17AB_units.csv listed in the 09_Fig17/17AB_Histology log | Part12_rerun/09_Fig17/17AB_Histology/Joined_17AB_units.csv
+[PASS] 26-21 the joined histology table holds the unit table's units in its order | 856 units
+  U|M4             donors  51 | SA  9 | pool  26 | testable | 1000 distinct draws of 1000
+  J19|M4           donors  51 | SA  9 | pool  26 | testable | 1000 distinct draws of 1000
+  JHU|M4           donors  51 | SA  9 | pool  26 | testable | 999 distinct draws of 1000
+  U|PVM_3          donors  83 | SA 11 | pool  31 | testable | 1000 distinct draws of 1000
+  J19|PVM_3        donors  83 | SA 11 | pool  31 | testable | 1000 distinct draws of 1000
+  JHU|PVM_3        donors  83 | SA 11 | pool  31 | testable | 1000 distinct draws of 1000
+  U|PVM_1          donors  66 | SA  9 | pool  29 | testable | 1000 distinct draws of 1000
+  J19|PVM_1        donors  66 | SA  9 | pool  29 | testable | 1000 distinct draws of 1000
+  JHU|PVM_1        donors  66 | SA  9 | pool  29 | testable | 1000 distinct draws of 1000
+  U|HKG8           donors  38 | SA  8 | pool  19 | testable | 997 distinct draws of 1000
+  J19|HKG8         donors  38 | SA  8 | pool  19 | testable | 992 distinct draws of 1000
+  JHU|HKG8         donors  38 | SA  8 | pool  19 | testable | 994 distinct draws of 1000
+  DN|M4|NeoC       donors  78 | SA 11 | pool  31 | testable | 1000 distinct draws of 1000
+  DN|M4|NonNeoC    donors  80 | SA 10 | pool  30 | testable | 1000 distinct draws of 1000
+  DN|PVM_3|NeoC    donors  84 | SA 11 | pool  31 | testable | 1000 distinct draws of 1000
+  DN|PVM_3|NonNeoC donors  83 | SA 11 | pool  30 | testable | 1000 distinct draws of 1000
+  DN|PVM_1|NeoC    donors  84 | SA 11 | pool  31 | testable | 1000 distinct draws of 1000
+  DN|PVM_1|NonNeoC donors  83 | SA 11 | pool  30 | testable | 999 distinct draws of 1000
+  DN|HKG8|NeoC     donors  74 | SA 10 | pool  31 | testable | 1000 distinct draws of 1000
+  DN|HKG8|NonNeoC  donors  77 | SA 10 | pool  29 | testable | 1000 distinct draws of 1000
+[PASS] 26-22 every frame with SA donors has a pool of at least k donors | 
+[PASS] 26-23 no draw removes an SA donor | 20000 draws
+
+SECTION D -- write
+[PASS] 26-24 tables written | 84 donors | 20 frames | 20000 draws
+
+Outputs:
+  Part12_rerun/11_Fig19/19_SADonors/SA_donors_19.csv | 0.0 MB
+  Part12_rerun/11_Fig19/19_SADonors/Frames_19.csv | 0.0 MB
+  Part12_rerun/11_Fig19/19_SADonors/NullDraws_19.csv | 2.5 MB
+Checks: 24 PASS, 0 FAIL, 0 WARN | duration 0.1 min
+VERDICT: PASS
+Part 12 rerun -- step 27
+Script: Part12_Fig19_Analysis.r
+Shared file: Part12_03_Config.r
+Run ID: 20261018-0053-fedora
+Start: 2026-10-18 00:53:33
+Machine: 49893fbaaa18 | R version 4.6.1 (2026-06-24)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6 | parallel 4.6.1
+Config: Part12_rerun/Part12_01_config.json | version 16
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 27-01 script saved in Part12_rerun | Part12_Fig19_Analysis.r
+
+Battery 5 config: Part12_rerun/Part12_Fig19_config.json | version 1
+Battery 5 readings: Part12_rerun/Part12_Preset_Readings_Battery5.md
+[PASS] 27-02 Battery 5 readings file present | Part12_rerun/Part12_Preset_Readings_Battery5.md
+
+Pre-set reading: Battery 5 definitions. | Part12_rerun/Part12_Preset_Readings_Battery5.md
+Pre-set reading: 19A. Unit-level donor structure: 16A, 16B and 16F between donors (section 27) | Part12_rerun/Part12_Preset_Readings_Battery5.md
+SECTION A -- inputs
+[PASS] 27-03 05_units.csv listed in the 05_Units log | Part12_rerun/05_Units/05_units.csv
+[PASS] 27-04 unit table carries this labels version | 856 units
+[PASS] 27-05 SA_donors_19.csv listed in the 11_Fig19/19_SADonors log | Part12_rerun/11_Fig19/19_SADonors/SA_donors_19.csv
+[PASS] 27-06 Frames_19.csv listed in the 11_Fig19/19_SADonors log | Part12_rerun/11_Fig19/19_SADonors/Frames_19.csv
+[PASS] 27-07 NullDraws_19.csv listed in the 11_Fig19/19_SADonors log | Part12_rerun/11_Fig19/19_SADonors/NullDraws_19.csv
+[PASS] 27-08 SA donors read from section 26 | 11 donors
+[PASS] 27-09 Stats_16A.csv listed in the 08_Fig16/16AB_DonorStructure log | Part12_rerun/08_Fig16/16AB_DonorStructure/Stats_16A.csv
+[PASS] 27-10 Stats_16A.csv carries the configured columns, config and labels version | 20 rows
+[PASS] 27-11 Stats_16B.csv listed in the 08_Fig16/16AB_DonorStructure log | Part12_rerun/08_Fig16/16AB_DonorStructure/Stats_16B.csv
+[PASS] 27-12 Stats_16B.csv carries the configured columns, config and labels version | 12 rows
+[PASS] 27-13 Stats_16F.csv listed in the 08_Fig16/16FG_LibraryFields log | Part12_rerun/08_Fig16/16FG_LibraryFields/Stats_16F.csv
+[PASS] 27-14 Stats_16F.csv carries the configured columns, config and labels version | 54 rows
+[NOTE] workers | 31 of 32 logical cores (PSOCK)
+
+SECTION B -- 16A, donor share against 10000 within-region shuffles
+[PASS] 27-15 16A: all-donor rows reproduce the Battery 1 to 4 stats file | 20 rows | 0 unmatched | 0 estimates, 0 counts differ | largest estimate difference 5.0e-16
+  M4     module_post_pct   donors  51 ->  42 | share  69.6% ->  70.8% | FDR 2.50e-04 -> 5.00e-04
+  M4     module_resid_tq4  donors  50 ->  42 | share  58.3% ->  68.7% | FDR 1.50e-03 -> 2.50e-04
+  M4     mito_log1p        donors  51 ->  42 | share  72.7% ->  69.7% | FDR 2.50e-04 -> 2.50e-04
+  M4     contamination     donors  51 ->  42 | share  56.3% ->  58.4% | FDR 1.75e-01 -> 2.21e-01
+  M4     ctrl_pct_null     donors  51 ->  42 | share  60.7% ->  61.6% | FDR 1.17e-03 -> 1.75e-03
+  PVM_3  module_post_pct   donors  83 ->  72 | share  73.2% ->  64.0% | FDR <=1.00e-04 -> <=1.00e-04
+  PVM_3  module_resid_tq4  donors  82 ->  72 | share  66.7% ->  63.5% | FDR <=1.00e-04 -> <=1.00e-04
+  PVM_3  mito_log1p        donors  83 ->  72 | share  66.7% ->  56.5% | FDR <=1.00e-04 -> <=1.00e-04
+  PVM_3  contamination     donors  83 ->  72 | share  37.1% ->  39.7% | FDR <=1.00e-04 -> <=1.00e-04
+  PVM_3  ctrl_pct_null     donors  83 ->  72 | share  40.8% ->  39.3% | FDR <=1.00e-04 -> <=1.00e-04
+  PVM_1  module_post_pct   donors  66 ->  57 | share  73.9% ->  58.5% | FDR 1.25e-04 -> 1.67e-04
+  PVM_1  module_resid_tq4  donors  65 ->  57 | share  66.1% ->  57.8% | FDR 1.25e-04 -> 1.67e-04
+  PVM_1  mito_log1p        donors  66 ->  57 | share  64.8% ->  47.3% | FDR 1.25e-04 -> 1.87e-03
+  PVM_1  contamination     donors  66 ->  57 | share  40.6% ->  43.4% | FDR 4.37e-02 -> 3.66e-02
+  PVM_1  ctrl_pct_null     donors  66 ->  57 | share  51.3% ->  54.5% | FDR 1.25e-04 -> 1.67e-04
+  HKG8   module_post_pct   donors  38 ->  30 | share  41.7% ->  39.9% | FDR 5.20e-01 -> 6.58e-01
+  HKG8   module_resid_tq4  donors  38 ->  30 | share  40.9% ->  39.9% | FDR 5.20e-01 -> 6.58e-01
+  HKG8   mito_log1p        donors  38 ->  30 | share  80.6% ->  74.2% | FDR 5.00e-04 -> 5.00e-04
+  HKG8   contamination     donors  38 ->  30 | share  64.8% ->  61.2% | FDR 1.12e-01 -> 1.39e-01
+  HKG8   ctrl_pct_null     donors  38 ->  30 | share  67.6% ->  62.2% | FDR 3.12e-02 -> 1.39e-01
+
+SECTION C -- 16B, split-half rs over 200 splits (B = 10000)
+[PASS] 27-16 16B: all-donor rows reproduce the Battery 1 to 4 stats file | 12 rows | 0 unmatched | 0 estimates, 0 counts differ | largest estimate difference 4.4e-16
+  M4     module_post_pct   donors  30 ->  23 | rs +0.692 -> +0.669 [+0.407, +0.825] | FDR 3.00e-04 -> 3.00e-04
+  M4     module_resid_tq4  donors  30 ->  23 | rs +0.469 -> +0.550 [+0.220, +0.786] | FDR 2.40e-03 -> 2.20e-03
+  M4     mito_log1p        donors  30 ->  23 | rs +0.733 -> +0.721 [+0.496, +0.845] | FDR 3.00e-04 -> 3.00e-04
+  PVM_3  module_post_pct   donors  80 ->  70 | rs +0.839 -> +0.778 [+0.670, +0.841] | FDR <=2.00e-04 -> <=2.00e-04
+  PVM_3  module_resid_tq4  donors  79 ->  70 | rs +0.790 -> +0.760 [+0.640, +0.838] | FDR <=2.00e-04 -> <=2.00e-04
+  PVM_3  mito_log1p        donors  80 ->  70 | rs +0.786 -> +0.712 [+0.612, +0.785] | FDR <=2.00e-04 -> <=2.00e-04
+  PVM_1  module_post_pct   donors  46 ->  37 | rs +0.721 -> +0.554 [+0.286, +0.734] | FDR <=2.00e-04 -> 6.00e-04
+  PVM_1  module_resid_tq4  donors  45 ->  37 | rs +0.615 -> +0.447 [+0.132, +0.692] | FDR <=2.00e-04 -> 1.29e-02
+  PVM_1  mito_log1p        donors  46 ->  37 | rs +0.617 -> +0.394 [+0.079, +0.627] | FDR <=2.00e-04 -> 1.62e-02
+  HKG8   module_post_pct   donors  22 ->  17 | rs +0.066 -> +0.172 [-0.216, +0.517] | FDR 9.70e-01 -> 3.89e-01
+  HKG8   module_resid_tq4  donors  22 ->  17 | rs +0.012 -> +0.205 [-0.249, +0.554] | FDR 9.70e-01 -> 3.89e-01
+  HKG8   mito_log1p        donors  22 ->  17 | rs +0.802 -> +0.735 [+0.440, +0.874] | FDR 6.00e-04 -> 6.00e-04
+
+SECTION D -- 16F between donors (field intronic), donor bootstrap (B = 10000)
+[PASS] 27-17 16F: all-donor rows reproduce the Battery 1 to 4 stats file | 27 rows | 0 unmatched | 0 estimates, 0 counts differ | largest estimate difference 4.4e-16
+[PASS] 27-18 16F: tasks rebuilt without the eleven equal the all-donor tasks less their rows | 16 tasks
+[PASS] 27-19 16F: the plain estimate vector follows the stats rows | 27 rows
+  M4     Module rs -0.518 -> -0.348 [-0.592, -0.045] | FDR 8.00e-04 -> 1.02e-01 | donors 51 -> 42
+  PVM_3  Module rs -0.690 -> -0.553 [-0.698, -0.362] | FDR 4.00e-04 -> 4.00e-04 | donors 83 -> 72
+  PVM_1  Module rs -0.576 -> -0.397 [-0.601, -0.144] | FDR 8.00e-04 -> 1.84e-02 | donors 66 -> 57
+  HKG8   Module rs -0.512 -> -0.428 [-0.719, -0.022] | FDR 1.28e-02 -> 8.88e-02 | donors 38 -> 30
+
+SECTION E -- the reading
+    16A M4                       Holds 4 | Neither 1
+    16A PVM_3                    Holds 5
+    16A PVM_1                    Holds 5
+    16A HKG8                     Holds 1 | Lost, beyond random removal 1 | Neither 3
+    16B M4                       Holds 3
+    16B PVM_3                    Holds 3
+    16B PVM_1                    Holds 3
+    16B HKG8                     Holds 1 | Neither 2
+    16F M4                       Lost, beyond random removal 3 | Neither 4
+    16F PVM_3                    Holds 3 | Lost, beyond random removal 1 | Neither 3
+    16F PVM_1                    Holds 1 | Lost, beyond random removal 2 | Lost, within random removal 1 | Neither 3
+    16F HKG8                     Lost, beyond random removal 1 | Lost, within random removal 2 | Neither 3
+
+SECTION F -- write
+[PASS] 27-20 stats and readout written | 16A 20 | 16B 12 | 16F 27 | readout 59 rows
+
+Outputs:
+  Part12_rerun/11_Fig19/19_UnitPanels/Stats_19_16A.csv | 0.0 MB
+  Part12_rerun/11_Fig19/19_UnitPanels/Stats_19_16B.csv | 0.0 MB
+  Part12_rerun/11_Fig19/19_UnitPanels/Stats_19_16F.csv | 0.0 MB
+  Part12_rerun/11_Fig19/19_UnitPanels/Readout_19_Units.csv | 0.0 MB
+  Part12_rerun/11_Fig19/19_UnitPanels/Null_19_Units.csv | 5.5 MB
+Checks: 20 PASS, 0 FAIL, 0 WARN | duration 1.8 min
+VERDICT: PASS
+Part 12 rerun -- step 28
+Script: Part12_Fig19_Analysis.r
+Shared file: Part12_03_Config.r
+Run ID: 20261018-0055-fedora
+Start: 2026-10-18 00:55:22
+Machine: 49893fbaaa18 | R version 4.6.1 (2026-06-24)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6 | parallel 4.6.1
+Config: Part12_rerun/Part12_01_config.json | version 16
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 28-01 script saved in Part12_rerun | Part12_Fig19_Analysis.r
+
+Battery 5 config: Part12_rerun/Part12_Fig19_config.json | version 1
+Battery 5 readings: Part12_rerun/Part12_Preset_Readings_Battery5.md
+[PASS] 28-02 Battery 5 readings file present | Part12_rerun/Part12_Preset_Readings_Battery5.md
+
+Pre-set reading: Battery 5 definitions. | Part12_rerun/Part12_Preset_Readings_Battery5.md
+Pre-set reading: 19B. Histology and clinical rows by class: 17A within donor, 17B between donors, 17C within donor, 15A, 17D, 18A (sections 28 and 29) | Part12_rerun/Part12_Preset_Readings_Battery5.md
+Pre-set reading: 19C. Verdicts with and without the eleven: 17C within donor, 17D, 18A (sections 28 and 29) | Part12_rerun/Part12_Preset_Readings_Battery5.md
+SECTION A -- inputs
+[PASS] 28-03 Joined_17AB_units.csv listed in the 09_Fig17/17AB_Histology log | Part12_rerun/09_Fig17/17AB_Histology/Joined_17AB_units.csv
+[PASS] 28-04 SA_donors_19.csv listed in the 11_Fig19/19_SADonors log | Part12_rerun/11_Fig19/19_SADonors/SA_donors_19.csv
+[PASS] 28-05 Frames_19.csv listed in the 11_Fig19/19_SADonors log | Part12_rerun/11_Fig19/19_SADonors/Frames_19.csv
+[PASS] 28-06 NullDraws_19.csv listed in the 11_Fig19/19_SADonors log | Part12_rerun/11_Fig19/19_SADonors/NullDraws_19.csv
+[PASS] 28-07 SA donors read from section 26 | 11 donors
+[PASS] 28-08 Stats_17A.csv listed in the 09_Fig17/17AB_Histology log | Part12_rerun/09_Fig17/17AB_Histology/Stats_17A.csv
+[PASS] 28-09 Stats_17A.csv carries the configured columns, config and labels version | 240 rows
+[PASS] 28-10 Stats_17B.csv listed in the 09_Fig17/17AB_Histology log | Part12_rerun/09_Fig17/17AB_Histology/Stats_17B.csv
+[PASS] 28-11 Stats_17B.csv carries the configured columns, config and labels version | 180 rows
+[PASS] 28-12 Stats_17C.csv listed in the 09_Fig17/17CE_ModuleVsMT log | Part12_rerun/09_Fig17/17CE_ModuleVsMT/Stats_17C.csv
+[PASS] 28-13 Stats_17C.csv carries the configured columns, config and labels version | 1120 rows
+[NOTE] workers | 31 of 32 logical cores (PSOCK)
+
+SECTION B -- all-donor reproduction
+[PASS] 28-14 17A: all-donor rows reproduce the Battery 1 to 4 stats file | 120 rows | 0 unmatched | 0 estimates, 0 counts differ | largest estimate difference 4.9e-16
+[PASS] 28-15 17B: all-donor rows reproduce the Battery 1 to 4 stats file | 120 rows | 0 unmatched | 0 estimates, 0 counts differ | largest estimate difference 5.0e-16
+[PASS] 28-16 17C: all-donor rows reproduce the Battery 1 to 4 stats file | 560 rows | 0 unmatched | 0 estimates, 0 counts differ | largest estimate difference 4.4e-15
+
+SECTION C -- without the eleven, donor bootstrap per frame (B = 10000)
+[PASS] 28-17 tasks rebuilt without the eleven equal the all-donor tasks less their rows | 464 values
+[NOTE] bootstrap time | 0.2 min
+
+SECTION D -- random removal (1000 draws per frame)
+[NOTE] random-removal time | 0.0 min
+
+SECTION E -- the reading
+    17A M4                       Lost, beyond random removal 1 | Neither 29
+    17A PVM_3                    Holds 13 | Gained 4 | Neither 13
+    17A PVM_1                    Gained 3 | Neither 27
+    17A HKG8                     Holds 1 | Gained 2 | Neither 27
+    17B M4                       Holds 4 | Gained 7 | Neither 19
+    17B PVM_3                    Holds 19 | Lost, beyond random removal 4 | Lost, within random removal 1 | Neither 6
+    17B PVM_1                    Lost, beyond random removal 7 | Lost, within random removal 2 | Neither 21
+    17B HKG8                     Holds 2 | Gained 1 | Neither 27
+    17C M4                       Holds 9 | Lost, beyond random removal 1 | Lost, within random removal 4 | Gained 1 | Neither 37 | Untestable 4
+    17C PVM_3                    Holds 12 | Lost, beyond random removal 4 | Lost, within random removal 1 | Neither 37 | Untestable 2
+    17C PVM_1                    Holds 5 | Lost, beyond random removal 1 | Gained 2 | Neither 44 | Untestable 4
+    17C HKG8                     Lost, within random removal 1 | Neither 43 | Untestable 12
+[PASS] 28-18 17C verdict tables are in the same model order | 112 models
+  17C M4     verdicts kept 22 of 28 | %MT only -> Neither; Neither -> %MT only; Both -> %MT only; Both -> %MT only; %MT only -> Neither; %MT only -> Neither
+  17C PVM_3  verdicts kept 23 of 28 | %MT only -> Neither; %MT only -> Neither; %MT only -> Neither; %MT only -> Neither; %MT only -> Neither
+  17C PVM_1  verdicts kept 25 of 28 | Neither -> %MT only; Neither -> %MT only; %MT only -> Neither
+  17C HKG8   verdicts kept 27 of 28 | %MT only -> Neither
+
+SECTION F -- write
+[PASS] 28-19 stats and readout written | 17A 120 | 17B 120 | 17C 560 | readout 464 rows
+
+Outputs:
+  Part12_rerun/11_Fig19/19_Histology/Stats_19_17A.csv | 0.0 MB
+  Part12_rerun/11_Fig19/19_Histology/Stats_19_17B.csv | 0.0 MB
+  Part12_rerun/11_Fig19/19_Histology/Stats_19_17C.csv | 0.1 MB
+  Part12_rerun/11_Fig19/19_Histology/Verdicts_19_17C.csv | 0.0 MB
+  Part12_rerun/11_Fig19/19_Histology/Readout_19_Histology.csv | 0.2 MB
+  Part12_rerun/11_Fig19/19_Histology/Null_19_Histology.csv | 49.8 MB
+Checks: 19 PASS, 0 FAIL, 0 WARN | duration 0.3 min
+VERDICT: PASS
+Part 12 rerun -- step 29
+Script: Part12_Fig19_Analysis.r
+Shared file: Part12_03_Config.r
+Run ID: 20261018-0055-fedora
+Start: 2026-10-18 00:55:39
+Machine: 49893fbaaa18 | R version 4.6.1 (2026-06-24)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6 | parallel 4.6.1
+Config: Part12_rerun/Part12_01_config.json | version 16
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 29-01 script saved in Part12_rerun | Part12_Fig19_Analysis.r
+
+Battery 5 config: Part12_rerun/Part12_Fig19_config.json | version 1
+Battery 5 readings: Part12_rerun/Part12_Preset_Readings_Battery5.md
+[PASS] 29-02 Battery 5 readings file present | Part12_rerun/Part12_Preset_Readings_Battery5.md
+
+Pre-set reading: Battery 5 definitions. | Part12_rerun/Part12_Preset_Readings_Battery5.md
+Pre-set reading: 19B. Histology and clinical rows by class: 17A within donor, 17B between donors, 17C within donor, 15A, 17D, 18A (sections 28 and 29) | Part12_rerun/Part12_Preset_Readings_Battery5.md
+Pre-set reading: 19C. Verdicts with and without the eleven: 17C within donor, 17D, 18A (sections 28 and 29) | Part12_rerun/Part12_Preset_Readings_Battery5.md
+SECTION A -- inputs
+[PASS] 29-03 05_donors.csv listed in the 05_Units log | Part12_rerun/05_Units/05_donors.csv
+[PASS] 29-04 donor table carries this labels version | 643 donor rows
+[PASS] 29-05 04_cell_labels.csv.gz listed in the 04_Labels log | Part12_rerun/04_Labels/04_cell_labels.csv.gz
+[PASS] 29-06 02_counts.mtx.gz listed in the 02_Extract log | Part12_rerun/02_Extract/02_counts.mtx.gz
+[PASS] 29-07 02_counts_genes.tsv listed in the 02_Extract log | Part12_rerun/02_Extract/02_counts_genes.tsv
+[PASS] 29-08 02_counts_cells.tsv listed in the 02_Extract log | Part12_rerun/02_Extract/02_counts_cells.tsv
+[PASS] 29-09 02_matched_sets.csv listed in the 02_Extract log | Part12_rerun/02_Extract/02_matched_sets.csv
+[PASS] 29-10 labels carry this labels version | checked
+[PASS] 29-11 count matrix, gene list and cell list agree | 37714 x 955
+[PASS] 29-12 every labelled cell is in the count matrix | 36967 cells
+[PASS] 29-13 SA_donors_19.csv listed in the 11_Fig19/19_SADonors log | Part12_rerun/11_Fig19/19_SADonors/SA_donors_19.csv
+[PASS] 29-14 Frames_19.csv listed in the 11_Fig19/19_SADonors log | Part12_rerun/11_Fig19/19_SADonors/Frames_19.csv
+[PASS] 29-15 NullDraws_19.csv listed in the 11_Fig19/19_SADonors log | Part12_rerun/11_Fig19/19_SADonors/NullDraws_19.csv
+[PASS] 29-16 SA donors read from section 26 | 11 donors
+[PASS] 29-17 Stats_15A.csv listed in the 07_Fig15/15AB_ContamDoublets log | Part12_rerun/07_Fig15/15AB_ContamDoublets/Stats_15A.csv
+[PASS] 29-18 Stats_15A.csv carries the configured columns, config and labels version | 432 rows
+[PASS] 29-19 Stats_17D.csv listed in the 09_Fig17/17CE_ModuleVsMT log | Part12_rerun/09_Fig17/17CE_ModuleVsMT/Stats_17D.csv
+[PASS] 29-20 Stats_17D.csv carries the configured columns, config and labels version | 216 rows
+[PASS] 29-21 Stats_18A.csv listed in the 10_Fig18/18A_NuclearPanels log | Part12_rerun/10_Fig18/18A_NuclearPanels/Stats_18A.csv
+[PASS] 29-22 Stats_18A.csv carries the configured columns, config and labels version | 6912 rows
+[NOTE] workers | 31 of 32 logical cores (PSOCK)
+
+SECTION B -- donor panel scores (section 22, all donors, held fixed)
+[NOTE] panel scores | 128 of 128 arm, region set and panel combinations scored
+
+SECTION C -- all-donor reproduction
+[PASS] 29-23 15A: all-donor rows reproduce the Battery 1 to 4 stats file | 432 rows | 0 unmatched | 0 estimates, 0 counts, 0 p differ | largest estimate difference 1.8e-14
+[PASS] 29-24 17D: all-donor rows reproduce the Battery 1 to 4 stats file | 216 rows | 0 unmatched | 0 estimates, 0 counts, 0 p differ | largest estimate difference 5.0e-14
+[PASS] 29-25 18A: all-donor rows reproduce the Battery 1 to 4 stats file | 6912 rows | 0 unmatched | 0 estimates, 0 counts, 0 p differ | largest estimate difference 5.1e-15
+
+SECTION D -- without the eleven
+
+SECTION E -- random removal (1000 draws per frame, fast refit)
+[PASS] 29-26 the fast refit equals lm() on the without-eleven run | 4896 coefficients | 0 differ | largest difference 6.7e-16
+[NOTE] random-removal time | 0.3 min
+
+SECTION F -- the reading
+    15A M4                       Holds 19 | Lost, beyond random removal 8 | Lost, within random removal 4 | Neither 5
+    15A PVM_3                    Holds 16 | Lost, beyond random removal 11 | Neither 9
+    15A PVM_1                    Holds 1 | Lost, beyond random removal 20 | Neither 15
+    15A HKG8                     Holds 2 | Lost, beyond random removal 1 | Lost, within random removal 2 | Neither 31
+    17D M4                       Holds 2 | Lost, within random removal 1 | Neither 33
+    17D PVM_3                    Neither 36
+    17D PVM_1                    Neither 36
+    17D HKG8                     Holds 4 | Lost, beyond random removal 10 | Neither 22
+    18A M4                       Holds 18 | Lost, beyond random removal 36 | Lost, within random removal 40 | Gained 2 | Neither 1056
+    18A PVM_3                    Holds 404 | Lost, beyond random removal 49 | Lost, within random removal 3 | Gained 1 | Neither 695
+    18A PVM_1                    Holds 2 | Lost, beyond random removal 415 | Lost, within random removal 1 | Gained 9 | Neither 725
+    18A HKG8                     Holds 15 | Lost, beyond random removal 26 | Lost, within random removal 23 | Gained 1 | Neither 1087
+  17D M4     verdicts kept 17 of 18 | Module only -> Neither: 1
+  17D PVM_3  verdicts kept 18 of 18
+  17D PVM_1  verdicts kept 8 of 18 | Unreadable -> Neither: 10
+  17D HKG8   verdicts kept 8 of 18 | %MT only -> Neither: 10
+  18A M4     verdicts kept 501 of 576 | Both -> Neither: 3; Both -> second only: 1; NE panel only -> Both: 1; NE panel only -> Neither: 2; second only -> Both: 1; second only -> Neither: 67
+  18A PVM_3  verdicts kept 523 of 576 | second only -> Both: 1; second only -> Neither: 52
+  18A PVM_1  verdicts kept 157 of 576 | NE panel only -> Both: 1; NE panel only -> Neither: 1; Neither -> Both: 1; second only -> Both: 1; second only -> NE panel only: 5; second only -> Neither: 410
+  18A HKG8   verdicts kept 527 of 576 | NE panel only -> Neither: 1; second only -> NE panel only: 1; second only -> Neither: 47
+
+SECTION G -- write
+[PASS] 29-27 stats and readout written | 15A 432 | 17D 216 | 18A 6912 | readout 4896 rows
+
+Outputs:
+  Part12_rerun/11_Fig19/19_Clinical/Stats_19_15A.csv | 0.1 MB
+  Part12_rerun/11_Fig19/19_Clinical/Stats_19_17D.csv | 0.0 MB
+  Part12_rerun/11_Fig19/19_Clinical/Stats_19_18A.csv | 1.4 MB
+  Part12_rerun/11_Fig19/19_Clinical/Verdicts_19_17D.csv | 0.0 MB
+  Part12_rerun/11_Fig19/19_Clinical/Verdicts_19_18A.csv | 0.3 MB
+  Part12_rerun/11_Fig19/19_Clinical/Readout_19_Clinical.csv | 1.9 MB
+  Part12_rerun/11_Fig19/19_Clinical/Null_19_Clinical.csv | 472.2 MB
+Checks: 27 PASS, 0 FAIL, 0 WARN | duration 0.6 min
+VERDICT: PASS
+Part 12 rerun -- step 30
+Script: Part12_Fig19_Analysis.r
+Shared file: Part12_03_Config.r
+Run ID: 20261018-0056-fedora
+Start: 2026-10-18 00:56:18
+Machine: 49893fbaaa18 | R version 4.6.1 (2026-06-24)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 30-01 script saved in Part12_rerun | Part12_Fig19_Analysis.r
+
+Battery 5 config: Part12_rerun/Part12_Fig19_config.json | version 1
+Battery 5 readings: Part12_rerun/Part12_Preset_Readings_Battery5.md
+[PASS] 30-02 Battery 5 readings file present | Part12_rerun/Part12_Preset_Readings_Battery5.md
+
+Pre-set reading: Influence. Leave-one-donor-out: 16A, 16B, 16F between donors (section 30) | Part12_rerun/Part12_Preset_Readings_Battery5.md
+SECTION A -- inputs
+[PASS] 30-03 05_units.csv listed in the 05_Units log | Part12_rerun/05_Units/05_units.csv
+[PASS] 30-04 unit table carries this labels version | 856 units
+[PASS] 30-05 SA_donors_19.csv listed in the 11_Fig19/19_SADonors log | Part12_rerun/11_Fig19/19_SADonors/SA_donors_19.csv
+[PASS] 30-06 Frames_19.csv listed in the 11_Fig19/19_SADonors log | Part12_rerun/11_Fig19/19_SADonors/Frames_19.csv
+[PASS] 30-07 NullDraws_19.csv listed in the 11_Fig19/19_SADonors log | Part12_rerun/11_Fig19/19_SADonors/NullDraws_19.csv
+[PASS] 30-08 SA donors read from section 26 | 11 donors
+[PASS] 30-09 Readout_19_Units.csv listed in the 11_Fig19/19_UnitPanels log | Part12_rerun/11_Fig19/19_UnitPanels/Readout_19_Units.csv
+
+SECTION B -- 83 donors removed in turn
+[PASS] 30-10 all-donor estimates equal section 27's readout | 59 rows | largest difference 5.0e-16
+
+SECTION C -- summary per row
+  16A|HKG8|units|module_post_pct|donor share of variance SA  8 | SA ranks 1;3;14;21;22;26;34;35 | median change SA -0.0014, other High -0.0017, rest -0.0024
+  16A|M4|units|module_post_pct|donor share of variance SA  9 | SA ranks 1;2;13;20;34;35;47;49;51 | median change SA -0.0001, other High -0.0002, rest -0.0019
+  16A|PVM_1|units|module_post_pct|donor share of variance SA  9 | SA ranks 1;2;3;4;5;40;53;55;64 | median change SA -0.0092, other High -0.0002, rest -0.0006
+  16A|PVM_3|units|module_post_pct|donor share of variance SA 11 | SA ranks 1;2;3;4;5;12;19;45;53;81;83 | median change SA -0.0025, other High -0.0002, rest -0.0003
+  16B|HKG8|donors|module_post_pct|split-half rs, median over splits SA  5 | SA ranks 2;3;10;21;22 | median change SA -0.0058, other High +0.0030, rest -0.0059
+  16B|M4|donors|module_post_pct|split-half rs, median over splits SA  7 | SA ranks 3;7;10;12;17;28;29 | median change SA -0.0031, other High +0.0010, rest -0.0089
+  16B|PVM_1|donors|module_post_pct|split-half rs, median over splits SA  9 | SA ranks 1;2;4;5;6;7;12;14;25 | median change SA -0.0158, other High +0.0026, rest +0.0057
+  16B|PVM_3|donors|module_post_pct|split-half rs, median over splits SA 10 | SA ranks 1;2;3;5;6;9;10;12;16;20 | median change SA -0.0049, other High -0.0008, rest +0.0006
+  16F|HKG8|between donors|module|intronic       SA  8 | SA ranks 3;7;9;13;21;22;23;29 | median change SA -0.0046, other High -0.0004, rest -0.0025
+  16F|M4|between donors|module|intronic         SA  9 | SA ranks 1;2;2;4;5;22;23;36;40 | median change SA -0.0232, other High +0.0026, rest +0.0027
+  16F|PVM_1|between donors|module|intronic      SA  9 | SA ranks 1;2;3;5;6;10;15;16;30 | median change SA -0.0182, other High -0.0004, rest +0.0058
+  16F|PVM_3|between donors|module|intronic      SA 11 | SA ranks 1;1;3;4;6;6;10;14;15;16;22 | median change SA -0.0110, other High +0.0015, rest +0.0005
+
+SECTION D -- write
+[PASS] 30-11 tables written | influence 3353 rows | summary 59 rows
+
+Outputs:
+  Part12_rerun/11_Fig19/19_Influence/Influence_19.csv | 0.7 MB
+  Part12_rerun/11_Fig19/19_Influence/Influence_19_summary.csv | 0.0 MB
+Checks: 11 PASS, 0 FAIL, 0 WARN | duration 0.1 min
+VERDICT: PASS
+Figure 19 analysis: sections 26 to 30 all PASS. Next: run Part12_Fig19_Plots.r

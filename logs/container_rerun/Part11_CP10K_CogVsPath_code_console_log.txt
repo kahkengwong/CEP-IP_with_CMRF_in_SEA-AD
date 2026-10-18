@@ -1,0 +1,90 @@
+
+==============================================================================
+  Part 11 -- cognition versus pathology, module against non-module
+  2026-10-18 00:39:49
+  Read : /data
+  Write: /data/Part11_Identity/Part11_CogVsPath
+==============================================================================
+
+STEP 1 -- Part 10h results objects
+  [PASS]  GR-11-01     4 of 4 arm RDS resolved under /data (Mic13_PVM3: Part10h_CP10K_M4_Prognosis_results.rds; PVM3_all: Part10h_CP10K_PVM_3_Prognosis_results.rds; PVM1_all: Part10h_CP10K_PVM_1_Prognosis_results.rds; HKG8_matched: Part10h_CP10K_HKG8_Prognosis_results.rds) | main arm from the tagged name 'Part10h_CP10K_M4_Prognosis_results.rds'
+
+STEP 2 -- donor frames
+  Mic13_PVM3    NeoC      69 donors complete on all six outcomes
+  Mic13_PVM3    NonNeoC   68 donors complete on all six outcomes
+  PVM3_all      NeoC      69 donors complete on all six outcomes
+  PVM3_all      NonNeoC   68 donors complete on all six outcomes
+  PVM1_all      NeoC      69 donors complete on all six outcomes
+  PVM1_all      NonNeoC   68 donors complete on all six outcomes
+  HKG8_matched  NeoC      69 donors complete on all six outcomes
+  HKG8_matched  NonNeoC   68 donors complete on all six outcomes
+  [PASS]  GR-11-02     8 arm/dataset frame(s) on the common donor set; nothing skipped
+
+STEP 3 -- section A, shared-component ratio
+  Mic13_PVM3    NeoC     done
+  Mic13_PVM3    NonNeoC  done
+  PVM3_all      NeoC     done
+  PVM3_all      NonNeoC  done
+  PVM1_all      NeoC     done
+  PVM1_all      NonNeoC  done
+  HKG8_matched  NeoC     done
+  HKG8_matched  NonNeoC  done
+  [WARN]  GR-11-03     38 of 48 ratio rows unstable (denominator below 0.10 in more than 10% of resamples); boot_below_floor non-zero on 46 rows; real-arm cognition rows covering 100%: 10 of 10 (2 without a finite interval)
+
+STEP 4 -- section B, the contrast
+  Mic13_PVM3    NeoC     done
+  Mic13_PVM3    NonNeoC  done
+  PVM3_all      NeoC     done
+  PVM3_all      NonNeoC  done
+  PVM1_all      NeoC     done
+  PVM1_all      NonNeoC  done
+  HKG8_matched  NeoC     done
+  HKG8_matched  NonNeoC  done
+  [PASS]  GR-11-04     6 of 48 contrast rows significant after BH within arm x dataset (Mic13_PVM3/NeoC MMSE; Mic13_PVM3/NeoC CASI; PVM3_all/NeoC CASI; PVM3_all/NonNeoC CASI; PVM1_all/NonNeoC MMSE; PVM1_all/NonNeoC CASI)
+  [WARN]  GR-11-08     42 of 48 rows non-significant with |delta| below the minimum effect detectable at 80% power
+  [PASS]  GR-11-07     control arm HKG8_matched: 0 of 12 contrast rows significant after BH
+
+STEP 5 -- section C, cognition-to-pathology balance
+  Mic13_PVM3    NeoC     module 1.24  non-module 0.50  diff 0.74
+  Mic13_PVM3    NonNeoC  module 1.24  non-module 1.23  diff 0.01
+  PVM3_all      NeoC     module 1.17  non-module 0.73  diff 0.43
+  PVM3_all      NonNeoC  module 1.23  non-module 0.68  diff 0.54
+  PVM1_all      NeoC     module 1.20  non-module 0.76  diff 0.44
+  PVM1_all      NonNeoC  module 1.66  non-module -0.31  diff 1.97
+  HKG8_matched  NeoC     module 0.87  non-module 1.03  diff -0.15
+  HKG8_matched  NonNeoC  module 1.05  non-module 0.73  diff 0.32
+  [PASS]  GR-11-05     balance difference significant on 2 of 8 arm/dataset rows (Mic13_PVM3/NeoC; PVM1_all/NonNeoC); pooled BH over 8 rows: 1 significant
+
+STEP 6 -- section D, per-outcome donor sets
+  [WARN]  GR-11-06     common against per-outcome donor sets: 4 sign flip(s), 1 verdict disagreement(s) of 48 rows; donors gained 0 to 15
+
+STEP 7 -- figures
+  Part11_CP10K_F1_Contrast
+  Part11_CP10K_F2_Paired
+  Part11_CP10K_F3_Balance
+  Part11_CP10K_F4_SharedRatio
+  Part11_CP10K_F5_Power
+
+STEP 8 -- output
+  Part11_CP10K_CogVsPath.xlsx
+  [PASS]  GR-11-09     5 of 5 figures written as PDF and PNG; workbook written; RDS written to /data/Part11_Identity/Part11_CogVsPath
+
+========================================================================
+  Total : 9
+  PASS  : 6
+  WARN  : 3
+  FAIL  : 0
+========================================================================
+
+Output directory: /data/Part11_Identity/Part11_CogVsPath 
+Warning messages:
+1: The `fatten` argument of `geom_pointrange()` is deprecated as of ggplot2 4.0.0.
+ℹ Please use the `size` aesthetic instead. 
+2: Removed 6 rows containing missing values or values outside the scale range
+(`geom_segment()`). 
+3: Removed 12 rows containing missing values or values outside the scale range
+(`geom_point()`). 
+4: Removed 6 rows containing missing values or values outside the scale range
+(`geom_segment()`). 
+5: Removed 12 rows containing missing values or values outside the scale range
+(`geom_point()`). 

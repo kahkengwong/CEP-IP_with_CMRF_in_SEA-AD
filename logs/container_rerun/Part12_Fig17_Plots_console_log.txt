@@ -1,0 +1,60 @@
+Part 12 rerun -- step 21
+Script: Part12_Fig17_Plots.r
+Shared file: Part12_03_Config.r
+Run ID: 20261018-0052-fedora
+Start: 2026-10-18 00:52:42
+Machine: 49893fbaaa18 | R version 4.6.1 (2026-06-24)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6 | ggplot2 4.0.3 | gtable 0.3.6
+Config: Part12_rerun/Part12_01_config.json | version 16
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 21-01 script saved in Part12_rerun | Part12_Fig17_Plots.r
+
+SECTION A -- inputs
+[PASS] 21-02 17AB_Histology log was written by Part12_Fig17_Analysis.r | Script: Part12_Fig17_Analysis.r
+[PASS] 21-03 17CE_ModuleVsMT log was written by Part12_Fig17_Analysis.r | Script: Part12_Fig17_Analysis.r
+[PASS] 21-04 shared helpers identical to Part12_Fig17_Analysis.r | p12_17_families same | p12_17_verdict same
+[PASS] 21-05 Stats_17A.csv listed in the 09_Fig17/17AB_Histology log | Part12_rerun/09_Fig17/17AB_Histology/Stats_17A.csv
+[PASS] 21-06 Stats_17B.csv listed in the 09_Fig17/17AB_Histology log | Part12_rerun/09_Fig17/17AB_Histology/Stats_17B.csv
+[PASS] 21-07 Stats_S12.csv listed in the 09_Fig17/17AB_Histology log | Part12_rerun/09_Fig17/17AB_Histology/Stats_S12.csv
+[PASS] 21-08 Stats_S12_measures.csv listed in the 09_Fig17/17AB_Histology log | Part12_rerun/09_Fig17/17AB_Histology/Stats_S12_measures.csv
+[PASS] 21-09 Plot_S12_counts.csv listed in the 09_Fig17/17AB_Histology log | Part12_rerun/09_Fig17/17AB_Histology/Plot_S12_counts.csv
+[PASS] 21-10 Stats_17C.csv listed in the 09_Fig17/17CE_ModuleVsMT log | Part12_rerun/09_Fig17/17CE_ModuleVsMT/Stats_17C.csv
+[PASS] 21-11 Stats_17D.csv listed in the 09_Fig17/17CE_ModuleVsMT log | Part12_rerun/09_Fig17/17CE_ModuleVsMT/Stats_17D.csv
+[PASS] 21-12 Stats_17E.csv listed in the 09_Fig17/17CE_ModuleVsMT log | Part12_rerun/09_Fig17/17CE_ModuleVsMT/Stats_17E.csv
+[PASS] 21-13 Plot_17C_verdicts.csv listed in the 09_Fig17/17CE_ModuleVsMT log | Part12_rerun/09_Fig17/17CE_ModuleVsMT/Plot_17C_verdicts.csv
+[PASS] 21-14 Plot_17D_verdicts.csv listed in the 09_Fig17/17CE_ModuleVsMT log | Part12_rerun/09_Fig17/17CE_ModuleVsMT/Plot_17D_verdicts.csv
+[PASS] 21-15 17C verdicts follow from Stats_17C | 224 rows
+[PASS] 21-16 17D verdicts follow from Stats_17D | 72 rows
+[PASS] 21-17 S12 family medians follow from the per-measure rs | 280 family rows
+[PASS] 21-18 S12 tested counts follow from the per-measure rs | 280 rows
+[PASS] 21-19 every figure label is ASCII | 40 labels
+[PASS] 21-20 figure script text is ASCII | 651 lines
+
+SECTION B -- figures
+[PASS] 21-21 Fig17A_microglial_shape drawn | pdf and png
+[PASS] 21-22 Fig17B_cps drawn | pdf and png
+[PASS] 21-23 Fig17C_duel_histology drawn | pdf and png
+[PASS] 21-24 Fig17D_duel_clinical drawn | pdf and png
+[PASS] 21-25 Fig17E_collinearity drawn | pdf and png
+[PASS] 21-26 FigS12A_stain_families drawn | pdf and png
+[PASS] 21-27 FigS12B_module_minus_mt drawn | pdf and png
+
+
+Outputs:
+  Part12_rerun/09_Fig17/Fig17/Fig17A_microglial_shape.pdf | 0.0 MB
+  Part12_rerun/09_Fig17/Fig17/Fig17A_microglial_shape.png | 0.2 MB
+  Part12_rerun/09_Fig17/Fig17/Fig17B_cps.pdf | 0.0 MB
+  Part12_rerun/09_Fig17/Fig17/Fig17B_cps.png | 0.5 MB
+  Part12_rerun/09_Fig17/Fig17/Fig17C_duel_histology.pdf | 0.0 MB
+  Part12_rerun/09_Fig17/Fig17/Fig17C_duel_histology.png | 0.3 MB
+  Part12_rerun/09_Fig17/Fig17/Fig17D_duel_clinical.pdf | 0.0 MB
+  Part12_rerun/09_Fig17/Fig17/Fig17D_duel_clinical.png | 0.2 MB
+  Part12_rerun/09_Fig17/Fig17/Fig17E_collinearity.pdf | 0.0 MB
+  Part12_rerun/09_Fig17/Fig17/Fig17E_collinearity.png | 0.3 MB
+  Part12_rerun/09_Fig17/Fig17/FigS12A_stain_families.pdf | 0.0 MB
+  Part12_rerun/09_Fig17/Fig17/FigS12A_stain_families.png | 0.3 MB
+  Part12_rerun/09_Fig17/Fig17/FigS12B_module_minus_mt.pdf | 0.0 MB
+  Part12_rerun/09_Fig17/Fig17/FigS12B_module_minus_mt.png | 0.2 MB
+Checks: 27 PASS, 0 FAIL, 0 WARN | duration 0.0 min
+VERDICT: PASS
+Figure 17: section 21 PASS. Figures in Part12_rerun/09_Fig17/Fig17

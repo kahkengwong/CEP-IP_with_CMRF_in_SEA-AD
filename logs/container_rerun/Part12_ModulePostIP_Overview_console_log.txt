@@ -1,0 +1,101 @@
+Part 12 rerun -- step SF
+Script: Part12_ModulePostIP_Overview.r
+Shared file: Part12_03_Config.r
+Run ID: 20261018-0056-fedora
+Start: 2026-10-18 00:56:45
+Machine: 49893fbaaa18 | R version 4.6.1 (2026-06-24)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] SF-01 script saved in Part12_rerun | Part12_ModulePostIP_Overview.r
+
+SECTION A -- inputs
+[PASS] SF-02 04_module_cuts.csv listed in the 04_Labels log | Part12_rerun/04_Labels/04_module_cuts.csv
+[PASS] SF-03 05_donors.csv listed in the 05_Units log | Part12_rerun/05_Units/05_donors.csv
+[PASS] SF-04 cut table and donor table carry this labels version | 2026-09-06_module-pool
+[PASS] SF-05 Module post-IP% denominator is the supertype | supertype
+
+SECTION B -- cell groups
+[PASS] SF-06 M4 NeoC labelled cells = Module + non-Module post + non-Module pre | 2130 = 1656 + 128 + 346
+[PASS] SF-07 M4 NeoC Module post-IP cells in the cut table = sum over donors | 855 against 855
+[PASS] SF-08 M4 NeoC labelled cells in the cut table = sum over donors | 2130 against 2130
+[PASS] SF-09 M4 NeoC supertype cells cover the labelled cells | 16425 supertype, 2130 labelled
+[PASS] SF-10 M4 NonNeoC labelled cells = Module + non-Module post + non-Module pre | 1987 = 1474 + 163 + 350
+[PASS] SF-11 M4 NonNeoC Module post-IP cells in the cut table = sum over donors | 776 against 776
+[PASS] SF-12 M4 NonNeoC labelled cells in the cut table = sum over donors | 1987 against 1987
+[PASS] SF-13 M4 NonNeoC supertype cells cover the labelled cells | 13013 supertype, 1987 labelled
+[PASS] SF-14 PVM_3 NeoC labelled cells = Module + non-Module post + non-Module pre | 13331 = 9454 + 970 + 2907
+[PASS] SF-15 PVM_3 NeoC Module post-IP cells in the cut table = sum over donors | 4910 against 4910
+[PASS] SF-16 PVM_3 NeoC labelled cells in the cut table = sum over donors | 13331 against 13331
+[PASS] SF-17 PVM_3 NeoC supertype cells cover the labelled cells | 16707 supertype, 13331 labelled
+[PASS] SF-18 PVM_3 NonNeoC labelled cells = Module + non-Module post + non-Module pre | 11132 = 7735 + 1149 + 2248
+[PASS] SF-19 PVM_3 NonNeoC Module post-IP cells in the cut table = sum over donors | 4111 against 4111
+[PASS] SF-20 PVM_3 NonNeoC labelled cells in the cut table = sum over donors | 11132 against 11132
+[PASS] SF-21 PVM_3 NonNeoC supertype cells cover the labelled cells | 13098 supertype, 11132 labelled
+[PASS] SF-22 PVM_1 NeoC labelled cells = Module + non-Module post + non-Module pre | 3218 = 2202 + 206 + 810
+[PASS] SF-23 PVM_1 NeoC Module post-IP cells in the cut table = sum over donors | 1188 against 1188
+[PASS] SF-24 PVM_1 NeoC labelled cells in the cut table = sum over donors | 3218 against 3218
+[PASS] SF-25 PVM_1 NeoC supertype cells cover the labelled cells | 4596 supertype, 3218 labelled
+[PASS] SF-26 PVM_1 NonNeoC labelled cells = Module + non-Module post + non-Module pre | 2658 = 1936 + 154 + 568
+[PASS] SF-27 PVM_1 NonNeoC Module post-IP cells in the cut table = sum over donors | 1047 against 1047
+[PASS] SF-28 PVM_1 NonNeoC labelled cells in the cut table = sum over donors | 2658 against 2658
+[PASS] SF-29 PVM_1 NonNeoC supertype cells cover the labelled cells | 3313 supertype, 2658 labelled
+[PASS] SF-30 HKG8 NeoC labelled cells = Module + non-Module post + non-Module pre | 1432 = 526 + 460 + 446
+[PASS] SF-31 HKG8 NeoC Module post-IP cells in the cut table = sum over donors | 289 against 289
+[PASS] SF-32 HKG8 NeoC labelled cells in the cut table = sum over donors | 1432 against 1432
+[PASS] SF-33 HKG8 NeoC supertype cells cover the labelled cells | 16243 supertype, 1432 labelled
+[PASS] SF-34 HKG8 NonNeoC labelled cells = Module + non-Module post + non-Module pre | 1079 = 431 + 300 + 348
+[PASS] SF-35 HKG8 NonNeoC Module post-IP cells in the cut table = sum over donors | 249 against 249
+[PASS] SF-36 HKG8 NonNeoC labelled cells in the cut table = sum over donors | 1079 against 1079
+[PASS] SF-37 HKG8 NonNeoC supertype cells cover the labelled cells | 12894 supertype, 1079 labelled
+[PASS] SF-38 cell-group table is ASCII | checked
+
+SECTION C -- Module post-IP% per donor
+[PASS] SF-39 donor Module post-IP% = 100 x n_post / n_super | 643 donor rows | max |difference| 5e-14
+[NOTE] M4 NeoC | n 78 | median 2.66 | mean 4.44 | IQR 0.71-5.72 | range 0.00-23.64 | at 0%: 14 | skewness G1 1.72 | quartile skewness 0.22
+[NOTE] M4 NonNeoC | n 80 | median 3.61 | mean 5.08 | IQR 0.93-6.43 | range 0.00-27.13 | at 0%: 15 | skewness G1 1.82 | quartile skewness 0.03
+[NOTE] PVM_3 NeoC | n 84 | median 16.88 | mean 24.59 | IQR 5.92-38.46 | range 0.00-93.15 | at 0%: 4 | skewness G1 1.13 | quartile skewness 0.33
+[NOTE] PVM_3 NonNeoC | n 83 | median 22.55 | mean 30.29 | IQR 8.35-38.05 | range 0.00-100.00 | at 0%: 3 | skewness G1 1.10 | quartile skewness 0.04
+[NOTE] PVM_1 NeoC | n 84 | median 15.39 | mean 24.53 | IQR 5.45-35.88 | range 0.00-93.75 | at 0%: 12 | skewness G1 1.29 | quartile skewness 0.35
+[NOTE] PVM_1 NonNeoC | n 83 | median 24.14 | mean 29.14 | IQR 7.42-45.01 | range 0.00-100.00 | at 0%: 12 | skewness G1 1.14 | quartile skewness 0.11
+[NOTE] HKG8 NeoC | n 74 | median 1.38 | mean 1.62 | IQR 0.07-2.51 | range 0.00-7.21 | at 0%: 19 | skewness G1 1.10 | quartile skewness -0.08
+[NOTE] HKG8 NonNeoC | n 77 | median 1.56 | mean 2.17 | IQR 0.62-2.98 | range 0.00-12.23 | at 0%: 14 | skewness G1 1.85 | quartile skewness 0.20
+
+SECTION C2 -- SA donors and the tail (descriptive)
+[PASS] SF-40 SA_donors_19.csv listed in the 11_Fig19/19_SADonors log | Part12_rerun/11_Fig19/19_SADonors/SA_donors_19.csv
+[PASS] SF-41 Frames_19.csv listed in the 11_Fig19/19_SADonors log | Part12_rerun/11_Fig19/19_SADonors/Frames_19.csv
+[PASS] SF-42 NullDraws_19.csv listed in the 11_Fig19/19_SADonors log | Part12_rerun/11_Fig19/19_SADonors/NullDraws_19.csv
+[PASS] SF-43 Battery 5 lists eleven SA donors | 11 listed
+[NOTE] SA donors | H20.33.028, H20.33.033, H20.33.037, H20.33.038, H20.33.046, H21.33.009, H21.33.020, H21.33.033, H21.33.034, H21.33.039, H21.33.045
+[PASS] SF-44 DN|M4|NeoC: Battery 5 frame has the same donors and SA count | donors 78 against 78 | k 11 against 11
+[NOTE] M4 NeoC | k 11 | G1 1.72 all, 2.18 without SA | random removal 5-95% 1.61-2.01 (1000 draws) | p_low 0.996 | SA in top 10%: 4 of 8
+[PASS] SF-45 DN|M4|NonNeoC: Battery 5 frame has the same donors and SA count | donors 80 against 80 | k 10 against 10
+[NOTE] M4 NonNeoC | k 10 | G1 1.82 all, 2.24 without SA | random removal 5-95% 1.61-2.01 (1000 draws) | p_low 1.000 | SA in top 10%: 3 of 8
+[PASS] SF-46 DN|PVM_3|NeoC: Battery 5 frame has the same donors and SA count | donors 84 against 84 | k 11 against 11
+[NOTE] PVM_3 NeoC | k 11 | G1 1.13 all, 1.03 without SA | random removal 5-95% 1.07-1.35 (1000 draws) | p_low 0.013 | SA in top 10%: 6 of 9
+[PASS] SF-47 DN|PVM_3|NonNeoC: Battery 5 frame has the same donors and SA count | donors 83 against 83 | k 11 against 11
+[NOTE] PVM_3 NonNeoC | k 11 | G1 1.10 all, 1.23 without SA | random removal 5-95% 1.00-1.27 (1000 draws) | p_low 0.873 | SA in top 10%: 6 of 9
+[PASS] SF-48 DN|PVM_1|NeoC: Battery 5 frame has the same donors and SA count | donors 84 against 84 | k 11 against 11
+[NOTE] PVM_1 NeoC | k 11 | G1 1.29 all, 1.50 without SA | random removal 5-95% 1.19-1.41 (1000 draws) | p_low 0.996 | SA in top 10%: 7 of 9
+[PASS] SF-49 DN|PVM_1|NonNeoC: Battery 5 frame has the same donors and SA count | donors 83 against 83 | k 11 against 11
+[NOTE] PVM_1 NonNeoC | k 11 | G1 1.14 all, 1.17 without SA | random removal 5-95% 1.02-1.24 (1000 draws) | p_low 0.779 | SA in top 10%: 7 of 9
+[PASS] SF-50 DN|HKG8|NeoC: Battery 5 frame has the same donors and SA count | donors 74 against 74 | k 10 against 10
+[NOTE] HKG8 NeoC | k 10 | G1 1.10 all, 1.31 without SA | random removal 5-95% 0.69-1.24 (1000 draws) | p_low 0.993 | SA in top 10%: 3 of 8
+[PASS] SF-51 DN|HKG8|NonNeoC: Battery 5 frame has the same donors and SA count | donors 77 against 77 | k 10 against 10
+[NOTE] HKG8 NonNeoC | k 10 | G1 1.85 all, 1.82 without SA | random removal 5-95% 1.10-1.95 (1000 draws) | p_low 0.721 | SA in top 10%: 0 of 8
+
+SECTION D -- figures
+[PASS] SF-52 SF_A_cell_groups drawn | pdf and png
+[PASS] SF-53 SF_B_donor_histogram drawn | pdf and png
+[NOTE] HKG8 colour in panel B | #7F7F7F (neutral mid grey) in place of #B8B8B8
+
+Outputs:
+  Part12_rerun/SF_ModulePostIP/SF_cell_groups.csv | 0.0 MB
+  Part12_rerun/SF_ModulePostIP/SF_donor_summary.csv | 0.0 MB
+  Part12_rerun/SF_ModulePostIP/SF_sa_tail.csv | 0.0 MB
+  Part12_rerun/SF_ModulePostIP/SF_A_cell_groups.pdf | 0.0 MB
+  Part12_rerun/SF_ModulePostIP/SF_A_cell_groups.png | 0.2 MB
+  Part12_rerun/SF_ModulePostIP/SF_B_donor_histogram.pdf | 0.0 MB
+  Part12_rerun/SF_ModulePostIP/SF_B_donor_histogram.png | 0.4 MB
+Checks: 53 PASS, 0 FAIL, 0 WARN | duration 0.0 min
+VERDICT: PASS

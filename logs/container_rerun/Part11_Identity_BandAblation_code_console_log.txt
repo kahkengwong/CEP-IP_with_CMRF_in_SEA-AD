@@ -1,0 +1,146 @@
+Loading required package: nlme
+This is mgcv 1.9-4. For overview type '?mgcv'.
+============================================================================
+Part 11 Identity -- band ablation. Started 2026-10-18 00:44:51
+============================================================================
+  M4         NeoC     n= 2130 IP_y=1.8748 cover=0.777 | module n: A0  1656  A1  1656  A2  1658  A3  1656
+  M4         NonNeoC  n= 1987 IP_y=2.0333 cover=0.742 | module n: A0  1474  A1  1474  A2  1462  A3  1474
+  PVM_3_all  NeoC     n=13331 IP_y=1.6648 cover=0.709 | module n: A0  9454  A1  9454  A2  9467  A3  9454
+  PVM_3_all  NonNeoC  n=11132 IP_y=1.8880 cover=0.695 | module n: A0  7735  A1  7735  A2  7754  A3  7735
+  PVM_1_all  NeoC     n= 3218 IP_y=1.5280 cover=0.684 | module n: A0  2202  A1  2202  A2  2208  A3  2202
+  PVM_1_all  NonNeoC  n= 2658 IP_y=1.8372 cover=0.728 | module n: A0  1936  A1  1936  A2  1944  A3  1936
+  HKG8       NeoC     n= 1432 IP_y=1.2477 cover=0.367 | module n: A0   526  A1   526  A2   528  A3   526
+  HKG8       NonNeoC  n= 1079 IP_y=1.1755 cover=0.399 | module n: A0   431  A1   431  A2   435  A3   431
+
+MEDIAN JACCARD AGAINST A3_CMRF, by rung
+  three real groups  A0_OLS           median 0.821  range 0.792 - 0.875
+  three real groups  A1_spline_fixed  median 0.798  range 0.754 - 0.857
+  three real groups  A2_spline_local  median 0.748  range 0.688 - 0.813
+  HKG8 control       A0_OLS           median 0.197  range 0.145 - 0.249
+  HKG8 control       A1_spline_fixed  median 0.182  range 0.147 - 0.216
+  HKG8 control       A2_spline_local  median 0.188  range 0.154 - 0.221
+  clinical M4: /data/Part10h_Prognosis/Part10h_Prognosis_Mic13_PVM3/Part10h_CP10K_M4_Prognosis.xlsx
+  Donor_Table columns: donor_id | Thal_num | CERAD_num | CAA_num | ADNC_rank | Braak_num | APOE_e4_dose | CogStatus_num | MMSE_num | Age_num | Age_censored | Sex_num | PMI_num | RIN_num | BrainPH_num | BrainWeight_num | Lewy_binary | Severe_flag
+  clinical PVM_3_all: /data/Part10h_Prognosis/Part10h_Prognosis_PVM_3/Part10h_CP10K_PVM_3_Prognosis.xlsx
+  clinical PVM_1_all: /data/Part10h_Prognosis/Part10h_Prognosis_PVM_1/Part10h_CP10K_PVM_1_Prognosis.xlsx
+  clinical HKG8: /data/Part10h_Prognosis/Part10h_Prognosis_HKG8/Part10h_CP10K_HKG8_Prognosis.xlsx
+  donor_clinical: /data/R_export_CP10K/shared/donor_clinical.csv
+  donor_clinical columns: Donor ID | Overall AD neuropathological Change | Braak | CERAD score | Thal | Cognitive Status | APOE Genotype | Last MMSE Score | Age at Death | Overall CAA Score | PMI | RIN | Brain pH | Fresh Brain Weight | Severely Affected Donor
+  Part 10h prop_df for M4: NeoC, NonNeoC from /data/Part10h_Prognosis/Part10h_Prognosis_Mic13_PVM3/Part10h_CP10K_M4_Prognosis_results.rds (pinned)
+  Part 10h prop_df for PVM_3_all: NeoC, NonNeoC from /data/Part10h_Prognosis/Part10h_Prognosis_PVM_3/Part10h_CP10K_PVM_3_Prognosis_results.rds (beside the workbook)
+  Part 10h prop_df for PVM_1_all: NeoC, NonNeoC from /data/Part10h_Prognosis/Part10h_Prognosis_PVM_1/Part10h_CP10K_PVM_1_Prognosis_results.rds (beside the workbook)
+  Part 10h prop_df for HKG8: NeoC, NonNeoC from /data/Part10h_Prognosis/Part10h_Prognosis_HKG8/Part10h_CP10K_HKG8_Prognosis_results.rds (beside the workbook)
+  prop_df columns: donor_id | n_total | pct_post | pct_pre | pct_module_all | pct_any_post | pct_excl_post | pct_excl_pre | pct_excl | pct_mpo_post | pct_mpo_pre | Donor ID | Overall AD neuropathological Change | Braak | CERAD score | Thal | Cognitive Status | APOE Genotype | Last MMSE Score | Age at Death | Overall CAA Score | PMI | RIN | Brain pH | Fresh Brain Weight | Severely Affected Donor | ADNC_rank | Braak_num | Thal_num | CERAD_num | CAA_num | CogStatus_num | APOE_e4_dose | MMSE_num | Age_num | Age_censored | Sex_raw | PMI_num | RIN_num | BrainPH_num | BrainWeight_num | Lewy_raw | Severe_raw | Sex_num | Lewy_binary | Severe_flag | CASI_num | MOCA_num | MMSEint_num | CASIint_num | EduYears_num | LATE_num | LewyFull_num | Athero_num | Arteriolo_num | Microinf_num | MitoFrac_num | nUMI_num | nGene_num | Doublet_num | Satur_num | Study_num | IntronExon_num
+  resolved: donor=donor_id | outcomes=MMSE_num,CASI_num | cov4=Age_num,APOE_e4_dose,Sex_num,PMI_num | BTC=Braak_num,Thal_num,CERAD_num
+
+DENOMINATOR: donor's supertype cells (Part 10h prop_df n_total)
+  M4         NeoC     donors  84 (no arm cell:  6) | A3 vs Part 10h pct_post: rs 1.0000, max diff 0.000 pp
+  M4         NonNeoC  donors  83 (no arm cell:  3) | A3 vs Part 10h pct_post: rs 1.0000, max diff 0.000 pp
+  PVM_3_all  NeoC     donors  84 (no arm cell:  0) | A3 vs Part 10h pct_post: rs 1.0000, max diff 0.000 pp
+  PVM_3_all  NonNeoC  donors  83 (no arm cell:  0) | A3 vs Part 10h pct_post: rs 1.0000, max diff 0.000 pp
+  PVM_1_all  NeoC     donors  84 (no arm cell:  0) | A3 vs Part 10h pct_post: rs 1.0000, max diff 0.000 pp
+  PVM_1_all  NonNeoC  donors  83 (no arm cell:  0) | A3 vs Part 10h pct_post: rs 1.0000, max diff 0.000 pp
+  HKG8       NeoC     donors  84 (no arm cell: 10) | A3 vs Part 10h pct_post: rs 1.0000, max diff 0.000 pp
+  HKG8       NonNeoC  donors  83 (no arm cell:  6) | A3 vs Part 10h pct_post: rs 1.0000, max diff 0.000 pp
+
+MODULE % -> COGNITION, +BTC block, standardised beta (BH)
+  M4         NeoC     A0_OLS           MMSE  beta -0.449  BH 0.0001  n=80
+  M4         NeoC     A0_OLS           CASI  beta -0.412  BH 0.0019  n=69
+  M4         NeoC     A1_spline_fixed  MMSE  beta -0.444  BH 0.0002  n=80
+  M4         NeoC     A1_spline_fixed  CASI  beta -0.410  BH 0.0019  n=69
+  M4         NeoC     A2_spline_local  MMSE  beta -0.443  BH 0.0001  n=80
+  M4         NeoC     A2_spline_local  CASI  beta -0.403  BH 0.0021  n=69
+  M4         NeoC     A3_CMRF          MMSE  beta -0.462  BH 0.0001  n=80
+  M4         NeoC     A3_CMRF          CASI  beta -0.415  BH 0.0016  n=69
+  M4         NonNeoC  A0_OLS           MMSE  beta -0.310  BH 0.0041  n=79
+  M4         NonNeoC  A0_OLS           CASI  beta -0.306  BH 0.0127  n=68
+  M4         NonNeoC  A1_spline_fixed  MMSE  beta -0.303  BH 0.0050  n=79
+  M4         NonNeoC  A1_spline_fixed  CASI  beta -0.306  BH 0.0127  n=68
+  M4         NonNeoC  A2_spline_local  MMSE  beta -0.313  BH 0.0035  n=79
+  M4         NonNeoC  A2_spline_local  CASI  beta -0.278  BH 0.0226  n=68
+  M4         NonNeoC  A3_CMRF          MMSE  beta -0.318  BH 0.0035  n=79
+  M4         NonNeoC  A3_CMRF          CASI  beta -0.314  BH 0.0114  n=68
+  PVM_3_all  NeoC     A0_OLS           MMSE  beta -0.372  BH 0.0019  n=80
+  PVM_3_all  NeoC     A0_OLS           CASI  beta -0.417  BH 0.0025  n=69
+  PVM_3_all  NeoC     A1_spline_fixed  MMSE  beta -0.367  BH 0.0022  n=80
+  PVM_3_all  NeoC     A1_spline_fixed  CASI  beta -0.412  BH 0.0026  n=69
+  PVM_3_all  NeoC     A2_spline_local  MMSE  beta -0.413  BH 0.0008  n=80
+  PVM_3_all  NeoC     A2_spline_local  CASI  beta -0.417  BH 0.0028  n=69
+  PVM_3_all  NeoC     A3_CMRF          MMSE  beta -0.394  BH 0.0012  n=80
+  PVM_3_all  NeoC     A3_CMRF          CASI  beta -0.421  BH 0.0024  n=69
+  PVM_3_all  NonNeoC  A0_OLS           MMSE  beta -0.345  BH 0.0028  n=79
+  PVM_3_all  NonNeoC  A0_OLS           CASI  beta -0.363  BH 0.0052  n=68
+  PVM_3_all  NonNeoC  A1_spline_fixed  MMSE  beta -0.348  BH 0.0026  n=79
+  PVM_3_all  NonNeoC  A1_spline_fixed  CASI  beta -0.372  BH 0.0041  n=68
+  PVM_3_all  NonNeoC  A2_spline_local  MMSE  beta -0.305  BH 0.0070  n=79
+  PVM_3_all  NonNeoC  A2_spline_local  CASI  beta -0.273  BH 0.0352  n=68
+  PVM_3_all  NonNeoC  A3_CMRF          MMSE  beta -0.361  BH 0.0019  n=79
+  PVM_3_all  NonNeoC  A3_CMRF          CASI  beta -0.364  BH 0.0053  n=68
+  PVM_1_all  NeoC     A0_OLS           MMSE  beta -0.318  BH 0.0036  n=80
+  PVM_1_all  NeoC     A0_OLS           CASI  beta -0.352  BH 0.0045  n=69
+  PVM_1_all  NeoC     A1_spline_fixed  MMSE  beta -0.320  BH 0.0036  n=80
+  PVM_1_all  NeoC     A1_spline_fixed  CASI  beta -0.376  BH 0.0028  n=69
+  PVM_1_all  NeoC     A2_spline_local  MMSE  beta -0.296  BH 0.0064  n=80
+  PVM_1_all  NeoC     A2_spline_local  CASI  beta -0.313  BH 0.0114  n=69
+  PVM_1_all  NeoC     A3_CMRF          MMSE  beta -0.336  BH 0.0025  n=80
+  PVM_1_all  NeoC     A3_CMRF          CASI  beta -0.347  BH 0.0056  n=69
+  PVM_1_all  NonNeoC  A0_OLS           MMSE  beta -0.346  BH 0.0015  n=79
+  PVM_1_all  NonNeoC  A0_OLS           CASI  beta -0.400  BH 0.0009  n=68
+  PVM_1_all  NonNeoC  A1_spline_fixed  MMSE  beta -0.366  BH 0.0006  n=79
+  PVM_1_all  NonNeoC  A1_spline_fixed  CASI  beta -0.413  BH 0.0005  n=68
+  PVM_1_all  NonNeoC  A2_spline_local  MMSE  beta -0.316  BH 0.0033  n=79
+  PVM_1_all  NonNeoC  A2_spline_local  CASI  beta -0.380  BH 0.0016  n=68
+  PVM_1_all  NonNeoC  A3_CMRF          MMSE  beta -0.351  BH 0.0014  n=79
+  PVM_1_all  NonNeoC  A3_CMRF          CASI  beta -0.401  BH 0.0010  n=68
+  HKG8       NeoC     A0_OLS           MMSE  beta -0.125  BH 0.2535  n=80
+  HKG8       NeoC     A0_OLS           CASI  beta -0.125  BH 0.3193  n=69
+  HKG8       NeoC     A1_spline_fixed  MMSE  beta -0.090  BH 0.4260  n=80
+  HKG8       NeoC     A1_spline_fixed  CASI  beta -0.097  BH 0.4425  n=69
+  HKG8       NeoC     A2_spline_local  MMSE  beta -0.087  BH 0.4428  n=80
+  HKG8       NeoC     A2_spline_local  CASI  beta -0.107  BH 0.4012  n=69
+  HKG8       NeoC     A3_CMRF          MMSE  beta -0.006  BH 0.9504  n=80
+  HKG8       NeoC     A3_CMRF          CASI  beta -0.115  BH 0.3729  n=69
+  HKG8       NonNeoC  A0_OLS           MMSE  beta -0.108  BH 0.3377  n=79
+  HKG8       NonNeoC  A0_OLS           CASI  beta +0.029  BH 0.8222  n=68
+  HKG8       NonNeoC  A1_spline_fixed  MMSE  beta -0.007  BH 0.9486  n=79
+  HKG8       NonNeoC  A1_spline_fixed  CASI  beta +0.104  BH 0.3991  n=68
+  HKG8       NonNeoC  A2_spline_local  MMSE  beta -0.043  BH 0.7102  n=79
+  HKG8       NonNeoC  A2_spline_local  CASI  beta +0.081  BH 0.5059  n=68
+  HKG8       NonNeoC  A3_CMRF          MMSE  beta -0.121  BH 0.2535  n=79
+  HKG8       NonNeoC  A3_CMRF          CASI  beta -0.046  BH 0.7102  n=68
+
+SCORECARD (C1 and C4 higher is better; C2 and C3 lower is better)
+  three real groups  A0_OLS           C1 44/54  C2 15/36  C3  4/54  C4 17/18  |beta| nm 0.129
+  three real groups  A1_spline_fixed  C1 44/54  C2 16/36  C3  3/54  C4 17/18  |beta| nm 0.123
+  three real groups  A2_spline_local  C1 43/54  C2 13/36  C3 10/54  C4 17/18  |beta| nm 0.197
+  three real groups  A3_CMRF          C1 44/54  C2 13/36  C3  0/54  C4 17/18  |beta| nm 0.106
+  HKG8 control       A0_OLS           C1  0/18  C2  0/12  C3  3/18  C4  0/ 6  |beta| nm 0.120
+  HKG8 control       A1_spline_fixed  C1  3/18  C2  0/12  C3  0/18  C4  0/ 6  |beta| nm 0.134
+  HKG8 control       A2_spline_local  C1  6/18  C2  1/12  C3  0/18  C4  0/ 6  |beta| nm 0.110
+  HKG8 control       A3_CMRF          C1  7/18  C2  0/12  C3  0/18  C4  1/ 6  |beta| nm 0.103
+
+RUNG COMPARISON, donor module % (FDR < 0.05 significant)
+  M4         NeoC     Friedman                 p 1.116e-09  FDR 2.231e-09  (Shapiro min 3.74e-10)
+  M4         NonNeoC  Friedman                 p 0.07951  FDR 0.106  (Shapiro min 1.57e-09)
+  PVM_3_all  NeoC     Friedman                 p 1.857e-24  FDR 7.428e-24  (Shapiro min 8.13e-07)
+  PVM_3_all  NonNeoC  Friedman                 p 2.177e-06  FDR 3.483e-06  (Shapiro min 3.65e-07)
+  PVM_1_all  NeoC     Friedman                 p 1.58e-25  FDR 1.264e-24  (Shapiro min 8.86e-09)
+  PVM_1_all  NonNeoC  Friedman                 p 8.224e-12  FDR 2.193e-11  (Shapiro min 6.37e-08)
+  HKG8       NeoC     Friedman                 p 0.4203  FDR 0.4203  (Shapiro min 2.97e-08)
+  HKG8       NonNeoC  Friedman                 p 0.1954  FDR 0.2233  (Shapiro min 8.48e-09)
+  post hoc: 30 of 48 pair(s) at FDR < 0.05
+
+============================================================================
+Output: /data/Part11_Identity/Part11_Identity_BandAblation_P10hDenom
+  Part11_BandAblation_Assoc.pdf                            12 KB
+  Part11_BandAblation_Assoc.png                           193 KB
+  Part11_BandAblation_FullPanel.pdf                         8 KB
+  Part11_BandAblation_FullPanel.png                       224 KB
+  Part11_BandAblation_log_20261018_000206.txt              12 KB
+  Part11_BandAblation_log_20261018_004451.txt              12 KB
+  Part11_BandAblation_Shapes.pdf                          466 KB
+  Part11_BandAblation_Shapes.png                         1208 KB
+  Part11_Identity_BandAblation_results.rds                107 KB
+  Part11_Identity_BandAblation.xlsx                       382 KB
+COMPLETE 2026-10-18 00:46:20
+============================================================================

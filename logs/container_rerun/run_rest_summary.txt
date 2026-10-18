@@ -1,0 +1,104 @@
+run_rest.sh started 2026-10-18 00:39:45
+Starting at: Part10h_CP10K_Comparator_Fig13_code
+
+== Part10h_CP10K_Comparator_Fig13_code   start 00:39:45
+   finished 00:39:49 | 0 min | exit 0
+== Part11_CP10K_CogVsPath_code   start 00:39:49
+   finished 00:44:49 | 5 min | exit 0
+== Part11_CP10K_CogVsPath_HighLevel_code   start 00:44:49
+   finished 00:44:51 | 0 min | exit 0
+== Part11_Identity_BandAblation_code   start 00:44:51
+   finished 00:46:21 | 2 min | exit 0
+== Part11_BandAblation_Fig11Export_code   start 00:46:21
+   finished 00:46:23 | 0 min | exit 0
+== Part12_02_Extract   start 00:46:23
+   finished 00:46:43 | 0 min | exit 0
+== Part12_04_Labels   start 00:46:43
+   finished 00:47:05 | 0 min | exit 0
+== Part12_05_Units   start 00:47:05
+   finished 00:47:10 | 0 min | exit 0
+== Part12_06_GerritsCells   start 00:47:10
+   finished 00:49:43 | 3 min | exit 0
+== Part12_Fig15_Analysis   start 00:49:43
+   finished 00:50:19 | 1 min | exit 0
+== Part12_Fig15_Plots   start 00:50:19
+   finished 00:50:20 | 0 min | exit 0
+== Part12_Fig16_Analysis   start 00:50:20
+   finished 00:51:16 | 1 min | exit 0
+== Part12_Fig16_Plots   start 00:51:16
+   finished 00:51:17 | 0 min | exit 0
+== Part12_Fig17_Analysis   start 00:51:17
+   finished 00:52:42 | 1 min | exit 0
+== Part12_Fig17_Plots   start 00:52:42
+   finished 00:52:45 | 0 min | exit 0
+== Part12_Fig18_Analysis   start 00:52:45
+   finished 00:53:20 | 1 min | exit 0
+== Part12_Fig18_Plots   start 00:53:20
+   finished 00:53:24 | 0 min | exit 0
+== Part12_Fig19_Analysis   start 00:53:24
+   finished 00:56:25 | 3 min | exit 0
+== Part12_Fig19_Plots   start 00:56:25
+   finished 00:56:44 | 0 min | exit 0
+== Part12_ModulePostIP_Overview   start 00:56:44
+   finished 00:56:45 | 0 min | exit 0
+  input copied from reference: Manuscript/Supp_Tables/Supplementary_Table_S11_DEGs_ModvsNonMod.xlsx
+== Part10g_CP10K_DEGs_Part1_code_S11_followup_analyses   start 00:56:45
+   finished 00:56:49 | 0 min | exit 0
+  input removed after use: Manuscript/Supp_Tables/Supplementary_Table_S11_DEGs_ModvsNonMod.xlsx
+== Part13a_CP10K_Find14DpctMT_code   start 00:56:49
+   finished 00:56:52 | 0 min | exit 0
+== Part13_CP10K_M4Share_code   start 00:56:52
+   finished 00:57:39 | 1 min | exit 0
+== Part13b_CP10K_M4RandomSubset_code   start 00:57:39
+   finished 00:58:46 | 1 min | exit 0
+  input copied from reference: Manuscript/Supp_Tables/Supplementary_Table_S12_Prognosis_&_Ablation.xlsx
+  input copied from reference: Part12_rerun/07_Fig15/SuppTable_Fig15.xlsx
+  input copied from reference: Part12_rerun/08_Fig16/SuppTable_Fig16.xlsx
+  input copied from reference: Part12_rerun/09_Fig17/SuppTable_Fig17.xlsx
+  input copied from reference: Part12_rerun/10_Fig18/SuppTable_Fig18.xlsx
+  input copied from reference: Part12_rerun/11_Fig19/SuppTable_Fig19.xlsx
+== Fig17_Summary_code   start 00:58:46
+   finished 00:58:50 | 0 min | exit 0
+  input removed after use: Manuscript/Supp_Tables/Supplementary_Table_S12_Prognosis_&_Ablation.xlsx
+  input removed after use: Part12_rerun/07_Fig15/SuppTable_Fig15.xlsx
+  input removed after use: Part12_rerun/08_Fig16/SuppTable_Fig16.xlsx
+  input removed after use: Part12_rerun/09_Fig17/SuppTable_Fig17.xlsx
+  input removed after use: Part12_rerun/10_Fig18/SuppTable_Fig18.xlsx
+  input removed after use: Part12_rerun/11_Fig19/SuppTable_Fig19.xlsx
+
+Scripts finished: 25 ok, 0 failed
+
+== Full comparison   start 00:58:50
+run_rest.sh ended 2026-10-18 01:03:22
+run_rest.sh started 2026-10-18 01:07:21
+Starting at: Part10g_CP10K_DEGs_Part1_code_S11_followup_analyses
+
+  input copied from reference: Manuscript/Supp_Tables/Supplementary_Table_S11_DEGs_ModvsNonMod.xlsx
+== Part10g_CP10K_DEGs_Part1_code_S11_followup_analyses   start 01:07:22
+   finished 01:07:45 | 0 min | exit 0
+  input removed after use: Manuscript/Supp_Tables/Supplementary_Table_S11_DEGs_ModvsNonMod.xlsx
+== Part13a_CP10K_Find14DpctMT_code   start 01:07:45
+   finished 01:07:49 | 0 min | exit 0
+== Part13_CP10K_M4Share_code   start 01:07:49
+   finished 01:08:35 | 1 min | exit 0
+== Part13b_CP10K_M4RandomSubset_code   start 01:08:35
+   finished 01:09:44 | 1 min | exit 0
+  input copied from reference: Manuscript/Supp_Tables/Supplementary_Table_S12_Prognosis_&_Ablation.xlsx
+  input copied from reference: Part12_rerun/07_Fig15/SuppTable_Fig15.xlsx
+  input copied from reference: Part12_rerun/08_Fig16/SuppTable_Fig16.xlsx
+  input copied from reference: Part12_rerun/09_Fig17/SuppTable_Fig17.xlsx
+  input copied from reference: Part12_rerun/10_Fig18/SuppTable_Fig18.xlsx
+  input copied from reference: Part12_rerun/11_Fig19/SuppTable_Fig19.xlsx
+== Fig17_Summary_code   start 01:09:44
+   finished 01:09:47 | 0 min | exit 0
+  input removed after use: Manuscript/Supp_Tables/Supplementary_Table_S12_Prognosis_&_Ablation.xlsx
+  input removed after use: Part12_rerun/07_Fig15/SuppTable_Fig15.xlsx
+  input removed after use: Part12_rerun/08_Fig16/SuppTable_Fig16.xlsx
+  input removed after use: Part12_rerun/09_Fig17/SuppTable_Fig17.xlsx
+  input removed after use: Part12_rerun/10_Fig18/SuppTable_Fig18.xlsx
+  input removed after use: Part12_rerun/11_Fig19/SuppTable_Fig19.xlsx
+
+Scripts finished: 5 ok, 0 failed
+
+== Full comparison   start 01:09:47
+run_rest.sh ended 2026-10-18 01:14:20

@@ -1,0 +1,172 @@
+==============================================================================
+  Part 13b - M4 cells against random PVM_3 cells of the same number
+  2026-10-18 01:08:36
+  R version 4.6.1 (2026-06-24)
+  Root : /data
+  Write: /data/Part13b_M4RandomSubset
+==============================================================================
+
+STEP 1 -- pre-set readings
+  [PASS]  GR-13b-01  pre-set readings match the file written by an earlier run (Part13b_CP10K_M4RandomSubset_preset_readings.txt)
+
+STEP 2 -- inputs
+  comparator      /data/Part10h_Prognosis_1_Comparator/Part10h_Prognosis_1_Comparator_Mic13_PVM3/Part10h_CP10K_M4_Comparator_results.rds
+  prognosis_M4    /data/Part10h_Prognosis/Part10h_Prognosis_Mic13_PVM3/Part10h_CP10K_M4_Prognosis_results.rds
+  prognosis_PVM3  /data/Part10h_Prognosis/Part10h_Prognosis_PVM_3/Part10h_CP10K_PVM_3_Prognosis_results.rds
+  labels          /data/Part12_rerun/04_Labels/04_cell_labels.csv.gz
+  mt              /data/Part13_M4Share/Part13_M4_pctMT_for14D.csv
+  [PASS]  GR-13b-02  comparator arm_tag 'Mic13_PVM3' (expected 'Mic13_PVM3'); M4 Prognosis arm tag 'Mic13_PVM3'; PVM_3 Prognosis arm tag 'PVM3_all' (NA = not stored; the file is identified by its basename Part10h_CP10K_PVM_3_Prognosis_results.rds); comparator built from 'Part10h_CP10K_M4_Prognosis_results.rds', this run reads 'Part10h_CP10K_M4_Prognosis_results.rds'
+
+STEP 3 -- donor frames and denominators
+  [PASS]  GR-13b-03  M4 donor frame: donors 84/83 (expected 84/83), duplicated rows FALSE; M4 cells (share x n_total / 100) 2130/1987 (expected 2130/1987); M4 cells and Module post-IP cells are whole numbers (max deviation 2.8e-14)
+  [PASS]  GR-13b-04  one donor set and one denominator: comparator donor_frame and the M4 Prognosis prop_df agree on donors (TRUE), pct_post, n_total and share (max |diff| 0.00e+00); the PVM_3 Prognosis prop_df has the same donors (TRUE) and the same Micro-PVM_3 denominator n_total (max |diff| 0.00e+00)
+  [PASS]  GR-13b-05  PVM_3 arm cells from the PVM_3 prop_df: 13331/11132 (expected 13331/11132), whole numbers (max deviation 1.1e-13); donors with more M4 cells than PVM_3 arm cells: 0
+
+STEP 4 -- cell label file
+  36967 row(s), 51 column(s): barcode, arm, dataset, donor_id, donor_key, region, library, contamination, composite, cell_class, is_module, ip_status, group, composite_recomputed, supertype, doublet_score, total_umis, n_genes, mt_umis, mito_pct, own_er_fracnonmt, ribosome_fracnonmt, nuclear_retained_fracnonmt, cyto_share, soup_neuronal__NeoC, soup_oligo__NeoC, soup_astro__NeoC, soup_opc__NeoC, soup_endo__NeoC, soup_combined__NeoC, soup_neuronal__NonNeoC, soup_oligo__NonNeoC, soup_astro__NonNeoC, soup_opc__NonNeoC, soup_endo__NonNeoC, soup_combined__NonNeoC, lib_intronic, lib_antisense, lib_neun_fans, lib_cdna_400, lib_pcr_cycles, lib_saturation, lib_median_umi, lib_method, ctrl_pct, ctrl_pct_null_mean, ctrl_pct_null_sd, labels_version, cut_token, config_version, run_id
+  arm values: HKG8 (2511), M4 (4117), PVM_1 (5876), PVM_3 (24463)
+  columns: dataset 'dataset', donor 'donor_id', arm 'arm' (M4 'M4', PVM_3 'PVM_3'), barcode 'barcode', %MT 'mito_pct', region 'region'
+  labels_version: 2026-09-06_module-pool
+  [PASS]  GR-13b-06  label file rows: duplicated (region set, arm, barcode) 0; rows whose donor and region set are not in the donor frame 0; %MT missing or outside 0-100 0; strata donor x region
+  [PASS]  GR-13b-07  label rows per donor equal the Part 10h arm cells on every donor: M4 rows 2130/1987 against M4 share x n_total 2130/1987 (max |diff| 0); PVM_3 rows 13331/11132 against the PVM_3 prop_df 13331/11132 (max |diff| 0)
+
+STEP 5 -- Module post-IP label (the rule that reproduces Part 10h pct_post on both arms)
+  M4 rows, cell_class: Original + Refined (2590), Excluded (855), Recovered (540), Original only (132)
+  M4 rows, is_module: TRUE (3130), FALSE (987)
+  M4 rows, ip_status: Post (1631), Pre (1499),  (987)
+  M4 rows, group: Module post-IP (1631), Module pre-IP (1499), non-Module pre-IP (696), non-Module post-IP (291)
+  M4 rows, lib_neun_fans: 0.7 (3006), 0.5 (955), 0.74 (26), 0.64 (21), 0.57 (16), 0.65 (16), 0.66 (14), 0.9 (14)
+  M4 rows, lib_pcr_cycles: 15 (1535), 8 (991), 16 (542), 12 (519), 18 (243), 10 (88), 17 (69), 9 (62)
+  M4 rows, lib_method: 10Xv3.1 (2224), 10xMulti (1151), 10xV3.1_HT (742)
+                                                                                            rule max_dev_M4 max_dev_PVM3 reproduces
+                                                                       group in {Module post-IP}          0            0       TRUE
+                           cell_class in {Original + Refined, Recovered} and ip_status in {Post}          0            0       TRUE
+ cell_class in {Original + Refined, Recovered} and group in {non-Module post-IP, Module post-IP}          0            0       TRUE
+                                                     is_module in {TRUE} and ip_status in {Post}          0            0       TRUE
+                           is_module in {TRUE} and group in {non-Module post-IP, Module post-IP}          0            0       TRUE
+                                                    lib_neun_fans in {1} and ip_status in {Post}        140          474      FALSE
+                          lib_neun_fans in {1} and group in {non-Module post-IP, Module post-IP}        140          474      FALSE
+  [PASS]  GR-13b-08  Module post-IP label: 7 candidate rule(s), 5 reproduce the Part 10h Module post-IP cells (pct_post x n_total / 100) on every donor of BOTH arms, 1 distinct cell set(s); rule used: group in {Module post-IP}
+  arm dataset                                                        file found status  rows matched unlabelled mismatched
+   M4    NeoC       Part10e_CP10K_M4_V1_NeoC_SK_interaction_analysis.xlsx  TRUE   read  2130    2130          0          0
+   M4 NonNeoC    Part10e_CP10K_M4_V1_NonNeoC_SK_interaction_analysis.xlsx  TRUE   read  1987    1987          0          0
+ PVM3    NeoC    Part10e_CP10K_PVM_3_V1_NeoC_SK_interaction_analysis.xlsx  TRUE   read 13331   13331          0          0
+ PVM3 NonNeoC Part10e_CP10K_PVM_3_V1_NonNeoC_SK_interaction_analysis.xlsx  TRUE   read 11132   11132          0          0
+  [PASS]  GR-13b-19  cell-level labels against Part 10h's Validation 1 cell table (Module class + inherited side): 4 of 4 workbooks found; label cells matched by barcode 28580 of 28580; without an inherited side 0; cells whose Module post-IP label differs 0
+
+STEP 6 -- the M4 cells inside the PVM_3 pool
+  [PASS]  GR-13b-09  every M4 cell is a PVM_3 pool cell of the same region set: 0 of 4117 M4 cells absent from the pool; of those found, 0 carry another donor, 0 another region, and the per-cell %MT differs by at most 0.0e+00
+  M4 cells: Module post-IP under the M4 arm's own labels against the PVM_3 labels
+ dataset m4_cells post_both post_M4_only post_PVM3_only post_neither agreement kappa
+    NeoC     2130       854            1            120         1155     0.943 0.884
+ NonNeoC     1987       770            6             52         1159     0.971 0.939
+  [PASS]  GR-13b-20  M4 cells, Module post-IP under the M4 arm's own labels against the PVM_3 labels: agreement 0.943/0.971, kappa 0.884/0.939 (NeoC/NonNeoC; WARN below 0.4)
+
+STEP 7 -- %MT of the M4 cells
+  [PASS]  GR-13b-10  log1p of the mean per-cell %MT over the M4 label rows reproduces the Figure 14D %MT file on 158 donors (max |diff| 4.7e-15); donors with a value on one side only: 0 / 0; file rows matching no donor 0
+
+STEP 8 -- pool, strata and observed cell sets
+  NeoC     pool 13331 cells, 336 strata, 2130 M4 cells (78 donors with M4 cells); pool cells per stratum median 30
+  NonNeoC  pool 11132 cells, 194 strata, 1987 M4 cells (80 donors with M4 cells); pool cells per stratum median 31
+  [PASS]  GR-13b-21  expected share of drawn cells that are M4 cells 0.245/0.245 (NeoC/NonNeoC; WARN above 0.4); strata in which every pool cell is an M4 cell 0/1
+  [PASS]  GR-13b-11  observed cell sets built by the draw function equal a direct count of the M4 rows: M4 cells, Module post-IP% under PVM_3 labels, M4 share, %MT and the %MT donor pattern (max |diff| 7.1e-15); strata with more M4 cells than pool cells: 0
+
+STEP 9 -- models on the observed cell sets
+  [PASS]  GR-13b-12  fast fitter equals lm() with the comparator .z and .safe_vif on every observed model: 864 of 864 values
+  [PASS]  GR-13b-13  with the M4 arm's own labels this script reproduces Part 10h Multivariate (cov4, pct_post, cognition; 12 values) and the published Figure 14D rows (15 values): 27 of 27
+
+STEP 10 -- random subsets: B = 10000 per region set, seed 20261011
+  31 worker(s) (32 logical cores detected)
+    NeoC: 10000 draws (3 s)
+    NonNeoC: 10000 draws (6 s)
+  [PASS]  GR-13b-22  parallel draws reproduce exactly when rerun one by one in this session (first 20 draws per region set: same NA and Inf pattern, finite values max |diff| 0, tolerance 1e-09); 31 worker(s), one L'Ecuyer-CMRG stream per draw from seed 20261011
+  [PASS]  GR-13b-14  every draw holds each donor's M4 cell number in every stratum, so the M4 share is identical (max |deviation| 0 over 10000 draws x 2 region sets); draws with duplicated cells 0; out-of-pool cells 0; observed models not fitted 0
+  [PASS]  GR-13b-15  draws in which every model was fitted on exactly the observed donors: 100.00% at the lower region set (minimum 99%); model-n mismatches 0, failed fits 0; 6 s
+
+STEP 11 -- observed against the random subsets
+ dataset   readout observed_M4_PVM3labels M4_own_labels null_median null_q025 null_q975    p_two      fdr
+    NeoC   bA_CogS                  0.433         0.430       0.389     0.351     0.430    0.035    0.106
+    NeoC   bC_CogS                  0.253         0.314       0.179     0.046     0.299    0.235    0.697
+    NeoC   bD_CogS                  0.336         0.747       0.277    -0.198     0.698    0.785    0.785
+    NeoC  bDm_CogS                 -0.005        -0.400       0.004    -0.398     0.457    0.965    0.965
+    NeoC   bA_MMSE                 -0.523        -0.539      -0.476    -0.544    -0.439    0.307    0.370
+    NeoC   bC_MMSE                 -0.444        -0.468      -0.410    -0.501    -0.313    0.483    0.697
+    NeoC   bD_MMSE                 -0.534        -0.763      -0.345    -0.707     0.028    0.305    0.785
+    NeoC  bDm_MMSE                  0.017         0.248      -0.166    -0.525     0.187    0.318    0.953
+    NeoC   bA_CASI                 -0.574        -0.575      -0.554    -0.597    -0.510    0.370    0.370
+    NeoC   bC_CASI                 -0.363        -0.383      -0.337    -0.461    -0.204    0.697    0.697
+    NeoC   bD_CASI                 -0.254        -0.395      -0.182    -0.646     0.293    0.759    0.785
+    NeoC  bDm_CASI                 -0.230        -0.090      -0.299    -0.742     0.155    0.765    0.965
+    NeoC   bB_CogS                  0.271         0.274       0.233     0.121     0.348    0.511    0.511
+    NeoC   bB_MMSE                 -0.471        -0.529      -0.400    -0.516    -0.276    0.228    0.511
+    NeoC   bB_CASI                 -0.420        -0.436      -0.370    -0.493    -0.250    0.426    0.511
+    NeoC    r_x_mt                  0.710         0.731       0.727     0.665     0.778    0.579    0.866
+    NeoC r_frac_mt                  0.900         0.920       0.903     0.862     0.933    0.866    0.866
+    NeoC mean_frac                 39.605        33.972      32.559    30.363    34.845 2.00e-04 6.00e-04
+ NonNeoC   bA_CogS                  0.510         0.517       0.483     0.434     0.531    0.274    0.794
+ NonNeoC   bC_CogS                  0.368         0.396       0.360     0.273     0.445    0.857    0.857
+ NonNeoC   bD_CogS                  0.507         0.689       0.320    -0.179     0.789    0.441    0.441
+ NonNeoC  bDm_CogS                 -0.080        -0.249       0.116    -0.350     0.588    0.403    0.403
+ NonNeoC   bA_MMSE                 -0.401        -0.414      -0.407    -0.454    -0.357    0.794    0.794
+ NonNeoC   bC_MMSE                 -0.449        -0.483      -0.434    -0.512    -0.350    0.716    0.857
+ NonNeoC   bD_MMSE                 -0.535        -0.723      -0.312    -0.722     0.132    0.288    0.434
+ NonNeoC  bDm_MMSE                  0.060         0.235      -0.172    -0.601     0.239    0.267    0.403
+ NonNeoC   bA_CASI                 -0.465        -0.475      -0.453    -0.505    -0.400    0.658    0.794
+ NonNeoC   bC_CASI                 -0.505        -0.556      -0.470    -0.562    -0.374    0.487    0.857
+ NonNeoC   bD_CASI                 -0.345        -0.570      -0.103    -0.548     0.383    0.289    0.434
+ NonNeoC  bDm_CASI                 -0.228        -0.023      -0.463    -0.941    -0.017    0.307    0.403
+ NonNeoC   bB_CogS                  0.402         0.415       0.361     0.265     0.453    0.398    0.911
+ NonNeoC   bB_MMSE                 -0.313        -0.337      -0.319    -0.410    -0.215    0.911    0.911
+ NonNeoC   bB_CASI                 -0.321        -0.334      -0.301    -0.417    -0.172    0.753    0.911
+ NonNeoC    r_x_mt                  0.648         0.653       0.700     0.628     0.758    0.161    0.241
+ NonNeoC r_frac_mt                  0.908         0.913       0.917     0.880     0.945    0.606    0.606
+ NonNeoC mean_frac                 38.488        35.971      35.813    33.488    38.226    0.029    0.087
+ dataset          outcome              model observed_M4_PVM3labels M4_own_labels null_module_only null_mt_only null_both null_neither null_unreadable
+    NeoC Cognitive status MB (as Figure 14D)                Neither       Neither            0.012        0.002     0.000        0.986           0.000
+    NeoC       MMSE score MB (as Figure 14D)            Module only   Module only            0.521        0.001     0.000        0.478           0.000
+    NeoC       CASI score MB (as Figure 14D)                Neither       Neither            0.172        0.002     0.000        0.826           0.000
+ NonNeoC Cognitive status MB (as Figure 14D)            Module only   Module only            0.392        0.007     0.000        0.601           0.000
+ NonNeoC       MMSE score MB (as Figure 14D)            Module only   Module only            0.345        0.024     0.000        0.631           0.000
+ NonNeoC       CASI score MB (as Figure 14D)                Neither       Neither            0.151        0.117     0.000        0.732           0.000
+  [PASS]  GR-13b-16  Primary reading (NeoC MMSE, MA): M4 cells beta -0.523 against random subsets median -0.476 [95% of draws -0.544 to -0.439], two-sided p 0.307, FDR 0.370. I0 No evidence that identity matters. Reference without a test: the M4 cells under the M4 arm's own labels give beta -0.539
+  [PASS]  GR-13b-17  Second reading (NeoC, r of Module post-IP% with %MT): M4 cells r 0.710 against random subsets median 0.727 [0.665 to 0.778], two-sided p 0.579, FDR 0.866. S0 No difference. Reference without a test: own labels r 0.731
+
+STEP 12 -- outputs
+  [PASS]  GR-13b-18  outputs written: Part13b_CP10K_M4RandomSubset_SuppTable.xlsx, Part13b_CP10K_M4RandomSubset_null_draws.csv, Part13b_CP10K_M4RandomSubset_SuppFig.pdf, Part13b_CP10K_M4RandomSubset_SuppFig.png, Part13b_CP10K_M4RandomSubset_legend_draft.txt
+  Part13b_CP10K_M4RandomSubset_SuppTable.xlsx
+  Part13b_CP10K_M4RandomSubset_null_draws.csv
+  Part13b_CP10K_M4RandomSubset_SuppFig.pdf
+  Part13b_CP10K_M4RandomSubset_SuppFig.png
+  Part13b_CP10K_M4RandomSubset_legend_draft.txt
+
+Guardrail ledger : /data/Part13b_M4RandomSubset/Part13b_CP10K_M4RandomSubset_Guardrail_Log.txt
+Guardrail detail : /data/Part13b_M4RandomSubset/Part13b_CP10K_M4RandomSubset_Guardrail_Detail.txt
+Console log      : /data/Part13b_M4RandomSubset/Part13b_CP10K_M4RandomSubset_console_log_20261018_010836.txt
+Run: completed; readings: I0 No evidence that identity matters | S0 No difference
+
+R version 4.6.1 (2026-06-24)
+Platform: x86_64-pc-linux-gnu
+Running under: Ubuntu 24.04.5 LTS
+
+Matrix products: default
+BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C               LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8     LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8    LC_PAPER=en_US.UTF-8      
+ [8] LC_NAME=C                  LC_ADDRESS=C               LC_TELEPHONE=C             LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+time zone: Etc/UTC
+tzcode source: system (glibc)
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] patchwork_1.3.2  ggplot2_4.0.3    openxlsx_4.2.8.1
+
+loaded via a namespace (and not attached):
+ [1] vctrs_0.7.3         zip_3.0.1           cli_3.6.6           rlang_1.3.0         stringi_1.8.9       generics_0.1.4      textshaping_1.0.5   S7_0.2.2            data.table_1.18.6.1
+[10] labeling_0.4.3      glue_1.8.1          ragg_1.5.2          scales_1.4.0        grid_4.6.1          tibble_3.3.1        lifecycle_1.0.5     compiler_4.6.1      dplyr_1.2.1        
+[19] RColorBrewer_1.1-3  Rcpp_1.1.2          pkgconfig_2.0.3     R.oo_1.27.1         systemfonts_1.3.2   R.utils_2.13.0      farver_2.1.2        R6_2.6.1            tidyselect_1.2.1   
+[28] pillar_1.11.1       parallel_4.6.1      magrittr_2.0.5      R.methodsS3_1.8.2   tools_4.6.1         withr_3.0.3         gtable_0.3.6       

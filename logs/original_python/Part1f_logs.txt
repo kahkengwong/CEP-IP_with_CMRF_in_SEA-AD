@@ -1,0 +1,706 @@
+>>> exec(open("<SEA-AD>/Code/Part1f_Ordinals_code.py").read())
+... 
+... exec(open("<SEA-AD>/Code/Part1f_Ordinals_code.py").read())
+... 
+... 
+
+==========================================================================
+  G0 — load obs (backed: no expression matrix is read)
+==========================================================================
+  file  : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad
+  shape : (240651, 36601)
+  obs   : 240,651 rows x 130 columns
+
+  resolved columns:
+    donor        -> Donor ID
+    region       -> Brain Region
+    mito frac    -> Fraction mitochondrial UMIs
+    nUMI         -> Number of UMIs
+    nGene        -> Genes detected
+    severe       -> Severely Affected Donor
+
+  distinct donors : 84
+
+==========================================================================
+  G1 — ordinal parsing audit  [THE BRAAK LESSON]
+==========================================================================
+  For every clinical ordinal: what the levels actually are, what a naive
+  Arabic-digit parser would do to them, and whether the mapped result
+  survives as a NUMBER rather than as an unordered Categorical.
+
+  Two failure modes are tested, both of which have already bitten this
+  pipeline once:
+    (A) ROMAN NUMERALS. str.extract(r'(\d+)') returns NaN on 'Braak V'.
+        This silently disabled the Braak arm for the project's entire
+        history - the correlation printed nothing, which reads exactly
+        like 'not computed' rather than 'broken'.
+    (B) CATEGORICAL PROPAGATION. .map() on a Categorical returns a
+        Categorical. It looks numeric, prints numeric, and then breaks
+        spearmanr and polyfit without raising. pd.to_numeric is
+        mandatory after every .map() on these columns.
+
+--------------------------------------------------------------------------
+  ADNC  (column 'Overall AD neuropathological Change')
+    dtype: category   Categorical: True
+    distinct levels across 84 donors: 4
+
+    level                         donors  digit parse  declared map
+    High                              42          NaN             3
+    Intermediate                      21          NaN             2
+    Low                               12          NaN             1
+    Not AD                             9          NaN             0
+
+    naive digit parser fails on : 84/84 donors (100.0%)
+    declared map fails on       : 0/84 donors (0.0%)
+    .map() WITHOUT pd.to_numeric returns Categorical: True   <- would break spearmanr/polyfit silently
+
+    >>> CLEAN. All 84 donors map. Note the naive parser would have lost 100% - keep the declared map.
+--------------------------------------------------------------------------
+  Braak  (column 'Braak')
+    dtype: category   Categorical: True
+    distinct levels across 84 donors: 6
+
+    level                         donors  digit parse  declared map
+    Braak 0                            2            0             0
+    Braak II                           4          NaN             2
+    Braak III                          6          NaN             3
+    Braak IV                          23          NaN             4
+    Braak V                           34          NaN             5
+    Braak VI                          15          NaN             6
+
+    naive digit parser fails on : 82/84 donors (97.6%)
+    declared map fails on       : 0/84 donors (0.0%)
+    .map() WITHOUT pd.to_numeric returns Categorical: True   <- would break spearmanr/polyfit silently
+
+    >>> CLEAN. All 84 donors map. Note the naive parser would have lost 98% - keep the declared map.
+--------------------------------------------------------------------------
+  Thal  (column 'Thal')
+    dtype: category   Categorical: True
+    distinct levels across 84 donors: 6
+
+    level                         donors  digit parse  declared map
+    Thal 0                             9            0             0
+    Thal 1                             5            1             1
+    Thal 2                             7            2             2
+    Thal 3                            12            3             3
+    Thal 4                            30            4             4
+    Thal 5                            21            5             5
+
+    naive digit parser fails on : 0/84 donors (0.0%)
+    declared map fails on       : 0/84 donors (0.0%)
+    .map() WITHOUT pd.to_numeric returns Categorical: True   <- would break spearmanr/polyfit silently
+
+    >>> CLEAN. All 84 donors map. The naive parser also works here, but keep the declared map for consistency.
+--------------------------------------------------------------------------
+  CERAD  (column 'CERAD score')
+    dtype: category   Categorical: True
+    distinct levels across 84 donors: 4
+
+    level                         donors  digit parse  declared map
+    Absent                            16          NaN             0
+    Frequent                          30          NaN             3
+    Moderate                          26          NaN             2
+    Sparse                            12          NaN             1
+
+    naive digit parser fails on : 84/84 donors (100.0%)
+    declared map fails on       : 0/84 donors (0.0%)
+    .map() WITHOUT pd.to_numeric returns Categorical: True   <- would break spearmanr/polyfit silently
+
+    >>> CLEAN. All 84 donors map. Note the naive parser would have lost 100% - keep the declared map.
+--------------------------------------------------------------------------
+  CAA  (column 'Overall CAA Score')
+    dtype: category   Categorical: True
+    distinct levels across 84 donors: 4
+
+    level                         donors  digit parse  declared map
+    Mild                              13          NaN           NaN
+    Moderate                          36          NaN           NaN
+    Not identified                    33          NaN           NaN
+    Severe                             2          NaN           NaN
+
+    naive digit parser fails on : 84/84 donors (100.0%)
+    declared map                : none supplied for this field
+
+    >>> NO MAP DECLARED. If CAA is going to be used as a
+        covariate or an outcome, adopt a map from the levels
+        listed above and add it to this file AND to Part 2 /
+        R_config.R. Do not let each script invent its own.
+--------------------------------------------------------------------------
+
+  SUMMARY
+    ADNC     ok
+    Braak    ok
+    Thal     ok
+    CERAD    ok
+    CAA      no map
+  saved: Part1_PreChecks/S1f_ordinal_levels.csv
+
+==========================================================================
+  G2 — donor table and covariate completeness
+==========================================================================
+  Part 10h is going from 4 covariates to 7. At n = 84 donors the number
+  that matters is COMPLETE CASES, not donors. Establish it now.
+
+  module strength per donor taken from Part1_PreChecks/S1e_per_library.csv
+    donors with a module rho: 52 of 84
+    NOTE this is a cell-count-weighted mean of PER-LIBRARY rho,
+    not a rho computed on the donor's pooled cells. It inherits
+    Part1e's >=40-cell library floor, so donors with only small
+    libraries are absent - that is a selection, state it.
+
+  saved: Part1_PreChecks/S1f_donor_table.csv   (84 donors x 15 columns)
+
+  per-variable completeness:
+    variable          present  missing
+    ADNC                   84        0
+    Braak                  84        0
+    Thal                   84        0
+    CERAD                  84        0
+    PMI                    84        0
+    Age                    84        0
+    RIN                    84        0
+    pH                     84        0
+    Weight                 83        1
+    mito_pct               84        0
+    depth                  84        0
+    n_nuclei               84        0
+    module_rho             52       32
+    module_n_libs          52       32
+
+  COMPLETE CASES for the covariate sets:
+    Tier 1 (current Part 10h)     84 of 84 donors   (['PMI', 'Age'])
+    Tier 1 + Tier 2 (proposed)    83 of 84 donors   (['PMI', 'Age', 'RIN', 'pH', 'Weight'])
+      ...with ADNC     as the outcome:  83 donors
+      ...with Braak    as the outcome:  83 donors
+      ...with Thal     as the outcome:  83 donors
+      ...with CERAD    as the outcome:  83 donors
+
+  Read the drop between the two tiers as the price of the added
+  covariates. If it is large, report the 4-covariate and 7-covariate
+  models side by side rather than replacing one with the other - which
+  is what the over-adjustment argument already requires anyway.
+
+==========================================================================
+  G3 — PRE-SPECIFIED shape test: linear, or flat-then-rising?
+==========================================================================
+  THE CLAIM BEING PRE-REGISTERED
+    An ambient or degradation artifact should scale smoothly with
+    pathology if it scales at all. A biological threshold effect should
+    look flat across the low stages and then rise. This section asks
+    which shape the DONOR-LEVEL data show, and records the answer now,
+    before Part 11c is run, so that agreement later is a confirmation
+    rather than a result the analysis was steered toward.
+
+  WHAT IS ACTUALLY FITTED
+    For each response y and pathology axis s (an integer stage):
+      linear : y ~ rank(s)
+      step   : y ~ 1[s > cut], best cut chosen over the interior stages
+    and the two are compared by R2. A step that beats the linear fit by
+    a clear margin is the flat-then-rising shape. Both are also refitted
+    on tissue-quality residuals, because degradation is the competing
+    explanation for any pathology relationship here.
+
+  LIMITS - carry these into any use of this section
+    - n is at most 84 donors spread over 4-7 stages, so the per-stage
+      cells are small and the cut point is weakly identified.
+    - the step model has one more effective parameter than the linear
+      one, so a small R2 gain is expected even under a linear truth.
+    - the pathology axes are heavily correlated with each other, so the
+      four tests are not four independent looks.
+    - this is NOT the Part 11c Pre-IP/Post-IP test. See the header.
+
+--------------------------------------------------------------------------
+  RESPONSE: donor median mito%  (mito_pct)
+
+    ADNC:  rho=+0.4370  p=3.23e-05  n=84
+        stage  donors      mean
+            0       9     0.134
+            1      12     0.218
+            2      21     0.239
+            3      42     0.560
+      linear R2 0.128   best-step R2 0.150   gain +0.023
+      best cut: above stage 2  (42 below vs 42 above), step size +0.349
+      adjusted for ['RIN', 'pH', 'Weight', 'PMI', 'Age']: rho=+0.2752 p=0.0118 n=83
+      >>> Marginally step-like. A step has more freedom than
+          a line, so a gain this small is not evidence for a
+          threshold. Treat the relationship as linear.
+
+    Braak:  rho=+0.4247  p=5.67e-05  n=84
+        stage  donors      mean
+            0       2     0.207
+            2       4     0.237
+            3       6     0.256
+            4      23     0.175
+            5      34     0.461
+            6      15     0.651
+      linear R2 0.090   best-step R2 0.124   gain +0.034
+      best cut: above stage 4  (35 below vs 49 above), step size +0.321
+      adjusted for ['RIN', 'pH', 'Weight', 'PMI', 'Age']: rho=+0.3725 p=0.000524 n=83
+      >>> Marginally step-like. A step has more freedom than
+          a line, so a gain this small is not evidence for a
+          threshold. Treat the relationship as linear.
+
+    Thal:  rho=+0.4040  p=0.000139  n=84
+        stage  donors      mean
+            0       9     0.134
+            1       5     0.306
+            2       7     0.129
+            3      12     0.293
+            4      30     0.447
+            5      21     0.561
+      linear R2 0.096   best-step R2 0.091   gain -0.005
+      best cut: above stage 3  (33 below vs 51 above), step size +0.277
+      adjusted for ['RIN', 'pH', 'Weight', 'PMI', 'Age']: rho=+0.2641 p=0.0159 n=83
+      >>> LINEAR. No threshold shape at donor level. Do not
+          build the reviewer defence on 'an artifact could
+          not fake this shape' - on this axis there is no
+          special shape to fake.
+
+    CERAD:  rho=+0.4904  p=2.18e-06  n=84
+        stage  donors      mean
+            0      16     0.176
+            1      12     0.130
+            2      26     0.386
+            3      30     0.597
+      linear R2 0.147   best-step R2 0.129   gain -0.018
+      best cut: above stage 1  (28 below vs 56 above), step size +0.343
+      adjusted for ['RIN', 'pH', 'Weight', 'PMI', 'Age']: rho=+0.4260 p=5.94e-05 n=83
+      >>> LINEAR. No threshold shape at donor level. Do not
+          build the reviewer defence on 'an artifact could
+          not fake this shape' - on this axis there is no
+          special shape to fake.
+
+--------------------------------------------------------------------------
+  RESPONSE: donor module strength  (module_rho)
+
+    ADNC:  rho=+0.3202  p=0.0206  n=52
+        stage  donors      mean
+            0       2     0.589
+            1       8     0.706
+            2       7     0.728
+            3      35     0.771
+      linear R2 0.131   best-step R2 0.095   gain -0.036
+      best cut: above stage 2  (17 below vs 35 above), step size +0.069
+      adjusted for ['RIN', 'pH', 'Weight', 'PMI', 'Age']: rho=+0.2663 p=0.0589 n=51
+      >>> LINEAR. No threshold shape at donor level. Do not
+          build the reviewer defence on 'an artifact could
+          not fake this shape' - on this axis there is no
+          special shape to fake.
+
+    Braak:  rho=+0.2710  p=0.052  n=52
+        stage  donors      mean
+            2       2     0.800
+            3       4     0.733
+            4       9     0.654
+            5      25     0.761
+            6      12     0.788
+      linear R2 0.042   best-step R2 0.103   gain +0.062
+      best cut: above stage 4  (15 below vs 37 above), step size +0.075
+      adjusted for ['RIN', 'pH', 'Weight', 'PMI', 'Age']: rho=+0.3414 p=0.0142 n=51
+      >>> STEP-LIKE. The flat-then-rising shape is present at
+          donor level on this axis. Record it now; Part 11c
+          agreeing later is then a confirmation.
+
+    Thal:  rho=+0.3693  p=0.00706  n=52
+        stage  donors      mean
+            0       2     0.589
+            1       3     0.727
+            2       4     0.651
+            3       5     0.748
+            4      19     0.751
+            5      19     0.786
+      linear R2 0.156   best-step R2 0.137   gain -0.019
+      best cut: above stage 2  (9 below vs 43 above), step size +0.103
+      adjusted for ['RIN', 'pH', 'Weight', 'PMI', 'Age']: rho=+0.3598 p=0.0095 n=51
+      >>> LINEAR. No threshold shape at donor level. Do not
+          build the reviewer defence on 'an artifact could
+          not fake this shape' - on this axis there is no
+          special shape to fake.
+
+    CERAD:  rho=+0.3040  p=0.0284  n=52
+        stage  donors      mean
+            0       6     0.675
+            1       5     0.644
+            2      17     0.758
+            3      24     0.780
+      linear R2 0.156   best-step R2 0.181   gain +0.025
+      best cut: above stage 1  (11 below vs 41 above), step size +0.110
+      adjusted for ['RIN', 'pH', 'Weight', 'PMI', 'Age']: rho=+0.2853 p=0.0424 n=51
+      >>> Marginally step-like. A step has more freedom than
+          a line, so a gain this small is not evidence for a
+          threshold. Treat the relationship as linear.
+
+--------------------------------------------------------------------------
+  saved: Part1_PreChecks/S1f_shape_tests.csv
+
+==========================================================================
+  G4 — VERDICT
+==========================================================================
+  ordinals clean and usable          : ['ADNC', 'Braak', 'Thal', 'CERAD']
+  ordinals with no declared map      : ['CAA']
+  complete cases, 7-covariate model   : 83 of 84 donors
+  shape tests run                     : 8
+  showing a step-like (flat-then-rising) shape : 1
+      module_rho vs Braak: gain +0.062, cut above stage 4
+
+  WHAT THIS DOES AND DOES NOT LICENCE
+   - A clean ordinal audit licences using Thal and CERAD downstream.
+     It says nothing about whether they SHOULD be used.
+   - The complete-case counts are what Part 10h will actually fit.
+     Quote them, not 84.
+   - The shape result is a PRE-REGISTRATION. Whatever it says, write it
+     into the migration summary BEFORE running Part 11c, and do not
+     revise it afterwards. That is the entire point of running it here.
+
+  saved: Part1_PreChecks/S1f_ordinals_report.txt
+
+==========================================================================
+  G0 — load obs (backed: no expression matrix is read)
+==========================================================================
+  file  : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad
+  shape : (240651, 36601)
+  obs   : 240,651 rows x 130 columns
+
+  resolved columns:
+    donor        -> Donor ID
+    region       -> Brain Region
+    mito frac    -> Fraction mitochondrial UMIs
+    nUMI         -> Number of UMIs
+    nGene        -> Genes detected
+    severe       -> Severely Affected Donor
+
+  distinct donors : 84
+
+==========================================================================
+  G1 — ordinal parsing audit  [THE BRAAK LESSON]
+==========================================================================
+  For every clinical ordinal: what the levels actually are, what a naive
+  Arabic-digit parser would do to them, and whether the mapped result
+  survives as a NUMBER rather than as an unordered Categorical.
+
+  Two failure modes are tested, both of which have already bitten this
+  pipeline once:
+    (A) ROMAN NUMERALS. str.extract(r'(\d+)') returns NaN on 'Braak V'.
+        This silently disabled the Braak arm for the project's entire
+        history - the correlation printed nothing, which reads exactly
+        like 'not computed' rather than 'broken'.
+    (B) CATEGORICAL PROPAGATION. .map() on a Categorical returns a
+        Categorical. It looks numeric, prints numeric, and then breaks
+        spearmanr and polyfit without raising. pd.to_numeric is
+        mandatory after every .map() on these columns.
+
+--------------------------------------------------------------------------
+  ADNC  (column 'Overall AD neuropathological Change')
+    dtype: category   Categorical: True
+    distinct levels across 84 donors: 4
+
+    level                         donors  digit parse  declared map
+    High                              42          NaN             3
+    Intermediate                      21          NaN             2
+    Low                               12          NaN             1
+    Not AD                             9          NaN             0
+
+    naive digit parser fails on : 84/84 donors (100.0%)
+    declared map fails on       : 0/84 donors (0.0%)
+    .map() WITHOUT pd.to_numeric returns Categorical: True   <- would break spearmanr/polyfit silently
+
+    >>> CLEAN. All 84 donors map. Note the naive parser would have lost 100% - keep the declared map.
+--------------------------------------------------------------------------
+  Braak  (column 'Braak')
+    dtype: category   Categorical: True
+    distinct levels across 84 donors: 6
+
+    level                         donors  digit parse  declared map
+    Braak 0                            2            0             0
+    Braak II                           4          NaN             2
+    Braak III                          6          NaN             3
+    Braak IV                          23          NaN             4
+    Braak V                           34          NaN             5
+    Braak VI                          15          NaN             6
+
+    naive digit parser fails on : 82/84 donors (97.6%)
+    declared map fails on       : 0/84 donors (0.0%)
+    .map() WITHOUT pd.to_numeric returns Categorical: True   <- would break spearmanr/polyfit silently
+
+    >>> CLEAN. All 84 donors map. Note the naive parser would have lost 98% - keep the declared map.
+--------------------------------------------------------------------------
+  Thal  (column 'Thal')
+    dtype: category   Categorical: True
+    distinct levels across 84 donors: 6
+
+    level                         donors  digit parse  declared map
+    Thal 0                             9            0             0
+    Thal 1                             5            1             1
+    Thal 2                             7            2             2
+    Thal 3                            12            3             3
+    Thal 4                            30            4             4
+    Thal 5                            21            5             5
+
+    naive digit parser fails on : 0/84 donors (0.0%)
+    declared map fails on       : 0/84 donors (0.0%)
+    .map() WITHOUT pd.to_numeric returns Categorical: True   <- would break spearmanr/polyfit silently
+
+    >>> CLEAN. All 84 donors map. The naive parser also works here, but keep the declared map for consistency.
+--------------------------------------------------------------------------
+  CERAD  (column 'CERAD score')
+    dtype: category   Categorical: True
+    distinct levels across 84 donors: 4
+
+    level                         donors  digit parse  declared map
+    Absent                            16          NaN             0
+    Frequent                          30          NaN             3
+    Moderate                          26          NaN             2
+    Sparse                            12          NaN             1
+
+    naive digit parser fails on : 84/84 donors (100.0%)
+    declared map fails on       : 0/84 donors (0.0%)
+    .map() WITHOUT pd.to_numeric returns Categorical: True   <- would break spearmanr/polyfit silently
+
+    >>> CLEAN. All 84 donors map. Note the naive parser would have lost 100% - keep the declared map.
+--------------------------------------------------------------------------
+  CAA  (column 'Overall CAA Score')
+    dtype: category   Categorical: True
+    distinct levels across 84 donors: 4
+
+    level                         donors  digit parse  declared map
+    Mild                              13          NaN           NaN
+    Moderate                          36          NaN           NaN
+    Not identified                    33          NaN           NaN
+    Severe                             2          NaN           NaN
+
+    naive digit parser fails on : 84/84 donors (100.0%)
+    declared map                : none supplied for this field
+
+    >>> NO MAP DECLARED. If CAA is going to be used as a
+        covariate or an outcome, adopt a map from the levels
+        listed above and add it to this file AND to Part 2 /
+        R_config.R. Do not let each script invent its own.
+--------------------------------------------------------------------------
+
+  SUMMARY
+    ADNC     ok
+    Braak    ok
+    Thal     ok
+    CERAD    ok
+    CAA      no map
+  saved: Part1_PreChecks/S1f_ordinal_levels.csv
+
+==========================================================================
+  G2 — donor table and covariate completeness
+==========================================================================
+  Part 10h is going from 4 covariates to 7. At n = 84 donors the number
+  that matters is COMPLETE CASES, not donors. Establish it now.
+
+  module strength per donor taken from Part1_PreChecks/S1e_per_library.csv
+    donors with a module rho: 52 of 84
+    NOTE this is a cell-count-weighted mean of PER-LIBRARY rho,
+    not a rho computed on the donor's pooled cells. It inherits
+    Part1e's >=40-cell library floor, so donors with only small
+    libraries are absent - that is a selection, state it.
+
+  saved: Part1_PreChecks/S1f_donor_table.csv   (84 donors x 15 columns)
+
+  per-variable completeness:
+    variable          present  missing
+    ADNC                   84        0
+    Braak                  84        0
+    Thal                   84        0
+    CERAD                  84        0
+    PMI                    84        0
+    Age                    84        0
+    RIN                    84        0
+    pH                     84        0
+    Weight                 83        1
+    mito_pct               84        0
+    depth                  84        0
+    n_nuclei               84        0
+    module_rho             52       32
+    module_n_libs          52       32
+
+  COMPLETE CASES for the covariate sets:
+    Tier 1 (current Part 10h)     84 of 84 donors   (['PMI', 'Age'])
+    Tier 1 + Tier 2 (proposed)    83 of 84 donors   (['PMI', 'Age', 'RIN', 'pH', 'Weight'])
+      ...with ADNC     as the outcome:  83 donors
+      ...with Braak    as the outcome:  83 donors
+      ...with Thal     as the outcome:  83 donors
+      ...with CERAD    as the outcome:  83 donors
+
+  Read the drop between the two tiers as the price of the added
+  covariates. If it is large, report the 4-covariate and 7-covariate
+  models side by side rather than replacing one with the other - which
+  is what the over-adjustment argument already requires anyway.
+
+==========================================================================
+  G3 — PRE-SPECIFIED shape test: linear, or flat-then-rising?
+==========================================================================
+  THE CLAIM BEING PRE-REGISTERED
+    An ambient or degradation artifact should scale smoothly with
+    pathology if it scales at all. A biological threshold effect should
+    look flat across the low stages and then rise. This section asks
+    which shape the DONOR-LEVEL data show, and records the answer now,
+    before Part 11c is run, so that agreement later is a confirmation
+    rather than a result the analysis was steered toward.
+
+  WHAT IS ACTUALLY FITTED
+    For each response y and pathology axis s (an integer stage):
+      linear : y ~ rank(s)
+      step   : y ~ 1[s > cut], best cut chosen over the interior stages
+    and the two are compared by R2. A step that beats the linear fit by
+    a clear margin is the flat-then-rising shape. Both are also refitted
+    on tissue-quality residuals, because degradation is the competing
+    explanation for any pathology relationship here.
+
+  LIMITS - carry these into any use of this section
+    - n is at most 84 donors spread over 4-7 stages, so the per-stage
+      cells are small and the cut point is weakly identified.
+    - the step model has one more effective parameter than the linear
+      one, so a small R2 gain is expected even under a linear truth.
+    - the pathology axes are heavily correlated with each other, so the
+      four tests are not four independent looks.
+    - this is NOT the Part 11c Pre-IP/Post-IP test. See the header.
+
+--------------------------------------------------------------------------
+  RESPONSE: donor median mito%  (mito_pct)
+
+    ADNC:  rho=+0.4370  p=3.23e-05  n=84
+        stage  donors      mean
+            0       9     0.134
+            1      12     0.218
+            2      21     0.239
+            3      42     0.560
+      linear R2 0.128   best-step R2 0.150   gain +0.023
+      best cut: above stage 2  (42 below vs 42 above), step size +0.349
+      adjusted for ['RIN', 'pH', 'Weight', 'PMI', 'Age']: rho=+0.2752 p=0.0118 n=83
+      >>> Marginally step-like. A step has more freedom than
+          a line, so a gain this small is not evidence for a
+          threshold. Treat the relationship as linear.
+
+    Braak:  rho=+0.4247  p=5.67e-05  n=84
+        stage  donors      mean
+            0       2     0.207
+            2       4     0.237
+            3       6     0.256
+            4      23     0.175
+            5      34     0.461
+            6      15     0.651
+      linear R2 0.090   best-step R2 0.124   gain +0.034
+      best cut: above stage 4  (35 below vs 49 above), step size +0.321
+      adjusted for ['RIN', 'pH', 'Weight', 'PMI', 'Age']: rho=+0.3725 p=0.000524 n=83
+      >>> Marginally step-like. A step has more freedom than
+          a line, so a gain this small is not evidence for a
+          threshold. Treat the relationship as linear.
+
+    Thal:  rho=+0.4040  p=0.000139  n=84
+        stage  donors      mean
+            0       9     0.134
+            1       5     0.306
+            2       7     0.129
+            3      12     0.293
+            4      30     0.447
+            5      21     0.561
+      linear R2 0.096   best-step R2 0.091   gain -0.005
+      best cut: above stage 3  (33 below vs 51 above), step size +0.277
+      adjusted for ['RIN', 'pH', 'Weight', 'PMI', 'Age']: rho=+0.2641 p=0.0159 n=83
+      >>> LINEAR. No threshold shape at donor level. Do not
+          build the reviewer defence on 'an artifact could
+          not fake this shape' - on this axis there is no
+          special shape to fake.
+
+    CERAD:  rho=+0.4904  p=2.18e-06  n=84
+        stage  donors      mean
+            0      16     0.176
+            1      12     0.130
+            2      26     0.386
+            3      30     0.597
+      linear R2 0.147   best-step R2 0.129   gain -0.018
+      best cut: above stage 1  (28 below vs 56 above), step size +0.343
+      adjusted for ['RIN', 'pH', 'Weight', 'PMI', 'Age']: rho=+0.4260 p=5.94e-05 n=83
+      >>> LINEAR. No threshold shape at donor level. Do not
+          build the reviewer defence on 'an artifact could
+          not fake this shape' - on this axis there is no
+          special shape to fake.
+
+--------------------------------------------------------------------------
+  RESPONSE: donor module strength  (module_rho)
+
+    ADNC:  rho=+0.3202  p=0.0206  n=52
+        stage  donors      mean
+            0       2     0.589
+            1       8     0.706
+            2       7     0.728
+            3      35     0.771
+      linear R2 0.131   best-step R2 0.095   gain -0.036
+      best cut: above stage 2  (17 below vs 35 above), step size +0.069
+      adjusted for ['RIN', 'pH', 'Weight', 'PMI', 'Age']: rho=+0.2663 p=0.0589 n=51
+      >>> LINEAR. No threshold shape at donor level. Do not
+          build the reviewer defence on 'an artifact could
+          not fake this shape' - on this axis there is no
+          special shape to fake.
+
+    Braak:  rho=+0.2710  p=0.052  n=52
+        stage  donors      mean
+            2       2     0.800
+            3       4     0.733
+            4       9     0.654
+            5      25     0.761
+            6      12     0.788
+      linear R2 0.042   best-step R2 0.103   gain +0.062
+      best cut: above stage 4  (15 below vs 37 above), step size +0.075
+      adjusted for ['RIN', 'pH', 'Weight', 'PMI', 'Age']: rho=+0.3414 p=0.0142 n=51
+      >>> STEP-LIKE. The flat-then-rising shape is present at
+          donor level on this axis. Record it now; Part 11c
+          agreeing later is then a confirmation.
+
+    Thal:  rho=+0.3693  p=0.00706  n=52
+        stage  donors      mean
+            0       2     0.589
+            1       3     0.727
+            2       4     0.651
+            3       5     0.748
+            4      19     0.751
+            5      19     0.786
+      linear R2 0.156   best-step R2 0.137   gain -0.019
+      best cut: above stage 2  (9 below vs 43 above), step size +0.103
+      adjusted for ['RIN', 'pH', 'Weight', 'PMI', 'Age']: rho=+0.3598 p=0.0095 n=51
+      >>> LINEAR. No threshold shape at donor level. Do not
+          build the reviewer defence on 'an artifact could
+          not fake this shape' - on this axis there is no
+          special shape to fake.
+
+    CERAD:  rho=+0.3040  p=0.0284  n=52
+        stage  donors      mean
+            0       6     0.675
+            1       5     0.644
+            2      17     0.758
+            3      24     0.780
+      linear R2 0.156   best-step R2 0.181   gain +0.025
+      best cut: above stage 1  (11 below vs 41 above), step size +0.110
+      adjusted for ['RIN', 'pH', 'Weight', 'PMI', 'Age']: rho=+0.2853 p=0.0424 n=51
+      >>> Marginally step-like. A step has more freedom than
+          a line, so a gain this small is not evidence for a
+          threshold. Treat the relationship as linear.
+
+--------------------------------------------------------------------------
+  saved: Part1_PreChecks/S1f_shape_tests.csv
+
+==========================================================================
+  G4 — VERDICT
+==========================================================================
+  ordinals clean and usable          : ['ADNC', 'Braak', 'Thal', 'CERAD']
+  ordinals with no declared map      : ['CAA']
+  complete cases, 7-covariate model   : 83 of 84 donors
+  shape tests run                     : 8
+  showing a step-like (flat-then-rising) shape : 1
+      module_rho vs Braak: gain +0.062, cut above stage 4
+
+  WHAT THIS DOES AND DOES NOT LICENCE
+   - A clean ordinal audit licences using Thal and CERAD downstream.
+     It says nothing about whether they SHOULD be used.
+   - The complete-case counts are what Part 10h will actually fit.
+     Quote them, not 84.
+   - The shape result is a PRE-REGISTRATION. Whatever it says, write it
+     into the migration summary BEFORE running Part 11c, and do not
+     revise it afterwards. That is the entire point of running it here.
+
+  saved: Part1_PreChecks/S1f_ordinals_report.txt
+

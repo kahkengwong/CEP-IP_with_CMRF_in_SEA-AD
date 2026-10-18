@@ -1,0 +1,77 @@
+{
+  "_about": "Battery 5 (Figure 19 files): do the eleven severely affected (SA) donors drive the between-donor and clinical results of Batteries 1 to 4? This file belongs to Battery 5 only. Part12_01_config.json, Part12_Preset_Readings.md, Part12_03_Config.r and the Figure 15 to 18 analysis files are read, never changed.",
+  "battery5_version": 1,
+  "created": "2026-09-25",
+  "readings_file": "Part12_rerun/Part12_Preset_Readings_Battery5.md",
+  "figure_dir": "11_Fig19",
+  "why_separate_files": "Battery 5 carries its own configuration and pre-set readings, so the Battery 1 to 4 files stay as they were run.",
+  "source_logs": {
+    "_note": "Logs of the sections whose results Battery 5 retests. Section 26 checks that each log ended with PASS and that its analysis file is in Part12_rerun.",
+    "15A": "07_Fig15/15AB_ContamDoublets",
+    "16A": "08_Fig16/16AB_DonorStructure",
+    "16F": "08_Fig16/16FG_LibraryFields",
+    "17AB": "09_Fig17/17AB_Histology",
+    "17CD": "09_Fig17/17CE_ModuleVsMT",
+    "18A": "10_Fig18/18A_NuclearPanels"
+  },
+  "sa": {
+    "_note": "The SEA-AD flag, read from obs_dataset.csv of every arm and region set (the same column Part 13a read). Values are compared after trimming and lower-casing.",
+    "obs_column": "Severely Affected Donor",
+    "true_values": ["y", "yes", "true", "1"],
+    "false_values": ["n", "no", "false", "0", ""],
+    "expected_n": 11
+  },
+  "high_adnc": {
+    "_note": "The random-removal pool: donors of the same frame with ADNC_rank equal to this value and not severely affected. Every SA donor must carry this value.",
+    "column": "ADNC_rank",
+    "value": 3,
+    "allowed_values": [0, 1, 2, 3]
+  },
+  "seeds": {
+    "_note": "Battery 5 seeds: master_seed + step code. The Battery 1 to 4 step seeds are used only to reproduce the 16B splits of the all-donor run (section 27), never for a new draw.",
+    "master_seed": 20260925,
+    "step_codes": {"26": 1901, "27": 1902, "28": 1903, "29": 1904, "30": 1905}
+  },
+  "null": {
+    "_note": "Random removal: per frame, as many donors as the frame has SA donors, drawn without replacement from the frame's high-ADNC donors that are not SA, `draws` times. A statistic is attenuated beyond random removal when its SA-removal change is below the `tail` quantile of its random-removal changes.",
+    "draws": 1000,
+    "tail": 0.05
+  },
+  "exposed": {
+    "_note": "Rows retested without the eleven. Each entry: source panel, stats file folder and name, the level kept, and the quantities with a test (the rest are carried as descriptive rows).",
+    "16A": {"folder": "08_Fig16/16AB_DonorStructure", "file": "Stats_16A.csv", "level": "units"},
+    "16B": {"folder": "08_Fig16/16AB_DonorStructure", "file": "Stats_16B.csv", "level": "donors"},
+    "16F": {"folder": "08_Fig16/16FG_LibraryFields", "file": "Stats_16F.csv", "level": "between donors"},
+    "17A": {"folder": "09_Fig17/17AB_Histology", "file": "Stats_17A.csv", "level": "within donor"},
+    "17B": {"folder": "09_Fig17/17AB_Histology", "file": "Stats_17B.csv", "level": "between donors"},
+    "17C": {"folder": "09_Fig17/17CE_ModuleVsMT", "file": "Stats_17C.csv", "level": "within donor"},
+    "15A": {"folder": "07_Fig15/15AB_ContamDoublets", "file": "Stats_15A.csv", "level": "region sets"},
+    "17D": {"folder": "09_Fig17/17CE_ModuleVsMT", "file": "Stats_17D.csv", "level": "region sets"},
+    "18A": {"folder": "10_Fig18/18A_NuclearPanels", "file": "Stats_18A.csv", "level": "region sets"}
+  },
+  "not_retested": {
+    "_note": "Left out, with the reason, so the scope is explicit.",
+    "15B": "the same clinical model as 15A with doublets removed; 15A carries the clinical exposure",
+    "15C, 15D, 16C, 16D, 16E, 16G, 18B, 18C": "cell-level or within-donor comparisons, low exposure to a donor-level shift",
+    "15E to 15H": "Gerrits data, no SEA-AD donors",
+    "17A between donors, 17C between donors, 17E": "17C between donors is unreadable on PVM_3 and PVM_1 (VIF 5 or more); 17A and 17C are retested at the within-donor level named in the exposure table",
+    "18D": "a power simulation built from all donors; its donor numbers would change by construction",
+    "18E": "descriptive"
+  },
+  "influence": {
+    "_note": "Leave-one-donor-out, tables only: 16A, 16B and 16F between donors, every donor of the cohort removed in turn.",
+    "panels": ["16A", "16B", "16F"]
+  },
+  "classes": ["Holds", "Reversed", "Lost, beyond random removal", "Lost, within random removal", "Lost, null untestable", "Untestable without the eleven", "Gained", "Neither", "Untestable"],
+  "class_colours": {
+    "Holds": "#2D2D2D",
+    "Reversed": "#8E1B1B",
+    "Lost, beyond random removal": "#C0392B",
+    "Lost, within random removal": "#E8A39B",
+    "Lost, null untestable": "#F4D6D1",
+    "Untestable without the eleven": "#FBE7A2",
+    "Gained": "#1275D8",
+    "Neither": "#D9D9D9",
+    "Untestable": "#F2F2F2"
+  }
+}

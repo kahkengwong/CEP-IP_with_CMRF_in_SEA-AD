@@ -1,0 +1,56 @@
+==============================================================================
+  Part 13a - find the Figure 14D %MT
+  2026-10-18 01:07:45
+  R version 4.6.1 (2026-06-24)
+  Root: /data
+==============================================================================
+
+STEP 1 -- comparator donor frame
+  /data/Part10h_Prognosis_1_Comparator/Part10h_Prognosis_1_Comparator_Mic13_PVM3/Part10h_CP10K_M4_Comparator_results.rds | donors 84/83
+
+STEP 2 -- candidate files
+  1 file(s) above 300 MB skipped: Null_19_Clinical.csv
+  74 file(s) to scan
+
+STEP 3 -- candidate %MT columns
+  16 candidate column version(s) before transforms
+
+STEP 4 -- Figure 14D reproduction
+  51 version(s) tried, 3 pass. Rows are published-row order: NeoC MMSE score; NonNeoC Cognitive status; NonNeoC MMSE score
+         id  pass max_abs_dbeta    n_fit            beta_fit transform
+  V002_none  TRUE   0.000488538 74/80/76 -0.529/0.415/-0.337      none
+ V001_log1p  TRUE   0.000488538 74/80/76 -0.529/0.415/-0.337     log1p
+ V014_log1p  TRUE   0.000488538 74/80/76 -0.529/0.415/-0.337     log1p
+ V002_log1p FALSE   0.008908325 74/80/76 -0.527/0.409/-0.346     log1p
+   V001_log FALSE   0.043919784 74/80/76 -0.528/0.415/-0.381       log
+   V014_log FALSE   0.043919784 74/80/76 -0.528/0.415/-0.381       log
+   V015_log FALSE   0.047300871 74/80/76 -0.493/0.368/-0.342       log
+  V001_none FALSE   0.049216062 74/80/76 -0.536/0.456/-0.386      none
+  V014_none FALSE   0.049216062 74/80/76 -0.536/0.456/-0.386      none
+ V015_log1p FALSE   0.056586729 74/80/76 -0.472/0.391/-0.321     log1p
+                                                                                                                                      source
+                      /data/Part12_rerun/05_Units/05_donors.csv | csv | col mito_log1p | donor donor_key | set dataset | arm arm | as stored
+                        /data/Part12_rerun/05_Units/05_donors.csv | csv | col mito_pct | donor donor_key | set dataset | arm arm | as stored
+   /data/Part12_rerun/10_Fig18/18BC_MTOverlap/Plot_18B_cells.csv | csv | col mito_pct | donor donor_key | set dataset | arm arm | donor mean
+                      /data/Part12_rerun/05_Units/05_donors.csv | csv | col mito_log1p | donor donor_key | set dataset | arm arm | as stored
+                        /data/Part12_rerun/05_Units/05_donors.csv | csv | col mito_pct | donor donor_key | set dataset | arm arm | as stored
+   /data/Part12_rerun/10_Fig18/18BC_MTOverlap/Plot_18B_cells.csv | csv | col mito_pct | donor donor_key | set dataset | arm arm | donor mean
+ /data/Part12_rerun/10_Fig18/18BC_MTOverlap/Plot_18B_cells.csv | csv | col mito_pct | donor donor_key | set dataset | arm arm | donor median
+                        /data/Part12_rerun/05_Units/05_donors.csv | csv | col mito_pct | donor donor_key | set dataset | arm arm | as stored
+   /data/Part12_rerun/10_Fig18/18BC_MTOverlap/Plot_18B_cells.csv | csv | col mito_pct | donor donor_key | set dataset | arm arm | donor mean
+ /data/Part12_rerun/10_Fig18/18BC_MTOverlap/Plot_18B_cells.csv | csv | col mito_pct | donor donor_key | set dataset | arm arm | donor median
+
+STEP 5 -- result
+  One set of donor values reproduces Figure 14D (3 equivalent source(s)).
+    /data/Part12_rerun/05_Units/05_donors.csv | csv | col mito_log1p | donor donor_key | set dataset | arm arm | as stored [none]
+    /data/Part12_rerun/05_Units/05_donors.csv | csv | col mito_pct | donor donor_key | set dataset | arm arm | as stored [log1p]
+    /data/Part12_rerun/10_Fig18/18BC_MTOverlap/Plot_18B_cells.csv | csv | col mito_pct | donor donor_key | set dataset | arm arm | donor mean [log1p]
+  Written: /data/Part13_M4Share/Part13_M4_pctMT_for14D.csv | 158 donor rows
+
+Console log: /data/Part13_M4Share/Part13a_CP10K_Find14DpctMT_console_log_20261018_010745.txt
+Warning messages:
+1: In log(x) : NaNs produced
+2: In log1p(100 * x) : NaNs produced
+3: In log(x) : NaNs produced
+4: In log1p(100 * x) : NaNs produced
+5: In log(x) : NaNs produced

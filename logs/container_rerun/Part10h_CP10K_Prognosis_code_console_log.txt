@@ -1,0 +1,1666 @@
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+CEP_arms.R loaded.
+  CEP_HOME    : /data 
+  RESULTS_ROOT: /data 
+  Arms        : Mic13_PVM3, PVM3_all, PVM1_all, HKG8_matched 
+
+############################################################################
+  Part10h_Prognosis
+  Home        : /data
+  Results     : /data/Part10h_Prognosis
+  Arms to run : 4 of 4
+      Mic13_PVM3     -> Part10h_Prognosis_Mic13_PVM3Mic13 PVM_3 (M4-top, primary)
+      PVM3_all       -> Part10h_Prognosis_PVM_3PVM_3 all cells (mask specificity)
+      PVM1_all       -> Part10h_Prognosis_PVM_1PVM_1 all cells (supertype specificity)
+      HKG8_matched   -> Part10h_Prognosis_HKG8HKG8 control (panel specificity)
+############################################################################
+
+============================================================================
+  ARM: Mic13_PVM3   config: R_config.R
+============================================================================
+R_config.R loaded (Module 1: MT-CO3 + 8 DFGs, ≥8/10 regions).
+  ARM_TAG   : Mic13_PVM3 
+  ARM_DIR   : /data/R_export_CP10K/Mic13_PVM3 
+  NEOC_DIR  : /data/R_export_CP10K/Mic13_PVM3/neocortex 
+  NONNC_DIR : /data/R_export_CP10K/Mic13_PVM3/nonneocortex 
+  SHARED_DIR: /data/R_export_CP10K/shared 
+  GOI       : MT-CO3 
+  DFG_NEOC  : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  DFG_NONNC : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Composite : cDFG 
+  RUN_SUFFIX: (none) 
+  Supertype : Micro-PVM_3-SEAAD 
+  Mod1 genes: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 ( 9 )
+  HKG_GENES : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 2130 NeoC / 1987 NonNeoC
+  Config OK: Mic13_PVM3 | MT-CO3 | CP10K
+
+Part10h Prognosis - log started: 2026-10-17 23:13:46.855097
+
+
+ ======================================================================== 
+  Part10h - donor-level clinical correlation for the CMRF arm groups
+  Arm          : Mic13_PVM3 
+  GOI          : MT-CO3 | CP10K 
+  Supertype    : Micro-PVM_3-SEAAD 
+  IP arms      : inherited (group_refined -> IP_status -> cDFG < IP_y); never split on GOI
+  Covariates   : 4-covariate (Age, APOE, Sex, PMI) AND 7-covariate
+                 (+ RIN, Brain pH, Fresh brain weight), side by side
+  V1 input     : /data/Part10e_Validation1/Part10e_Validation1_Mic13_PVM3 
+  Output dir   : /data/Part10h_Prognosis/Part10h_Prognosis_Mic13_PVM3 
+======================================================================== 
+
+  NOTE: the 4- and 7-covariate models are bounds; the ambient index
+        and batch are not adjusted for (both nest in donor).
+
+
+STEP 1 -- donor clinical table
+  Source : donor_clinical.csv
+  Donors : 84 rows, 15 columns
+
+STEP 1a -- ordinal parsing (declared maps, not digit extraction)
+  ADNC             <- "Overall AD neuropathological Change"  |  4 level(s), 84/84 mapped  |  a digit parser would fail 84/84
+  Braak            <- "Braak"  |  6 level(s), 84/84 mapped (84 rescued by the loose pass)  |  a digit parser would fail 82/84
+  Thal             <- "Thal"  |  6 level(s), 84/84 mapped (84 rescued by the loose pass)  |  a digit parser would fail 0/84
+  CERAD            <- "CERAD score"  |  4 level(s), 84/84 mapped (84 rescued by the loose pass)  |  a digit parser would fail 84/84
+  CAA              <- "Overall CAA Score"  |  4 level(s), 84/84 mapped (84 rescued by the loose pass)  |  a digit parser would fail 84/84
+  Cognitive status <- "Cognitive Status"  |  2 level(s), 84/84 mapped  |  a digit parser would fail 84/84
+  Age at death     <- "Age at Death"  |  0 donor(s) censored as "90+" and read at the floor
+
+STEP 1b -- tissue-quality and demographic covariates
+  obs_all_cells.csv: 84 donor(s), 7 covariate column(s)
+  Sex_raw          : obs_all_cells.csv
+  PMI_num          : clinical table: PMI
+  RIN_num          : clinical table: RIN
+  BrainPH_num      : clinical table: Brain pH
+  BrainWeight_num  : clinical table: Fresh Brain Weight
+  Lewy_raw         : obs_all_cells.csv
+  Severe_raw       : clinical table: Severely Affected Donor
+    PMI    : n=84, range [3.20, 11.42], median 6.91
+    RIN    : n=84, range [2.90, 9.60], median 8.63
+    Brain pH: n=84, range [4.50, 7.60], median 6.70
+    Weight : n=83, range [908.00, 1397.00], median 1162.00
+    Sex    : 51 female, 33 male, 0 unknown
+    Severely Affected Donor: 11 flagged, 73 not, 0 unknown
+  Complete cases: 84 on the 4-covariate set, 83 on the 7-covariate set
+  Quote the realised n per model.
+
+======================================================================
+  NeoC
+======================================================================
+  Step4_Refined_Cells: 2130 cell(s)
+    Original + Refined        : 1358
+    Recovered                 : 298
+    Original only             : 61
+    Excluded                  : 413
+  IP_y = 1.875476  (inflection_points_DFG_y)   |   IP_x = 2.679411 (reported IP, not the split)
+  Arm source, module cells  : group_refined 1656, IP_status 0, cDFG@IP_y 0, unlabelled 0
+  Arm source, NON-MODULE cells: group_refined 61, IP_status 0, cDFG@IP_y 413, unlabelled 0
+  Inherited vs `cDFG < IP_y`: 100.00% on 1717 cell(s)  |  a GOI split at u_IP would agree 90.56%
+  obs_dataset: 134088 cell(s) total, 16707 of supertype Micro-PVM_3-SEAAD
+  Donors with Micro-PVM_3-SEAAD cells: 84
+  Donor-level extra variables: 16 of 17 usable
+    CASI_num <- Last CASI Score [69 donor(s)]
+    MOCA_num: unusable (15 donor(s), sd 6.24)
+    MOCA_num <- Last MOCA Score [15 donor(s)]
+    MMSEint_num <- Interval from last MMSE in months [80 donor(s)]
+    CASIint_num <- Interval from last CASI in months [69 donor(s)]
+    EduYears_num <- Years of education [84 donor(s)]
+    LATE_num <- LATE [83 donor(s)]
+    LewyFull_num <- Highest Lewy Body Disease [84 donor(s)]
+    Athero_num <- Atherosclerosis [77 donor(s)]
+    Arteriolo_num <- Arteriolosclerosis [84 donor(s)]
+    Microinf_num <- Total microinfarcts in screening sections [84 donor(s)]
+    MitoFrac_num <- Fraction mitochondrial UMIs [84 donor(s)]
+    nUMI_num <- Number of UMIs [84 donor(s)]
+    nGene_num <- Genes detected [84 donor(s)]
+    Doublet_num <- Doublet score [84 donor(s)]
+    Satur_num <- GEX_sequencing_saturation [84 donor(s)]
+    Study_num <- Primary Study Name [84 donor(s)]
+    IntronExon_num <- GEX_Reads_mapped_confidently_to_intronic_regions / GEX_Reads_mapped_confidently_to_exonic_regions [84 donor(s)]
+    CMRF_core_PreIP   :    801 cell(s) over 84 donor(s), median 3.641%
+    CMRF_core_PostIP  :    855 cell(s) over 84 donor(s), median 2.061%
+    CMRF_core_all     :   1656 cell(s) over 84 donor(s), median 6.991%
+    AllCells_PostIP   :    983 cell(s) over 84 donor(s), median 2.424%
+    OR_PreIP          :    618 cell(s) over 84 donor(s), median 2.764%
+    OR_PostIP         :    740 cell(s) over 84 donor(s), median 1.477%
+    Recov             :    298 cell(s) over 84 donor(s), median 1.158%
+    Ori_only_PreIP    :     53 cell(s) over 84 donor(s), median 0.000%
+    SKIP Ori_only_PostIP   : 8 cell(s) < 10
+    Ori_only          :     61 cell(s) over 84 donor(s), median 0.000%
+    ModPlusOri_PreIP  :    854 cell(s) over 84 donor(s), median 3.872%
+    ModPlusOri_PostIP :    863 cell(s) over 84 donor(s), median 2.061%
+    Excl_PreIP        :    346 cell(s) over 84 donor(s), median 1.412%
+    Excl_PostIP       :    128 cell(s) over 84 donor(s), median 0.244%
+    Excl_all          :    474 cell(s) over 84 donor(s), median 2.062%
+
+  Spearman rho, BH-FDR within each group across the 10 clinical variables
+    CMRF_core_PreIP   : 0/10 significant after BH
+    CMRF_core_PostIP  : 8/10 significant after BH
+    CMRF_core_all     : 9/10 significant after BH
+    AllCells_PostIP   : 8/10 significant after BH
+    OR_PreIP          : 0/10 significant after BH
+    OR_PostIP         : 8/10 significant after BH
+    Recov             : 9/10 significant after BH
+    Ori_only_PreIP    : 0/10 significant after BH
+    Ori_only          : 0/10 significant after BH
+    ModPlusOri_PreIP  : 0/10 significant after BH
+    ModPlusOri_PostIP : 8/10 significant after BH
+    Excl_PreIP        : 0/10 significant after BH
+    Excl_PostIP       : 6/10 significant after BH
+    Excl_all          : 5/10 significant after BH
+  Predictors available: Module Post-IP, Module Pre-IP, Module (all, no IP split), All cells Post-IP (no CMRF), Non-module Post-IP, Non-module Pre-IP, Non-module (all), Module + Ori-only Post-IP, Module + Ori-only Pre-IP
+
+  Donor table for the models: 84 donor(s)
+  Leave-one-in scan: 1620 model(s) over 18 candidate(s); Module Post-IP loses significance in 8 of 180
+  Multivariate cov4 (all donors): 47/135 significant after BH, n = 69-84
+  Multivariate cov7 (all donors): 41/135 significant after BH, n = 68-83
+  Multivariate covM (all donors): 19/135 significant after BH, n = 69-84
+  Multivariate covT (all donors): 19/135 significant after BH, n = 69-84
+  Multivariate covP (all donors): 48/135 significant after BH, n = 64-76
+  Multivariate covE (all donors): 45/135 significant after BH, n = 69-80
+  Restriction ip_split (cov4): the split beats the unsplit predictor on 3 of 15 outcome(s) after BH
+  Restriction cmrf_split (cov4): the split beats the unsplit predictor on 0 of 15 outcome(s) after BH
+  Duel module_vs_mito (encompassing): module only 4, rival only 0, both 0, neither 4 of 8
+  Duel module_vs_unsplit (encompassing): module only 1, rival only 0, both 0, neither 7 of 8
+  Duel module_vs_nonmodule (encompassing): module only 7, rival only 0, both 0, neither 1 of 8
+  Threshold profile: IP_y at quantile 0.484 | median p_far 0.250 over 8 outcome(s) | recomputed pct_post at IP_y vs stored: max |dev| 0.00e+00
+  Steiger Module Post-IP vs Module Pre-IP            : 8/10 significant after BH
+  Steiger Module Post-IP vs Non-module Post-IP       : 7/10 significant after BH
+  Steiger Module Pre-IP vs Non-module Pre-IP         : 0/10 significant after BH
+  Steiger Non-module Post-IP vs Non-module Pre-IP    : 0/10 significant after BH
+  Steiger Module Post-IP vs Module + Ori-only Post-IP : 0/10 significant after BH
+  Steiger Module Post-IP vs Module (all, no IP split) : 0/10 significant after BH
+  Steiger Module Post-IP vs All cells Post-IP (no CMRF) : 0/10 significant after BH
+  Steiger Module Pre-IP vs Module + Ori-only Pre-IP  : 0/10 significant after BH
+  JT module: 15 of 75 donor(s) dropped for fewer than 5 cell(s)
+  JT module -- tertiles of Module post-IP fraction, 60 donor(s):
+    T1: n=20, ip_ratio [0.000, 0.205]
+    T2: n=20, ip_ratio [0.217, 0.542]
+    T3: n=20, ip_ratio [0.558, 1.000]
+  JT excluded: 37 of 69 donor(s) dropped for fewer than 5 cell(s)
+  JT excluded -- tertiles of Non-module post-IP fraction, 32 donor(s):
+    T1: n=11, ip_ratio [0.000, 0.154]
+    T2: n=11, ip_ratio [0.167, 0.385]
+    T3: n=10, ip_ratio [0.391, 1.000]
+  JT module    : 6/10 significant after BH
+  JT excluded  : 0/10 significant after BH
+
+======================================================================
+  NonNeoC
+======================================================================
+  Step4_Refined_Cells: 1987 cell(s)
+    Original + Refined        : 1232
+    Recovered                 : 242
+    Original only             : 71
+    Excluded                  : 442
+  IP_y = 2.038718  (inflection_points_DFG_y)   |   IP_x = 2.802522 (reported IP, not the split)
+  Arm source, module cells  : group_refined 1474, IP_status 0, cDFG@IP_y 0, unlabelled 0
+  Arm source, NON-MODULE cells: group_refined 71, IP_status 0, cDFG@IP_y 442, unlabelled 0
+  Inherited vs `cDFG < IP_y`: 100.00% on 1545 cell(s)  |  a GOI split at u_IP would agree 93.53%
+  obs_dataset: 106563 cell(s) total, 13098 of supertype Micro-PVM_3-SEAAD
+  Donors with Micro-PVM_3-SEAAD cells: 83
+  Donor-level extra variables: 16 of 17 usable
+    CASI_num <- Last CASI Score [68 donor(s)]
+    MOCA_num: unusable (15 donor(s), sd 6.24)
+    MOCA_num <- Last MOCA Score [15 donor(s)]
+    MMSEint_num <- Interval from last MMSE in months [79 donor(s)]
+    CASIint_num <- Interval from last CASI in months [68 donor(s)]
+    EduYears_num <- Years of education [83 donor(s)]
+    LATE_num <- LATE [82 donor(s)]
+    LewyFull_num <- Highest Lewy Body Disease [83 donor(s)]
+    Athero_num <- Atherosclerosis [76 donor(s)]
+    Arteriolo_num <- Arteriolosclerosis [83 donor(s)]
+    Microinf_num <- Total microinfarcts in screening sections [83 donor(s)]
+    MitoFrac_num <- Fraction mitochondrial UMIs [83 donor(s)]
+    nUMI_num <- Number of UMIs [83 donor(s)]
+    nGene_num <- Genes detected [83 donor(s)]
+    Doublet_num <- Doublet score [83 donor(s)]
+    Satur_num <- GEX_sequencing_saturation [81 donor(s)]
+    Study_num <- Primary Study Name [83 donor(s)]
+    IntronExon_num <- GEX_Reads_mapped_confidently_to_intronic_regions / GEX_Reads_mapped_confidently_to_exonic_regions [83 donor(s)]
+    CMRF_core_PreIP   :    698 cell(s) over 83 donor(s), median 3.937%
+    CMRF_core_PostIP  :    776 cell(s) over 83 donor(s), median 3.226%
+    CMRF_core_all     :   1474 cell(s) over 83 donor(s), median 9.789%
+    AllCells_PostIP   :    939 cell(s) over 83 donor(s), median 4.310%
+    OR_PreIP          :    563 cell(s) over 83 donor(s), median 3.125%
+    OR_PostIP         :    669 cell(s) over 83 donor(s), median 2.545%
+    Recov             :    242 cell(s) over 83 donor(s), median 0.952%
+    Ori_only_PreIP    :     63 cell(s) over 83 donor(s), median 0.000%
+    SKIP Ori_only_PostIP   : 8 cell(s) < 10
+    Ori_only          :     71 cell(s) over 83 donor(s), median 0.000%
+    ModPlusOri_PreIP  :    761 cell(s) over 83 donor(s), median 4.167%
+    ModPlusOri_PostIP :    784 cell(s) over 83 donor(s), median 3.382%
+    Excl_PreIP        :    350 cell(s) over 83 donor(s), median 1.732%
+    Excl_PostIP       :    163 cell(s) over 83 donor(s), median 0.587%
+    Excl_all          :    513 cell(s) over 83 donor(s), median 2.985%
+
+  Spearman rho, BH-FDR within each group across the 10 clinical variables
+    CMRF_core_PreIP   : 0/10 significant after BH
+    CMRF_core_PostIP  : 8/10 significant after BH
+    CMRF_core_all     : 7/10 significant after BH
+    AllCells_PostIP   : 8/10 significant after BH
+    OR_PreIP          : 0/10 significant after BH
+    OR_PostIP         : 8/10 significant after BH
+    Recov             : 4/10 significant after BH
+    Ori_only_PreIP    : 0/10 significant after BH
+    Ori_only          : 0/10 significant after BH
+    ModPlusOri_PreIP  : 0/10 significant after BH
+    ModPlusOri_PostIP : 8/10 significant after BH
+    Excl_PreIP        : 0/10 significant after BH
+    Excl_PostIP       : 9/10 significant after BH
+    Excl_all          : 2/10 significant after BH
+  Predictors available: Module Post-IP, Module Pre-IP, Module (all, no IP split), All cells Post-IP (no CMRF), Non-module Post-IP, Non-module Pre-IP, Non-module (all), Module + Ori-only Post-IP, Module + Ori-only Pre-IP
+
+  Donor table for the models: 83 donor(s)
+  Leave-one-in scan: 1620 model(s) over 18 candidate(s); Module Post-IP loses significance in 5 of 180
+  Multivariate cov4 (all donors): 32/135 significant after BH, n = 68-83
+  Multivariate cov7 (all donors): 26/135 significant after BH, n = 67-82
+  Multivariate covM (all donors): 23/135 significant after BH, n = 68-83
+  Multivariate covT (all donors): 17/135 significant after BH, n = 68-83
+  Multivariate covP (all donors): 25/135 significant after BH, n = 63-75
+  Multivariate covE (all donors): 30/135 significant after BH, n = 68-79
+  Restriction ip_split (cov4): the split beats the unsplit predictor on 9 of 15 outcome(s) after BH
+  Restriction cmrf_split (cov4): the split beats the unsplit predictor on 0 of 15 outcome(s) after BH
+  Duel module_vs_mito (encompassing): module only 3, rival only 2, both 3, neither 0 of 8
+  Duel module_vs_unsplit (encompassing): module only 7, rival only 0, both 0, neither 1 of 8
+  Duel module_vs_nonmodule (encompassing): module only 8, rival only 0, both 0, neither 0 of 8
+  Threshold profile: IP_y at quantile 0.474 | median p_far 0.479 over 8 outcome(s) | recomputed pct_post at IP_y vs stored: max |dev| 0.00e+00
+  Steiger Module Post-IP vs Module Pre-IP            : 7/10 significant after BH
+  Steiger Module Post-IP vs Non-module Post-IP       : 1/10 significant after BH
+  Steiger Module Pre-IP vs Non-module Pre-IP         : 0/10 significant after BH
+  Steiger Non-module Post-IP vs Non-module Pre-IP    : 0/10 significant after BH
+  Steiger Module Post-IP vs Module + Ori-only Post-IP : 0/10 significant after BH
+  Steiger Module Post-IP vs Module (all, no IP split) : 0/10 significant after BH
+  Steiger Module Post-IP vs All cells Post-IP (no CMRF) : 0/10 significant after BH
+  Steiger Module Pre-IP vs Module + Ori-only Pre-IP  : 0/10 significant after BH
+  JT module: 25 of 79 donor(s) dropped for fewer than 5 cell(s)
+  JT module -- tertiles of Module post-IP fraction, 54 donor(s):
+    T1: n=18, ip_ratio [0.000, 0.350]
+    T2: n=18, ip_ratio [0.351, 0.609]
+    T3: n=18, ip_ratio [0.636, 1.000]
+  JT excluded: 40 of 68 donor(s) dropped for fewer than 5 cell(s)
+  JT excluded -- tertiles of Non-module post-IP fraction, 28 donor(s):
+    T1: n=11, ip_ratio [0.000, 0.167]
+    T2: n= 8, ip_ratio [0.182, 0.326]
+    T3: n= 9, ip_ratio [0.333, 0.778]
+  JT module    : 3/10 significant after BH
+  JT excluded  : 0/10 significant after BH
+
+STEP 3 -- workbook
+  20 sheet(s) written to Part10h_CP10K_M4_Prognosis.xlsx
+
+STEP 4 -- guardrails
+  [PASS]  GR-10H-01              IPRS RDS: Part10b_CP10K_M4_IPRS_results.rds
+  [PASS]  GR-10H-02-NeoC         IP_y = 1.875476 (field: inflection_points_DFG_y) | IP_x reported = 2.679411 | u_IP reference only = 0.633036
+  [PASS]  GR-10H-05-NeoC         axis = cDFG at IP_y | arm from: group_refined 1656, IP_status 0, cDFG@IP_y 0, unlabelled 0 | inherited vs `cDFG < IP_y`: 100.00% on 1717 cell(s) | a GOI split at u_IP would agree 90.56%
+  [PASS]  GR-10H-04-NeoC         2130 of 2130 refined cell(s) matched a donor in obs_dataset.csv (100.00%) | obs_dataset holds 134088 cell(s), 16707 of supertype Micro-PVM_3-SEAAD (0 with no donor ID), over 84 donor(s)
+  [WARN]  GR-10H-06-NeoC         1 group(s) below the 10-cell floor and not tested: Ori_only_PostIP
+  [PASS]  GR-10H-08-NeoC         realised n and collinearity per covariate set: cov4 n=69-84 (135 of 135 model(s) fitted) armVIF=1.16 maxVIF=1.20 ; cov7 n=68-83 (135 of 135 model(s) fitted) armVIF=1.68 maxVIF=1.92 ; covM n=69-84 (135 of 135 model(s) fitted) armVIF=2.47 maxVIF=2.47 ; covT n=69-84 (135 of 135 model(s) fitted) armVIF=2.78 maxVIF=4.08 ; covP n=64-76 (135 of 135 model(s) fitted) armVIF=1.59 maxVIF=1.82 ; covE n=69-80 (135 of 135 model(s) fitted) armVIF=1.20 maxVIF=1.32 | worst ARM VIF 2.78 in covT
+  [PASS]  GR-10H-10-NeoC         excluded comparison set: 3 of 3 predictor(s) available (Non-module Post-IP, Non-module Pre-IP, Non-module (all)) | arms from cDFG@IP_y 413, unlabelled 0 | excluded cells take their arm from the cDFG rule at IP_y
+  [PASS]  GR-10H-12-NeoC         2 of 2 donor ordering(s) tested | 20 row(s), 0 not testable | tertile sizes 20/20/20 ; 20/18/19 ; 16/17/15 ; 11/11/10 ; 10/10/9 ; 9/9/7 | 37 donor(s) dropped below the 5-cell evidence floor | variance tie-corrected (Lehmann 1975)
+  [PASS]  GR-10H-11-NeoC         8 of 8 Steiger pair(s) tested over 80 row(s) | test: Meng-Rosenthal-Rubin z for dependent overlapping correlations, Spearman variance factor 1.06 | 0 row(s) carry a note
+  [PASS]  GR-10H-02-NonNeoC      IP_y = 2.038718 (field: inflection_points_DFG_y) | IP_x reported = 2.802522 | u_IP reference only = 0.588028
+  [PASS]  GR-10H-05-NonNeoC      axis = cDFG at IP_y | arm from: group_refined 1474, IP_status 0, cDFG@IP_y 0, unlabelled 0 | inherited vs `cDFG < IP_y`: 100.00% on 1545 cell(s) | a GOI split at u_IP would agree 93.53%
+  [PASS]  GR-10H-04-NonNeoC      1987 of 1987 refined cell(s) matched a donor in obs_dataset.csv (100.00%) | obs_dataset holds 106563 cell(s), 13098 of supertype Micro-PVM_3-SEAAD (0 with no donor ID), over 83 donor(s)
+  [WARN]  GR-10H-06-NonNeoC      1 group(s) below the 10-cell floor and not tested: Ori_only_PostIP
+  [PASS]  GR-10H-08-NonNeoC      realised n and collinearity per covariate set: cov4 n=68-83 (135 of 135 model(s) fitted) armVIF=1.08 maxVIF=1.16 ; cov7 n=67-82 (135 of 135 model(s) fitted) armVIF=1.28 maxVIF=1.95 ; covM n=68-83 (135 of 135 model(s) fitted) armVIF=1.44 maxVIF=1.77 ; covT n=68-83 (135 of 135 model(s) fitted) armVIF=1.45 maxVIF=7.65 ; covP n=63-75 (135 of 135 model(s) fitted) armVIF=1.31 maxVIF=1.67 ; covE n=68-79 (135 of 135 model(s) fitted) armVIF=1.12 maxVIF=1.28 | worst ARM VIF 1.45 in covT
+  [PASS]  GR-10H-10-NonNeoC      excluded comparison set: 3 of 3 predictor(s) available (Non-module Post-IP, Non-module Pre-IP, Non-module (all)) | arms from cDFG@IP_y 442, unlabelled 0 | excluded cells take their arm from the cDFG rule at IP_y
+  [PASS]  GR-10H-12-NonNeoC      2 of 2 donor ordering(s) tested | 20 row(s), 0 not testable | tertile sizes 18/18/18 ; 17/15/18 ; 13/15/13 ; 11/8/9 ; 10/6/9 ; 9/5/7 | 40 donor(s) dropped below the 5-cell evidence floor | variance tie-corrected (Lehmann 1975)
+  [PASS]  GR-10H-11-NonNeoC      8 of 8 Steiger pair(s) tested over 80 row(s) | test: Meng-Rosenthal-Rubin z for dependent overlapping correlations, Spearman variance factor 1.06 | 0 row(s) carry a note
+  [PASS]  GR-10H-03              84 donor(s) in the clinical table | 26 ordinal level(s) audited | 0 UNMAPPED | 0 variable(s) with no usable source column | 0 donor(s) carry conflicting donor-level covariates
+  [PASS]  GR-10H-07              complete cases: 84 on the 4-covariate set, 83 on the 7-covariate set
+  [PASS]  GR-10H-13-NeoC         mito/depth-adjusted set ran on 15 model(s), 1 significant after BH | Cognitive status beta +0.30 (4-cov +0.43***); MMSE score beta -0.50** (4-cov -0.54***); ADNC rank beta +0.23 (4-cov +0.42***) | CASI_num <- Last CASI Score [69 donor(s)] | MOCA_num: unusable (15 donor(s), sd 6.24) | MOCA_num <- Last MOCA Score [15 donor(s)] | MMSEint_num <- Interval from last MMSE in months [80 donor(s)] | CASIint_num <- Interval from last CASI in months [69 donor(s)] | EduYears_num <- Years of education [84 donor(s)] | LATE_num <- LATE [83 donor(s)] | LewyFull_num <- Highest Lewy Body Disease [84 donor(s)] | Athero_num <- Atherosclerosis [77 donor(s)] | Arteriolo_num <- Arteriolosclerosis [84 donor(s)] | Microinf_num <- Total microinfarcts in screening sections [84 donor(s)] | MitoFrac_num <- Fraction mitochondrial UMIs [84 donor(s)] | nUMI_num <- Number of UMIs [84 donor(s)] | nGene_num <- Genes detected [84 donor(s)] | Doublet_num <- Doublet score [84 donor(s)] | Satur_num <- GEX_sequencing_saturation [84 donor(s)] | Study_num <- Primary Study Name [84 donor(s)] | IntronExon_num <- GEX_Reads_mapped_confidently_to_intronic_regions / GEX_Reads_mapped_confidently_to_exonic_regions [84 donor(s)]
+  [PASS]  GR-10H-13-NonNeoC      mito/depth-adjusted set ran on 15 model(s), 3 significant after BH | Cognitive status beta +0.42** (4-cov +0.52***); MMSE score beta -0.29* (4-cov -0.41***); ADNC rank beta +0.20 (4-cov +0.32**) | CASI_num <- Last CASI Score [68 donor(s)] | MOCA_num: unusable (15 donor(s), sd 6.24) | MOCA_num <- Last MOCA Score [15 donor(s)] | MMSEint_num <- Interval from last MMSE in months [79 donor(s)] | CASIint_num <- Interval from last CASI in months [68 donor(s)] | EduYears_num <- Years of education [83 donor(s)] | LATE_num <- LATE [82 donor(s)] | LewyFull_num <- Highest Lewy Body Disease [83 donor(s)] | Athero_num <- Atherosclerosis [76 donor(s)] | Arteriolo_num <- Arteriolosclerosis [83 donor(s)] | Microinf_num <- Total microinfarcts in screening sections [83 donor(s)] | MitoFrac_num <- Fraction mitochondrial UMIs [83 donor(s)] | nUMI_num <- Number of UMIs [83 donor(s)] | nGene_num <- Genes detected [83 donor(s)] | Doublet_num <- Doublet score [83 donor(s)] | Satur_num <- GEX_sequencing_saturation [81 donor(s)] | Study_num <- Primary Study Name [83 donor(s)] | IntronExon_num <- GEX_Reads_mapped_confidently_to_intronic_regions / GEX_Reads_mapped_confidently_to_exonic_regions [83 donor(s)]
+  [PASS]  GR-10H-16-NeoC         all 10 clinical variable(s) reach the donor frame, the Spearman and the multivariate; OUTCOMES derived from CLINICAL_PARAMS, 15 outcome(s) modelled
+  [PASS]  GR-10H-16-NonNeoC      all 10 clinical variable(s) reach the donor frame, the Spearman and the multivariate; OUTCOMES derived from CLINICAL_PARAMS, 15 outcome(s) modelled
+  [WARN]  GR-10H-14-NeoC         below the 20-donor modelling floor and not fitted: MOCA score (15 donor(s), not an outcome)
+  [WARN]  GR-10H-14-NonNeoC      below the 20-donor modelling floor and not fitted: MOCA score (15 donor(s), not an outcome)
+  [WARN]  GR-10H-15-NeoC         leave-one-in over 18 candidate(s) on the four headline outcomes: 4 of 72 model(s) lose significance, 0 flip sign from a core |beta| >= 0.10 (0 at any magnitude) | largest shift: Sequencing saturation (donor mean) on Cognitive status moves beta -42.9% (-0.185 absolute)
+  [WARN]  GR-10H-15-NonNeoC      leave-one-in over 18 candidate(s) on the four headline outcomes: 2 of 72 model(s) lose significance, 0 flip sign from a core |beta| >= 0.10 (0 at any magnitude) | largest shift: Mito fraction (donor mean) on ADNC rank moves beta -37.9% (-0.121 absolute)
+  [PASS]  GR-10H-17              all 4 plotted arm label(s) resolve in PRED_LABEL and carry a fill and a border; every predictor label equals its group label; 9 predictor(s) defined, 4 plotted, 15 group(s)
+  [PASS]  GR-10H-18-NeoC         Ori-only is 61 of 1419 SKCS-core cell(s) = 4.30%; the CMRF band carries 95% coverage so the expected residual is 5.00% (tolerance +/-5.00 points)
+  [PASS]  GR-10H-18-NonNeoC      Ori-only is 71 of 1303 SKCS-core cell(s) = 5.45%; the CMRF band carries 95% coverage so the expected residual is 5.00% (tolerance +/-5.00 points)
+  [PASS]  GR-10H-19-NeoC         IP-split test (nested F, 1 df, cov4): the split beats the unsplit module on 3 of 15 outcome(s) after BH. Median gain in R2 from splitting 0.0198. Strongest: RIN F=16.01 BH=0.00216 (split dR2 0.229 vs unsplit 0.080).
+  [PASS]  GR-10H-20-NeoC         predictor duels over the cov4 core (verdict: encompassing test, BH within a duel; Vuong and a 1000-resample donor bootstrap reported). module_vs_mito: module only 4, rival only 0, both 0, neither 4 of 8 | module_vs_unsplit: module only 1, rival only 0, both 0, neither 7 of 8 | module_vs_nonmodule: module only 7, rival only 0, both 0, neither 1 of 8
+  [PASS]  GR-10H-19-NonNeoC      IP-split test (nested F, 1 df, cov4): the split beats the unsplit module on 9 of 15 outcome(s) after BH. Median gain in R2 from splitting 0.0700. Strongest: MMSE score F=19.66 BH=0.000488 (split dR2 0.194 vs unsplit 0.034).
+  [PASS]  GR-10H-20-NonNeoC      predictor duels over the cov4 core (verdict: encompassing test, BH within a duel; Vuong and a 1000-resample donor bootstrap reported). module_vs_mito: module only 3, rival only 2, both 3, neither 0 of 8 | module_vs_unsplit: module only 7, rival only 0, both 0, neither 1 of 8 | module_vs_nonmodule: module only 8, rival only 0, both 0, neither 0 of 8
+  [WARN]  GR-10H-21-NeoC         CMRF-boundary test (nested F, 1 df, cov4): the module/non-module split beats one undivided Post-IP percentage on 0 of 15 outcome(s) after BH. Median gain in R2 0.0241. Sum identity `pct_any_post == pct_post + pct_excl_post` max |dev| 3.553e-15. Strongest: Thal phase F=3.13 BH=0.173 (split dR2 0.197 vs undivided 0.173). No outcome needs the CMRF boundary on this arm.
+  [WARN]  GR-10H-22-NeoC         threshold profile over 91 grid point(s) in quantiles of module cDFG, IP_y at quantile 0.484: IP_y beats a genuinely different threshold on 0 of 8 outcome(s) (p_far, BH, excluding +/-0.10 quantile around IP_y). Median p_far 0.250; the best grid threshold sits 0.269 quantile point(s) from IP_y on average. Recomputed pct_post at IP_y vs the stored column: max |dev| 0.00e+00 (tolerance 1.0e-06). No outcome singles IP_y out.
+  [WARN]  GR-10H-21-NonNeoC      CMRF-boundary test (nested F, 1 df, cov4): the module/non-module split beats one undivided Post-IP percentage on 0 of 15 outcome(s) after BH. Median gain in R2 0.0031. Sum identity `pct_any_post == pct_post + pct_excl_post` max |dev| 3.553e-15. Strongest: Cognitive status F=7.94 BH=0.0925 (split dR2 0.294 vs undivided 0.226). No outcome needs the CMRF boundary on this arm.
+  [WARN]  GR-10H-22-NonNeoC      threshold profile over 91 grid point(s) in quantiles of module cDFG, IP_y at quantile 0.474: IP_y beats a genuinely different threshold on 0 of 8 outcome(s) (p_far, BH, excluding +/-0.10 quantile around IP_y). Median p_far 0.479; the best grid threshold sits 0.213 quantile point(s) from IP_y on average. Recomputed pct_post at IP_y vs the stored column: max |dev| 0.00e+00 (tolerance 1.0e-06). No outcome singles IP_y out.
+  [PASS]  GR-10H-09              declared limitations: batch is not independently adjusted (library nests within donor); the intronic:exonic ratio in covT is a per-library ambient proxy, not a per-cell correction; the 4- and 7-covariate models are bounds
+
+  Final guardrail tally: 29 PASS / 10 WARN / 0 FAIL
+
+STEP 5 -- reloadable results object
+  Part10h_CP10K_M4_Prognosis_results.rds written: 20 sheet(s), 2 dataset(s), 32 figure(s), 111.37 MB
+
+ ======================================================================== 
+  Part10h Prognosis COMPLETE [ Mic13_PVM3 ]
+  Output directory: /data/Part10h_Prognosis/Part10h_Prognosis_Mic13_PVM3 
+  Files generated:
+    Part10h_CP10K_M4_console_log_20261017_231346.txt                   29 KB
+    Part10h_CP10K_M4_Guardrail_Log.txt                                 12 KB
+    Part10h_CP10K_M4_NeoC_DeltaR2_cov4.pdf                              7 KB
+    Part10h_CP10K_M4_NeoC_DeltaR2_cov4.png                            225 KB
+    Part10h_CP10K_M4_NeoC_DeltaR2_covM.pdf                              7 KB
+    Part10h_CP10K_M4_NeoC_DeltaR2_covM.png                            226 KB
+    Part10h_CP10K_M4_NeoC_DeltaR2_covT.pdf                              7 KB
+    Part10h_CP10K_M4_NeoC_DeltaR2_covT.png                            225 KB
+    Part10h_CP10K_M4_NeoC_Dumbbell_pct_excl_post_vs_pct_excl_pre.pdf      7 KB
+    Part10h_CP10K_M4_NeoC_Dumbbell_pct_excl_post_vs_pct_excl_pre.png    143 KB
+    Part10h_CP10K_M4_NeoC_Dumbbell_pct_post_vs_pct_any_post.pdf         7 KB
+    Part10h_CP10K_M4_NeoC_Dumbbell_pct_post_vs_pct_any_post.png       144 KB
+    Part10h_CP10K_M4_NeoC_Dumbbell_pct_post_vs_pct_excl_post.pdf        7 KB
+    Part10h_CP10K_M4_NeoC_Dumbbell_pct_post_vs_pct_excl_post.png      140 KB
+    Part10h_CP10K_M4_NeoC_Dumbbell_pct_post_vs_pct_module_all.pdf       7 KB
+    Part10h_CP10K_M4_NeoC_Dumbbell_pct_post_vs_pct_module_all.png     144 KB
+    Part10h_CP10K_M4_NeoC_Dumbbell_pct_post_vs_pct_mpo_post.pdf         7 KB
+    Part10h_CP10K_M4_NeoC_Dumbbell_pct_post_vs_pct_mpo_post.png       140 KB
+    Part10h_CP10K_M4_NeoC_Dumbbell_pct_post_vs_pct_pre.pdf              7 KB
+    Part10h_CP10K_M4_NeoC_Dumbbell_pct_post_vs_pct_pre.png            142 KB
+    Part10h_CP10K_M4_NeoC_Dumbbell_pct_pre_vs_pct_excl_pre.pdf          7 KB
+    Part10h_CP10K_M4_NeoC_Dumbbell_pct_pre_vs_pct_excl_pre.png        138 KB
+    Part10h_CP10K_M4_NeoC_Dumbbell_pct_pre_vs_pct_mpo_pre.pdf           7 KB
+    Part10h_CP10K_M4_NeoC_Dumbbell_pct_pre_vs_pct_mpo_pre.png         139 KB
+    Part10h_CP10K_M4_NeoC_Heatmap.pdf                                  10 KB
+    Part10h_CP10K_M4_NeoC_Heatmap.png                                 376 KB
+    Part10h_CP10K_M4_NeoC_JT_excluded.pdf                              18 KB
+    Part10h_CP10K_M4_NeoC_JT_excluded.png                             351 KB
+    Part10h_CP10K_M4_NeoC_JT_module.pdf                                24 KB
+    Part10h_CP10K_M4_NeoC_JT_module.png                               379 KB
+    Part10h_CP10K_M4_NeoC_Scatter.pdf                                 424 KB
+    Part10h_CP10K_M4_NeoC_Scatter.png                                4215 KB
+    Part10h_CP10K_M4_NeoC_ThresholdProfile.pdf                         12 KB
+    Part10h_CP10K_M4_NeoC_ThresholdProfile.png                        347 KB
+    Part10h_CP10K_M4_NonNeoC_DeltaR2_cov4.pdf                           7 KB
+    Part10h_CP10K_M4_NonNeoC_DeltaR2_cov4.png                         221 KB
+    Part10h_CP10K_M4_NonNeoC_DeltaR2_covM.pdf                           7 KB
+    Part10h_CP10K_M4_NonNeoC_DeltaR2_covM.png                         224 KB
+    Part10h_CP10K_M4_NonNeoC_DeltaR2_covT.pdf                           7 KB
+    Part10h_CP10K_M4_NonNeoC_DeltaR2_covT.png                         223 KB
+    Part10h_CP10K_M4_NonNeoC_Dumbbell_pct_excl_post_vs_pct_excl_pre.pdf      7 KB
+    Part10h_CP10K_M4_NonNeoC_Dumbbell_pct_excl_post_vs_pct_excl_pre.png    141 KB
+    Part10h_CP10K_M4_NonNeoC_Dumbbell_pct_post_vs_pct_any_post.pdf      7 KB
+    Part10h_CP10K_M4_NonNeoC_Dumbbell_pct_post_vs_pct_any_post.png    144 KB
+    Part10h_CP10K_M4_NonNeoC_Dumbbell_pct_post_vs_pct_excl_post.pdf      7 KB
+    Part10h_CP10K_M4_NonNeoC_Dumbbell_pct_post_vs_pct_excl_post.png    139 KB
+    Part10h_CP10K_M4_NonNeoC_Dumbbell_pct_post_vs_pct_module_all.pdf      7 KB
+    Part10h_CP10K_M4_NonNeoC_Dumbbell_pct_post_vs_pct_module_all.png    145 KB
+    Part10h_CP10K_M4_NonNeoC_Dumbbell_pct_post_vs_pct_mpo_post.pdf      7 KB
+    Part10h_CP10K_M4_NonNeoC_Dumbbell_pct_post_vs_pct_mpo_post.png    137 KB
+    Part10h_CP10K_M4_NonNeoC_Dumbbell_pct_post_vs_pct_pre.pdf           7 KB
+    Part10h_CP10K_M4_NonNeoC_Dumbbell_pct_post_vs_pct_pre.png         140 KB
+    Part10h_CP10K_M4_NonNeoC_Dumbbell_pct_pre_vs_pct_excl_pre.pdf       7 KB
+    Part10h_CP10K_M4_NonNeoC_Dumbbell_pct_pre_vs_pct_excl_pre.png     140 KB
+    Part10h_CP10K_M4_NonNeoC_Dumbbell_pct_pre_vs_pct_mpo_pre.pdf        7 KB
+    Part10h_CP10K_M4_NonNeoC_Dumbbell_pct_pre_vs_pct_mpo_pre.png      141 KB
+    Part10h_CP10K_M4_NonNeoC_Heatmap.pdf                               10 KB
+    Part10h_CP10K_M4_NonNeoC_Heatmap.png                              370 KB
+    Part10h_CP10K_M4_NonNeoC_JT_excluded.pdf                           17 KB
+    Part10h_CP10K_M4_NonNeoC_JT_excluded.png                          343 KB
+    Part10h_CP10K_M4_NonNeoC_JT_module.pdf                             23 KB
+    Part10h_CP10K_M4_NonNeoC_JT_module.png                            365 KB
+    Part10h_CP10K_M4_NonNeoC_Scatter.pdf                              421 KB
+    Part10h_CP10K_M4_NonNeoC_Scatter.png                             4120 KB
+    Part10h_CP10K_M4_NonNeoC_ThresholdProfile.pdf                      13 KB
+    Part10h_CP10K_M4_NonNeoC_ThresholdProfile.png                     340 KB
+    Part10h_CP10K_M4_Prognosis_results.rds                          111375 KB
+    Part10h_CP10K_M4_Prognosis.xlsx                                  1330 KB
+======================================================================== 
+
+  Log written to: /data/Part10h_Prognosis/Part10h_Prognosis_Mic13_PVM3/Part10h_CP10K_M4_console_log_20261017_231346.txt 
+
+Part10h Prognosis - log ended: 2026-10-17 23:17:38.128288
+
+============================================================================
+  ARM: PVM3_all   config: R_config.R
+============================================================================
+R_config.R loaded (Module 1: MT-CO3 + 8 DFGs, ≥8/10 regions).
+  ARM_TAG   : PVM3_all 
+  ARM_DIR   : /data/R_export_CP10K/PVM3_all 
+  NEOC_DIR  : /data/R_export_CP10K/PVM3_all/neocortex 
+  NONNC_DIR : /data/R_export_CP10K/PVM3_all/nonneocortex 
+  SHARED_DIR: /data/R_export_CP10K/shared 
+  GOI       : MT-CO3 
+  DFG_NEOC  : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  DFG_NONNC : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Composite : cDFG 
+  RUN_SUFFIX: _PVM3all 
+  Supertype : Micro-PVM_3-SEAAD 
+  Mod1 genes: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 ( 9 )
+  HKG_GENES : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 13331 NeoC / 11132 NonNeoC
+  Config OK: PVM3_all | MT-CO3 | CP10K
+
+Part10h Prognosis - log started: 2026-10-17 23:17:38.132251
+
+
+ ======================================================================== 
+  Part10h - donor-level clinical correlation for the CMRF arm groups
+  Arm          : PVM3_all 
+  GOI          : MT-CO3 | CP10K 
+  Supertype    : Micro-PVM_3-SEAAD 
+  IP arms      : inherited (group_refined -> IP_status -> cDFG < IP_y); never split on GOI
+  Covariates   : 4-covariate (Age, APOE, Sex, PMI) AND 7-covariate
+                 (+ RIN, Brain pH, Fresh brain weight), side by side
+  V1 input     : /data/Part10e_Validation1/Part10e_Validation1_PVM_3 
+  Output dir   : /data/Part10h_Prognosis/Part10h_Prognosis_PVM_3 
+======================================================================== 
+
+  NOTE: the 4- and 7-covariate models are bounds; the ambient index
+        and batch are not adjusted for (both nest in donor).
+
+
+STEP 1 -- donor clinical table
+  Source : donor_clinical.csv
+  Donors : 84 rows, 15 columns
+
+STEP 1a -- ordinal parsing (declared maps, not digit extraction)
+  ADNC             <- "Overall AD neuropathological Change"  |  4 level(s), 84/84 mapped  |  a digit parser would fail 84/84
+  Braak            <- "Braak"  |  6 level(s), 84/84 mapped (84 rescued by the loose pass)  |  a digit parser would fail 82/84
+  Thal             <- "Thal"  |  6 level(s), 84/84 mapped (84 rescued by the loose pass)  |  a digit parser would fail 0/84
+  CERAD            <- "CERAD score"  |  4 level(s), 84/84 mapped (84 rescued by the loose pass)  |  a digit parser would fail 84/84
+  CAA              <- "Overall CAA Score"  |  4 level(s), 84/84 mapped (84 rescued by the loose pass)  |  a digit parser would fail 84/84
+  Cognitive status <- "Cognitive Status"  |  2 level(s), 84/84 mapped  |  a digit parser would fail 84/84
+  Age at death     <- "Age at Death"  |  0 donor(s) censored as "90+" and read at the floor
+
+STEP 1b -- tissue-quality and demographic covariates
+  obs_all_cells.csv: 84 donor(s), 7 covariate column(s)
+  Sex_raw          : obs_all_cells.csv
+  PMI_num          : clinical table: PMI
+  RIN_num          : clinical table: RIN
+  BrainPH_num      : clinical table: Brain pH
+  BrainWeight_num  : clinical table: Fresh Brain Weight
+  Lewy_raw         : obs_all_cells.csv
+  Severe_raw       : clinical table: Severely Affected Donor
+    PMI    : n=84, range [3.20, 11.42], median 6.91
+    RIN    : n=84, range [2.90, 9.60], median 8.63
+    Brain pH: n=84, range [4.50, 7.60], median 6.70
+    Weight : n=83, range [908.00, 1397.00], median 1162.00
+    Sex    : 51 female, 33 male, 0 unknown
+    Severely Affected Donor: 11 flagged, 73 not, 0 unknown
+  Complete cases: 84 on the 4-covariate set, 83 on the 7-covariate set
+  Quote the realised n per model.
+
+======================================================================
+  NeoC
+======================================================================
+  Step4_Refined_Cells: 13331 cell(s)
+    Original + Refined        : 8103
+    Recovered                 : 1351
+    Original only             : 304
+    Excluded                  : 3573
+  IP_y = 1.664802  (inflection_points_DFG_y)   |   IP_x = 2.495273 (reported IP, not the split)
+  Arm source, module cells  : group_refined 9454, IP_status 0, cDFG@IP_y 0, unlabelled 0
+  Arm source, NON-MODULE cells: group_refined 304, IP_status 0, cDFG@IP_y 3573, unlabelled 0
+  Inherited vs `cDFG < IP_y`: 100.00% on 9758 cell(s)  |  a GOI split at u_IP would agree 91.16%
+  obs_dataset: 134088 cell(s) total, 16707 of supertype Micro-PVM_3-SEAAD
+  Donors with Micro-PVM_3-SEAAD cells: 84
+  Donor-level extra variables: 16 of 17 usable
+    CASI_num <- Last CASI Score [69 donor(s)]
+    MOCA_num: unusable (15 donor(s), sd 6.24)
+    MOCA_num <- Last MOCA Score [15 donor(s)]
+    MMSEint_num <- Interval from last MMSE in months [80 donor(s)]
+    CASIint_num <- Interval from last CASI in months [69 donor(s)]
+    EduYears_num <- Years of education [84 donor(s)]
+    LATE_num <- LATE [83 donor(s)]
+    LewyFull_num <- Highest Lewy Body Disease [84 donor(s)]
+    Athero_num <- Atherosclerosis [77 donor(s)]
+    Arteriolo_num <- Arteriolosclerosis [84 donor(s)]
+    Microinf_num <- Total microinfarcts in screening sections [84 donor(s)]
+    MitoFrac_num <- Fraction mitochondrial UMIs [84 donor(s)]
+    nUMI_num <- Number of UMIs [84 donor(s)]
+    nGene_num <- Genes detected [84 donor(s)]
+    Doublet_num <- Doublet score [84 donor(s)]
+    Satur_num <- GEX_sequencing_saturation [84 donor(s)]
+    Study_num <- Primary Study Name [84 donor(s)]
+    IntronExon_num <- GEX_Reads_mapped_confidently_to_intronic_regions / GEX_Reads_mapped_confidently_to_exonic_regions [84 donor(s)]
+    CMRF_core_PreIP   :   4544 cell(s) over 84 donor(s), median 29.195%
+    CMRF_core_PostIP  :   4910 cell(s) over 84 donor(s), median 16.878%
+    CMRF_core_all     :   9454 cell(s) over 84 donor(s), median 53.949%
+    AllCells_PostIP   :   5880 cell(s) over 84 donor(s), median 22.262%
+    OR_PreIP          :   3639 cell(s) over 84 donor(s), median 24.357%
+    OR_PostIP         :   4464 cell(s) over 84 donor(s), median 13.889%
+    Recov             :   1351 cell(s) over 84 donor(s), median 7.103%
+    Ori_only_PreIP    :    243 cell(s) over 84 donor(s), median 1.375%
+    Ori_only_PostIP   :     61 cell(s) over 84 donor(s), median 0.000%
+    Ori_only          :    304 cell(s) over 84 donor(s), median 1.748%
+    ModPlusOri_PreIP  :   4787 cell(s) over 84 donor(s), median 30.212%
+    ModPlusOri_PostIP :   4971 cell(s) over 84 donor(s), median 16.878%
+    Excl_PreIP        :   2907 cell(s) over 84 donor(s), median 16.962%
+    Excl_PostIP       :    970 cell(s) over 84 donor(s), median 3.794%
+    Excl_all          :   3877 cell(s) over 84 donor(s), median 23.346%
+
+  Spearman rho, BH-FDR within each group across the 10 clinical variables
+    CMRF_core_PreIP   : 8/10 significant after BH
+    CMRF_core_PostIP  : 8/10 significant after BH
+    CMRF_core_all     : 8/10 significant after BH
+    AllCells_PostIP   : 8/10 significant after BH
+    OR_PreIP          : 7/10 significant after BH
+    OR_PostIP         : 8/10 significant after BH
+    Recov             : 0/10 significant after BH
+    Ori_only_PreIP    : 0/10 significant after BH
+    Ori_only_PostIP   : 0/10 significant after BH
+    Ori_only          : 0/10 significant after BH
+    ModPlusOri_PreIP  : 7/10 significant after BH
+    ModPlusOri_PostIP : 8/10 significant after BH
+    Excl_PreIP        : 0/10 significant after BH
+    Excl_PostIP       : 7/10 significant after BH
+    Excl_all          : 0/10 significant after BH
+  Predictors available: Module Post-IP, Module Pre-IP, Module (all, no IP split), All cells Post-IP (no CMRF), Non-module Post-IP, Non-module Pre-IP, Non-module (all), Module + Ori-only Post-IP, Module + Ori-only Pre-IP
+
+  Donor table for the models: 84 donor(s)
+  Leave-one-in scan: 1620 model(s) over 18 candidate(s); Module Post-IP loses significance in 7 of 180
+  Multivariate cov4 (all donors): 76/135 significant after BH, n = 69-84
+  Multivariate cov7 (all donors): 43/135 significant after BH, n = 68-83
+  Multivariate covM (all donors): 7/135 significant after BH, n = 69-84
+  Multivariate covT (all donors): 10/135 significant after BH, n = 69-84
+  Multivariate covP (all donors): 63/135 significant after BH, n = 64-76
+  Multivariate covE (all donors): 68/135 significant after BH, n = 69-80
+  Restriction ip_split (cov4): the split beats the unsplit predictor on 4 of 15 outcome(s) after BH
+  Restriction cmrf_split (cov4): the split beats the unsplit predictor on 0 of 15 outcome(s) after BH
+  Duel module_vs_mito (encompassing): module only 0, rival only 0, both 0, neither 8 of 8
+  Duel module_vs_unsplit (encompassing): module only 4, rival only 0, both 0, neither 4 of 8
+  Duel module_vs_nonmodule (encompassing): module only 6, rival only 0, both 0, neither 2 of 8
+  Threshold profile: IP_y at quantile 0.481 | median p_far 0.056 over 8 outcome(s) | recomputed pct_post at IP_y vs stored: max |dev| 0.00e+00
+  Steiger Module Post-IP vs Module Pre-IP            : 8/10 significant after BH
+  Steiger Module Post-IP vs Non-module Post-IP       : 0/10 significant after BH
+  Steiger Module Pre-IP vs Non-module Pre-IP         : 0/10 significant after BH
+  Steiger Non-module Post-IP vs Non-module Pre-IP    : 7/10 significant after BH
+  Steiger Module Post-IP vs Module + Ori-only Post-IP : 0/10 significant after BH
+  Steiger Module Post-IP vs Module (all, no IP split) : 0/10 significant after BH
+  Steiger Module Post-IP vs All cells Post-IP (no CMRF) : 0/10 significant after BH
+  Steiger Module Pre-IP vs Module + Ori-only Pre-IP  : 0/10 significant after BH
+  JT module: 1 of 84 donor(s) dropped for fewer than 5 cell(s)
+  JT module -- tertiles of Module post-IP fraction, 83 donor(s):
+    T1: n=28, ip_ratio [0.000, 0.219]
+    T2: n=27, ip_ratio [0.229, 0.507]
+    T3: n=28, ip_ratio [0.510, 1.000]
+  JT excluded: 4 of 84 donor(s) dropped for fewer than 5 cell(s)
+  JT excluded -- tertiles of Non-module post-IP fraction, 80 donor(s):
+    T1: n=27, ip_ratio [0.000, 0.118]
+    T2: n=26, ip_ratio [0.120, 0.286]
+    T3: n=27, ip_ratio [0.290, 0.679]
+  JT module    : 8/10 significant after BH
+  JT excluded  : 8/10 significant after BH
+
+======================================================================
+  NonNeoC
+======================================================================
+  Step4_Refined_Cells: 11132 cell(s)
+    Original + Refined        : 6646
+    Recovered                 : 1089
+    Original only             : 295
+    Excluded                  : 3102
+  IP_y = 1.887917  (inflection_points_DFG_y)   |   IP_x = 2.657153 (reported IP, not the split)
+  Arm source, module cells  : group_refined 7735, IP_status 0, cDFG@IP_y 0, unlabelled 0
+  Arm source, NON-MODULE cells: group_refined 295, IP_status 0, cDFG@IP_y 3102, unlabelled 0
+  Inherited vs `cDFG < IP_y`: 100.00% on 8030 cell(s)  |  a GOI split at u_IP would agree 93.39%
+  obs_dataset: 106563 cell(s) total, 13098 of supertype Micro-PVM_3-SEAAD
+  Donors with Micro-PVM_3-SEAAD cells: 83
+  Donor-level extra variables: 16 of 17 usable
+    CASI_num <- Last CASI Score [68 donor(s)]
+    MOCA_num: unusable (15 donor(s), sd 6.24)
+    MOCA_num <- Last MOCA Score [15 donor(s)]
+    MMSEint_num <- Interval from last MMSE in months [79 donor(s)]
+    CASIint_num <- Interval from last CASI in months [68 donor(s)]
+    EduYears_num <- Years of education [83 donor(s)]
+    LATE_num <- LATE [82 donor(s)]
+    LewyFull_num <- Highest Lewy Body Disease [83 donor(s)]
+    Athero_num <- Atherosclerosis [76 donor(s)]
+    Arteriolo_num <- Arteriolosclerosis [83 donor(s)]
+    Microinf_num <- Total microinfarcts in screening sections [83 donor(s)]
+    MitoFrac_num <- Fraction mitochondrial UMIs [83 donor(s)]
+    nUMI_num <- Number of UMIs [83 donor(s)]
+    nGene_num <- Genes detected [83 donor(s)]
+    Doublet_num <- Doublet score [83 donor(s)]
+    Satur_num <- GEX_sequencing_saturation [81 donor(s)]
+    Study_num <- Primary Study Name [83 donor(s)]
+    IntronExon_num <- GEX_Reads_mapped_confidently_to_intronic_regions / GEX_Reads_mapped_confidently_to_exonic_regions [83 donor(s)]
+    CMRF_core_PreIP   :   3624 cell(s) over 83 donor(s), median 30.427%
+    CMRF_core_PostIP  :   4111 cell(s) over 83 donor(s), median 22.549%
+    CMRF_core_all     :   7735 cell(s) over 83 donor(s), median 56.667%
+    AllCells_PostIP   :   5260 cell(s) over 83 donor(s), median 29.412%
+    OR_PreIP          :   3032 cell(s) over 83 donor(s), median 25.301%
+    OR_PostIP         :   3614 cell(s) over 83 donor(s), median 18.782%
+    Recov             :   1089 cell(s) over 83 donor(s), median 7.456%
+    Ori_only_PreIP    :    187 cell(s) over 83 donor(s), median 1.235%
+    Ori_only_PostIP   :    108 cell(s) over 83 donor(s), median 0.000%
+    Ori_only          :    295 cell(s) over 83 donor(s), median 1.974%
+    ModPlusOri_PreIP  :   3811 cell(s) over 83 donor(s), median 31.579%
+    ModPlusOri_PostIP :   4219 cell(s) over 83 donor(s), median 22.892%
+    Excl_PreIP        :   2248 cell(s) over 83 donor(s), median 17.969%
+    Excl_PostIP       :   1149 cell(s) over 83 donor(s), median 6.863%
+    Excl_all          :   3397 cell(s) over 83 donor(s), median 25.000%
+
+  Spearman rho, BH-FDR within each group across the 10 clinical variables
+    CMRF_core_PreIP   : 7/10 significant after BH
+    CMRF_core_PostIP  : 7/10 significant after BH
+    CMRF_core_all     : 7/10 significant after BH
+    AllCells_PostIP   : 7/10 significant after BH
+    OR_PreIP          : 7/10 significant after BH
+    OR_PostIP         : 7/10 significant after BH
+    Recov             : 0/10 significant after BH
+    Ori_only_PreIP    : 0/10 significant after BH
+    Ori_only_PostIP   : 0/10 significant after BH
+    Ori_only          : 0/10 significant after BH
+    ModPlusOri_PreIP  : 7/10 significant after BH
+    ModPlusOri_PostIP : 7/10 significant after BH
+    Excl_PreIP        : 4/10 significant after BH
+    Excl_PostIP       : 3/10 significant after BH
+    Excl_all          : 0/10 significant after BH
+  Predictors available: Module Post-IP, Module Pre-IP, Module (all, no IP split), All cells Post-IP (no CMRF), Non-module Post-IP, Non-module Pre-IP, Non-module (all), Module + Ori-only Post-IP, Module + Ori-only Pre-IP
+
+  Donor table for the models: 83 donor(s)
+  Leave-one-in scan: 1620 model(s) over 18 candidate(s); Module Post-IP loses significance in 5 of 180
+  Multivariate cov4 (all donors): 65/135 significant after BH, n = 68-83
+  Multivariate cov7 (all donors): 49/135 significant after BH, n = 67-82
+  Multivariate covM (all donors): 0/135 significant after BH, n = 68-83
+  Multivariate covT (all donors): 0/135 significant after BH, n = 68-83
+  Multivariate covP (all donors): 56/135 significant after BH, n = 63-75
+  Multivariate covE (all donors): 61/135 significant after BH, n = 68-79
+  Restriction ip_split (cov4): the split beats the unsplit predictor on 4 of 15 outcome(s) after BH
+  Restriction cmrf_split (cov4): the split beats the unsplit predictor on 0 of 15 outcome(s) after BH
+  Duel module_vs_mito (encompassing): module only 0, rival only 0, both 0, neither 8 of 8
+  Duel module_vs_unsplit (encompassing): module only 4, rival only 0, both 0, neither 4 of 8
+  Duel module_vs_nonmodule (encompassing): module only 7, rival only 0, both 0, neither 1 of 8
+  Threshold profile: IP_y at quantile 0.469 | median p_far 0.299 over 8 outcome(s) | recomputed pct_post at IP_y vs stored: max |dev| 0.00e+00
+  Steiger Module Post-IP vs Module Pre-IP            : 7/10 significant after BH
+  Steiger Module Post-IP vs Non-module Post-IP       : 1/10 significant after BH
+  Steiger Module Pre-IP vs Non-module Pre-IP         : 0/10 significant after BH
+  Steiger Non-module Post-IP vs Non-module Pre-IP    : 7/10 significant after BH
+  Steiger Module Post-IP vs Module + Ori-only Post-IP : 0/10 significant after BH
+  Steiger Module Post-IP vs Module (all, no IP split) : 0/10 significant after BH
+  Steiger Module Post-IP vs All cells Post-IP (no CMRF) : 0/10 significant after BH
+  Steiger Module Pre-IP vs Module + Ori-only Pre-IP  : 0/10 significant after BH
+  JT module: 2 of 83 donor(s) dropped for fewer than 5 cell(s)
+  JT module -- tertiles of Module post-IP fraction, 81 donor(s):
+    T1: n=27, ip_ratio [0.000, 0.273]
+    T2: n=27, ip_ratio [0.279, 0.517]
+    T3: n=27, ip_ratio [0.519, 1.000]
+  JT excluded: 5 of 80 donor(s) dropped for fewer than 5 cell(s)
+  JT excluded -- tertiles of Non-module post-IP fraction, 75 donor(s):
+    T1: n=25, ip_ratio [0.000, 0.204]
+    T2: n=25, ip_ratio [0.205, 0.396]
+    T3: n=25, ip_ratio [0.429, 0.846]
+  JT module    : 8/10 significant after BH
+  JT excluded  : 7/10 significant after BH
+
+STEP 3 -- workbook
+  20 sheet(s) written to Part10h_CP10K_PVM_3_Prognosis.xlsx
+
+STEP 4 -- guardrails
+  [PASS]  GR-10H-01              IPRS RDS: Part10b_CP10K_PVM_3_IPRS_results.rds
+  [PASS]  GR-10H-02-NeoC         IP_y = 1.664802 (field: inflection_points_DFG_y) | IP_x reported = 2.495273 | u_IP reference only = 0.645290
+  [PASS]  GR-10H-05-NeoC         axis = cDFG at IP_y | arm from: group_refined 9454, IP_status 0, cDFG@IP_y 0, unlabelled 0 | inherited vs `cDFG < IP_y`: 100.00% on 9758 cell(s) | a GOI split at u_IP would agree 91.16%
+  [PASS]  GR-10H-04-NeoC         13331 of 13331 refined cell(s) matched a donor in obs_dataset.csv (100.00%) | obs_dataset holds 134088 cell(s), 16707 of supertype Micro-PVM_3-SEAAD (0 with no donor ID), over 84 donor(s)
+  [PASS]  GR-10H-06-NeoC         all 15 arm group(s) cleared the 10-cell floor
+  [WARN]  GR-10H-08-NeoC         realised n and collinearity per covariate set: cov4 n=69-84 (135 of 135 model(s) fitted) armVIF=1.21 maxVIF=1.21 ; cov7 n=68-83 (135 of 135 model(s) fitted) armVIF=1.95 maxVIF=1.95 ; covM n=69-84 (135 of 135 model(s) fitted) armVIF=9.77 maxVIF=9.77 WARN ; covT n=69-84 (135 of 135 model(s) fitted) armVIF=9.82 maxVIF=11.00 WARN ; covP n=64-76 (135 of 135 model(s) fitted) armVIF=1.29 maxVIF=1.65 ; covE n=69-80 (135 of 135 model(s) fitted) armVIF=1.26 maxVIF=1.29 | worst ARM VIF 9.82 in covT -- arm VIF >= 5
+  [PASS]  GR-10H-10-NeoC         excluded comparison set: 3 of 3 predictor(s) available (Non-module Post-IP, Non-module Pre-IP, Non-module (all)) | arms from cDFG@IP_y 3573, unlabelled 0 | excluded cells take their arm from the cDFG rule at IP_y
+  [PASS]  GR-10H-12-NeoC         2 of 2 donor ordering(s) tested | 20 row(s), 0 not testable | tertile sizes 28/27/28 ; 27/26/26 ; 22/25/21 ; 27/26/27 ; 26/25/25 ; 23/23/20 | 4 donor(s) dropped below the 5-cell evidence floor | variance tie-corrected (Lehmann 1975)
+  [PASS]  GR-10H-11-NeoC         8 of 8 Steiger pair(s) tested over 80 row(s) | test: Meng-Rosenthal-Rubin z for dependent overlapping correlations, Spearman variance factor 1.06 | 0 row(s) carry a note
+  [PASS]  GR-10H-02-NonNeoC      IP_y = 1.887917 (field: inflection_points_DFG_y) | IP_x reported = 2.657153 | u_IP reference only = 0.595078
+  [PASS]  GR-10H-05-NonNeoC      axis = cDFG at IP_y | arm from: group_refined 7735, IP_status 0, cDFG@IP_y 0, unlabelled 0 | inherited vs `cDFG < IP_y`: 100.00% on 8030 cell(s) | a GOI split at u_IP would agree 93.39%
+  [PASS]  GR-10H-04-NonNeoC      11132 of 11132 refined cell(s) matched a donor in obs_dataset.csv (100.00%) | obs_dataset holds 106563 cell(s), 13098 of supertype Micro-PVM_3-SEAAD (0 with no donor ID), over 83 donor(s)
+  [PASS]  GR-10H-06-NonNeoC      all 15 arm group(s) cleared the 10-cell floor
+  [WARN]  GR-10H-08-NonNeoC      realised n and collinearity per covariate set: cov4 n=68-83 (135 of 135 model(s) fitted) armVIF=1.12 maxVIF=1.20 ; cov7 n=67-82 (135 of 135 model(s) fitted) armVIF=1.64 maxVIF=1.86 ; covM n=68-83 (135 of 135 model(s) fitted) armVIF=5.22 maxVIF=5.50 WARN ; covT n=68-83 (135 of 135 model(s) fitted) armVIF=5.60 maxVIF=10.55 WARN ; covP n=63-75 (135 of 135 model(s) fitted) armVIF=1.35 maxVIF=1.65 ; covE n=68-79 (135 of 135 model(s) fitted) armVIF=1.24 maxVIF=1.29 | worst ARM VIF 5.60 in covT -- arm VIF >= 5
+  [PASS]  GR-10H-10-NonNeoC      excluded comparison set: 3 of 3 predictor(s) available (Non-module Post-IP, Non-module Pre-IP, Non-module (all)) | arms from cDFG@IP_y 3102, unlabelled 0 | excluded cells take their arm from the cDFG rule at IP_y
+  [PASS]  GR-10H-12-NonNeoC      2 of 2 donor ordering(s) tested | 20 row(s), 0 not testable | tertile sizes 27/27/27 ; 26/25/26 ; 22/24/20 ; 25/25/25 ; 24/22/25 ; 21/20/19 | 5 donor(s) dropped below the 5-cell evidence floor | variance tie-corrected (Lehmann 1975)
+  [PASS]  GR-10H-11-NonNeoC      8 of 8 Steiger pair(s) tested over 80 row(s) | test: Meng-Rosenthal-Rubin z for dependent overlapping correlations, Spearman variance factor 1.06 | 0 row(s) carry a note
+  [PASS]  GR-10H-03              84 donor(s) in the clinical table | 26 ordinal level(s) audited | 0 UNMAPPED | 0 variable(s) with no usable source column | 0 donor(s) carry conflicting donor-level covariates
+  [PASS]  GR-10H-07              complete cases: 84 on the 4-covariate set, 83 on the 7-covariate set
+  [PASS]  GR-10H-13-NeoC         mito/depth-adjusted set ran on 15 model(s), 2 significant after BH | Cognitive status beta +0.70 (4-cov +0.46***); MMSE score beta -0.77* (4-cov -0.49***); ADNC rank beta +0.39 (4-cov +0.44***) | CASI_num <- Last CASI Score [69 donor(s)] | MOCA_num: unusable (15 donor(s), sd 6.24) | MOCA_num <- Last MOCA Score [15 donor(s)] | MMSEint_num <- Interval from last MMSE in months [80 donor(s)] | CASIint_num <- Interval from last CASI in months [69 donor(s)] | EduYears_num <- Years of education [84 donor(s)] | LATE_num <- LATE [83 donor(s)] | LewyFull_num <- Highest Lewy Body Disease [84 donor(s)] | Athero_num <- Atherosclerosis [77 donor(s)] | Arteriolo_num <- Arteriolosclerosis [84 donor(s)] | Microinf_num <- Total microinfarcts in screening sections [84 donor(s)] | MitoFrac_num <- Fraction mitochondrial UMIs [84 donor(s)] | nUMI_num <- Number of UMIs [84 donor(s)] | nGene_num <- Genes detected [84 donor(s)] | Doublet_num <- Doublet score [84 donor(s)] | Satur_num <- GEX_sequencing_saturation [84 donor(s)] | Study_num <- Primary Study Name [84 donor(s)] | IntronExon_num <- GEX_Reads_mapped_confidently_to_intronic_regions / GEX_Reads_mapped_confidently_to_exonic_regions [84 donor(s)]
+  [WARN]  GR-10H-13-NonNeoC      mito/depth-adjusted set ran on 15 model(s), 0 significant after BH | Cognitive status beta +0.61 (4-cov +0.50***); MMSE score beta -0.46 (4-cov -0.46***); ADNC rank beta +0.34 (4-cov +0.39***) | CASI_num <- Last CASI Score [68 donor(s)] | MOCA_num: unusable (15 donor(s), sd 6.24) | MOCA_num <- Last MOCA Score [15 donor(s)] | MMSEint_num <- Interval from last MMSE in months [79 donor(s)] | CASIint_num <- Interval from last CASI in months [68 donor(s)] | EduYears_num <- Years of education [83 donor(s)] | LATE_num <- LATE [82 donor(s)] | LewyFull_num <- Highest Lewy Body Disease [83 donor(s)] | Athero_num <- Atherosclerosis [76 donor(s)] | Arteriolo_num <- Arteriolosclerosis [83 donor(s)] | Microinf_num <- Total microinfarcts in screening sections [83 donor(s)] | MitoFrac_num <- Fraction mitochondrial UMIs [83 donor(s)] | nUMI_num <- Number of UMIs [83 donor(s)] | nGene_num <- Genes detected [83 donor(s)] | Doublet_num <- Doublet score [83 donor(s)] | Satur_num <- GEX_sequencing_saturation [81 donor(s)] | Study_num <- Primary Study Name [83 donor(s)] | IntronExon_num <- GEX_Reads_mapped_confidently_to_intronic_regions / GEX_Reads_mapped_confidently_to_exonic_regions [83 donor(s)]
+  [PASS]  GR-10H-16-NeoC         all 10 clinical variable(s) reach the donor frame, the Spearman and the multivariate; OUTCOMES derived from CLINICAL_PARAMS, 15 outcome(s) modelled
+  [PASS]  GR-10H-16-NonNeoC      all 10 clinical variable(s) reach the donor frame, the Spearman and the multivariate; OUTCOMES derived from CLINICAL_PARAMS, 15 outcome(s) modelled
+  [WARN]  GR-10H-14-NeoC         below the 20-donor modelling floor and not fitted: MOCA score (15 donor(s), not an outcome)
+  [WARN]  GR-10H-14-NonNeoC      below the 20-donor modelling floor and not fitted: MOCA score (15 donor(s), not an outcome)
+  [WARN]  GR-10H-15-NeoC         leave-one-in over 18 candidate(s) on the four headline outcomes: 3 of 72 model(s) lose significance, 0 flip sign from a core |beta| >= 0.10 (0 at any magnitude) | largest shift: Mito fraction (donor mean) on CERAD score moves beta +38.0% (+0.196 absolute)
+  [WARN]  GR-10H-15-NonNeoC      leave-one-in over 18 candidate(s) on the four headline outcomes: 2 of 72 model(s) lose significance, 0 flip sign from a core |beta| >= 0.10 (0 at any magnitude) | largest shift: Intronic:exonic ratio (donor mean) on MMSE score moves beta -57.1% (-0.265 absolute)
+  [PASS]  GR-10H-17              all 4 plotted arm label(s) resolve in PRED_LABEL and carry a fill and a border; every predictor label equals its group label; 9 predictor(s) defined, 4 plotted, 15 group(s)
+  [PASS]  GR-10H-18-NeoC         Ori-only is 304 of 8407 SKCS-core cell(s) = 3.62%; the CMRF band carries 95% coverage so the expected residual is 5.00% (tolerance +/-5.00 points)
+  [PASS]  GR-10H-18-NonNeoC      Ori-only is 295 of 6941 SKCS-core cell(s) = 4.25%; the CMRF band carries 95% coverage so the expected residual is 5.00% (tolerance +/-5.00 points)
+  [PASS]  GR-10H-19-NeoC         IP-split test (nested F, 1 df, cov4): the split beats the unsplit module on 4 of 15 outcome(s) after BH. Median gain in R2 from splitting 0.0242. Strongest: Braak stage F=9.45 BH=0.0219 (split dR2 0.172 vs unsplit 0.090).
+  [WARN]  GR-10H-20-NeoC         predictor duels over the cov4 core (verdict: encompassing test, BH within a duel; Vuong and a 1000-resample donor bootstrap reported). module_vs_mito: module only 0, rival only 0, both 0, neither 8 of 8 | module_vs_unsplit: module only 4, rival only 0, both 0, neither 4 of 8 | module_vs_nonmodule: module only 6, rival only 0, both 0, neither 2 of 8 | 15 row(s) carry a joint VIF >= 5 on the module term
+  [PASS]  GR-10H-19-NonNeoC      IP-split test (nested F, 1 df, cov4): the split beats the unsplit module on 4 of 15 outcome(s) after BH. Median gain in R2 from splitting 0.0232. Strongest: Braak stage F=9.21 BH=0.0223 (split dR2 0.159 vs unsplit 0.076).
+  [WARN]  GR-10H-20-NonNeoC      predictor duels over the cov4 core (verdict: encompassing test, BH within a duel; Vuong and a 1000-resample donor bootstrap reported). module_vs_mito: module only 0, rival only 0, both 0, neither 8 of 8 | module_vs_unsplit: module only 4, rival only 0, both 0, neither 4 of 8 | module_vs_nonmodule: module only 7, rival only 0, both 0, neither 1 of 8 | 8 row(s) carry a joint VIF >= 5 on the module term
+  [WARN]  GR-10H-21-NeoC         CMRF-boundary test (nested F, 1 df, cov4): the module/non-module split beats one undivided Post-IP percentage on 0 of 15 outcome(s) after BH. Median gain in R2 0.0109. Sum identity `pct_any_post == pct_post + pct_excl_post` max |dev| 1.421e-14. Strongest: Thal phase F=2.86 BH=0.464 (split dR2 0.171 vs undivided 0.149). No outcome needs the CMRF boundary on this arm.
+  [WARN]  GR-10H-22-NeoC         threshold profile over 91 grid point(s) in quantiles of module cDFG, IP_y at quantile 0.481: IP_y beats a genuinely different threshold on 0 of 8 outcome(s) (p_far, BH, excluding +/-0.10 quantile around IP_y). Median p_far 0.056; the best grid threshold sits 0.070 quantile point(s) from IP_y on average. Recomputed pct_post at IP_y vs the stored column: max |dev| 0.00e+00 (tolerance 1.0e-06). No outcome singles IP_y out.
+  [WARN]  GR-10H-21-NonNeoC      CMRF-boundary test (nested F, 1 df, cov4): the module/non-module split beats one undivided Post-IP percentage on 0 of 15 outcome(s) after BH. Median gain in R2 0.0045. Sum identity `pct_any_post == pct_post + pct_excl_post` max |dev| 1.421e-14. Strongest: Age at death F=4.58 BH=0.254 (split dR2 0.050 vs undivided 0.000). No outcome needs the CMRF boundary on this arm.
+  [WARN]  GR-10H-22-NonNeoC      threshold profile over 91 grid point(s) in quantiles of module cDFG, IP_y at quantile 0.469: IP_y beats a genuinely different threshold on 0 of 8 outcome(s) (p_far, BH, excluding +/-0.10 quantile around IP_y). Median p_far 0.299; the best grid threshold sits 0.172 quantile point(s) from IP_y on average. Recomputed pct_post at IP_y vs the stored column: max |dev| 0.00e+00 (tolerance 1.0e-06). No outcome singles IP_y out.
+  [PASS]  GR-10H-09              declared limitations: batch is not independently adjusted (library nests within donor); the intronic:exonic ratio in covT is a per-library ambient proxy, not a per-cell correction; the 4- and 7-covariate models are bounds
+
+  Final guardrail tally: 26 PASS / 13 WARN / 0 FAIL
+
+STEP 5 -- reloadable results object
+  Part10h_CP10K_PVM_3_Prognosis_results.rds written: 20 sheet(s), 2 dataset(s), 32 figure(s), 112.97 MB
+
+ ======================================================================== 
+  Part10h Prognosis COMPLETE [ PVM3_all ]
+  Output directory: /data/Part10h_Prognosis/Part10h_Prognosis_PVM_3 
+  Files generated:
+    Part10h_CP10K_PVM_3_console_log_20261017_231738.txt                29 KB
+    Part10h_CP10K_PVM_3_Guardrail_Log.txt                              12 KB
+    Part10h_CP10K_PVM_3_NeoC_DeltaR2_cov4.pdf                           7 KB
+    Part10h_CP10K_PVM_3_NeoC_DeltaR2_cov4.png                         231 KB
+    Part10h_CP10K_PVM_3_NeoC_DeltaR2_covM.pdf                           7 KB
+    Part10h_CP10K_PVM_3_NeoC_DeltaR2_covM.png                         225 KB
+    Part10h_CP10K_PVM_3_NeoC_DeltaR2_covT.pdf                           7 KB
+    Part10h_CP10K_PVM_3_NeoC_DeltaR2_covT.png                         224 KB
+    Part10h_CP10K_PVM_3_NeoC_Dumbbell_pct_excl_post_vs_pct_excl_pre.pdf      7 KB
+    Part10h_CP10K_PVM_3_NeoC_Dumbbell_pct_excl_post_vs_pct_excl_pre.png    142 KB
+    Part10h_CP10K_PVM_3_NeoC_Dumbbell_pct_post_vs_pct_any_post.pdf      7 KB
+    Part10h_CP10K_PVM_3_NeoC_Dumbbell_pct_post_vs_pct_any_post.png    140 KB
+    Part10h_CP10K_PVM_3_NeoC_Dumbbell_pct_post_vs_pct_excl_post.pdf      7 KB
+    Part10h_CP10K_PVM_3_NeoC_Dumbbell_pct_post_vs_pct_excl_post.png    141 KB
+    Part10h_CP10K_PVM_3_NeoC_Dumbbell_pct_post_vs_pct_module_all.pdf      7 KB
+    Part10h_CP10K_PVM_3_NeoC_Dumbbell_pct_post_vs_pct_module_all.png    143 KB
+    Part10h_CP10K_PVM_3_NeoC_Dumbbell_pct_post_vs_pct_mpo_post.pdf      7 KB
+    Part10h_CP10K_PVM_3_NeoC_Dumbbell_pct_post_vs_pct_mpo_post.png    139 KB
+    Part10h_CP10K_PVM_3_NeoC_Dumbbell_pct_post_vs_pct_pre.pdf           7 KB
+    Part10h_CP10K_PVM_3_NeoC_Dumbbell_pct_post_vs_pct_pre.png         143 KB
+    Part10h_CP10K_PVM_3_NeoC_Dumbbell_pct_pre_vs_pct_excl_pre.pdf       7 KB
+    Part10h_CP10K_PVM_3_NeoC_Dumbbell_pct_pre_vs_pct_excl_pre.png     141 KB
+    Part10h_CP10K_PVM_3_NeoC_Dumbbell_pct_pre_vs_pct_mpo_pre.pdf        7 KB
+    Part10h_CP10K_PVM_3_NeoC_Dumbbell_pct_pre_vs_pct_mpo_pre.png      141 KB
+    Part10h_CP10K_PVM_3_NeoC_Heatmap.pdf                               10 KB
+    Part10h_CP10K_PVM_3_NeoC_Heatmap.png                              385 KB
+    Part10h_CP10K_PVM_3_NeoC_JT_excluded.pdf                           29 KB
+    Part10h_CP10K_PVM_3_NeoC_JT_excluded.png                          391 KB
+    Part10h_CP10K_PVM_3_NeoC_JT_module.pdf                             29 KB
+    Part10h_CP10K_PVM_3_NeoC_JT_module.png                            397 KB
+    Part10h_CP10K_PVM_3_NeoC_Scatter.pdf                              475 KB
+    Part10h_CP10K_PVM_3_NeoC_Scatter.png                             4489 KB
+    Part10h_CP10K_PVM_3_NeoC_ThresholdProfile.pdf                      13 KB
+    Part10h_CP10K_PVM_3_NeoC_ThresholdProfile.png                     340 KB
+    Part10h_CP10K_PVM_3_NonNeoC_DeltaR2_cov4.pdf                        7 KB
+    Part10h_CP10K_PVM_3_NonNeoC_DeltaR2_cov4.png                      226 KB
+    Part10h_CP10K_PVM_3_NonNeoC_DeltaR2_covM.pdf                        7 KB
+    Part10h_CP10K_PVM_3_NonNeoC_DeltaR2_covM.png                      223 KB
+    Part10h_CP10K_PVM_3_NonNeoC_DeltaR2_covT.pdf                        7 KB
+    Part10h_CP10K_PVM_3_NonNeoC_DeltaR2_covT.png                      222 KB
+    Part10h_CP10K_PVM_3_NonNeoC_Dumbbell_pct_excl_post_vs_pct_excl_pre.pdf      7 KB
+    Part10h_CP10K_PVM_3_NonNeoC_Dumbbell_pct_excl_post_vs_pct_excl_pre.png    142 KB
+    Part10h_CP10K_PVM_3_NonNeoC_Dumbbell_pct_post_vs_pct_any_post.pdf      7 KB
+    Part10h_CP10K_PVM_3_NonNeoC_Dumbbell_pct_post_vs_pct_any_post.png    142 KB
+    Part10h_CP10K_PVM_3_NonNeoC_Dumbbell_pct_post_vs_pct_excl_post.pdf      7 KB
+    Part10h_CP10K_PVM_3_NonNeoC_Dumbbell_pct_post_vs_pct_excl_post.png    141 KB
+    Part10h_CP10K_PVM_3_NonNeoC_Dumbbell_pct_post_vs_pct_module_all.pdf      7 KB
+    Part10h_CP10K_PVM_3_NonNeoC_Dumbbell_pct_post_vs_pct_module_all.png    145 KB
+    Part10h_CP10K_PVM_3_NonNeoC_Dumbbell_pct_post_vs_pct_mpo_post.pdf      7 KB
+    Part10h_CP10K_PVM_3_NonNeoC_Dumbbell_pct_post_vs_pct_mpo_post.png    139 KB
+    Part10h_CP10K_PVM_3_NonNeoC_Dumbbell_pct_post_vs_pct_pre.pdf        7 KB
+    Part10h_CP10K_PVM_3_NonNeoC_Dumbbell_pct_post_vs_pct_pre.png      139 KB
+    Part10h_CP10K_PVM_3_NonNeoC_Dumbbell_pct_pre_vs_pct_excl_pre.pdf      7 KB
+    Part10h_CP10K_PVM_3_NonNeoC_Dumbbell_pct_pre_vs_pct_excl_pre.png    139 KB
+    Part10h_CP10K_PVM_3_NonNeoC_Dumbbell_pct_pre_vs_pct_mpo_pre.pdf      7 KB
+    Part10h_CP10K_PVM_3_NonNeoC_Dumbbell_pct_pre_vs_pct_mpo_pre.png    142 KB
+    Part10h_CP10K_PVM_3_NonNeoC_Heatmap.pdf                            10 KB
+    Part10h_CP10K_PVM_3_NonNeoC_Heatmap.png                           382 KB
+    Part10h_CP10K_PVM_3_NonNeoC_JT_excluded.pdf                        28 KB
+    Part10h_CP10K_PVM_3_NonNeoC_JT_excluded.png                       388 KB
+    Part10h_CP10K_PVM_3_NonNeoC_JT_module.pdf                          29 KB
+    Part10h_CP10K_PVM_3_NonNeoC_JT_module.png                         387 KB
+    Part10h_CP10K_PVM_3_NonNeoC_Scatter.pdf                           461 KB
+    Part10h_CP10K_PVM_3_NonNeoC_Scatter.png                          4412 KB
+    Part10h_CP10K_PVM_3_NonNeoC_ThresholdProfile.pdf                   13 KB
+    Part10h_CP10K_PVM_3_NonNeoC_ThresholdProfile.png                  355 KB
+    Part10h_CP10K_PVM_3_Prognosis_results.rds                       112969 KB
+    Part10h_CP10K_PVM_3_Prognosis.xlsx                               1345 KB
+======================================================================== 
+
+  Log written to: /data/Part10h_Prognosis/Part10h_Prognosis_PVM_3/Part10h_CP10K_PVM_3_console_log_20261017_231738.txt 
+
+Part10h Prognosis - log ended: 2026-10-17 23:21:27.665104
+
+============================================================================
+  ARM: PVM1_all   config: R_config.R
+============================================================================
+R_config.R loaded (Module 1: MT-CO3 + 8 DFGs, ≥8/10 regions).
+  ARM_TAG   : PVM1_all 
+  ARM_DIR   : /data/R_export_CP10K/PVM1_all 
+  NEOC_DIR  : /data/R_export_CP10K/PVM1_all/neocortex 
+  NONNC_DIR : /data/R_export_CP10K/PVM1_all/nonneocortex 
+  SHARED_DIR: /data/R_export_CP10K/shared 
+  GOI       : MT-CO3 
+  DFG_NEOC  : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  DFG_NONNC : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Composite : cDFG 
+  RUN_SUFFIX: _PVM1all 
+  Supertype : Micro-PVM_1 
+  Mod1 genes: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 ( 9 )
+  HKG_GENES : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 3218 NeoC / 2658 NonNeoC
+  Config OK: PVM1_all | MT-CO3 | CP10K
+
+Part10h Prognosis - log started: 2026-10-17 23:21:27.668154
+
+
+ ======================================================================== 
+  Part10h - donor-level clinical correlation for the CMRF arm groups
+  Arm          : PVM1_all 
+  GOI          : MT-CO3 | CP10K 
+  Supertype    : Micro-PVM_1 
+  IP arms      : inherited (group_refined -> IP_status -> cDFG < IP_y); never split on GOI
+  Covariates   : 4-covariate (Age, APOE, Sex, PMI) AND 7-covariate
+                 (+ RIN, Brain pH, Fresh brain weight), side by side
+  V1 input     : /data/Part10e_Validation1/Part10e_Validation1_PVM_1 
+  Output dir   : /data/Part10h_Prognosis/Part10h_Prognosis_PVM_1 
+======================================================================== 
+
+  NOTE: the 4- and 7-covariate models are bounds; the ambient index
+        and batch are not adjusted for (both nest in donor).
+
+
+STEP 1 -- donor clinical table
+  Source : donor_clinical.csv
+  Donors : 84 rows, 15 columns
+
+STEP 1a -- ordinal parsing (declared maps, not digit extraction)
+  ADNC             <- "Overall AD neuropathological Change"  |  4 level(s), 84/84 mapped  |  a digit parser would fail 84/84
+  Braak            <- "Braak"  |  6 level(s), 84/84 mapped (84 rescued by the loose pass)  |  a digit parser would fail 82/84
+  Thal             <- "Thal"  |  6 level(s), 84/84 mapped (84 rescued by the loose pass)  |  a digit parser would fail 0/84
+  CERAD            <- "CERAD score"  |  4 level(s), 84/84 mapped (84 rescued by the loose pass)  |  a digit parser would fail 84/84
+  CAA              <- "Overall CAA Score"  |  4 level(s), 84/84 mapped (84 rescued by the loose pass)  |  a digit parser would fail 84/84
+  Cognitive status <- "Cognitive Status"  |  2 level(s), 84/84 mapped  |  a digit parser would fail 84/84
+  Age at death     <- "Age at Death"  |  0 donor(s) censored as "90+" and read at the floor
+
+STEP 1b -- tissue-quality and demographic covariates
+  obs_all_cells.csv: 84 donor(s), 7 covariate column(s)
+  Sex_raw          : obs_all_cells.csv
+  PMI_num          : clinical table: PMI
+  RIN_num          : clinical table: RIN
+  BrainPH_num      : clinical table: Brain pH
+  BrainWeight_num  : clinical table: Fresh Brain Weight
+  Lewy_raw         : obs_all_cells.csv
+  Severe_raw       : clinical table: Severely Affected Donor
+    PMI    : n=84, range [3.20, 11.42], median 6.91
+    RIN    : n=84, range [2.90, 9.60], median 8.63
+    Brain pH: n=84, range [4.50, 7.60], median 6.70
+    Weight : n=83, range [908.00, 1397.00], median 1162.00
+    Sex    : 51 female, 33 male, 0 unknown
+    Severely Affected Donor: 11 flagged, 73 not, 0 unknown
+  Complete cases: 84 on the 4-covariate set, 83 on the 7-covariate set
+  Quote the realised n per model.
+
+======================================================================
+  NeoC
+======================================================================
+  Step4_Refined_Cells: 3218 cell(s)
+    Original + Refined        : 1821
+    Recovered                 : 381
+    Original only             : 41
+    Excluded                  : 975
+  IP_y = 1.526079  (inflection_points_DFG_y)   |   IP_x = 2.382738 (reported IP, not the split)
+  Arm source, module cells  : group_refined 2202, IP_status 0, cDFG@IP_y 0, unlabelled 0
+  Arm source, NON-MODULE cells: group_refined 41, IP_status 0, cDFG@IP_y 975, unlabelled 0
+  Inherited vs `cDFG < IP_y`: 100.00% on 2243 cell(s)  |  a GOI split at u_IP would agree 88.77%
+  obs_dataset: 134088 cell(s) total, 4596 of supertype Micro-PVM_1
+  Donors with Micro-PVM_1 cells: 84
+  Donor-level extra variables: 16 of 17 usable
+    CASI_num <- Last CASI Score [69 donor(s)]
+    MOCA_num: unusable (15 donor(s), sd 6.24)
+    MOCA_num <- Last MOCA Score [15 donor(s)]
+    MMSEint_num <- Interval from last MMSE in months [80 donor(s)]
+    CASIint_num <- Interval from last CASI in months [69 donor(s)]
+    EduYears_num <- Years of education [84 donor(s)]
+    LATE_num <- LATE [83 donor(s)]
+    LewyFull_num <- Highest Lewy Body Disease [84 donor(s)]
+    Athero_num <- Atherosclerosis [77 donor(s)]
+    Arteriolo_num <- Arteriolosclerosis [84 donor(s)]
+    Microinf_num <- Total microinfarcts in screening sections [84 donor(s)]
+    MitoFrac_num <- Fraction mitochondrial UMIs [84 donor(s)]
+    nUMI_num <- Number of UMIs [84 donor(s)]
+    nGene_num <- Genes detected [84 donor(s)]
+    Doublet_num <- Doublet score [84 donor(s)]
+    Satur_num <- GEX_sequencing_saturation [84 donor(s)]
+    Study_num <- Primary Study Name [84 donor(s)]
+    IntronExon_num <- GEX_Reads_mapped_confidently_to_intronic_regions / GEX_Reads_mapped_confidently_to_exonic_regions [84 donor(s)]
+    CMRF_core_PreIP   :   1014 cell(s) over 84 donor(s), median 21.636%
+    CMRF_core_PostIP  :   1188 cell(s) over 84 donor(s), median 15.390%
+    CMRF_core_all     :   2202 cell(s) over 84 donor(s), median 44.255%
+    AllCells_PostIP   :   1394 cell(s) over 84 donor(s), median 20.174%
+    OR_PreIP          :    756 cell(s) over 84 donor(s), median 16.100%
+    OR_PostIP         :   1065 cell(s) over 84 donor(s), median 13.397%
+    Recov             :    381 cell(s) over 84 donor(s), median 8.108%
+    Ori_only_PreIP    :     32 cell(s) over 84 donor(s), median 0.000%
+    SKIP Ori_only_PostIP   : 9 cell(s) < 10
+    Ori_only          :     41 cell(s) over 84 donor(s), median 0.000%
+    ModPlusOri_PreIP  :   1046 cell(s) over 84 donor(s), median 21.734%
+    ModPlusOri_PostIP :   1197 cell(s) over 84 donor(s), median 15.390%
+    Excl_PreIP        :    810 cell(s) over 84 donor(s), median 17.581%
+    Excl_PostIP       :    206 cell(s) over 84 donor(s), median 2.425%
+    Excl_all          :   1016 cell(s) over 84 donor(s), median 22.336%
+
+  Spearman rho, BH-FDR within each group across the 10 clinical variables
+    CMRF_core_PreIP   : 0/10 significant after BH
+    CMRF_core_PostIP  : 6/10 significant after BH
+    CMRF_core_all     : 7/10 significant after BH
+    AllCells_PostIP   : 7/10 significant after BH
+    OR_PreIP          : 0/10 significant after BH
+    OR_PostIP         : 6/10 significant after BH
+    Recov             : 0/10 significant after BH
+    Ori_only_PreIP    : 0/10 significant after BH
+    Ori_only          : 0/10 significant after BH
+    ModPlusOri_PreIP  : 0/10 significant after BH
+    ModPlusOri_PostIP : 6/10 significant after BH
+    Excl_PreIP        : 0/10 significant after BH
+    Excl_PostIP       : 2/10 significant after BH
+    Excl_all          : 0/10 significant after BH
+  Predictors available: Module Post-IP, Module Pre-IP, Module (all, no IP split), All cells Post-IP (no CMRF), Non-module Post-IP, Non-module Pre-IP, Non-module (all), Module + Ori-only Post-IP, Module + Ori-only Pre-IP
+
+  Donor table for the models: 84 donor(s)
+  Leave-one-in scan: 1620 model(s) over 18 candidate(s); Module Post-IP loses significance in 13 of 180
+  Multivariate cov4 (all donors): 49/135 significant after BH, n = 69-84
+  Multivariate cov7 (all donors): 28/135 significant after BH, n = 68-83
+  Multivariate covM (all donors): 7/135 significant after BH, n = 69-84
+  Multivariate covT (all donors): 7/135 significant after BH, n = 69-84
+  Multivariate covP (all donors): 48/135 significant after BH, n = 64-76
+  Multivariate covE (all donors): 47/135 significant after BH, n = 69-80
+  Restriction ip_split (cov4): the split beats the unsplit predictor on 0 of 15 outcome(s) after BH
+  Restriction cmrf_split (cov4): the split beats the unsplit predictor on 1 of 15 outcome(s) after BH
+  Duel module_vs_mito (encompassing): module only 0, rival only 0, both 0, neither 8 of 8
+  Duel module_vs_unsplit (encompassing): module only 2, rival only 0, both 0, neither 6 of 8
+  Duel module_vs_nonmodule (encompassing): module only 7, rival only 0, both 0, neither 1 of 8
+  Threshold profile: IP_y at quantile 0.460 | median p_far 0.431 over 8 outcome(s) | recomputed pct_post at IP_y vs stored: max |dev| 0.00e+00
+  Steiger Module Post-IP vs Module Pre-IP            : 5/10 significant after BH
+  Steiger Module Post-IP vs Non-module Post-IP       : 0/10 significant after BH
+  Steiger Module Pre-IP vs Non-module Pre-IP         : 0/10 significant after BH
+  Steiger Non-module Post-IP vs Non-module Pre-IP    : 4/10 significant after BH
+  Steiger Module Post-IP vs Module + Ori-only Post-IP : 0/10 significant after BH
+  Steiger Module Post-IP vs Module (all, no IP split) : 0/10 significant after BH
+  Steiger Module Post-IP vs All cells Post-IP (no CMRF) : 0/10 significant after BH
+  Steiger Module Pre-IP vs Module + Ori-only Pre-IP  : 0/10 significant after BH
+  JT module: 10 of 82 donor(s) dropped for fewer than 5 cell(s)
+  JT module -- tertiles of Module post-IP fraction, 72 donor(s):
+    T1: n=24, ip_ratio [0.000, 0.263]
+    T2: n=24, ip_ratio [0.273, 0.613]
+    T3: n=24, ip_ratio [0.625, 1.000]
+  JT excluded: 16 of 80 donor(s) dropped for fewer than 5 cell(s)
+  JT excluded -- tertiles of Non-module post-IP fraction, 64 donor(s):
+    T1: n=22, ip_ratio [0.000, 0.071]
+    T2: n=21, ip_ratio [0.091, 0.207]
+    T3: n=21, ip_ratio [0.214, 0.500]
+  JT module    : 5/10 significant after BH
+  JT excluded  : 1/10 significant after BH
+
+======================================================================
+  NonNeoC
+======================================================================
+  Step4_Refined_Cells: 2658 cell(s)
+    Original + Refined        : 1618
+    Recovered                 : 318
+    Original only             : 59
+    Excluded                  : 663
+  IP_y = 1.836287  (inflection_points_DFG_y)   |   IP_x = 2.645333 (reported IP, not the split)
+  Arm source, module cells  : group_refined 1936, IP_status 0, cDFG@IP_y 0, unlabelled 0
+  Arm source, NON-MODULE cells: group_refined 59, IP_status 0, cDFG@IP_y 663, unlabelled 0
+  Inherited vs `cDFG < IP_y`: 100.00% on 1995 cell(s)  |  a GOI split at u_IP would agree 91.78%
+  obs_dataset: 106563 cell(s) total, 3313 of supertype Micro-PVM_1
+  Donors with Micro-PVM_1 cells: 83
+  Donor-level extra variables: 16 of 17 usable
+    CASI_num <- Last CASI Score [68 donor(s)]
+    MOCA_num: unusable (15 donor(s), sd 6.24)
+    MOCA_num <- Last MOCA Score [15 donor(s)]
+    MMSEint_num <- Interval from last MMSE in months [79 donor(s)]
+    CASIint_num <- Interval from last CASI in months [68 donor(s)]
+    EduYears_num <- Years of education [83 donor(s)]
+    LATE_num <- LATE [82 donor(s)]
+    LewyFull_num <- Highest Lewy Body Disease [83 donor(s)]
+    Athero_num <- Atherosclerosis [76 donor(s)]
+    Arteriolo_num <- Arteriolosclerosis [83 donor(s)]
+    Microinf_num <- Total microinfarcts in screening sections [83 donor(s)]
+    MitoFrac_num <- Fraction mitochondrial UMIs [83 donor(s)]
+    nUMI_num <- Number of UMIs [83 donor(s)]
+    nGene_num <- Genes detected [83 donor(s)]
+    Doublet_num <- Doublet score [83 donor(s)]
+    Satur_num <- GEX_sequencing_saturation [81 donor(s)]
+    Study_num <- Primary Study Name [83 donor(s)]
+    IntronExon_num <- GEX_Reads_mapped_confidently_to_intronic_regions / GEX_Reads_mapped_confidently_to_exonic_regions [83 donor(s)]
+    CMRF_core_PreIP   :    889 cell(s) over 83 donor(s), median 26.316%
+    CMRF_core_PostIP  :   1047 cell(s) over 83 donor(s), median 24.138%
+    CMRF_core_all     :   1936 cell(s) over 83 donor(s), median 56.164%
+    AllCells_PostIP   :   1201 cell(s) over 83 donor(s), median 25.000%
+    OR_PreIP          :    701 cell(s) over 83 donor(s), median 20.930%
+    OR_PostIP         :    917 cell(s) over 83 donor(s), median 16.667%
+    Recov             :    318 cell(s) over 83 donor(s), median 6.897%
+    Ori_only_PreIP    :     48 cell(s) over 83 donor(s), median 0.000%
+    Ori_only_PostIP   :     11 cell(s) over 83 donor(s), median 0.000%
+    Ori_only          :     59 cell(s) over 83 donor(s), median 0.000%
+    ModPlusOri_PreIP  :    937 cell(s) over 83 donor(s), median 27.451%
+    ModPlusOri_PostIP :   1058 cell(s) over 83 donor(s), median 24.138%
+    Excl_PreIP        :    568 cell(s) over 83 donor(s), median 16.667%
+    Excl_PostIP       :    154 cell(s) over 83 donor(s), median 2.837%
+    Excl_all          :    722 cell(s) over 83 donor(s), median 21.875%
+
+  Spearman rho, BH-FDR within each group across the 10 clinical variables
+    CMRF_core_PreIP   : 6/10 significant after BH
+    CMRF_core_PostIP  : 7/10 significant after BH
+    CMRF_core_all     : 0/10 significant after BH
+    AllCells_PostIP   : 7/10 significant after BH
+    OR_PreIP          : 7/10 significant after BH
+    OR_PostIP         : 7/10 significant after BH
+    Recov             : 0/10 significant after BH
+    Ori_only_PreIP    : 0/10 significant after BH
+    Ori_only_PostIP   : 0/10 significant after BH
+    Ori_only          : 0/10 significant after BH
+    ModPlusOri_PreIP  : 3/10 significant after BH
+    ModPlusOri_PostIP : 7/10 significant after BH
+    Excl_PreIP        : 0/10 significant after BH
+    Excl_PostIP       : 0/10 significant after BH
+    Excl_all          : 0/10 significant after BH
+  Predictors available: Module Post-IP, Module Pre-IP, Module (all, no IP split), All cells Post-IP (no CMRF), Non-module Post-IP, Non-module Pre-IP, Non-module (all), Module + Ori-only Post-IP, Module + Ori-only Pre-IP
+
+  Donor table for the models: 83 donor(s)
+  Leave-one-in scan: 1620 model(s) over 18 candidate(s); Module Post-IP loses significance in 17 of 180
+  Multivariate cov4 (all donors): 52/135 significant after BH, n = 68-83
+  Multivariate cov7 (all donors): 20/135 significant after BH, n = 67-82
+  Multivariate covM (all donors): 1/135 significant after BH, n = 68-83
+  Multivariate covT (all donors): 0/135 significant after BH, n = 68-83
+  Multivariate covP (all donors): 36/135 significant after BH, n = 63-75
+  Multivariate covE (all donors): 44/135 significant after BH, n = 68-79
+  Restriction ip_split (cov4): the split beats the unsplit predictor on 7 of 15 outcome(s) after BH
+  Restriction cmrf_split (cov4): the split beats the unsplit predictor on 0 of 15 outcome(s) after BH
+  Duel module_vs_mito (encompassing): module only 2, rival only 0, both 0, neither 6 of 8
+  Duel module_vs_unsplit (encompassing): module only 6, rival only 0, both 0, neither 2 of 8
+  Duel module_vs_nonmodule (encompassing): module only 7, rival only 0, both 0, neither 1 of 8
+  Threshold profile: IP_y at quantile 0.459 | median p_far 0.278 over 8 outcome(s) | recomputed pct_post at IP_y vs stored: max |dev| 0.00e+00
+  Steiger Module Post-IP vs Module Pre-IP            : 7/10 significant after BH
+  Steiger Module Post-IP vs Non-module Post-IP       : 0/10 significant after BH
+  Steiger Module Pre-IP vs Non-module Pre-IP         : 0/10 significant after BH
+  Steiger Non-module Post-IP vs Non-module Pre-IP    : 0/10 significant after BH
+  Steiger Module Post-IP vs Module + Ori-only Post-IP : 0/10 significant after BH
+  Steiger Module Post-IP vs Module (all, no IP split) : 0/10 significant after BH
+  Steiger Module Post-IP vs All cells Post-IP (no CMRF) : 0/10 significant after BH
+  Steiger Module Pre-IP vs Module + Ori-only Pre-IP  : 0/10 significant after BH
+  JT module: 15 of 82 donor(s) dropped for fewer than 5 cell(s)
+  JT module -- tertiles of Module post-IP fraction, 67 donor(s):
+    T1: n=24, ip_ratio [0.000, 0.286]
+    T2: n=21, ip_ratio [0.304, 0.600]
+    T3: n=22, ip_ratio [0.615, 1.000]
+  JT excluded: 29 of 75 donor(s) dropped for fewer than 5 cell(s)
+  JT excluded -- tertiles of Non-module post-IP fraction, 46 donor(s):
+    T1: n=19, ip_ratio [0.000, 0.143]
+    T2: n=12, ip_ratio [0.150, 0.231]
+    T3: n=15, ip_ratio [0.286, 0.778]
+  JT module    : 6/10 significant after BH
+  JT excluded  : 0/10 significant after BH
+
+STEP 3 -- workbook
+  20 sheet(s) written to Part10h_CP10K_PVM_1_Prognosis.xlsx
+
+STEP 4 -- guardrails
+  [PASS]  GR-10H-01              IPRS RDS: Part10b_CP10K_PVM_1_IPRS_results.rds
+  [PASS]  GR-10H-02-NeoC         IP_y = 1.526079 (field: inflection_points_DFG_y) | IP_x reported = 2.382738 | u_IP reference only = 0.662939
+  [PASS]  GR-10H-05-NeoC         axis = cDFG at IP_y | arm from: group_refined 2202, IP_status 0, cDFG@IP_y 0, unlabelled 0 | inherited vs `cDFG < IP_y`: 100.00% on 2243 cell(s) | a GOI split at u_IP would agree 88.77%
+  [PASS]  GR-10H-04-NeoC         3218 of 3218 refined cell(s) matched a donor in obs_dataset.csv (100.00%) | obs_dataset holds 134088 cell(s), 4596 of supertype Micro-PVM_1 (0 with no donor ID), over 84 donor(s)
+  [WARN]  GR-10H-06-NeoC         1 group(s) below the 10-cell floor and not tested: Ori_only_PostIP
+  [WARN]  GR-10H-08-NeoC         realised n and collinearity per covariate set: cov4 n=69-84 (135 of 135 model(s) fitted) armVIF=1.20 maxVIF=1.33 ; cov7 n=68-83 (135 of 135 model(s) fitted) armVIF=1.70 maxVIF=1.91 ; covM n=69-84 (135 of 135 model(s) fitted) armVIF=4.73 maxVIF=4.73 ; covT n=69-84 (135 of 135 model(s) fitted) armVIF=5.02 maxVIF=6.60 WARN ; covP n=64-76 (135 of 135 model(s) fitted) armVIF=1.43 maxVIF=1.80 ; covE n=69-80 (135 of 135 model(s) fitted) armVIF=1.24 maxVIF=1.44 | worst ARM VIF 5.02 in covT -- arm VIF >= 5
+  [PASS]  GR-10H-10-NeoC         excluded comparison set: 3 of 3 predictor(s) available (Non-module Post-IP, Non-module Pre-IP, Non-module (all)) | arms from cDFG@IP_y 975, unlabelled 0 | excluded cells take their arm from the cDFG rule at IP_y
+  [PASS]  GR-10H-12-NeoC         2 of 2 donor ordering(s) tested | 20 row(s), 0 not testable | tertile sizes 24/24/24 ; 24/22/23 ; 19/21/18 ; 22/21/21 ; 22/20/19 ; 18/19/16 | 16 donor(s) dropped below the 5-cell evidence floor | variance tie-corrected (Lehmann 1975)
+  [PASS]  GR-10H-11-NeoC         8 of 8 Steiger pair(s) tested over 80 row(s) | test: Meng-Rosenthal-Rubin z for dependent overlapping correlations, Spearman variance factor 1.06 | 0 row(s) carry a note
+  [PASS]  GR-10H-02-NonNeoC      IP_y = 1.836287 (field: inflection_points_DFG_y) | IP_x reported = 2.645333 | u_IP reference only = 0.610004
+  [PASS]  GR-10H-05-NonNeoC      axis = cDFG at IP_y | arm from: group_refined 1936, IP_status 0, cDFG@IP_y 0, unlabelled 0 | inherited vs `cDFG < IP_y`: 100.00% on 1995 cell(s) | a GOI split at u_IP would agree 91.78%
+  [PASS]  GR-10H-04-NonNeoC      2658 of 2658 refined cell(s) matched a donor in obs_dataset.csv (100.00%) | obs_dataset holds 106563 cell(s), 3313 of supertype Micro-PVM_1 (0 with no donor ID), over 83 donor(s)
+  [PASS]  GR-10H-06-NonNeoC      all 15 arm group(s) cleared the 10-cell floor
+  [PASS]  GR-10H-08-NonNeoC      realised n and collinearity per covariate set: cov4 n=68-83 (135 of 135 model(s) fitted) armVIF=1.14 maxVIF=1.18 ; cov7 n=67-82 (135 of 135 model(s) fitted) armVIF=1.56 maxVIF=1.95 ; covM n=68-83 (135 of 135 model(s) fitted) armVIF=2.94 maxVIF=2.94 ; covT n=68-83 (135 of 135 model(s) fitted) armVIF=3.91 maxVIF=4.44 ; covP n=63-75 (135 of 135 model(s) fitted) armVIF=1.27 maxVIF=1.63 ; covE n=68-79 (135 of 135 model(s) fitted) armVIF=1.21 maxVIF=1.27 | worst ARM VIF 3.91 in covT
+  [PASS]  GR-10H-10-NonNeoC      excluded comparison set: 3 of 3 predictor(s) available (Non-module Post-IP, Non-module Pre-IP, Non-module (all)) | arms from cDFG@IP_y 663, unlabelled 0 | excluded cells take their arm from the cDFG rule at IP_y
+  [PASS]  GR-10H-12-NonNeoC      2 of 2 donor ordering(s) tested | 20 row(s), 0 not testable | tertile sizes 24/21/22 ; 23/19/21 ; 19/18/15 ; 19/12/15 ; 18/11/14 ; 15/9/11 | 29 donor(s) dropped below the 5-cell evidence floor | variance tie-corrected (Lehmann 1975)
+  [PASS]  GR-10H-11-NonNeoC      8 of 8 Steiger pair(s) tested over 80 row(s) | test: Meng-Rosenthal-Rubin z for dependent overlapping correlations, Spearman variance factor 1.06 | 0 row(s) carry a note
+  [PASS]  GR-10H-03              84 donor(s) in the clinical table | 26 ordinal level(s) audited | 0 UNMAPPED | 0 variable(s) with no usable source column | 0 donor(s) carry conflicting donor-level covariates
+  [PASS]  GR-10H-07              complete cases: 84 on the 4-covariate set, 83 on the 7-covariate set
+  [PASS]  GR-10H-13-NeoC         mito/depth-adjusted set ran on 15 model(s), 2 significant after BH | Cognitive status beta +0.36 (4-cov +0.43***); MMSE score beta -0.17 (4-cov -0.44***); ADNC rank beta +0.27 (4-cov +0.37***) | CASI_num <- Last CASI Score [69 donor(s)] | MOCA_num: unusable (15 donor(s), sd 6.24) | MOCA_num <- Last MOCA Score [15 donor(s)] | MMSEint_num <- Interval from last MMSE in months [80 donor(s)] | CASIint_num <- Interval from last CASI in months [69 donor(s)] | EduYears_num <- Years of education [84 donor(s)] | LATE_num <- LATE [83 donor(s)] | LewyFull_num <- Highest Lewy Body Disease [84 donor(s)] | Athero_num <- Atherosclerosis [77 donor(s)] | Arteriolo_num <- Arteriolosclerosis [84 donor(s)] | Microinf_num <- Total microinfarcts in screening sections [84 donor(s)] | MitoFrac_num <- Fraction mitochondrial UMIs [84 donor(s)] | nUMI_num <- Number of UMIs [84 donor(s)] | nGene_num <- Genes detected [84 donor(s)] | Doublet_num <- Doublet score [84 donor(s)] | Satur_num <- GEX_sequencing_saturation [84 donor(s)] | Study_num <- Primary Study Name [84 donor(s)] | IntronExon_num <- GEX_Reads_mapped_confidently_to_intronic_regions / GEX_Reads_mapped_confidently_to_exonic_regions [84 donor(s)]
+  [WARN]  GR-10H-13-NonNeoC      mito/depth-adjusted set ran on 15 model(s), 0 significant after BH | Cognitive status beta +0.36 (4-cov +0.42***); MMSE score beta -0.44 (4-cov -0.45***); ADNC rank beta +0.18 (4-cov +0.30**) | CASI_num <- Last CASI Score [68 donor(s)] | MOCA_num: unusable (15 donor(s), sd 6.24) | MOCA_num <- Last MOCA Score [15 donor(s)] | MMSEint_num <- Interval from last MMSE in months [79 donor(s)] | CASIint_num <- Interval from last CASI in months [68 donor(s)] | EduYears_num <- Years of education [83 donor(s)] | LATE_num <- LATE [82 donor(s)] | LewyFull_num <- Highest Lewy Body Disease [83 donor(s)] | Athero_num <- Atherosclerosis [76 donor(s)] | Arteriolo_num <- Arteriolosclerosis [83 donor(s)] | Microinf_num <- Total microinfarcts in screening sections [83 donor(s)] | MitoFrac_num <- Fraction mitochondrial UMIs [83 donor(s)] | nUMI_num <- Number of UMIs [83 donor(s)] | nGene_num <- Genes detected [83 donor(s)] | Doublet_num <- Doublet score [83 donor(s)] | Satur_num <- GEX_sequencing_saturation [81 donor(s)] | Study_num <- Primary Study Name [83 donor(s)] | IntronExon_num <- GEX_Reads_mapped_confidently_to_intronic_regions / GEX_Reads_mapped_confidently_to_exonic_regions [83 donor(s)]
+  [PASS]  GR-10H-16-NeoC         all 10 clinical variable(s) reach the donor frame, the Spearman and the multivariate; OUTCOMES derived from CLINICAL_PARAMS, 15 outcome(s) modelled
+  [PASS]  GR-10H-16-NonNeoC      all 10 clinical variable(s) reach the donor frame, the Spearman and the multivariate; OUTCOMES derived from CLINICAL_PARAMS, 15 outcome(s) modelled
+  [WARN]  GR-10H-14-NeoC         below the 20-donor modelling floor and not fitted: MOCA score (15 donor(s), not an outcome)
+  [WARN]  GR-10H-14-NonNeoC      below the 20-donor modelling floor and not fitted: MOCA score (15 donor(s), not an outcome)
+  [WARN]  GR-10H-15-NeoC         leave-one-in over 18 candidate(s) on the four headline outcomes: 7 of 72 model(s) lose significance, 0 flip sign from a core |beta| >= 0.10 (0 at any magnitude) | largest shift: Mito fraction (donor mean) on MMSE score moves beta +66.6% (+0.290 absolute)
+  [WARN]  GR-10H-15-NonNeoC      leave-one-in over 18 candidate(s) on the four headline outcomes: 4 of 72 model(s) lose significance, 0 flip sign from a core |beta| >= 0.10 (0 at any magnitude) | largest shift: Sequencing saturation (donor mean) on ADNC rank moves beta -53.4% (-0.159 absolute)
+  [PASS]  GR-10H-17              all 4 plotted arm label(s) resolve in PRED_LABEL and carry a fill and a border; every predictor label equals its group label; 9 predictor(s) defined, 4 plotted, 15 group(s)
+  [PASS]  GR-10H-18-NeoC         Ori-only is 41 of 1862 SKCS-core cell(s) = 2.20%; the CMRF band carries 95% coverage so the expected residual is 5.00% (tolerance +/-5.00 points)
+  [PASS]  GR-10H-18-NonNeoC      Ori-only is 59 of 1677 SKCS-core cell(s) = 3.52%; the CMRF band carries 95% coverage so the expected residual is 5.00% (tolerance +/-5.00 points)
+  [WARN]  GR-10H-19-NeoC         IP-split test (nested F, 1 df, cov4): the split beats the unsplit module on 0 of 15 outcome(s) after BH. Median gain in R2 from splitting 0.0242. Strongest: Thal phase F=7.46 BH=0.0736 (split dR2 0.115 vs unsplit 0.050). No outcome needs the split on this arm.
+  [WARN]  GR-10H-20-NeoC         predictor duels over the cov4 core (verdict: encompassing test, BH within a duel; Vuong and a 1000-resample donor bootstrap reported). module_vs_mito: module only 0, rival only 0, both 0, neither 8 of 8 | module_vs_unsplit: module only 2, rival only 0, both 0, neither 6 of 8 | module_vs_nonmodule: module only 7, rival only 0, both 0, neither 1 of 8 | 7 row(s) carry a joint VIF >= 5 on the module term
+  [PASS]  GR-10H-19-NonNeoC      IP-split test (nested F, 1 df, cov4): the split beats the unsplit module on 7 of 15 outcome(s) after BH. Median gain in R2 from splitting 0.0484. Strongest: Fresh brain weight F=19.49 BH=0.000502 (split dR2 0.138 vs unsplit 0.005).
+  [PASS]  GR-10H-20-NonNeoC      predictor duels over the cov4 core (verdict: encompassing test, BH within a duel; Vuong and a 1000-resample donor bootstrap reported). module_vs_mito: module only 2, rival only 0, both 0, neither 6 of 8 | module_vs_unsplit: module only 6, rival only 0, both 0, neither 2 of 8 | module_vs_nonmodule: module only 7, rival only 0, both 0, neither 1 of 8
+  [PASS]  GR-10H-21-NeoC         CMRF-boundary test (nested F, 1 df, cov4): the module/non-module split beats one undivided Post-IP percentage on 1 of 15 outcome(s) after BH. Median gain in R2 0.0066. Sum identity `pct_any_post == pct_post + pct_excl_post` max |dev| 1.421e-14. Strongest: Age at death F=11.59 BH=0.0157 (split dR2 0.124 vs undivided 0.010).
+  [WARN]  GR-10H-22-NeoC         threshold profile over 91 grid point(s) in quantiles of module cDFG, IP_y at quantile 0.460: IP_y beats a genuinely different threshold on 0 of 8 outcome(s) (p_far, BH, excluding +/-0.10 quantile around IP_y). Median p_far 0.431; the best grid threshold sits 0.148 quantile point(s) from IP_y on average. Recomputed pct_post at IP_y vs the stored column: max |dev| 0.00e+00 (tolerance 1.0e-06). No outcome singles IP_y out.
+  [WARN]  GR-10H-21-NonNeoC      CMRF-boundary test (nested F, 1 df, cov4): the module/non-module split beats one undivided Post-IP percentage on 0 of 15 outcome(s) after BH. Median gain in R2 0.0034. Sum identity `pct_any_post == pct_post + pct_excl_post` max |dev| 1.421e-14. Strongest: CASI score F=1.99 BH=0.815 (split dR2 0.282 vs undivided 0.259). No outcome needs the CMRF boundary on this arm.
+  [WARN]  GR-10H-22-NonNeoC      threshold profile over 91 grid point(s) in quantiles of module cDFG, IP_y at quantile 0.459: IP_y beats a genuinely different threshold on 0 of 8 outcome(s) (p_far, BH, excluding +/-0.10 quantile around IP_y). Median p_far 0.278; the best grid threshold sits 0.113 quantile point(s) from IP_y on average. Recomputed pct_post at IP_y vs the stored column: max |dev| 0.00e+00 (tolerance 1.0e-06). No outcome singles IP_y out.
+  [PASS]  GR-10H-09              declared limitations: batch is not independently adjusted (library nests within donor); the intronic:exonic ratio in covT is a per-library ambient proxy, not a per-cell correction; the 4- and 7-covariate models are bounds
+
+  Final guardrail tally: 27 PASS / 12 WARN / 0 FAIL
+
+STEP 5 -- reloadable results object
+  Part10h_CP10K_PVM_1_Prognosis_results.rds written: 20 sheet(s), 2 dataset(s), 32 figure(s), 111.40 MB
+
+ ======================================================================== 
+  Part10h Prognosis COMPLETE [ PVM1_all ]
+  Output directory: /data/Part10h_Prognosis/Part10h_Prognosis_PVM_1 
+  Files generated:
+    Part10h_CP10K_PVM_1_console_log_20261017_232127.txt                29 KB
+    Part10h_CP10K_PVM_1_Guardrail_Log.txt                              12 KB
+    Part10h_CP10K_PVM_1_NeoC_DeltaR2_cov4.pdf                           7 KB
+    Part10h_CP10K_PVM_1_NeoC_DeltaR2_cov4.png                         223 KB
+    Part10h_CP10K_PVM_1_NeoC_DeltaR2_covM.pdf                           7 KB
+    Part10h_CP10K_PVM_1_NeoC_DeltaR2_covM.png                         223 KB
+    Part10h_CP10K_PVM_1_NeoC_DeltaR2_covT.pdf                           7 KB
+    Part10h_CP10K_PVM_1_NeoC_DeltaR2_covT.png                         222 KB
+    Part10h_CP10K_PVM_1_NeoC_Dumbbell_pct_excl_post_vs_pct_excl_pre.pdf      7 KB
+    Part10h_CP10K_PVM_1_NeoC_Dumbbell_pct_excl_post_vs_pct_excl_pre.png    139 KB
+    Part10h_CP10K_PVM_1_NeoC_Dumbbell_pct_post_vs_pct_any_post.pdf      7 KB
+    Part10h_CP10K_PVM_1_NeoC_Dumbbell_pct_post_vs_pct_any_post.png    141 KB
+    Part10h_CP10K_PVM_1_NeoC_Dumbbell_pct_post_vs_pct_excl_post.pdf      7 KB
+    Part10h_CP10K_PVM_1_NeoC_Dumbbell_pct_post_vs_pct_excl_post.png    140 KB
+    Part10h_CP10K_PVM_1_NeoC_Dumbbell_pct_post_vs_pct_module_all.pdf      7 KB
+    Part10h_CP10K_PVM_1_NeoC_Dumbbell_pct_post_vs_pct_module_all.png    143 KB
+    Part10h_CP10K_PVM_1_NeoC_Dumbbell_pct_post_vs_pct_mpo_post.pdf      7 KB
+    Part10h_CP10K_PVM_1_NeoC_Dumbbell_pct_post_vs_pct_mpo_post.png    138 KB
+    Part10h_CP10K_PVM_1_NeoC_Dumbbell_pct_post_vs_pct_pre.pdf           7 KB
+    Part10h_CP10K_PVM_1_NeoC_Dumbbell_pct_post_vs_pct_pre.png         139 KB
+    Part10h_CP10K_PVM_1_NeoC_Dumbbell_pct_pre_vs_pct_excl_pre.pdf       7 KB
+    Part10h_CP10K_PVM_1_NeoC_Dumbbell_pct_pre_vs_pct_excl_pre.png     142 KB
+    Part10h_CP10K_PVM_1_NeoC_Dumbbell_pct_pre_vs_pct_mpo_pre.pdf        7 KB
+    Part10h_CP10K_PVM_1_NeoC_Dumbbell_pct_pre_vs_pct_mpo_pre.png      140 KB
+    Part10h_CP10K_PVM_1_NeoC_Heatmap.pdf                               10 KB
+    Part10h_CP10K_PVM_1_NeoC_Heatmap.png                              360 KB
+    Part10h_CP10K_PVM_1_NeoC_JT_excluded.pdf                           25 KB
+    Part10h_CP10K_PVM_1_NeoC_JT_excluded.png                          381 KB
+    Part10h_CP10K_PVM_1_NeoC_JT_module.pdf                             27 KB
+    Part10h_CP10K_PVM_1_NeoC_JT_module.png                            381 KB
+    Part10h_CP10K_PVM_1_NeoC_Scatter.pdf                              446 KB
+    Part10h_CP10K_PVM_1_NeoC_Scatter.png                             4316 KB
+    Part10h_CP10K_PVM_1_NeoC_ThresholdProfile.pdf                      12 KB
+    Part10h_CP10K_PVM_1_NeoC_ThresholdProfile.png                     361 KB
+    Part10h_CP10K_PVM_1_NonNeoC_DeltaR2_cov4.pdf                        7 KB
+    Part10h_CP10K_PVM_1_NonNeoC_DeltaR2_cov4.png                      224 KB
+    Part10h_CP10K_PVM_1_NonNeoC_DeltaR2_covM.pdf                        7 KB
+    Part10h_CP10K_PVM_1_NonNeoC_DeltaR2_covM.png                      223 KB
+    Part10h_CP10K_PVM_1_NonNeoC_DeltaR2_covT.pdf                        7 KB
+    Part10h_CP10K_PVM_1_NonNeoC_DeltaR2_covT.png                      222 KB
+    Part10h_CP10K_PVM_1_NonNeoC_Dumbbell_pct_excl_post_vs_pct_excl_pre.pdf      7 KB
+    Part10h_CP10K_PVM_1_NonNeoC_Dumbbell_pct_excl_post_vs_pct_excl_pre.png    142 KB
+    Part10h_CP10K_PVM_1_NonNeoC_Dumbbell_pct_post_vs_pct_any_post.pdf      7 KB
+    Part10h_CP10K_PVM_1_NonNeoC_Dumbbell_pct_post_vs_pct_any_post.png    142 KB
+    Part10h_CP10K_PVM_1_NonNeoC_Dumbbell_pct_post_vs_pct_excl_post.pdf      7 KB
+    Part10h_CP10K_PVM_1_NonNeoC_Dumbbell_pct_post_vs_pct_excl_post.png    140 KB
+    Part10h_CP10K_PVM_1_NonNeoC_Dumbbell_pct_post_vs_pct_module_all.pdf      7 KB
+    Part10h_CP10K_PVM_1_NonNeoC_Dumbbell_pct_post_vs_pct_module_all.png    142 KB
+    Part10h_CP10K_PVM_1_NonNeoC_Dumbbell_pct_post_vs_pct_mpo_post.pdf      7 KB
+    Part10h_CP10K_PVM_1_NonNeoC_Dumbbell_pct_post_vs_pct_mpo_post.png    136 KB
+    Part10h_CP10K_PVM_1_NonNeoC_Dumbbell_pct_post_vs_pct_pre.pdf        7 KB
+    Part10h_CP10K_PVM_1_NonNeoC_Dumbbell_pct_post_vs_pct_pre.png      140 KB
+    Part10h_CP10K_PVM_1_NonNeoC_Dumbbell_pct_pre_vs_pct_excl_pre.pdf      7 KB
+    Part10h_CP10K_PVM_1_NonNeoC_Dumbbell_pct_pre_vs_pct_excl_pre.png    138 KB
+    Part10h_CP10K_PVM_1_NonNeoC_Dumbbell_pct_pre_vs_pct_mpo_pre.pdf      7 KB
+    Part10h_CP10K_PVM_1_NonNeoC_Dumbbell_pct_pre_vs_pct_mpo_pre.png    141 KB
+    Part10h_CP10K_PVM_1_NonNeoC_Heatmap.pdf                            10 KB
+    Part10h_CP10K_PVM_1_NonNeoC_Heatmap.png                           375 KB
+    Part10h_CP10K_PVM_1_NonNeoC_JT_excluded.pdf                        21 KB
+    Part10h_CP10K_PVM_1_NonNeoC_JT_excluded.png                       365 KB
+    Part10h_CP10K_PVM_1_NonNeoC_JT_module.pdf                          26 KB
+    Part10h_CP10K_PVM_1_NonNeoC_JT_module.png                         376 KB
+    Part10h_CP10K_PVM_1_NonNeoC_Scatter.pdf                           423 KB
+    Part10h_CP10K_PVM_1_NonNeoC_Scatter.png                          4237 KB
+    Part10h_CP10K_PVM_1_NonNeoC_ThresholdProfile.pdf                   12 KB
+    Part10h_CP10K_PVM_1_NonNeoC_ThresholdProfile.png                  347 KB
+    Part10h_CP10K_PVM_1_Prognosis_results.rds                       111401 KB
+    Part10h_CP10K_PVM_1_Prognosis.xlsx                               1328 KB
+======================================================================== 
+
+  Log written to: /data/Part10h_Prognosis/Part10h_Prognosis_PVM_1/Part10h_CP10K_PVM_1_console_log_20261017_232127.txt 
+
+Part10h Prognosis - log ended: 2026-10-17 23:25:05.013426
+
+============================================================================
+  ARM: HKG8_matched   config: R_config_HKG8.R
+============================================================================
+R_config_HKG8.R loaded (HKG specificity control: ACTB + 8 cHKGs).
+  ARM_TAG   : HKG8_matched 
+  ARM_DIR   : /data/R_export_CP10K/HKG8_matched 
+  NEOC_DIR  : /data/R_export_CP10K/HKG8_matched/neocortex 
+  NONNC_DIR : /data/R_export_CP10K/HKG8_matched/nonneocortex 
+  SHARED_DIR: /data/R_export_CP10K/shared 
+  GOI       : ACTB 
+  DFG       : EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 
+  DFG_LABEL : cHKG8 
+  RUN_SUFFIX: _HKG8 
+  Selected  : MT-CO3>0 AND ACTB>0 
+  Mod1 genes: ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 1432 NeoC / 1079 NonNeoC
+  Config OK: HKG8_matched | ACTB | CP10K
+
+Part10h Prognosis - log started: 2026-10-17 23:25:05.016191
+
+
+ ======================================================================== 
+  Part10h - donor-level clinical correlation for the CMRF arm groups
+  Arm          : HKG8_matched 
+  GOI          : ACTB | CP10K 
+  Supertype    : Micro-PVM_3-SEAAD 
+  IP arms      : inherited (group_refined -> IP_status -> cDFG < IP_y); never split on GOI
+  Covariates   : 4-covariate (Age, APOE, Sex, PMI) AND 7-covariate
+                 (+ RIN, Brain pH, Fresh brain weight), side by side
+  V1 input     : /data/Part10e_Validation1/Part10e_Validation1_HKG8 
+  Output dir   : /data/Part10h_Prognosis/Part10h_Prognosis_HKG8 
+======================================================================== 
+
+  NOTE: the 4- and 7-covariate models are bounds; the ambient index
+        and batch are not adjusted for (both nest in donor).
+
+
+STEP 1 -- donor clinical table
+  Source : donor_clinical.csv
+  Donors : 84 rows, 15 columns
+
+STEP 1a -- ordinal parsing (declared maps, not digit extraction)
+  ADNC             <- "Overall AD neuropathological Change"  |  4 level(s), 84/84 mapped  |  a digit parser would fail 84/84
+  Braak            <- "Braak"  |  6 level(s), 84/84 mapped (84 rescued by the loose pass)  |  a digit parser would fail 82/84
+  Thal             <- "Thal"  |  6 level(s), 84/84 mapped (84 rescued by the loose pass)  |  a digit parser would fail 0/84
+  CERAD            <- "CERAD score"  |  4 level(s), 84/84 mapped (84 rescued by the loose pass)  |  a digit parser would fail 84/84
+  CAA              <- "Overall CAA Score"  |  4 level(s), 84/84 mapped (84 rescued by the loose pass)  |  a digit parser would fail 84/84
+  Cognitive status <- "Cognitive Status"  |  2 level(s), 84/84 mapped  |  a digit parser would fail 84/84
+  Age at death     <- "Age at Death"  |  0 donor(s) censored as "90+" and read at the floor
+
+STEP 1b -- tissue-quality and demographic covariates
+  obs_all_cells.csv: 84 donor(s), 7 covariate column(s)
+  Sex_raw          : obs_all_cells.csv
+  PMI_num          : clinical table: PMI
+  RIN_num          : clinical table: RIN
+  BrainPH_num      : clinical table: Brain pH
+  BrainWeight_num  : clinical table: Fresh Brain Weight
+  Lewy_raw         : obs_all_cells.csv
+  Severe_raw       : clinical table: Severely Affected Donor
+    PMI    : n=84, range [3.20, 11.42], median 6.91
+    RIN    : n=84, range [2.90, 9.60], median 8.63
+    Brain pH: n=84, range [4.50, 7.60], median 6.70
+    Weight : n=83, range [908.00, 1397.00], median 1162.00
+    Sex    : 51 female, 33 male, 0 unknown
+    Severely Affected Donor: 11 flagged, 73 not, 0 unknown
+  Complete cases: 84 on the 4-covariate set, 83 on the 7-covariate set
+  Quote the realised n per model.
+
+======================================================================
+  NeoC
+======================================================================
+  Step4_Refined_Cells: 1432 cell(s)
+    Original + Refined        : 239
+    Recovered                 : 287
+    Original only             : 11
+    Excluded                  : 895
+  IP_y = 1.245230  (inflection_points_DFG_y)   |   IP_x = 1.555173 (reported IP, not the split)
+  Arm source, module cells  : group_refined 526, IP_status 0, cDFG@IP_y 0, unlabelled 0
+  Arm source, NON-MODULE cells: group_refined 11, IP_status 0, cDFG@IP_y 895, unlabelled 0
+  Inherited vs `cDFG < IP_y`: 100.00% on 537 cell(s)  |  a GOI split at u_IP would agree 98.14%
+  obs_dataset: 134088 cell(s) total, 16707 of supertype Micro-PVM_3-SEAAD
+  Donors with Micro-PVM_3-SEAAD cells: 84
+  Donor-level extra variables: 16 of 17 usable
+    CASI_num <- Last CASI Score [69 donor(s)]
+    MOCA_num: unusable (15 donor(s), sd 6.24)
+    MOCA_num <- Last MOCA Score [15 donor(s)]
+    MMSEint_num <- Interval from last MMSE in months [80 donor(s)]
+    CASIint_num <- Interval from last CASI in months [69 donor(s)]
+    EduYears_num <- Years of education [84 donor(s)]
+    LATE_num <- LATE [83 donor(s)]
+    LewyFull_num <- Highest Lewy Body Disease [84 donor(s)]
+    Athero_num <- Atherosclerosis [77 donor(s)]
+    Arteriolo_num <- Arteriolosclerosis [84 donor(s)]
+    Microinf_num <- Total microinfarcts in screening sections [84 donor(s)]
+    MitoFrac_num <- Fraction mitochondrial UMIs [84 donor(s)]
+    nUMI_num <- Number of UMIs [84 donor(s)]
+    nGene_num <- Genes detected [84 donor(s)]
+    Doublet_num <- Doublet score [84 donor(s)]
+    Satur_num <- GEX_sequencing_saturation [84 donor(s)]
+    Study_num <- Primary Study Name [84 donor(s)]
+    IntronExon_num <- GEX_Reads_mapped_confidently_to_intronic_regions / GEX_Reads_mapped_confidently_to_exonic_regions [84 donor(s)]
+    CMRF_core_PreIP   :    237 cell(s) over 84 donor(s), median 1.015%
+    CMRF_core_PostIP  :    289 cell(s) over 84 donor(s), median 1.091%
+    CMRF_core_all     :    526 cell(s) over 84 donor(s), median 2.194%
+    AllCells_PostIP   :    749 cell(s) over 84 donor(s), median 3.480%
+    OR_PreIP          :     71 cell(s) over 84 donor(s), median 0.000%
+    OR_PostIP         :    168 cell(s) over 84 donor(s), median 0.473%
+    Recov             :    287 cell(s) over 84 donor(s), median 1.055%
+    SKIP Ori_only_PreIP    : 0 cell(s) < 10
+    Ori_only_PostIP   :     11 cell(s) over 84 donor(s), median 0.000%
+    Ori_only          :     11 cell(s) over 84 donor(s), median 0.000%
+    ModPlusOri_PreIP  :    237 cell(s) over 84 donor(s), median 1.015%
+    ModPlusOri_PostIP :    300 cell(s) over 84 donor(s), median 1.137%
+    Excl_PreIP        :    446 cell(s) over 84 donor(s), median 1.927%
+    Excl_PostIP       :    460 cell(s) over 84 donor(s), median 2.319%
+    Excl_all          :    906 cell(s) over 84 donor(s), median 3.949%
+
+  Spearman rho, BH-FDR within each group across the 10 clinical variables
+    CMRF_core_PreIP   : 9/10 significant after BH
+    CMRF_core_PostIP  : 6/10 significant after BH
+    CMRF_core_all     : 9/10 significant after BH
+    AllCells_PostIP   : 7/10 significant after BH
+    OR_PreIP          : 6/10 significant after BH
+    OR_PostIP         : 7/10 significant after BH
+    Recov             : 8/10 significant after BH
+    Ori_only_PostIP   : 0/10 significant after BH
+    Ori_only          : 0/10 significant after BH
+    ModPlusOri_PreIP  : 9/10 significant after BH
+    ModPlusOri_PostIP : 6/10 significant after BH
+    Excl_PreIP        : 8/10 significant after BH
+    Excl_PostIP       : 5/10 significant after BH
+    Excl_all          : 8/10 significant after BH
+  Predictors available: Module Post-IP, Module Pre-IP, Module (all, no IP split), All cells Post-IP (no CMRF), Non-module Post-IP, Non-module Pre-IP, Non-module (all), Module + Ori-only Post-IP, Module + Ori-only Pre-IP
+
+  Donor table for the models: 84 donor(s)
+  Leave-one-in scan: 1620 model(s) over 18 candidate(s); Module Post-IP loses significance in 15 of 180
+  Multivariate cov4 (all donors): 63/135 significant after BH, n = 69-84
+  Multivariate cov7 (all donors): 29/135 significant after BH, n = 68-83
+  Multivariate covM (all donors): 9/135 significant after BH, n = 69-84
+  Multivariate covT (all donors): 8/135 significant after BH, n = 69-84
+  Multivariate covP (all donors): 43/135 significant after BH, n = 64-76
+  Multivariate covE (all donors): 27/135 significant after BH, n = 69-80
+  Restriction ip_split (cov4): the split beats the unsplit predictor on 0 of 15 outcome(s) after BH
+  Restriction cmrf_split (cov4): the split beats the unsplit predictor on 0 of 15 outcome(s) after BH
+  Duel module_vs_mito (encompassing): module only 0, rival only 7, both 0, neither 1 of 8
+  Duel module_vs_unsplit (encompassing): module only 0, rival only 0, both 0, neither 8 of 8
+  Duel module_vs_nonmodule (encompassing): module only 0, rival only 0, both 0, neither 8 of 8
+  Threshold profile: IP_y at quantile 0.451 | median p_far 0.535 over 8 outcome(s) | recomputed pct_post at IP_y vs stored: max |dev| 0.00e+00
+  Steiger Module Post-IP vs Module Pre-IP            : 0/10 significant after BH
+  Steiger Module Post-IP vs Non-module Post-IP       : 0/10 significant after BH
+  Steiger Module Pre-IP vs Non-module Pre-IP         : 0/10 significant after BH
+  Steiger Non-module Post-IP vs Non-module Pre-IP    : 0/10 significant after BH
+  Steiger Module Post-IP vs Module + Ori-only Post-IP : 0/10 significant after BH
+  Steiger Module Post-IP vs Module (all, no IP split) : 0/10 significant after BH
+  Steiger Module Post-IP vs All cells Post-IP (no CMRF) : 0/10 significant after BH
+  Steiger Module Pre-IP vs Module + Ori-only Pre-IP  : 0/10 significant after BH
+  JT module: 29 of 65 donor(s) dropped for fewer than 5 cell(s)
+  JT module -- tertiles of Module post-IP fraction, 36 donor(s):
+    T1: n=12, ip_ratio [0.000, 0.429]
+    T2: n=12, ip_ratio [0.444, 0.600]
+    T3: n=12, ip_ratio [0.613, 0.923]
+  JT excluded: 23 of 72 donor(s) dropped for fewer than 5 cell(s)
+  JT excluded -- tertiles of Non-module post-IP fraction, 49 donor(s):
+    T1: n=17, ip_ratio [0.208, 0.417]
+    T2: n=16, ip_ratio [0.429, 0.526]
+    T3: n=16, ip_ratio [0.542, 0.833]
+  JT module    : 0/10 significant after BH
+  JT excluded  : 0/10 significant after BH
+
+======================================================================
+  NonNeoC
+======================================================================
+  Step4_Refined_Cells: 1079 cell(s)
+    Original + Refined        : 191
+    Recovered                 : 240
+    Original only             : 8
+    Excluded                  : 640
+  IP_y = 1.174491  (inflection_points_DFG_y)   |   IP_x = 1.813001 (reported IP, not the split)
+  Arm source, module cells  : group_refined 431, IP_status 0, cDFG@IP_y 0, unlabelled 0
+  Arm source, NON-MODULE cells: group_refined 8, IP_status 0, cDFG@IP_y 640, unlabelled 0
+  Inherited vs `cDFG < IP_y`: 100.00% on 439 cell(s)  |  a GOI split at u_IP would agree 82.69%
+  obs_dataset: 106563 cell(s) total, 13098 of supertype Micro-PVM_3-SEAAD
+  Donors with Micro-PVM_3-SEAAD cells: 83
+  Donor-level extra variables: 16 of 17 usable
+    CASI_num <- Last CASI Score [68 donor(s)]
+    MOCA_num: unusable (15 donor(s), sd 6.24)
+    MOCA_num <- Last MOCA Score [15 donor(s)]
+    MMSEint_num <- Interval from last MMSE in months [79 donor(s)]
+    CASIint_num <- Interval from last CASI in months [68 donor(s)]
+    EduYears_num <- Years of education [83 donor(s)]
+    LATE_num <- LATE [82 donor(s)]
+    LewyFull_num <- Highest Lewy Body Disease [83 donor(s)]
+    Athero_num <- Atherosclerosis [76 donor(s)]
+    Arteriolo_num <- Arteriolosclerosis [83 donor(s)]
+    Microinf_num <- Total microinfarcts in screening sections [83 donor(s)]
+    MitoFrac_num <- Fraction mitochondrial UMIs [83 donor(s)]
+    nUMI_num <- Number of UMIs [83 donor(s)]
+    nGene_num <- Genes detected [83 donor(s)]
+    Doublet_num <- Doublet score [83 donor(s)]
+    Satur_num <- GEX_sequencing_saturation [81 donor(s)]
+    Study_num <- Primary Study Name [83 donor(s)]
+    IntronExon_num <- GEX_Reads_mapped_confidently_to_intronic_regions / GEX_Reads_mapped_confidently_to_exonic_regions [83 donor(s)]
+    CMRF_core_PreIP   :    182 cell(s) over 83 donor(s), median 0.896%
+    CMRF_core_PostIP  :    249 cell(s) over 83 donor(s), median 1.382%
+    CMRF_core_all     :    431 cell(s) over 83 donor(s), median 2.712%
+    AllCells_PostIP   :    549 cell(s) over 83 donor(s), median 3.226%
+    OR_PreIP          :     43 cell(s) over 83 donor(s), median 0.000%
+    OR_PostIP         :    148 cell(s) over 83 donor(s), median 0.662%
+    Recov             :    240 cell(s) over 83 donor(s), median 1.538%
+    SKIP Ori_only_PreIP    : 0 cell(s) < 10
+    SKIP Ori_only_PostIP   : 8 cell(s) < 10
+    SKIP Ori_only          : 8 cell(s) < 10
+    ModPlusOri_PreIP  :    182 cell(s) over 83 donor(s), median 0.896%
+    ModPlusOri_PostIP :    257 cell(s) over 83 donor(s), median 1.466%
+    Excl_PreIP        :    348 cell(s) over 83 donor(s), median 1.852%
+    Excl_PostIP       :    300 cell(s) over 83 donor(s), median 1.786%
+    Excl_all          :    648 cell(s) over 83 donor(s), median 4.407%
+
+  Spearman rho, BH-FDR within each group across the 10 clinical variables
+    CMRF_core_PreIP   : 8/10 significant after BH
+    CMRF_core_PostIP  : 1/10 significant after BH
+    CMRF_core_all     : 3/10 significant after BH
+    AllCells_PostIP   : 0/10 significant after BH
+    OR_PreIP          : 7/10 significant after BH
+    OR_PostIP         : 0/10 significant after BH
+    Recov             : 3/10 significant after BH
+    ModPlusOri_PreIP  : 8/10 significant after BH
+    ModPlusOri_PostIP : 1/10 significant after BH
+    Excl_PreIP        : 0/10 significant after BH
+    Excl_PostIP       : 0/10 significant after BH
+    Excl_all          : 0/10 significant after BH
+  Predictors available: Module Post-IP, Module Pre-IP, Module (all, no IP split), All cells Post-IP (no CMRF), Non-module Post-IP, Non-module Pre-IP, Non-module (all), Module + Ori-only Post-IP, Module + Ori-only Pre-IP
+
+  Donor table for the models: 83 donor(s)
+  Leave-one-in scan: 1620 model(s) over 18 candidate(s); Module Post-IP loses significance in 0 of 180
+  Multivariate cov4 (all donors): 3/135 significant after BH, n = 68-83
+  Multivariate cov7 (all donors): 3/135 significant after BH, n = 67-82
+  Multivariate covM (all donors): 7/135 significant after BH, n = 68-83
+  Multivariate covT (all donors): 13/135 significant after BH, n = 68-83
+  Multivariate covP (all donors): 7/135 significant after BH, n = 63-75
+  Multivariate covE (all donors): 1/135 significant after BH, n = 68-79
+  Restriction ip_split (cov4): the split beats the unsplit predictor on 0 of 15 outcome(s) after BH
+  Restriction cmrf_split (cov4): the split beats the unsplit predictor on 0 of 15 outcome(s) after BH
+  Duel module_vs_mito (encompassing): module only 0, rival only 7, both 0, neither 1 of 8
+  Duel module_vs_unsplit (encompassing): module only 0, rival only 0, both 0, neither 8 of 8
+  Duel module_vs_nonmodule (encompassing): module only 1, rival only 0, both 0, neither 7 of 8
+  Threshold profile: IP_y at quantile 0.422 | median p_far 0.347 over 8 outcome(s) | recomputed pct_post at IP_y vs stored: max |dev| 0.00e+00
+  Steiger Module Post-IP vs Module Pre-IP            : 0/10 significant after BH
+  Steiger Module Post-IP vs Non-module Post-IP       : 0/10 significant after BH
+  Steiger Module Pre-IP vs Non-module Pre-IP         : 0/10 significant after BH
+  Steiger Non-module Post-IP vs Non-module Pre-IP    : 0/10 significant after BH
+  Steiger Module Post-IP vs Module + Ori-only Post-IP : 0/10 significant after BH
+  Steiger Module Post-IP vs Module (all, no IP split) : 0/10 significant after BH
+  Steiger Module Post-IP vs All cells Post-IP (no CMRF) : 0/10 significant after BH
+  Steiger Module Pre-IP vs Module + Ori-only Pre-IP  : 0/10 significant after BH
+  JT module: 35 of 70 donor(s) dropped for fewer than 5 cell(s)
+  JT module -- tertiles of Module post-IP fraction, 35 donor(s):
+    T1: n=12, ip_ratio [0.091, 0.500]
+    T2: n=11, ip_ratio [0.545, 0.667]
+    T3: n=12, ip_ratio [0.714, 1.000]
+  JT excluded: 35 of 73 donor(s) dropped for fewer than 5 cell(s)
+  JT excluded -- tertiles of Non-module post-IP fraction, 38 donor(s):
+    T1: n=13, ip_ratio [0.067, 0.438]
+    T2: n=12, ip_ratio [0.441, 0.556]
+    T3: n=13, ip_ratio [0.591, 0.900]
+  JT module    : 0/10 significant after BH
+  JT excluded  : 0/10 significant after BH
+
+STEP 3 -- workbook
+  20 sheet(s) written to Part10h_CP10K_HKG8_Prognosis.xlsx
+
+STEP 4 -- guardrails
+  [PASS]  GR-10H-01              IPRS RDS: Part10b_CP10K_HKG8_IPRS_results.rds
+  [PASS]  GR-10H-02-NeoC         IP_y = 1.245230 (field: inflection_points_DFG_y) | IP_x reported = 1.555173 | u_IP reference only = 0.519888
+  [PASS]  GR-10H-05-NeoC         axis = cDFG at IP_y | arm from: group_refined 526, IP_status 0, cDFG@IP_y 0, unlabelled 0 | inherited vs `cDFG < IP_y`: 100.00% on 537 cell(s) | a GOI split at u_IP would agree 98.14%
+  [PASS]  GR-10H-04-NeoC         1432 of 1432 refined cell(s) matched a donor in obs_dataset.csv (100.00%) | obs_dataset holds 134088 cell(s), 16707 of supertype Micro-PVM_3-SEAAD (0 with no donor ID), over 84 donor(s)
+  [WARN]  GR-10H-06-NeoC         1 group(s) below the 10-cell floor and not tested: Ori_only_PreIP
+  [PASS]  GR-10H-08-NeoC         realised n and collinearity per covariate set: cov4 n=69-84 (135 of 135 model(s) fitted) armVIF=1.17 maxVIF=1.23 ; cov7 n=68-83 (135 of 135 model(s) fitted) armVIF=1.43 maxVIF=1.88 ; covM n=69-84 (135 of 135 model(s) fitted) armVIF=1.44 maxVIF=1.47 ; covT n=69-84 (135 of 135 model(s) fitted) armVIF=1.59 maxVIF=3.31 ; covP n=64-76 (135 of 135 model(s) fitted) armVIF=1.27 maxVIF=1.72 ; covE n=69-80 (135 of 135 model(s) fitted) armVIF=1.21 maxVIF=1.35 | worst ARM VIF 1.59 in covT
+  [PASS]  GR-10H-10-NeoC         excluded comparison set: 3 of 3 predictor(s) available (Non-module Post-IP, Non-module Pre-IP, Non-module (all)) | arms from cDFG@IP_y 895, unlabelled 0 | excluded cells take their arm from the cDFG rule at IP_y
+  [PASS]  GR-10H-12-NeoC         2 of 2 donor ordering(s) tested | 20 row(s), 0 not testable | tertile sizes 12/12/12 ; 11/12/10 ; 10/9/7 ; 17/16/16 ; 16/15/15 ; 11/12/14 | 29 donor(s) dropped below the 5-cell evidence floor | variance tie-corrected (Lehmann 1975)
+  [WARN]  GR-10H-11-NeoC         8 of 8 Steiger pair(s) tested over 80 row(s) | test: Meng-Rosenthal-Rubin z for dependent overlapping correlations, Spearman variance factor 1.06 | 10 row(s) carry a note -- not computed (not nulls): the two predictors are perfectly correlated (r = 1.000000); the difference in their correlations is not identifiable (10 row(s) on Module Pre-IP vs Module + Ori-only Pre-IP)
+  [PASS]  GR-10H-02-NonNeoC      IP_y = 1.174491 (field: inflection_points_DFG_y) | IP_x reported = 1.813001 | u_IP reference only = 0.680556
+  [PASS]  GR-10H-05-NonNeoC      axis = cDFG at IP_y | arm from: group_refined 431, IP_status 0, cDFG@IP_y 0, unlabelled 0 | inherited vs `cDFG < IP_y`: 100.00% on 439 cell(s) | a GOI split at u_IP would agree 82.69%
+  [PASS]  GR-10H-04-NonNeoC      1079 of 1079 refined cell(s) matched a donor in obs_dataset.csv (100.00%) | obs_dataset holds 106563 cell(s), 13098 of supertype Micro-PVM_3-SEAAD (0 with no donor ID), over 83 donor(s)
+  [WARN]  GR-10H-06-NonNeoC      3 group(s) below the 10-cell floor and not tested: Ori_only_PreIP, Ori_only_PostIP, Ori_only
+  [PASS]  GR-10H-08-NonNeoC      realised n and collinearity per covariate set: cov4 n=68-83 (135 of 135 model(s) fitted) armVIF=1.04 maxVIF=1.15 ; cov7 n=67-82 (135 of 135 model(s) fitted) armVIF=1.15 maxVIF=1.95 ; covM n=68-83 (135 of 135 model(s) fitted) armVIF=1.09 maxVIF=1.44 ; covT n=68-83 (135 of 135 model(s) fitted) armVIF=1.19 maxVIF=7.20 ; covP n=63-75 (135 of 135 model(s) fitted) armVIF=1.35 maxVIF=1.63 ; covE n=68-79 (135 of 135 model(s) fitted) armVIF=1.12 maxVIF=1.26 | worst ARM VIF 1.35 in covP
+  [PASS]  GR-10H-10-NonNeoC      excluded comparison set: 3 of 3 predictor(s) available (Non-module Post-IP, Non-module Pre-IP, Non-module (all)) | arms from cDFG@IP_y 640, unlabelled 0 | excluded cells take their arm from the cDFG rule at IP_y
+  [PASS]  GR-10H-12-NonNeoC      2 of 2 donor ordering(s) tested | 20 row(s), 0 not testable | tertile sizes 12/11/12 ; 11/8/12 ; 8/7/11 ; 13/12/13 ; 12/10/12 ; 9/9/10 | 35 donor(s) dropped below the 5-cell evidence floor | variance tie-corrected (Lehmann 1975)
+  [WARN]  GR-10H-11-NonNeoC      8 of 8 Steiger pair(s) tested over 80 row(s) | test: Meng-Rosenthal-Rubin z for dependent overlapping correlations, Spearman variance factor 1.06 | 10 row(s) carry a note -- not computed (not nulls): the two predictors are perfectly correlated (r = 1.000000); the difference in their correlations is not identifiable (10 row(s) on Module Pre-IP vs Module + Ori-only Pre-IP)
+  [PASS]  GR-10H-03              84 donor(s) in the clinical table | 26 ordinal level(s) audited | 0 UNMAPPED | 0 variable(s) with no usable source column | 0 donor(s) carry conflicting donor-level covariates
+  [PASS]  GR-10H-07              complete cases: 84 on the 4-covariate set, 83 on the 7-covariate set
+  [WARN]  GR-10H-13-NeoC         mito/depth-adjusted set ran on 15 model(s), 0 significant after BH | Cognitive status beta +0.02 (4-cov +0.21); MMSE score beta +0.09 (4-cov -0.13); ADNC rank beta +0.10 (4-cov +0.28*) | CASI_num <- Last CASI Score [69 donor(s)] | MOCA_num: unusable (15 donor(s), sd 6.24) | MOCA_num <- Last MOCA Score [15 donor(s)] | MMSEint_num <- Interval from last MMSE in months [80 donor(s)] | CASIint_num <- Interval from last CASI in months [69 donor(s)] | EduYears_num <- Years of education [84 donor(s)] | LATE_num <- LATE [83 donor(s)] | LewyFull_num <- Highest Lewy Body Disease [84 donor(s)] | Athero_num <- Atherosclerosis [77 donor(s)] | Arteriolo_num <- Arteriolosclerosis [84 donor(s)] | Microinf_num <- Total microinfarcts in screening sections [84 donor(s)] | MitoFrac_num <- Fraction mitochondrial UMIs [84 donor(s)] | nUMI_num <- Number of UMIs [84 donor(s)] | nGene_num <- Genes detected [84 donor(s)] | Doublet_num <- Doublet score [84 donor(s)] | Satur_num <- GEX_sequencing_saturation [84 donor(s)] | Study_num <- Primary Study Name [84 donor(s)] | IntronExon_num <- GEX_Reads_mapped_confidently_to_intronic_regions / GEX_Reads_mapped_confidently_to_exonic_regions [84 donor(s)]
+  [WARN]  GR-10H-13-NonNeoC      mito/depth-adjusted set ran on 15 model(s), 0 significant after BH | Cognitive status beta +0.27 (4-cov +0.34*); MMSE score beta -0.09 (4-cov -0.16); ADNC rank beta -0.10 (4-cov -0.03) | CASI_num <- Last CASI Score [68 donor(s)] | MOCA_num: unusable (15 donor(s), sd 6.24) | MOCA_num <- Last MOCA Score [15 donor(s)] | MMSEint_num <- Interval from last MMSE in months [79 donor(s)] | CASIint_num <- Interval from last CASI in months [68 donor(s)] | EduYears_num <- Years of education [83 donor(s)] | LATE_num <- LATE [82 donor(s)] | LewyFull_num <- Highest Lewy Body Disease [83 donor(s)] | Athero_num <- Atherosclerosis [76 donor(s)] | Arteriolo_num <- Arteriolosclerosis [83 donor(s)] | Microinf_num <- Total microinfarcts in screening sections [83 donor(s)] | MitoFrac_num <- Fraction mitochondrial UMIs [83 donor(s)] | nUMI_num <- Number of UMIs [83 donor(s)] | nGene_num <- Genes detected [83 donor(s)] | Doublet_num <- Doublet score [83 donor(s)] | Satur_num <- GEX_sequencing_saturation [81 donor(s)] | Study_num <- Primary Study Name [83 donor(s)] | IntronExon_num <- GEX_Reads_mapped_confidently_to_intronic_regions / GEX_Reads_mapped_confidently_to_exonic_regions [83 donor(s)]
+  [PASS]  GR-10H-16-NeoC         all 10 clinical variable(s) reach the donor frame, the Spearman and the multivariate; OUTCOMES derived from CLINICAL_PARAMS, 15 outcome(s) modelled
+  [PASS]  GR-10H-16-NonNeoC      all 10 clinical variable(s) reach the donor frame, the Spearman and the multivariate; OUTCOMES derived from CLINICAL_PARAMS, 15 outcome(s) modelled
+  [WARN]  GR-10H-14-NeoC         below the 20-donor modelling floor and not fitted: MOCA score (15 donor(s), not an outcome)
+  [WARN]  GR-10H-14-NonNeoC      below the 20-donor modelling floor and not fitted: MOCA score (15 donor(s), not an outcome)
+  [WARN]  GR-10H-15-NeoC         leave-one-in over 18 candidate(s) on the four headline outcomes: 4 of 72 model(s) lose significance, 3 flip sign from a core |beta| >= 0.10 (3 at any magnitude) | largest shift: Mito fraction (donor mean) on MMSE score moves beta +172.8% (+0.219 absolute)
+  [PASS]  GR-10H-15-NonNeoC      leave-one-in over 18 candidate(s) on the four headline outcomes: 0 of 72 model(s) lose significance, 0 flip sign from a core |beta| >= 0.10 (0 at any magnitude) | largest shift: Months from last CASI on MMSE score moves beta +79.0% (+0.128 absolute) | 18 model(s) had a core beta below 0.10, so their percentage change is not reported
+  [PASS]  GR-10H-17              all 4 plotted arm label(s) resolve in PRED_LABEL and carry a fill and a border; every predictor label equals its group label; 9 predictor(s) defined, 4 plotted, 15 group(s)
+  [PASS]  GR-10H-18-NeoC         Ori-only is 11 of 250 SKCS-core cell(s) = 4.40%; the CMRF band carries 95% coverage so the expected residual is 5.00% (tolerance +/-5.00 points)
+  [PASS]  GR-10H-18-NonNeoC      Ori-only is 8 of 199 SKCS-core cell(s) = 4.02%; the CMRF band carries 95% coverage so the expected residual is 5.00% (tolerance +/-5.00 points)
+  [WARN]  GR-10H-19-NeoC         IP-split test (nested F, 1 df, cov4): the split beats the unsplit module on 0 of 15 outcome(s) after BH. Median gain in R2 from splitting 0.0044. Strongest: PMI F=5.36 BH=0.348 (split dR2 0.076 vs unsplit 0.014). No outcome needs the split on this arm.
+  [WARN]  GR-10H-20-NeoC         predictor duels over the cov4 core (verdict: encompassing test, BH within a duel; Vuong and a 1000-resample donor bootstrap reported). module_vs_mito: module only 0, rival only 7, both 0, neither 1 of 8 | module_vs_unsplit: module only 0, rival only 0, both 0, neither 8 of 8 | module_vs_nonmodule: module only 0, rival only 0, both 0, neither 8 of 8 | rival wins more outcomes than the module on: module_vs_mito
+  [WARN]  GR-10H-19-NonNeoC      IP-split test (nested F, 1 df, cov4): the split beats the unsplit module on 0 of 15 outcome(s) after BH. Median gain in R2 from splitting 0.0051. Strongest: ADNC rank F=4.95 BH=0.436 (split dR2 0.064 vs unsplit 0.013). No outcome needs the split on this arm.
+  [WARN]  GR-10H-20-NonNeoC      predictor duels over the cov4 core (verdict: encompassing test, BH within a duel; Vuong and a 1000-resample donor bootstrap reported). module_vs_mito: module only 0, rival only 7, both 0, neither 1 of 8 | module_vs_unsplit: module only 0, rival only 0, both 0, neither 8 of 8 | module_vs_nonmodule: module only 1, rival only 0, both 0, neither 7 of 8 | rival wins more outcomes than the module on: module_vs_mito
+  [WARN]  GR-10H-21-NeoC         CMRF-boundary test (nested F, 1 df, cov4): the module/non-module split beats one undivided Post-IP percentage on 0 of 15 outcome(s) after BH. Median gain in R2 0.0030. Sum identity `pct_any_post == pct_post + pct_excl_post` max |dev| 1.776e-15. Strongest: Thal phase F=0.33 BH=0.869 (split dR2 0.094 vs undivided 0.091). No outcome needs the CMRF boundary on this arm.
+  [WARN]  GR-10H-22-NeoC         threshold profile over 91 grid point(s) in quantiles of module cDFG, IP_y at quantile 0.451: IP_y beats a genuinely different threshold on 0 of 8 outcome(s) (p_far, BH, excluding +/-0.10 quantile around IP_y). Median p_far 0.535; the best grid threshold sits 0.324 quantile point(s) from IP_y on average. Recomputed pct_post at IP_y vs the stored column: max |dev| 0.00e+00 (tolerance 1.0e-06). No outcome singles IP_y out.
+  [WARN]  GR-10H-21-NonNeoC      CMRF-boundary test (nested F, 1 df, cov4): the module/non-module split beats one undivided Post-IP percentage on 0 of 15 outcome(s) after BH. Median gain in R2 0.0030. Sum identity `pct_any_post == pct_post + pct_excl_post` max |dev| 1.776e-15. Strongest: CAA score F=4.62 BH=0.261 (split dR2 0.074 vs undivided 0.026). No outcome needs the CMRF boundary on this arm.
+  [WARN]  GR-10H-22-NonNeoC      threshold profile over 91 grid point(s) in quantiles of module cDFG, IP_y at quantile 0.422: IP_y beats a genuinely different threshold on 0 of 8 outcome(s) (p_far, BH, excluding +/-0.10 quantile around IP_y). Median p_far 0.347; the best grid threshold sits 0.383 quantile point(s) from IP_y on average. Recomputed pct_post at IP_y vs the stored column: max |dev| 0.00e+00 (tolerance 1.0e-06). No outcome singles IP_y out.
+  [PASS]  GR-10H-09              declared limitations: batch is not independently adjusted (library nests within donor); the intronic:exonic ratio in covT is a per-library ambient proxy, not a per-cell correction; the 4- and 7-covariate models are bounds
+
+  Final guardrail tally: 22 PASS / 17 WARN / 0 FAIL
+
+STEP 5 -- reloadable results object
+  Part10h_CP10K_HKG8_Prognosis_results.rds written: 20 sheet(s), 2 dataset(s), 32 figure(s), 110.76 MB
+
+ ======================================================================== 
+  Part10h Prognosis COMPLETE [ HKG8_matched ]
+  Output directory: /data/Part10h_Prognosis/Part10h_Prognosis_HKG8 
+  Files generated:
+    Part10h_CP10K_HKG8_console_log_20261017_232505.txt                 29 KB
+    Part10h_CP10K_HKG8_Guardrail_Log.txt                               13 KB
+    Part10h_CP10K_HKG8_NeoC_DeltaR2_cov4.pdf                            7 KB
+    Part10h_CP10K_HKG8_NeoC_DeltaR2_cov4.png                          226 KB
+    Part10h_CP10K_HKG8_NeoC_DeltaR2_covM.pdf                            7 KB
+    Part10h_CP10K_HKG8_NeoC_DeltaR2_covM.png                          224 KB
+    Part10h_CP10K_HKG8_NeoC_DeltaR2_covT.pdf                            7 KB
+    Part10h_CP10K_HKG8_NeoC_DeltaR2_covT.png                          223 KB
+    Part10h_CP10K_HKG8_NeoC_Dumbbell_pct_excl_post_vs_pct_excl_pre.pdf      7 KB
+    Part10h_CP10K_HKG8_NeoC_Dumbbell_pct_excl_post_vs_pct_excl_pre.png    142 KB
+    Part10h_CP10K_HKG8_NeoC_Dumbbell_pct_post_vs_pct_any_post.pdf       7 KB
+    Part10h_CP10K_HKG8_NeoC_Dumbbell_pct_post_vs_pct_any_post.png     145 KB
+    Part10h_CP10K_HKG8_NeoC_Dumbbell_pct_post_vs_pct_excl_post.pdf      7 KB
+    Part10h_CP10K_HKG8_NeoC_Dumbbell_pct_post_vs_pct_excl_post.png    138 KB
+    Part10h_CP10K_HKG8_NeoC_Dumbbell_pct_post_vs_pct_module_all.pdf      7 KB
+    Part10h_CP10K_HKG8_NeoC_Dumbbell_pct_post_vs_pct_module_all.png    143 KB
+    Part10h_CP10K_HKG8_NeoC_Dumbbell_pct_post_vs_pct_mpo_post.pdf       7 KB
+    Part10h_CP10K_HKG8_NeoC_Dumbbell_pct_post_vs_pct_mpo_post.png     143 KB
+    Part10h_CP10K_HKG8_NeoC_Dumbbell_pct_post_vs_pct_pre.pdf            7 KB
+    Part10h_CP10K_HKG8_NeoC_Dumbbell_pct_post_vs_pct_pre.png          136 KB
+    Part10h_CP10K_HKG8_NeoC_Dumbbell_pct_pre_vs_pct_excl_pre.pdf        7 KB
+    Part10h_CP10K_HKG8_NeoC_Dumbbell_pct_pre_vs_pct_excl_pre.png      139 KB
+    Part10h_CP10K_HKG8_NeoC_Dumbbell_pct_pre_vs_pct_mpo_pre.pdf         6 KB
+    Part10h_CP10K_HKG8_NeoC_Dumbbell_pct_pre_vs_pct_mpo_pre.png       118 KB
+    Part10h_CP10K_HKG8_NeoC_Heatmap.pdf                                10 KB
+    Part10h_CP10K_HKG8_NeoC_Heatmap.png                               371 KB
+    Part10h_CP10K_HKG8_NeoC_JT_excluded.pdf                            22 KB
+    Part10h_CP10K_HKG8_NeoC_JT_excluded.png                           367 KB
+    Part10h_CP10K_HKG8_NeoC_JT_module.pdf                              18 KB
+    Part10h_CP10K_HKG8_NeoC_JT_module.png                             350 KB
+    Part10h_CP10K_HKG8_NeoC_Scatter.pdf                               410 KB
+    Part10h_CP10K_HKG8_NeoC_Scatter.png                              4203 KB
+    Part10h_CP10K_HKG8_NeoC_ThresholdProfile.pdf                       12 KB
+    Part10h_CP10K_HKG8_NeoC_ThresholdProfile.png                      346 KB
+    Part10h_CP10K_HKG8_NonNeoC_DeltaR2_cov4.pdf                         7 KB
+    Part10h_CP10K_HKG8_NonNeoC_DeltaR2_cov4.png                       222 KB
+    Part10h_CP10K_HKG8_NonNeoC_DeltaR2_covM.pdf                         7 KB
+    Part10h_CP10K_HKG8_NonNeoC_DeltaR2_covM.png                       226 KB
+    Part10h_CP10K_HKG8_NonNeoC_DeltaR2_covT.pdf                         7 KB
+    Part10h_CP10K_HKG8_NonNeoC_DeltaR2_covT.png                       226 KB
+    Part10h_CP10K_HKG8_NonNeoC_Dumbbell_pct_excl_post_vs_pct_excl_pre.pdf      7 KB
+    Part10h_CP10K_HKG8_NonNeoC_Dumbbell_pct_excl_post_vs_pct_excl_pre.png    142 KB
+    Part10h_CP10K_HKG8_NonNeoC_Dumbbell_pct_post_vs_pct_any_post.pdf      7 KB
+    Part10h_CP10K_HKG8_NonNeoC_Dumbbell_pct_post_vs_pct_any_post.png    144 KB
+    Part10h_CP10K_HKG8_NonNeoC_Dumbbell_pct_post_vs_pct_excl_post.pdf      7 KB
+    Part10h_CP10K_HKG8_NonNeoC_Dumbbell_pct_post_vs_pct_excl_post.png    141 KB
+    Part10h_CP10K_HKG8_NonNeoC_Dumbbell_pct_post_vs_pct_module_all.pdf      7 KB
+    Part10h_CP10K_HKG8_NonNeoC_Dumbbell_pct_post_vs_pct_module_all.png    144 KB
+    Part10h_CP10K_HKG8_NonNeoC_Dumbbell_pct_post_vs_pct_mpo_post.pdf      7 KB
+    Part10h_CP10K_HKG8_NonNeoC_Dumbbell_pct_post_vs_pct_mpo_post.png    139 KB
+    Part10h_CP10K_HKG8_NonNeoC_Dumbbell_pct_post_vs_pct_pre.pdf         7 KB
+    Part10h_CP10K_HKG8_NonNeoC_Dumbbell_pct_post_vs_pct_pre.png       141 KB
+    Part10h_CP10K_HKG8_NonNeoC_Dumbbell_pct_pre_vs_pct_excl_pre.pdf      7 KB
+    Part10h_CP10K_HKG8_NonNeoC_Dumbbell_pct_pre_vs_pct_excl_pre.png    140 KB
+    Part10h_CP10K_HKG8_NonNeoC_Dumbbell_pct_pre_vs_pct_mpo_pre.pdf      6 KB
+    Part10h_CP10K_HKG8_NonNeoC_Dumbbell_pct_pre_vs_pct_mpo_pre.png    119 KB
+    Part10h_CP10K_HKG8_NonNeoC_Heatmap.pdf                              9 KB
+    Part10h_CP10K_HKG8_NonNeoC_Heatmap.png                            341 KB
+    Part10h_CP10K_HKG8_NonNeoC_JT_excluded.pdf                         19 KB
+    Part10h_CP10K_HKG8_NonNeoC_JT_excluded.png                        348 KB
+    Part10h_CP10K_HKG8_NonNeoC_JT_module.pdf                           18 KB
+    Part10h_CP10K_HKG8_NonNeoC_JT_module.png                          350 KB
+    Part10h_CP10K_HKG8_NonNeoC_Scatter.pdf                            407 KB
+    Part10h_CP10K_HKG8_NonNeoC_Scatter.png                           3917 KB
+    Part10h_CP10K_HKG8_NonNeoC_ThresholdProfile.pdf                    12 KB
+    Part10h_CP10K_HKG8_NonNeoC_ThresholdProfile.png                   373 KB
+    Part10h_CP10K_HKG8_Prognosis_results.rds                        110756 KB
+    Part10h_CP10K_HKG8_Prognosis.xlsx                                1277 KB
+======================================================================== 
+
+  Log written to: /data/Part10h_Prognosis/Part10h_Prognosis_HKG8/Part10h_CP10K_HKG8_console_log_20261017_232505.txt 
+
+Part10h Prognosis - log ended: 2026-10-17 23:28:50.744679
+
+############################################################################
+  Part10h_Prognosis COMPLETE -- 15.1 mins
+############################################################################
+
+  Arm             Folder                    PASS    WARN    FAIL  Status
+  ----------------------------------------------------------------------------------
+  Mic13_PVM3      Part10h_Prognosis_Mic13_PVM3      29      10       0  ok
+  PVM3_all        Part10h_Prognosis_PVM_3      26      13       0  ok
+  PVM1_all        Part10h_Prognosis_PVM_1      27      12       0  ok
+  HKG8_matched    Part10h_Prognosis_HKG8      22      17       0  ok
+
+  Results under: /data/Part10h_Prognosis
+R_config.R loaded (Module 1: MT-CO3 + 8 DFGs, ≥8/10 regions).
+  ARM_TAG   : Mic13_PVM3 
+  ARM_DIR   : /data/R_export_CP10K/Mic13_PVM3 
+  NEOC_DIR  : /data/R_export_CP10K/Mic13_PVM3/neocortex 
+  NONNC_DIR : /data/R_export_CP10K/Mic13_PVM3/nonneocortex 
+  SHARED_DIR: /data/R_export_CP10K/shared 
+  GOI       : MT-CO3 
+  DFG_NEOC  : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  DFG_NONNC : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Composite : cDFG 
+  RUN_SUFFIX: (none) 
+  Supertype : Micro-PVM_3-SEAAD 
+  Mod1 genes: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 ( 9 )
+  HKG_GENES : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 2130 NeoC / 1987 NonNeoC
+  Session configuration reset to the primary arm: Mic13_PVM3
+

@@ -1,0 +1,257 @@
+[LOG] All output mirrored to: <SEA-AD>/[2]_Non-NeoC/Part6c_NonNeoC_ScreenScatter/Part6c_NonNeoC_ScreenScatter_log.txt
+======================================================================
+Part 6b  -  non-neocortical Pooled GOI-DFG Screening (no M4 mask)  [NonNeoC arm]
+  Populations : 1
+  Base output : <SEA-AD>/[2]_Non-NeoC/Part6c_NonNeoC_ScreenScatter/
+  Joblib      : <SEA-AD>/[2]_Non-NeoC/Part2_NonNeoC_M4/top_3.0pct/Part2_nonneocortex_env.joblib
+======================================================================
+
+======================================================================
+SECTION 1: Auto-loader, guardrails, adata load
+======================================================================
+  [AUTO-LOADER] 10 variables missing  -  loading from joblib ...
+  [AUTO-LOADER] All variables loaded successfully.
+
+  [GUARDRAIL 1] M4_TOP_MASK integrity check
+    PASS  n=2,704 cells | M1_thr=0.981825 | M2_thr=1.199185 | TOP_PCT=3.0%
+
+  [GUARDRAIL 2] Non-neocortical region check
+    PASS  obs_full regions = ['FI', 'HIP', 'LEC', 'MEC'] (n=106,563 cells)
+
+  Loading adata: <SEA-AD>/SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad
+  adata: 240,651 cells × 36,601 genes
+  adata.X confirmed present  -  shape: (240651, 36601), dtype: float64
+
+  Building obs_full → adata global index map ...
+  Mapped 106,563 obs_full cells → adata global indices. No missing barcodes.
+
+======================================================================
+SECTION 2: Protein-coding gene list
+======================================================================
+  Extracting gene list and biotype annotations from h5ad ...
+  Total genes in matrix : 36,601
+  var columns           : ['gene_ids', 'feature_types', 'genome']
+  No biotype column in var  -  inferring biotype from gene name ...
+  Inferred biotype distribution:
+    protein_coding_inferred            : 22,216
+    lncRNA_inferred                    : 14,373
+    rRNA_inferred                      :     11
+    snoRNA_inferred                    :      1
+  All 36,601 genes retained as GOI candidates (lncRNAs included).
+  Gene biotype map cached (name_pattern_inference): <SEA-AD>/[2]_Non-NeoC/Part6c_NonNeoC_ScreenScatter/gene_biotype_map.pkl
+
+  GOI candidate list: 36,601 genes (all biotypes screened; biotype used for annotation only)
+
+======================================================================
+SECTION 3: Expression extraction helpers
+======================================================================
+  Expression helpers ready.
+
+======================================================================
+SECTION 12: Population catalogue and cell count tally
+======================================================================
+
+  [GUARDRAIL 4] ALL-CELLS COUNT TALLY (no M4 mask)
+  Part 6b Pooled: ALL cells of each supertype, GOI+ filter applied later
+  Cross-tabulation: all obs_full cells, not M4-top
+
+  Supertype            HIP         MEC         LEC          FI      Pooled  Subsample
+  ------------------------------------------------------------------------------------------
+  PVM_3              2,793       7,721       1,295       1,289      13,098  [-> 2500]
+  PVM_2              8,369      36,241       8,485      12,337      65,432  [-> 2500]
+  PVM_1                508       1,662         283         860       3,313  [-> 2500]
+  Lymph                258       1,413         140         336       2,147  [all]
+  PVM_2_1               36         238          57          60         391  [all]
+  PVM_2_3            2,147      15,573       1,490       2,518      21,728  [-> 2500]
+  PVM_4                 79         281          40          42         442  [all]
+  ------------------------------------------------------------------------------------------
+  ALL ST            14,190      63,129      11,790      17,442     106,551
+
+  NOTE: Part 6b screens ALL cells of each supertype (no M4 mask).
+  GOI+ filter (MT-CO3 > 0) applied during expression loading.
+  Populations with > 2500 cells subsampled to 2500.
+
+  POPULATION BREAKDOWN (1 screening jobs):
+  Population              Strategy       All cells   After sub  Notes
+  --------------------------------------------------------------------------------
+    PVM_3_pooled            POOLED            13,098       2,500  all 4 regions, PVM_3, no M4 mask
+
+  ──────────────────────────────────────────────────────────────────────
+  ELIGIBILITY CHECK  (min_pop_cells=10, min_donor_cells=5)
+  ──────────────────────────────────────────────────────────────────────
+
+  Population             Strategy     ST_short   all_cells  after_donor_filt   elig_donors  status
+  ----------------------------------------------------------------------------------------------------
+  ✓ PVM_3_pooled          POOLED       PVM_3         13,098            13,092            81  OK (subsample 13,092 -> 2,500)
+
+  Tally saved: <SEA-AD>/[2]_Non-NeoC/Part6c_NonNeoC_ScreenScatter/Part6b_population_tally.csv
+
+  Valid populations  : 1 / 1
+  Skipped populations: 0 / 1
+
+  [GUARDRAIL 4 COMPLETE] Tally printed. Cross-check with Part 3 Fig 5 before proceeding.
+
+======================================================================
+SECTION 15: Running all valid populations
+======================================================================
+  Populations to run: ['PVM_3_pooled']
+  Populations to skip: []
+
+
+======================================================================
+POPULATION: PVM_3_pooled  (Micro-PVM_3-SEAAD | ALL NonNeoC regions pooled)
+======================================================================
+  All cells of PVM_3 (before filters): 13,098  [ALL NonNeoC regions pooled]
+  NOTE: No M4_TOP_MASK applied (Part 6b Pooled design)
+  Eligible donors (>=5 cells): 81 | Cells after donor filter: 13,092 (6 excluded)
+  Stratified subsample: FI=625, HIP=625, LEC=625, MEC=625  (total=2500, seed=42)
+
+  Loading expression for 2,500 cells ...
+  Expression loaded: (2500, 36601)  [19.4s]
+  [GUARDRAIL 3 PASS] adata.X dtype: max=6.52, min_nz=0.3892, integer-like=False [PVM_3_pooled]
+  GOI candidates in matrix : 36,601 (all biotypes; protein-coding + lncRNA + other)
+  Partner genes (>=10 cells expressing): 18,274 / 36,601
+
+  GOI list: 36,601 | split into 2 parts
+    Part 01: 18,301 genes  (MIR1302-2HG … AC010157.1)
+    Part 02: 18,300 genes  (NRG3-AS1 … AC007325.2)
+=== Part 01/2 | 18,301 GOIs | PVM_3_pooled | 2026-09-30 17:25:07 ===
+SP_THRESHOLD=0.6  KD_THRESHOLD=0.5  SEED=42
+
+  Using 16 processes for parallel GOI screening (fork)
+  [PVM_3_pooled | Part 01] 500/18301 GOIs | 0.7 min | gate_passed=29 | DFG_hits=0 | ETA ~26 min
+  [PVM_3_pooled | Part 01] 1000/18301 GOIs | 0.9 min | gate_passed=77 | DFG_hits=0 | ETA ~16 min
+  [PVM_3_pooled | Part 01] 1500/18301 GOIs | 1.0 min | gate_passed=124 | DFG_hits=0 | ETA ~11 min
+  [PVM_3_pooled | Part 01] 2000/18301 GOIs | 1.2 min | gate_passed=164 | DFG_hits=0 | ETA ~9 min
+  [PVM_3_pooled | Part 01] 2500/18301 GOIs | 1.3 min | gate_passed=189 | DFG_hits=0 | ETA ~8 min
+  [PVM_3_pooled | Part 01] 3000/18301 GOIs | 1.7 min | gate_passed=233 | DFG_hits=0 | ETA ~9 min
+  [PVM_3_pooled | Part 01] 3500/18301 GOIs | 1.7 min | gate_passed=264 | DFG_hits=0 | ETA ~7 min
+  [PVM_3_pooled | Part 01] 4000/18301 GOIs | 2.3 min | gate_passed=318 | DFG_hits=0 | ETA ~8 min
+  [PVM_3_pooled | Part 01] 4500/18301 GOIs | 2.6 min | gate_passed=364 | DFG_hits=0 | ETA ~8 min
+  [PVM_3_pooled | Part 01] 5000/18301 GOIs | 3.1 min | gate_passed=411 | DFG_hits=0 | ETA ~8 min
+  [PVM_3_pooled | Part 01] 5500/18301 GOIs | 3.1 min | gate_passed=467 | DFG_hits=0 | ETA ~7 min
+  [PVM_3_pooled | Part 01] 6000/18301 GOIs | 3.1 min | gate_passed=507 | DFG_hits=0 | ETA ~6 min
+  [PVM_3_pooled | Part 01] 6500/18301 GOIs | 3.5 min | gate_passed=563 | DFG_hits=0 | ETA ~6 min
+  [PVM_3_pooled | Part 01] 7000/18301 GOIs | 3.5 min | gate_passed=607 | DFG_hits=0 | ETA ~6 min
+  [PVM_3_pooled | Part 01] 7500/18301 GOIs | 3.7 min | gate_passed=661 | DFG_hits=0 | ETA ~5 min
+  [PVM_3_pooled | Part 01] 8000/18301 GOIs | 4.0 min | gate_passed=718 | DFG_hits=0 | ETA ~5 min
+  [PVM_3_pooled | Part 01] 8500/18301 GOIs | 4.1 min | gate_passed=759 | DFG_hits=0 | ETA ~5 min
+  [PVM_3_pooled | Part 01] 9000/18301 GOIs | 4.5 min | gate_passed=817 | DFG_hits=0 | ETA ~5 min
+  [PVM_3_pooled | Part 01] 9500/18301 GOIs | 4.5 min | gate_passed=847 | DFG_hits=0 | ETA ~4 min
+  [PVM_3_pooled | Part 01] 10000/18301 GOIs | 5.0 min | gate_passed=888 | DFG_hits=0 | ETA ~4 min
+  [PVM_3_pooled | Part 01] 10500/18301 GOIs | 5.5 min | gate_passed=943 | DFG_hits=0 | ETA ~4 min
+  [PVM_3_pooled | Part 01] 11000/18301 GOIs | 5.5 min | gate_passed=979 | DFG_hits=0 | ETA ~4 min
+  [PVM_3_pooled | Part 01] 11500/18301 GOIs | 5.5 min | gate_passed=1023 | DFG_hits=0 | ETA ~3 min
+  [PVM_3_pooled | Part 01] 12000/18301 GOIs | 5.6 min | gate_passed=1046 | DFG_hits=0 | ETA ~3 min
+  [PVM_3_pooled | Part 01] 12500/18301 GOIs | 6.0 min | gate_passed=1099 | DFG_hits=0 | ETA ~3 min
+  [PVM_3_pooled | Part 01] 13000/18301 GOIs | 6.5 min | gate_passed=1155 | DFG_hits=0 | ETA ~3 min
+  [PVM_3_pooled | Part 01] 13500/18301 GOIs | 6.5 min | gate_passed=1196 | DFG_hits=0 | ETA ~2 min
+  [PVM_3_pooled | Part 01] 14000/18301 GOIs | 6.8 min | gate_passed=1240 | DFG_hits=0 | ETA ~2 min
+  [PVM_3_pooled | Part 01] 14500/18301 GOIs | 7.1 min | gate_passed=1284 | DFG_hits=0 | ETA ~2 min
+  [PVM_3_pooled | Part 01] 15000/18301 GOIs | 7.1 min | gate_passed=1318 | DFG_hits=0 | ETA ~2 min
+  [PVM_3_pooled | Part 01] 15500/18301 GOIs | 7.2 min | gate_passed=1364 | DFG_hits=0 | ETA ~1 min
+  [PVM_3_pooled | Part 01] 16000/18301 GOIs | 7.4 min | gate_passed=1401 | DFG_hits=0 | ETA ~1 min
+  [PVM_3_pooled | Part 01] 16500/18301 GOIs | 7.6 min | gate_passed=1434 | DFG_hits=0 | ETA ~1 min
+  [PVM_3_pooled | Part 01] 17000/18301 GOIs | 7.8 min | gate_passed=1471 | DFG_hits=0 | ETA ~1 min
+  [PVM_3_pooled | Part 01] 17500/18301 GOIs | 8.0 min | gate_passed=1511 | DFG_hits=0 | ETA ~0 min
+  [PVM_3_pooled | Part 01] 18000/18301 GOIs | 8.0 min | gate_passed=1556 | DFG_hits=0 | ETA ~0 min
+  [PVM_3_pooled | Part 01] 18301/18301 GOIs | 8.0 min | gate_passed=1587 | DFG_hits=0 | ETA ~0 min
+
+=== Part 01 complete | 18,301 GOIs | saved: Part01_checkpoint.pkl ===
+>>> Part 01/2 done  -  checkpoint: Part01_checkpoint.pkl
+  MasterDFG [PVM_3_pooled]: 0 GOIs with DFG hits.
+=== Part 02/2 | 18,300 GOIs | PVM_3_pooled | 2026-09-30 17:33:08 ===
+SP_THRESHOLD=0.6  KD_THRESHOLD=0.5  SEED=42
+
+  Using 16 processes for parallel GOI screening (fork)
+  [PVM_3_pooled | Part 02] 500/18300 GOIs | 1.2 min | gate_passed=53 | DFG_hits=0 | ETA ~43 min
+  [PVM_3_pooled | Part 02] 1000/18300 GOIs | 1.2 min | gate_passed=79 | DFG_hits=0 | ETA ~21 min
+  [PVM_3_pooled | Part 02] 1500/18300 GOIs | 1.2 min | gate_passed=107 | DFG_hits=0 | ETA ~14 min
+  [PVM_3_pooled | Part 02] 2000/18300 GOIs | 1.2 min | gate_passed=129 | DFG_hits=0 | ETA ~10 min
+  [PVM_3_pooled | Part 02] 2500/18300 GOIs | 1.3 min | gate_passed=167 | DFG_hits=0 | ETA ~8 min
+  [PVM_3_pooled | Part 02] 3000/18300 GOIs | 1.3 min | gate_passed=189 | DFG_hits=0 | ETA ~7 min
+  [PVM_3_pooled | Part 02] 3500/18300 GOIs | 1.6 min | gate_passed=231 | DFG_hits=0 | ETA ~7 min
+  [PVM_3_pooled | Part 02] 4000/18300 GOIs | 2.0 min | gate_passed=267 | DFG_hits=0 | ETA ~7 min
+  [PVM_3_pooled | Part 02] 4500/18300 GOIs | 2.0 min | gate_passed=312 | DFG_hits=0 | ETA ~6 min
+  [PVM_3_pooled | Part 02] 5000/18300 GOIs | 2.5 min | gate_passed=365 | DFG_hits=0 | ETA ~7 min
+  [PVM_3_pooled | Part 02] 5500/18300 GOIs | 2.5 min | gate_passed=402 | DFG_hits=0 | ETA ~6 min
+  [PVM_3_pooled | Part 02] 6000/18300 GOIs | 2.5 min | gate_passed=434 | DFG_hits=0 | ETA ~5 min
+  [PVM_3_pooled | Part 02] 6500/18300 GOIs | 2.9 min | gate_passed=490 | DFG_hits=0 | ETA ~5 min
+  [PVM_3_pooled | Part 02] 7000/18300 GOIs | 2.9 min | gate_passed=510 | DFG_hits=0 | ETA ~5 min
+  [PVM_3_pooled | Part 02] 7500/18300 GOIs | 3.6 min | gate_passed=557 | DFG_hits=0 | ETA ~5 min
+  [PVM_3_pooled | Part 02] 8000/18300 GOIs | 3.6 min | gate_passed=598 | DFG_hits=0 | ETA ~5 min
+  [PVM_3_pooled | Part 02] 8500/18300 GOIs | 3.6 min | gate_passed=614 | DFG_hits=0 | ETA ~4 min
+  [PVM_3_pooled | Part 02] 9000/18300 GOIs | 3.6 min | gate_passed=643 | DFG_hits=0 | ETA ~4 min
+  [PVM_3_pooled | Part 02] 9500/18300 GOIs | 3.6 min | gate_passed=671 | DFG_hits=0 | ETA ~3 min
+  [PVM_3_pooled | Part 02] 10000/18300 GOIs | 3.8 min | gate_passed=699 | DFG_hits=0 | ETA ~3 min
+  [PVM_3_pooled | Part 02] 10500/18300 GOIs | 4.1 min | gate_passed=729 | DFG_hits=0 | ETA ~3 min
+  [PVM_3_pooled | Part 02] 11000/18300 GOIs | 4.1 min | gate_passed=755 | DFG_hits=0 | ETA ~3 min
+  [PVM_3_pooled | Part 02] 11500/18300 GOIs | 4.6 min | gate_passed=790 | DFG_hits=0 | ETA ~3 min
+  [PVM_3_pooled | Part 02] 12000/18300 GOIs | 4.6 min | gate_passed=820 | DFG_hits=0 | ETA ~2 min
+  [PVM_3_pooled | Part 02] 12500/18300 GOIs | 4.7 min | gate_passed=861 | DFG_hits=0 | ETA ~2 min
+  [PVM_3_pooled | Part 02] 13000/18300 GOIs | 4.7 min | gate_passed=880 | DFG_hits=0 | ETA ~2 min
+  [PVM_3_pooled | Part 02] 13500/18300 GOIs | 4.7 min | gate_passed=894 | DFG_hits=0 | ETA ~2 min
+  [PVM_3_pooled | Part 02] 14000/18300 GOIs | 4.7 min | gate_passed=909 | DFG_hits=0 | ETA ~1 min
+  [PVM_3_pooled | Part 02] 14500/18300 GOIs | 4.7 min | gate_passed=922 | DFG_hits=0 | ETA ~1 min
+  [PVM_3_pooled | Part 02] 15000/18300 GOIs | 5.2 min | gate_passed=951 | DFG_hits=0 | ETA ~1 min
+  [PVM_3_pooled | Part 02] 15500/18300 GOIs | 5.4 min | gate_passed=984 | DFG_hits=0 | ETA ~1 min
+  [PVM_3_pooled | Part 02] 16000/18300 GOIs | 5.7 min | gate_passed=1015 | DFG_hits=0 | ETA ~1 min
+  [PVM_3_pooled | Part 02] 16500/18300 GOIs | 5.7 min | gate_passed=1029 | DFG_hits=0 | ETA ~1 min
+  [PVM_3_pooled | Part 02] 17000/18300 GOIs | 5.7 min | gate_passed=1054 | DFG_hits=0 | ETA ~0 min
+  [PVM_3_pooled | Part 02] 17500/18300 GOIs | 5.7 min | gate_passed=1085 | DFG_hits=0 | ETA ~0 min
+  [PVM_3_pooled | Part 02] 18000/18300 GOIs | 5.8 min | gate_passed=1117 | DFG_hits=0 | ETA ~0 min
+  [DFG HIT] PVM_3_pooled | GOI=LINC00278 | DFGs=1 | max_Sp=0.638 | max_Kd=0.562
+  [DFG HIT] PVM_3_pooled | GOI=UTY | DFGs=1 | max_Sp=0.638 | max_Kd=0.562
+  [DFG HIT] PVM_3_pooled | GOI=MT-ND2 | DFGs=1 | max_Sp=0.648 | max_Kd=0.508
+  [DFG HIT] PVM_3_pooled | GOI=MT-CO2 | DFGs=3 | max_Sp=0.686 | max_Kd=0.527
+  [DFG HIT] PVM_3_pooled | GOI=MT-ATP6 | DFGs=6 | max_Sp=0.738 | max_Kd=0.580
+  [DFG HIT] PVM_3_pooled | GOI=MT-CO3 | DFGs=5 | max_Sp=0.686 | max_Kd=0.529
+  [DFG HIT] PVM_3_pooled | GOI=MT-ND3 | DFGs=4 | max_Sp=0.738 | max_Kd=0.580
+  [DFG HIT] PVM_3_pooled | GOI=MT-ND4 | DFGs=4 | max_Sp=0.710 | max_Kd=0.552
+  [DFG HIT] PVM_3_pooled | GOI=MT-CYB | DFGs=3 | max_Sp=0.682 | max_Kd=0.538
+  [PVM_3_pooled | Part 02] 18300/18300 GOIs | 5.9 min | gate_passed=1136 | DFG_hits=9 | ETA ~0 min
+
+=== Part 02 complete | 18,300 GOIs | saved: Part02_checkpoint.pkl ===
+>>> Part 02/2 done  -  checkpoint: Part02_checkpoint.pkl
+  MasterDFG [PVM_3_pooled]: 9 GOIs with DFG hits  -  PVM_3_pooled_MasterDFG_Ranking.xlsx
+
+  Final MasterDFG consolidation for PVM_3_pooled ...
+  MasterDFG [PVM_3_pooled]: 9 GOIs with DFG hits  -  PVM_3_pooled_MasterDFG_Ranking.xlsx
+
+  GOIs screened      : 36,601
+  GOIs with >= 1 DFG : 9
+
+  Top 10 GOIs by DFG_Total:
+      GOI  DFG_Total  max_Spearman  max_Kendall
+  MT-ATP6          6        0.7385       0.5805
+   MT-CO3          5        0.6855       0.5288
+   MT-ND3          4        0.7385       0.5805
+   MT-ND4          4        0.7100       0.5523
+   MT-CO2          3        0.6855       0.5270
+   MT-CYB          3        0.6816       0.5376
+   MT-ND2          1        0.6476       0.5079
+LINC00278          1        0.6375       0.5621
+      UTY          1        0.6375       0.5621
+
+  [P6C] saved <SEA-AD>/[2]_Non-NeoC/Part6c_NonNeoC_ScreenScatter/PVM_3_pooled_screen_scatter.csv  (2,723 genes passing the expression gate)
+  [P6C] PASS  genes with DFG partners and their counts match Part 6b (9 here, 9 in Part 6b)
+
+======================================================================
+POPULATION PVM_3_pooled COMPLETE  → <SEA-AD>/[2]_Non-NeoC/Part6c_NonNeoC_ScreenScatter/PVM_3_pooled/
+======================================================================
+
+======================================================================
+SECTION 15: Writing cross-population summary Excel ...
+======================================================================
+
+======================================================================
+Part 6c  -  COMPLETE
+Output: <SEA-AD>/[2]_Non-NeoC/Part6c_NonNeoC_ScreenScatter/
+======================================================================
+
+Directory listing (<SEA-AD>/[2]_Non-NeoC/Part6c_NonNeoC_ScreenScatter/):
+  PVM_3_pooled/   (5 files)
+  PVM_3_pooled_screen_scatter.csv                                 197.0 KB
+  Part6b_population_tally.csv                                       0.3 KB
+  Part6c_NonNeoC_ScreenScatter_log.txt                             14.9 KB
+  gene_biotype_map.pkl                                            729.4 KB

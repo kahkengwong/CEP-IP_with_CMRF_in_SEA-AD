@@ -1,0 +1,1294 @@
+Loading required package: nlme
+This is mgcv 1.9-4. For overview type '?mgcv'.
+
+Attaching package: ‘dplyr’
+
+The following object is masked from ‘package:nlme’:
+
+    collapse
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+
+Attaching package: ‘MASS’
+
+The following object is masked from ‘package:dplyr’:
+
+    select
+
+Loading required package: viridisLite
+
+Attaching package: ‘viridis’
+
+The following object is masked from ‘package:scales’:
+
+    viridis_pal
+
+CEP_arms.R loaded.
+  CEP_HOME    : /data 
+  RESULTS_ROOT: /data 
+  Arms        : Mic13_PVM3, PVM3_all, PVM1_all, HKG8_matched 
+
+############################################################################
+  Part10b_IPRS
+  Home        : /data
+  Results     : /data/Part10b_IPRS
+  Arms to run : 4 of 4
+      Mic13_PVM3     -> Part10b_IPRS_Mic13_PVM3Mic13 PVM_3 (M4-top, primary)
+      PVM3_all       -> Part10b_IPRS_PVM_3  PVM_3 all cells (mask specificity)
+      PVM1_all       -> Part10b_IPRS_PVM_1  PVM_1 all cells (supertype specificity)
+      HKG8_matched   -> Part10b_IPRS_HKG8   HKG8 control (panel specificity)
+############################################################################
+
+============================================================================
+  ARM: Mic13_PVM3   config: R_config.R
+============================================================================
+R_config.R loaded (Module 1: MT-CO3 + 8 DFGs, ≥8/10 regions).
+  ARM_TAG   : Mic13_PVM3 
+  ARM_DIR   : /data/R_export_CP10K/Mic13_PVM3 
+  NEOC_DIR  : /data/R_export_CP10K/Mic13_PVM3/neocortex 
+  NONNC_DIR : /data/R_export_CP10K/Mic13_PVM3/nonneocortex 
+  SHARED_DIR: /data/R_export_CP10K/shared 
+  GOI       : MT-CO3 
+  DFG_NEOC  : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  DFG_NONNC : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Composite : cDFG 
+  RUN_SUFFIX: (none) 
+  Supertype : Micro-PVM_3-SEAAD 
+  Mod1 genes: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 ( 9 )
+  HKG_GENES : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 2130 NeoC / 1987 NonNeoC
+  Config OK: Mic13_PVM3 | MT-CO3 + 8 DFG | CP10K
+
+
+ ======================================================================== 
+  Part10b IPRS -- IP detection on the full GOI-positive population
+  Arm          : Mic13_PVM3 
+  GOI          : MT-CO3 
+  Composite    : cDFG 
+  Normalisation: CP10K  log1p(UMIs/total x  10000 )
+  Population   : all GOI>0 cells
+  GAM spec     : Expression ~ GOI + s(GOI, tp ) gamma = 1.5 
+  Estimator    : donor random intercept, s(donor, bs = "re"), minimum 3 donors 
+  Weights      : inverse donor cell count, w = 1/n_i (each donor sums to 1) 
+  R(x) donor RE: ON 
+  IP method    : IPRS R(x)=0 zero-crossing + Brent CI 
+  Datasets     : NonNeoC, NeoC 
+  Part 10 dir  : /data/Part10/Part10_Mic13_PVM3 
+  Output dir   : /data/Part10b_IPRS/Part10b_IPRS_Mic13_PVM3 
+  Part 10b RDS : /data/Part10b_SKCS/Part10b_SKCS_Mic13_PVM3/Part10b_CP10K_M4_IPRS_results.rds 
+======================================================================== 
+
+
+ ======================================================================== 
+  SECTION A0 -- PRE-ANALYSIS GUARDRAILS
+======================================================================== 
+
+  -- Dataset: NeoC --------------------------------
+  [PASS]  GR-01-NeoC        norm.mtx max = 8.0564  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NeoC        expm1(norm) row sums: mean = 10000.000000, max |dev| = 1.82e-12, n = 50
+  [PASS]  GR-04-NeoC        raw max = 2389, integer-like = TRUE
+  -- Dataset: NonNeoC --------------------------------
+  [PASS]  GR-01-NonNeoC     norm.mtx max = 7.6610  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NonNeoC     expm1(norm) row sums: mean = 10000.000000, max |dev| = 1.82e-12, n = 50
+  [PASS]  GR-04-NonNeoC     raw max = 1552, integer-like = TRUE
+  [PASS]  GR-05-NonNeoC     Part 10 RDS: Part10_Mic13_PVM3_NonNeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_GAM_models.rds  loadable=TRUE
+  [PASS]  GR-05-NeoC        Part 10 RDS: Part10_Mic13_PVM3_NeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_GAM_models.rds  loadable=TRUE
+  [NonNeoC] Full GOI-positive population: n = 1987 cells
+  [NonNeoC] donor matched from the gam_data CSVs by barcode (1987 barcodes in the map)
+  [NonNeoC] donors = 80 | sum(w) = 80.0000
+  [NonNeoC] Full-population GAM: n=1987 | k=10 | donor RE=YES | DE=65.2% | DE_vs_flat_null=85.2% | gamma=1.5
+  [NonNeoC] SKCS reference: rho=0.8406 | tau=0.6538 | SKCS-core=1303/1987
+  [NonNeoC] Pooled GAM: n=1987 cells | DE=65.2% | key=Pooled|DFG|FullPop
+  [NeoC] Full GOI-positive population: n = 2130 cells
+  [NeoC] donor matched from the gam_data CSVs by barcode (2130 barcodes in the map)
+  [NeoC] donors = 78 | sum(w) = 78.0000
+  [NeoC] Full-population GAM: n=2130 | k=10 | donor RE=YES | DE=67.4% | DE_vs_flat_null=83.1% | gamma=1.5
+  [NeoC] SKCS reference: rho=0.8557 | tau=0.6756 | SKCS-core=1419/2130
+  [NeoC] Pooled GAM: n=2130 cells | DE=67.4% | key=Pooled|DFG|FullPop
+
+  [PASS]  GR-06-NonNeoC     Pooled full GOI-positive cells = 1987  (min = 10)
+  [PASS]  GR-06-NeoC        Pooled full GOI-positive cells = 2130  (min = 10)
+  [PASS]  GR-07-NonNeoC     Full-population pooled GAM DE = 65.2% (donor-aware null) | vs flat null = 85.2%
+  [PASS]  GR-07-NeoC        Full-population pooled GAM DE = 67.4% (donor-aware null) | vs flat null = 83.1%
+  [PASS]  GR-11-NonNeoC     full-population GAM donor RE = YES | donors = 80 | sum(w) = 80.0000
+  [PASS]  GR-11-NeoC        full-population GAM donor RE = YES | donors = 78 | sum(w) = 78.0000
+  Guardrail log written: /data/Part10b_IPRS/Part10b_IPRS_Mic13_PVM3/Part10b_IPRS_CP10K_M4_Guardrail_Log.txt 
+
+  Pre-analysis guardrails: 14 PASS / 0 WARN / 0 FAIL
+  All pre-analysis guardrails passed
+
+
+ ======================================================================== 
+IP DETECTION | Zero-crossing + Brent CI + IPRS | STAT_ALPHA=0.05
+Input     : Full MT-CO3 -positive population pooled cDFG GAM
+Datasets  : NonNeoC, NeoC 
+======================================================================== 
+
+
+--- Processing: NonNeoC | cDFG composite ---
+  n cells (full GOI-positive population): 1987 
+  Dev explained (population level, sets n_purple): 75.5% | summary()$dev.expl: 85.2% | donor-aware DE: 65.2%
+  Purple cells: 1499 | Above: 875 | Below: 624 | donors: 80 | sum(w): 80 
+  Purple donor coverage: 80/80 donors represented | per-donor purple fraction [0.500, 1.000] median 0.786
+  R(x) GAM: donor RE = YES | edf = 15.60 | Dev = 61.4% | p = 0.00e+00 
+  IP (R(x) zero-crossing): 2.802522 | neg→pos crossings: 1 
+  95% CI: [ 2.7680 [brent] , 2.8366 [brent] ] | width: 0.0686 
+  Stat: MannWhitneyU | p (unadjusted): 1.881e-137 
+  IPRS components: C1=0.9871 [Both CI bounds: CI_width=0.0686 / GOI_range=5.3331 → C1=0.9871]
+                   C2=1.0000 [tanh(0.4222 * -log10(1.8806e-137)) → C2=1.0000]
+                   C3=0.9867 [|R'(IP)|=2.5024 → tanh(2.5024) → C3=0.9867]
+                   C4=0.7668 [mean_ribbon=0.2160 / amplitude=0.8134 → exp(-ratio=0.2656) → C4=0.7668]
+                   C5=0.1901 [TV=1.9526/amp=0.8134 → wave=0.2465 | neg_post=0.122 → sign=(1-0.122)^2=0.7711 | C5=0.2465*0.7711=0.1901]
+  IPRS = (0.9871+1.0000+0.9867+0.7668+0.1901)/5 = 0.7861  [Strong]  
+  IP_y = f(IP_x) = 2.038718 | mapped CI [2.0108, 2.0662]  (classification threshold)
+
+--- Processing: NeoC | cDFG composite ---
+  n cells (full GOI-positive population): 2130 
+  Dev explained (population level, sets n_purple): 73.5% | summary()$dev.expl: 83.1% | donor-aware DE: 67.4%
+  Purple cells: 1565 | Above: 851 | Below: 714 | donors: 75 | sum(w): 75 
+  Purple donor coverage: 75/78 donors represented | per-donor purple fraction [0.000, 1.000] median 0.759
+  R(x) GAM: donor RE = YES | edf = 14.46 | Dev = 57.4% | p = 0.00e+00 
+  IP (R(x) zero-crossing): 2.679411 | neg→pos crossings: 1 
+  95% CI: [ 2.6377 [brent] , 2.7204 [brent] ] | width: 0.0827 
+  Stat: MannWhitneyU | p (unadjusted): 2.470e-155 
+  IPRS components: C1=0.9861 [Both CI bounds: CI_width=0.0827 / GOI_range=5.9570 → C1=0.9861]
+                   C2=1.0000 [tanh(0.4222 * -log10(2.4697e-155)) → C2=1.0000]
+                   C3=0.9432 [|R'(IP)|=1.7664 → tanh(1.7664) → C3=0.9432]
+                   C4=0.7017 [mean_ribbon=0.2452 / amplitude=0.6924 → exp(-ratio=0.3542) → C4=0.7017]
+                   C5=0.1750 [TV=1.7067/amp=0.6924 → wave=0.2311 | neg_post=0.130 → sign=(1-0.130)^2=0.7572 | C5=0.2311*0.7572=0.1750]
+  IPRS = (0.9861+1.0000+0.9432+0.7017+0.1750)/5 = 0.7612  [Strong]  
+  IP_y = f(IP_x) = 1.875476 | mapped CI [1.8401, 1.9106]  (classification threshold)
+
+
+ ======================================================================== 
+IP SUMMARY - IP Reliability Score (IPRS)
+======================================================================== 
+
+Fit (Dataset|GS)                   IP    CI_Lo    CI_Hi     C1     C2     C3     C4     C5   IPRS  Tier            Flag
+-------------------------------------------------------------------------------------------------------------------------------------------- 
+NonNeoC|cDFG                   2.8025   2.7680   2.8366  0.987  1.000  0.987  0.767  0.190  0.786  Strong          None
+NeoC|cDFG                      2.6794   2.6377   2.7204  0.986  1.000  0.943  0.702  0.175  0.761  Strong          None
+
+
+
+ ======================================================================== 
+SECTION 5b: IP position diagnostics
+======================================================================== 
+
+  ── NonNeoC ──────────────────
+  n cells             : 1987
+  GOI range           : [0.3990, 5.7321]  (range = 5.3331)
+  IP (IPRS R(x)=0)    : 2.8025    [u = 0.5883]
+  IPRS 95% CI         : [2.7680, 2.8366]  width = 0.0686
+  IPRS tier           : Strong
+  Mean Si_norm near IP (10 closest cells) : 0.042399
+
+  ── NeoC ──────────────────
+  n cells             : 2130
+  GOI range           : [0.3179, 6.2750]  (range = 5.9570)
+  IP (IPRS R(x)=0)    : 2.6794    [u = 0.6333]
+  IPRS 95% CI         : [2.6377, 2.7204]  width = 0.0827
+  IPRS tier           : Strong
+  Mean Si_norm near IP (10 closest cells) : 0.047399
+
+
+=== Environment vectors created ===
+inflection_points     ( 2 entries, keyed 'dataset|cDFG')
+inflection_points_DFG ( 2 entries, keyed by dataset):
+  NonNeoC     IP = 2.802522
+  NeoC        IP = 2.679411
+
+Final IP values with IPRS (full GOI-positive population):
+        Population Dataset Gene_Set IP_Value IP_CI_Lower IP_CI_Upper        C1
+ full_GOI_positive NonNeoC     cDFG 2.802522    2.767977    2.836579 0.9871364
+ full_GOI_positive    NeoC     cDFG 2.679411    2.637729    2.720404 0.9861214
+ C2        C3        C4        C5      IPRS IPRS_Tier IPRS_Flag
+  1 0.9866791 0.7667607 0.1900596 0.7861272    Strong      None
+  1 0.9432184 0.7017483 0.1749953 0.7612167    Strong      None
+
+Exporting results...
+Exported: Part10b_IPRS_CP10K_M4_results.xlsx 
+
+
+Generating scatter plots...
+  Scatter saved: NonNeoC 
+  Scatter saved: NeoC 
+
+Generating R(x) diagnostic plots...
+  R(x) plot saved: NonNeoC 
+  R(x) plot saved: NeoC 
+
+Generating expression-space pitcher plots...
+  Building expression-space pitcher plots: NonNeoC | n = 1987 
+    Ki range:      [-0.8556, 0.9970]
+    Si_norm range: [-0.8538, 0.9970]
+    Ki pitcher plot saved: NonNeoC 
+    Si pitcher plot saved: NonNeoC 
+  Building expression-space pitcher plots: NeoC | n = 2130 
+    Ki range:      [-0.5500, 1.0000]
+    Si_norm range: [-0.5825, 1.0000]
+    Ki pitcher plot saved: NeoC 
+    Si pitcher plot saved: NeoC 
+
+IPRS tier summary -- cDFG ( 2 datasets):
+  Very Strong  : 0
+  Strong       : 2
+  Moderate     : 0
+  Weak         : 0
+  Failed       : 0
+Summary CSV saved: Part10b_IPRS_CP10K_M4_summary.csv 
+
+========================================================================
+  SECTION 13: Saving Part10b_IPRS_CP10K_M4_results.rds + Verification
+  Run timestamp: 2026-10-17 21:44:17
+========================================================================
+
+  Part 10b copy : /data/Part10b_SKCS/Part10b_SKCS_Mic13_PVM3/Part10b_CP10K_M4_IPRS_results.rds
+  RDS saved : /data/Part10b_IPRS/Part10b_IPRS_Mic13_PVM3/Part10b_IPRS_CP10K_M4_results.rds
+  File size : 206.2 KB
+  mtime     : 2026-10-17 21:44:17
+
+------------------------------------------------------------------------
+  VERIFICATION (independent read-back from disk)
+------------------------------------------------------------------------
+
+  CHECK 1 [inflection_points_DFG names]  PASS  expected names=NeoC,NonNeoC  read_back names=NeoC,NonNeoC
+  CHECK 2 [IP value fidelity]            PASS  NonNeoC: 2.802522 OK | NeoC: 2.679411 OK
+  CHECK 3 [ip_table row count]           PASS  expected=2 rows  read_back=2 rows
+  CHECK 4 [ip_results keys]              PASS  keys match=TRUE  n_keys=2
+  CHECK 5 [IP_y value fidelity]          PASS  NeoC: 1.875476 OK | NonNeoC: 2.038718 OK
+
+------------------------------------------------------------------------
+  OVERALL RESULT: all checks passed
+------------------------------------------------------------------------
+
+  HOW PART 10b PICKS THIS UP
+  Nothing to add: Part 10b already reads
+    /data/Part10b_SKCS/Part10b_SKCS_Mic13_PVM3/Part10b_CP10K_M4_IPRS_results.rds
+  and sets DATASET_META$<ds>$IP_thresh from inflection_points_DFG
+  and DATASET_META$<ds>$IP_y_thresh from inflection_points_DFG_y.
+
+  IP values to be applied (full GOI-positive population):
+    NonNeoC     IP_thresh = 2.802522            IP_y_thresh = 2.038718
+    NeoC        IP_thresh = 2.679411            IP_y_thresh = 1.875476
+
+========================================================================
+  SECTION 13 COMPLETE
+  IPRS RDS  : Part10b_IPRS_CP10K_M4_results.rds
+  Excel     : Part10b_IPRS_CP10K_M4_results.xlsx
+  Summary   : Part10b_IPRS_CP10K_M4_summary.csv
+  Plots     : Part10b_IPRS_CP10K_M4_{dataset}_scatter.pdf/png
+              Part10b_IPRS_CP10K_M4_{dataset}_Rx.pdf/png
+              Part10b_IPRS_CP10K_M4_{dataset}_pitcher_Ki_expr.pdf/png
+              Part10b_IPRS_CP10K_M4_{dataset}_pitcher_Si_expr.pdf/png
+========================================================================
+
+  Verification log saved: /data/Part10b_IPRS/Part10b_IPRS_Mic13_PVM3/Part10b_IPRS_CP10K_M4_RDS_verify.log 
+
+ ######################################################################## 
+  SECTION 14 -- POST-ANALYSIS QUALITY GUARDRAILS
+######################################################################## 
+
+  [PASS]  GR-08-NonNeoC     IP = 2.802522  finite = TRUE
+  [PASS]  GR-08-NeoC        IP = 2.679411  finite = TRUE
+  [PASS]  GR-09-NonNeoC     IPRS = 0.7861  tier = Strong  (expected [0, 1])
+  [PASS]  GR-09-NeoC        IPRS = 0.7612  tier = Strong  (expected [0, 1])
+  [PASS]  GR-15-NonNeoC     IP_y = 2.038718 | cDFG range [0.0000, 5.6423] | classification threshold
+  [PASS]  GR-15-NeoC        IP_y = 1.875476 | cDFG range [0.0000, 5.9887] | classification threshold
+  [PASS]  GR-12-NonNeoC     residual GAM R(x) donor RE = YES | donors = 80
+  [PASS]  GR-12-NeoC        residual GAM R(x) donor RE = YES | donors = 75
+  [PASS]  GR-10             RDS readback verification: 5/5 checks passed
+  Guardrail log written: /data/Part10b_IPRS/Part10b_IPRS_Mic13_PVM3/Part10b_IPRS_CP10K_M4_Guardrail_Log.txt 
+
+  Final guardrail tally: 23 PASS / 0 WARN / 0 FAIL
+  All 23 guardrails passed
+
+ ======================================================================== 
+  Part10b IPRS COMPLETE -- [ Mic13_PVM3 ]
+  Output directory: /data/Part10b_IPRS/Part10b_IPRS_Mic13_PVM3 
+  Files generated:
+    Part10b_IPRS_CP10K_M4_Guardrail_Log.txt                      3 KB
+    Part10b_IPRS_CP10K_M4_Log_20261017_214405.txt               15 KB
+    Part10b_IPRS_CP10K_M4_NeoC_pitcher_Ki_expr.pdf             183 KB
+    Part10b_IPRS_CP10K_M4_NeoC_pitcher_Ki_expr.png             972 KB
+    Part10b_IPRS_CP10K_M4_NeoC_pitcher_Si_expr.pdf             184 KB
+    Part10b_IPRS_CP10K_M4_NeoC_pitcher_Si_expr.png             978 KB
+    Part10b_IPRS_CP10K_M4_NeoC_Rx.pdf                           40 KB
+    Part10b_IPRS_CP10K_M4_NeoC_Rx.png                          163 KB
+    Part10b_IPRS_CP10K_M4_NeoC_scatter.pdf                     134 KB
+    Part10b_IPRS_CP10K_M4_NeoC_scatter.png                     654 KB
+    Part10b_IPRS_CP10K_M4_NonNeoC_pitcher_Ki_expr.pdf          175 KB
+    Part10b_IPRS_CP10K_M4_NonNeoC_pitcher_Ki_expr.png         1034 KB
+    Part10b_IPRS_CP10K_M4_NonNeoC_pitcher_Si_expr.pdf          176 KB
+    Part10b_IPRS_CP10K_M4_NonNeoC_pitcher_Si_expr.png         1037 KB
+    Part10b_IPRS_CP10K_M4_NonNeoC_Rx.pdf                        40 KB
+    Part10b_IPRS_CP10K_M4_NonNeoC_Rx.png                       165 KB
+    Part10b_IPRS_CP10K_M4_NonNeoC_scatter.pdf                  126 KB
+    Part10b_IPRS_CP10K_M4_NonNeoC_scatter.png                  681 KB
+    Part10b_IPRS_CP10K_M4_RDS_verify.log                         2 KB
+    Part10b_IPRS_CP10K_M4_results.rds                          206 KB
+    Part10b_IPRS_CP10K_M4_results.xlsx                          40 KB
+    Part10b_IPRS_CP10K_M4_summary.csv                            1 KB
+
+  IP values written for Part 10b:
+    NonNeoC     IP_thresh = 2.802522
+    NeoC        IP_thresh = 2.679411
+======================================================================== 
+
+  Log written to: /data/Part10b_IPRS/Part10b_IPRS_Mic13_PVM3/Part10b_IPRS_CP10K_M4_Log_20261017_214405.txt  (console output and warnings) 
+  Part 10b IPRS all done: 2026-10-17 21:44:17 
+
+
+============================================================================
+  ARM: PVM3_all   config: R_config.R
+============================================================================
+R_config.R loaded (Module 1: MT-CO3 + 8 DFGs, ≥8/10 regions).
+  ARM_TAG   : PVM3_all 
+  ARM_DIR   : /data/R_export_CP10K/PVM3_all 
+  NEOC_DIR  : /data/R_export_CP10K/PVM3_all/neocortex 
+  NONNC_DIR : /data/R_export_CP10K/PVM3_all/nonneocortex 
+  SHARED_DIR: /data/R_export_CP10K/shared 
+  GOI       : MT-CO3 
+  DFG_NEOC  : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  DFG_NONNC : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Composite : cDFG 
+  RUN_SUFFIX: _PVM3all 
+  Supertype : Micro-PVM_3-SEAAD 
+  Mod1 genes: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 ( 9 )
+  HKG_GENES : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 13331 NeoC / 11132 NonNeoC
+  Config OK: PVM3_all | MT-CO3 + 8 DFG | CP10K
+
+
+ ======================================================================== 
+  Part10b IPRS -- IP detection on the full GOI-positive population
+  Arm          : PVM3_all 
+  GOI          : MT-CO3 
+  Composite    : cDFG 
+  Normalisation: CP10K  log1p(UMIs/total x  10000 )
+  Population   : all GOI>0 cells
+  GAM spec     : Expression ~ GOI + s(GOI, tp ) gamma = 1.5 
+  Estimator    : donor random intercept, s(donor, bs = "re"), minimum 3 donors 
+  Weights      : inverse donor cell count, w = 1/n_i (each donor sums to 1) 
+  R(x) donor RE: ON 
+  IP method    : IPRS R(x)=0 zero-crossing + Brent CI 
+  Datasets     : NonNeoC, NeoC 
+  Part 10 dir  : /data/Part10/Part10_PVM_3 
+  Output dir   : /data/Part10b_IPRS/Part10b_IPRS_PVM_3 
+  Part 10b RDS : /data/Part10b_SKCS/Part10b_SKCS_PVM_3/Part10b_CP10K_PVM_3_IPRS_results.rds 
+======================================================================== 
+
+
+ ======================================================================== 
+  SECTION A0 -- PRE-ANALYSIS GUARDRAILS
+======================================================================== 
+
+  -- Dataset: NeoC --------------------------------
+  [PASS]  GR-01-NeoC        norm.mtx max = 8.1332  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NeoC        expm1(norm) row sums: mean = 10000.000000, max |dev| = 1.82e-12, n = 50
+  [PASS]  GR-04-NeoC        raw max = 3187, integer-like = TRUE
+  -- Dataset: NonNeoC --------------------------------
+  [PASS]  GR-01-NonNeoC     norm.mtx max = 7.6610  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NonNeoC     expm1(norm) row sums: mean = 10000.000000, max |dev| = 1.82e-12, n = 50
+  [PASS]  GR-04-NonNeoC     raw max = 1552, integer-like = TRUE
+  [PASS]  GR-05-NonNeoC     Part 10 RDS: Part10_PVM_3_NonNeoC/Part10_CP10K_PVM_3_Module1_MTCO3_cDFG_NonNeoC_GAM_models.rds  loadable=TRUE
+  [PASS]  GR-05-NeoC        Part 10 RDS: Part10_PVM_3_NeoC/Part10_CP10K_PVM_3_Module1_MTCO3_cDFG_NeoC_GAM_models.rds  loadable=TRUE
+  [NonNeoC] Full GOI-positive population: n = 11132 cells
+  [NonNeoC] donor matched from the gam_data CSVs by barcode (11132 barcodes in the map)
+  [NonNeoC] donors = 83 | sum(w) = 83.0000
+  [NonNeoC] Full-population GAM: n=11132 | k=10 | donor RE=YES | DE=59.8% | DE_vs_flat_null=80.2% | gamma=1.5
+  [NonNeoC] SKCS reference: rho=0.8061 | tau=0.6194 | SKCS-core=6941/11132
+  [NonNeoC] Pooled GAM: n=11132 cells | DE=59.8% | key=Pooled|DFG|FullPop
+  [NeoC] Full GOI-positive population: n = 13331 cells
+  [NeoC] donor matched from the gam_data CSVs by barcode (13331 barcodes in the map)
+  [NeoC] donors = 84 | sum(w) = 84.0000
+  [NeoC] Full-population GAM: n=13331 | k=10 | donor RE=YES | DE=61.2% | DE_vs_flat_null=76.8% | gamma=1.5
+  [NeoC] SKCS reference: rho=0.8184 | tau=0.6311 | SKCS-core=8407/13331
+  [NeoC] Pooled GAM: n=13331 cells | DE=61.2% | key=Pooled|DFG|FullPop
+
+  [PASS]  GR-06-NonNeoC     Pooled full GOI-positive cells = 11132  (min = 10)
+  [PASS]  GR-06-NeoC        Pooled full GOI-positive cells = 13331  (min = 10)
+  [PASS]  GR-07-NonNeoC     Full-population pooled GAM DE = 59.8% (donor-aware null) | vs flat null = 80.2%
+  [PASS]  GR-07-NeoC        Full-population pooled GAM DE = 61.2% (donor-aware null) | vs flat null = 76.8%
+  [PASS]  GR-11-NonNeoC     full-population GAM donor RE = YES | donors = 83 | sum(w) = 83.0000
+  [PASS]  GR-11-NeoC        full-population GAM donor RE = YES | donors = 84 | sum(w) = 84.0000
+  Guardrail log written: /data/Part10b_IPRS/Part10b_IPRS_PVM_3/Part10b_IPRS_CP10K_PVM_3_Guardrail_Log.txt 
+
+  Pre-analysis guardrails: 14 PASS / 0 WARN / 0 FAIL
+  All pre-analysis guardrails passed
+
+
+ ======================================================================== 
+IP DETECTION | Zero-crossing + Brent CI + IPRS | STAT_ALPHA=0.05
+Input     : Full MT-CO3 -positive population pooled cDFG GAM
+Datasets  : NonNeoC, NeoC 
+======================================================================== 
+
+
+--- Processing: NonNeoC | cDFG composite ---
+  n cells (full GOI-positive population): 11132 
+  Dev explained (population level, sets n_purple): 71.0% | summary()$dev.expl: 80.2% | donor-aware DE: 59.8%
+  Purple cells: 7904 | Above: 4152 | Below: 3752 | donors: 83 | sum(w): 83 
+  Purple donor coverage: 83/83 donors represented | per-donor purple fraction [0.464, 1.000] median 0.733
+  R(x) GAM: donor RE = YES | edf = 17.94 | Dev = 56.0% | p = 0.00e+00 
+  IP (R(x) zero-crossing): 2.657153 | neg→pos crossings: 1 
+  95% CI: [ 2.6367 [brent] , 2.6781 [brent] ] | width: 0.0414 
+  Stat: MannWhitneyU | p (unadjusted): 0.000e+00 
+  IPRS components: C1=0.9924 [Both CI bounds: CI_width=0.0414 / GOI_range=5.4653 → C1=0.9924]
+                   C2=1.0000 [tanh(0.4222 * -log10(0.0000e+00)) → C2=1.0000]
+                   C3=0.9884 [|R'(IP)|=2.5733 → tanh(2.5733) → C3=0.9884]
+                   C4=0.8481 [mean_ribbon=0.1300 / amplitude=0.7888 → exp(-ratio=0.1648) → C4=0.8481]
+                   C5=0.2676 [TV=1.5766/amp=0.7888 → wave=0.3684 | neg_post=0.148 → sign=(1-0.148)^2=0.7264 | C5=0.3684*0.7264=0.2676]
+  IPRS = (0.9924+1.0000+0.9884+0.8481+0.2676)/5 = 0.8193  [Very Strong]  
+  IP_y = f(IP_x) = 1.887917 | mapped CI [1.8715, 1.9048]  (classification threshold)
+
+--- Processing: NeoC | cDFG composite ---
+  n cells (full GOI-positive population): 13331 
+  Dev explained (population level, sets n_purple): 68.1% | summary()$dev.expl: 76.8% | donor-aware DE: 61.2%
+  Purple cells: 9072 | Above: 4769 | Below: 4303 | donors: 84 | sum(w): 84 
+  Purple donor coverage: 84/84 donors represented | per-donor purple fraction [0.514, 1.000] median 0.701
+  R(x) GAM: donor RE = YES | edf = 15.70 | Dev = 51.2% | p = 0.00e+00 
+  IP (R(x) zero-crossing): 2.495273 | neg→pos crossings: 1 
+  95% CI: [ 2.4616 [brent] , 2.5280 [brent] ] | width: 0.0664 
+  Stat: MannWhitneyU | p (unadjusted): 0.000e+00 
+  IPRS components: C1=0.9889 [Both CI bounds: CI_width=0.0664 / GOI_range=5.9570 → C1=0.9889]
+                   C2=1.0000 [tanh(0.4222 * -log10(0.0000e+00)) → C2=1.0000]
+                   C3=0.8717 [|R'(IP)|=1.3403 → tanh(1.3403) → C3=0.8717]
+                   C4=0.7816 [mean_ribbon=0.1563 / amplitude=0.6344 → exp(-ratio=0.2464) → C4=0.7816]
+                   C5=0.3120 [TV=1.1892/amp=0.6344 → wave=0.4170 | neg_post=0.135 → sign=(1-0.135)^2=0.7482 | C5=0.4170*0.7482=0.3120]
+  IPRS = (0.9889+1.0000+0.8717+0.7816+0.3120)/5 = 0.7908  [Strong]  
+  IP_y = f(IP_x) = 1.664802 | mapped CI [1.6385, 1.6906]  (classification threshold)
+
+
+ ======================================================================== 
+IP SUMMARY - IP Reliability Score (IPRS)
+======================================================================== 
+
+Fit (Dataset|GS)                   IP    CI_Lo    CI_Hi     C1     C2     C3     C4     C5   IPRS  Tier            Flag
+-------------------------------------------------------------------------------------------------------------------------------------------- 
+NonNeoC|cDFG                   2.6572   2.6367   2.6781  0.992  1.000  0.988  0.848  0.268  0.819  Very Strong     None
+NeoC|cDFG                      2.4953   2.4616   2.5280  0.989  1.000  0.872  0.782  0.312  0.791  Strong          None
+
+
+
+ ======================================================================== 
+SECTION 5b: IP position diagnostics
+======================================================================== 
+
+  ── NonNeoC ──────────────────
+  n cells             : 11132
+  GOI range           : [0.2853, 5.7506]  (range = 5.4653)
+  IP (IPRS R(x)=0)    : 2.6572    [u = 0.5951]
+  IPRS 95% CI         : [2.6367, 2.6781]  width = 0.0414
+  IPRS tier           : Very Strong
+  Mean Si_norm near IP (10 closest cells) : 0.024694
+
+  ── NeoC ──────────────────
+  n cells             : 13331
+  GOI range           : [0.3179, 6.2750]  (range = 5.9570)
+  IP (IPRS R(x)=0)    : 2.4953    [u = 0.6453]
+  IPRS 95% CI         : [2.4616, 2.5280]  width = 0.0664
+  IPRS tier           : Strong
+  Mean Si_norm near IP (10 closest cells) : 0.017616
+
+
+=== Environment vectors created ===
+inflection_points     ( 2 entries, keyed 'dataset|cDFG')
+inflection_points_DFG ( 2 entries, keyed by dataset):
+  NonNeoC     IP = 2.657153
+  NeoC        IP = 2.495273
+
+Final IP values with IPRS (full GOI-positive population):
+        Population Dataset Gene_Set IP_Value IP_CI_Lower IP_CI_Upper        C1
+ full_GOI_positive NonNeoC     cDFG 2.657153    2.636668    2.678071 0.9924244
+ full_GOI_positive    NeoC     cDFG 2.495273    2.461632    2.528014 0.9888567
+ C2        C3        C4        C5      IPRS   IPRS_Tier IPRS_Flag
+  1 0.9884296 0.8480660 0.2675681 0.8192976 Very Strong      None
+  1 0.8717466 0.7815755 0.3120235 0.7908405      Strong      None
+
+Exporting results...
+Exported: Part10b_IPRS_CP10K_PVM_3_results.xlsx 
+
+
+Generating scatter plots...
+  Scatter saved: NonNeoC 
+  Scatter saved: NeoC 
+
+Generating R(x) diagnostic plots...
+  R(x) plot saved: NonNeoC 
+  R(x) plot saved: NeoC 
+
+Generating expression-space pitcher plots...
+  Building expression-space pitcher plots: NonNeoC | n = 11132 
+    Ki range:      [-0.8970, 0.9998]
+    Si_norm range: [-0.8951, 0.9998]
+    Ki pitcher plot saved: NonNeoC 
+    Si pitcher plot saved: NonNeoC 
+  Building expression-space pitcher plots: NeoC | n = 13331 
+    Ki range:      [-0.7761, 1.0000]
+    Si_norm range: [-0.7748, 1.0000]
+    Ki pitcher plot saved: NeoC 
+    Si pitcher plot saved: NeoC 
+
+IPRS tier summary -- cDFG ( 2 datasets):
+  Very Strong  : 1
+  Strong       : 1
+  Moderate     : 0
+  Weak         : 0
+  Failed       : 0
+Summary CSV saved: Part10b_IPRS_CP10K_PVM_3_summary.csv 
+
+========================================================================
+  SECTION 13: Saving Part10b_IPRS_CP10K_PVM_3_results.rds + Verification
+  Run timestamp: 2026-10-17 21:45:00
+========================================================================
+
+  Part 10b copy : /data/Part10b_SKCS/Part10b_SKCS_PVM_3/Part10b_CP10K_PVM_3_IPRS_results.rds
+  RDS saved : /data/Part10b_IPRS/Part10b_IPRS_PVM_3/Part10b_IPRS_CP10K_PVM_3_results.rds
+  File size : 414.7 KB
+  mtime     : 2026-10-17 21:45:00
+
+------------------------------------------------------------------------
+  VERIFICATION (independent read-back from disk)
+------------------------------------------------------------------------
+
+  CHECK 1 [inflection_points_DFG names]  PASS  expected names=NeoC,NonNeoC  read_back names=NeoC,NonNeoC
+  CHECK 2 [IP value fidelity]            PASS  NonNeoC: 2.657153 OK | NeoC: 2.495273 OK
+  CHECK 3 [ip_table row count]           PASS  expected=2 rows  read_back=2 rows
+  CHECK 4 [ip_results keys]              PASS  keys match=TRUE  n_keys=2
+  CHECK 5 [IP_y value fidelity]          PASS  NeoC: 1.664802 OK | NonNeoC: 1.887917 OK
+
+------------------------------------------------------------------------
+  OVERALL RESULT: all checks passed
+------------------------------------------------------------------------
+
+  HOW PART 10b PICKS THIS UP
+  Nothing to add: Part 10b already reads
+    /data/Part10b_SKCS/Part10b_SKCS_PVM_3/Part10b_CP10K_PVM_3_IPRS_results.rds
+  and sets DATASET_META$<ds>$IP_thresh from inflection_points_DFG
+  and DATASET_META$<ds>$IP_y_thresh from inflection_points_DFG_y.
+
+  IP values to be applied (full GOI-positive population):
+    NonNeoC     IP_thresh = 2.657153            IP_y_thresh = 1.887917
+    NeoC        IP_thresh = 2.495273            IP_y_thresh = 1.664802
+
+========================================================================
+  SECTION 13 COMPLETE
+  IPRS RDS  : Part10b_IPRS_CP10K_PVM_3_results.rds
+  Excel     : Part10b_IPRS_CP10K_PVM_3_results.xlsx
+  Summary   : Part10b_IPRS_CP10K_PVM_3_summary.csv
+  Plots     : Part10b_IPRS_CP10K_PVM_3_{dataset}_scatter.pdf/png
+              Part10b_IPRS_CP10K_PVM_3_{dataset}_Rx.pdf/png
+              Part10b_IPRS_CP10K_PVM_3_{dataset}_pitcher_Ki_expr.pdf/png
+              Part10b_IPRS_CP10K_PVM_3_{dataset}_pitcher_Si_expr.pdf/png
+========================================================================
+
+  Verification log saved: /data/Part10b_IPRS/Part10b_IPRS_PVM_3/Part10b_IPRS_CP10K_PVM_3_RDS_verify.log 
+
+ ######################################################################## 
+  SECTION 14 -- POST-ANALYSIS QUALITY GUARDRAILS
+######################################################################## 
+
+  [PASS]  GR-08-NonNeoC     IP = 2.657153  finite = TRUE
+  [PASS]  GR-08-NeoC        IP = 2.495273  finite = TRUE
+  [PASS]  GR-09-NonNeoC     IPRS = 0.8193  tier = Very Strong  (expected [0, 1])
+  [PASS]  GR-09-NeoC        IPRS = 0.7908  tier = Strong  (expected [0, 1])
+  [PASS]  GR-15-NonNeoC     IP_y = 1.887917 | cDFG range [0.0000, 5.6423] | classification threshold
+  [PASS]  GR-15-NeoC        IP_y = 1.664802 | cDFG range [0.0000, 5.9887] | classification threshold
+  [PASS]  GR-12-NonNeoC     residual GAM R(x) donor RE = YES | donors = 83
+  [PASS]  GR-12-NeoC        residual GAM R(x) donor RE = YES | donors = 84
+  [PASS]  GR-10             RDS readback verification: 5/5 checks passed
+  Guardrail log written: /data/Part10b_IPRS/Part10b_IPRS_PVM_3/Part10b_IPRS_CP10K_PVM_3_Guardrail_Log.txt 
+
+  Final guardrail tally: 23 PASS / 0 WARN / 0 FAIL
+  All 23 guardrails passed
+
+ ======================================================================== 
+  Part10b IPRS COMPLETE -- [ PVM3_all ]
+  Output directory: /data/Part10b_IPRS/Part10b_IPRS_PVM_3 
+  Files generated:
+    Part10b_IPRS_CP10K_PVM_3_Guardrail_Log.txt                   3 KB
+    Part10b_IPRS_CP10K_PVM_3_Log_20261017_214417.txt            15 KB
+    Part10b_IPRS_CP10K_PVM_3_NeoC_pitcher_Ki_expr.pdf          910 KB
+    Part10b_IPRS_CP10K_PVM_3_NeoC_pitcher_Ki_expr.png         1562 KB
+    Part10b_IPRS_CP10K_PVM_3_NeoC_pitcher_Si_expr.pdf          910 KB
+    Part10b_IPRS_CP10K_PVM_3_NeoC_pitcher_Si_expr.png         1572 KB
+    Part10b_IPRS_CP10K_PVM_3_NeoC_Rx.pdf                        39 KB
+    Part10b_IPRS_CP10K_PVM_3_NeoC_Rx.png                       151 KB
+    Part10b_IPRS_CP10K_PVM_3_NeoC_scatter.pdf                  785 KB
+    Part10b_IPRS_CP10K_PVM_3_NeoC_scatter.png                  942 KB
+    Part10b_IPRS_CP10K_PVM_3_NonNeoC_pitcher_Ki_expr.pdf       772 KB
+    Part10b_IPRS_CP10K_PVM_3_NonNeoC_pitcher_Ki_expr.png      1721 KB
+    Part10b_IPRS_CP10K_PVM_3_NonNeoC_pitcher_Si_expr.pdf       772 KB
+    Part10b_IPRS_CP10K_PVM_3_NonNeoC_pitcher_Si_expr.png      1729 KB
+    Part10b_IPRS_CP10K_PVM_3_NonNeoC_Rx.pdf                     40 KB
+    Part10b_IPRS_CP10K_PVM_3_NonNeoC_Rx.png                    174 KB
+    Part10b_IPRS_CP10K_PVM_3_NonNeoC_scatter.pdf               659 KB
+    Part10b_IPRS_CP10K_PVM_3_NonNeoC_scatter.png              1155 KB
+    Part10b_IPRS_CP10K_PVM_3_RDS_verify.log                      2 KB
+    Part10b_IPRS_CP10K_PVM_3_results.rds                       415 KB
+    Part10b_IPRS_CP10K_PVM_3_results.xlsx                       40 KB
+    Part10b_IPRS_CP10K_PVM_3_summary.csv                         1 KB
+
+  IP values written for Part 10b:
+    NonNeoC     IP_thresh = 2.657153
+    NeoC        IP_thresh = 2.495273
+======================================================================== 
+
+  Log written to: /data/Part10b_IPRS/Part10b_IPRS_PVM_3/Part10b_IPRS_CP10K_PVM_3_Log_20261017_214417.txt  (console output and warnings) 
+  Part 10b IPRS all done: 2026-10-17 21:45:00 
+
+
+============================================================================
+  ARM: PVM1_all   config: R_config.R
+============================================================================
+R_config.R loaded (Module 1: MT-CO3 + 8 DFGs, ≥8/10 regions).
+  ARM_TAG   : PVM1_all 
+  ARM_DIR   : /data/R_export_CP10K/PVM1_all 
+  NEOC_DIR  : /data/R_export_CP10K/PVM1_all/neocortex 
+  NONNC_DIR : /data/R_export_CP10K/PVM1_all/nonneocortex 
+  SHARED_DIR: /data/R_export_CP10K/shared 
+  GOI       : MT-CO3 
+  DFG_NEOC  : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  DFG_NONNC : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Composite : cDFG 
+  RUN_SUFFIX: _PVM1all 
+  Supertype : Micro-PVM_1 
+  Mod1 genes: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 ( 9 )
+  HKG_GENES : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 3218 NeoC / 2658 NonNeoC
+  Config OK: PVM1_all | MT-CO3 + 8 DFG | CP10K
+
+
+ ======================================================================== 
+  Part10b IPRS -- IP detection on the full GOI-positive population
+  Arm          : PVM1_all 
+  GOI          : MT-CO3 
+  Composite    : cDFG 
+  Normalisation: CP10K  log1p(UMIs/total x  10000 )
+  Population   : all GOI>0 cells
+  GAM spec     : Expression ~ GOI + s(GOI, tp ) gamma = 1.5 
+  Estimator    : donor random intercept, s(donor, bs = "re"), minimum 3 donors 
+  Weights      : inverse donor cell count, w = 1/n_i (each donor sums to 1) 
+  R(x) donor RE: ON 
+  IP method    : IPRS R(x)=0 zero-crossing + Brent CI 
+  Datasets     : NonNeoC, NeoC 
+  Part 10 dir  : /data/Part10/Part10_PVM_1 
+  Output dir   : /data/Part10b_IPRS/Part10b_IPRS_PVM_1 
+  Part 10b RDS : /data/Part10b_SKCS/Part10b_SKCS_PVM_1/Part10b_CP10K_PVM_1_IPRS_results.rds 
+======================================================================== 
+
+
+ ======================================================================== 
+  SECTION A0 -- PRE-ANALYSIS GUARDRAILS
+======================================================================== 
+
+  -- Dataset: NeoC --------------------------------
+  [PASS]  GR-01-NeoC        norm.mtx max = 7.6178  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NeoC        expm1(norm) row sums: mean = 10000.000000, max |dev| = 1.82e-12, n = 50
+  [PASS]  GR-04-NeoC        raw max = 3138, integer-like = TRUE
+  -- Dataset: NonNeoC --------------------------------
+  [PASS]  GR-01-NonNeoC     norm.mtx max = 7.7520  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NonNeoC     expm1(norm) row sums: mean = 10000.000000, max |dev| = 1.82e-12, n = 50
+  [PASS]  GR-04-NonNeoC     raw max = 3293, integer-like = TRUE
+  [PASS]  GR-05-NonNeoC     Part 10 RDS: Part10_PVM_1_NonNeoC/Part10_CP10K_PVM_1_Module1_MTCO3_cDFG_NonNeoC_GAM_models.rds  loadable=TRUE
+  [PASS]  GR-05-NeoC        Part 10 RDS: Part10_PVM_1_NeoC/Part10_CP10K_PVM_1_Module1_MTCO3_cDFG_NeoC_GAM_models.rds  loadable=TRUE
+  [NonNeoC] Full GOI-positive population: n = 2658 cells
+  [NonNeoC] donor matched from the gam_data CSVs by barcode (2658 barcodes in the map)
+  [NonNeoC] donors = 83 | sum(w) = 83.0000
+  [NonNeoC] Full-population GAM: n=2658 | k=10 | donor RE=YES | DE=62.4% | DE_vs_flat_null=83.8% | gamma=1.5
+  [NonNeoC] SKCS reference: rho=0.8244 | tau=0.6440 | SKCS-core=1677/2658
+  [NonNeoC] Pooled GAM: n=2658 cells | DE=62.4% | key=Pooled|DFG|FullPop
+  [NeoC] Full GOI-positive population: n = 3218 cells
+  [NeoC] donor matched from the gam_data CSVs by barcode (3218 barcodes in the map)
+  [NeoC] donors = 84 | sum(w) = 84.0000
+  [NeoC] Full-population GAM: n=3218 | k=10 | donor RE=YES | DE=61.9% | DE_vs_flat_null=78.9% | gamma=1.5
+  [NeoC] SKCS reference: rho=0.7845 | tau=0.5984 | SKCS-core=1862/3218
+  [NeoC] Pooled GAM: n=3218 cells | DE=61.9% | key=Pooled|DFG|FullPop
+
+  [PASS]  GR-06-NonNeoC     Pooled full GOI-positive cells = 2658  (min = 10)
+  [PASS]  GR-06-NeoC        Pooled full GOI-positive cells = 3218  (min = 10)
+  [PASS]  GR-07-NonNeoC     Full-population pooled GAM DE = 62.4% (donor-aware null) | vs flat null = 83.8%
+  [PASS]  GR-07-NeoC        Full-population pooled GAM DE = 61.9% (donor-aware null) | vs flat null = 78.9%
+  [PASS]  GR-11-NonNeoC     full-population GAM donor RE = YES | donors = 83 | sum(w) = 83.0000
+  [PASS]  GR-11-NeoC        full-population GAM donor RE = YES | donors = 84 | sum(w) = 84.0000
+  Guardrail log written: /data/Part10b_IPRS/Part10b_IPRS_PVM_1/Part10b_IPRS_CP10K_PVM_1_Guardrail_Log.txt 
+
+  Pre-analysis guardrails: 14 PASS / 0 WARN / 0 FAIL
+  All pre-analysis guardrails passed
+
+
+ ======================================================================== 
+IP DETECTION | Zero-crossing + Brent CI + IPRS | STAT_ALPHA=0.05
+Input     : Full MT-CO3 -positive population pooled cDFG GAM
+Datasets  : NonNeoC, NeoC 
+======================================================================== 
+
+
+--- Processing: NonNeoC | cDFG composite ---
+  n cells (full GOI-positive population): 2658 
+  Dev explained (population level, sets n_purple): 74.9% | summary()$dev.expl: 83.8% | donor-aware DE: 62.4%
+  Purple cells: 1990 | Above: 1090 | Below: 900 | donors: 83 | sum(w): 83 
+  Purple donor coverage: 83/83 donors represented | per-donor purple fraction [0.200, 1.000] median 0.750
+  R(x) GAM: donor RE = YES | edf = 16.80 | Dev = 58.4% | p = 0.00e+00 
+  IP (R(x) zero-crossing): 2.645333 | neg→pos crossings: 1 
+  95% CI: [ 2.6161 [brent] , 2.6749 [brent] ] | width: 0.0588 
+  Stat: MannWhitneyU | p (unadjusted): 1.234e-200 
+  IPRS components: C1=0.9902 [Both CI bounds: CI_width=0.0588 / GOI_range=6.0178 → C1=0.9902]
+                   C2=1.0000 [tanh(0.4222 * -log10(1.2339e-200)) → C2=1.0000]
+                   C3=0.9906 [|R'(IP)|=2.6772 → tanh(2.6772) → C3=0.9906]
+                   C4=0.7848 [mean_ribbon=0.2166 / amplitude=0.8938 → exp(-ratio=0.2424) → C4=0.7848]
+                   C5=0.0996 [TV=2.7132/amp=0.8938 → wave=0.1306 | neg_post=0.127 → sign=(1-0.127)^2=0.7623 | C5=0.1306*0.7623=0.0996]
+  IPRS = (0.9902+1.0000+0.9906+0.7848+0.0996)/5 = 0.7730  [Strong]  
+  IP_y = f(IP_x) = 1.836287 | mapped CI [1.8130, 1.8598]  (classification threshold)
+
+--- Processing: NeoC | cDFG composite ---
+  n cells (full GOI-positive population): 3218 
+  Dev explained (population level, sets n_purple): 68.3% | summary()$dev.expl: 78.9% | donor-aware DE: 61.9%
+  Purple cells: 2199 | Above: 1111 | Below: 1088 | donors: 84 | sum(w): 84 
+  Purple donor coverage: 84/84 donors represented | per-donor purple fraction [0.222, 1.000] median 0.707
+  R(x) GAM: donor RE = YES | edf = 14.67 | Dev = 57.3% | p = 0.00e+00 
+  IP (R(x) zero-crossing): 2.382738 | neg→pos crossings: 1 
+  95% CI: [ 2.3447 [brent] , 2.4207 [brent] ] | width: 0.0760 
+  Stat: MannWhitneyU | p (unadjusted): 7.043e-193 
+  IPRS components: C1=0.9877 [Both CI bounds: CI_width=0.0760 / GOI_range=6.1559 → C1=0.9877]
+                   C2=1.0000 [tanh(0.4222 * -log10(7.0434e-193)) → C2=1.0000]
+                   C3=0.9419 [|R'(IP)|=1.7543 → tanh(1.7543) → C3=0.9419]
+                   C4=0.7003 [mean_ribbon=0.2628 / amplitude=0.7377 → exp(-ratio=0.3563) → C4=0.7003]
+                   C5=0.2728 [TV=1.4140/amp=0.7377 → wave=0.3998 | neg_post=0.174 → sign=(1-0.174)^2=0.6823 | C5=0.3998*0.6823=0.2728]
+  IPRS = (0.9877+1.0000+0.9419+0.7003+0.2728)/5 = 0.7805  [Strong]  
+  IP_y = f(IP_x) = 1.526079 | mapped CI [1.4935, 1.5586]  (classification threshold)
+
+
+ ======================================================================== 
+IP SUMMARY - IP Reliability Score (IPRS)
+======================================================================== 
+
+Fit (Dataset|GS)                   IP    CI_Lo    CI_Hi     C1     C2     C3     C4     C5   IPRS  Tier            Flag
+-------------------------------------------------------------------------------------------------------------------------------------------- 
+NonNeoC|cDFG                   2.6453   2.6161   2.6749  0.990  1.000  0.991  0.785  0.100  0.773  Strong          None
+NeoC|cDFG                      2.3827   2.3447   2.4207  0.988  1.000  0.942  0.700  0.273  0.781  Strong          None
+
+
+
+ ======================================================================== 
+SECTION 5b: IP position diagnostics
+======================================================================== 
+
+  ── NonNeoC ──────────────────
+  n cells             : 2658
+  GOI range           : [0.3050, 6.3228]  (range = 6.0178)
+  IP (IPRS R(x)=0)    : 2.6453    [u = 0.6102]
+  IPRS 95% CI         : [2.6161, 2.6749]  width = 0.0588
+  IPRS tier           : Strong
+  Mean Si_norm near IP (10 closest cells) : 0.062991
+
+  ── NeoC ──────────────────
+  n cells             : 3218
+  GOI range           : [0.2991, 6.4550]  (range = 6.1559)
+  IP (IPRS R(x)=0)    : 2.3827    [u = 0.6631]
+  IPRS 95% CI         : [2.3447, 2.4207]  width = 0.0760
+  IPRS tier           : Strong
+  Mean Si_norm near IP (10 closest cells) : 0.035732
+
+
+=== Environment vectors created ===
+inflection_points     ( 2 entries, keyed 'dataset|cDFG')
+inflection_points_DFG ( 2 entries, keyed by dataset):
+  NonNeoC     IP = 2.645333
+  NeoC        IP = 2.382738
+
+Final IP values with IPRS (full GOI-positive population):
+        Population Dataset Gene_Set IP_Value IP_CI_Lower IP_CI_Upper        C1
+ full_GOI_positive NonNeoC     cDFG 2.645333    2.616111    2.674879 0.9902343
+ full_GOI_positive    NeoC     cDFG 2.382738    2.344718    2.420733 0.9876516
+ C2        C3        C4         C5      IPRS IPRS_Tier IPRS_Flag
+  1 0.9905904 0.7847612 0.09956811 0.7730308    Strong      None
+  1 0.9418657 0.7002811 0.27277138 0.7805140    Strong      None
+
+Exporting results...
+Exported: Part10b_IPRS_CP10K_PVM_1_results.xlsx 
+
+
+Generating scatter plots...
+  Scatter saved: NonNeoC 
+  Scatter saved: NeoC 
+
+Generating R(x) diagnostic plots...
+  R(x) plot saved: NonNeoC 
+  R(x) plot saved: NeoC 
+
+Generating expression-space pitcher plots...
+  Building expression-space pitcher plots: NonNeoC | n = 2658 
+    Ki range:      [-0.8528, 1.0000]
+    Si_norm range: [-0.8488, 1.0000]
+    Ki pitcher plot saved: NonNeoC 
+    Si pitcher plot saved: NonNeoC 
+  Building expression-space pitcher plots: NeoC | n = 3218 
+    Ki range:      [-0.6201, 1.0000]
+    Si_norm range: [-0.6537, 1.0000]
+    Ki pitcher plot saved: NeoC 
+    Si pitcher plot saved: NeoC 
+
+IPRS tier summary -- cDFG ( 2 datasets):
+  Very Strong  : 0
+  Strong       : 2
+  Moderate     : 0
+  Weak         : 0
+  Failed       : 0
+Summary CSV saved: Part10b_IPRS_CP10K_PVM_1_summary.csv 
+
+========================================================================
+  SECTION 13: Saving Part10b_IPRS_CP10K_PVM_1_results.rds + Verification
+  Run timestamp: 2026-10-17 21:45:14
+========================================================================
+
+  Part 10b copy : /data/Part10b_SKCS/Part10b_SKCS_PVM_1/Part10b_CP10K_PVM_1_IPRS_results.rds
+  RDS saved : /data/Part10b_IPRS/Part10b_IPRS_PVM_1/Part10b_IPRS_CP10K_PVM_1_results.rds
+  File size : 225.1 KB
+  mtime     : 2026-10-17 21:45:14
+
+------------------------------------------------------------------------
+  VERIFICATION (independent read-back from disk)
+------------------------------------------------------------------------
+
+  CHECK 1 [inflection_points_DFG names]  PASS  expected names=NeoC,NonNeoC  read_back names=NeoC,NonNeoC
+  CHECK 2 [IP value fidelity]            PASS  NonNeoC: 2.645333 OK | NeoC: 2.382738 OK
+  CHECK 3 [ip_table row count]           PASS  expected=2 rows  read_back=2 rows
+  CHECK 4 [ip_results keys]              PASS  keys match=TRUE  n_keys=2
+  CHECK 5 [IP_y value fidelity]          PASS  NeoC: 1.526079 OK | NonNeoC: 1.836287 OK
+
+------------------------------------------------------------------------
+  OVERALL RESULT: all checks passed
+------------------------------------------------------------------------
+
+  HOW PART 10b PICKS THIS UP
+  Nothing to add: Part 10b already reads
+    /data/Part10b_SKCS/Part10b_SKCS_PVM_1/Part10b_CP10K_PVM_1_IPRS_results.rds
+  and sets DATASET_META$<ds>$IP_thresh from inflection_points_DFG
+  and DATASET_META$<ds>$IP_y_thresh from inflection_points_DFG_y.
+
+  IP values to be applied (full GOI-positive population):
+    NonNeoC     IP_thresh = 2.645333            IP_y_thresh = 1.836287
+    NeoC        IP_thresh = 2.382738            IP_y_thresh = 1.526079
+
+========================================================================
+  SECTION 13 COMPLETE
+  IPRS RDS  : Part10b_IPRS_CP10K_PVM_1_results.rds
+  Excel     : Part10b_IPRS_CP10K_PVM_1_results.xlsx
+  Summary   : Part10b_IPRS_CP10K_PVM_1_summary.csv
+  Plots     : Part10b_IPRS_CP10K_PVM_1_{dataset}_scatter.pdf/png
+              Part10b_IPRS_CP10K_PVM_1_{dataset}_Rx.pdf/png
+              Part10b_IPRS_CP10K_PVM_1_{dataset}_pitcher_Ki_expr.pdf/png
+              Part10b_IPRS_CP10K_PVM_1_{dataset}_pitcher_Si_expr.pdf/png
+========================================================================
+
+  Verification log saved: /data/Part10b_IPRS/Part10b_IPRS_PVM_1/Part10b_IPRS_CP10K_PVM_1_RDS_verify.log 
+
+ ######################################################################## 
+  SECTION 14 -- POST-ANALYSIS QUALITY GUARDRAILS
+######################################################################## 
+
+  [PASS]  GR-08-NonNeoC     IP = 2.645333  finite = TRUE
+  [PASS]  GR-08-NeoC        IP = 2.382738  finite = TRUE
+  [PASS]  GR-09-NonNeoC     IPRS = 0.7730  tier = Strong  (expected [0, 1])
+  [PASS]  GR-09-NeoC        IPRS = 0.7805  tier = Strong  (expected [0, 1])
+  [PASS]  GR-15-NonNeoC     IP_y = 1.836287 | cDFG range [0.0000, 5.5491] | classification threshold
+  [PASS]  GR-15-NeoC        IP_y = 1.526079 | cDFG range [0.0000, 5.7616] | classification threshold
+  [PASS]  GR-12-NonNeoC     residual GAM R(x) donor RE = YES | donors = 83
+  [PASS]  GR-12-NeoC        residual GAM R(x) donor RE = YES | donors = 84
+  [PASS]  GR-10             RDS readback verification: 5/5 checks passed
+  Guardrail log written: /data/Part10b_IPRS/Part10b_IPRS_PVM_1/Part10b_IPRS_CP10K_PVM_1_Guardrail_Log.txt 
+
+  Final guardrail tally: 23 PASS / 0 WARN / 0 FAIL
+  All 23 guardrails passed
+
+ ======================================================================== 
+  Part10b IPRS COMPLETE -- [ PVM1_all ]
+  Output directory: /data/Part10b_IPRS/Part10b_IPRS_PVM_1 
+  Files generated:
+    Part10b_IPRS_CP10K_PVM_1_Guardrail_Log.txt                   3 KB
+    Part10b_IPRS_CP10K_PVM_1_Log_20261017_214500.txt            15 KB
+    Part10b_IPRS_CP10K_PVM_1_NeoC_pitcher_Ki_expr.pdf          251 KB
+    Part10b_IPRS_CP10K_PVM_1_NeoC_pitcher_Ki_expr.png         1038 KB
+    Part10b_IPRS_CP10K_PVM_1_NeoC_pitcher_Si_expr.pdf          251 KB
+    Part10b_IPRS_CP10K_PVM_1_NeoC_pitcher_Si_expr.png         1045 KB
+    Part10b_IPRS_CP10K_PVM_1_NeoC_Rx.pdf                        40 KB
+    Part10b_IPRS_CP10K_PVM_1_NeoC_Rx.png                       154 KB
+    Part10b_IPRS_CP10K_PVM_1_NeoC_scatter.pdf                  197 KB
+    Part10b_IPRS_CP10K_PVM_1_NeoC_scatter.png                  740 KB
+    Part10b_IPRS_CP10K_PVM_1_NonNeoC_pitcher_Ki_expr.pdf       219 KB
+    Part10b_IPRS_CP10K_PVM_1_NonNeoC_pitcher_Ki_expr.png      1111 KB
+    Part10b_IPRS_CP10K_PVM_1_NonNeoC_pitcher_Si_expr.pdf       219 KB
+    Part10b_IPRS_CP10K_PVM_1_NonNeoC_pitcher_Si_expr.png      1117 KB
+    Part10b_IPRS_CP10K_PVM_1_NonNeoC_Rx.pdf                     40 KB
+    Part10b_IPRS_CP10K_PVM_1_NonNeoC_Rx.png                    178 KB
+    Part10b_IPRS_CP10K_PVM_1_NonNeoC_scatter.pdf               165 KB
+    Part10b_IPRS_CP10K_PVM_1_NonNeoC_scatter.png               781 KB
+    Part10b_IPRS_CP10K_PVM_1_RDS_verify.log                      2 KB
+    Part10b_IPRS_CP10K_PVM_1_results.rds                       225 KB
+    Part10b_IPRS_CP10K_PVM_1_results.xlsx                       40 KB
+    Part10b_IPRS_CP10K_PVM_1_summary.csv                         1 KB
+
+  IP values written for Part 10b:
+    NonNeoC     IP_thresh = 2.645333
+    NeoC        IP_thresh = 2.382738
+======================================================================== 
+
+  Log written to: /data/Part10b_IPRS/Part10b_IPRS_PVM_1/Part10b_IPRS_CP10K_PVM_1_Log_20261017_214500.txt  (console output and warnings) 
+  Part 10b IPRS all done: 2026-10-17 21:45:14 
+
+
+============================================================================
+  ARM: HKG8_matched   config: R_config_HKG8.R
+============================================================================
+R_config_HKG8.R loaded (HKG specificity control: ACTB + 8 cHKGs).
+  ARM_TAG   : HKG8_matched 
+  ARM_DIR   : /data/R_export_CP10K/HKG8_matched 
+  NEOC_DIR  : /data/R_export_CP10K/HKG8_matched/neocortex 
+  NONNC_DIR : /data/R_export_CP10K/HKG8_matched/nonneocortex 
+  SHARED_DIR: /data/R_export_CP10K/shared 
+  GOI       : ACTB 
+  DFG       : EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 
+  DFG_LABEL : cHKG8 
+  RUN_SUFFIX: _HKG8 
+  Selected  : MT-CO3>0 AND ACTB>0 
+  Mod1 genes: ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 1432 NeoC / 1079 NonNeoC
+  Config OK: HKG8_matched | ACTB + 8 DFG | CP10K
+
+
+ ======================================================================== 
+  Part10b IPRS -- IP detection on the full GOI-positive population
+  Arm          : HKG8_matched 
+  GOI          : ACTB 
+  Composite    : cHKG8 
+  Normalisation: CP10K  log1p(UMIs/total x  10000 )
+  Population   : all GOI>0 cells
+  GAM spec     : Expression ~ GOI + s(GOI, tp ) gamma = 1.5 
+  Estimator    : donor random intercept, s(donor, bs = "re"), minimum 3 donors 
+  Weights      : inverse donor cell count, w = 1/n_i (each donor sums to 1) 
+  R(x) donor RE: ON 
+  IP method    : IPRS R(x)=0 zero-crossing + Brent CI 
+  Datasets     : NonNeoC, NeoC 
+  Part 10 dir  : /data/Part10/Part10_HKG8 
+  Output dir   : /data/Part10b_IPRS/Part10b_IPRS_HKG8 
+  Part 10b RDS : /data/Part10b_SKCS/Part10b_SKCS_HKG8/Part10b_CP10K_HKG8_IPRS_results.rds 
+======================================================================== 
+
+
+ ======================================================================== 
+  SECTION A0 -- PRE-ANALYSIS GUARDRAILS
+======================================================================== 
+
+  -- Dataset: NeoC --------------------------------
+  [PASS]  GR-01-NeoC        norm.mtx max = 7.9541  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NeoC        expm1(norm) row sums: mean = 10000.000000, max |dev| = 1.82e-12, n = 50
+  [PASS]  GR-04-NeoC        raw max = 1874, integer-like = TRUE
+  -- Dataset: NonNeoC --------------------------------
+  [PASS]  GR-01-NonNeoC     norm.mtx max = 7.6610  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NonNeoC     expm1(norm) row sums: mean = 10000.000000, max |dev| = 1.82e-12, n = 50
+  [PASS]  GR-04-NonNeoC     raw max = 1552, integer-like = TRUE
+  [PASS]  GR-05-NonNeoC     Part 10 RDS: Part10_HKG8_NonNeoC/Part10_CP10K_HKG8_Module1_ACTB_cHKG8_NonNeoC_GAM_models.rds  loadable=TRUE
+  [PASS]  GR-05-NeoC        Part 10 RDS: Part10_HKG8_NeoC/Part10_CP10K_HKG8_Module1_ACTB_cHKG8_NeoC_GAM_models.rds  loadable=TRUE
+  [NonNeoC] Full GOI-positive population: n = 1079 cells
+  [NonNeoC] donor matched from the gam_data CSVs by barcode (1079 barcodes in the map)
+  [NonNeoC] donors = 77 | sum(w) = 77.0000
+  [NonNeoC] Full-population GAM: n=1079 | k=10 | donor RE=YES | DE=13.0% | DE_vs_flat_null=42.7% | gamma=1.5
+  [NonNeoC] SKCS reference: rho=0.3512 | tau=0.2380 | SKCS-core=199/1079
+  [NonNeoC] Pooled GAM: n=1079 cells | DE=13.0% | key=Pooled|DFG|FullPop
+  [NeoC] Full GOI-positive population: n = 1432 cells
+  [NeoC] donor matched from the gam_data CSVs by barcode (1432 barcodes in the map)
+  [NeoC] donors = 74 | sum(w) = 74.0000
+  [NeoC] Full-population GAM: n=1432 | k=10 | donor RE=YES | DE=11.3% | DE_vs_flat_null=34.7% | gamma=1.5
+  [NeoC] SKCS reference: rho=0.3206 | tau=0.2163 | SKCS-core=250/1432
+  [NeoC] Pooled GAM: n=1432 cells | DE=11.3% | key=Pooled|DFG|FullPop
+
+  [PASS]  GR-06-NonNeoC     Pooled full GOI-positive cells = 1079  (min = 10)
+  [PASS]  GR-06-NeoC        Pooled full GOI-positive cells = 1432  (min = 10)
+  [PASS]  GR-07-NonNeoC     Full-population pooled GAM DE = 13.0% (donor-aware null) | vs flat null = 42.7%
+  [PASS]  GR-07-NeoC        Full-population pooled GAM DE = 11.3% (donor-aware null) | vs flat null = 34.7%
+  [PASS]  GR-11-NonNeoC     full-population GAM donor RE = YES | donors = 77 | sum(w) = 77.0000
+  [PASS]  GR-11-NeoC        full-population GAM donor RE = YES | donors = 74 | sum(w) = 74.0000
+  Guardrail log written: /data/Part10b_IPRS/Part10b_IPRS_HKG8/Part10b_IPRS_CP10K_HKG8_Guardrail_Log.txt 
+
+  Pre-analysis guardrails: 14 PASS / 0 WARN / 0 FAIL
+  All pre-analysis guardrails passed
+
+
+ ======================================================================== 
+IP DETECTION | Zero-crossing + Brent CI + IPRS | STAT_ALPHA=0.05
+Input     : Full ACTB -positive population pooled cHKG8 GAM
+Datasets  : NonNeoC, NeoC 
+======================================================================== 
+
+
+--- Processing: NonNeoC | cDFG composite ---
+  n cells (full GOI-positive population): 1079 
+  Dev explained (population level, sets n_purple): 19.3% | summary()$dev.expl: 42.7% | donor-aware DE: 13.0%
+  Purple cells: 208 | Above: 94 | Below: 114 | donors: 60 | sum(w): 60 
+  Purple donor coverage: 60/77 donors represented | per-donor purple fraction [0.000, 1.000] median 0.190
+  R(x) GAM: donor RE = YES | edf = 7.59 | Dev = 72.2% | p = 0.00e+00 
+  IP (R(x) zero-crossing): 1.813001 | neg→pos crossings: 1 
+  95% CI: [ 1.4475 [brent] , 2.2030 [brent] ] | width: 0.7555 
+  Stat: MannWhitneyU | p (unadjusted): 5.299e-21 
+  IPRS components: C1=0.7991 [Both CI bounds: CI_width=0.7555 / GOI_range=3.7605 → C1=0.7991]
+                   C2=1.0000 [tanh(0.4222 * -log10(5.2995e-21)) → C2=1.0000]
+                   C3=0.1133 [|R'(IP)|=0.1138 → tanh(0.1138) → C3=0.1133]
+                   C4=0.6935 [mean_ribbon=0.1333 / amplitude=0.3641 → exp(-ratio=0.3660) → C4=0.6935]
+                   C5=0.2499 [TV=0.7346/amp=0.3641 → wave=0.3615 | neg_post=0.169 → sign=(1-0.169)^2=0.6911 | C5=0.3615*0.6911=0.2499]
+  IPRS = (0.7991+1.0000+0.1133+0.6935+0.2499)/5 = 0.5711  [Moderate]  *** Visual review needed ***
+  IP_y = f(IP_x) = 1.174491 | mapped CI [1.0973, 1.3030]  (classification threshold)
+
+--- Processing: NeoC | cDFG composite ---
+  n cells (full GOI-positive population): 1432 
+  Dev explained (population level, sets n_purple): 11.1% | summary()$dev.expl: 34.7% | donor-aware DE: 11.3%
+  Purple cells: 160 | Above: 87 | Below: 73 | donors: 51 | sum(w): 51 
+  Purple donor coverage: 51/74 donors represented | per-donor purple fraction [0.000, 1.000] median 0.093
+  R(x) GAM: donor RE = YES | edf = 2.56 | Dev = 52.0% | p = 0.00e+00 
+  IP (R(x) zero-crossing): 1.555173 | neg→pos crossings: 1 
+  95% CI: [ 1.1304 [brent] , 1.9594 [brent] ] | width: 0.8290 
+  Stat: MannWhitneyU | p (unadjusted): 1.590e-10 
+  IPRS components: C1=0.7864 [Both CI bounds: CI_width=0.8290 / GOI_range=3.8820 → C1=0.7864]
+                   C2=0.9995 [tanh(0.4222 * -log10(1.5902e-10)) → C2=0.9995]
+                   C3=0.0333 [|R'(IP)|=0.0333 → tanh(0.0333) → C3=0.0333]
+                   C4=0.8213 [mean_ribbon=0.0415 / amplitude=0.2108 → exp(-ratio=0.1969) → C4=0.8213]
+                   C5=0.5529 [TV=0.2108/amp=0.2108 → wave=1.0000 | neg_post=0.256 → sign=(1-0.256)^2=0.5529 | C5=1.0000*0.5529=0.5529]
+  IPRS = (0.7864+0.9995+0.0333+0.8213+0.5529)/5 = 0.6387  [Strong]  
+  IP_y = f(IP_x) = 1.245230 | mapped CI [1.1703, 1.3605]  (classification threshold)
+
+
+ ======================================================================== 
+IP SUMMARY - IP Reliability Score (IPRS)
+======================================================================== 
+
+Fit (Dataset|GS)                   IP    CI_Lo    CI_Hi     C1     C2     C3     C4     C5   IPRS  Tier            Flag
+-------------------------------------------------------------------------------------------------------------------------------------------- 
+NonNeoC|cHKG8                  1.8130   1.4475   2.2030  0.799  1.000  0.113  0.694  0.250  0.571  Moderate        Visual review needed
+NeoC|cHKG8                     1.5552   1.1304   1.9594  0.786  0.999  0.033  0.821  0.553  0.639  Strong          None
+
+  [FLAG] NonNeoC|cHKG8 | IPRS=0.571 (Moderate) → Visual review needed
+
+
+ ======================================================================== 
+SECTION 5b: IP position diagnostics
+======================================================================== 
+
+  ── NonNeoC ──────────────────
+  n cells             : 1079
+  GOI range           : [0.2881, 4.3152]  (range = 4.0271)
+  IP (IPRS R(x)=0)    : 1.8130    [u = 0.6812]
+  IPRS 95% CI         : [1.4475, 2.2030]  width = 0.7555
+  IPRS tier           : Moderate
+  Mean Si_norm near IP (10 closest cells) : 0.071747
+
+  ── NeoC ──────────────────
+  n cells             : 1432
+  GOI range           : [0.3397, 4.2216]  (range = 3.8820)
+  IP (IPRS R(x)=0)    : 1.5552    [u = 0.5203]
+  IPRS 95% CI         : [1.1304, 1.9594]  width = 0.8290
+  IPRS tier           : Strong
+  Mean Si_norm near IP (10 closest cells) : -0.004722
+
+
+=== Environment vectors created ===
+inflection_points     ( 2 entries, keyed 'dataset|cDFG')
+inflection_points_DFG ( 2 entries, keyed by dataset):
+  NonNeoC     IP = 1.813001
+  NeoC        IP = 1.555173
+
+Final IP values with IPRS (full GOI-positive population):
+        Population Dataset Gene_Set IP_Value IP_CI_Lower IP_CI_Upper        C1
+ full_GOI_positive NonNeoC    cHKG8 1.813001    1.447463    2.203003 0.7990879
+ full_GOI_positive    NeoC    cHKG8 1.555173    1.130374    1.959403 0.7864409
+        C2         C3        C4        C5      IPRS IPRS_Tier
+ 0.9999999 0.11326370 0.6935007 0.2498521 0.5711409  Moderate
+ 0.9994900 0.03330866 0.8212944 0.5529257 0.6386919    Strong
+            IPRS_Flag
+ Visual review needed
+                 None
+
+Exporting results...
+Exported: Part10b_IPRS_CP10K_HKG8_results.xlsx 
+
+
+Generating scatter plots...
+  Scatter saved: NonNeoC 
+  Scatter saved: NeoC 
+
+Generating R(x) diagnostic plots...
+  R(x) plot saved: NonNeoC 
+  R(x) plot saved: NeoC 
+
+Generating expression-space pitcher plots...
+  Building expression-space pitcher plots: NonNeoC | n = 1079 
+    Ki range:      [-0.9443, 0.9907]
+    Si_norm range: [-0.9443, 0.9907]
+    Ki pitcher plot saved: NonNeoC 
+    Si pitcher plot saved: NonNeoC 
+  Building expression-space pitcher plots: NeoC | n = 1432 
+    Ki range:      [-0.9324, 0.9930]
+    Si_norm range: [-0.9310, 0.9930]
+    Ki pitcher plot saved: NeoC 
+    Si pitcher plot saved: NeoC 
+
+IPRS tier summary -- cDFG ( 2 datasets):
+  Very Strong  : 0
+  Strong       : 1
+  Moderate     : 1
+  Weak         : 0
+  Failed       : 0
+Summary CSV saved: Part10b_IPRS_CP10K_HKG8_summary.csv 
+
+========================================================================
+  SECTION 13: Saving Part10b_IPRS_CP10K_HKG8_results.rds + Verification
+  Run timestamp: 2026-10-17 21:45:23
+========================================================================
+
+  Part 10b copy : /data/Part10b_SKCS/Part10b_SKCS_HKG8/Part10b_CP10K_HKG8_IPRS_results.rds
+  RDS saved : /data/Part10b_IPRS/Part10b_IPRS_HKG8/Part10b_IPRS_CP10K_HKG8_results.rds
+  File size : 162.4 KB
+  mtime     : 2026-10-17 21:45:23
+
+------------------------------------------------------------------------
+  VERIFICATION (independent read-back from disk)
+------------------------------------------------------------------------
+
+  CHECK 1 [inflection_points_DFG names]  PASS  expected names=NeoC,NonNeoC  read_back names=NeoC,NonNeoC
+  CHECK 2 [IP value fidelity]            PASS  NonNeoC: 1.813001 OK | NeoC: 1.555173 OK
+  CHECK 3 [ip_table row count]           PASS  expected=2 rows  read_back=2 rows
+  CHECK 4 [ip_results keys]              PASS  keys match=TRUE  n_keys=2
+  CHECK 5 [IP_y value fidelity]          PASS  NeoC: 1.245230 OK | NonNeoC: 1.174491 OK
+
+------------------------------------------------------------------------
+  OVERALL RESULT: all checks passed
+------------------------------------------------------------------------
+
+  HOW PART 10b PICKS THIS UP
+  Nothing to add: Part 10b already reads
+    /data/Part10b_SKCS/Part10b_SKCS_HKG8/Part10b_CP10K_HKG8_IPRS_results.rds
+  and sets DATASET_META$<ds>$IP_thresh from inflection_points_DFG
+  and DATASET_META$<ds>$IP_y_thresh from inflection_points_DFG_y.
+
+  IP values to be applied (full GOI-positive population):
+    NonNeoC     IP_thresh = 1.813001            IP_y_thresh = 1.174491
+    NeoC        IP_thresh = 1.555173            IP_y_thresh = 1.245230
+
+========================================================================
+  SECTION 13 COMPLETE
+  IPRS RDS  : Part10b_IPRS_CP10K_HKG8_results.rds
+  Excel     : Part10b_IPRS_CP10K_HKG8_results.xlsx
+  Summary   : Part10b_IPRS_CP10K_HKG8_summary.csv
+  Plots     : Part10b_IPRS_CP10K_HKG8_{dataset}_scatter.pdf/png
+              Part10b_IPRS_CP10K_HKG8_{dataset}_Rx.pdf/png
+              Part10b_IPRS_CP10K_HKG8_{dataset}_pitcher_Ki_expr.pdf/png
+              Part10b_IPRS_CP10K_HKG8_{dataset}_pitcher_Si_expr.pdf/png
+========================================================================
+
+  Verification log saved: /data/Part10b_IPRS/Part10b_IPRS_HKG8/Part10b_IPRS_CP10K_HKG8_RDS_verify.log 
+
+ ######################################################################## 
+  SECTION 14 -- POST-ANALYSIS QUALITY GUARDRAILS
+######################################################################## 
+
+  [PASS]  GR-08-NonNeoC     IP = 1.813001  finite = TRUE
+  [PASS]  GR-08-NeoC        IP = 1.555173  finite = TRUE
+  [PASS]  GR-09-NonNeoC     IPRS = 0.5711  tier = Moderate  (expected [0, 1])
+  [PASS]  GR-09-NeoC        IPRS = 0.6387  tier = Strong  (expected [0, 1])
+  [PASS]  GR-15-NonNeoC     IP_y = 1.174491 | cDFG range [0.0000, 2.7006] | classification threshold
+  [PASS]  GR-15-NeoC        IP_y = 1.245230 | cDFG range [0.0000, 2.9796] | classification threshold
+  [PASS]  GR-12-NonNeoC     residual GAM R(x) donor RE = YES | donors = 60
+  [PASS]  GR-12-NeoC        residual GAM R(x) donor RE = YES | donors = 51
+  [PASS]  GR-10             RDS readback verification: 5/5 checks passed
+  Guardrail log written: /data/Part10b_IPRS/Part10b_IPRS_HKG8/Part10b_IPRS_CP10K_HKG8_Guardrail_Log.txt 
+
+  Final guardrail tally: 23 PASS / 0 WARN / 0 FAIL
+  All 23 guardrails passed
+
+ ======================================================================== 
+  Part10b IPRS COMPLETE -- [ HKG8_matched ]
+  Output directory: /data/Part10b_IPRS/Part10b_IPRS_HKG8 
+  Files generated:
+    Part10b_IPRS_CP10K_HKG8_Guardrail_Log.txt                    3 KB
+    Part10b_IPRS_CP10K_HKG8_Log_20261017_214514.txt             15 KB
+    Part10b_IPRS_CP10K_HKG8_NeoC_pitcher_Ki_expr.pdf           138 KB
+    Part10b_IPRS_CP10K_HKG8_NeoC_pitcher_Ki_expr.png           866 KB
+    Part10b_IPRS_CP10K_HKG8_NeoC_pitcher_Si_expr.pdf           138 KB
+    Part10b_IPRS_CP10K_HKG8_NeoC_pitcher_Si_expr.png           871 KB
+    Part10b_IPRS_CP10K_HKG8_NeoC_Rx.pdf                         39 KB
+    Part10b_IPRS_CP10K_HKG8_NeoC_Rx.png                        138 KB
+    Part10b_IPRS_CP10K_HKG8_NeoC_scatter.pdf                    94 KB
+    Part10b_IPRS_CP10K_HKG8_NeoC_scatter.png                   492 KB
+    Part10b_IPRS_CP10K_HKG8_NonNeoC_pitcher_Ki_expr.pdf        115 KB
+    Part10b_IPRS_CP10K_HKG8_NonNeoC_pitcher_Ki_expr.png        794 KB
+    Part10b_IPRS_CP10K_HKG8_NonNeoC_pitcher_Si_expr.pdf        116 KB
+    Part10b_IPRS_CP10K_HKG8_NonNeoC_pitcher_Si_expr.png        797 KB
+    Part10b_IPRS_CP10K_HKG8_NonNeoC_Rx.pdf                      40 KB
+    Part10b_IPRS_CP10K_HKG8_NonNeoC_Rx.png                     156 KB
+    Part10b_IPRS_CP10K_HKG8_NonNeoC_scatter.pdf                 73 KB
+    Part10b_IPRS_CP10K_HKG8_NonNeoC_scatter.png                441 KB
+    Part10b_IPRS_CP10K_HKG8_RDS_verify.log                       2 KB
+    Part10b_IPRS_CP10K_HKG8_results.rds                        162 KB
+    Part10b_IPRS_CP10K_HKG8_results.xlsx                        40 KB
+    Part10b_IPRS_CP10K_HKG8_summary.csv                          1 KB
+
+  IP values written for Part 10b:
+    NonNeoC     IP_thresh = 1.813001
+    NeoC        IP_thresh = 1.555173
+======================================================================== 
+
+  Log written to: /data/Part10b_IPRS/Part10b_IPRS_HKG8/Part10b_IPRS_CP10K_HKG8_Log_20261017_214514.txt  (console output and warnings) 
+  Part 10b IPRS all done: 2026-10-17 21:45:23 
+
+
+############################################################################
+  Part10b_IPRS COMPLETE -- 1.3 mins
+############################################################################
+
+  Arm             Folder                    PASS    WARN    FAIL  Status
+  ----------------------------------------------------------------------------------
+  Mic13_PVM3      Part10b_IPRS_Mic13_PVM3      23       0       0  ok
+  PVM3_all        Part10b_IPRS_PVM_3          23       0       0  ok
+  PVM1_all        Part10b_IPRS_PVM_1          23       0       0  ok
+  HKG8_matched    Part10b_IPRS_HKG8           23       0       0  ok
+
+  Results under: /data/Part10b_IPRS
+R_config.R loaded (Module 1: MT-CO3 + 8 DFGs, ≥8/10 regions).
+  ARM_TAG   : Mic13_PVM3 
+  ARM_DIR   : /data/R_export_CP10K/Mic13_PVM3 
+  NEOC_DIR  : /data/R_export_CP10K/Mic13_PVM3/neocortex 
+  NONNC_DIR : /data/R_export_CP10K/Mic13_PVM3/nonneocortex 
+  SHARED_DIR: /data/R_export_CP10K/shared 
+  GOI       : MT-CO3 
+  DFG_NEOC  : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  DFG_NONNC : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Composite : cDFG 
+  RUN_SUFFIX: (none) 
+  Supertype : Micro-PVM_3-SEAAD 
+  Mod1 genes: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 ( 9 )
+  HKG_GENES : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 2130 NeoC / 1987 NonNeoC
+  Session configuration reset to the primary arm: Mic13_PVM3
+
