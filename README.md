@@ -2,15 +2,16 @@
 
 # CEP-IP with CMRF in SEA-AD Microglia: A Mitochondrial Co-expression Module Linked to Cognition
 
-![Project Status](https://img.shields.io/badge/status-active-brightgreen?logo=check&logoColor=white)
-[![Project Page](https://img.shields.io/badge/Code-GitHub-4E81BE?logo=github&logoColor=white)](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
-[![GitHub languages](https://img.shields.io/github/languages/count/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
-[![GitHub top language](https://img.shields.io/github/languages/top/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD?logo=R&logoColor=486FBA)](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
-[![GitHub last commit](https://img.shields.io/github/last-commit/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
-[![Dataset](https://img.shields.io/badge/Dataset-HuggingFace-B08C00?logo=huggingface&logoColor=F3D34E)](https://huggingface.co/datasets/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
-[![Supplementary](https://img.shields.io/badge/Supplementary-Zenodo-1682D4?logo=zenodo&logoColor=white)](https://zenodo.org/records/23445742)
-[![Preprint](https://img.shields.io/badge/Preprint-bioRxiv-B31B1B)](https://doi.org/BIORXIV_DOI)
-[![Container](https://img.shields.io/badge/Container-Podman%20%7C%20Docker-892CA0?logo=podman&logoColor=white)](#reproducing-the-analysis)
+[![Project Page](https://img.shields.io/badge/Code-GitHub-4E81BE?logo=github&logoColor=white&style=flat-square)](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
+[![Dataset](https://img.shields.io/badge/Dataset-HuggingFace-B08C00?logo=huggingface&logoColor=F3D34E&style=flat-square)](https://huggingface.co/datasets/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
+[![Supplementary](https://img.shields.io/badge/Supplementary-Zenodo-1682D4?logo=zenodo&logoColor=white&style=flat-square)](https://zenodo.org/records/23445742)
+[![Preprint](https://img.shields.io/badge/Preprint-bioRxiv-B31B1B?style=flat-square)](https://doi.org/BIORXIV_DOI)
+[![Container](https://img.shields.io/badge/Container-Podman%20%7C%20Docker-892CA0?logo=podman&logoColor=white&style=flat-square)](#reproducing-the-analysis)
+
+![Project Status](https://img.shields.io/badge/status-active-brightgreen?logo=check&logoColor=white&style=flat-square)
+[![GitHub languages](https://img.shields.io/github/languages/count/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD?style=flat-square)](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
+[![GitHub top language](https://img.shields.io/github/languages/top/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD?logo=R&logoColor=486FBA&style=flat-square)](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
+[![GitHub last commit](https://img.shields.io/github/last-commit/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD?style=flat-square)](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
 
 **Author:** **Kah** **Keng** **Wong**
 
@@ -62,6 +63,27 @@ Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely
 
 ## Workflow of the Project
 <!-- ![Workflow](Project_Workflow.jpg) -->
+
+```mermaid
+flowchart TB
+    subgraph PY["Python, SEA-AD h5ad"]
+        direction LR
+        A["SEA-AD immune h5ad<br/>84 donors, 10 regions"] --> B["Parts 1 to 7<br/>pre-checks, M4 selection,<br/>GOI-DFG screens, DecontX"] --> C["Part 8<br/>export of the four arms<br/>(Hugging Face)"]
+    end
+    subgraph RR["R, Part 8 export"]
+        direction LR
+        D["Parts 9 to 10d<br/>GAMs, SKCS, IP,<br/>copula space"] --> E["Part 10e<br/>CMRF Module"] --> F["Parts 10g to 11<br/>DEGs, clinical models,<br/>competitors, ablation"] --> G["Part 12<br/>Batteries 1 to 5"] --> H["Part 13, Figure 17<br/>M4 against PVM_3,<br/>summary of all tests"]
+    end
+    PY --> RR
+    style PY fill:none,stroke:#8C959F
+    style RR fill:none,stroke:#8C959F
+    classDef py fill:#E8F1FB,stroke:#4E81BE,color:#1B1B1B
+    classDef rr fill:#EAF5EA,stroke:#2E7D32,color:#1B1B1B
+    classDef key fill:#F3E8FB,stroke:#7B3FA0,color:#1B1B1B
+    class A,B,C py
+    class D,F,G,H rr
+    class E key
+```
 
 - The **GOI-DFG screen** ranks every gene as a GOI against all expressed partner genes with the Spearman-Kendall dual filter (r<sub>s</sub> ≥0.6 and τ<sub>b</sub> ≥0.5). MT-CO3 was the top-ranked mitochondrial GOI, and its eight DFGs were averaged into the composite cDFG.
 
@@ -135,7 +157,9 @@ The five figures below follow the main steps of the analysis, using M4 NeoC as t
 ## Descriptions of the Scripts
 Figure and table numbers are those of the preprint. The Part 12 file names (`Fig15` to `Fig19`) follow the run order of the Batteries; they correspond to preprint Figures 12 to 16.
 
-### Python (SEA-AD h5ad)
+<details>
+<summary><strong>Python scripts (SEA-AD h5ad): Parts 1 to 8 and the Part 12 extraction</strong></summary>
+
 | No | Script File | Description | Paper output |
 |----|---|---|---|
 | 1 | `Part1a_NormForensics_code.py` | Identifies the normalisation behind the expression matrix. | Pre-check |
@@ -156,7 +180,11 @@ Figure and table numbers are those of the preprint. The Part 12 file names (`Fig
 | 16 | `Part8_Data-export-CP10K_MT-CO3_8DFG.py` | Exports one arm for the R parts (run once per arm). | Input to Parts 9 to 13 |
 | 17 | `Part12_02_Extract.py` | Part 12 step 02: extracts the cells and counts the Batteries use. | Input to Part 12 |
 
-### R (Part 8 export)
+</details>
+
+<details>
+<summary><strong>R scripts (Part 8 export): Parts 9 to 13 and the Figure 17 summary</strong></summary>
+
 | No | Script File | Description | Paper output |
 |----|---|---|---|
 | 1 | `Part9_CP10K_QC_GAM_code.r` | Export QC, heatmaps and GAM fits. | Figure 2, Supplementary Figures S2, S3, S5, Table S7 |
@@ -196,6 +224,8 @@ Figure and table numbers are those of the preprint. The Part 12 file names (`Fig
 | 35 | `Part13b_CP10K_M4RandomSubset_code.r` | M4 cells against random PVM_3 cells. | Supplementary Figure S21, Table S18 |
 | 36 | `Fig17_Summary_code.r` | Summary of all tests of Module post-IP%. | Figure 17, Table S19 |
 
+</details>
+
 Two scripts read finished supplementary tables instead of recomputing them: the Part 10g follow-up reads Table S11, and `Fig17_Summary_code.r` reads Tables S12 to S17 together with the Part 13 and 13b outputs. These tables are on [Zenodo](https://zenodo.org/records/23445742). `README_container.md` gives the paths where they are placed.
 
 ---
@@ -212,6 +242,26 @@ The analysis runs in a container that holds R 4.6.1, Python 3.13.14 and every pa
 | [Zenodo](https://zenodo.org/records/23445742) | Supplementary Tables | The Part 10g follow-up and `Fig17_Summary_code.r` |
 
 Place them in one folder (the data folder), keeping the folder names above.
+
+> [!TIP]
+> R Parts 9 to 11 run on the Hugging Face files alone, without the SEA-AD h5ad or the Python parts. The files can be downloaded into the data folder in one step:
+> ```bash
+> hf download kahkengwong/CEP-IP_and_CMRF_in_SEA-AD --repo-type dataset --local-dir /path/to/data_folder
+> ```
+
+The Part 8 export can also be read directly, for example the raw counts of one arm in R:
+```r
+library(Matrix)
+counts <- readMM("R_export_CP10K/Mic13_PVM3/neocortex/counts/raw_selected/matrix.mtx")
+dim(counts)
+```
+or the GAM input table of one region in Python:
+```python
+import pandas as pd
+
+gam = pd.read_csv("R_export_CP10K/Mic13_PVM3/neocortex/gam_data/MTG_Micro_PVM_3_SEAAD_selected.csv")
+print(gam.shape)
+```
 
 ### 2. Build the container
 i) Download this repository (green "<> Code" button, then "Download ZIP") and extract it.
@@ -233,7 +283,8 @@ i) Start the container with the data folder mounted at `/data`:
 ```bash
 podman run --rm -it --shm-size=16g -v /path/to/data_folder:/data:Z seaad-cepip
 ```
-`--shm-size=16g` gives the container enough shared memory for Part 7 (DecontX), whose worker processes share the count matrix. Without it, Part 7 stops with a bus error.
+> [!IMPORTANT]
+> `--shm-size=16g` gives the container enough shared memory for Part 7 (DecontX), whose worker processes share the count matrix. Without it, Part 7 stops with a bus error.
 
 ii) Inside the container, run once:
 ```bash
@@ -264,6 +315,9 @@ ii) Alternatively, run a series of scripts with the run scripts in `verification
 
 ## Reproduction Check
 The original analysis ran R on Windows 11 and Python on Fedora 44. The whole pipeline was then rerun inside this container on Fedora: Python Parts 1 to 8 from the SEA-AD h5ad, and R Parts 9 to 13 from the Part 8 export. Every table was compared with the original results by `verification/compare_rerun.py`.
+
+> [!NOTE]
+> The results reported in the preprint and in the supplementary tables are those of the original runs (R on Windows 11, Python on Fedora 44). The container reruns were used to check them.
 
 - **Method:** every CSV and Excel table is compared cell by cell. Numbers agree when they are within a relative difference of 1e-6, and text must match exactly.
 
@@ -312,7 +366,7 @@ The full comparisons are in `verification/`:
 - **Container:** Podman or Docker (base image `rocker/r-ver:4.6.1`, Ubuntu 24.04)
 
 ### Hardware Requirements
-- **RAM:** 32 GB (64 GB recommended for the Python parts that read the full h5ad)
+- **RAM:** 16 GB required, 32 GB recommended (the Python parts that read the full h5ad need 32 GB)
 - **CPU:** 8 cores (12+ cores recommended; the GAM fits and resampling run in parallel)
 - **Storage:** about 60 GB free disk space for the inputs, the container image and the outputs
 
@@ -332,24 +386,6 @@ The full comparisons are in `verification/`:
 
 ## License
 This project is licensed under the [MIT License](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD/blob/main/LICENSE). For the full details, please refer to the [LICENSE](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD/blob/main/LICENSE) file in this repository.
-
----
-
-## Contributing
-Contributions, issues, and feature requests are welcome!
-
-### Found a Bug?
-[Open an issue](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD/issues) describing the problem, including your error message, R or Python version, and operating system.
-
-### Want to Contribute Improvements?
-If you've made enhancements you'd like to share with others, you can contribute back via a **pull request** (i.e., a way to propose merging your improvements back into the main repository so others can benefit).
-
-**How to submit:**
-1. Make changes in your forked copy
-2. Click "Contribute" → "Open pull request" on your fork's GitHub page
-3. Describe your changes and submit
-
-I'll review and may ask questions before merging. **Or simply:** [Open an issue](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD/issues) describing your idea.
 
 ---
 
