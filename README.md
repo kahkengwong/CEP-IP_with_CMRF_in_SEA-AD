@@ -293,11 +293,6 @@ Please also cite the source datasets (see 📂 Datasets Used).
 
 ---
 
-## 🙏 Acknowledgement
-Claude (Anthropic) was used to assist with code development and with the readability of comments and documentation. All analyses, modeling, and interpretations were conducted and verified by the author.
-
----
-
 ## 📩 Contact
 Kah Keng Wong: [kahkeng@usm.my](mailto:kahkeng@usm.my)
 
