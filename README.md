@@ -1,4 +1,3 @@
-[README.md](https://github.com/user-attachments/files/33615009/README.md)
 <div align="center">
 
 # 🧬 CEP-IP/CMRF in SEA-AD Microglia: A Mitochondrial Co-expression Module Linked to Cognition
