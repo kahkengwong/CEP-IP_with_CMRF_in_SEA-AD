@@ -312,11 +312,11 @@ The original analysis ran R on Windows 11 and Python on Fedora 44. The whole pip
 
 | Tables found in both runs | Number | Details |
 |---|---:|---|
-| Same | 9,211 | |
+| Same | 9,211 | - |
 | Same in every shared column | 40 | Part 8 `gam_data` tables. The original files hold 1 or 10 more gene columns, added later by R Part 9. |
 | Differ in one to three genes | 9 | Part 5 differential expression tables. The paired p-values of *TAOK3*, *LINC02391*, and *NBAS* shifted slightly, and the log2FC of five genes changed in the fourth decimal. No gene crosses the 0.05 cutoff. |
 | Differ only in how a logical value is written | 2 | Part 8 record files (`False` against `FALSE`). |
-| **Total** | **9,262** | |
+| **Total** | **9,262** | - |
 
 The reference was the Windows copy of the original results, which the R analyses used. Tables found only there come from scripts that are not part of this deposit.
 
@@ -324,12 +324,12 @@ The reference was the Windows copy of the original results, which the R analyses
 
 | Tables found in both runs | Number | Details |
 |---|---:|---|
-| Same | 1,013 | |
-| Differ only in sign, row order, or text | 110 | |
-| Differ by at most 0.1% | 23 | |
+| Same | 1,013 | - |
+| Differ only in sign, row order, or text | 110 | - |
+| Differ by at most 0.1% | 23 | - |
 | Differ by more than 0.1% | 53 | Secondary statistics that depend on random subsamples, permutations, or nearest neighbours:<ul><li>the TOST, PERMANOVA and PERMDISP, kBET, iLISI, and neighbour-proportion tests of Part 10e Validation2 (with their columns in the Figure 11 summary)</li><li>the permutation null threshold of Part 10f</li><li>the Part 12 depth-thinning curve</li><li>some donor-level p-values in four Part 10g tables, none of which changes a significance call</li></ul> |
 | Differ in size | 4 | A checksum column was removed from the deposited scripts, or the original folder held more files to scan. |
-| **Total** | **1,203** | |
+| **Total** | **1,203** | - |
 
 Tables found only in the original results come from scripts or steps that are not part of this deposit.
 
@@ -369,7 +369,7 @@ The full comparisons are in `verification/`:
 |---|---|---|
 | **RAM** | 16 GB | 32 GB (the Python parts that read the full h5ad need 32 GB) |
 | **CPU** | 8 cores | 12+ cores (the GAM fits and resampling run in parallel) |
-| **Storage** | about 60 GB free disk space for the inputs, the container image and the outputs | |
+| **Storage** | about 60 GB free disk space for the inputs, the container image and the outputs | 100 GB |
 
 ### Development Environment
 - **Developed and tested on:** Intel Core i9-14900KF, 64 GB DDR5 RAM, Windows 11 Pro (R 4.6.1) and Fedora 44 (Python 3.13.14)
