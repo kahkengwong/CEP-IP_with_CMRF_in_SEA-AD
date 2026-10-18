@@ -1,6 +1,6 @@
 <div align="center">
 
-# CEP-IP/CMRF in SEA-AD Microglia: A Mitochondrial Co-expression Module Linked to Cognition
+# CEP-IP with CMRF in SEA-AD Microglia: A Mitochondrial Co-expression Module Linked to Cognition
 
 ![Project Status](https://img.shields.io/badge/status-active-brightgreen?logo=check&logoColor=white)
 [![Project Page](https://img.shields.io/badge/Code-GitHub-4E81BE?logo=github&logoColor=white)](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
@@ -78,23 +78,39 @@ Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely
 ## Methods and Key Results
 The five figures below follow the main steps of the analysis, using M4 NeoC as the example where one arm is shown.
 
-<p align="center"><img src="figures/Figure_1_Si_Ki_creates_discontinuity.jpg" width="900" alt="Figure 1. The S<sub>i</sub> and K<sub>i</sub> gates create a discontinuity."></p>
+<p align="center"><img src="figures/Figure_1_Si_Ki_creates_discontinuity.jpg" width="900" alt="Figure 1"></p>
 
 **Figure 1. The S<sub>i</sub> and K<sub>i</sub> gates create a discontinuity.** The S<sub>i</sub> and K<sub>i</sub> gates (S<sub>i</sub> >0.05 and K<sub>i</sub> >0.5) identified the SKCS-core cells and improved the deviance explained (DE; from 67.4% to 87.7% in M4 NeoC), but created a discontinuity along MT-CO3 that is also visible in the pitcher plot (K<sub>i</sub> against S<sub>i</sub>).
 
-<p align="center"><img src="figures/Figure_2_Transform_to_copula_space.jpg" width="900" alt="Figure 2. Transformation into copula space."></p>
+<br>
+<br>
+
+
+<p align="center"><img src="figures/Figure_2_Transform_to_copula_space.jpg" width="900" alt="Figure 2"></p>
 
 **Figure 2. Transformation into copula space.** The expression space (cDFG against MT-CO3) and the score space (K<sub>i</sub> against S<sub>i</sub>) are transformed into copula space by ranking each axis and dividing by n + 1: v against u for the expression values, and v<sub>SK</sub> against u<sub>SK</sub> for the S<sub>i</sub> and K<sub>i</sub> values.
 
-<p align="center"><img src="figures/Figure_3_CMRF_reclaims_cells.jpg" width="900" alt="Figure 3. CMRF reclaims monotone-coherent cells."></p>
+<br>
+<br>
+
+
+<p align="center"><img src="figures/Figure_3_CMRF_reclaims_cells.jpg" width="900" alt="Figure 3"></p>
 
 **Figure 3. CMRF reclaims monotone-coherent cells.** The copula monotone recovery filter (CMRF) reclaimed monotone-coherent cells that the fixed S<sub>i</sub> and K<sub>i</sub> gates had excluded. The SKCS-core cells calibrated the spline, two bands (&delta;<sub>base</sub> and &delta;<sub>adapt</sub>) identified the candidates, and the RSk-fCV gate tested them. Purple diamonds are the Recovered cells.
 
-<p align="center"><img src="figures/Figure_4_Pitcher_plots_QC_of_CMRF.jpg" width="900" alt="Figure 4. Pitcher plots as a quality check of CMRF."></p>
+<br>
+<br>
+
+
+<p align="center"><img src="figures/Figure_4_Pitcher_plots_QC_of_CMRF.jpg" width="900" alt="Figure 4"></p>
 
 **Figure 4. Pitcher plots as a quality check of CMRF.** Pitcher plots in copula space for each arm and region set. The Recovered cells (purple) bridge the post-IP (green) and pre-IP (amber) branches.
 
-<p align="center"><img src="figures/Figure_5_Applications.jpg" width="900" alt="Figure 5. Applications of Module post-IP%."></p>
+<br>
+<br>
+
+
+<p align="center"><img src="figures/Figure_5_Applications.jpg" width="900" alt="Figure 5"></p>
 
 **Figure 5. Applications of Module post-IP%.** Module post-IP% was computed for each arm (A) and used in downstream applications, such as its association with cognition and pathology outcomes in the SEA-AD donors, where it was benchmarked against the competitors of CMRF (B).
 
@@ -104,15 +120,15 @@ The five figures below follow the main steps of the analysis, using M4 NeoC as t
 | Path | Contents |
 |---|---|
 | `scripts/Python/` | The 23 Python scripts: Parts 1 to 8 and the Part 12 extraction step (`Part12_02_Extract.py`). |
-| `scripts/R/` | The R scripts of Parts 9 to 13 and `Fig17_Summary_code.r`; the shared arm table and settings (`CEP_arms.R`, `R_config.R`, `R_config_HKG8.R`); the Part 12 settings (`Part12_01_config.json`, `Part12_Fig19_config.json`) and pre-specified readings (`Part12_Preset_Readings.md`, `Part12_Preset_Readings_Battery5.md`). |
+| `scripts/R/` | <ul><li>The R scripts of Parts 9 to 13 and `Fig17_Summary_code.r`</li><li>The shared arm table and settings: `CEP_arms.R`, `R_config.R`, `R_config_HKG8.R`</li><li>The Part 12 settings: `Part12_01_config.json`, `Part12_Fig19_config.json`</li><li>The pre-specified readings of the Batteries: `Part12_Preset_Readings.md`, `Part12_Preset_Readings_Battery5.md`</li></ul> |
 | `Containerfile` | Recipe for the container image (R 4.6.1, Python 3.13.14, all packages). Works with Podman or Docker. |
 | `seaad-setup.sh` | Run once inside the container: copies the settings into the data folder and checks the inputs. |
 | `README_container.md` | Container build, inputs, and the full run order. |
 | `renv.lock` | Exact R package versions (R 4.6.1, Bioconductor 3.23; 280 packages). |
 | `requirements-python.txt` | Exact Python package versions (Python 3.13.14). |
-| `verification/` | `run_rest.sh` and `run_python.sh` (run the R and the Python scripts in order from a named step), `compare_rerun.py`, `compare_python.py` and `compare_gamdata.py`, and the comparisons of the container reruns with the original results (`compare_all_*` for R; `compare_python_*` and `compare_gamdata_log.txt` for Python). |
+| `verification/` | <ul><li>`run_rest.sh` and `run_python.sh`: run the R and the Python scripts in order from a named step</li><li>`compare_rerun.py`, `compare_python.py`, and `compare_gamdata.py`: compare a rerun with the original results</li><li>The comparisons of the container reruns with the original results: `compare_all_*` for R; `compare_python_*` and `compare_gamdata_log.txt` for Python</li></ul> |
 | `figures/` | Figures 1 to 5 of the Methods and Key Results section. |
-| `logs/` | Console logs of the container reruns (`container_rerun/`, R Part 9 onward and the Part 12 Python step; `container_rerun_python/`, Python Parts 1 to 8), logs of the original runs from Part 9 onward (`original_R/`), and logs of the original Python Parts 1 to 8 (`original_python/`). `logs/README.md` describes each folder and maps the Python logs to their scripts. |
+| `logs/` | <ul><li>`container_rerun/`: console logs of the container rerun of R Part 9 onward and the Part 12 Python step</li><li>`container_rerun_python/`: console logs of the container rerun of Python Parts 1 to 8</li><li>`original_R/`: logs of the original runs from Part 9 onward</li><li>`original_python/`: logs of the original runs of Python Parts 1 to 8</li><li>`logs/README.md` describes each folder and maps the Python logs to their scripts</li></ul> |
 
 ---
 
@@ -190,7 +206,7 @@ The analysis runs in a container that holds R 4.6.1, Python 3.13.14 and every pa
 ### 1. Get the data
 | Source | Files | Needed for |
 |---|---|---|
-| [HuggingFace](https://huggingface.co/datasets/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD) | `R_export_CP10K/` (Part 8 export of the four arms, about 14 GB), the Part 2 donor tables (`NeoC_S5b_donor_clinical.csv`, `NonNeoC_S5b_donor_clinical.csv`), and `Part7_DecontX/decontX_contamination_all.csv` | R Parts 9 to 13 |
+| [HuggingFace](https://huggingface.co/datasets/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD) | <ul><li>`R_export_CP10K/`: Part 8 export of the four arms, about 14 GB</li><li>The Part 2 donor tables: `NeoC_S5b_donor_clinical.csv`, `NonNeoC_S5b_donor_clinical.csv`</li><li>`Part7_DecontX/decontX_contamination_all.csv`</li></ul> | R Parts 9 to 13 |
 | [SEA-AD portal](https://brain-map.org/consortia/sea-ad/our-data) | Immune h5ad (2026-06-22 release), neuropathology and CPS workbooks | Python Parts 1 to 8, Part 12 |
 | [GEO GSE148822](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE148822) | Gerrits deposit, placed in `Gerrits/` with the series matrix in `Gerrits/Metadata/` | Part 12 (Battery 1) |
 | [Zenodo](https://zenodo.org/records/23445742) | Supplementary Tables | The Part 10g follow-up and `Fig17_Summary_code.r` |
@@ -198,29 +214,35 @@ The analysis runs in a container that holds R 4.6.1, Python 3.13.14 and every pa
 Place them in one folder (the data folder), keeping the folder names above.
 
 ### 2. Build the container
-Download this repository (green "<> Code" button, then "Download ZIP") and extract it. From the extracted folder:
+i) Download this repository (green "<> Code" button, then "Download ZIP") and extract it.
+
+ii) From the extracted folder, build the image:
 ```bash
 podman build -t seaad-cepip -f Containerfile .
 ```
 The first build takes about one to two hours, mostly to compile the Bioconductor packages and monocle3. Docker accepts the same commands with `docker` in place of `podman`.
 
-Instead of building it, the image can be loaded from the archived copy on Zenodo (`seaad-cepip_image.tar.gz`, 1.7 GB, https://doi.org/10.5281/zenodo.23446228), which holds the same software and scripts:
+iii) Alternatively, instead of building it, the image can be loaded from the archived copy on Zenodo (`seaad-cepip_image.tar.gz`, 1.7 GB, https://doi.org/10.5281/zenodo.23446228), which holds the same software and scripts:
 ```bash
 podman load -i seaad-cepip_image.tar.gz
 ```
 This gives the image `localhost/seaad-cepip`; Docker accepts `docker load -i` in the same way.
 
 ### 3. Start the container and check the inputs
+i) Start the container with the data folder mounted at `/data`:
 ```bash
 podman run --rm -it --shm-size=16g -v /path/to/data_folder:/data:Z seaad-cepip
-seaad-setup
 ```
 `--shm-size=16g` gives the container enough shared memory for Part 7 (DecontX), whose worker processes share the count matrix. Without it, Part 7 stops with a bus error.
 
+ii) Inside the container, run once:
+```bash
+seaad-setup
+```
 `seaad-setup` copies the settings files and the Part 12 scripts into the data folder and lists every input as found or missing.
 
 ### 4. Run the scripts
-From `/data`, in the order given in `README_container.md`. For example:
+i) Run each script from `/data`, in the order given in `README_container.md`. For example:
 ```bash
 Rscript -e 'source("/opt/seaad/R/Part9_CP10K_QC_GAM_code.r")'
 python Part12_rerun/Part12_02_Extract.py
@@ -228,7 +250,10 @@ Rscript -e 'source("Part12_rerun/Part12_04_Labels.r")'
 ```
 Each script writes its outputs and a log in its own folder.
 
-`verification/run_rest.sh` runs the scripts from a given one to `Fig17_Summary_code.r` in order, saves each console log in `console_logs/`, and then runs the comparison. It was used for the reproduction check below; the comparison step needs the original results mounted at `/win`. To use it, copy `run_rest.sh` and `compare_rerun.py` into the data folder and run, for example, `bash /data/run_rest.sh Part10h_CP10K_Prognosis_code`. `verification/run_python.sh` does the same for Python Parts 1 to 8 (Part 8 once per arm) and then runs `compare_python.py` against the original results mounted at `/ref`.
+ii) Alternatively, run a series of scripts with the run scripts in `verification/`, which were used for the reproduction check below:
+- `run_rest.sh` runs the R scripts from a given one to `Fig17_Summary_code.r` in order, saves each console log in `console_logs/`, and then runs the comparison with the original results mounted at `/win`.
+- `run_python.sh` does the same for Python Parts 1 to 8 (Part 8 once per arm), and then runs `compare_python.py` with the original results mounted at `/ref`.
+- To use them, copy the run script and its comparison script into the data folder and run, for example, `bash /data/run_rest.sh Part10h_CP10K_Prognosis_code`.
 
 ### Without the container (optional)
 - **R:** run `renv::restore()` in the repository folder to install the package versions in `renv.lock`. renv uses an isolated library and does not change the existing R setup.
@@ -245,8 +270,8 @@ The original analysis ran R on Windows 11 and Python on Fedora 44. The whole pip
 - **Result, Python Parts 1 to 8:**
   - All 25 steps ran to completion (Part 8 once per arm), in about three hours.
   - The 54 count matrices and cell and gene lists exported by Part 8 (the four arms and the full data of both region sets) are identical byte for byte to the original export used by the R analyses.
-  - Of the 9,262 tables found in both runs, 9,211 are the same. A further 40 Part 8 `gam_data` tables are the same in every shared column; the original files hold 1 or 10 more gene columns, added later by R Part 9.
-  - Nine Part 5 differential expression tables differ in one to three genes each: the paired p-values of TAOK3, LINC02391, and NBAS changed slightly, with the adjusted p-values of the genes next to them in rank, and the log2FC of five genes changed in the fourth decimal. No gene crosses the 0.05 cutoff.
+  - Of the 9,262 tables found in both runs, 9,211 are the same. A further 40 Part 8 `gam_data` tables match in every shared column; the original files hold 1 or 10 more gene columns, added later by R Part 9.
+  - Nine Part 5 differential expression tables differ in one to three genes each: the paired p-values of *TAOK3*, *LINC02391*, and *NBAS* shifted slightly, and the log2FC of five genes changed in the fourth decimal. No gene crosses the 0.05 cutoff.
   - Two Part 8 record files differ only in how a logical value is written (`False` against `FALSE`).
   - The reference was the Windows copy of the original results, which the R analyses used. Tables found only there come from scripts that are not part of this deposit.
 
@@ -268,7 +293,9 @@ The original analysis ran R on Windows 11 and Python on Fedora 44. The whole pip
   - the settings version recorded in the Part 12 tables;
   - dates, times, and folder paths.
 
-The full comparison is in `verification/compare_all_log.txt` (summary) and `verification/compare_all_detail.csv` (one row per table) for the R parts, and in `verification/compare_python_tables_log.txt`, `compare_python_tables_detail.csv`, `compare_python_matrices_log.txt` and `compare_gamdata_log.txt` for the Python parts.
+The full comparisons are in `verification/`:
+- **R parts:** `compare_all_log.txt` (summary) and `compare_all_detail.csv` (one row per table).
+- **Python parts:** `compare_python_tables_log.txt` and `compare_python_tables_detail.csv` (tables), `compare_python_matrices_log.txt` (count matrices and cell and gene lists), and `compare_gamdata_log.txt` (the Part 8 `gam_data` tables).
 
 ---
 
