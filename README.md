@@ -3,7 +3,7 @@
 # CEP-IP with CMRF in SEA-AD Microglia:<br>A Mitochondrial Co-expression Module Linked to Cognition
 
 [![Project Page](https://img.shields.io/badge/Code-GitHub-4E81BE?logo=github&logoColor=white&style=flat-square)](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
-[![Dataset](https://img.shields.io/badge/Dataset-HuggingFace-B08C00?logo=huggingface&logoColor=F3D34E&style=flat-square)](https://huggingface.co/datasets/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
+[![Dataset](https://img.shields.io/badge/Dataset-Hugging%20Face-B08C00?logo=huggingface&logoColor=F3D34E&style=flat-square)](https://huggingface.co/datasets/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
 [![Supplementary](https://img.shields.io/badge/Supplementary-Zenodo-1682D4?logo=zenodo&logoColor=white&style=flat-square)](https://zenodo.org/records/23445742)
 [![Preprint](https://img.shields.io/badge/Preprint-bioRxiv-B31B1B?style=flat-square)](https://doi.org/BIORXIV_DOI)
 [![Container](https://img.shields.io/badge/Container-Podman%20%7C%20Docker-892CA0?logo=podman&logoColor=white&style=flat-square)](#reproducing-the-analysis)
@@ -13,7 +13,9 @@
 [![Python](https://img.shields.io/badge/Python-3.13.14-3776AB?logo=python&logoColor=white&style=flat-square)](#software-requirements)
 [![GitHub last commit](https://img.shields.io/github/last-commit/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD?style=flat-square)](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
 
-**Author:** **Kah** **Keng** **Wong**
+**Author:** Kah Keng Wong [![ORCID](https://img.shields.io/badge/ORCID-0000--0001--7359--6202-A6CE39?logo=orcid&logoColor=white&style=flat-square)](https://orcid.org/0000-0001-7359-6202)
+
+[Overview](#overview) · [Workflow](#workflow-of-the-project) · [Methods and Key Results](#methods-and-key-results) · [Reproducing the Analysis](#reproducing-the-analysis) · [Reproduction Check](#reproduction-check) · [Citation](#citation)
 
 </div>
 
@@ -38,7 +40,7 @@ Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely
 
 - **Python Parts 1 to 8** read the SEA-AD immune h5ad: pre-checks, Mic.13-like (M4) cell selection, the GOI-DFG screens, DecontX, and the export of each arm for R.
 
-- **R Parts 9 to 13** take the Part 8 export: GAM fits, the Spearman-Kendall cell-level scores (SKCS), the inflection point (IP and IPRS), copula space, the CMRF Module, differential expression, the donor-level clinical models, the Module boundary ablation, the five Batteries (Part 12), and the M4 analyses (Part 13).
+- **R Parts 9 to 13** take the data exported from the SEA-AD h5ad by Part 8: GAM fits, the Spearman-Kendall cell-level scores (SKCS), the inflection point (IP and IPRS), copula space, the CMRF Module, differential expression, the donor-level clinical models, the Module boundary ablation, the five Batteries (Part 12), and the M4 analyses (Part 13).
 
 **Four arms are analyzed in parallel:**
 1. **M4** - Mic.13-like cells shortlisted from Micro-PVM_3 cells (primary arm).
@@ -143,7 +145,7 @@ Figure and table numbers are those of the preprint.
 > The Part 12 file names (`Fig15` to `Fig19`) follow the run order of the Batteries; they correspond to preprint Figures 12 to 16.
 
 <details>
-<summary><strong>Python scripts (SEA-AD h5ad): Parts 1 to 8 and the Part 12 extraction</strong></summary>
+<summary><strong>Python scripts (SEA-AD h5ad): Parts 1 to 8 and the Part 12 extraction (click to expand)</strong></summary>
 
 | No | Script File | Description | Paper output |
 |----|---|---|---|
@@ -168,7 +170,7 @@ Figure and table numbers are those of the preprint.
 </details>
 
 <details>
-<summary><strong>R scripts (Part 8 export): Parts 9 to 13 and the Figure 17 summary</strong></summary>
+<summary><strong>R scripts (data exported from SEA-AD h5ad): Parts 9 to 13 and the Figure 17 summary (click to expand)</strong></summary>
 
 | No | Script File | Description | Paper output |
 |----|---|---|---|
@@ -221,7 +223,7 @@ The analysis runs in a container that holds R 4.6.1, Python 3.13.14 and every pa
 ### 1. Get the data
 | Source | Files | Needed for |
 |---|---|---|
-| [HuggingFace](https://huggingface.co/datasets/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD) | <ul><li>`R_export_CP10K/`: Part 8 export of the four arms, about 14 GB</li><li>The Part 2 donor tables: `NeoC_S5b_donor_clinical.csv`, `NonNeoC_S5b_donor_clinical.csv`</li><li>`Part7_DecontX/decontX_contamination_all.csv`</li></ul> | R Parts 9 to 13 |
+| [Hugging Face](https://huggingface.co/datasets/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD) | <ul><li>`R_export_CP10K/`: Part 8 export of the four arms, about 14 GB</li><li>The Part 2 donor tables: `NeoC_S5b_donor_clinical.csv`, `NonNeoC_S5b_donor_clinical.csv`</li><li>`Part7_DecontX/decontX_contamination_all.csv`</li></ul> | R Parts 9 to 13 |
 | [SEA-AD portal](https://brain-map.org/consortia/sea-ad/our-data) | Immune h5ad (2026-06-22 release), neuropathology and CPS workbooks | Python Parts 1 to 8, Part 12 |
 | [GEO GSE148822](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE148822) | Gerrits deposit, placed in `Gerrits/` with the series matrix in `Gerrits/Metadata/` | Part 12 (Battery 1) |
 | [Zenodo](https://zenodo.org/records/23445742) | Supplementary Tables | The Part 10g follow-up and `Fig17_Summary_code.r` |
@@ -304,33 +306,39 @@ The original analysis ran R on Windows 11 and Python on Fedora 44. The whole pip
 > [!NOTE]
 > The results reported in the preprint and in the supplementary tables are those of the original runs (R on Windows 11, Python on Fedora 44). The container reruns were used to check them.
 
-- **Method:** every CSV and Excel table is compared cell by cell. Numbers agree when they are within a relative difference of 1e-6, and text must match exactly.
+**Method:** every CSV and Excel table is compared cell by cell. Numbers agree when they are within a relative difference of 1e-6, and text must match exactly.
 
-- **Result, Python Parts 1 to 8:**
-  - All 25 steps ran to completion (Part 8 once per arm), in about three hours.
-  - The 54 count matrices and cell and gene lists exported by Part 8 (the four arms and the full data of both region sets) are identical byte for byte to the original export used by the R analyses.
-  - Of the 9,262 tables found in both runs, 9,211 are the same. A further 40 Part 8 `gam_data` tables match in every shared column; the original files hold 1 or 10 more gene columns, added later by R Part 9.
-  - Nine Part 5 differential expression tables differ in one to three genes each: the paired p-values of *TAOK3*, *LINC02391*, and *NBAS* shifted slightly, and the log2FC of five genes changed in the fourth decimal. No gene crosses the 0.05 cutoff.
-  - Two Part 8 record files differ only in how a logical value is written (`False` against `FALSE`).
-  - The reference was the Windows copy of the original results, which the R analyses used. Tables found only there come from scripts that are not part of this deposit.
+**Result, Python Parts 1 to 8:** all 25 steps ran to completion (Part 8 once per arm), in about three hours. The 54 count matrices and cell and gene lists exported by Part 8 (the four arms and the full data of both region sets) are identical byte for byte to the original export used by the R analyses.
 
-- **Result, R Parts 9 to 13:**
-  - All R scripts from Part 9 onward, and the Part 12 Python step, ran to completion in the container.
-  - Of the 1,203 tables found in both runs, 1,013 are the same, 110 differ only in sign, row order, or text, and 23 differ by at most 0.1%.
-  - A further 53 tables differ by more than 0.1%. These are secondary statistics that depend on random subsamples, permutations, or nearest neighbours:
-    - the TOST, PERMANOVA and PERMDISP, kBET, iLISI, and neighbour-proportion tests of Part 10e Validation2 (with their columns in the Figure 11 summary);
-    - the permutation null threshold of Part 10f;
-    - the Part 12 depth-thinning curve;
-    - some donor-level p-values in four Part 10g tables, none of which changes a significance call.
-  - Four tables differ in size because a checksum column was removed from the deposited scripts, or because the original folder held more files to scan.
-  - Tables found only in the original results come from scripts or steps that are not part of this deposit.
+| Tables found in both runs | Number | Details |
+|---|---:|---|
+| Same | 9,211 | |
+| Same in every shared column | 40 | Part 8 `gam_data` tables. The original files hold 1 or 10 more gene columns, added later by R Part 9. |
+| Differ in one to three genes | 9 | Part 5 differential expression tables. The paired p-values of *TAOK3*, *LINC02391*, and *NBAS* shifted slightly, and the log2FC of five genes changed in the fourth decimal. No gene crosses the 0.05 cutoff. |
+| Differ only in how a logical value is written | 2 | Part 8 record files (`False` against `FALSE`). |
+| **Total** | **9,262** | |
 
-- **Expected differences:**
-  - eigenvector signs in the GAM basis-function tables (either sign is a valid solution);
-  - the sign of values printed as zero;
-  - quote marks written by R's `shQuote()` (double on Windows, single on Linux);
-  - the settings version recorded in the Part 12 tables;
-  - dates, times, and folder paths.
+The reference was the Windows copy of the original results, which the R analyses used. Tables found only there come from scripts that are not part of this deposit.
+
+**Result, R Parts 9 to 13:** all R scripts from Part 9 onward, and the Part 12 Python step, ran to completion in the container.
+
+| Tables found in both runs | Number | Details |
+|---|---:|---|
+| Same | 1,013 | |
+| Differ only in sign, row order, or text | 110 | |
+| Differ by at most 0.1% | 23 | |
+| Differ by more than 0.1% | 53 | Secondary statistics that depend on random subsamples, permutations, or nearest neighbours:<ul><li>the TOST, PERMANOVA and PERMDISP, kBET, iLISI, and neighbour-proportion tests of Part 10e Validation2 (with their columns in the Figure 11 summary)</li><li>the permutation null threshold of Part 10f</li><li>the Part 12 depth-thinning curve</li><li>some donor-level p-values in four Part 10g tables, none of which changes a significance call</li></ul> |
+| Differ in size | 4 | A checksum column was removed from the deposited scripts, or the original folder held more files to scan. |
+| **Total** | **1,203** | |
+
+Tables found only in the original results come from scripts or steps that are not part of this deposit.
+
+**Expected differences:**
+- eigenvector signs in the GAM basis-function tables (either sign is a valid solution);
+- the sign of values printed as zero;
+- quote marks written by R's `shQuote()` (double on Windows, single on Linux);
+- the settings version recorded in the Part 12 tables;
+- dates, times, and folder paths.
 
 > [!NOTE]
 > These differences do not change any result:
@@ -357,9 +365,11 @@ The full comparisons are in `verification/`:
 - **Container:** Podman or Docker (base image `rocker/r-ver:4.6.1`, Ubuntu 24.04)
 
 ### Hardware Requirements
-- **RAM:** 16 GB required, 32 GB recommended (the Python parts that read the full h5ad need 32 GB)
-- **CPU:** 8 cores (12+ cores recommended; the GAM fits and resampling run in parallel)
-- **Storage:** about 60 GB free disk space for the inputs, the container image and the outputs
+| Item | Required | Recommended |
+|---|---|---|
+| **RAM** | 16 GB | 32 GB (the Python parts that read the full h5ad need 32 GB) |
+| **CPU** | 8 cores | 12+ cores (the GAM fits and resampling run in parallel) |
+| **Storage** | about 60 GB free disk space for the inputs, the container image and the outputs | |
 
 ### Development Environment
 - **Developed and tested on:** Intel Core i9-14900KF, 64 GB DDR5 RAM, Windows 11 Pro (R 4.6.1) and Fedora 44 (Python 3.13.14)
@@ -386,6 +396,31 @@ If you found this study useful, please cite:
 K.K. Wong. PREPRINT_TITLE. *bioRxiv* (2026). https://doi.org/BIORXIV_DOI
 
 K.K. Wong. CEP-IP: An explainable framework for cell subpopulation identification in single-cell transcriptomics. *Computer Methods and Programs in Biomedicine*, 282 (2026) 109372. https://doi.org/10.1016/j.cmpb.2026.109372
+
+<details>
+<summary><strong>BibTeX (click to expand)</strong></summary>
+
+```bibtex
+@article{Wong2026SEAAD,
+  author  = {Wong, Kah Keng},
+  title   = {PREPRINT_TITLE},
+  journal = {bioRxiv},
+  year    = {2026},
+  doi     = {BIORXIV_DOI}
+}
+
+@article{Wong2026CEPIP,
+  author  = {Wong, Kah Keng},
+  title   = {{CEP-IP}: An explainable framework for cell subpopulation identification in single-cell transcriptomics},
+  journal = {Computer Methods and Programs in Biomedicine},
+  volume  = {282},
+  pages   = {109372},
+  year    = {2026},
+  doi     = {10.1016/j.cmpb.2026.109372}
+}
+```
+
+</details>
 
 Please also cite the source datasets (see Datasets Used).
 
