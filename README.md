@@ -6,16 +6,35 @@
 [![Dataset](https://img.shields.io/badge/Dataset-Hugging%20Face-B08C00?logo=huggingface&logoColor=F3D34E&style=flat-square)](https://huggingface.co/datasets/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
 [![Supplementary](https://img.shields.io/badge/Supplementary-Zenodo-1682D4?logo=zenodo&logoColor=white&style=flat-square)](https://zenodo.org/records/23445742)
 [![Preprint](https://img.shields.io/badge/Preprint-bioRxiv-B31B1B?style=flat-square)](https://doi.org/BIORXIV_DOI)
-[![Container](https://img.shields.io/badge/Container-Podman%20%7C%20Docker-892CA0?logo=podman&logoColor=white&style=flat-square)](#reproducing-the-analysis)
+[![Container](https://img.shields.io/badge/Container-Podman%20%7C%20Docker-892CA0?logo=podman&logoColor=white&style=flat-square)](#6-reproducing-the-analysis)
 
 ![Project Status](https://img.shields.io/badge/status-active-brightgreen?logo=check&logoColor=white&style=flat-square)
-[![R](https://img.shields.io/badge/R-4.6.1-276DC3?logo=r&logoColor=white&style=flat-square)](#software-requirements)
-[![Python](https://img.shields.io/badge/Python-3.13.14-3776AB?logo=python&logoColor=white&style=flat-square)](#software-requirements)
+[![R](https://img.shields.io/badge/R-4.6.1-276DC3?logo=r&logoColor=white&style=flat-square)](#91-software-requirements)
+[![Python](https://img.shields.io/badge/Python-3.13.14-3776AB?logo=python&logoColor=white&style=flat-square)](#91-software-requirements)
 [![GitHub last commit](https://img.shields.io/github/last-commit/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD?style=flat-square)](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
 
 **Author:** Kah Keng Wong [![ORCID](https://img.shields.io/badge/ORCID-0000--0001--7359--6202-A6CE39?logo=orcid&logoColor=white&style=flat-square)](https://orcid.org/0000-0001-7359-6202)
 
-[Overview](#overview) · [Workflow](#workflow-of-the-project) · [Methods and Key Results](#methods-and-key-results) · [Reproducing the Analysis](#reproducing-the-analysis) · [Reproduction Check](#reproduction-check) · [Citation](#citation)
+<table>
+<tr><th align="left">No.</th><th align="left">Section</th><th align="left">Descriptions</th></tr>
+<tr><td align="left" colspan="3"><b>About the study</b></td></tr>
+<tr><td align="left"><b>1</b></td><td align="left"><a href="#1-overview">Overview</a></td><td align="left">The study in brief and the datasets</td></tr>
+<tr><td align="left"><b>2</b></td><td align="left"><a href="#2-workflow-of-the-project">Workflow</a></td><td align="left">Pipeline from the SEA-AD h5ad to the Batteries</td></tr>
+<tr><td align="left"><b>3</b></td><td align="left"><a href="#3-methods-and-key-results">Methods and Key Results</a></td><td align="left">Five figures of the main steps</td></tr>
+<tr><td align="left" colspan="3"><b>The code</b></td></tr>
+<tr><td align="left"><b>4</b></td><td align="left"><a href="#4-repository-contents">Repository Contents</a></td><td align="left">What each folder holds</td></tr>
+<tr><td align="left"><b>5</b></td><td align="left"><a href="#5-descriptions-of-the-scripts">Descriptions of the Scripts</a></td><td align="left">Every script, its role, and its paper output</td></tr>
+<tr><td align="left" colspan="3"><b>Running and checking the analysis</b></td></tr>
+<tr><td align="left"><b>6</b></td><td align="left"><a href="#6-reproducing-the-analysis">Reproducing the Analysis</a></td><td align="left">Data, container, and run commands</td></tr>
+<tr><td align="left"><b>7</b></td><td align="left"><a href="#7-reproduction-check">Reproduction Check</a></td><td align="left">Container rerun compared with the original results</td></tr>
+<tr><td align="left" colspan="3"><b>Files and requirements</b></td></tr>
+<tr><td align="left"><b>8</b></td><td align="left"><a href="#8-supplementary-tables--figures-zenodo">Supplementary Tables and Figures</a></td><td align="left">Supplementary Tables and Figures on Zenodo</td></tr>
+<tr><td align="left"><b>9</b></td><td align="left"><a href="#9-requirements">Requirements</a></td><td align="left">Software and hardware</td></tr>
+<tr><td align="left" colspan="3"><b>Using this work</b></td></tr>
+<tr><td align="left"><b>10</b></td><td align="left"><a href="#10-license">License</a></td><td align="left">MIT License</td></tr>
+<tr><td align="left"><b>11</b></td><td align="left"><a href="#11-citation">Citation</a></td><td align="left">How to cite the preprint and the framework</td></tr>
+<tr><td align="left"><b>12</b></td><td align="left"><a href="#12-contact">Contact</a></td><td align="left">Email</td></tr>
+</table>
 
 </div>
 
@@ -35,7 +54,7 @@ Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely
 
 ---
 
-## Overview
+## 1. Overview
 - This repository holds the analysis code, the software environment (container recipe and lock files), and the reproduction check for the preprint. It builds on the published **CEP-IP framework** ([Wong, 2026, *CMPB*](https://doi.org/10.1016/j.cmpb.2026.109372); [code](https://github.com/kahkengwong/CEP-IP_Framework)).
 
 - **Python Parts 1 to 8** read the SEA-AD immune h5ad: pre-checks, Mic.13-like (M4) cell selection, the GOI-DFG screens, DecontX, and the export of each arm for R.
@@ -52,18 +71,25 @@ Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely
 
 ---
 
-### Datasets Used
+### 1.1 Datasets Used
 
-**1. SEA-AD immune snRNA-seq dataset**, Multiregion release of 22 June 2026: `SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad`, with the SEA-AD quantitative neuropathology (`sea-ad-quantitative-neuropathology-063026.xlsx`) and CPS (`sea-ad_global_and_local_cps_050126.xlsx`) workbooks. Available from the [SEA-AD portal](https://brain-map.org/consortia/sea-ad/our-data).
-- M.I. Gabitto, K.J. Travaglini, V.M. Rachleff, E.S. Kaplan, B. Long, et al., Integrated multimodal cell atlas of Alzheimer's disease, Nat Neurosci, 27 (2024) 2366-2383. https://doi.org/10.1038/s41593-024-01774-5
-- K.J. Travaglini, M.I. Gabitto, Y. Ding, A. Agrawal, N. Postupna, et al., Multiregional single-cell profiling reveals shared and specialized cellular vulnerability in Alzheimer’s disease, bioRxiv, (2026). https://www.biorxiv.org/content/10.64898/2026.07.01.734821v1
-
-**2. Gerrits et al. single-nucleus dataset (GSE148822)**, used in Battery 1 (ambient RNA). Available from [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE148822).
-- E. Gerrits, N. Brouwer, S.M. Kooistra, M.E. Woodbury, Y. Vermeiren, et al., Distinct amyloid-beta and tau-associated microglia profiles in Alzheimer's disease, Acta Neuropathol, 141 (2021) 681-696. doi: 10.1007/s00401-021-02263-w
+<table>
+<tr><th align="left">Item</th><th align="left">Details</th></tr>
+<tr><td align="left" colspan="2"><b>1. SEA-AD immune snRNA-seq dataset</b></td></tr>
+<tr><td align="left"><b>Release</b></td><td align="left">Multiregion release of 22 June 2026</td></tr>
+<tr><td align="left"><b>Files</b></td><td align="left"><ul><li>Immune h5ad: <code>SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad</code></li><li>Quantitative neuropathology workbook: <code>sea-ad-quantitative-neuropathology-063026.xlsx</code></li><li>CPS workbook: <code>sea-ad_global_and_local_cps_050126.xlsx</code></li></ul></td></tr>
+<tr><td align="left"><b>Used in</b></td><td align="left">Python Parts 1 to 8 and Part 12</td></tr>
+<tr><td align="left"><b>Available from</b></td><td align="left"><a href="https://brain-map.org/consortia/sea-ad/our-data">SEA-AD portal</a></td></tr>
+<tr><td align="left"><b>References</b></td><td align="left"><ul><li>M.I. Gabitto, K.J. Travaglini, V.M. Rachleff, E.S. Kaplan, B. Long, et al., Integrated multimodal cell atlas of Alzheimer's disease, Nat Neurosci, 27 (2024) 2366-2383. <a href="https://doi.org/10.1038/s41593-024-01774-5">https://doi.org/10.1038/s41593-024-01774-5</a></li><li>K.J. Travaglini, M.I. Gabitto, Y. Ding, A. Agrawal, N. Postupna, et al., Multiregional single-cell profiling reveals shared and specialized cellular vulnerability in Alzheimer’s disease, bioRxiv, (2026). <a href="https://www.biorxiv.org/content/10.64898/2026.07.01.734821v1">https://www.biorxiv.org/content/10.64898/2026.07.01.734821v1</a></li></ul></td></tr>
+<tr><td align="left" colspan="2"><b>2. Gerrits et al. single-nucleus dataset (GSE148822)</b></td></tr>
+<tr><td align="left"><b>Used in</b></td><td align="left">Battery 1 (ambient RNA)</td></tr>
+<tr><td align="left"><b>Available from</b></td><td align="left"><a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE148822">GEO</a></td></tr>
+<tr><td align="left"><b>Reference</b></td><td align="left">E. Gerrits, N. Brouwer, S.M. Kooistra, M.E. Woodbury, Y. Vermeiren, et al., Distinct amyloid-beta and tau-associated microglia profiles in Alzheimer's disease, Acta Neuropathol, 141 (2021) 681-696. doi: 10.1007/s00401-021-02263-w</td></tr>
+</table>
 
 ---
 
-## Workflow of the Project
+## 2. Workflow of the Project
 <p align="center"><img src="figures/Workflow.png" width="100%" alt="Workflow of the project"></p>
 
 > [!NOTE]
@@ -81,7 +107,7 @@ Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely
 
 ---
 
-## Methods and Key Results
+## 3. Methods and Key Results
 The five figures below follow the main steps of the analysis, using M4 NeoC as the example where one arm is shown.
 
 <p align="center"><img src="figures/Figure_1_Si_Ki_creates_discontinuity.jpg" width="900" alt="Figure 1"></p>
@@ -122,7 +148,7 @@ The five figures below follow the main steps of the analysis, using M4 NeoC as t
 
 ---
 
-## Repository Contents
+## 4. Repository Contents
 | Path | Contents |
 |---|---|
 | `scripts/Python/` | The 23 Python scripts: Parts 1 to 8 and the Part 12 extraction step (`Part12_02_Extract.py`). |
@@ -140,7 +166,7 @@ The five figures below follow the main steps of the analysis, using M4 NeoC as t
 
 ---
 
-## Descriptions of the Scripts
+## 5. Descriptions of the Scripts
 Figure and table numbers are those of the preprint.
 
 > [!NOTE]
@@ -242,10 +268,10 @@ Each builder writes its workbook and a log to `Manuscript/Supp_Tables/build/`. `
 
 ---
 
-## Reproducing the Analysis
+## 6. Reproducing the Analysis
 The analysis runs in a container that holds R 4.6.1, Python 3.13.14 and every package at the version in the lock files. No data are inside the container: the data folder is mounted at `/data` when it starts, and every script reads and writes in that folder.
 
-### 1. Get the data
+### 6.1 Get the data
 | Source | Files | Needed for |
 |---|---|---|
 | [Hugging Face](https://huggingface.co/datasets/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD) | <ul><li>`R_export_CP10K/`: Part 8 export of the four arms, about 14 GB</li><li>The Part 2 donor tables: `NeoC_S5b_donor_clinical.csv`, `NonNeoC_S5b_donor_clinical.csv`</li><li>`Part7_DecontX/decontX_contamination_all.csv`</li></ul> | R Parts 9 to 13 |
@@ -274,7 +300,7 @@ gam = pd.read_csv("R_export_CP10K/Mic13_PVM3/neocortex/gam_data/MTG_Micro_PVM_3_
 print(gam.shape)
 ```
 
-### 2. Build the container
+### 6.2 Build the container
 i) Download this repository (green "<> Code" button, then "Download ZIP") and extract it.
 
 ii) From the extracted folder, build the image:
@@ -289,7 +315,7 @@ podman load -i seaad-cepip_image.tar.gz
 ```
 This gives the image `localhost/seaad-cepip`; Docker accepts `docker load -i` in the same way.
 
-### 3. Run the analysis
+### 6.3 Run the analysis
 i) Run the whole analysis with one command, with the data folder mounted at `/data`:
 ```bash
 podman run --rm --shm-size=16g -v /path/to/data_folder:/data:Z seaad-cepip seaad-run all
@@ -319,14 +345,14 @@ Rscript -e 'source("/opt/seaad/R/Part9_CP10K_QC_GAM_code.r")'
 ```
 `seaad-setup` copies the settings files and the Part 12 scripts into the data folder and lists every input as found or missing.
 
-### Without the container (optional)
+### 6.4 Without the container (optional)
 - **R:** run `renv::restore()` in the repository folder to install the package versions in `renv.lock`. renv uses an isolated library and does not change the existing R setup.
 - **Python:** `pip install -r requirements-python.txt` in a Python 3.13.14 environment.
 - Set the environment variable `SEAAD_ROOT` to the data folder, or start R or Python from that folder.
 
 ---
 
-## Reproduction Check
+## 7. Reproduction Check
 The original analysis ran R on Windows 11 and Python on Fedora 44. The whole pipeline was then rerun inside this container on Fedora: Python Parts 1 to 8 from the SEA-AD h5ad, and R Parts 9 to 13 from the Part 8 export. Every table was compared with the original results by `verification/compare_rerun.py`.
 
 > [!NOTE]
@@ -390,30 +416,30 @@ The full comparisons are in `verification/`:
 
 ---
 
-## Supplementary Tables & Figures (Zenodo)
+## 8. Supplementary Tables & Figures (Zenodo)
 - Supplementary Tables (Excel format) and Supplementary Figures are available from [Zenodo](https://zenodo.org/records/23445742).
 - Refer to these tables to see the results without running the pipeline, or to check your own results.
 - The tables can also be rebuilt from the pipeline outputs with `seaad-run tables` (see `scripts/SuppTables/`).
 
 ---
 
-## Requirements
-### Software Requirements
+## 9. Requirements
+### 9.1 Software Requirements
 - **R:** 4.6.1, with Bioconductor 3.23 (280 packages in `renv.lock`, including monocle3, presto and BPCells from GitHub)
 - **Python:** 3.13.14 (packages in `requirements-python.txt`)
 - **Container:** Podman or Docker (base image `rocker/r-ver:4.6.1`, Ubuntu 24.04)
 
-### Hardware Requirements
+### 9.2 Hardware Requirements
 | Item | Required | Recommended |
 |---|---|---|
 | **RAM** | 16 GB | 32 GB (the Python parts that read the full h5ad need 32 GB) |
 | **CPU** | 8 cores | 12+ cores (the GAM fits and resampling run in parallel) |
 | **Storage** | about 60 GB free disk space for the inputs, the container image and the outputs | 100 GB |
 
-### Development Environment
+### 9.3 Development Environment
 - **Developed and tested on:** Intel Core i9-14900KF, 64 GB DDR5 RAM, Windows 11 Pro (R 4.6.1) and Fedora 44 (Python 3.13.14)
 
-### Performance Notes
+### 9.4 Performance Notes
 - All analyses are CPU-based; GPU acceleration is not required.
 - Run times in the container on the development machine:
   - Python Parts 1 to 8: about three hours (Part 6b about 80 minutes, Part 7 about 40 minutes)
@@ -424,12 +450,12 @@ The full comparisons are in `verification/`:
 
 ---
 
-## License
+## 10. License
 This project is licensed under the [MIT License](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD/blob/main/LICENSE). For the full details, please refer to the [LICENSE](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD/blob/main/LICENSE) file in this repository.
 
 ---
 
-## Citation
+## 11. Citation
 If you found this study useful, please cite:
 
 K.K. Wong. PREPRINT_TITLE. *bioRxiv* (2026). https://doi.org/BIORXIV_DOI
@@ -461,11 +487,11 @@ K.K. Wong. CEP-IP: An explainable framework for cell subpopulation identificatio
 
 </details>
 
-Please also cite the source datasets (see Datasets Used).
+Please also cite the source datasets (see [1.1 Datasets Used](#11-datasets-used)).
 
 ---
 
-## Contact
+## 12. Contact
 Kah Keng Wong: [kahkeng@usm.my](mailto:kahkeng@usm.my)
 
 ---
