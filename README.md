@@ -127,12 +127,14 @@ The five figures below follow the main steps of the analysis, using M4 NeoC as t
 |---|---|
 | `scripts/Python/` | The 23 Python scripts: Parts 1 to 8 and the Part 12 extraction step (`Part12_02_Extract.py`). |
 | `scripts/R/` | <ul><li>The R scripts of Parts 9 to 13 and `Fig17_Summary_code.r`</li><li>The shared arm table and settings: `CEP_arms.R`, `R_config.R`, `R_config_HKG8.R`</li><li>The Part 12 settings: `Part12_01_config.json`, `Part12_Fig19_config.json`</li><li>The pre-specified readings of the Batteries: `Part12_Preset_Readings.md`, `Part12_Preset_Readings_Battery5.md`</li></ul> |
+| `scripts/SuppTables/` | The scripts that build Supplementary Tables S1 to S19 from the pipeline outputs: one builder per table (`build_SuppTable_S<n>`), `finalize_supp_tables.py` (published sheet names, Contents and wording, from `supp_tables_contents.json`), `run_supp_tables.sh`, and `compare_supp_tables.py`. |
 | `Containerfile` | Recipe for the container image (R 4.6.1, Python 3.13.14, all packages). Works with Podman or Docker. |
 | `seaad-setup.sh` | Run once inside the container: copies the settings into the data folder and checks the inputs. |
+| `seaad-run.sh` | The one-command run (`seaad-run` in the container): runs the whole analysis, or part of it, in order, with a log per step. |
 | `README_container.md` | Container build, inputs, and the full run order. |
 | `renv.lock` | Exact R package versions (R 4.6.1, Bioconductor 3.23; 280 packages). |
 | `requirements-python.txt` | Exact Python package versions (Python 3.13.14). |
-| `verification/` | <ul><li>`run_rest.sh` and `run_python.sh`: run the R and the Python scripts in order from a named step</li><li>`compare_rerun.py`, `compare_python.py`, and `compare_gamdata.py`: compare a rerun with the original results</li><li>The comparisons of the container reruns with the original results: `compare_all_*` for R; `compare_python_*` and `compare_gamdata_log.txt` for Python</li></ul> |
+| `verification/` | <ul><li>`run_rest.sh` and `run_python.sh`: the run scripts used for the reproduction check, before `seaad-run`</li><li>`compare_rerun.py`, `compare_python.py`, and `compare_gamdata.py`: compare a rerun with the original results</li><li>The comparisons of the container reruns with the original results: `compare_all_*` for R; `compare_python_*` and `compare_gamdata_log.txt` for Python</li></ul> |
 | `figures/` | The workflow figure (`Workflow.png`) and Figures 1 to 5 of the Methods and Key Results section. |
 | `logs/` | <ul><li>`container_rerun/`: console logs of the container rerun of R Part 9 onward and the Part 12 Python step</li><li>`container_rerun_python/`: console logs of the container rerun of Python Parts 1 to 8</li><li>`original_R/`: logs of the original runs from Part 9 onward</li><li>`original_python/`: logs of the original runs of Python Parts 1 to 8</li><li>`logs/README.md` describes each folder and maps the Python logs to their scripts</li></ul> |
 
@@ -207,13 +209,36 @@ Figure and table numbers are those of the preprint.
 | 31 | `Part12_ModulePostIP_Overview.r` | Module post-IP% overview. | Supplementary Figure S13 |
 | 32 | `Part10g_CP10K_DEGs_Part1_code_S11_followup_analyses.r` | Follow-up DE analyses (reads the Part 12 labels). | Table S11 |
 | 33 | `Part13a_CP10K_Find14DpctMT_code.r` | Donor %MT for the Part 13 model. | Input to Part 13 |
-| 34 | `Part13_CP10K_M4Share_code.r` | Does the donor's M4 share explain the M4 results. | Supplementary Figure S20, Table S18 |
-| 35 | `Part13b_CP10K_M4RandomSubset_code.r` | M4 cells against random PVM_3 cells. | Supplementary Figure S21, Table S18 |
-| 36 | `Fig17_Summary_code.r` | Summary of all tests of Module post-IP%. | Figure 17, Table S19 |
+| 34 | `Part13_CP10K_M4Share_code.r` | Does the donor's M4 share explain the M4 results. | Input to Part 13c (Supplementary Figure S20, Table S18) |
+| 35 | `Part13b_CP10K_M4RandomSubset_code.r` | M4 cells against random PVM_3 cells. | Input to Part 13c (Supplementary Figure S21, Table S18) |
+| 36 | `Part13c_CP10K_M4_SuppConsolidate_code.r` | Draws the Part 13 and 13b figures and collects their values. | Supplementary Figures S20 and S21, Table S18 |
+| 37 | `Fig17_Summary_code.r` | Summary of all tests of Module post-IP%. | Figure 17, Table S19 |
 
 </details>
 
-Two scripts read finished supplementary tables instead of recomputing them: the Part 10g follow-up reads Table S11, and `Fig17_Summary_code.r` reads Tables S12 to S17 together with the Part 13 and 13b outputs. These tables are on [Zenodo](https://zenodo.org/records/23445742). `README_container.md` gives the paths where they are placed.
+<details>
+<summary><strong>Supplementary Table scripts (click to expand)</strong></summary>
+
+| Table | Builder | Built from |
+|---|---|---|
+| S1 | `build_SuppTable_S1.py` | Parts 2 and 3 |
+| S2 | `build_SuppTable_S2.py` | Parts 5 and 5b |
+| S3 | `build_SuppTable_S3.py` | Parts 1b, 4, 6 and 6b |
+| S4 | `build_SuppTable_S4.py` | Parts 6 and 6b |
+| S5 | `build_SuppTable_S5.py` | Parts 1a to 1g |
+| S6 | `build_SuppTable_S6.py` | Part 7 |
+| S7 | `build_SuppTable_S7.py` | Parts 8 to 10c |
+| S8, S9 | `build_SuppTable_S8.py`, `build_SuppTable_S9.py` (with `build_SuppTable_S8_S9_step0_B1_counts.py`) | Parts 10, 10b, 10c and 10d |
+| S10 | `build_SuppTable_S10.py` (with `build_SuppTable_S10_step0_Fig8_cells.r`) | Parts 10, 10e and 10f |
+| S11 | `build_SuppTable_S11.r` | Part 10g, Part 10e Validation1, the Part 12 labels and the Part 8 raw counts |
+| S12 | `build_SuppTable_S12.py` | Parts 10h and 11 |
+| S13 to S17 | `build_SuppTable_S13.py` to `build_SuppTable_S17.py` | Part 12 (Batteries 1 to 5) |
+| S18 | `Part13c_CP10K_M4_SuppConsolidate_code.r` | Parts 13 and 13b |
+| S19 | (finalize only) | `Fig17_Summary_code.r` |
+
+Each builder writes its workbook and a log to `Manuscript/Supp_Tables/build/`. `finalize_supp_tables.py` then writes the published workbook. The two scripts that read tables (the Part 10g follow-up reads Table S11, and `Fig17_Summary_code.r` reads Table S12 and the Part 12 workbooks of Tables S13 to S17) run after those tables are built, so no table is needed as an input.
+
+</details>
 
 ---
 
@@ -226,12 +251,11 @@ The analysis runs in a container that holds R 4.6.1, Python 3.13.14 and every pa
 | [Hugging Face](https://huggingface.co/datasets/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD) | <ul><li>`R_export_CP10K/`: Part 8 export of the four arms, about 14 GB</li><li>The Part 2 donor tables: `NeoC_S5b_donor_clinical.csv`, `NonNeoC_S5b_donor_clinical.csv`</li><li>`Part7_DecontX/decontX_contamination_all.csv`</li></ul> | R Parts 9 to 13 |
 | [SEA-AD portal](https://brain-map.org/consortia/sea-ad/our-data) | Immune h5ad (2026-06-22 release), neuropathology and CPS workbooks | Python Parts 1 to 8, Part 12 |
 | [GEO GSE148822](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE148822) | Gerrits deposit, placed in `Gerrits/` with the series matrix in `Gerrits/Metadata/` | Part 12 (Battery 1) |
-| [Zenodo](https://zenodo.org/records/23445742) | Supplementary Tables | The Part 10g follow-up and `Fig17_Summary_code.r` |
 
 Place them in one folder (the data folder), keeping the folder names above.
 
 > [!TIP]
-> R Parts 9 to 11 run on the Hugging Face files alone, without the SEA-AD h5ad or the Python parts. The files can be downloaded into the data folder in one step:
+> R Parts 9 to 11 run on the Hugging Face files alone (`seaad-run hf`), without the SEA-AD h5ad or the Python parts. The files can be downloaded into the data folder in one step:
 > ```bash
 > hf download kahkengwong/CEP-IP_and_CMRF_in_SEA-AD --repo-type dataset --local-dir /path/to/data_folder
 > ```
@@ -265,33 +289,35 @@ podman load -i seaad-cepip_image.tar.gz
 ```
 This gives the image `localhost/seaad-cepip`; Docker accepts `docker load -i` in the same way.
 
-### 3. Start the container and check the inputs
-i) Start the container with the data folder mounted at `/data`:
+### 3. Run the analysis
+i) Run the whole analysis with one command, with the data folder mounted at `/data`:
 ```bash
-podman run --rm -it --shm-size=16g -v /path/to/data_folder:/data:Z seaad-cepip
+podman run --rm --shm-size=16g -v /path/to/data_folder:/data:Z seaad-cepip seaad-run all
 ```
 > [!IMPORTANT]
 > `--shm-size=16g` gives the container enough shared memory for Part 7 (DecontX), whose worker processes share the count matrix. Without it, Part 7 stops with a bus error.
 
-ii) Inside the container, run once:
+`seaad-run all` runs every script in order, from the SEA-AD h5ad to Figure 17 and Supplementary Tables S1 to S19. Other modes run part of the analysis:
+- `seaad-run python`: Python Parts 1 to 8 and Tables S1 to S6.
+- `seaad-run r`: R Parts 9 to 13, Figure 17 and Tables S7 to S19, from the Hugging Face files and the SEA-AD inputs of Part 12.
+- `seaad-run hf`: R Parts 9 to 11 and Tables S7 to S10 and S12, from the Hugging Face files only.
+- `seaad-run tables`: Tables S1 to S19 from outputs already in the data folder.
+- `seaad-run list all`: prints the steps.
+
+ii) Each step's console output is saved to `seaad-run_logs/`. The run stops at the first step that fails and prints the command to resume from that step, for example `seaad-run all --from Part10e_CP10K_CMRF_code`.
+
+iii) To compare the results with the original results, mount them read-only at `/ref` and add `--compare`:
 ```bash
+podman run --rm --shm-size=16g -v /path/to/data_folder:/data:Z -v /path/to/original:/ref:ro,Z seaad-cepip seaad-run all --compare
+```
+
+iv) To run scripts one by one, start the container with a shell, run `seaad-setup` once, and follow the order in `README_container.md`:
+```bash
+podman run --rm -it --shm-size=16g -v /path/to/data_folder:/data:Z seaad-cepip
 seaad-setup
+Rscript -e 'source("/opt/seaad/R/Part9_CP10K_QC_GAM_code.r")'
 ```
 `seaad-setup` copies the settings files and the Part 12 scripts into the data folder and lists every input as found or missing.
-
-### 4. Run the scripts
-i) Run each script from `/data`, in the order given in `README_container.md`. For example:
-```bash
-Rscript -e 'source("/opt/seaad/R/Part9_CP10K_QC_GAM_code.r")'
-python Part12_rerun/Part12_02_Extract.py
-Rscript -e 'source("Part12_rerun/Part12_04_Labels.r")'
-```
-Each script writes its outputs and a log in its own folder.
-
-ii) Alternatively, run a series of scripts with the run scripts in `verification/`, which were used for the reproduction check below:
-- `run_rest.sh` runs the R scripts from a given one to `Fig17_Summary_code.r` in order, saves each console log in `console_logs/`, and then runs the comparison with the original results mounted at `/win`.
-- `run_python.sh` does the same for Python Parts 1 to 8 (Part 8 once per arm), and then runs `compare_python.py` with the original results mounted at `/ref`.
-- To use them, copy the run script and its comparison script into the data folder and run, for example, `bash /data/run_rest.sh Part10h_CP10K_Prognosis_code`.
 
 ### Without the container (optional)
 - **R:** run `renv::restore()` in the repository folder to install the package versions in `renv.lock`. renv uses an isolated library and does not change the existing R setup.
@@ -333,6 +359,17 @@ The reference was the Windows copy of the original results, which the R analyses
 
 Tables found only in the original results come from scripts or steps that are not part of this deposit.
 
+**Result, Supplementary Tables:** the 19 tables were rebuilt in the container from the rerun outputs with the scripts in `scripts/SuppTables/`, and every sheet was compared cell by cell with the published tables, with the same rules.
+
+| Sheets | Number | Details |
+|---|---:|---|
+| Same | 219 | Including the Contents sheet of every table. |
+| Same values, other row order | 2 | Table S3, sheets C and D: `best_rs` in the Part 4 rerun differs by less than 1e-6 (relative), so 78 and 76 near-tied genes change places in the sorted sheet. |
+| Differ only in text | 1 | Table S19, sheet I: the dates on which the source workbooks were last modified. |
+| Differ by at most 0.1% | 1 | Table S10, sheet J: the PrePost projection rows, from the Validation2 UMAP. |
+| Differ by more than 0.1% | 3 | Table S10, sheets A and I: the UMAP coordinates, kBET and neighbour enrichment of Validation2. Table S13, sheet P: the depth-thinning curve. These values already differ in the pipeline outputs (see above). |
+| **Total** | **226** | - |
+
 **Expected differences:**
 - eigenvector signs in the GAM basis-function tables (either sign is a valid solution);
 - the sign of values printed as zero;
@@ -348,6 +385,7 @@ Tables found only in the original results come from scripts or steps that are no
 
 The full comparisons are in `verification/`:
 - **R parts:** `compare_all_log.txt` (summary) and `compare_all_detail.csv` (one row per table).
+- **Supplementary Tables:** `compare_supp_tables_log.txt`.
 - **Python parts:** `compare_python_tables_log.txt` and `compare_python_tables_detail.csv` (tables), `compare_python_matrices_log.txt` (count matrices and cell and gene lists), and `compare_gamdata_log.txt` (the Part 8 `gam_data` tables).
 
 ---
@@ -355,6 +393,7 @@ The full comparisons are in `verification/`:
 ## Supplementary Tables & Figures (Zenodo)
 - Supplementary Tables (Excel format) and Supplementary Figures are available from [Zenodo](https://zenodo.org/records/23445742).
 - Refer to these tables to see the results without running the pipeline, or to check your own results.
+- The tables can also be rebuilt from the pipeline outputs with `seaad-run tables` (see `scripts/SuppTables/`).
 
 ---
 
