@@ -13,9 +13,12 @@
 [![Python](https://img.shields.io/badge/Python-3.13.14-3776AB?logo=python&logoColor=white&style=flat-square)](#91-software-requirements)
 [![GitHub last commit](https://img.shields.io/github/last-commit/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD?style=flat-square)](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
 
-**Author:** Kah Keng Wong [![ORCID](https://img.shields.io/badge/ORCID-0000--0001--7359--6202-A6CE39?logo=orcid&logoColor=white&style=flat-square)](https://orcid.org/0000-0001-7359-6202)
+### Author: Kah Keng Wong [![ORCID](https://img.shields.io/badge/ORCID-0000--0001--7359--6202-A6CE39?logo=orcid&logoColor=white&style=flat-square)](https://orcid.org/0000-0001-7359-6202)
+
+<br>
 
 <table>
+<tr><th align="center" colspan="3">Table of Contents</th></tr>
 <tr><th align="left">No.</th><th align="left">Section</th><th align="left">Descriptions</th></tr>
 <tr><td align="left" colspan="3"><b>About the study</b></td></tr>
 <tr><td align="left"><b>1</b></td><td align="left"><a href="#1-overview">Overview</a></td><td align="left">The study in brief and the datasets</td></tr>
@@ -51,7 +54,8 @@ Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely
 
 <br>
 
-## Highlights
+<strong>Highlights</strong>
+
 - The **CEP-IP** framework with a **copula monotone recovery filter (CMRF)** applied to the **SEA-AD** immune single-nucleus RNA-seq dataset (84 donors, 10 brain regions).
 - A transcriptome-wide screen identified a module of **MT-CO3** and eight co-expressed mitochondrially encoded genes (cDFG).
 - The donor percentage of **Module post-IP** cells was tested against cognition and pathology.
