@@ -15,10 +15,9 @@
 
 ### Author: Kah Keng Wong [![ORCID](https://img.shields.io/badge/ORCID-0000--0001--7359--6202-A6CE39?logo=orcid&logoColor=white&style=flat-square)](https://orcid.org/0000-0001-7359-6202)
 
-<br>
 
 <table>
-<tr><th align="center" colspan="3">Table of Contents</th></tr>
+<tr><th align="center" colspan="3"><h3>Table of Contents</h3></th></tr>
 <tr><th align="left">No.</th><th align="left">Section</th><th align="left">Descriptions</th></tr>
 <tr><td align="left" colspan="3"><b>About the study</b></td></tr>
 <tr><td align="left"><b>1</b></td><td align="left"><a href="#1-overview">Overview</a></td><td align="left">The study in brief and the datasets</td></tr>
