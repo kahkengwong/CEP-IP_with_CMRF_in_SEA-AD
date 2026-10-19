@@ -416,6 +416,12 @@ Tables found only in the original results come from scripts or steps that are no
 | Differ by more than 0.1% | 3 | Table S10, sheets A and I: the UMAP coordinates, kBET and neighbour enrichment of Validation2. Table S13, sheet P: the depth-thinning curve. These values already differ in the pipeline outputs (see above). |
 | **Total** | **226** | - |
 
+**One-command run from a new folder:** `seaad-run all --compare` was then run in a new data folder that held only the inputs. It ran Python Parts 1 to 8, R Parts 9 to 13, Figure 17, and Tables S1 to S19. The first start stopped at Part 5b because two input files were not yet in the folder; `seaad-run` now checks for them. The run was resumed from Part 1d and finished the remaining 84 steps in 302 minutes. The comparison with the original results gave the same outcome as the reruns above:
+- R Parts 9 to 11: every table has the same result as in `compare_all_log.txt`.
+- Python Parts 1 to 8: the same results; the 40 Part 8 `gam_data` tables are now the same in every column, because this run also includes R Part 9.
+- The 165 count matrices and cell and gene lists: identical byte for byte.
+- Supplementary Tables: the same 226 sheet results as in the table above.
+
 **Expected differences:**
 - eigenvector signs in the GAM basis-function tables (either sign is a valid solution);
 - the sign of values printed as zero;
@@ -433,6 +439,7 @@ The full comparisons are in `verification/`:
 - **R parts:** `compare_all_log.txt` (summary) and `compare_all_detail.csv` (one row per table).
 - **Supplementary Tables:** `compare_supp_tables_log.txt`.
 - **Python parts:** `compare_python_tables_log.txt` and `compare_python_tables_detail.csv` (tables), `compare_python_matrices_log.txt` (count matrices and cell and gene lists), and `compare_gamdata_log.txt` (the Part 8 `gam_data` tables).
+- **One-command run:** `fulltest_seaad-run_summary.txt` (steps and run times), `fulltest_compare_R_log.txt` and `fulltest_compare_R_detail.csv`, `fulltest_compare_python_tables_log.txt` and `fulltest_compare_python_tables_detail.csv`, and `fulltest_compare_python_matrices_log.txt`.
 
 ---
 
@@ -462,6 +469,7 @@ The full comparisons are in `verification/`:
 ### 9.4 Performance Notes
 - All analyses are CPU-based; GPU acceleration is not required.
 - Run times in the container on the development machine:
+  - the whole pipeline with `seaad-run all`: about five hours
   - Python Parts 1 to 8: about three hours (Part 6b about 80 minutes, Part 7 about 40 minutes)
   - R Parts 9 to 10d: about 35 minutes
   - Parts 10e to 10g: about 45 minutes

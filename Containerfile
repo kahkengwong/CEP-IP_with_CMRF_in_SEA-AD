@@ -3,14 +3,14 @@
 # R 4.6.1 with the packages in renv.lock, and Python 3.13.14 with the
 # packages in requirements-python.txt, as used for the paper.
 #
-# Build (from the folder that holds this file, scripts/R/, scripts/Python/, renv.lock and
-# requirements-python.txt):
+# Build (from the folder that holds this file, scripts/, verification/, seaad-setup.sh,
+# seaad-run.sh, renv.lock and requirements-python.txt):
 #     podman build --no-cache -t seaad-cepip -f Containerfile .
 #
-# Run (the SEA-AD data folder is mounted at /data):
-#     podman run --rm -it -v /path/to/SEA-AD:/data:Z seaad-cepip
+# Run the whole analysis (the SEA-AD data folder is mounted at /data):
+#     podman run --rm --shm-size=16g -v /path/to/SEA-AD:/data:Z seaad-cepip seaad-run all
 #
-# See README_container.md for the inputs and the run order.
+# See README_container.md for the inputs, the run modes and the run order.
 
 FROM docker.io/rocker/r-ver:4.6.1
 
@@ -81,8 +81,12 @@ RUN curl -fsSL -o /tmp/miniforge.sh \
 ENV SEAAD_ROOT=/data
 COPY scripts/R/ /opt/seaad/R/
 COPY scripts/Python/ /opt/seaad/Python/
+COPY scripts/SuppTables/ /opt/seaad/SuppTables/
+COPY verification/compare_rerun.py verification/compare_python.py verification/compare_gamdata.py \
+     /opt/seaad/verification/
 COPY seaad-setup.sh /usr/local/bin/seaad-setup
-RUN chmod +x /usr/local/bin/seaad-setup
+COPY seaad-run.sh /usr/local/bin/seaad-run
+RUN chmod +x /usr/local/bin/seaad-setup /usr/local/bin/seaad-run
 
 # Versions, for the record (written at build time)
 RUN { echo "R:"; R --version | head -1; \

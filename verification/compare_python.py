@@ -10,7 +10,8 @@
 #      if the bytes differ, entry by entry (row and column indices exactly,
 #      values within 1e-6 relative), or line by line for the lists.
 #
-# Usage (inside the container): python /data/compare_python.py
+# Usage (inside the container): python /opt/seaad/verification/compare_python.py
+# (seaad-run --compare runs it with the original results mounted at /ref)
 # Outputs (/data/compare/):
 #   compare_python_tables_log.txt, _detail.csv, _cells.csv   (part 1)
 #   compare_python_matrices_log.txt, _detail.csv             (part 2)
@@ -40,7 +41,11 @@ parts = sorted(d for d in os.listdir(NEW)
 # ---- 1) Tables, with compare_rerun.py ----------------------------------------
 print("Part 1: tables (compare_rerun.py), folders: " + ", ".join(parts), flush=True)
 env = dict(os.environ, WIN_ROOT=REF, SEAAD_ROOT=NEW, COMPARE_CELLS="1")
-rc = subprocess.run([sys.executable, os.path.join(NEW, "compare_rerun.py"), *parts], env=env).returncode
+# compare_rerun.py is taken from the folder of this script, else from the data folder.
+CR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "compare_rerun.py")
+if not os.path.exists(CR):
+    CR = os.path.join(NEW, "compare_rerun.py")
+rc = subprocess.run([sys.executable, CR, *parts], env=env).returncode
 if rc != 0:
     sys.exit("compare_rerun.py stopped with exit code %d" % rc)
 tag = re.sub(r"[^A-Za-z0-9_.-]", "_", "_".join(parts))[:80]

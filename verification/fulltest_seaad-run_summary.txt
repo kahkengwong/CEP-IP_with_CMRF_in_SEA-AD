@@ -1,0 +1,248 @@
+seaad-run all started 2026-10-19 03:19:47 | data /data
+R: R version 4.6.1 (2026-06-24) -- "Happy Hop" | Python: Python 3.13.14
+
+== seaad-setup
+  missing    R_export_CP10K  (Part 8 export, read by Part 9 onwards)
+  missing    *_S5b_donor_clinical.csv  (Part 2 donor tables, read by Part 10h and Part 12)
+  missing    Part7_DecontX/decontX_contamination_all.csv  (Part 7, read by Part 12)
+== Part1a_NormForensics_code   start 03:19:47
+   finished 03:20:18 | 1 min
+== Part1b_MT-audit_code   start 03:20:18
+   finished 03:21:07 | 1 min
+== Part1c_WithinDonor_code   start 03:21:07
+   finished 03:21:48 | 1 min
+== Part1d_Errata_code   start 03:21:48
+   finished 03:22:07 | 0 min
+== Part1e_TechQC_code   start 03:22:07
+   finished 03:23:31 | 1 min
+== Part1f_Ordinals_code   start 03:23:31
+   finished 03:23:45 | 0 min
+== Part1g_TrendReconcile_code   start 03:23:45
+   finished 03:24:13 | 0 min
+== Part2_NeoC_CP10K_code   start 03:24:13
+   finished 03:29:41 | 5 min
+== Part2_NonNeoC_CP10K_code   start 03:29:41
+   finished 03:34:57 | 5 min
+== Part3_M4Composition_code   start 03:34:57
+   finished 03:35:20 | 0 min
+== Part4_NeoC_ScreenScatter   start 03:35:20
+   finished 03:43:49 | 8 min
+== Part4_NonNeoC_ScreenScatter   start 03:43:49
+   finished 03:49:22 | 6 min
+== Part5_NeoC_DEGs   start 03:49:22
+   finished 03:50:38 | 1 min
+== Part5_NonNeoC_DEGs   start 03:50:38
+   finished 03:51:35 | 1 min
+== Part5b_NeoC_Validation   start 03:51:35
+   FAILED 03:51:35 | 0 min | exit 1 | log: seaad-run_logs/Part5b_NeoC_Validation.txt
+   |                    ~~~~~~~~~~^
+   |         f,
+   |         ^^
+   |     ...<6 lines>...
+   |         storage_options=self.options.get("storage_options", None),
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |     )
+   |     ^
+   |   File "/opt/conda/envs/seaad/lib/python3.13/site-packages/pandas/io/common.py", line 930, in get_handle
+   |     handle = open(
+   |         handle,
+   |     ...<3 lines>...
+   |         newline="",
+   |     )
+   | FileNotFoundError: [Errno 2] No such file or directory: 'Mic13_genes.txt'
+
+Run stopped at Part5b_NeoC_Validation. After fixing the cause, resume with:
+   seaad-run all --from Part5b_NeoC_Validation --compare
+seaad-run all started 2026-10-19 04:18:25 | data /data
+Starting at: Part1d_Errata_code
+R: R version 4.6.1 (2026-06-24) -- "Happy Hop" | Python: Python 3.13.14
+
+== seaad-setup
+  missing    R_export_CP10K  (Part 8 export, read by Part 9 onwards)
+  missing    *_S5b_donor_clinical.csv  (Part 2 donor tables, read by Part 10h and Part 12)
+  missing    Part7_DecontX/decontX_contamination_all.csv  (Part 7, read by Part 12)
+== Part1d_Errata_code   start 04:18:25
+   finished 04:18:44 | 0 min
+== Part1e_TechQC_code   start 04:18:44
+   finished 04:20:09 | 1 min
+== Part1f_Ordinals_code   start 04:20:09
+   finished 04:20:23 | 0 min
+== Part1g_TrendReconcile_code   start 04:20:23
+   finished 04:20:50 | 0 min
+== Part2_NeoC_CP10K_code   start 04:20:50
+   finished 04:26:16 | 5 min
+== Part2_NonNeoC_CP10K_code   start 04:26:16
+   finished 04:31:32 | 5 min
+== Part3_M4Composition_code   start 04:31:32
+   finished 04:31:54 | 0 min
+== Part4_NeoC_ScreenScatter   start 04:31:54
+   finished 04:32:23 | 0 min
+== Part4_NonNeoC_ScreenScatter   start 04:32:23
+   finished 04:32:44 | 0 min
+== Part5_NeoC_DEGs   start 04:32:44
+   finished 04:33:59 | 1 min
+== Part5_NonNeoC_DEGs   start 04:33:59
+   finished 04:34:56 | 1 min
+== Part5b_NeoC_Validation   start 04:34:56
+   finished 04:34:57 | 0 min
+== Part5b_NonNeoC_Validation   start 04:34:57
+   finished 04:34:57 | 0 min
+== Part6_NeoC_GOI-DFG_code   start 04:34:57
+   finished 04:55:46 | 21 min
+== Part6_NonNeoC_GOI-DFG_code   start 04:55:46
+   finished 05:06:42 | 11 min
+== Part6b_NeoC_Pooled_GOI-DFG   start 05:06:42
+   finished 05:54:16 | 48 min
+== Part6b_NonNeoC_Pooled_GOI-DFG   start 05:54:16
+   finished 06:25:49 | 32 min
+== Part7_DecontX   start 06:25:49
+   finished 07:08:15 | 42 min
+== Part8_PVM3_all   start 07:08:15
+   finished 07:09:30 | 1 min
+== Part8_PVM1_all   start 07:09:30
+   finished 07:10:07 | 1 min
+== Part8_Mic13_PVM3   start 07:10:07
+   finished 07:10:45 | 1 min
+== Part8_HKG8_matched   start 07:10:45
+   finished 07:11:24 | 1 min
+== SuppTable_S1   start 07:11:24
+   finished 07:11:25 | 0 min
+== SuppTable_S2   start 07:11:25
+   finished 07:11:25 | 0 min
+== SuppTable_S3   start 07:11:25
+   finished 07:11:27 | 0 min
+== SuppTable_S4   start 07:11:27
+   finished 07:11:27 | 0 min
+== SuppTable_S5   start 07:11:27
+   finished 07:11:28 | 0 min
+== SuppTable_S6   start 07:11:28
+   finished 07:11:50 | 0 min
+== Part9_CP10K_QC_GAM_code   start 07:11:50
+   finished 07:19:18 | 7 min
+== Part9b_CP10K_SiKi_code   start 07:19:18
+   finished 07:19:24 | 0 min
+== Part10_CP10K_SKCS_code   start 07:19:24
+   finished 07:30:33 | 11 min
+== Part10b_CP10K_IPRS_code   start 07:30:33
+   finished 07:31:53 | 1 min
+== Part10b_CP10K_SKCS_TREP_code   start 07:31:53
+   finished 07:35:31 | 4 min
+== Part10c_CP10K_Copula1_code   start 07:35:31
+   finished 07:38:17 | 3 min
+== Part10d_CP10K_Copula2_code   start 07:38:17
+   finished 07:40:47 | 3 min
+== Part10e_CP10K_CMRF_code   start 07:40:47
+   finished 07:53:06 | 12 min
+== Part10e_CP10K_Validation1_code   start 07:53:06
+   finished 07:56:23 | 3 min
+== Part10e_CP10K_Validation2_UMAP_code   start 07:56:23
+   finished 08:01:03 | 5 min
+== Part10f_CP10K_Band_Formation_code   start 08:01:03
+   finished 08:02:14 | 1 min
+== Part10f_CP10K_CMRF_RSkfCV_Mechanism_code   start 08:02:14
+   finished 08:02:22 | 0 min
+== Part10g_CP10K_DEGs_Part1_code   start 08:02:22
+   finished 08:17:17 | 15 min
+== Part10g_Step7to9_rebuild_code   start 08:17:17
+   finished 08:17:21 | 0 min
+== Part10h_CP10K_Prognosis_code   start 08:17:21
+   finished 08:32:53 | 16 min
+== Part10h_CP10K_Prognosis_1_Comparator_code   start 08:32:53
+   finished 08:56:19 | 23 min
+== Part10h_CP10K_Prognosis_2_CogVsPath_code   start 08:56:19
+   finished 08:58:15 | 2 min
+== Part10h_CP10K_Prognosis_4_Multivariate_code   start 08:58:15
+   finished 08:58:20 | 0 min
+== Part10h_CP10K_Comparator_Fig13_code   start 08:58:20
+   finished 08:58:25 | 0 min
+== Part11_CP10K_CogVsPath_code   start 08:58:25
+   finished 09:03:25 | 5 min
+== Part11_CP10K_CogVsPath_HighLevel_code   start 09:03:25
+   finished 09:03:27 | 0 min
+== Part11_Identity_BandAblation_code   start 09:03:27
+   finished 09:04:57 | 2 min
+== Part11_BandAblation_Fig11Export_code   start 09:04:57
+   finished 09:05:00 | 0 min
+== SuppTable_S7   start 09:05:00
+   finished 09:05:28 | 0 min
+== SuppTable_S8   start 09:05:28
+   finished 09:05:29 | 0 min
+== SuppTable_S9   start 09:05:29
+   finished 09:05:29 | 0 min
+== SuppTable_S10   start 09:05:29
+   finished 09:05:54 | 0 min
+== SuppTable_S12   start 09:05:54
+   finished 09:06:07 | 0 min
+== Part12_02_Extract   start 09:06:07
+   finished 09:06:27 | 0 min
+== Part12_04_Labels   start 09:06:28
+   finished 09:06:49 | 0 min
+== Part12_05_Units   start 09:06:49
+   finished 09:06:54 | 0 min
+== Part12_06_GerritsCells   start 09:06:54
+   finished 09:09:29 | 3 min
+== Part12_Fig15_Analysis   start 09:09:29
+   finished 09:10:04 | 1 min
+== Part12_Fig15_Plots   start 09:10:04
+   finished 09:10:06 | 0 min
+== Part12_Fig16_Analysis   start 09:10:06
+   finished 09:11:03 | 1 min
+== Part12_Fig16_Plots   start 09:11:03
+   finished 09:11:04 | 0 min
+== Part12_Fig17_Analysis   start 09:11:04
+   finished 09:12:30 | 1 min
+== Part12_Fig17_Plots   start 09:12:30
+   finished 09:12:33 | 0 min
+== Part12_Fig18_Analysis   start 09:12:33
+   finished 09:13:08 | 1 min
+== Part12_Fig18_Plots   start 09:13:08
+   finished 09:13:11 | 0 min
+== Part12_Fig19_Analysis   start 09:13:11
+   finished 09:16:15 | 3 min
+== Part12_Fig19_Plots   start 09:16:15
+   finished 09:16:34 | 0 min
+== Part12_ModulePostIP_Overview   start 09:16:34
+   finished 09:16:35 | 0 min
+== SuppTable_S11   start 09:16:35
+   finished 09:17:00 | 0 min
+== Part10g_CP10K_DEGs_Part1_code_S11_followup_analyses   start 09:17:00
+   finished 09:17:24 | 0 min
+== Part13a_CP10K_Find14DpctMT_code   start 09:17:24
+   finished 09:17:27 | 0 min
+== Part13_CP10K_M4Share_code   start 09:17:27
+   finished 09:18:14 | 1 min
+== Part13b_CP10K_M4RandomSubset_code   start 09:18:14
+   finished 09:19:23 | 1 min
+== SuppTable_S18   start 09:19:23
+   finished 09:19:28 | 0 min
+== SuppTable_S13   start 09:19:28
+   finished 09:19:30 | 0 min
+== SuppTable_S14   start 09:19:30
+   finished 09:19:32 | 0 min
+== SuppTable_S15   start 09:19:32
+   finished 09:19:38 | 0 min
+== SuppTable_S16   start 09:19:38
+   finished 09:19:46 | 0 min
+== SuppTable_S17   start 09:19:46
+   finished 09:20:00 | 0 min
+== Fig17_Summary_code   start 09:20:00
+   finished 09:20:03 | 0 min
+== SuppTable_S19   start 09:20:03
+   finished 09:20:04 | 0 min
+
+84 steps finished in 302 min
+
+== compare with the original results in /ref   start 09:20:04
+   Python Parts: compare/compare_python_tables_log.txt and compare_python_matrices_log.txt
+   R Parts: compare/compare_<parts>_log.txt (summary in seaad-run_logs/compare_rerun.txt)
+   Supplementary Tables: Manuscript/Supp_Tables/compare_supp_tables_log.txt
+Sheets per result:
+  SAME                     217
+  SAME VALUES, OTHER ORDER 2
+  TEXT ONLY                1
+  WITHIN 0.1%              1
+  OUTSIDE 0.1%             4
+  DIFFERENT SIZE           1
+Log: /data/Manuscript/Supp_Tables/compare_supp_tables_log.txt
+
+seaad-run all ended 2026-10-19 09:34:57

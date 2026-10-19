@@ -1,0 +1,963 @@
+{
+ "S1": {
+  "file": "Supplementary_Table_S1_CellSelection.xlsx",
+  "title": "Supplementary Table S1. Cell selection.",
+  "subtitle": "Choice of the 3.0% cutoff and of the M4 scorer for the selection of Mic.13-like cells, in each region set. The column arm gives the region set (NeoC or NonNeoC).",
+  "sheets": [
+   {
+    "sheet": "A_cutoff_rule_verdict",
+    "description": "The selection rule (no supertype other than PVM_3 and PVM_4 with more than 1% of its own cells selected) at 101 cutoffs from 1.0% to 6.0%, applied to all supertypes (pass_raw) and after excluding supertypes with fewer than 100 cells (pass_guarded) (Supplementary Figure S1A)."
+   },
+   {
+    "sheet": "B_marker_dilution",
+    "description": "Fold enrichment of held-out Mic.13 markers, scoring-panel markers and homeostatic markers at each cutoff, for all cells kept (cum) and for the cells added within a 0.25 percentage-point band (marg)."
+   },
+   {
+    "sheet": "C_mixture",
+    "description": "Gaussian mixture fits to each base score: BIC with one and two components, the number of components (one to three) with the lowest BIC (best_k), and the two-component fit compared with a unimodal null."
+   },
+   {
+    "sheet": "D_bootstrap_stability",
+    "description": "Reproducibility of the selected cells over 200 donor bootstrap resamples at each cutoff."
+   },
+   {
+    "sheet": "E_arm_matching",
+    "description": "The three ways of matching the two region sets (equal percentage, equal number of cells or equal purity); equal percentage was used."
+   },
+   {
+    "sheet": "F_scorer_overlap",
+    "description": "Overlap of the M4 selection with its two parent scores, M1 and M2."
+   },
+   {
+    "sheet": "G_selection_by_supertype",
+    "description": "Composition of the M4-selected cells at the 3.0% cutoff by supertype, with enrichment and donor-bootstrap 95% CIs (Figure 1A and B)."
+   },
+   {
+    "sheet": "H_composition_by_scorer",
+    "description": "Composition by supertype of the top 3.0% under each of the six candidate scorers."
+   },
+   {
+    "sheet": "I_method_comparison",
+    "description": "Comparison of the six candidate scorers."
+   },
+   {
+    "sheet": "J_sweep_summary",
+    "description": "Number of selected cells, composition and selection-rule verdict at the cutoffs of 2.5%, 2.9%, 3.0%, 3.1% and 5%."
+   }
+  ]
+ },
+ "S2": {
+  "file": "Supplementary_Table_S2_Mic13Validation.xlsx",
+  "title": "Supplementary Table S2. Mic.13 validation.",
+  "subtitle": "Differential expression of M4-selected against non-selected PVM_3 cells and recovery of the Mic.13 markers not used for scoring, in each region set. The column arm gives the region set (NeoC or NonNeoC).",
+  "sheets": [
+   {
+    "sheet": "A_deg_summary",
+    "description": "Differential expression of M4-selected against non-selected PVM_3 cells per region and for the pooled PVM_2_3 and PVM_4 contrasts: cells per group and significant genes (adjusted p <0.05, absolute log2 fold change ≥0.25 and expression in ≥15% of selected cells)."
+   },
+   {
+    "sheet": "B_hypergeometric",
+    "description": "Hypergeometric recovery of Mic.13 markers among the significant genes, for the 68 markers not in the scoring panel, the 27 markers in the scoring panel (IN-SCORER) and the 12 DAM2 genes not in the scoring panel. The tests against UP DEGs count only the genes higher in the selected cells."
+   },
+   {
+    "sheet": "C_mic13_gene_detail",
+    "description": "Each Mic.13 marker gene: expression in the reference Mic.13 population, whether it is in the scoring panel, its differential-expression result and the number of regions in which it was significant."
+   }
+  ]
+ },
+ "S3": {
+  "file": "Supplementary_Table_S3_MT-CO3_selection.xlsx",
+  "title": "Supplementary Table S3. Choice of MT-CO3.",
+  "subtitle": "Comparison of MT-CO3 with the other 12 mitochondrial genes in the GOI-DFG screens of PVM_3 cells, and the pooled-screen results of every gene.",
+  "sheets": [
+   {
+    "sheet": "A_mito_gene_summary",
+    "description": "The 13 mitochondrial protein-coding genes: detection and mean counts in PVM_3 cells; DFG partners, best rs and the τb of that pair in the pooled screen of each region set; and in the regional screens, the regions with partners, the median number of partners and the regions in which the gene held the largest DFG set, counted with ties and as the one gene listed per region in Supplementary Table S4, sheet B (regions_listed_top_S4B)."
+   },
+   {
+    "sheet": "B_region_screen",
+    "description": "DFG partners of every gene with partners in the 10 regional screens of M4-selected PVM_3 cells (0, no partners) (Figure 1F)."
+   },
+   {
+    "sheet": "C_pooled_screen_NeoC",
+    "description": "Every gene passing the GOI gate in the pooled NeoC screen of PVM_3 cells (2,500 cells): best partner, its rs and τb, and number of DFG partners (Figure 1C)."
+   },
+   {
+    "sheet": "D_pooled_screen_NonNeoC",
+    "description": "As sheet C, for NonNeoC (Figure 1D)."
+   },
+   {
+    "sheet": "E_GOI_composite",
+    "description": "Ranks of the 13 mitochondrial genes on the nine measures of sheet A, the composite rank (detection and mean counts weighted twice), the worst composite rank when each measure was left out in turn, and the composite rank over every column of sheet A with the same weights."
+   }
+  ]
+ },
+ "S4": {
+  "file": "Supplementary_Table_S4_GOI_DFG_screen.xlsx",
+  "title": "Supplementary Table S4. GOI-DFG screens.",
+  "subtitle": "Genes with DFG partners in the regional screens of M4-selected cells and in the pooled screens of each supertype, in each region set. The column arm gives the region set (NeoC or NonNeoC).",
+  "sheets": [
+   {
+    "sheet": "A_population_tally",
+    "description": "Populations entering the regional screens, with cells before and after the donor filter and the number of eligible donors (a population needed ≥10 cells and ≥5 cells per donor)."
+   },
+   {
+    "sheet": "B_dfg_counts",
+    "description": "Number of genes with at least one DFG partner in each population of the regional screens, the largest DFG set and the gene holding it (Figure 1F). PVM_4 and PVM_2_3 in NonNeoC (38 and 73 cells) returned implausibly many genes with partners because of their small size."
+   },
+   {
+    "sheet": "C_top_GOIs",
+    "description": "Highest-ranked genes in each population of the regional screens, with their number of DFG partners and highest rs and τb."
+   },
+   {
+    "sheet": "D_pooled_cross_population",
+    "description": "Pooled screen of each supertype without the M4 selection, with the rank of MT-CO3 (Figure 1E)."
+   },
+   {
+    "sheet": "E_pooled_tally",
+    "description": "Populations entering the pooled screens, with the subsample size applied to the larger supertypes and the number of cells screened (the smaller of subsample_n and the cells after the donor filter)."
+   }
+  ]
+ },
+ "S5": {
+  "file": "Supplementary_Table_S5_PreChecks.xlsx",
+  "title": "Supplementary Table S5. Pre-checks of the immune object.",
+  "subtitle": "Technical pre-checks of the MT-CO3 module, over the PVM_3 cells with MT-CO3 >0 (24,463 of 29,805) unless a sheet states otherwise. The column arm gives the region set (NeoC or NonNeoC).",
+  "sheets": [
+   {
+    "sheet": "A_mito_gene_inventory",
+    "description": "The 13 mitochondrial protein-coding genes and ACTB: detection and mean counts per cell over all PVM_3 cells and over the analyzed cells, rs with MT-CO3, and the predicted rs and residual from the abundance trend (Figure 1G)."
+   },
+   {
+    "sheet": "B_trend_fits",
+    "description": "Fit of rs on log10 mean counts on each abundance axis (all cells and analyzed cells), with the ACTB prediction and residual; Figure 1G shows the analyzed-cell fit."
+   },
+   {
+    "sheet": "C_within_donor_rho",
+    "description": "Within-donor rs of MT-CO3 with cDFG for the 82 donors with ≥30 analyzed cells, without and with adjustment for depth."
+   },
+   {
+    "sheet": "D_errata_specimen_audit",
+    "description": "The 8 specimens of the SEA-AD errata of 25 June 2026 present in this dataset, and whether their donor and tissue labels match the corrected values."
+   },
+   {
+    "sheet": "E_matched_panel_null",
+    "description": "rs of 295 random non-mitochondrial nine-gene panels matched to the module on abundance and detection (Supplementary Figure S1B)."
+   },
+   {
+    "sheet": "F_per_library",
+    "description": "The 185 libraries with ≥40 analyzed cells (coded L001 to L185): module rs, intronic:exonic ambient index, analyzed cells, median depth and median mitochondrial percentage (Supplementary Figure S1C)."
+   },
+   {
+    "sheet": "G_ambient_mediation",
+    "description": "Library-level association of the ambient index with module rs, directly and after regressing out the library mitochondrial percentage (Supplementary Figure S1C and D)."
+   },
+   {
+    "sheet": "H_ambient_index_quartiles",
+    "description": "Module rs by quartile of the nucleus-level ambient index, with 95% CIs (Supplementary Figure S1E)."
+   },
+   {
+    "sheet": "I_per_region",
+    "description": "Per region: analyzed cells, module rs, donors, libraries, median depth and median mitochondrial percentage."
+   },
+   {
+    "sheet": "J_region_LORO",
+    "description": "Pooled module rs of each region set with each region left out in turn (Supplementary Figure S1F)."
+   },
+   {
+    "sheet": "K_supertype_specificity",
+    "description": "Module rs per supertype, raw and after matching to the depth distribution of PVM_3, with MT-CO3 detection (Figure 1E)."
+   },
+   {
+    "sheet": "L_segmented_screen",
+    "description": "Two-segment fit of the module relationship per supertype: breakpoint, reduction in residual sum of squares against a line and against a quadratic, and the two slopes."
+   },
+   {
+    "sheet": "M_median_specialness",
+    "description": "Screen of break location per supertype on binned curves, with the rank of the median and of inflection-point estimates from an earlier run, which differ from the inflection points reported in the manuscript."
+   },
+   {
+    "sheet": "N_ordinal_levels",
+    "description": "Every level of each clinical ordinal variable and the numeric coding used in the analyses."
+   },
+   {
+    "sheet": "O_donor_module_rho",
+    "description": "Donor-level module rs and the number of libraries it is based on (blank for the 32 donors without a library of ≥40 analyzed cells)."
+   },
+   {
+    "sheet": "P_shape_tests",
+    "description": "Linear against step fits of mitochondrial percentage and module rs on each pathology measure, with rs after adjustment for RIN, brain pH, fresh brain weight, PMI and age."
+   }
+  ]
+ },
+ "S6": {
+  "file": "Supplementary_Table_S6_DecontX.xlsx",
+  "title": "Supplementary Table S6. DecontX ambient-RNA removal.",
+  "subtitle": "DecontX estimates of ambient-RNA contamination for all immune nuclei, and the effect of decontamination on the module genes and module rs.",
+  "sheets": [
+   {
+    "sheet": "A_contamination_summary",
+    "description": "DecontX contamination per nucleus summarized over all nuclei (240,651), by supertype, by region and for PVM_3 in each region set."
+   },
+   {
+    "sheet": "B_gene_level",
+    "description": "Mean expression in PVM_3 cells before and after decontamination, with the retained and removed fractions, for the nine module genes, the other four mitochondrial genes and five reference genes. In reduced mode, these fractions are not quantitative."
+   },
+   {
+    "sheet": "C_gene_set_summary",
+    "description": "Mean, minimum and maximum retained fraction for the module genes, the other mitochondrial genes and the reference genes."
+   },
+   {
+    "sheet": "D_module_diagnostic",
+    "description": "Module rs before and after decontamination over cells with MT-CO3 >0, per supertype and for PVM_3 in each region set."
+   },
+   {
+    "sheet": "E_per_nucleus",
+    "description": "DecontX contamination estimate of every immune nucleus, with its supertype, library, region and region set."
+   }
+  ]
+ },
+ "S7": {
+  "file": "Supplementary_Table_S7_Fig2_SKCS.xlsx",
+  "title": "Supplementary Table S7. Cells of the four arms, GAM fits, the S_i floor and the pitcher plots.",
+  "subtitle": "Values behind Figures 1H and 2 to 4 and Supplementary Figures S2 to S10. Expression values are log1p CP10K; S_i, K_i, ranks and copula coordinates are computed within each arm and region set, pooled over its regions.",
+  "sheets": [
+   {
+    "sheet": "A_cells",
+    "description": "Every GOI-positive cell of each arm and region set: donor; expression of the GOI, the composite, the fitted composite of the all-cells GAM, cHKG and the 17 module and housekeeping genes; S_i, K_i and SKCS-core; TREP labels among all cells and in the SKCS-core; EP; pre-IP or post-IP group; and copula coordinates u, v, u_SK and v_SK (Figures 2 to 4; Supplementary Figures S2, S3 and S5 to S10). The arms overlap, so a barcode can appear under more than one arm."
+   },
+   {
+    "sheet": "B_HKG_pitcher_cells",
+    "description": "S_i, K_i and SKCS-core of HKG8 cells with YWHAZ or RAB7A as GOI; their expression is in sheet A under the same barcode (Figure 2B and D)."
+   },
+   {
+    "sheet": "C_GAM",
+    "description": "GAM fits of the composite and cHKG on the GOI over all GOI-positive cells and over the SKCS-core, per region and pooled: cells, donors, basis size, effective degrees of freedom, deviance explained and smooth-term test (Figure 1H; Figure 2; Supplementary Figure S5). The SKCS-core rows of each region use S_i and K_i computed within that region, so their cell counts can differ slightly from the pooled SKCS-core of sheet A."
+   },
+   {
+    "sheet": "D_Si_mixture",
+    "description": "Gaussian mixture of S_i in M4 by region set; the component centered on zero is the peak (Supplementary Figure S4A and E)."
+   },
+   {
+    "sheet": "E_Si_boundaries",
+    "description": "Candidate upper ends of the peak of S_i at zero: density trough, three rank-based bounds, the mixture intersection, and the S_i values at which P(waist) falls to 5% and 1% (Supplementary Figure S4B, C, F and G)."
+   },
+   {
+    "sheet": "F_Si_posterior",
+    "description": "Posterior probability (%) that a cell with the given S_i belongs to the peak component (Supplementary Figure S4D and H)."
+   },
+   {
+    "sheet": "G_Si_rank_tests",
+    "description": "Kruskal-Wallis test of GOI rank deviation over bins of S_i, Dunn's test of the peak bin against [0.04, 0.06), the dispersion ratio, and Kendall tau between S_i and rank deviation (Supplementary Figure S4D and H)."
+   },
+   {
+    "sheet": "H_pitcher_summary",
+    "description": "Pooled r_s, tau_b and SKCS-core of each arm and region set, and of the HKG8 cells with EEF1A1, YWHAZ or RAB7A as GOI (Figure 2B and D; Supplementary Figure S5). EEF1A1 is not shown in Figure 2."
+   }
+  ]
+ },
+ "S8": {
+  "file": "Supplementary_Table_S8_Fig3_IP.xlsx",
+  "title": "Supplementary Table S8. Inflection points.",
+  "subtitle": "IP detection and IPRS for each arm and region set. GOI and composite: MT-CO3 and cDFG (M4, PVM_3, PVM_1); ACTB and cHKG8 (HKG8). Cell-level values, including the pre-IP and post-IP groups, are in Supplementary Table S7, sheet A.",
+  "sheets": [
+   {
+    "sheet": "A_IP_detection",
+    "description": "IP_x with its 95% CI, IP_y, the test behind C2, the IPRS components, IPRS and tier, per arm and region set (Supplementary Figure S6; Figure 3; Supplementary Figure S7). The bounds of IP_y are those of IP_x mapped through the fitted curve. p-values stored as 0 in the analysis output (PVM_3) are written as < 2.2 × 10⁻¹⁶. Flag marks the one dataset below the Strong IPRS tier (HKG8 NonNeoC)."
+   },
+   {
+    "sheet": "B_Rx_grid",
+    "description": "R(x) and its 95% band at every tenth point of the 2,000-point grid (Supplementary Figure S6)."
+   }
+  ]
+ },
+ "S9": {
+  "file": "Supplementary_Table_S9_Fig4_Copula.xlsx",
+  "title": "Supplementary Table S9. Copula coordinates.",
+  "subtitle": "Inflection points, gates and worked cells in copula coordinates, where each cell's rank is divided by n + 1 within its arm and region set. The copula coordinates of every cell are in Supplementary Table S7, sheet A.",
+  "sheets": [
+   {
+    "sheet": "A_copula_IP",
+    "description": "IP_x and IP_y converted to copula coordinates, IP_u and IP_v (Figure 4A and B; Supplementary Figures S8A, S8B and S9)."
+   },
+   {
+    "sheet": "B_copula_gates",
+    "description": "The S_i and K_i gates converted to copula coordinates, u_gate and v_gate, as cells/(n + 1); the column Form in the log shows how the analysis logs printed them (Figure 4C and D; Supplementary Figures S8C, S8D and S10)."
+   },
+   {
+    "sheet": "C_worked_cells",
+    "description": "Worked cells A to P with their barcodes, values, ranks and copula coordinates; each barcode identifies the cell in Supplementary Table S7, sheet A (Figure 4; Supplementary Figures S8 to S10)."
+   }
+  ]
+ },
+ "S10": {
+  "file": "Supplementary_Table_S10_Fig5_CMRF.xlsx",
+  "title": "Supplementary Table S10. Copula monotone recovery filter (CMRF) and validation of the Recovered cells.",
+  "subtitle": "Values behind Figures 5 to 8 and Supplementary Figures S11 and S12. Sheets D to F hold the RSk-fCV gate of M4 NeoC shown in Figure 7.",
+  "sheets": [
+   {
+    "sheet": "A_cells",
+    "description": "Every GOI-positive cell of the four arms and two region sets: copula coordinates, SKCS-core group, band, Stage 1 group, Stage 2 removal step, CMRF class, final layer, IP side of the Recovered cells, copula score coordinates (u_SK, v_SK), Figure 8 refit group and UMAP coordinates (Figures 6 to 8; Supplementary Figure S12)."
+   },
+   {
+    "sheet": "B_band",
+    "description": "Tolerance band and spline parameters, and class counts, per arm and region set (Figure 6; Supplementary Figures S11 and S12)."
+   },
+   {
+    "sheet": "C_gate",
+    "description": "RSk-fCV gate per arm and region set: candidates, iterations, removed and recovered cells, median RMSE_A, BV, final dRMSE, final Wilcoxon p and the closing criterion; the _ratio columns divide dRMSE and BV by the median RMSE_A (Figures 5 and 7; Supplementary Figure S12)."
+   },
+   {
+    "sheet": "D_gate_trajectory",
+    "description": "Wilcoxon p, dRMSE and active candidates at each of the 55 iterations, M4 NeoC (Figure 7I)."
+   },
+   {
+    "sheet": "E_fold_RMSE",
+    "description": "RMSE_A and RMSE_B of the 200 folds (40 repeats x 5) at iterations 1 and 55, M4 NeoC (Figure 7D to F and K to M)."
+   },
+   {
+    "sheet": "F_candidates",
+    "description": "The 352 Stage 1 candidate cells ranked by |v - PAVA(u)|, with removal step and outcome, matched to their barcodes on u and v, M4 NeoC (Figure 7G, H and N)."
+   },
+   {
+    "sheet": "G_tests",
+    "description": "Statistical tests on the CMRF classes and the Recovered cells per arm and region set: the RSk-fCV comparison, |v - g(u)| over classes (Kruskal-Wallis and Jonckheere-Terpstra), Recovered against Excluded, and the dependence of u and v in Recovered cells (Hoeffding's D, distance correlation) (Figure 7O and P). p_value_BH_FDR was rounded to six decimals in the analysis output, so values written < 1 × 10⁻⁶ were stored as 0; p_value is unrounded and is written < 1 × 10⁻³⁰⁰ where it was stored as 0."
+   },
+   {
+    "sheet": "H_resid_by_class",
+    "description": "Median and quartiles of the spline residual |v - g(u)| by CMRF class, per arm and region set (Figure 7P)."
+   },
+   {
+    "sheet": "I_Fig8_summary",
+    "description": "Values behind Figure 8C per arm and region set: bridge distances, the Recovered/TREP ratio, gates failed, position on the pre-IP to post-IP axis, neighbor enrichment and kBET."
+   },
+   {
+    "sheet": "J_Fig8_tests",
+    "description": "Omnibus, ordered-trend and pairwise tests of the bridge distance and the position, at the cell and donor levels, with BH-adjusted p (Figure 8C)."
+   }
+  ]
+ },
+ "S11": {
+  "file": "Supplementary_Table_S11_DEGs_ModvsNonMod.xlsx",
+  "title": "Supplementary Table S11. Differential expression between Module and non-Module cells, and between post-IP and pre-IP cells.",
+  "subtitle": "Paired pseudobulk per donor (Wilcoxon signed-rank test; BH across genes within each comparison); significant: BH <0.05 and |log2FC| ≥0.25. M4, PVM_3 and PVM_1 carry the MT-CO3 Module; HKG8 is the housekeeping control arm. NeoC and NonNeoC were analyzed separately. Mitochondrial genes (MT-, MTRNR2L, TSPO) are flagged because the Module is defined on them.",
+  "sheets": [
+   {
+    "sheet": "A_Contrasts",
+    "description": "Four comparisons per arm and region set: cells per group, paired donors, genes tested, significant genes by direction and mitochondrial flag, the smallest BH, and the smallest p and BH attainable with that donor count."
+   },
+   {
+    "sheet": "B_Control_test",
+    "description": "Genes significant on PVM_3, with the test of their per-donor log2FC on M4 and on PVM_1 against HKG8; passes_control_test is TRUE when both arms differ from HKG8 at two-sided FDR <0.05 in the direction seen on PVM_3."
+   },
+   {
+    "sheet": "B_Summary",
+    "description": "PVM_3 DEGs per comparison and region set, and those that pass against HKG8 on M4, on PVM_1 and on both, mitochondrial or not."
+   },
+   {
+    "sheet": "C_Axis_check",
+    "description": "The 14 non-mitochondrial genes that passed on post-IP against pre-IP, with their log2FC in Module cells and in non-Module cells crossing the same IP; the nine defining genes are listed for scale."
+   },
+   {
+    "sheet": "D_Control_validity",
+    "description": "Cohen's kappa for Module membership between arms, on shared cells."
+   },
+   {
+    "sheet": "E_Survivors_regions",
+    "description": "The 14 genes in both region sets on all four arms, and whether each changed in the same direction in the region set where it did not pass."
+   },
+   {
+    "sheet": "F_Neuronal_summary",
+    "description": "The 11 short neuron-specific genes beside the 14 genes, in Module and in non-Module cells crossing the IP. The pseudocount compresses small log2FC values, so only signs are comparable between panels."
+   },
+   {
+    "sheet": "F_Neuronal_genes",
+    "description": "Gene-level values behind F_Neuronal_summary."
+   },
+   {
+    "sheet": "G_UMI_summary",
+    "description": "Total and non-mitochondrial UMIs per nucleus, post-IP against pre-IP within donor, in Module and in non-Module cells."
+   },
+   {
+    "sheet": "G_UMI_donors",
+    "description": "Donor values behind G_UMI_summary."
+   },
+   {
+    "sheet": "G_IP_split",
+    "description": "Assignment of cells to post-IP and pre-IP for sheets G and H, checked against the cell counts of the differential-expression run (columns ending in _de_run)."
+   },
+   {
+    "sheet": "H_Panel_summary",
+    "description": "UMIs per nucleus (amount) and share of non-mitochondrial UMIs for the long neuronal genes, the short neuron-specific genes and six microglial genes, post-IP against pre-IP within donor. fold_own_rna is 2 raised to the median over donors of log2_own_rna, which equals log2_amount minus log2_share (H_Panel_donors). Sheet G uses each donor's median log2 UMIs per nucleus, so its non-mitochondrial fold differs."
+   },
+   {
+    "sheet": "H_Panel_donors",
+    "description": "Donor values behind H_Panel_summary."
+   }
+  ]
+ },
+ "S12": {
+  "file": "Supplementary_Table_S12_Prognosis_&_Ablation.xlsx",
+  "title": "Supplementary Table S12. Clinical association, benchmark against competitors, and boundary ablation.",
+  "subtitle": "Values behind Figures 9 to 11 and Supplementary Figure S14.",
+  "sheets": [
+   {
+    "sheet": "A_donor_frame",
+    "description": "Donor-level predictors, outcomes and covariates for every arm and region set (Figures 9 to 11)."
+   },
+   {
+    "sheet": "B_Fig9A_variance",
+    "description": "cov4 models of the four cell populations (Figure 9A)."
+   },
+   {
+    "sheet": "C_Fig9B_cognition",
+    "description": "Module post-IP% on MMSE and CASI with pathology added (Figure 9B)."
+   },
+   {
+    "sheet": "D_Fig9C_pathology",
+    "description": "Module post-IP% on pathology with MMSE and CASI added (Figure 9C)."
+   },
+   {
+    "sheet": "E_Fig9D_mod_vs_nonmod",
+    "description": "Module minus non-Module coefficient in one model, and each coefficient tested on its own (p_module, FDR_module, p_nonmodule, FDR_nonmodule; BH within arm, region set and predictor over the six outcomes) (Figure 9D)."
+   },
+   {
+    "sheet": "F_Fig10A_benchmark",
+    "description": "Module post-IP% and five competitors, each in a separate cov4 model (Figure 10A)."
+   },
+   {
+    "sheet": "G_Fig10B_competitors",
+    "description": "Module post-IP% and one competitor in one model (Figure 10B)."
+   },
+   {
+    "sheet": "H_Fig10CD_decomposition",
+    "description": "Module post-IP% with cluster proportion (CP) and a gene score in one model (Figure 10C and the coefficients of Figure 10D). The columns ending in _without_CP are the model with the score and Module post-IP% only, which gives the FDR and labels of Figure 10D."
+   },
+   {
+    "sheet": "I_Fig11A_boundary_assoc",
+    "description": "Module post-IP% per boundary on MMSE and CASI (Figure 11A)."
+   },
+   {
+    "sheet": "J_Fig11B_boundary_curves",
+    "description": "Center line and boundary lines of each boundary, M4 NeoC (Figure 11B)."
+   },
+   {
+    "sheet": "K_Fig11BC_cells",
+    "description": "Every cell of the eight arm and region-set combinations with u, v, side of the IP and membership of each boundary (Figures 11B and 11C)."
+   },
+   {
+    "sheet": "L_Fig11C_scorecard",
+    "description": "Boundary scorecard and overlap with CMRF (Figure 11C)."
+   },
+   {
+    "sheet": "M_Fig11C_tests",
+    "description": "Every test behind the scorecard (Figure 11C)."
+   },
+   {
+    "sheet": "N_Fig11C_overlap",
+    "description": "Jaccard overlap between boundaries (Figure 11C)."
+   },
+   {
+    "sheet": "O_Fig11BC_boundary_summary",
+    "description": "IP_y, coverage, widths and cell counts per arm and region set (Figures 11B and 11C)."
+   },
+   {
+    "sheet": "P_SuppFig14_cov4_cov7",
+    "description": "Module post-IP% at cov4 and cov7, nine clinical and six negative-control outcomes (Supplementary Figure S14)."
+   },
+   {
+    "sheet": "Q_SuppFig14_leave_one_in",
+    "description": "Module post-IP% at cov4 with one added covariate at a time, 18 covariates (Supplementary Figure S14)."
+   },
+   {
+    "sheet": "R_SuppFig14_without_SA",
+    "description": "Module post-IP% at cov4 on the negative-control outcomes, with all donors and without the 11 SA donors (Supplementary Figure S14)."
+   },
+   {
+    "sheet": "S_SuppFig14_tissue_disease",
+    "description": "Spearman correlation of RIN, brain pH and fresh brain weight with eight disease outcomes (Supplementary Figure S14)."
+   }
+  ]
+ },
+ "S13": {
+  "file": "Supplementary_Table_S13_Fig12_Contamination.xlsx",
+  "title": "Supplementary Table S13. Battery 1: contamination and doublets.",
+  "subtitle": "Values behind Figure 12 and Supplementary Figure S15. Values in the panel column keep the figure numbers of the analysis run (15 is Figure 12; S11 is Supplementary Figure S15). The ambient index is named soup index in column and quantity names.",
+  "sheets": [
+   {
+    "sheet": "A_Fig12A_readout",
+    "description": "Module post-IP% in the Figure 9A model, fitted on the donors with labeled cells of the arm, before and after adding the donor-mean DecontX contamination, with retention and status as Excel formulas over the same line (Figure 12A). Significance before adjustment uses all of these donors and the adjusted model the donors with a contamination value."
+   },
+   {
+    "sheet": "B_Fig12A_stats",
+    "description": "Statistics behind Figure 12A."
+   },
+   {
+    "sheet": "C_Fig12B_readout",
+    "description": "The same model after removing Module post-IP nuclei with a doublet score of 0.15, 0.20 or 0.30 or more, with the change in ΔR² and status as Excel formulas (Figure 12B)."
+   },
+   {
+    "sheet": "D_Fig12B_removed",
+    "description": "Share of Module post-IP nuclei removed at each doublet-score threshold (Figure 12B)."
+   },
+   {
+    "sheet": "E_Fig12B_stats",
+    "description": "Statistics behind Figure 12B."
+   },
+   {
+    "sheet": "F_Fig12AB_donors",
+    "description": "Donor values behind Figures 12A and 12B, from which each model can be refitted."
+   },
+   {
+    "sheet": "G_Fig12C_stats",
+    "description": "Within-donor difference in group median DecontX contamination, three contrasts (Figure 12C)."
+   },
+   {
+    "sheet": "H_Fig12D_stats",
+    "description": "r_s of the GOI with the composite per within-donor contamination tertile, and T3 minus T1 (Figure 12D)."
+   },
+   {
+    "sheet": "I_Fig12D_tertiles",
+    "description": "Values plotted in Figure 12D."
+   },
+   {
+    "sheet": "J_Fig12E_stats",
+    "description": "Gerrits dataset: log ratio of the ambient to the nuclear MT fraction, median over samples (Figure 12E)."
+   },
+   {
+    "sheet": "K_Fig12E_samples",
+    "description": "Per-sample values plotted in Figure 12E."
+   },
+   {
+    "sheet": "L_Fig12F_stats",
+    "description": "Gerrits dataset: median r_s of the eight DFGs with MT-CO3, raw and with the ambient index and log depth partialed out (Figure 12F)."
+   },
+   {
+    "sheet": "M_Fig12F_samples",
+    "description": "Per-sample values plotted in Figure 12F."
+   },
+   {
+    "sheet": "N_Fig12G_stats",
+    "description": "Gerrits dataset: r_s in the top minus the bottom ambient-index tertile (Figure 12G)."
+   },
+   {
+    "sheet": "O_Fig12G_tertiles",
+    "description": "Values plotted in Figure 12G."
+   },
+   {
+    "sheet": "P_Fig12H_stats",
+    "description": "Median r_s over thinning repeats per target depth, with and without matching the Gerrits MT fraction (Figure 12H)."
+   },
+   {
+    "sheet": "Q_SuppFig15_stats",
+    "description": "Within-donor Module post-IP minus Module pre-IP differences in the own-ER, ribosomal and NEAT1 shares and the other-lineage index (Supplementary Figure S15)."
+   }
+  ]
+ },
+ "S14": {
+  "file": "Supplementary_Table_S14_Fig13_MeasurementArtifact.xlsx",
+  "title": "Supplementary Table S14. Battery 2: measurement artifacts.",
+  "subtitle": "Values behind Figure 13 and Supplementary Figure S16. Values in the panel column keep the figure numbers of the analysis run (16 is Figure 13).",
+  "sheets": [
+   {
+    "sheet": "A_Fig13A_readout",
+    "description": "Donor share of variance over donor-region units for five quantities, against donor labels shuffled within region, in percent, with the gap to the null 95th percentile (Figure 13A)."
+   },
+   {
+    "sheet": "B_Fig13A_stats",
+    "description": "Statistics behind Figure 13A."
+   },
+   {
+    "sheet": "C_Fig13B_stats",
+    "description": "Split-half r_s of donor means over 200 random half-splits, median over splits (Figure 13B)."
+   },
+   {
+    "sheet": "D_Fig13C_readout",
+    "description": "Cohen's κ for Module membership on cells shared with the PVM_3 reference, with the percentage of cells in each of the four groups and the pre-specified readings (Figure 13C)."
+   },
+   {
+    "sheet": "E_Fig13C_stats",
+    "description": "Statistics behind Figure 13C."
+   },
+   {
+    "sheet": "F_Fig13D_stats",
+    "description": "Per-donor r_s of MT-CO3 with cDFG, raw and depth-partialed, with the pooled and between-donor r_s, and ACTB with cHKG8 as the control pair (Figure 13D)."
+   },
+   {
+    "sheet": "G_Fig13D_donors",
+    "description": "Per-donor values plotted in Figure 13D."
+   },
+   {
+    "sheet": "H_Fig13E_readout",
+    "description": "Offset share of MT UMIs, Module post-IP minus Module pre-IP, with the verdict against the 10 percentage-point margin (Figure 13E)."
+   },
+   {
+    "sheet": "I_Fig13E_stats",
+    "description": "Statistics behind Figure 13E."
+   },
+   {
+    "sheet": "J_Fig13F_stats",
+    "description": "r_s of Module post-IP% with the library intronic rate between donors and within donor, with comparators and contrasts (Figure 13F)."
+   },
+   {
+    "sheet": "K_Fig13G_conditions",
+    "description": "The four pre-specified conditions for each library field kept, as Excel formulas over the same line (Figure 13G; Supplementary Figure S16)."
+   },
+   {
+    "sheet": "L_Fig13G_stats",
+    "description": "r_s of Module post-IP% with each library field kept, with comparators and contrasts (Figure 13G; Supplementary Figure S16)."
+   },
+   {
+    "sheet": "M_Fig13_units",
+    "description": "Values of every donor-region unit used in Figures 13A, 13B, 13F and 13G."
+   }
+  ]
+ },
+ "S15": {
+  "file": "Supplementary_Table_S15_Fig14_ModuleVsMT.xlsx",
+  "title": "Supplementary Table S15. Battery 3: histology and clinical outcomes against %MT.",
+  "subtitle": "Values behind Figure 14 and Supplementary Figure S17. Values in the panel column keep the figure numbers of the analysis run (17 is Figure 14; S13 is Supplementary Figure S17).",
+  "sheets": [
+   {
+    "sheet": "A_Fig14A_readout",
+    "description": "Within-donor r_s of Module post-IP%, log1p %MT and the cytoplasmic share with the six IBA1 measures, with the pre-specified direction (Figure 14A)."
+   },
+   {
+    "sheet": "B_Fig14A_stats",
+    "description": "Statistics behind Figure 14A."
+   },
+   {
+    "sheet": "C_Fig14B_stats",
+    "description": "r_s of Module post-IP%, log1p %MT, the cytoplasmic share, contamination and log cell count with the CPS scores, within donor and between donors (Figure 14B)."
+   },
+   {
+    "sheet": "D_Fig14C_verdicts",
+    "description": "Module post-IP% and %MT in one rank model for each of the 28 stain measures, within donor and between donors, with the verdict as an Excel formula (Figure 14C)."
+   },
+   {
+    "sheet": "E_Fig14C_stats",
+    "description": "Statistics behind Figure 14C."
+   },
+   {
+    "sheet": "F_Fig14D_verdicts",
+    "description": "Module post-IP% and %MT in one cov4 model for the nine clinical outcomes, with the verdict as an Excel formula (Figure 14D)."
+   },
+   {
+    "sheet": "G_Fig14D_stats",
+    "description": "Statistics behind Figure 14D."
+   },
+   {
+    "sheet": "H_Fig14D_donors",
+    "description": "Donor values behind Figures 14D and 14E."
+   },
+   {
+    "sheet": "I_Fig14E_readout",
+    "description": "|r| between Module post-IP% and %MT, and the VIF, per arm and frame type (Figure 14E); the VIF of each 14C and 14D model is in sheets D and F."
+   },
+   {
+    "sheet": "J_Fig14E_stats",
+    "description": "Statistics behind Figure 14E."
+   },
+   {
+    "sheet": "K_SuppFig17_stats",
+    "description": "Median r_s over the measures of each stain family, and the family median of |Module r_s| minus |%MT r_s| (Supplementary Figure S17)."
+   },
+   {
+    "sheet": "L_SuppFig17_measures",
+    "description": "Per-measure r_s behind Supplementary Figure S17."
+   },
+   {
+    "sheet": "M_SuppFig17_counts",
+    "description": "Measures tested in each stain family (Supplementary Figure S17)."
+   },
+   {
+    "sheet": "N_Fig14_units",
+    "description": "Values of every unit, with the stain measures and CPS scores joined by donor and region."
+   }
+  ]
+ },
+ "S16": {
+  "file": "Supplementary_Table_S16_Fig15_NuclearPanels.xlsx",
+  "title": "Supplementary Table S16. Battery 4: nuclear-encoded panels, %MT cuts and donor requirement.",
+  "subtitle": "Values behind Figure 15 and Supplementary Figures S18 and S19. Values in the panel column keep the figure numbers of the analysis run (18 is Figure 15). In the verdicts, second only stands for Module only or %MT only.",
+  "sheets": [
+   {
+    "sheet": "A_Fig15A_verdicts",
+    "description": "Module post-IP% or %MT with each nuclear-encoded mitochondrial panel score in one cov4 model, nine outcomes, with the verdict as an Excel formula (Figure 15A; Supplementary Figure S18)."
+   },
+   {
+    "sheet": "B_Fig15A_stats",
+    "description": "Statistics behind Figure 15A and Supplementary Figure S18."
+   },
+   {
+    "sheet": "C_Fig15A_panels",
+    "description": "Genes of each panel: in the panel, in the count matrix and detected in ≥10% of the arm's cells."
+   },
+   {
+    "sheet": "D_Fig15B_readout",
+    "description": "AUC of %MT for Module membership, cells pooled over donors, with the best cut by Youden's J, Cohen's κ at that cut and the reading (Figure 15B; Supplementary Figure S19)."
+   },
+   {
+    "sheet": "E_Fig15B_stats",
+    "description": "Statistics behind Figure 15B and Supplementary Figure S19."
+   },
+   {
+    "sheet": "F_Fig15C_readout",
+    "description": "Median within-donor AUC of %MT over donors with ≥20 Module and ≥20 non-Module cells, and the reading (Figure 15C)."
+   },
+   {
+    "sheet": "G_Fig15C_stats",
+    "description": "Statistics behind Figure 15C."
+   },
+   {
+    "sheet": "H_Fig15C_donors",
+    "description": "Per-donor AUC plotted in Figure 15C."
+   },
+   {
+    "sheet": "I_Fig15BC_cells",
+    "description": "Module membership and %MT of every labeled cell, behind Figures 15B and 15C."
+   },
+   {
+    "sheet": "J_Fig15D_stats",
+    "description": "Detection rate of rules R1 to R3 against donor count, with Module post-IP% rescaled to 1.0x, 0.75x and 0.5x the observed donor share (Figure 15D)."
+   },
+   {
+    "sheet": "K_Fig15D_curves",
+    "description": "Detection-rate curves plotted in Figure 15D."
+   },
+   {
+    "sheet": "L_Fig15E_stats",
+    "description": "Donors kept, donor share and split-half r_s against the minimum number of regions per donor (Figure 15E)."
+   },
+   {
+    "sheet": "M_Fig15E_regions",
+    "description": "Values plotted in Figure 15E."
+   },
+   {
+    "sheet": "N_Fig15DE_units",
+    "description": "Unit values behind Figures 15D and 15E."
+   }
+  ]
+ },
+ "S17": {
+  "file": "Supplementary_Table_S17_Fig16_SADonors.xlsx",
+  "title": "Supplementary Table S17. Battery 5: removal of the 11 SA donors.",
+  "subtitle": "Values behind Figure 16, and the verdicts in sheets O to Q, which are not drawn in a figure. Values in the panel column keep the figure numbers of the analysis run: 15A, 16A, 16B, 16F, 17A to 17D and 18A are Figures 12A, 13A, 13B, 13F, 14A to 14D and 15A, and the prefix 19 is Figure 16.",
+  "sheets": [
+   {
+    "sheet": "A_Fig16A_readout",
+    "description": "The Figure 13A donor share, the 13B split-half r_s and the 13F between-donor r_s with the intronic rate, per arm, with all donors and without the 11, with the class as an Excel formula (Figure 16A). lo_wo and hi_wo are the shuffle-null median and 95th percentile for the donor share, and the 95% CI for the split-half and intronic-rate rows."
+   },
+   {
+    "sheet": "B_Fig16A_13A_stats",
+    "description": "Statistics of the Figure 13A donor share without the 11."
+   },
+   {
+    "sheet": "C_Fig16A_13B_stats",
+    "description": "Statistics of the Figure 13B split-half r_s without the 11."
+   },
+   {
+    "sheet": "D_Fig16A_13F_stats",
+    "description": "Statistics of the Figure 13F between-donor r_s without the 11."
+   },
+   {
+    "sheet": "E_Fig16B_counts",
+    "description": "Class of every retested comparison, counted per panel and arm (Figure 16B)."
+   },
+   {
+    "sheet": "F_Fig16B_readout_histology",
+    "description": "Retested results of Figures 14A to 14C with all donors and without the 11, the random-removal comparison and the class as an Excel formula (Figure 16B)."
+   },
+   {
+    "sheet": "G_Fig16B_readout_clinical",
+    "description": "Retested results of Figures 12A, 14D and 15A with all donors and without the 11, the random-removal comparison and the class as an Excel formula (Figure 16B)."
+   },
+   {
+    "sheet": "H_Fig16B_12A_stats",
+    "description": "Statistics of the Figure 12A models without the 11."
+   },
+   {
+    "sheet": "I_Fig16B_14A_stats",
+    "description": "Statistics of Figure 14A without the 11."
+   },
+   {
+    "sheet": "J_Fig16B_14B_stats",
+    "description": "Statistics of Figure 14B without the 11."
+   },
+   {
+    "sheet": "K_Fig16B_14C_stats",
+    "description": "Statistics of Figure 14C without the 11."
+   },
+   {
+    "sheet": "L_Fig16B_14D_stats",
+    "description": "Statistics of Figure 14D without the 11."
+   },
+   {
+    "sheet": "M_Fig16B_15A_stats",
+    "description": "Statistics of Figure 15A without the 11."
+   },
+   {
+    "sheet": "N_Fig16C_clinical",
+    "description": "FDR of the unadjusted Module post-IP% coefficient of Figure 12A per arm, region set and outcome, with all donors and without the 11 (Figure 16C)."
+   },
+   {
+    "sheet": "O_Verdicts_14C",
+    "description": "Figure 14C within-donor verdicts with all donors and without the 11, the latter as an Excel formula."
+   },
+   {
+    "sheet": "P_Verdicts_14D",
+    "description": "Figure 14D verdicts with all donors and without the 11, the latter as an Excel formula."
+   },
+   {
+    "sheet": "Q_Verdicts_15A",
+    "description": "Figure 15A verdicts with all donors and without the 11, the latter as an Excel formula."
+   },
+   {
+    "sheet": "R_Influence",
+    "description": "Leave-one-donor-out change of every 13A, 13B and 13F between-donor estimate."
+   },
+   {
+    "sheet": "S_Influence_summary",
+    "description": "Summary of the leave-one-donor-out changes for each estimate."
+   },
+   {
+    "sheet": "T_SA_donors",
+    "description": "Every donor of the donor table with its SA flag, membership of the random-removal pool and arms."
+   },
+   {
+    "sheet": "U_Frames",
+    "description": "Donor frames with their donors, SA donors and random-removal pool."
+   },
+   {
+    "sheet": "V_Null_draws",
+    "description": "The donors removed in each random-removal draw."
+   }
+  ]
+ },
+ "S18": {
+  "file": "Supplementary_Table_S18_M4vsPVM3.xlsx",
+  "title": "Supplementary Table S18. M4 against PVM_3.",
+  "subtitle": "Values behind Supplementary Figures S20 and S21: the M4 share analysis (sheets A to D and H to N) and the random-subset analysis (sheets E to G and O to Q).",
+  "sheets": [
+   {
+    "sheet": "A_M4share_cognition",
+    "description": "Standardized β of Module post-IP% on cognition without and with the M4 share (cov4, +BTC, cov4 + %MT), with 95% CI, FDR and the largest VIF (Supplementary Figure S20A)."
+   },
+   {
+    "sheet": "B_State_vs_MT",
+    "description": "Standardized β of the Module state and of %MT in one model (Figure 14D model; within-M4 fraction at cov4 and +BTC) (Supplementary Figure S20B)."
+   },
+   {
+    "sheet": "C_State_MT_verdicts",
+    "description": "Verdicts at FDR <0.05 for the Module state and %MT in one model, nine clinical outcomes; unreadable when the largest VIF was ≥5 (Supplementary Figure S20C)."
+   },
+   {
+    "sheet": "D_Fraction_MT_MMSE",
+    "description": "Within-M4 fraction, %MT of the M4 cells and MMSE per donor (donors with ≥5 M4 cells), with Pearson r per region set (Supplementary Figure S20D)."
+   },
+   {
+    "sheet": "E_Random_cognition",
+    "description": "β of Module post-IP% on cognition for the M4 cells under PVM_3 labels and under their own labels, and the random-subset median and 95% range, with two-sided empirical p and FDR (Supplementary Figure S21A)."
+   },
+   {
+    "sheet": "F_Random_MT",
+    "description": "r of Module post-IP% with %MT, r of the within-M4 fraction with %MT, and the mean fraction, as in sheet E (Supplementary Figure S21B)."
+   },
+   {
+    "sheet": "G_Random_verdicts",
+    "description": "Figure 14D verdicts of the M4 cells and the share of random subsets with each verdict (Supplementary Figure S21C)."
+   },
+   {
+    "sheet": "H_Models",
+    "description": "Every fitted model of the M4 share analysis, by predictor, with n, β, SE, p, 95% CI, FDR, ΔR² and VIF."
+   },
+   {
+    "sheet": "I_Verdicts",
+    "description": "Every verdict: Module against the M4 share, cluster proportion or %MT, and the within-M4 fraction against %MT."
+   },
+   {
+    "sheet": "J_Bootstrap",
+    "description": "Donor bootstrap of the change in the Module post-IP% coefficient when the M4 share was added."
+   },
+   {
+    "sheet": "K_Decomposition",
+    "description": "Figure 10C and 10D decomposition models with and without the M4 share."
+   },
+   {
+    "sheet": "L_Collinearity",
+    "description": "Pearson and Spearman correlations between the M4 share, the Module state and %MT."
+   },
+   {
+    "sheet": "M_PostHoc",
+    "description": "Post-hoc models of the within-M4 fraction with %MT, cognition outcomes."
+   },
+   {
+    "sheet": "N_Specs",
+    "description": "Every model specification with its BH family."
+   },
+   {
+    "sheet": "O_RandomSubset",
+    "description": "Every readout of the random-subset analysis against the random subsets, with the empirical p, FDR and family."
+   },
+   {
+    "sheet": "P_LabelAgreement",
+    "description": "Module post-IP labels of the M4 cells under the M4 arm's own labels and under PVM_3 labels."
+   },
+   {
+    "sheet": "Q_Design",
+    "description": "Pool, labels, strata, draws, seed and models of the random-subset analysis."
+   },
+   {
+    "sheet": "R_Donors",
+    "description": "Donor values of both analyses, per donor and region set."
+   },
+   {
+    "sheet": "S_Readings",
+    "description": "Pre-specified and post-hoc readings of both analyses and their results."
+   }
+  ]
+ },
+ "S19": {
+  "file": "Supplementary_Table_S19_Fig17_TestSummary.xlsx",
+  "title": "Supplementary Table S19. Summary of all tests.",
+  "subtitle": "Values behind Figure 17. In the source columns, S12 to S18 are Supplementary Tables S12 to S18, followed by their sheet names.",
+  "sheets": [
+   {
+    "sheet": "A_Tests",
+    "description": "Test definitions and rules."
+   },
+   {
+    "sheet": "B_Cells",
+    "description": "Verdict of every test, arm and region set for MMSE and CASI; the Thal phase and Braak stage results are in sheets C and G."
+   },
+   {
+    "sheet": "C_Lead_result",
+    "description": "Results of the strip columns of Figure 17B (region set Both, NeoC and NonNeoC combined), and the same results for NeoC and NonNeoC separately."
+   },
+   {
+    "sheet": "D_Lead_tally",
+    "description": "Tallies of sheet C, including the mean percentage of models held per test."
+   },
+   {
+    "sheet": "E_Both_region_tally",
+    "description": "Tests held in both region sets."
+   },
+   {
+    "sheet": "F_Boxed",
+    "description": "Values boxed in Figure 17B."
+   },
+   {
+    "sheet": "G_Models",
+    "description": "Every model read by the tests."
+   },
+   {
+    "sheet": "H_Tallies",
+    "description": "Tallies per arm and region set."
+   },
+   {
+    "sheet": "I_Checks",
+    "description": "Checks run when the figure was built. The checks use the analysis-run names: SuppTable_Fig15 to SuppTable_Fig19 hold the values of Supplementary Tables S13 to S17, and the Part13 and Part13b tables those of Supplementary Table S18."
+   }
+  ]
+ }
+}

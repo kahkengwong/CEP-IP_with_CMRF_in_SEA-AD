@@ -6,6 +6,7 @@
 #
 # Files copied if missing:
 #   CEP_arms.R, R_config.R, R_config_HKG8.R          into SEAAD_ROOT
+#   Mic13_genes.txt (the Mic.13 genes, read by Part 5b) into SEAAD_ROOT
 #   Part 12 scripts, settings (.json) and pre-specified readings (.md),
 #   and Part12_02_Extract.py                         into SEAAD_ROOT/Part12_rerun
 # A file that is already there and differs from the deposited copy is left
@@ -37,6 +38,7 @@ echo "Settings files:"
 for f in CEP_arms.R R_config.R R_config_HKG8.R; do
     copy_if_absent "$R/$f" "$H/$f"
 done
+copy_if_absent "$PY/Mic13_genes.txt" "$H/Mic13_genes.txt"
 
 echo
 echo "Part 12 files in Part12_rerun:"
@@ -59,10 +61,12 @@ check "R_export_CP10K" "Part 8 export, read by Part 9 onwards"
 check_pattern "*_S5b_donor_clinical.csv" "Part 2 donor tables, read by Part 10h and Part 12"
 check "Part7_DecontX/decontX_contamination_all.csv" "Part 7, read by Part 12"
 check "SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad" "SEA-AD h5ad, read by Parts 1 to 8 and Part12_02"
+check "MetaData/sea-ad_cohort_donor_metadata_072524.xlsx" "SEA-AD donor metadata, read by Parts 1d and 1e"
 check_pattern "sea-ad-quantitative-neuropathology-063026.xlsx" "SEA-AD neuropathology, read by Part 12"
 check_pattern "sea-ad_global_and_local_cps_050126.xlsx" "SEA-AD CPS workbook, read by Part 12"
 check "Gerrits/Metadata/GSE148822_series_matrix.txt.gz" "GSE148822, read by Part12_06 and Battery 1"
 
 echo
-echo "Scripts: /opt/seaad/Python and /opt/seaad/R. Run order: README_container.md."
+echo "Scripts: /opt/seaad/Python, /opt/seaad/R and /opt/seaad/SuppTables."
+echo "Run everything: seaad-run all (seaad-run --help lists the modes). Run order: README_container.md."
 echo "Package versions: /opt/seaad/versions.txt"
