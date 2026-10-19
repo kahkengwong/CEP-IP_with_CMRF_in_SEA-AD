@@ -7,6 +7,7 @@
 [![Supplementary](https://img.shields.io/badge/Supplementary-Zenodo-1682D4?logo=zenodo&logoColor=white&style=flat-square)](https://zenodo.org/records/23445742)
 [![Preprint](https://img.shields.io/badge/Preprint-bioRxiv-B31B1B?style=flat-square)](https://doi.org/BIORXIV_DOI)
 [![Container](https://img.shields.io/badge/Container-Podman%20%7C%20Docker-892CA0?logo=podman&logoColor=white&style=flat-square)](#6-reproducing-the-analysis)
+[![R package](https://img.shields.io/badge/R%20package-cepip-276DC3?logo=r&logoColor=white&style=flat-square)](https://github.com/kahkengwong/cepip)
 
 ![Project Status](https://img.shields.io/badge/status-active-brightgreen?logo=check&logoColor=white&style=flat-square)
 [![R](https://img.shields.io/badge/R-4.6.1-276DC3?logo=r&logoColor=white&style=flat-square)](#91-software-requirements)
@@ -64,6 +65,8 @@ Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely
 
 ## 1. Overview
 - This repository holds the analysis code, the software environment (container recipe and lock files), and the reproduction check for the preprint. It builds on the published **CEP-IP framework** ([Wong, 2026, *CMPB*](https://doi.org/10.1016/j.cmpb.2026.109372); [code](https://github.com/kahkengwong/CEP-IP_Framework)).
+
+- The methods of this study (CEP-IP, SKCS and CMRF) are available as the R package [`cepip`](https://github.com/kahkengwong/cepip), for use on other datasets. The package reproduces the PVM_3 and HKG8 arms of this study: its script `reproduce_seaad.R` checks 722 published values, and all of them agree.
 
 - **Python Parts 1 to 8** read the SEA-AD immune h5ad: pre-checks, Mic.13-like (M4) cell selection, the GOI-DFG screens, DecontX, and the export of each arm for R.
 
@@ -278,6 +281,9 @@ Each builder writes its workbook and a log to `Manuscript/Supp_Tables/build/`. `
 
 ## 6. Reproducing the Analysis
 The analysis runs in a container that holds R 4.6.1, Python 3.13.14 and every package at the version in the lock files. No data are inside the container: the data folder is mounted at `/data` when it starts, and every script reads and writes in that folder.
+
+> [!TIP]
+> To apply CEP-IP, SKCS and CMRF to other data, use the R package [`cepip`](https://github.com/kahkengwong/cepip). It does not need the container.
 
 ### 6.1 Get the data
 | Source | Files | Needed for |
