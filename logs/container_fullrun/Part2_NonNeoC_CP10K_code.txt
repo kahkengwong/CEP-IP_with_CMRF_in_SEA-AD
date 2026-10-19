@@ -1,0 +1,1567 @@
+[OUT] arm folder   -> /data/[2]_Non-NeoC
+[OUT] this part    -> /data/[2]_Non-NeoC/Part2_NonNeoC_M4
+[OUT] per-cutoff   -> /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_<pct>pct
+==========================================================================
+Part 2 - Mic.13 sweep + 6-way scoring comparison [NON-NEOCORTICAL]
+  Release : 2026-06-22 Multiregion (CP10K, ln(UP10K+1))
+  File    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad
+  Top-%   : 3.0%
+  Regions : ['HIP', 'MEC', 'LEC', 'FI']
+  Scorers : ['M1_FC', 'M2_Hybrid', 'M3_pRank']
+  Flagged nuclei: KEEP
+  Output  : /data/[2]_Non-NeoC/Part2_NonNeoC_M4
+==========================================================================
+
+SECTION 1: Load metadata + non-neocortical guardrail
+  Full dataset: (240651, 36601)
+  [OK] shape matches Part1b: 240,651 x 36,601
+  uns['X_normalization'] = 'ln(UP10K+1)'  (expected 'ln(UP10K+1)')
+  [OK] declared normalisation is CP10K, natural log.
+  uns['title'] = "Immune: Seattle Alzheimer's Disease Atlas (SEA-AD)"
+  uns['batch_condition'] = ['library_prep']
+
+  obs has 130 columns; resolving names ...
+
+  name         default                                resolved                               status
+  ------------------------------------------------------------------------------------------------
+  adnc_col     Overall AD neuropathological Change    Overall AD neuropathological Change    OK
+  braak_col    Braak                                  Braak                                  OK
+  donor_col    Donor ID                               Donor ID                               OK
+  stype_col    Supertype                              Supertype                              OK
+  region_col   Brain Region                           Brain Region                           OK
+  cerad_col    CERAD score                            CERAD score                            OK
+  thal_col     Thal                                   Thal                                   OK
+  cog_col      Cognitive Status                       Cognitive Status                       OK
+  apoe_col     APOE Genotype                          APOE Genotype                          OK
+  mmse_col     Last MMSE Score                        Last MMSE Score                        OK
+  age_col      Age at Death                           Age at Death                           OK
+  caa_col      Overall CAA Score                      Overall CAA Score                      OK
+  pmi_col      PMI                                    PMI                                    OK
+  rin_col      RIN                                    RIN                                    OK
+  ph_col       Brain pH                               Brain pH                               OK
+  weight_col   Fresh Brain Weight                     Fresh Brain Weight                     OK
+  severe_col   Severely Affected Donor                Severely Affected Donor                OK
+
+  no legacy supertype labels present
+  Supertypes in file (8): ['Lymphocyte', 'Micro-PVM_1', 'Micro-PVM_2', 'Micro-PVM_2_1-SEAAD', 'Micro-PVM_2_3-SEAAD', 'Micro-PVM_3-SEAAD', 'Micro-PVM_4-SEAAD', 'Monocyte']
+  [OK] TARGET_STYPE 'Micro-PVM_3-SEAAD' present (29,805 nuclei, all regions).
+
+  Upstream pass/fail flags (KEEP)
+    rna_amplification_pass_fail     :    529 flagged (0.22%)  levels=['fail', 'pass']
+    library_prep_pass_fail          :      0 flagged (0.00%)  levels=['pass']
+    experiment_component_failed     :  1,547 flagged (0.64%)  levels=['false', 'true']
+    union flagged (all regions)     :  2,076
+    RETAINED.
+
+  ------------------------------------------------------------------
+  NON-NEOCORTICAL GUARDRAIL
+  Region codes in file (raw): ['AnG', 'DFC', 'FI', 'HIP', 'ITG', 'LEC', 'MEC', 'MTG', 'STG', 'V1C']
+  All regions after alias remap: ['AnG', 'DFC', 'FI', 'HIP', 'ITG', 'LEC', 'MEC', 'MTG', 'STG', 'V1C']
+  Excluded (neocortical + other): ['AnG', 'DFC', 'ITG', 'MTG', 'STG', 'V1C']
+  Retained (non-neocortical):        observed   Part1e expected
+    HIP     :    14,190       14190
+    MEC     :    63,137       63137
+    LEC     :    11,791       11791
+    FI      :    17,445       17445
+  Total: 240,651 -> 106,563  (134,088 removed)
+  [OK] arm size matches Part1e: 106,563
+  [GUARDRAIL PASS]
+  ------------------------------------------------------------------
+
+  Donors contributing to this arm: 83 (cohort = 84)
+
+  Supertype breakdown (106,563 non-neocortical cells):
+    Micro-PVM_2                             :  65,432
+    Micro-PVM_2_3-SEAAD                     :  21,728
+    Micro-PVM_3-SEAAD                       :  13,098
+    Micro-PVM_1                             :   3,313
+    Lymphocyte                              :   2,147
+    Micro-PVM_4-SEAAD                       :     442
+    Micro-PVM_2_1-SEAAD                     :     391
+    Monocyte                                :      12
+
+  X_umap present -> (106563, 2)
+
+  Mic.13 UP   genes in matrix: 85 / 85
+  Mic.13 DOWN genes in matrix: 48 / 48
+
+  ADNC column unique values (raw): ['High', 'Intermediate', 'Low', 'Not AD']
+  ADNC remap applied: {'High': 'High', 'Intermediate': 'Intermediate', 'Low': 'Low', 'Not AD': 'Not AD'}
+  adnc_order resolved: ['Not AD', 'Low', 'Intermediate', 'High']
+  adnc_rank_map      : {'Not AD': 0, 'Low': 1, 'Intermediate': 2, 'High': 3}
+
+  Ordinal parsing audit, donor level, non-neocortical arm
+    -- ADNC  <- obs['Overall AD neuropathological Change']  dtype_in=str
+    ADNC    n=   83  unmapped=   0 (  0.0%)  dtype_out=int64
+             levels: High (41), Intermediate (21), Low (12), Not AD (9)
+    -- Braak  <- obs['Braak']  dtype_in=category
+    Braak   n=   83  unmapped=   0 (  0.0%)  dtype_out=int64
+             levels: Braak V (33), Braak IV (23), Braak VI (15), Braak III (6), Braak II (4), Braak 0 (2)
+    -- CERAD  <- obs['CERAD score']  dtype_in=category
+    CERAD   n=   83  unmapped=   0 (  0.0%)  dtype_out=int64
+             levels: Frequent (30), Moderate (25), Absent (16), Sparse (12)
+    -- Thal  <- obs['Thal']  dtype_in=category
+    Thal    n=   83  unmapped=   0 (  0.0%)  dtype_out=int64
+             levels: Thal 4 (29), Thal 5 (21), Thal 3 (12), Thal 0 (9), Thal 2 (7), Thal 1 (5)
+    -- CAA  <- obs['Overall CAA Score']  dtype_in=category
+    CAA     n=   83  unmapped=   0 (  0.0%)  dtype_out=int64
+             levels: Moderate (36), Not identified (32), Mild (13), Severe (2)
+  Clinical tests active: ['ADNC rank', 'Braak stage', 'CERAD score', 'Thal phase', 'APOE e4 dose', 'MMSE score', 'Age at death', 'CAA score']
+
+  Section 1 done [13.4s]
+
+SECTION 2: Score computation - M1, M2, M3
+  Full matrix: (240651, 36601)  [25.5s]
+
+  normalisation check (target_sum=10,000, ceiling=9.2104)
+    T1 expm1 row-sum : median=10,000.000  CV=1.65e-16  (n=3,000 sampled)
+    T2 max(X) global : 8.1820   ceiling 9.2104   headroom +1.0285
+       max(X) sampled: 7.8214
+    T3 min(X)        : 0.000000
+    [OK] X is ln(UP10K+1) on CP10K.
+
+  Non-neocortical submatrix: (106563, 36601)
+  [2c] marker matrix for the dilution curve: (106563, 11) (11 genes, ln(UP10K+1) as stored)
+  Extracting UP/DOWN gene matrices ...
+  [28.3s]
+  Z-scoring ...
+  M1_FC          : mean=-0.0000  std=0.4379  95th=0.8011
+  M2_Hybrid      : mean=-0.0000  std=0.5481  95th=0.9881
+  M3_pRank       : mean=-0.0000  std=0.4697  95th=0.8579
+  M4_M1andM2: n cells in intersection = 2,704 (2.54% of all non-neocortical cells)
+  M5_M1andM3: n cells in intersection = 2,739 (2.57% of all non-neocortical cells)
+  M6_M2andM3: n cells in intersection = 2,535 (2.38% of all non-neocortical cells)
+  Total methods to evaluate: 6
+
+==========================================================================
+SECTION 2b: Cutoff-selection criterion - fine scan
+==========================================================================
+
+  GRANULARITY - smallest non-zero %top each supertype can report
+  rule: every supertype except ['Micro-PVM_3-SEAAD', 'Micro-PVM_4-SEAAD'] must sit <= 1.0%
+
+  supertype                   n_cells   min %>0  cells allowed  status
+  ------------------------------------------------------------------------------
+  Micro-PVM_2                  65,432     0.00%            654  ok
+  Micro-PVM_2_3-SEAAD          21,728     0.00%            217  ok
+  Micro-PVM_3-SEAAD            13,098     0.01%            130  exempt (expected enriched)
+  Micro-PVM_1                   3,313     0.03%             33  ok
+  Lymphocyte                    2,147     0.05%             21  ok
+  Micro-PVM_4-SEAAD               442     0.23%              4  exempt (expected enriched)
+  Micro-PVM_2_1-SEAAD             391     0.26%              3  ok
+  Monocyte                         12     8.33%              0  UNDER-POWERED (n < 100)
+
+  [!] 1 supertype(s) cannot express the rule meaningfully: ['Monocyte']
+
+  scanning 101 cutoffs x 6 scorers x 8 supertypes ...
+  Saved S2b_cutoff_scan.csv (4,848 rows) and S2b_cutoff_rule_verdict.csv (606 rows)  [0.7s]
+
+  ADMISSIBLE WINDOWS for M4_M1andM2 (grid 1.0% to 6.0%)
+    raw rule     : 1.0-3.3%
+    guarded rule : 1.0-3.9%
+    -> the guarded window is wider than the raw window.
+
+  VERDICT AT EACH SWEEP CUTOFF  [M4_M1andM2]
+   cutoff    n_top   raw  guard  margin_raw  margin_gd  violators (raw)
+  ----------------------------------------------------------------------------------------
+     2.5%    2,226  True   True           0          2  (none)
+     2.9%    2,612  True   True           0          1  (none)
+     3.0%    2,704  True   True           0          1  (none)  <- PRIMARY
+     3.1%    2,809  True   True           0          1  (none)
+     5.0%    4,455 False  False        -108       -108  Micro-PVM_1;Micro-PVM_2_3-SEAAD;Monocyte
+
+  margin_cells = nuclei one supertype could add before the rule breaks.
+  Saved S2b_cutoff_scan.png
+
+==========================================================================
+SECTION 2c: Marker-dilution curve
+==========================================================================
+
+  Panels resolved:
+    heldout_up   n=3  ['TREM2', 'ADAM10', 'SMAD3']
+      -> evidence - not used in scoring
+    inpanel_up   n=5  ['PTPRG', 'TPRG1', 'SPP1', 'GPNMB', 'APOE']
+      -> reference only - circular by construction
+    homeostatic  n=3  ['P2RY12', 'TMEM119', 'SALL1']
+      -> negative control - should rise with dilution
+  marginal band = 0.25 pp wide (5 grid steps of 0.05 pp), moving window
+
+  Saved S2c_marker_dilution.csv (101 rows)  [0.4s]
+
+  CUTOFF ANCHORS from the held-out panel (['TREM2', 'ADAM10', 'SMAD3'])
+  panel         knee(cum)  half-max(marg)   last >= 1.5x
+  --------------------------------------------------------
+  heldout_up        2.05%           4.20%            n/a
+  inpanel_up        2.90%           5.35%          6.00%
+  homeostatic       3.25%             n/a            n/a
+
+  DIRECTION CHECK (Spearman of the marginal curve vs cutoff):
+    held-out Mic.13 markers : rho = -0.568  p = 5.93e-10
+    homeostatic markers     : rho = +0.311  p = 0.00155
+  Both as expected (opposite directions).
+  Saved S2c_marker_dilution.png
+
+==========================================================================
+SECTION 2d: Mixture model - is the score bimodal or continuous?
+==========================================================================
+  subsample = 50,000 cells
+  null      = 200 skew-normal draws, seed 42
+
+  -- M1_FC
+     BIC  k=1 141,914 | k=2 136,319 | k=3 136,009   -> best k = 3
+     dBIC(1-2) 5,596   null median 3,833 max 4,216   p < 0.0050
+     separation 1.350      null median 1.731          p = 1.0000
+     upper component weight 31.57%  |  posterior-0.5 boundary at top 21.59%
+     boundary shape: non-monotone posterior (U-shaped); last crossing used
+     bimodality coefficient 0.3981 (flag > 0.555)
+     VERDICT: CONTINUOUS — no boundary the data supports
+
+  -- M2_Hybrid
+     BIC  k=1 141,914 | k=2 136,919 | k=3 136,634   -> best k = 3
+     dBIC(1-2) 4,996   null median 3,649 max 4,025   p < 0.0050
+     separation 1.338      null median 1.720          p = 1.0000
+     upper component weight 32.47%  |  posterior-0.5 boundary at top 22.28%
+     boundary shape: monotone posterior; single crossing
+     bimodality coefficient 0.3835 (flag > 0.555)
+     VERDICT: CONTINUOUS — no boundary the data supports
+
+  -- M3_pRank
+     BIC  k=1 141,914 | k=2 136,603 | k=3 136,572   -> best k = 3
+     dBIC(1-2) 5,311   null median 3,860 max 4,245   p < 0.0050
+     separation 1.431      null median 1.733          p = 1.0000
+     upper component weight 32.65%  |  posterior-0.5 boundary at top 23.20%
+     boundary shape: monotone posterior; single crossing
+     bimodality coefficient 0.3919 (flag > 0.555)
+     VERDICT: CONTINUOUS — no boundary the data supports
+
+  Saved S2d_mixture.csv  [196.9s]
+
+  0 of 3 base scorers show a boundary the null cannot produce.
+  Saved S2d_mixture.png
+
+==========================================================================
+SECTION 2e: Donor-bootstrap stability of the cutoff
+==========================================================================
+  83 donors, 106,563 cells, 200 bootstrap resamples
+  grid: 1.0% to 6.0% in 21 steps
+  methods: ['M1_FC', 'M2_Hybrid', 'M4_M1andM2']
+    ... 40/200 resamples  [1s]
+    ... 80/200 resamples  [1s]
+    ... 120/200 resamples  [1s]
+    ... 160/200 resamples  [1s]
+    ... 200/200 resamples  [2s]
+
+  Saved S2e_bootstrap_stability.csv  [2s]
+
+  STABILITY vs CUTOFF  [M4_M1andM2]
+   cutoff    n_ref  mean Jaccard  core frac  implied % SD
+  ----------------------------------------------------------
+    1.00%      880        0.9067     0.7943        0.1027
+    1.25%    1,108        0.9008     0.7915        0.1337
+    1.50%    1,324        0.9018     0.7923        0.1622
+    1.75%    1,557        0.9041     0.7919        0.1862
+    2.00%    1,778        0.9029     0.7942        0.2133
+    2.25%    2,022        0.9057     0.7898        0.2364
+    2.50%    2,226        0.9081     0.7983        0.2612
+    2.75%    2,475        0.9047     0.8008        0.2887
+    3.00%    2,704        0.9065     0.7977        0.3115  <- PRIMARY
+    3.25%    2,944        0.9086     0.7880        0.3304
+    3.50%    3,173        0.9111     0.7999        0.3453
+    3.75%    3,383        0.9128     0.8055        0.3605
+    4.00%    3,619        0.9150     0.8049        0.3726
+    4.25%    3,836        0.9178     0.8120        0.3836
+    4.50%    4,058        0.9199     0.8112        0.3979
+    4.75%    4,250        0.9210     0.8202        0.4132
+    5.00%    4,455        0.9208     0.8242        0.4301
+    5.25%    4,683        0.9206     0.8270        0.4469
+    5.50%    4,904        0.9214     0.8281        0.4629
+    5.75%    5,117        0.9225     0.8255        0.4804
+    6.00%    5,313        0.9230     0.8297        0.4952
+
+  Jaccard is maximised at 6.00% (0.9230); total range across the grid is 0.0222.
+  Range exceeds 0.02.
+  Saved S2e_bootstrap_stability.png
+
+==========================================================================
+SECTION 2f: Arm matching - N, purity, or percentage
+==========================================================================
+  Wrote this arm's half: /data/_shared_cutoff/S2f_half_NonNeoC.csv
+
+  THIS ARM at the primary 3.0%: n = 2,704, purity(PVM_3+PVM_4) = 89.9%, purity(target) = 86.1%
+
+  Found the other arm: NeoC (101 grid points)
+  NeoC at its primary 3.0%: n = 3,412, purity = 87.4%
+
+                    criterion this_arm  this_top_pct  this_n  this_purity other_arm  other_top_pct  other_n  other_purity
+equal percentage (status quo)  NonNeoC          3.00    2704       89.941      NeoC            3.0     3412        87.427
+     match N to the other arm  NonNeoC          3.80    3435       87.627      NeoC            3.0     3412        87.427
+match purity to the other arm  NonNeoC          3.85    3484       87.428      NeoC            3.0     3412        87.427
+
+  Saved S2f_arm_matching.csv
+  [0.1s]
+
+==========================================================================
+SECTION 2g: Scorer overlap - what the intersection buys
+==========================================================================
+
+  M4_M1andM2 at the primary 3.0%
+     spearman(M1_FC, M2_Hybrid) = +0.9556
+     |M1_FC top| = 3,197  ->  |intersection| = 2,704  (retention 84.6%)
+     effective fraction of the arm = 2.538%  (nominal 3.0%)
+     contained in the top-k of M1_FC alone: 90.9%
+     contained in the top-k of M2_Hybrid alone: 89.5%
+
+     VERDICT: the intersection is not recoverable from either parent alone at matched k.
+
+  Saved S2g_scorer_overlap.csv  [0.1s]
+
+==========================================================================
+CUTOFF SWEEP - 5 cutoffs, each into its own subfolder
+  order: 2.5%, 2.9%, 3.1%, 5.0%, 3.0%   (PRIMARY = 3.0%, run last)
+  figures: make=all  show=primary_only
+==========================================================================
+
+##########################################################################
+# SWEEP 1/5 - top 2.5%
+#   -> /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_2.5pct
+#   figures: make only   elapsed 0s
+##########################################################################
+
+  [CANONICAL M4 MASK]
+    M1 threshold : 1.043707  (top 2.5%)
+    M2 threshold : 1.281141  (top 2.5%)
+    N M4-top cells (M1 AND M2): 2,226  (2.09% of non-neocortical cells)
+    Stored in namespace as: M4_TOP_MASK (bool array), obs_full['is_M4_top'] (column)
+
+  Inter-scorer Pearson correlations (base methods):
+    M1_FC vs M2_Hybrid : r = 0.9653
+    M1_FC vs M3_pRank : r = 0.9748
+    M2_Hybrid vs M3_pRank : r = 0.9515
+
+  Saved S0_cell_scores_all_methods.csv + S0_cell_scores.csv
+
+SECTION 3: Top-2.5% enrichment [M1_FC]
+  Threshold: 1.0437  n_top: 2,665
+
+  Supertype                                  n_all  n_top  n_don   %top   fold           95% CI
+  -----------------------------------------------------------------------------------------------
+  Micro-PVM_4-SEAAD                            442    103     43  23.3%   9.32x [6.50, 15.21]
+  Micro-PVM_3-SEAAD                         13,098  2,328     82  17.8%   7.11x [6.05, 8.26]
+  Micro-PVM_2_3-SEAAD                       21,728    136     44   0.6%   0.25x [0.18, 0.33]
+  Micro-PVM_1                                3,313      9      9   0.3%   0.11x [0.05, 0.18]
+  Micro-PVM_2_1-SEAAD                          391      1      1   0.3%   0.10x [0.00, 0.40]
+  Micro-PVM_2                               65,432     88     34   0.1%   0.05x [0.04, 0.07]
+  Lymphocyte                                 2,147      0      0   0.0%   0.00x [0.00, 0.00]
+  Monocyte                                      12      0      0   0.0%   0.00x [0.00, 0.00]
+  -----------------------------------------------------------------------------------------------
+  Enrichment fold = pct_top / arm top-%; 95% CI from 2,000 donor resamples.
+
+SECTION 4: ADNC-stratified proportions [M1]
+  Saved S2_ADNC_proportions_per_supertype.csv
+
+SECTION 5: Donor-level disease staging [M1]
+  ADNC  rho = +0.4669  p = 0.000009  (n=83)
+  Braak rho = +0.4353  p = 0.000039  (n=83)
+  Not AD         : n= 9  mean=0.973%
+  Low            : n=12  mean=1.765%
+  Intermediate   : n=21  mean=2.632%
+  High           : n=41  mean=3.877%
+  Saved S3_donor_level_top_pct.csv
+
+SECTION 6: Figures [M1-M6]
+  Saved Fig1_UMAP_net_score_M1.png
+  Saved Fig2_supertype_counts_pct_M1.png
+  Saved Fig3_supertype_enrichment_M1.png
+  Saved Fig4_ADNC_top4_supertypes_M1.png
+  Saved Fig1_UMAP_net_score_M2.png
+  Saved Fig2_supertype_counts_pct_M2.png
+  Saved Fig3_supertype_enrichment_M2.png
+  Saved Fig4_ADNC_top4_supertypes_M2.png
+  Saved Fig1_UMAP_net_score_M3.png
+  Saved Fig2_supertype_counts_pct_M3.png
+  Saved Fig3_supertype_enrichment_M3.png
+  Saved Fig4_ADNC_top4_supertypes_M3.png
+  Saved Fig1_UMAP_net_score_M4.png
+  Saved Fig2_supertype_counts_pct_M4.png
+  Saved Fig3_supertype_enrichment_M4.png
+  Saved Fig4_ADNC_top4_supertypes_M4.png
+  Saved Fig1_UMAP_net_score_M5.png
+  Saved Fig2_supertype_counts_pct_M5.png
+  Saved Fig3_supertype_enrichment_M5.png
+  Saved Fig4_ADNC_top4_supertypes_M5.png
+  Saved Fig1_UMAP_net_score_M6.png
+  Saved Fig2_supertype_counts_pct_M6.png
+  Saved Fig3_supertype_enrichment_M6.png
+  Saved Fig4_ADNC_top4_supertypes_M6.png
+
+SECTION 7: Saved S4_combined_summary.csv
+
+======================================================================
+SECTION 8: Clinical correlation suite - all 6 methods (M1-M6)
+======================================================================
+  ADNC values in obs_full: ['High', 'Intermediate', 'Low', 'Not AD']
+  Values mapped to adnc_order: 106,563 / 106,563 cells
+  All ADNC values successfully mapped to adnc_order ✓
+
+  all donor_clinical columns verified constant within donor.
+
+  Donor clinical availability (83 donors):
+    ADNC rank      :  83/83
+    Braak          :  83/83
+    CERAD          :  83/83
+    Thal           :  83/83
+    CAA            :  83/83
+    APOE e4        :  83/83
+    MMSE           :  79/83
+    Age            :  83/83
+    PMI            :  83/83
+    RIN            :  83/83
+    Brain pH       :  83/83
+    Fresh Brain Wt :  82/83
+    Severe flag    :  83/83
+    complete cases  Tier1 (Age,PMI)           : 83/83
+    complete cases  Tier1+RIN/pH/Weight       : 82/83
+    Saved S5b_donor_clinical.csv (83 donors x 27 cols)
+
+  Eligible supertypes (M1 baseline): ['Micro-PVM_2', 'Micro-PVM_2_3-SEAAD', 'Micro-PVM_3-SEAAD', 'Micro-PVM_4-SEAAD']
+
+  [M1_FC] running clinical suite ...
+  Saved S5_clinical_M1_FC.csv  (BH-sig hits: 8)
+
+  [M2_Hybrid] running clinical suite ...
+  Saved S5_clinical_M2_Hybrid.csv  (BH-sig hits: 7)
+
+  [M3_pRank] running clinical suite ...
+  Saved S5_clinical_M3_pRank.csv  (BH-sig hits: 8)
+
+  [M4_M1andM2] running clinical suite ...
+    Intersection mask n=2,226  eligible supertypes: ['Micro-PVM_2', 'Micro-PVM_2_3-SEAAD', 'Micro-PVM_3-SEAAD', 'Micro-PVM_4-SEAAD']
+  Saved S5_clinical_M4_M1andM2.csv  (BH-sig hits: 7)
+
+  [M5_M1andM3] running clinical suite ...
+    Intersection mask n=2,262  eligible supertypes: ['Micro-PVM_2', 'Micro-PVM_2_3-SEAAD', 'Micro-PVM_3-SEAAD', 'Micro-PVM_4-SEAAD']
+  Saved S5_clinical_M5_M1andM3.csv  (BH-sig hits: 6)
+
+  [M6_M2andM3] running clinical suite ...
+    Intersection mask n=2,084  eligible supertypes: ['Micro-PVM_2', 'Micro-PVM_2_3-SEAAD', 'Micro-PVM_3-SEAAD', 'Micro-PVM_4-SEAAD']
+  Saved S5_clinical_M6_M2andM3.csv  (BH-sig hits: 7)
+
+======================================================================
+SECTION 9: Head-to-head scoring comparison - M1-M6
+======================================================================
+
+  Head-to-head (positive-expected tests only):
+    method                         label  n_BH_sig  n_raw_sig  mean_winner_rho  mean_abs_rho_pos  median_abs_rho_pos  n_correct_dir  n_pos_tests
+     M1_FC         M1 — FC-weighted only         8          9           0.4141            0.1866              0.1113             18           20
+ M2_Hybrid M2 — Hybrid FC x -log10(padj)         7          8           0.3985            0.1648              0.1121             16           20
+  M3_pRank  M3 — Pure p_adj rank (no FC)         8          9           0.3875            0.1801              0.0978             15           20
+M4_M1andM2     M4 — Intersection M1 ∩ M2         7          9           0.4001            0.1689              0.1070             19           20
+M5_M1andM3     M5 — Intersection M1 ∩ M3         6          8           0.3939            0.1689              0.0838             19           20
+M6_M2andM3     M6 — Intersection M2 ∩ M3         7          9           0.3943            0.1613              0.0905             17           20
+
+  WINNER by mean_winner_rho : M1_FC  (M1 — FC-weighted only)
+    M1_FC          : mean_winner_rho=0.4141  n_BH_sig=8
+    M2_Hybrid      : mean_winner_rho=0.3985  n_BH_sig=7
+    M3_pRank       : mean_winner_rho=0.3875  n_BH_sig=8
+    M4_M1andM2     : mean_winner_rho=0.4001  n_BH_sig=7
+    M5_M1andM3     : mean_winner_rho=0.3939  n_BH_sig=6
+    M6_M2andM3     : mean_winner_rho=0.3943  n_BH_sig=7
+
+======================================================================
+SECTION 10: Part 2 Final Report
+======================================================================
+
+Part 2 complete - non-neocortical arm
+======================================================================
+RELEASE   : 2026-06-22 Multiregion  |  X = ln(UP10K+1), CP10K
+FILE      : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad
+FLAGGED   : KEPT
+GUARDRAIL : ['HIP', 'MEC', 'LEC', 'FI']  (106,563 cells retained)
+DONORS    : 83 contributing to this arm
+TOP-2.5%    : threshold=1.0437  n=2,665
+
+PRIMARY ENRICHMENT [M1]:
+          supertype  n_total  pct_top  enrichment_fold  boot_ci_lo  boot_ci_hi
+  Micro-PVM_4-SEAAD      442    23.30            9.321       6.504      15.212
+  Micro-PVM_3-SEAAD    13098    17.77            7.109       6.051       8.261
+Micro-PVM_2_3-SEAAD    21728     0.63            0.250       0.185       0.327
+        Micro-PVM_1     3313     0.27            0.109       0.049       0.184
+Micro-PVM_2_1-SEAAD      391     0.26            0.102       0.000       0.397
+
+ADNC [M1]:
+          supertype  ADNC_rho   ADNC_p
+  Micro-PVM_3-SEAAD    0.4955 0.000002
+Micro-PVM_2_3-SEAAD    0.2038 0.064622
+        Micro-PVM_2    0.0987 0.374482
+  Micro-PVM_4-SEAAD   -0.0093 0.933416
+
+DONOR STAGING [M1]:
+  ADNC  rho = +0.4669  p = 0.000009
+  Braak rho = +0.4353  p = 0.000039  (n=83)
+
+METHOD COMPARISON:
+    method  n_BH_sig  mean_abs_rho_pos  n_correct_dir
+     M1_FC         8            0.1866             18
+ M2_Hybrid         7            0.1648             16
+  M3_pRank         8            0.1801             15
+M4_M1andM2         7            0.1689             19
+M5_M1andM3         6            0.1689             19
+M6_M2andM3         7            0.1613             17
+
+WINNER : M1_FC  (M1 — FC-weighted only)
+  BH-sig  : 8
+  mean_winner_rho: 0.4141
+  mean_abs_rho   : 0.1866
+  Dir OK  : 18/20
+======================================================================
+
+
+All outputs in /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_2.5pct/:
+  Fig1_UMAP_net_score_M1.png
+  Fig1_UMAP_net_score_M2.png
+  Fig1_UMAP_net_score_M3.png
+  Fig1_UMAP_net_score_M4.png
+  Fig1_UMAP_net_score_M5.png
+  Fig1_UMAP_net_score_M6.png
+  Fig2_supertype_counts_pct_M1.png
+  Fig2_supertype_counts_pct_M2.png
+  Fig2_supertype_counts_pct_M3.png
+  Fig2_supertype_counts_pct_M4.png
+  Fig2_supertype_counts_pct_M5.png
+  Fig2_supertype_counts_pct_M6.png
+  Fig3_supertype_enrichment_M1.png
+  Fig3_supertype_enrichment_M2.png
+  Fig3_supertype_enrichment_M3.png
+  Fig3_supertype_enrichment_M4.png
+  Fig3_supertype_enrichment_M5.png
+  Fig3_supertype_enrichment_M6.png
+  Fig4_ADNC_top4_supertypes_M1.png
+  Fig4_ADNC_top4_supertypes_M2.png
+  Fig4_ADNC_top4_supertypes_M3.png
+  Fig4_ADNC_top4_supertypes_M4.png
+  Fig4_ADNC_top4_supertypes_M5.png
+  Fig4_ADNC_top4_supertypes_M6.png
+  Part2_nonneocortex_env.joblib
+  S0_cell_scores.csv
+  S0_cell_scores_all_methods.csv
+  S1_supertype_enrichment.csv
+  S2_ADNC_proportions_per_supertype.csv
+  S3_donor_level_top_pct.csv
+  S4_combined_summary.csv
+  S5_clinical_M1_FC.csv
+  S5_clinical_M2_Hybrid.csv
+  S5_clinical_M3_pRank.csv
+  S5_clinical_M4_M1andM2.csv
+  S5_clinical_M5_M1andM3.csv
+  S5_clinical_M6_M2andM3.csv
+  S5b_donor_clinical.csv
+  S6_method_comparison.csv
+
+======================================================================
+SECTION 11: Export canonical namespace → /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_2.5pct/Part2_nonneocortex_env.joblib
+======================================================================
+  Saved: /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_2.5pct/Part2_nonneocortex_env.joblib
+  Keys exported: ['ALL_METHODS', 'BRAAK_MAP', 'CAA_MAP', 'CERAD_MAP', 'CLINICAL_TESTS', 'FULL_H5AD', 'INTERSECTION_PAIRS', 'KEEP_FLAGGED_NUCLEI', 'M4_THR_M1', 'M4_THR_M2', 'M4_TOP_MASK', 'NON_NEOCORTEX_REGIONS', 'NORM_CEILING', 'NORM_TARGET_SUM', 'N_M4_TOP', 'RELEASE', 'SCORERS', 'SCORER_LABELS', 'THAL_MAP', 'TOP_PCT', 'adnc_col', 'adnc_df', 'adnc_order', 'adnc_pal', 'adnc_rank_map', 'age_col', 'all_clinical', 'apoe_col', 'braak_col', 'caa_col', 'cerad_col', 'compare_df', 'donor_clinical', 'donor_col', 'donor_prop', 'eligible_st', 'enrich_df', 'mmse_col', 'n_donors_arm', 'obs_full', 'ph_col', 'pmi_col', 'region_col', 'rin_col', 'score_cols', 'severe_col', 'stype_col', 'thal_col', 'umap_coords', 'weight_col']
+
+  [SWEEP 2.5%] M4 n=2,226 | PVM_3 14.9% | PVM_4 21.0% | worst other Micro-PVM_2_3-SEAAD 0.5% (n=21,728) | rule raw=True guarded=True
+
+##########################################################################
+# SWEEP 2/5 - top 2.9%
+#   -> /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_2.9pct
+#   figures: make only   elapsed 13s
+##########################################################################
+
+  [CANONICAL M4 MASK]
+    M1 threshold : 0.992877  (top 2.9%)
+    M2 threshold : 1.213972  (top 2.9%)
+    N M4-top cells (M1 AND M2): 2,612  (2.45% of non-neocortical cells)
+    Stored in namespace as: M4_TOP_MASK (bool array), obs_full['is_M4_top'] (column)
+
+  Inter-scorer Pearson correlations (base methods):
+    M1_FC vs M2_Hybrid : r = 0.9653
+    M1_FC vs M3_pRank : r = 0.9748
+    M2_Hybrid vs M3_pRank : r = 0.9515
+
+  Saved S0_cell_scores_all_methods.csv + S0_cell_scores.csv
+
+SECTION 3: Top-2.9% enrichment [M1_FC]
+  Threshold: 0.9929  n_top: 3,091
+
+  Supertype                                  n_all  n_top  n_don   %top   fold           95% CI
+  -----------------------------------------------------------------------------------------------
+  Micro-PVM_4-SEAAD                            442    113     44  25.6%   8.82x [6.26, 14.17]
+  Micro-PVM_3-SEAAD                         13,098  2,665     82  20.4%   7.02x [5.98, 8.12]
+  Micro-PVM_2_3-SEAAD                       21,728    170     49   0.8%   0.27x [0.20, 0.35]
+  Micro-PVM_2_1-SEAAD                          391      2      2   0.5%   0.18x [0.00, 0.52]
+  Micro-PVM_1                                3,313     10     10   0.3%   0.10x [0.05, 0.17]
+  Micro-PVM_2                               65,432    131     44   0.2%   0.07x [0.05, 0.09]
+  Lymphocyte                                 2,147      0      0   0.0%   0.00x [0.00, 0.00]
+  Monocyte                                      12      0      0   0.0%   0.00x [0.00, 0.00]
+  -----------------------------------------------------------------------------------------------
+  Enrichment fold = pct_top / arm top-%; 95% CI from 2,000 donor resamples.
+
+SECTION 4: ADNC-stratified proportions [M1]
+  Saved S2_ADNC_proportions_per_supertype.csv
+
+SECTION 5: Donor-level disease staging [M1]
+  ADNC  rho = +0.4633  p = 0.000010  (n=83)
+  Braak rho = +0.4415  p = 0.000029  (n=83)
+  Not AD         : n= 9  mean=1.104%
+  Low            : n=12  mean=2.021%
+  Intermediate   : n=21  mean=3.170%
+  High           : n=41  mean=4.411%
+  Saved S3_donor_level_top_pct.csv
+
+SECTION 6: Figures [M1-M6]
+  Saved Fig1_UMAP_net_score_M1.png
+  Saved Fig2_supertype_counts_pct_M1.png
+  Saved Fig3_supertype_enrichment_M1.png
+  Saved Fig4_ADNC_top4_supertypes_M1.png
+  Saved Fig1_UMAP_net_score_M2.png
+  Saved Fig2_supertype_counts_pct_M2.png
+  Saved Fig3_supertype_enrichment_M2.png
+  Saved Fig4_ADNC_top4_supertypes_M2.png
+  Saved Fig1_UMAP_net_score_M3.png
+  Saved Fig2_supertype_counts_pct_M3.png
+  Saved Fig3_supertype_enrichment_M3.png
+  Saved Fig4_ADNC_top4_supertypes_M3.png
+  Saved Fig1_UMAP_net_score_M4.png
+  Saved Fig2_supertype_counts_pct_M4.png
+  Saved Fig3_supertype_enrichment_M4.png
+  Saved Fig4_ADNC_top4_supertypes_M4.png
+  Saved Fig1_UMAP_net_score_M5.png
+  Saved Fig2_supertype_counts_pct_M5.png
+  Saved Fig3_supertype_enrichment_M5.png
+  Saved Fig4_ADNC_top4_supertypes_M5.png
+  Saved Fig1_UMAP_net_score_M6.png
+  Saved Fig2_supertype_counts_pct_M6.png
+  Saved Fig3_supertype_enrichment_M6.png
+  Saved Fig4_ADNC_top4_supertypes_M6.png
+
+SECTION 7: Saved S4_combined_summary.csv
+
+======================================================================
+SECTION 8: Clinical correlation suite - all 6 methods (M1-M6)
+======================================================================
+  ADNC values in obs_full: ['High', 'Intermediate', 'Low', 'Not AD']
+  Values mapped to adnc_order: 106,563 / 106,563 cells
+  All ADNC values successfully mapped to adnc_order ✓
+
+  all donor_clinical columns verified constant within donor.
+
+  Donor clinical availability (83 donors):
+    ADNC rank      :  83/83
+    Braak          :  83/83
+    CERAD          :  83/83
+    Thal           :  83/83
+    CAA            :  83/83
+    APOE e4        :  83/83
+    MMSE           :  79/83
+    Age            :  83/83
+    PMI            :  83/83
+    RIN            :  83/83
+    Brain pH       :  83/83
+    Fresh Brain Wt :  82/83
+    Severe flag    :  83/83
+    complete cases  Tier1 (Age,PMI)           : 83/83
+    complete cases  Tier1+RIN/pH/Weight       : 82/83
+    Saved S5b_donor_clinical.csv (83 donors x 27 cols)
+
+  Eligible supertypes (M1 baseline): ['Micro-PVM_2', 'Micro-PVM_2_3-SEAAD', 'Micro-PVM_3-SEAAD', 'Micro-PVM_4-SEAAD']
+
+  [M1_FC] running clinical suite ...
+  Saved S5_clinical_M1_FC.csv  (BH-sig hits: 8)
+
+  [M2_Hybrid] running clinical suite ...
+  Saved S5_clinical_M2_Hybrid.csv  (BH-sig hits: 7)
+
+  [M3_pRank] running clinical suite ...
+  Saved S5_clinical_M3_pRank.csv  (BH-sig hits: 10)
+
+  [M4_M1andM2] running clinical suite ...
+    Intersection mask n=2,612  eligible supertypes: ['Micro-PVM_2', 'Micro-PVM_2_3-SEAAD', 'Micro-PVM_3-SEAAD', 'Micro-PVM_4-SEAAD']
+  Saved S5_clinical_M4_M1andM2.csv  (BH-sig hits: 7)
+
+  [M5_M1andM3] running clinical suite ...
+    Intersection mask n=2,643  eligible supertypes: ['Micro-PVM_2', 'Micro-PVM_2_3-SEAAD', 'Micro-PVM_3-SEAAD', 'Micro-PVM_4-SEAAD']
+  Saved S5_clinical_M5_M1andM3.csv  (BH-sig hits: 10)
+
+  [M6_M2andM3] running clinical suite ...
+    Intersection mask n=2,446  eligible supertypes: ['Micro-PVM_2', 'Micro-PVM_2_3-SEAAD', 'Micro-PVM_3-SEAAD', 'Micro-PVM_4-SEAAD']
+  Saved S5_clinical_M6_M2andM3.csv  (BH-sig hits: 9)
+
+======================================================================
+SECTION 9: Head-to-head scoring comparison - M1-M6
+======================================================================
+
+  Head-to-head (positive-expected tests only):
+    method                         label  n_BH_sig  n_raw_sig  mean_winner_rho  mean_abs_rho_pos  median_abs_rho_pos  n_correct_dir  n_pos_tests
+     M1_FC         M1 — FC-weighted only         8         10           0.4143            0.1934              0.1229             17           20
+ M2_Hybrid M2 — Hybrid FC x -log10(padj)         7          8           0.4032            0.1772              0.1187             17           20
+  M3_pRank  M3 — Pure p_adj rank (no FC)        10         11           0.3874            0.1892              0.1180             17           20
+M4_M1andM2     M4 — Intersection M1 ∩ M2         7          8           0.4021            0.1870              0.1200             18           20
+M5_M1andM3     M5 — Intersection M1 ∩ M3        10         12           0.4018            0.1912              0.1142             18           20
+M6_M2andM3     M6 — Intersection M2 ∩ M3         9         11           0.3955            0.1848              0.1130             19           20
+
+  WINNER by mean_winner_rho : M1_FC  (M1 — FC-weighted only)
+    M1_FC          : mean_winner_rho=0.4143  n_BH_sig=8
+    M2_Hybrid      : mean_winner_rho=0.4032  n_BH_sig=7
+    M3_pRank       : mean_winner_rho=0.3874  n_BH_sig=10
+    M4_M1andM2     : mean_winner_rho=0.4021  n_BH_sig=7
+    M5_M1andM3     : mean_winner_rho=0.4018  n_BH_sig=10
+    M6_M2andM3     : mean_winner_rho=0.3955  n_BH_sig=9
+
+======================================================================
+SECTION 10: Part 2 Final Report
+======================================================================
+
+Part 2 complete - non-neocortical arm
+======================================================================
+RELEASE   : 2026-06-22 Multiregion  |  X = ln(UP10K+1), CP10K
+FILE      : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad
+FLAGGED   : KEPT
+GUARDRAIL : ['HIP', 'MEC', 'LEC', 'FI']  (106,563 cells retained)
+DONORS    : 83 contributing to this arm
+TOP-2.9%    : threshold=0.9929  n=3,091
+
+PRIMARY ENRICHMENT [M1]:
+          supertype  n_total  pct_top  enrichment_fold  boot_ci_lo  boot_ci_hi
+  Micro-PVM_4-SEAAD      442    25.57            8.816       6.265      14.172
+  Micro-PVM_3-SEAAD    13098    20.35            7.016       5.984       8.122
+Micro-PVM_2_3-SEAAD    21728     0.78            0.270       0.201       0.347
+Micro-PVM_2_1-SEAAD      391     0.51            0.176       0.000       0.519
+        Micro-PVM_1     3313     0.30            0.104       0.049       0.170
+
+ADNC [M1]:
+          supertype  ADNC_rho   ADNC_p
+  Micro-PVM_3-SEAAD    0.4910 0.000002
+Micro-PVM_2_3-SEAAD    0.2717 0.012969
+        Micro-PVM_2    0.0594 0.593782
+  Micro-PVM_4-SEAAD   -0.0129 0.907734
+
+DONOR STAGING [M1]:
+  ADNC  rho = +0.4633  p = 0.000010
+  Braak rho = +0.4415  p = 0.000029  (n=83)
+
+METHOD COMPARISON:
+    method  n_BH_sig  mean_abs_rho_pos  n_correct_dir
+     M1_FC         8            0.1934             17
+ M2_Hybrid         7            0.1772             17
+  M3_pRank        10            0.1892             17
+M4_M1andM2         7            0.1870             18
+M5_M1andM3        10            0.1912             18
+M6_M2andM3         9            0.1848             19
+
+WINNER : M1_FC  (M1 — FC-weighted only)
+  BH-sig  : 8
+  mean_winner_rho: 0.4143
+  mean_abs_rho   : 0.1934
+  Dir OK  : 17/20
+======================================================================
+
+
+All outputs in /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_2.9pct/:
+  Fig1_UMAP_net_score_M1.png
+  Fig1_UMAP_net_score_M2.png
+  Fig1_UMAP_net_score_M3.png
+  Fig1_UMAP_net_score_M4.png
+  Fig1_UMAP_net_score_M5.png
+  Fig1_UMAP_net_score_M6.png
+  Fig2_supertype_counts_pct_M1.png
+  Fig2_supertype_counts_pct_M2.png
+  Fig2_supertype_counts_pct_M3.png
+  Fig2_supertype_counts_pct_M4.png
+  Fig2_supertype_counts_pct_M5.png
+  Fig2_supertype_counts_pct_M6.png
+  Fig3_supertype_enrichment_M1.png
+  Fig3_supertype_enrichment_M2.png
+  Fig3_supertype_enrichment_M3.png
+  Fig3_supertype_enrichment_M4.png
+  Fig3_supertype_enrichment_M5.png
+  Fig3_supertype_enrichment_M6.png
+  Fig4_ADNC_top4_supertypes_M1.png
+  Fig4_ADNC_top4_supertypes_M2.png
+  Fig4_ADNC_top4_supertypes_M3.png
+  Fig4_ADNC_top4_supertypes_M4.png
+  Fig4_ADNC_top4_supertypes_M5.png
+  Fig4_ADNC_top4_supertypes_M6.png
+  Part2_nonneocortex_env.joblib
+  S0_cell_scores.csv
+  S0_cell_scores_all_methods.csv
+  S1_supertype_enrichment.csv
+  S2_ADNC_proportions_per_supertype.csv
+  S3_donor_level_top_pct.csv
+  S4_combined_summary.csv
+  S5_clinical_M1_FC.csv
+  S5_clinical_M2_Hybrid.csv
+  S5_clinical_M3_pRank.csv
+  S5_clinical_M4_M1andM2.csv
+  S5_clinical_M5_M1andM3.csv
+  S5_clinical_M6_M2andM3.csv
+  S5b_donor_clinical.csv
+  S6_method_comparison.csv
+
+======================================================================
+SECTION 11: Export canonical namespace → /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_2.9pct/Part2_nonneocortex_env.joblib
+======================================================================
+  Saved: /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_2.9pct/Part2_nonneocortex_env.joblib
+  Keys exported: ['ALL_METHODS', 'BRAAK_MAP', 'CAA_MAP', 'CERAD_MAP', 'CLINICAL_TESTS', 'FULL_H5AD', 'INTERSECTION_PAIRS', 'KEEP_FLAGGED_NUCLEI', 'M4_THR_M1', 'M4_THR_M2', 'M4_TOP_MASK', 'NON_NEOCORTEX_REGIONS', 'NORM_CEILING', 'NORM_TARGET_SUM', 'N_M4_TOP', 'RELEASE', 'SCORERS', 'SCORER_LABELS', 'THAL_MAP', 'TOP_PCT', 'adnc_col', 'adnc_df', 'adnc_order', 'adnc_pal', 'adnc_rank_map', 'age_col', 'all_clinical', 'apoe_col', 'braak_col', 'caa_col', 'cerad_col', 'compare_df', 'donor_clinical', 'donor_col', 'donor_prop', 'eligible_st', 'enrich_df', 'mmse_col', 'n_donors_arm', 'obs_full', 'ph_col', 'pmi_col', 'region_col', 'rin_col', 'score_cols', 'severe_col', 'stype_col', 'thal_col', 'umap_coords', 'weight_col']
+
+  [SWEEP 2.9%] M4 n=2,612 | PVM_3 17.3% | PVM_4 22.6% | worst other Micro-PVM_2_3-SEAAD 0.6% (n=21,728) | rule raw=True guarded=True
+
+##########################################################################
+# SWEEP 3/5 - top 3.1%
+#   -> /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_3.1pct
+#   figures: make only   elapsed 25s
+##########################################################################
+
+  [CANONICAL M4 MASK]
+    M1 threshold : 0.968396  (top 3.1%)
+    M2 threshold : 1.185659  (top 3.1%)
+    N M4-top cells (M1 AND M2): 2,809  (2.64% of non-neocortical cells)
+    Stored in namespace as: M4_TOP_MASK (bool array), obs_full['is_M4_top'] (column)
+
+  Inter-scorer Pearson correlations (base methods):
+    M1_FC vs M2_Hybrid : r = 0.9653
+    M1_FC vs M3_pRank : r = 0.9748
+    M2_Hybrid vs M3_pRank : r = 0.9515
+
+  Saved S0_cell_scores_all_methods.csv + S0_cell_scores.csv
+
+SECTION 3: Top-3.1% enrichment [M1_FC]
+  Threshold: 0.9684  n_top: 3,304
+
+  Supertype                                  n_all  n_top  n_don   %top   fold           95% CI
+  -----------------------------------------------------------------------------------------------
+  Micro-PVM_4-SEAAD                            442    119     45  26.9%   8.69x [6.20, 13.89]
+  Micro-PVM_3-SEAAD                         13,098  2,832     82  21.6%   6.97x [5.96, 8.06]
+  Micro-PVM_2_3-SEAAD                       21,728    188     51   0.9%   0.28x [0.21, 0.36]
+  Micro-PVM_2_1-SEAAD                          391      2      2   0.5%   0.17x [0.00, 0.48]
+  Micro-PVM_1                                3,313     12     11   0.4%   0.12x [0.06, 0.19]
+  Micro-PVM_2                               65,432    151     47   0.2%   0.07x [0.05, 0.10]
+  Lymphocyte                                 2,147      0      0   0.0%   0.00x [0.00, 0.00]
+  Monocyte                                      12      0      0   0.0%   0.00x [0.00, 0.00]
+  -----------------------------------------------------------------------------------------------
+  Enrichment fold = pct_top / arm top-%; 95% CI from 2,000 donor resamples.
+
+SECTION 4: ADNC-stratified proportions [M1]
+  Saved S2_ADNC_proportions_per_supertype.csv
+
+SECTION 5: Donor-level disease staging [M1]
+  ADNC  rho = +0.4568  p = 0.000014  (n=83)
+  Braak rho = +0.4259  p = 0.000060  (n=83)
+  Not AD         : n= 9  mean=1.142%
+  Low            : n=12  mean=2.184%
+  Intermediate   : n=21  mean=3.399%
+  High           : n=41  mean=4.667%
+  Saved S3_donor_level_top_pct.csv
+
+SECTION 6: Figures [M1-M6]
+  Saved Fig1_UMAP_net_score_M1.png
+  Saved Fig2_supertype_counts_pct_M1.png
+  Saved Fig3_supertype_enrichment_M1.png
+  Saved Fig4_ADNC_top4_supertypes_M1.png
+  Saved Fig1_UMAP_net_score_M2.png
+  Saved Fig2_supertype_counts_pct_M2.png
+  Saved Fig3_supertype_enrichment_M2.png
+  Saved Fig4_ADNC_top4_supertypes_M2.png
+  Saved Fig1_UMAP_net_score_M3.png
+  Saved Fig2_supertype_counts_pct_M3.png
+  Saved Fig3_supertype_enrichment_M3.png
+  Saved Fig4_ADNC_top4_supertypes_M3.png
+  Saved Fig1_UMAP_net_score_M4.png
+  Saved Fig2_supertype_counts_pct_M4.png
+  Saved Fig3_supertype_enrichment_M4.png
+  Saved Fig4_ADNC_top4_supertypes_M4.png
+  Saved Fig1_UMAP_net_score_M5.png
+  Saved Fig2_supertype_counts_pct_M5.png
+  Saved Fig3_supertype_enrichment_M5.png
+  Saved Fig4_ADNC_top4_supertypes_M5.png
+  Saved Fig1_UMAP_net_score_M6.png
+  Saved Fig2_supertype_counts_pct_M6.png
+  Saved Fig3_supertype_enrichment_M6.png
+  Saved Fig4_ADNC_top4_supertypes_M6.png
+
+SECTION 7: Saved S4_combined_summary.csv
+
+======================================================================
+SECTION 8: Clinical correlation suite - all 6 methods (M1-M6)
+======================================================================
+  ADNC values in obs_full: ['High', 'Intermediate', 'Low', 'Not AD']
+  Values mapped to adnc_order: 106,563 / 106,563 cells
+  All ADNC values successfully mapped to adnc_order ✓
+
+  all donor_clinical columns verified constant within donor.
+
+  Donor clinical availability (83 donors):
+    ADNC rank      :  83/83
+    Braak          :  83/83
+    CERAD          :  83/83
+    Thal           :  83/83
+    CAA            :  83/83
+    APOE e4        :  83/83
+    MMSE           :  79/83
+    Age            :  83/83
+    PMI            :  83/83
+    RIN            :  83/83
+    Brain pH       :  83/83
+    Fresh Brain Wt :  82/83
+    Severe flag    :  83/83
+    complete cases  Tier1 (Age,PMI)           : 83/83
+    complete cases  Tier1+RIN/pH/Weight       : 82/83
+    Saved S5b_donor_clinical.csv (83 donors x 27 cols)
+
+  Eligible supertypes (M1 baseline): ['Micro-PVM_2', 'Micro-PVM_2_3-SEAAD', 'Micro-PVM_3-SEAAD', 'Micro-PVM_4-SEAAD']
+
+  [M1_FC] running clinical suite ...
+  Saved S5_clinical_M1_FC.csv  (BH-sig hits: 9)
+
+  [M2_Hybrid] running clinical suite ...
+  Saved S5_clinical_M2_Hybrid.csv  (BH-sig hits: 7)
+
+  [M3_pRank] running clinical suite ...
+  Saved S5_clinical_M3_pRank.csv  (BH-sig hits: 7)
+
+  [M4_M1andM2] running clinical suite ...
+    Intersection mask n=2,809  eligible supertypes: ['Micro-PVM_2', 'Micro-PVM_2_3-SEAAD', 'Micro-PVM_3-SEAAD', 'Micro-PVM_4-SEAAD']
+  Saved S5_clinical_M4_M1andM2.csv  (BH-sig hits: 8)
+
+  [M5_M1andM3] running clinical suite ...
+    Intersection mask n=2,833  eligible supertypes: ['Micro-PVM_2', 'Micro-PVM_2_3-SEAAD', 'Micro-PVM_3-SEAAD', 'Micro-PVM_4-SEAAD']
+  Saved S5_clinical_M5_M1andM3.csv  (BH-sig hits: 8)
+
+  [M6_M2andM3] running clinical suite ...
+    Intersection mask n=2,613  eligible supertypes: ['Micro-PVM_2', 'Micro-PVM_2_3-SEAAD', 'Micro-PVM_3-SEAAD', 'Micro-PVM_4-SEAAD']
+  Saved S5_clinical_M6_M2andM3.csv  (BH-sig hits: 7)
+
+======================================================================
+SECTION 9: Head-to-head scoring comparison - M1-M6
+======================================================================
+
+  Head-to-head (positive-expected tests only):
+    method                         label  n_BH_sig  n_raw_sig  mean_winner_rho  mean_abs_rho_pos  median_abs_rho_pos  n_correct_dir  n_pos_tests
+     M1_FC         M1 — FC-weighted only         9         10           0.4059            0.1883              0.1229             19           20
+ M2_Hybrid M2 — Hybrid FC x -log10(padj)         7          8           0.3996            0.1803              0.1242             16           20
+  M3_pRank  M3 — Pure p_adj rank (no FC)         7         10           0.3897            0.1823              0.1226             14           20
+M4_M1andM2     M4 — Intersection M1 ∩ M2         8         10           0.3967            0.1788              0.0998             15           20
+M5_M1andM3     M5 — Intersection M1 ∩ M3         8         10           0.4019            0.1811              0.1180             17           20
+M6_M2andM3     M6 — Intersection M2 ∩ M3         7          9           0.3923            0.1675              0.1049             16           20
+
+  WINNER by mean_winner_rho : M1_FC  (M1 — FC-weighted only)
+    M1_FC          : mean_winner_rho=0.4059  n_BH_sig=9
+    M2_Hybrid      : mean_winner_rho=0.3996  n_BH_sig=7
+    M3_pRank       : mean_winner_rho=0.3897  n_BH_sig=7
+    M4_M1andM2     : mean_winner_rho=0.3967  n_BH_sig=8
+    M5_M1andM3     : mean_winner_rho=0.4019  n_BH_sig=8
+    M6_M2andM3     : mean_winner_rho=0.3923  n_BH_sig=7
+
+======================================================================
+SECTION 10: Part 2 Final Report
+======================================================================
+
+Part 2 complete - non-neocortical arm
+======================================================================
+RELEASE   : 2026-06-22 Multiregion  |  X = ln(UP10K+1), CP10K
+FILE      : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad
+FLAGGED   : KEPT
+GUARDRAIL : ['HIP', 'MEC', 'LEC', 'FI']  (106,563 cells retained)
+DONORS    : 83 contributing to this arm
+TOP-3.1%    : threshold=0.9684  n=3,304
+
+PRIMARY ENRICHMENT [M1]:
+          supertype  n_total  pct_top  enrichment_fold  boot_ci_lo  boot_ci_hi
+  Micro-PVM_4-SEAAD      442    26.92            8.685       6.203      13.889
+  Micro-PVM_3-SEAAD    13098    21.62            6.975       5.965       8.061
+Micro-PVM_2_3-SEAAD    21728     0.87            0.279       0.207       0.360
+Micro-PVM_2_1-SEAAD      391     0.51            0.165       0.000       0.485
+        Micro-PVM_1     3313     0.36            0.117       0.055       0.186
+
+ADNC [M1]:
+          supertype  ADNC_rho   ADNC_p
+  Micro-PVM_3-SEAAD    0.4880 0.000003
+Micro-PVM_2_3-SEAAD    0.2740 0.012178
+        Micro-PVM_2    0.0207 0.852480
+  Micro-PVM_4-SEAAD    0.0032 0.976900
+
+DONOR STAGING [M1]:
+  ADNC  rho = +0.4568  p = 0.000014
+  Braak rho = +0.4259  p = 0.000060  (n=83)
+
+METHOD COMPARISON:
+    method  n_BH_sig  mean_abs_rho_pos  n_correct_dir
+     M1_FC         9            0.1883             19
+ M2_Hybrid         7            0.1803             16
+  M3_pRank         7            0.1823             14
+M4_M1andM2         8            0.1788             15
+M5_M1andM3         8            0.1811             17
+M6_M2andM3         7            0.1675             16
+
+WINNER : M1_FC  (M1 — FC-weighted only)
+  BH-sig  : 9
+  mean_winner_rho: 0.4059
+  mean_abs_rho   : 0.1883
+  Dir OK  : 19/20
+======================================================================
+
+
+All outputs in /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_3.1pct/:
+  Fig1_UMAP_net_score_M1.png
+  Fig1_UMAP_net_score_M2.png
+  Fig1_UMAP_net_score_M3.png
+  Fig1_UMAP_net_score_M4.png
+  Fig1_UMAP_net_score_M5.png
+  Fig1_UMAP_net_score_M6.png
+  Fig2_supertype_counts_pct_M1.png
+  Fig2_supertype_counts_pct_M2.png
+  Fig2_supertype_counts_pct_M3.png
+  Fig2_supertype_counts_pct_M4.png
+  Fig2_supertype_counts_pct_M5.png
+  Fig2_supertype_counts_pct_M6.png
+  Fig3_supertype_enrichment_M1.png
+  Fig3_supertype_enrichment_M2.png
+  Fig3_supertype_enrichment_M3.png
+  Fig3_supertype_enrichment_M4.png
+  Fig3_supertype_enrichment_M5.png
+  Fig3_supertype_enrichment_M6.png
+  Fig4_ADNC_top4_supertypes_M1.png
+  Fig4_ADNC_top4_supertypes_M2.png
+  Fig4_ADNC_top4_supertypes_M3.png
+  Fig4_ADNC_top4_supertypes_M4.png
+  Fig4_ADNC_top4_supertypes_M5.png
+  Fig4_ADNC_top4_supertypes_M6.png
+  Part2_nonneocortex_env.joblib
+  S0_cell_scores.csv
+  S0_cell_scores_all_methods.csv
+  S1_supertype_enrichment.csv
+  S2_ADNC_proportions_per_supertype.csv
+  S3_donor_level_top_pct.csv
+  S4_combined_summary.csv
+  S5_clinical_M1_FC.csv
+  S5_clinical_M2_Hybrid.csv
+  S5_clinical_M3_pRank.csv
+  S5_clinical_M4_M1andM2.csv
+  S5_clinical_M5_M1andM3.csv
+  S5_clinical_M6_M2andM3.csv
+  S5b_donor_clinical.csv
+  S6_method_comparison.csv
+
+======================================================================
+SECTION 11: Export canonical namespace → /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_3.1pct/Part2_nonneocortex_env.joblib
+======================================================================
+  Saved: /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_3.1pct/Part2_nonneocortex_env.joblib
+  Keys exported: ['ALL_METHODS', 'BRAAK_MAP', 'CAA_MAP', 'CERAD_MAP', 'CLINICAL_TESTS', 'FULL_H5AD', 'INTERSECTION_PAIRS', 'KEEP_FLAGGED_NUCLEI', 'M4_THR_M1', 'M4_THR_M2', 'M4_TOP_MASK', 'NON_NEOCORTEX_REGIONS', 'NORM_CEILING', 'NORM_TARGET_SUM', 'N_M4_TOP', 'RELEASE', 'SCORERS', 'SCORER_LABELS', 'THAL_MAP', 'TOP_PCT', 'adnc_col', 'adnc_df', 'adnc_order', 'adnc_pal', 'adnc_rank_map', 'age_col', 'all_clinical', 'apoe_col', 'braak_col', 'caa_col', 'cerad_col', 'compare_df', 'donor_clinical', 'donor_col', 'donor_prop', 'eligible_st', 'enrich_df', 'mmse_col', 'n_donors_arm', 'obs_full', 'ph_col', 'pmi_col', 'region_col', 'rin_col', 'score_cols', 'severe_col', 'stype_col', 'thal_col', 'umap_coords', 'weight_col']
+
+  [SWEEP 3.1%] M4 n=2,809 | PVM_3 18.4% | PVM_4 24.2% | worst other Micro-PVM_2_3-SEAAD 0.7% (n=21,728) | rule raw=True guarded=True
+
+##########################################################################
+# SWEEP 4/5 - top 5.0%
+#   -> /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_5.0pct
+#   figures: make only   elapsed 38s
+##########################################################################
+
+  [CANONICAL M4 MASK]
+    M1 threshold : 0.801085  (top 5.0%)
+    M2 threshold : 0.988074  (top 5.0%)
+    N M4-top cells (M1 AND M2): 4,455  (4.18% of non-neocortical cells)
+    Stored in namespace as: M4_TOP_MASK (bool array), obs_full['is_M4_top'] (column)
+
+  Inter-scorer Pearson correlations (base methods):
+    M1_FC vs M2_Hybrid : r = 0.9653
+    M1_FC vs M3_pRank : r = 0.9748
+    M2_Hybrid vs M3_pRank : r = 0.9515
+
+  Saved S0_cell_scores_all_methods.csv + S0_cell_scores.csv
+
+SECTION 3: Top-5.0% enrichment [M1_FC]
+  Threshold: 0.8011  n_top: 5,329
+
+  Supertype                                  n_all  n_top  n_don   %top   fold           95% CI
+  -----------------------------------------------------------------------------------------------
+  Micro-PVM_4-SEAAD                            442    162     46  36.6%   7.33x [5.77, 10.48]
+  Micro-PVM_3-SEAAD                         13,098  4,265     82  32.6%   6.51x [5.75, 7.29]
+  Monocyte                                      12      3      1  25.0%   5.00x [0.00, 10.00]
+  Micro-PVM_2_3-SEAAD                       21,728    412     60   1.9%   0.38x [0.29, 0.48]
+  Micro-PVM_1                                3,313     46     25   1.4%   0.28x [0.19, 0.37]
+  Lymphocyte                                 2,147     22     16   1.0%   0.20x [0.11, 0.32]
+  Micro-PVM_2_1-SEAAD                          391      3      3   0.8%   0.15x [0.00, 0.41]
+  Micro-PVM_2                               65,432    416     66   0.6%   0.13x [0.10, 0.16]
+  -----------------------------------------------------------------------------------------------
+  Enrichment fold = pct_top / arm top-%; 95% CI from 2,000 donor resamples.
+
+SECTION 4: ADNC-stratified proportions [M1]
+  Saved S2_ADNC_proportions_per_supertype.csv
+
+SECTION 5: Donor-level disease staging [M1]
+  ADNC  rho = +0.4892  p = 0.000003  (n=83)
+  Braak rho = +0.4741  p = 0.000006  (n=83)
+  Not AD         : n= 9  mean=1.948%
+  Low            : n=12  mean=3.496%
+  Intermediate   : n=21  mean=5.035%
+  High           : n=41  mean=7.416%
+  Saved S3_donor_level_top_pct.csv
+
+SECTION 6: Figures [M1-M6]
+  Saved Fig1_UMAP_net_score_M1.png
+  Saved Fig2_supertype_counts_pct_M1.png
+  Saved Fig3_supertype_enrichment_M1.png
+  Saved Fig4_ADNC_top4_supertypes_M1.png
+  Saved Fig1_UMAP_net_score_M2.png
+  Saved Fig2_supertype_counts_pct_M2.png
+  Saved Fig3_supertype_enrichment_M2.png
+  Saved Fig4_ADNC_top4_supertypes_M2.png
+  Saved Fig1_UMAP_net_score_M3.png
+  Saved Fig2_supertype_counts_pct_M3.png
+  Saved Fig3_supertype_enrichment_M3.png
+  Saved Fig4_ADNC_top4_supertypes_M3.png
+  Saved Fig1_UMAP_net_score_M4.png
+  Saved Fig2_supertype_counts_pct_M4.png
+  Saved Fig3_supertype_enrichment_M4.png
+  Saved Fig4_ADNC_top4_supertypes_M4.png
+  Saved Fig1_UMAP_net_score_M5.png
+  Saved Fig2_supertype_counts_pct_M5.png
+  Saved Fig3_supertype_enrichment_M5.png
+  Saved Fig4_ADNC_top4_supertypes_M5.png
+  Saved Fig1_UMAP_net_score_M6.png
+  Saved Fig2_supertype_counts_pct_M6.png
+  Saved Fig3_supertype_enrichment_M6.png
+  Saved Fig4_ADNC_top4_supertypes_M6.png
+
+SECTION 7: Saved S4_combined_summary.csv
+
+======================================================================
+SECTION 8: Clinical correlation suite - all 6 methods (M1-M6)
+======================================================================
+  ADNC values in obs_full: ['High', 'Intermediate', 'Low', 'Not AD']
+  Values mapped to adnc_order: 106,563 / 106,563 cells
+  All ADNC values successfully mapped to adnc_order ✓
+
+  all donor_clinical columns verified constant within donor.
+
+  Donor clinical availability (83 donors):
+    ADNC rank      :  83/83
+    Braak          :  83/83
+    CERAD          :  83/83
+    Thal           :  83/83
+    CAA            :  83/83
+    APOE e4        :  83/83
+    MMSE           :  79/83
+    Age            :  83/83
+    PMI            :  83/83
+    RIN            :  83/83
+    Brain pH       :  83/83
+    Fresh Brain Wt :  82/83
+    Severe flag    :  83/83
+    complete cases  Tier1 (Age,PMI)           : 83/83
+    complete cases  Tier1+RIN/pH/Weight       : 82/83
+    Saved S5b_donor_clinical.csv (83 donors x 27 cols)
+
+  Eligible supertypes (M1 baseline): ['Micro-PVM_2', 'Micro-PVM_2_3-SEAAD', 'Micro-PVM_3-SEAAD', 'Micro-PVM_1', 'Lymphocyte', 'Micro-PVM_4-SEAAD']
+
+  [M1_FC] running clinical suite ...
+  Saved S5_clinical_M1_FC.csv  (BH-sig hits: 7)
+
+  [M2_Hybrid] running clinical suite ...
+  Saved S5_clinical_M2_Hybrid.csv  (BH-sig hits: 9)
+
+  [M3_pRank] running clinical suite ...
+  Saved S5_clinical_M3_pRank.csv  (BH-sig hits: 7)
+
+  [M4_M1andM2] running clinical suite ...
+    Intersection mask n=4,455  eligible supertypes: ['Micro-PVM_2', 'Micro-PVM_2_3-SEAAD', 'Micro-PVM_3-SEAAD', 'Micro-PVM_1', 'Micro-PVM_4-SEAAD']
+  Saved S5_clinical_M4_M1andM2.csv  (BH-sig hits: 7)
+
+  [M5_M1andM3] running clinical suite ...
+    Intersection mask n=4,519  eligible supertypes: ['Micro-PVM_2', 'Micro-PVM_2_3-SEAAD', 'Micro-PVM_3-SEAAD', 'Micro-PVM_1', 'Lymphocyte', 'Micro-PVM_4-SEAAD']
+  Saved S5_clinical_M5_M1andM3.csv  (BH-sig hits: 7)
+
+  [M6_M2andM3] running clinical suite ...
+    Intersection mask n=4,163  eligible supertypes: ['Micro-PVM_2', 'Micro-PVM_2_3-SEAAD', 'Micro-PVM_3-SEAAD', 'Micro-PVM_1', 'Lymphocyte', 'Micro-PVM_4-SEAAD']
+  Saved S5_clinical_M6_M2andM3.csv  (BH-sig hits: 7)
+
+======================================================================
+SECTION 9: Head-to-head scoring comparison - M1-M6
+======================================================================
+
+  Head-to-head (positive-expected tests only):
+    method                         label  n_BH_sig  n_raw_sig  mean_winner_rho  mean_abs_rho_pos  median_abs_rho_pos  n_correct_dir  n_pos_tests
+     M1_FC         M1 — FC-weighted only         7         11           0.4229            0.1723              0.1295             25           30
+ M2_Hybrid M2 — Hybrid FC x -log10(padj)         9         11           0.4116            0.1517              0.1146             27           30
+  M3_pRank  M3 — Pure p_adj rank (no FC)         7          8           0.3856            0.1388              0.0762             25           30
+M4_M1andM2     M4 — Intersection M1 ∩ M2         7          8           0.4175            0.1712              0.1290             22           25
+M5_M1andM3     M5 — Intersection M1 ∩ M3         7          9           0.4044            0.1575              0.1270             24           30
+M6_M2andM3     M6 — Intersection M2 ∩ M3         7          8           0.4000            0.1252              0.0704             21           30
+
+  WINNER by mean_winner_rho : M1_FC  (M1 — FC-weighted only)
+    M1_FC          : mean_winner_rho=0.4229  n_BH_sig=7
+    M2_Hybrid      : mean_winner_rho=0.4116  n_BH_sig=9
+    M3_pRank       : mean_winner_rho=0.3856  n_BH_sig=7
+    M4_M1andM2     : mean_winner_rho=0.4175  n_BH_sig=7
+    M5_M1andM3     : mean_winner_rho=0.4044  n_BH_sig=7
+    M6_M2andM3     : mean_winner_rho=0.4000  n_BH_sig=7
+
+======================================================================
+SECTION 10: Part 2 Final Report
+======================================================================
+
+Part 2 complete - non-neocortical arm
+======================================================================
+RELEASE   : 2026-06-22 Multiregion  |  X = ln(UP10K+1), CP10K
+FILE      : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad
+FLAGGED   : KEPT
+GUARDRAIL : ['HIP', 'MEC', 'LEC', 'FI']  (106,563 cells retained)
+DONORS    : 83 contributing to this arm
+TOP-5.0%    : threshold=0.8011  n=5,329
+
+PRIMARY ENRICHMENT [M1]:
+          supertype  n_total  pct_top  enrichment_fold  boot_ci_lo  boot_ci_hi
+  Micro-PVM_4-SEAAD      442    36.65            7.330       5.771      10.476
+  Micro-PVM_3-SEAAD    13098    32.56            6.512       5.750       7.288
+           Monocyte       12    25.00            5.000       0.000      10.000
+Micro-PVM_2_3-SEAAD    21728     1.90            0.379       0.290       0.480
+        Micro-PVM_1     3313     1.39            0.278       0.189       0.369
+
+ADNC [M1]:
+          supertype  ADNC_rho   ADNC_p
+  Micro-PVM_3-SEAAD    0.5142 0.000001
+         Lymphocyte    0.2707 0.013329
+Micro-PVM_2_3-SEAAD    0.2005 0.069155
+        Micro-PVM_1    0.0881 0.428316
+  Micro-PVM_4-SEAAD   -0.0095 0.931734
+
+DONOR STAGING [M1]:
+  ADNC  rho = +0.4892  p = 0.000003
+  Braak rho = +0.4741  p = 0.000006  (n=83)
+
+METHOD COMPARISON:
+    method  n_BH_sig  mean_abs_rho_pos  n_correct_dir
+     M1_FC         7            0.1723             25
+ M2_Hybrid         9            0.1517             27
+  M3_pRank         7            0.1388             25
+M4_M1andM2         7            0.1712             22
+M5_M1andM3         7            0.1575             24
+M6_M2andM3         7            0.1252             21
+
+WINNER : M1_FC  (M1 — FC-weighted only)
+  BH-sig  : 7
+  mean_winner_rho: 0.4229
+  mean_abs_rho   : 0.1723
+  Dir OK  : 25/30
+======================================================================
+
+
+All outputs in /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_5.0pct/:
+  Fig1_UMAP_net_score_M1.png
+  Fig1_UMAP_net_score_M2.png
+  Fig1_UMAP_net_score_M3.png
+  Fig1_UMAP_net_score_M4.png
+  Fig1_UMAP_net_score_M5.png
+  Fig1_UMAP_net_score_M6.png
+  Fig2_supertype_counts_pct_M1.png
+  Fig2_supertype_counts_pct_M2.png
+  Fig2_supertype_counts_pct_M3.png
+  Fig2_supertype_counts_pct_M4.png
+  Fig2_supertype_counts_pct_M5.png
+  Fig2_supertype_counts_pct_M6.png
+  Fig3_supertype_enrichment_M1.png
+  Fig3_supertype_enrichment_M2.png
+  Fig3_supertype_enrichment_M3.png
+  Fig3_supertype_enrichment_M4.png
+  Fig3_supertype_enrichment_M5.png
+  Fig3_supertype_enrichment_M6.png
+  Fig4_ADNC_top4_supertypes_M1.png
+  Fig4_ADNC_top4_supertypes_M2.png
+  Fig4_ADNC_top4_supertypes_M3.png
+  Fig4_ADNC_top4_supertypes_M4.png
+  Fig4_ADNC_top4_supertypes_M5.png
+  Fig4_ADNC_top4_supertypes_M6.png
+  Part2_nonneocortex_env.joblib
+  S0_cell_scores.csv
+  S0_cell_scores_all_methods.csv
+  S1_supertype_enrichment.csv
+  S2_ADNC_proportions_per_supertype.csv
+  S3_donor_level_top_pct.csv
+  S4_combined_summary.csv
+  S5_clinical_M1_FC.csv
+  S5_clinical_M2_Hybrid.csv
+  S5_clinical_M3_pRank.csv
+  S5_clinical_M4_M1andM2.csv
+  S5_clinical_M5_M1andM3.csv
+  S5_clinical_M6_M2andM3.csv
+  S5b_donor_clinical.csv
+  S6_method_comparison.csv
+
+======================================================================
+SECTION 11: Export canonical namespace → /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_5.0pct/Part2_nonneocortex_env.joblib
+======================================================================
+  Saved: /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_5.0pct/Part2_nonneocortex_env.joblib
+  Keys exported: ['ALL_METHODS', 'BRAAK_MAP', 'CAA_MAP', 'CERAD_MAP', 'CLINICAL_TESTS', 'FULL_H5AD', 'INTERSECTION_PAIRS', 'KEEP_FLAGGED_NUCLEI', 'M4_THR_M1', 'M4_THR_M2', 'M4_TOP_MASK', 'NON_NEOCORTEX_REGIONS', 'NORM_CEILING', 'NORM_TARGET_SUM', 'N_M4_TOP', 'RELEASE', 'SCORERS', 'SCORER_LABELS', 'THAL_MAP', 'TOP_PCT', 'adnc_col', 'adnc_df', 'adnc_order', 'adnc_pal', 'adnc_rank_map', 'age_col', 'all_clinical', 'apoe_col', 'braak_col', 'caa_col', 'cerad_col', 'compare_df', 'donor_clinical', 'donor_col', 'donor_prop', 'eligible_st', 'enrich_df', 'mmse_col', 'n_donors_arm', 'obs_full', 'ph_col', 'pmi_col', 'region_col', 'rin_col', 'score_cols', 'severe_col', 'stype_col', 'thal_col', 'umap_coords', 'weight_col']
+
+  [SWEEP 5.0%] M4 n=4,455 | PVM_3 27.3% | PVM_4 34.2% | worst other Monocyte 25.0% (n=12) | rule raw=False guarded=False
+
+##########################################################################
+# SWEEP 5/5 - top 3.0%   [PRIMARY]
+#   -> /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_3.0pct
+#   figures: make+show   elapsed 50s
+##########################################################################
+
+  [CANONICAL M4 MASK]
+    M1 threshold : 0.981825  (top 3.0%)
+    M2 threshold : 1.199185  (top 3.0%)
+    N M4-top cells (M1 AND M2): 2,704  (2.54% of non-neocortical cells)
+    Stored in namespace as: M4_TOP_MASK (bool array), obs_full['is_M4_top'] (column)
+
+  Inter-scorer Pearson correlations (base methods):
+    M1_FC vs M2_Hybrid : r = 0.9653
+    M1_FC vs M3_pRank : r = 0.9748
+    M2_Hybrid vs M3_pRank : r = 0.9515
+
+  Saved S0_cell_scores_all_methods.csv + S0_cell_scores.csv
+
+SECTION 3: Top-3.0% enrichment [M1_FC]
+  Threshold: 0.9818  n_top: 3,197
+
+  Supertype                                  n_all  n_top  n_don   %top   fold           95% CI
+  -----------------------------------------------------------------------------------------------
+  Micro-PVM_4-SEAAD                            442    116     44  26.2%   8.75x [6.22, 13.96]
+  Micro-PVM_3-SEAAD                         13,098  2,750     82  21.0%   7.00x [5.99, 8.09]
+  Micro-PVM_2_3-SEAAD                       21,728    178     50   0.8%   0.27x [0.20, 0.36]
+  Micro-PVM_2_1-SEAAD                          391      2      2   0.5%   0.17x [0.00, 0.50]
+  Micro-PVM_1                                3,313     10     10   0.3%   0.10x [0.05, 0.16]
+  Micro-PVM_2                               65,432    141     47   0.2%   0.07x [0.05, 0.10]
+  Lymphocyte                                 2,147      0      0   0.0%   0.00x [0.00, 0.00]
+  Monocyte                                      12      0      0   0.0%   0.00x [0.00, 0.00]
+  -----------------------------------------------------------------------------------------------
+  Enrichment fold = pct_top / arm top-%; 95% CI from 2,000 donor resamples.
+
+SECTION 4: ADNC-stratified proportions [M1]
+  Saved S2_ADNC_proportions_per_supertype.csv
+
+SECTION 5: Donor-level disease staging [M1]
+  ADNC  rho = +0.4635  p = 0.000010  (n=83)
+  Braak rho = +0.4365  p = 0.000037  (n=83)
+  Not AD         : n= 9  mean=1.120%
+  Low            : n=12  mean=2.084%
+  Intermediate   : n=21  mean=3.312%
+  High           : n=41  mean=4.551%
+  Saved S3_donor_level_top_pct.csv
+
+SECTION 6: Figures [M1-M6]
+  Saved Fig1_UMAP_net_score_M1.png
+  Saved Fig2_supertype_counts_pct_M1.png
+  Saved Fig3_supertype_enrichment_M1.png
+  Saved Fig4_ADNC_top4_supertypes_M1.png
+  Saved Fig1_UMAP_net_score_M2.png
+  Saved Fig2_supertype_counts_pct_M2.png
+  Saved Fig3_supertype_enrichment_M2.png
+  Saved Fig4_ADNC_top4_supertypes_M2.png
+  Saved Fig1_UMAP_net_score_M3.png
+  Saved Fig2_supertype_counts_pct_M3.png
+  Saved Fig3_supertype_enrichment_M3.png
+  Saved Fig4_ADNC_top4_supertypes_M3.png
+  Saved Fig1_UMAP_net_score_M4.png
+  Saved Fig2_supertype_counts_pct_M4.png
+  Saved Fig3_supertype_enrichment_M4.png
+  Saved Fig4_ADNC_top4_supertypes_M4.png
+  Saved Fig1_UMAP_net_score_M5.png
+  Saved Fig2_supertype_counts_pct_M5.png
+  Saved Fig3_supertype_enrichment_M5.png
+  Saved Fig4_ADNC_top4_supertypes_M5.png
+  Saved Fig1_UMAP_net_score_M6.png
+  Saved Fig2_supertype_counts_pct_M6.png
+  Saved Fig3_supertype_enrichment_M6.png
+  Saved Fig4_ADNC_top4_supertypes_M6.png
+
+SECTION 7: Saved S4_combined_summary.csv
+
+======================================================================
+SECTION 8: Clinical correlation suite - all 6 methods (M1-M6)
+======================================================================
+  ADNC values in obs_full: ['High', 'Intermediate', 'Low', 'Not AD']
+  Values mapped to adnc_order: 106,563 / 106,563 cells
+  All ADNC values successfully mapped to adnc_order ✓
+
+  all donor_clinical columns verified constant within donor.
+
+  Donor clinical availability (83 donors):
+    ADNC rank      :  83/83
+    Braak          :  83/83
+    CERAD          :  83/83
+    Thal           :  83/83
+    CAA            :  83/83
+    APOE e4        :  83/83
+    MMSE           :  79/83
+    Age            :  83/83
+    PMI            :  83/83
+    RIN            :  83/83
+    Brain pH       :  83/83
+    Fresh Brain Wt :  82/83
+    Severe flag    :  83/83
+    complete cases  Tier1 (Age,PMI)           : 83/83
+    complete cases  Tier1+RIN/pH/Weight       : 82/83
+    Saved S5b_donor_clinical.csv (83 donors x 27 cols)
+
+  Eligible supertypes (M1 baseline): ['Micro-PVM_2', 'Micro-PVM_2_3-SEAAD', 'Micro-PVM_3-SEAAD', 'Micro-PVM_4-SEAAD']
+
+  [M1_FC] running clinical suite ...
+  Saved S5_clinical_M1_FC.csv  (BH-sig hits: 10)
+
+  [M2_Hybrid] running clinical suite ...
+  Saved S5_clinical_M2_Hybrid.csv  (BH-sig hits: 7)
+
+  [M3_pRank] running clinical suite ...
+  Saved S5_clinical_M3_pRank.csv  (BH-sig hits: 7)
+
+  [M4_M1andM2] running clinical suite ...
+    Intersection mask n=2,704  eligible supertypes: ['Micro-PVM_2', 'Micro-PVM_2_3-SEAAD', 'Micro-PVM_3-SEAAD', 'Micro-PVM_4-SEAAD']
+  Saved S5_clinical_M4_M1andM2.csv  (BH-sig hits: 8)
+
+  [M5_M1andM3] running clinical suite ...
+    Intersection mask n=2,739  eligible supertypes: ['Micro-PVM_2', 'Micro-PVM_2_3-SEAAD', 'Micro-PVM_3-SEAAD', 'Micro-PVM_4-SEAAD']
+  Saved S5_clinical_M5_M1andM3.csv  (BH-sig hits: 9)
+
+  [M6_M2andM3] running clinical suite ...
+    Intersection mask n=2,535  eligible supertypes: ['Micro-PVM_2', 'Micro-PVM_2_3-SEAAD', 'Micro-PVM_3-SEAAD', 'Micro-PVM_4-SEAAD']
+  Saved S5_clinical_M6_M2andM3.csv  (BH-sig hits: 7)
+
+======================================================================
+SECTION 9: Head-to-head scoring comparison - M1-M6
+======================================================================
+
+  Head-to-head (positive-expected tests only):
+    method                         label  n_BH_sig  n_raw_sig  mean_winner_rho  mean_abs_rho_pos  median_abs_rho_pos  n_correct_dir  n_pos_tests
+     M1_FC         M1 — FC-weighted only        10         11           0.4105            0.1952              0.1190             17           20
+ M2_Hybrid M2 — Hybrid FC x -log10(padj)         7          8           0.3992            0.1802              0.1298             17           20
+  M3_pRank  M3 — Pure p_adj rank (no FC)         7         10           0.3843            0.1819              0.1196             14           20
+M4_M1andM2     M4 — Intersection M1 ∩ M2         8         11           0.3979            0.1853              0.1254             17           20
+M5_M1andM3     M5 — Intersection M1 ∩ M3         9         12           0.4022            0.1876              0.1210             15           20
+M6_M2andM3     M6 — Intersection M2 ∩ M3         7          9           0.3905            0.1695              0.1042             17           20
+
+  WINNER by mean_winner_rho : M1_FC  (M1 — FC-weighted only)
+    M1_FC          : mean_winner_rho=0.4105  n_BH_sig=10
+    M2_Hybrid      : mean_winner_rho=0.3992  n_BH_sig=7
+    M3_pRank       : mean_winner_rho=0.3843  n_BH_sig=7
+    M4_M1andM2     : mean_winner_rho=0.3979  n_BH_sig=8
+    M5_M1andM3     : mean_winner_rho=0.4022  n_BH_sig=9
+    M6_M2andM3     : mean_winner_rho=0.3905  n_BH_sig=7
+
+======================================================================
+SECTION 10: Part 2 Final Report
+======================================================================
+
+Part 2 complete - non-neocortical arm
+======================================================================
+RELEASE   : 2026-06-22 Multiregion  |  X = ln(UP10K+1), CP10K
+FILE      : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad
+FLAGGED   : KEPT
+GUARDRAIL : ['HIP', 'MEC', 'LEC', 'FI']  (106,563 cells retained)
+DONORS    : 83 contributing to this arm
+TOP-3.0%    : threshold=0.9818  n=3,197
+
+PRIMARY ENRICHMENT [M1]:
+          supertype  n_total  pct_top  enrichment_fold  boot_ci_lo  boot_ci_hi
+  Micro-PVM_4-SEAAD      442    26.24            8.748       6.221      13.957
+  Micro-PVM_3-SEAAD    13098    21.00            6.999       5.991       8.093
+Micro-PVM_2_3-SEAAD    21728     0.82            0.273       0.202       0.356
+Micro-PVM_2_1-SEAAD      391     0.51            0.171       0.000       0.501
+        Micro-PVM_1     3313     0.30            0.101       0.047       0.164
+
+ADNC [M1]:
+          supertype  ADNC_rho   ADNC_p
+  Micro-PVM_3-SEAAD    0.4914 0.000002
+Micro-PVM_2_3-SEAAD    0.2977 0.006261
+        Micro-PVM_2    0.0314 0.778395
+  Micro-PVM_4-SEAAD   -0.0131 0.906373
+
+DONOR STAGING [M1]:
+  ADNC  rho = +0.4635  p = 0.000010
+  Braak rho = +0.4365  p = 0.000037  (n=83)
+
+METHOD COMPARISON:
+    method  n_BH_sig  mean_abs_rho_pos  n_correct_dir
+     M1_FC        10            0.1952             17
+ M2_Hybrid         7            0.1802             17
+  M3_pRank         7            0.1819             14
+M4_M1andM2         8            0.1853             17
+M5_M1andM3         9            0.1876             15
+M6_M2andM3         7            0.1695             17
+
+WINNER : M1_FC  (M1 — FC-weighted only)
+  BH-sig  : 10
+  mean_winner_rho: 0.4105
+  mean_abs_rho   : 0.1952
+  Dir OK  : 17/20
+======================================================================
+
+
+All outputs in /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_3.0pct/:
+  Fig1_UMAP_net_score_M1.png
+  Fig1_UMAP_net_score_M2.png
+  Fig1_UMAP_net_score_M3.png
+  Fig1_UMAP_net_score_M4.png
+  Fig1_UMAP_net_score_M5.png
+  Fig1_UMAP_net_score_M6.png
+  Fig2_supertype_counts_pct_M1.png
+  Fig2_supertype_counts_pct_M2.png
+  Fig2_supertype_counts_pct_M3.png
+  Fig2_supertype_counts_pct_M4.png
+  Fig2_supertype_counts_pct_M5.png
+  Fig2_supertype_counts_pct_M6.png
+  Fig3_supertype_enrichment_M1.png
+  Fig3_supertype_enrichment_M2.png
+  Fig3_supertype_enrichment_M3.png
+  Fig3_supertype_enrichment_M4.png
+  Fig3_supertype_enrichment_M5.png
+  Fig3_supertype_enrichment_M6.png
+  Fig4_ADNC_top4_supertypes_M1.png
+  Fig4_ADNC_top4_supertypes_M2.png
+  Fig4_ADNC_top4_supertypes_M3.png
+  Fig4_ADNC_top4_supertypes_M4.png
+  Fig4_ADNC_top4_supertypes_M5.png
+  Fig4_ADNC_top4_supertypes_M6.png
+  NonNeoC_S1_supertype_enrichment_M4.csv
+  NonNeoC_S7_scorer_composition.csv
+  Part2_nonneocortex_env.joblib
+  S0_cell_scores.csv
+  S0_cell_scores_all_methods.csv
+  S1_supertype_enrichment.csv
+  S2_ADNC_proportions_per_supertype.csv
+  S3_donor_level_top_pct.csv
+  S4_combined_summary.csv
+  S5_clinical_M1_FC.csv
+  S5_clinical_M2_Hybrid.csv
+  S5_clinical_M3_pRank.csv
+  S5_clinical_M4_M1andM2.csv
+  S5_clinical_M5_M1andM3.csv
+  S5_clinical_M6_M2andM3.csv
+  S5b_donor_clinical.csv
+  S6_method_comparison.csv
+
+======================================================================
+SECTION 11: Export canonical namespace → /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_3.0pct/Part2_nonneocortex_env.joblib
+======================================================================
+  Saved: /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_3.0pct/Part2_nonneocortex_env.joblib
+  Keys exported: ['ALL_METHODS', 'BRAAK_MAP', 'CAA_MAP', 'CERAD_MAP', 'CLINICAL_TESTS', 'FULL_H5AD', 'INTERSECTION_PAIRS', 'KEEP_FLAGGED_NUCLEI', 'M4_THR_M1', 'M4_THR_M2', 'M4_TOP_MASK', 'NON_NEOCORTEX_REGIONS', 'NORM_CEILING', 'NORM_TARGET_SUM', 'N_M4_TOP', 'RELEASE', 'SCORERS', 'SCORER_LABELS', 'THAL_MAP', 'TOP_PCT', 'adnc_col', 'adnc_df', 'adnc_order', 'adnc_pal', 'adnc_rank_map', 'age_col', 'all_clinical', 'apoe_col', 'braak_col', 'caa_col', 'cerad_col', 'compare_df', 'donor_clinical', 'donor_col', 'donor_prop', 'eligible_st', 'enrich_df', 'mmse_col', 'n_donors_arm', 'obs_full', 'ph_col', 'pmi_col', 'region_col', 'rin_col', 'score_cols', 'severe_col', 'stype_col', 'thal_col', 'umap_coords', 'weight_col']
+
+  [PRIMARY] also written to:
+    /data/[2]_Non-NeoC/Part2_NonNeoC_M4/Part2_nonneocortex_env.joblib
+
+  [SWEEP 3.0%] M4 n=2,704 | PVM_3 17.8% | PVM_4 23.3% | worst other Micro-PVM_2_3-SEAAD 0.7% (n=21,728) | rule raw=True guarded=True
+
+==========================================================================
+SECTION 12: Cutoff sweep summary
+==========================================================================
+top_pct is_primary n_top_M1 N_M4_TOP M4_thr_M1 M4_thr_M2 pct_PVM3 pct_PVM4         worst_other worst_other_pct worst_other_n      worst_other_gd worst_other_gd_pct rule_pass_raw rule_pass_guarded margin_cells_raw margin_cells_gd donor_rho_ADNC donor_rho_Braak best_method mean_winner_rho                                        out_dir
+    2.5      False     2665     2226  1.043707  1.281141   14.911   21.041 Micro-PVM_2_3-SEAAD           0.474         21728 Micro-PVM_2_3-SEAAD              0.474          True              True                0               2         0.4669          0.4353       M1_FC          0.4141 /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_2.5pct
+    2.9      False     3091     2612  0.992877  1.213972   17.277   22.624 Micro-PVM_2_3-SEAAD           0.617         21728 Micro-PVM_2_3-SEAAD              0.617          True              True                0               1         0.4633          0.4415       M1_FC          0.4143 /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_2.9pct
+    3.0       True     3197     2704  0.981825  1.199185   17.781   23.303 Micro-PVM_2_3-SEAAD           0.663         21728 Micro-PVM_2_3-SEAAD              0.663          True              True                0               1         0.4635          0.4365       M1_FC          0.4105 /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_3.0pct
+    3.1      False     3304     2809  0.968396  1.185659   18.415   24.208 Micro-PVM_2_3-SEAAD            0.69         21728 Micro-PVM_2_3-SEAAD               0.69          True              True                0               1         0.4568          0.4259       M1_FC          0.4059 /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_3.1pct
+    5.0      False     5329     4455  0.801085  0.988074   27.325   34.163            Monocyte            25.0            12 Micro-PVM_2_3-SEAAD              1.496         False             False             -108            -108         0.4892          0.4741       M1_FC          0.4229 /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_5.0pct
+
+  Saved /data/[2]_Non-NeoC/Part2_NonNeoC_M4/S7_sweep_summary.csv
+  Total sweep time: 63s
+
+  Live namespace now holds the PRIMARY cutoff (3.0%):
+    TOP_PCT      = 0.03
+    OUT_DIR      = /data/[2]_Non-NeoC/Part2_NonNeoC_M4/top_3.0pct
+    N_M4_TOP     = 2,704
+    M4_TOP_MASK  = bool array, 2,704 True of 106,563

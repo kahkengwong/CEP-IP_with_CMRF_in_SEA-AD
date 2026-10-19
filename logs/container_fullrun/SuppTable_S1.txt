@@ -1,0 +1,16 @@
+run_supp_tables.sh started 2026-10-19 07:11:24 | root /data | tables 1
+
+== S1
+  saved /data/Manuscript/Supp_Tables/build/SuppTable_S1_CellSelection.xlsx
+
+VERDICT: PASS
+   S1 builder: done
+
+== finalize S1
+S1  Manuscript/Supp_Tables/build/SuppTable_S1_CellSelection.xlsx
+Written: S1
+VERDICT: PASS
+
+Builders done: 1
+Builders failed: none
+Summary saved to /data/Manuscript/Supp_Tables/run_supp_tables_log.txt

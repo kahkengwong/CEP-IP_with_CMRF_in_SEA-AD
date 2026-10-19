@@ -1,0 +1,16 @@
+run_supp_tables.sh started 2026-10-19 07:11:27 | root /data | tables 5
+
+== S5
+saved /data/Manuscript/Supp_Tables/build/SuppTable_S5_PreChecks.xlsx
+
+VERDICT: PASS
+   S5 builder: done
+
+== finalize S5
+S5  Manuscript/Supp_Tables/build/SuppTable_S5_PreChecks.xlsx
+Written: S5
+VERDICT: PASS
+
+Builders done: 5
+Builders failed: none
+Summary saved to /data/Manuscript/Supp_Tables/run_supp_tables_log.txt

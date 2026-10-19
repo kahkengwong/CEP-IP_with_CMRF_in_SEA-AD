@@ -1,0 +1,41 @@
+Settings files:
+  same       CEP_arms.R
+  same       R_config.R
+  same       R_config_HKG8.R
+  copied     Mic13_genes.txt
+
+Part 12 files in Part12_rerun:
+  same       Part12_rerun/Part12_01_config.json
+  same       Part12_rerun/Part12_03_Config.r
+  same       Part12_rerun/Part12_04_Labels.r
+  same       Part12_rerun/Part12_05_Units.r
+  same       Part12_rerun/Part12_06_GerritsCells.r
+  same       Part12_rerun/Part12_Fig15_Analysis.r
+  same       Part12_rerun/Part12_Fig15_Plots.r
+  same       Part12_rerun/Part12_Fig16_Analysis.r
+  same       Part12_rerun/Part12_Fig16_Plots.r
+  same       Part12_rerun/Part12_Fig17_Analysis.r
+  same       Part12_rerun/Part12_Fig17_Plots.r
+  same       Part12_rerun/Part12_Fig18_Analysis.r
+  same       Part12_rerun/Part12_Fig18_Plots.r
+  same       Part12_rerun/Part12_Fig19_Analysis.r
+  same       Part12_rerun/Part12_Fig19_config.json
+  same       Part12_rerun/Part12_Fig19_Plots.r
+  same       Part12_rerun/Part12_ModulePostIP_Overview.r
+  same       Part12_rerun/Part12_Preset_Readings_Battery5.md
+  same       Part12_rerun/Part12_Preset_Readings.md
+  same       Part12_rerun/Part12_02_Extract.py
+
+Inputs:
+  missing    R_export_CP10K  (Part 8 export, read by Part 9 onwards)
+  missing    *_S5b_donor_clinical.csv  (Part 2 donor tables, read by Part 10h and Part 12)
+  missing    Part7_DecontX/decontX_contamination_all.csv  (Part 7, read by Part 12)
+  found      SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad
+  found      MetaData/sea-ad_cohort_donor_metadata_072524.xlsx
+  found      sea-ad-quantitative-neuropathology-063026.xlsx (1 file(s))
+  found      sea-ad_global_and_local_cps_050126.xlsx (1 file(s))
+  found      Gerrits/Metadata/GSE148822_series_matrix.txt.gz
+
+Scripts: /opt/seaad/Python, /opt/seaad/R and /opt/seaad/SuppTables.
+Run everything: seaad-run all (seaad-run --help lists the modes). Run order: README_container.md.
+Package versions: /opt/seaad/versions.txt

@@ -1,0 +1,40 @@
+Loading required package: nlme
+This is mgcv 1.9-4. For overview type '?mgcv'.
+============================================================================
+Part11_BandAblation_Fig11Export. Started 2026-10-19 09:04:58
+R 4.6.1; mgcv 1.9.4
+============================================================================
+  M4         NeoC     n= 2130 IP_y=1.874848 cover=0.7775 | A0  1656 A1  1656 A2  1658 A3  1656
+  M4         NonNeoC  n= 1987 IP_y=2.033336 cover=0.7418 | A0  1474 A1  1474 A2  1462 A3  1474
+  PVM_3_all  NeoC     n=13331 IP_y=1.664751 cover=0.7092 | A0  9454 A1  9454 A2  9467 A3  9454
+  PVM_3_all  NonNeoC  n=11132 IP_y=1.888041 cover=0.6948 | A0  7735 A1  7735 A2  7754 A3  7735
+  PVM_1_all  NeoC     n= 3218 IP_y=1.527955 cover=0.6843 | A0  2202 A1  2202 A2  2208 A3  2202
+  PVM_1_all  NonNeoC  n= 2658 IP_y=1.837186 cover=0.7284 | A0  1936 A1  1936 A2  1944 A3  1936
+  HKG8       NeoC     n= 1432 IP_y=1.247712 cover=0.3673 | A0   526 A1   526 A2   528 A3   526
+  HKG8       NonNeoC  n= 1079 IP_y=1.175522 cover=0.3994 | A0   431 A1   431 A2   435 A3   431
+
+Checks against /data/Part11_Identity/Part11_Identity_BandAblation_P10hDenom/Part11_Identity_BandAblation.xlsx
+  [PASS] X0: run workbook found
+  [PASS] X1: 8 of 8 sets recomputed and matched to the run
+  [PASS] X2: n_cells equal in all sets
+  [PASS] X2: n_A0 equal in all sets
+  [PASS] X2: n_A1 equal in all sets
+  [PASS] X2: n_A2 equal in all sets
+  [PASS] X2: n_A3 equal in all sets
+  [PASS] X3: ip_y max |diff| 2.22e-16
+  [PASS] X3: target_coverage max |diff| 5.55e-17
+  [PASS] X3: width_A0 max |diff| 5.55e-17
+  [PASS] X3: width_A1 max |diff| 2.78e-17
+  [PASS] X3: width_A2_min max |diff| 4.16e-17
+  [PASS] X3: width_A2_max max |diff| 5.55e-17
+  [PASS] X4: 48 of 48 Jaccard values matched, max |diff| 2.78e-17
+  [PASS] X5: Figure 11B curves for M4 NeoC: 920 rows, rungs A0_OLS, A1_spline_fixed, A2_spline_local, A3_CMRF
+
+Written to /data/Part11_Identity/Part11_BandAblation_Fig11Export
+  BandAblation_cells.csv                 8483 KB
+  BandAblation_Fig11B_curves.csv           91 KB
+  BandAblation_set_summary.csv              2 KB
+  cells: 36967 rows (0 without a donor)
+
+VERDICT: PASS (0 FAIL)
+Finished 2026-10-19 09:05:00

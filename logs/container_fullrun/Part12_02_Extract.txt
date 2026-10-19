@@ -1,0 +1,107 @@
+Part 12 rerun -- step 02, extraction from the h5ad
+Script: Part12_02_Extract.py
+Run ID: 20261019-0906-fedora
+Start: 2026-10-19 09:06:08
+Machine: fac31f98ee06 | Python 3.13.14
+Packages: numpy 2.4.6 | pandas 3.0.5 | scipy 1.18.0 | anndata 0.13.2
+Config: Part12_rerun/Part12_01_config.json | version 16
+[PASS] 02-01 config is version 3 or later | found version 16
+[PASS] 02-02 config has every section this step reads | missing: none
+[PASS] 02-03 h5ad present | SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad
+Input: SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad | 3.0 GB
+Seed: 20260924 (master 20260922 + step code 2)
+
+SECTION A -- obs columns and cells
+[PASS] 02-04 obs column 'Donor ID' present | Donor ID
+[PASS] 02-05 obs column 'Brain Region' present | Brain Region
+[PASS] 02-06 obs column 'Supertype' present | Supertype
+[PASS] 02-07 obs column 'library_prep' present | library_prep
+[PASS] 02-08 obs column 'doublet score' present | Doublet score
+[PASS] 02-09 obs column 'Number of UMIs' present | Number of UMIs
+[PASS] 02-10 obs column 'Genes detected' present | Genes detected
+[PASS] 02-11 obs column 'Fraction mitochondrial UMIs' present | Fraction mitochondrial UMIs
+[PASS] 02-12 raw count layer 'UMIs' present | UMIs
+[PASS] 02-13 barcodes are unique in the h5ad | 240651 barcodes
+[PASS] 02-14 supertype 'Micro-PVM_1' present | 7909 cells
+[PASS] 02-15 supertype 'Micro-PVM_3-SEAAD' present | 29805 cells
+[NOTE] cells kept (the two supertypes) | 37714 of 240651
+
+SECTION B -- raw counts
+[PASS] 02-16 gene names are unique | 36601 genes
+[PASS] 02-17 raw layer holds non-negative integers | 101787731 non-zero entries | stored as float64
+[PASS] 02-18 kept cells are in the same order as the barcode list | 37714 cells
+[PASS] 02-19 layer totals equal the obs UMI count | max |difference| 0
+
+SECTION C -- per-cell quantities
+[PASS] 02-20 all 13 MT protein-coding genes present | missing: none
+[NOTE] genes with the MT- prefix in the object | 13: MT-ND1, MT-ND2, MT-CO1, MT-CO2, MT-ATP8, MT-ATP6, MT-CO3, MT-ND3, MT-ND4L, MT-ND4, MT-ND5, MT-ND6, MT-CYB
+[PASS] 02-21 13-gene %MT equals the obs mitochondrial fraction x 100 | max |difference| 1.44e-06 percentage points | 13 MT- genes in the object
+[PASS] 02-22 no missing donor_id in the kept cells | 0 missing
+[PASS] 02-23 no missing region in the kept cells | 0 missing
+[PASS] 02-24 no missing supertype in the kept cells | 0 missing
+[PASS] 02-25 no missing library in the kept cells | 0 missing
+[PASS] 02-26 panel own_er genes present | missing: none
+[PASS] 02-27 panel ribosome genes present | missing: none
+[PASS] 02-28 panel nuclear_retained genes present | missing: none
+[NOTE] other-lineage genes used for NeoC | 21 (guard removed: MEG3, SYT1)
+[NOTE] other-lineage genes used for NonNeoC | 23 (guard removed: none)
+[PASS] 02-29 other-lineage panel genes present | missing: none
+[PASS] 02-30 library field 'GEX_Reads_mapped_confidently_to_intronic_regions' present | GEX_Reads_mapped_confidently_to_intronic_regions
+[PASS] 02-31 library field 'GEX_Reads_mapped_antisense_to_gene' present | GEX_Reads_mapped_antisense_to_gene
+[PASS] 02-32 library field 'NeuN positive fraction on FANS' present | NeuN positive fraction on FANS
+[PASS] 02-33 library field 'percent_cdna_longer_than_400bp' present | percent_cdna_longer_than_400bp
+[PASS] 02-34 library field 'pcr_cycles' present | pcr_cycles
+[PASS] 02-35 library field 'GEX_sequencing_saturation' present | GEX_sequencing_saturation
+[PASS] 02-36 library field 'GEX_Median_UMI_counts_per_cell' present | GEX_Median_UMI_counts_per_cell
+[PASS] 02-37 library field 'method' present | method
+
+SECTION D -- gene summary and matched gene sets
+[PASS] 02-38 nuclear panel ci_nduf resolved | 50 genes
+[PASS] 02-39 nuclear panel ciii_uqcr resolved | 9 genes
+[PASS] 02-40 nuclear panel civ_cox resolved | 17 genes
+[PASS] 02-41 nuclear panel assembly resolved | 20 genes
+[PASS] 02-42 nuclear panel cv_atp5 resolved | 19 genes
+[PASS] 02-43 nuclear panel mitoribo resolved | 81 genes
+[PASS] 02-44 nuclear panel import resolved | 26 genes
+[PASS] 02-45 nuclear panel cii_sdh resolved | 4 genes
+[PASS] 02-46 nuclear panel tca resolved | 10 genes
+[PASS] 02-47 nuclear panel biogenesis resolved | 10 genes
+[PASS] 02-48 nuclear panel dynamics resolved | 6 genes
+[PASS] 02-49 nuclear panel mitophagy resolved | 8 genes
+[PASS] 02-50 nuclear panel glycolysis resolved | 11 genes
+[PASS] 02-51 nuclear panel oxphos_core resolved | 99 genes
+[PASS] 02-52 nuclear panel nuclear_mito_all resolved | 260 genes
+[PASS] 02-53 nuclear panels do not overlap either composite | checked
+[PASS] 02-54 Micro-PVM_1 ctrl_pct matched one gene per MT gene | 13 genes | pool 15591
+[PASS] 02-55 Micro-PVM_1 18A reference has 300 genes | 300 picked
+[PASS] 02-56 Micro-PVM_3-SEAAD ctrl_pct matched one gene per MT gene | 13 genes | pool 15677
+[PASS] 02-57 Micro-PVM_3-SEAAD 18A reference has 300 genes | 300 picked
+
+SECTION E -- raw counts for later steps
+[NOTE] genes exported | 955
+
+SECTION F -- write and verify
+[PASS] 02-58 cell table written and read back | 37714 rows
+/data/Part12_rerun/Part12_02_Extract.py:515: DeprecationWarning: The default value for `spmatrix` is changing to `False` in v1.20.
+             That means the default return type will be a sparse array.
+             Unless you use * instead of @, ** for matrix power, or you depend
+             on 2D shapes from e.g. `A.sum(axis=0)` it may not matter to you.
+             See the spmatrix to sparray migration guide for details.
+             https://docs.scipy.org/doc/scipy/reference/sparse.migration_to_sparray.html
+             
+  Xb = scipy.io.mmread(fh)
+[PASS] 02-59 count matrix written and read back | 37714 cells x 955 genes | 5390068 non-zero
+
+Cells per supertype:
+  Micro-PVM_1             7909 cells |   84 donors | 10 regions | median UMIs 5351 | median %MT 0.312
+  Micro-PVM_3-SEAAD      29805 cells |   84 donors | 10 regions | median UMIs 5373 | median %MT 0.435
+
+Outputs:
+  Part12_rerun/02_Extract/02_cells.csv.gz | 3.4 MB
+  Part12_rerun/02_Extract/02_counts.mtx.gz | 14.7 MB
+  Part12_rerun/02_Extract/02_counts_genes.tsv | 0.0 MB
+  Part12_rerun/02_Extract/02_counts_cells.tsv | 1.8 MB
+  Part12_rerun/02_Extract/02_gene_summary.csv | 3.4 MB
+  Part12_rerun/02_Extract/02_matched_sets.csv | 0.3 MB
+Checks: 59 PASS, 0 FAIL, 0 WARN | duration 0.3 min
+VERDICT: PASS

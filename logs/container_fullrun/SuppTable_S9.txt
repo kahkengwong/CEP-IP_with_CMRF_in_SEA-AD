@@ -1,0 +1,16 @@
+run_supp_tables.sh started 2026-10-19 09:05:29 | root /data | tables 9
+
+== S9
+  B_copula_gates: 8 rows
+  C_worked_cells: 16 rows
+VERDICT: PASS
+   S9 builder: done
+
+== finalize S9
+S9  Manuscript/Supp_Tables/build/SuppTable_S9_Fig4_Copula.xlsx
+Written: S9
+VERDICT: PASS
+
+Builders done: 9
+Builders failed: none
+Summary saved to /data/Manuscript/Supp_Tables/run_supp_tables_log.txt

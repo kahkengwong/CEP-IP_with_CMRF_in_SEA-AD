@@ -1,0 +1,265 @@
+compare_supp_tables.py
+  rebuilt:   /data/Manuscript/Supp_Tables
+  published: /ref/Manuscript/Supp_Tables
+
+S1: Supplementary_Table_S1_CellSelection.xlsx
+    OUTSIDE 0.1%             Contents  (1 cells differ, largest relative difference 5.00e-01)
+    SAME                     A_cutoff_rule_verdict
+    SAME                     B_marker_dilution
+    SAME                     C_mixture
+    SAME                     D_bootstrap_stability
+    DIFFERENT SIZE           E_arm_matching  (7x9 vs 4x9)
+    SAME                     F_scorer_overlap
+    SAME                     G_selection_by_supertype
+    SAME                     H_composition_by_scorer
+    SAME                     I_method_comparison
+    SAME                     J_sweep_summary
+S2: Supplementary_Table_S2_Mic13Validation.xlsx
+    SAME                     Contents
+    SAME                     A_deg_summary
+    SAME                     B_hypergeometric
+    SAME                     C_mic13_gene_detail
+S3: Supplementary_Table_S3_MT-CO3_selection.xlsx
+    SAME                     Contents
+    SAME                     A_mito_gene_summary
+    SAME                     B_region_screen
+    SAME VALUES, OTHER ORDER C_pooled_screen_NeoC  (78 rows in another order)
+                             best_rs in the rerun of Part 4 (PVM_3_pooled_screen_scatter.csv) differs from the original run by less than 1e-6 (relative), and rows with near-tied values change places in the sorted sheet.
+    SAME VALUES, OTHER ORDER D_pooled_screen_NonNeoC  (76 rows in another order)
+                             best_rs in the rerun of Part 4 (PVM_3_pooled_screen_scatter.csv) differs from the original run by less than 1e-6 (relative), and rows with near-tied values change places in the sorted sheet.
+    SAME                     E_GOI_composite
+S4: Supplementary_Table_S4_GOI_DFG_screen.xlsx
+    SAME                     Contents
+    SAME                     A_population_tally
+    SAME                     B_dfg_counts
+    SAME                     C_top_GOIs
+    SAME                     D_pooled_cross_population
+    SAME                     E_pooled_tally
+S5: Supplementary_Table_S5_PreChecks.xlsx
+    SAME                     Contents
+    SAME                     A_mito_gene_inventory
+    SAME                     B_trend_fits
+    SAME                     C_within_donor_rho
+    SAME                     D_errata_specimen_audit
+    SAME                     E_matched_panel_null
+    SAME                     F_per_library
+    SAME                     G_ambient_mediation
+    SAME                     H_ambient_index_quartiles
+    SAME                     I_per_region
+    SAME                     J_region_LORO
+    SAME                     K_supertype_specificity
+    SAME                     L_segmented_screen
+    SAME                     M_median_specialness
+    SAME                     N_ordinal_levels
+    SAME                     O_donor_module_rho
+    SAME                     P_shape_tests
+S6: Supplementary_Table_S6_DecontX.xlsx
+    SAME                     Contents
+    SAME                     A_contamination_summary
+    SAME                     B_gene_level
+    SAME                     C_gene_set_summary
+    SAME                     D_module_diagnostic
+    SAME                     E_per_nucleus
+S7: Supplementary_Table_S7_Fig2_SKCS.xlsx
+    SAME                     Contents
+    SAME                     A_cells
+    SAME                     B_HKG_pitcher_cells
+    SAME                     C_GAM
+    SAME                     D_Si_mixture
+    SAME                     E_Si_boundaries
+    SAME                     F_Si_posterior
+    SAME                     G_Si_rank_tests
+    SAME                     H_pitcher_summary
+S8: Supplementary_Table_S8_Fig3_IP.xlsx
+    SAME                     Contents
+    SAME                     A_IP_detection
+    SAME                     B_Rx_grid
+S9: Supplementary_Table_S9_Fig4_Copula.xlsx
+    SAME                     Contents
+    SAME                     A_copula_IP
+    SAME                     B_copula_gates
+    SAME                     C_worked_cells
+S10: Supplementary_Table_S10_Fig5_CMRF.xlsx
+    SAME                     Contents
+    OUTSIDE 0.1%             A_cells  (73934 cells differ, largest relative difference 2.00e+00)
+                             UMAP_1 and UMAP_2 come from the Validation2 UMAP, which is not reproducible between computers (the container rerun of Part 10e Validation2 already differs from the original run).
+    SAME                     B_band
+    SAME                     C_gate
+    SAME                     D_gate_trajectory
+    SAME                     E_fold_RMSE
+    SAME                     F_candidates
+    SAME                     G_tests
+    SAME                     H_resid_by_class
+    OUTSIDE 0.1%             I_Fig8_summary  (38 cells differ, largest relative difference 7.97e-02)
+                             Neighbour enrichment, kBET and the PrePost projection come from the Validation2 UMAP and subsampling (the container rerun of Part 10e Validation2 already differs from the original run).
+    WITHIN 0.1%              J_Fig8_tests  (68 cells differ, largest relative difference 6.06e-04)
+                             Neighbour enrichment, kBET and the PrePost projection come from the Validation2 UMAP and subsampling (the container rerun of Part 10e Validation2 already differs from the original run).
+S11: Supplementary_Table_S11_DEGs_ModvsNonMod.xlsx
+    SAME                     Contents
+    SAME                     A_Contrasts
+    SAME                     B_Control_test
+    SAME                     B_Summary
+    SAME                     C_Axis_check
+    SAME                     D_Control_validity
+    SAME                     E_Survivors_regions
+    SAME                     F_Neuronal_summary
+    SAME                     F_Neuronal_genes
+    SAME                     G_UMI_summary
+    SAME                     G_UMI_donors
+    SAME                     G_IP_split
+    SAME                     H_Panel_summary
+    SAME                     H_Panel_donors
+S12: Supplementary_Table_S12_Prognosis_&_Ablation.xlsx
+    SAME                     Contents
+    SAME                     A_donor_frame
+    SAME                     B_Fig9A_variance
+    SAME                     C_Fig9B_cognition
+    SAME                     D_Fig9C_pathology
+    SAME                     E_Fig9D_mod_vs_nonmod
+    SAME                     F_Fig10A_benchmark
+    SAME                     G_Fig10B_competitors
+    SAME                     H_Fig10CD_decomposition
+    SAME                     I_Fig11A_boundary_assoc
+    SAME                     J_Fig11B_boundary_curves
+    SAME                     K_Fig11BC_cells
+    SAME                     L_Fig11C_scorecard
+    SAME                     M_Fig11C_tests
+    SAME                     N_Fig11C_overlap
+    SAME                     O_Fig11BC_boundary_summary
+    SAME                     P_SuppFig14_cov4_cov7
+    SAME                     Q_SuppFig14_leave_one_in
+    SAME                     R_SuppFig14_without_SA
+    SAME                     S_SuppFig14_tissue_disease
+S13: Supplementary_Table_S13_Fig12_Contamination.xlsx
+    SAME                     Contents
+    SAME                     A_Fig12A_readout
+    SAME                     B_Fig12A_stats
+    SAME                     C_Fig12B_readout
+    SAME                     D_Fig12B_removed
+    SAME                     E_Fig12B_stats
+    SAME                     F_Fig12AB_donors
+    SAME                     G_Fig12C_stats
+    SAME                     H_Fig12D_stats
+    SAME                     I_Fig12D_tertiles
+    SAME                     J_Fig12E_stats
+    SAME                     K_Fig12E_samples
+    SAME                     L_Fig12F_stats
+    SAME                     M_Fig12F_samples
+    SAME                     N_Fig12G_stats
+    SAME                     O_Fig12G_tertiles
+    OUTSIDE 0.1%             P_Fig12H_stats  (41 cells differ, largest relative difference 1.01e-03)
+                             Depth thinning uses seeded binomial draws. The container rerun of Stats_15H.csv already differs from the original run in these cells (verification/compare_all_log.txt).
+    SAME                     Q_SuppFig15_stats
+S14: Supplementary_Table_S14_Fig13_MeasurementArtifact.xlsx
+    SAME                     Contents
+    SAME                     A_Fig13A_readout
+    SAME                     B_Fig13A_stats
+    SAME                     C_Fig13B_stats
+    SAME                     D_Fig13C_readout
+    SAME                     E_Fig13C_stats
+    SAME                     F_Fig13D_stats
+    SAME                     G_Fig13D_donors
+    SAME                     H_Fig13E_readout
+    SAME                     I_Fig13E_stats
+    SAME                     J_Fig13F_stats
+    SAME                     K_Fig13G_conditions
+    SAME                     L_Fig13G_stats
+    SAME                     M_Fig13_units
+S15: Supplementary_Table_S15_Fig14_ModuleVsMT.xlsx
+    SAME                     Contents
+    SAME                     A_Fig14A_readout
+    SAME                     B_Fig14A_stats
+    SAME                     C_Fig14B_stats
+    SAME                     D_Fig14C_verdicts
+    SAME                     E_Fig14C_stats
+    SAME                     F_Fig14D_verdicts
+    SAME                     G_Fig14D_stats
+    SAME                     H_Fig14D_donors
+    SAME                     I_Fig14E_readout
+    SAME                     J_Fig14E_stats
+    SAME                     K_SuppFig17_stats
+    SAME                     L_SuppFig17_measures
+    SAME                     M_SuppFig17_counts
+    SAME                     N_Fig14_units
+S16: Supplementary_Table_S16_Fig15_NuclearPanels.xlsx
+    SAME                     Contents
+    SAME                     A_Fig15A_verdicts
+    SAME                     B_Fig15A_stats
+    SAME                     C_Fig15A_panels
+    SAME                     D_Fig15B_readout
+    SAME                     E_Fig15B_stats
+    SAME                     F_Fig15C_readout
+    SAME                     G_Fig15C_stats
+    SAME                     H_Fig15C_donors
+    SAME                     I_Fig15BC_cells
+    SAME                     J_Fig15D_stats
+    SAME                     K_Fig15D_curves
+    SAME                     L_Fig15E_stats
+    SAME                     M_Fig15E_regions
+    SAME                     N_Fig15DE_units
+S17: Supplementary_Table_S17_Fig16_SADonors.xlsx
+    SAME                     Contents
+    SAME                     A_Fig16A_readout
+    SAME                     B_Fig16A_13A_stats
+    SAME                     C_Fig16A_13B_stats
+    SAME                     D_Fig16A_13F_stats
+    SAME                     E_Fig16B_counts
+    SAME                     F_Fig16B_readout_histology
+    SAME                     G_Fig16B_readout_clinical
+    SAME                     H_Fig16B_12A_stats
+    SAME                     I_Fig16B_14A_stats
+    SAME                     J_Fig16B_14B_stats
+    SAME                     K_Fig16B_14C_stats
+    SAME                     L_Fig16B_14D_stats
+    SAME                     M_Fig16B_15A_stats
+    SAME                     N_Fig16C_clinical
+    SAME                     O_Verdicts_14C
+    SAME                     P_Verdicts_14D
+    SAME                     Q_Verdicts_15A
+    SAME                     R_Influence
+    SAME                     S_Influence_summary
+    SAME                     T_SA_donors
+    SAME                     U_Frames
+    SAME                     V_Null_draws
+S18: Supplementary_Table_S18_M4vsPVM3.xlsx
+    SAME                     Contents
+    SAME                     A_M4share_cognition
+    SAME                     B_State_vs_MT
+    SAME                     C_State_MT_verdicts
+    SAME                     D_Fraction_MT_MMSE
+    SAME                     E_Random_cognition
+    SAME                     F_Random_MT
+    SAME                     G_Random_verdicts
+    SAME                     H_Models
+    SAME                     I_Verdicts
+    SAME                     J_Bootstrap
+    SAME                     K_Decomposition
+    SAME                     L_Collinearity
+    SAME                     M_PostHoc
+    SAME                     N_Specs
+    SAME                     O_RandomSubset
+    SAME                     P_LabelAgreement
+    SAME                     Q_Design
+    SAME                     R_Donors
+    SAME                     S_Readings
+S19: Supplementary_Table_S19_Fig17_TestSummary.xlsx
+    SAME                     Contents
+    SAME                     A_Tests
+    SAME                     B_Cells
+    SAME                     C_Lead_result
+    SAME                     D_Lead_tally
+    SAME                     E_Both_region_tally
+    SAME                     F_Boxed
+    SAME                     G_Models
+    SAME                     H_Tallies
+    TEXT ONLY                I_Checks  (11 cells differ)
+                             The C1 checks record the date each source workbook was last modified.
+
+Sheets per result:
+  SAME                     217
+  SAME VALUES, OTHER ORDER 2
+  TEXT ONLY                1
+  WITHIN 0.1%              1
+  OUTSIDE 0.1%             4
+  DIFFERENT SIZE           1
+Log: /data/Manuscript/Supp_Tables/compare_supp_tables_log.txt

@@ -1,0 +1,2096 @@
+Loading required package: nlme
+This is mgcv 1.9-4. For overview type '?mgcv'.
+
+Attaching package: ‘dplyr’
+
+The following object is masked from ‘package:nlme’:
+
+    collapse
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+
+Attaching package: ‘gridExtra’
+
+The following object is masked from ‘package:dplyr’:
+
+    combine
+
+
+Attaching package: ‘MASS’
+
+The following object is masked from ‘package:dplyr’:
+
+    select
+
+CEP_arms.R loaded.
+  CEP_HOME    : /data 
+  RESULTS_ROOT: /data 
+  Arms        : Mic13_PVM3, PVM3_all, PVM1_all, HKG8_matched 
+
+############################################################################
+  Part10b_SKCS
+  Home        : /data
+  Results     : /data/Part10b_SKCS
+  Arms to run : 4 of 4
+      Mic13_PVM3     -> Part10b_SKCS_Mic13_PVM3Mic13 PVM_3 (M4-top, primary)
+      PVM3_all       -> Part10b_SKCS_PVM_3  PVM_3 all cells (mask specificity)
+      PVM1_all       -> Part10b_SKCS_PVM_1  PVM_1 all cells (supertype specificity)
+      HKG8_matched   -> Part10b_SKCS_HKG8   HKG8 control (panel specificity)
+############################################################################
+Part10b SKCS TREP - log started: 2026-10-19 07:31:54.449434
+
+
+============================================================================
+  ARM: Mic13_PVM3   config: R_config.R
+============================================================================
+R_config.R loaded (Module 1: MT-CO3 + 8 DFGs, ≥8/10 regions).
+  ARM_TAG   : Mic13_PVM3 
+  ARM_DIR   : /data/R_export_CP10K/Mic13_PVM3 
+  NEOC_DIR  : /data/R_export_CP10K/Mic13_PVM3/neocortex 
+  NONNC_DIR : /data/R_export_CP10K/Mic13_PVM3/nonneocortex 
+  SHARED_DIR: /data/R_export_CP10K/shared 
+  GOI       : MT-CO3 
+  DFG_NEOC  : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  DFG_NONNC : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Composite : cDFG 
+  RUN_SUFFIX: (none) 
+  Supertype : Micro-PVM_3-SEAAD 
+  Mod1 genes: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 ( 9 )
+  HKG_GENES : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 2130 NeoC / 1987 NonNeoC
+  Config OK: Mic13_PVM3 | MT-CO3 + 8 DFG | CP10K
+
+  [IPRS] IP definition: IPRS R(x)=0, full population 
+  [IPRS] NonNeoC    IP_thresh set to 2.802522 (IPRS R(x)=0, full population)
+  [IPRS] NonNeoC    IP_y_thresh set to 2.038718  = f(IP_thresh), classification axis
+  [IPRS] NeoC       IP_thresh set to 2.679411 (IPRS R(x)=0, full population)
+  [IPRS] NeoC       IP_y_thresh set to 1.875476  = f(IP_thresh), classification axis
+
+ ======================================================================== 
+  Part10b - SKCS Fixed-Threshold Diagnostic
+  Arm          : Mic13_PVM3 
+  GOI          : MT-CO3 
+  DFG          : cDFG  -  MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Normalisation: CP10K  log1p(UMIs/total x  10000 )
+  Datasets     : NonNeoC, NeoC 
+  S threshold  : > 0   (cell pulls rho upward)
+  K threshold  : > 0.5 (concordant with >50% of cell pairs)
+  Estimator    : donor random intercept, s(donor, bs = "re"), minimum 3 donors 
+  Weights      : inverse donor cell count, w = 1/n_i (each donor sums to 1) 
+  PRSS         : phase 1 = 8 iterations, phase 2 = up to 5 (early stop 20 )
+  Part 10 dir  : /data/Part10/Part10_Mic13_PVM3 
+  Scores read  : Part10_Mic13_PVM3_NonNeoC, Part10_Mic13_PVM3_NeoC (per-dataset folders; arm root as fallback)
+  Output dir   : /data/Part10b_SKCS/Part10b_SKCS_Mic13_PVM3 
+  Parallel     : 31 PSOCK worker(s) for the PRSS iterations
+======================================================================== 
+
+
+ ======================================================================== 
+  SECTION A0 - PRE-ANALYSIS GUARDRAILS
+======================================================================== 
+
+  -- Dataset: NeoC --------------------------------------
+  [PASS]  GR-01-NeoC        norm.mtx max = 8.0564  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NeoC        expm1(norm) row sums: mean = 10000.000000, max |dev| = 8.44e-10, n = 50
+  [PASS]  GR-04-NeoC        raw max = 2389, integer-like = TRUE
+  -- Dataset: NonNeoC --------------------------------------
+  [PASS]  GR-01-NonNeoC     norm.mtx max = 7.6610  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NonNeoC     expm1(norm) row sums: mean = 10000.000000, max |dev| = 5.86e-10, n = 50
+  [PASS]  GR-04-NonNeoC     raw max = 1552, integer-like = TRUE
+  [PASS]  GR-05-NonNeoC     Scores CSV: Part10_Mic13_PVM3_NonNeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_Pooled_SKCS_scores.csv
+  [PASS]  GR-05-NeoC        Scores CSV: Part10_Mic13_PVM3_NeoC/Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_Pooled_SKCS_scores.csv
+  Guardrail log written: /data/Part10b_SKCS/Part10b_SKCS_Mic13_PVM3/Part10b_CP10K_M4_SKCS_Guardrail_Log.txt 
+
+  Pre-analysis guardrails: 8 PASS / 0 WARN / 0 FAIL
+  *** ALL PRE-ANALYSIS GUARDRAILS PASSED ***
+
+  Pre/Post split on IP_y = f(IP_x) on cDFG | reported IP_x = 2.802522 | threshold used = 2.038718
+
+ ======================================================================== 
+  Part10b diagnostic: NonNeoC  [ Mic13_PVM3 ]
+======================================================================== 
+
+  Loaded 1987 cells from Part10_CP10K_M4_Module1_MTCO3_cDFG_NonNeoC_Pooled_SKCS_scores.csv 
+  GOI-positive (scored): 1987 | GOI-zero (excluded): 0 
+
+  Loading combined GAM data for GAM fitting ...
+    Region HIP           445 cells |  31 donors
+    Region MEC          1156 cells |  76 donors
+    Region LEC           190 cells |  23 donors
+    Region FI            196 cells |  29 donors
+  Aligned 1987 cells between scores CSV and GAM data
+  Pooled frame: 1987 cells | 80 donors | sum(w)=80.0000
+
+------------------------------------------------------------ 
+  OBJECTIVE 1: Non-SKCS cell stratification
+------------------------------------------------------------ 
+
+  Non-SKCS stratification (dataset: NonNeoC ):
+# A tibble: 3 × 6
+  stratum             n pct_of_nonskcs pct_of_total mean_spear mean_kend
+  <chr>           <int>          <dbl>        <dbl>      <dbl>     <dbl>
+1 Discordant        404           59.1         20.3     -0.023     0.532
+2 Inflection-zone   257           37.6         12.9      0.095     0.509
+3 Low-expressor      23            3.4          1.2     -0.308    -0.185
+
+  Saved: Part10b_CP10K_M4_SKCS_NonNeoC_nonSKCS_stratification.csv 
+------------------------------------------------------------ 
+  OBJECTIVE 2: Fixed-threshold selection (S_norm>0.05, K>0.5)
+------------------------------------------------------------ 
+
+  Fixed thresholds: S > 0.05  AND  K > 0.50
+  Cells selected  : n = 1303  (65.6% of GOI-positive cells)
+
+  50% quantile thresholds: S > 0.1998  AND  K > 0.6737
+  Cells selected  : n = 702  (35.3% of GOI-positive cells)
+
+  [PASS]  GR-11-NonNeoC     this file's fixed cut (S>0.05, K>0.50) vs Part 10's is_skcs: 0 cell(s) differ (same thresholds)
+  Fitting cDFG GAM at fixed threshold (full PRSS pipeline) ...
+    frame: 1303 cells | 79 donors | sum(w)=79.0000
+  Fixed threshold DE: 87.82%  (donor RE: YES, donors: 79)
+
+  Fitting reference cDFG GAM at 50% threshold ...
+    frame: 702 cells | 76 donors | sum(w)=76.0000
+  50% reference DE : 94.33%
+
+  Threshold comparison:
+            Method dataset S_thresh K_thresh n_cells pct_total DE_pct Donor_RE
+ Fixed_Snorm05_K05 NonNeoC   0.0500   0.5000    1303      65.6  87.82     TRUE
+   Reference_50pct NonNeoC   0.1998   0.6737     702      35.3  94.33     TRUE
+ N_Donors DE_vs_flat_null
+       79           95.14
+       76           98.02
+
+  Fixed threshold scatter saved
+
+------------------------------------------------------------ 
+  SECTION D2: GAM curves at fixed threshold (S_norm>0.05, K>0.5)
+------------------------------------------------------------ 
+
+  Fitting cDFG GAM (verbose) ...
+    [cDFG_fixed] n=1303 | unique_x=1282 | max_k=10 | donors=79 | donor RE=YES | sum(w)=79.0000
+      init   iter  1 | k=3 | PRSS=7.5004
+      init   iter  2 | k=4 | PRSS=6.9555
+      init   iter  3 | k=5 | PRSS=6.7811
+      init   iter  4 | k=6 | PRSS=6.7029
+      init   iter  5 | k=7 | PRSS=6.3904
+      init   iter  6 | k=8 | PRSS=6.3824
+      init   iter  7 | k=9 | PRSS=6.2500
+      init   iter  8 | k=10 | PRSS=6.2506
+    Phase 1 best k=9 PRSS=6.2500
+      refine iter  9 | k=9 | PRSS=6.2500
+      refine iter 10 | k=9 | PRSS=6.2500
+      refine iter 11 | k=9 | PRSS=6.2500
+      refine iter 12 | k=9 | PRSS=6.2500
+      refine iter 13 | k=9 | PRSS=6.2500
+      best model is from iter 7 (k = 9 ) on a worker - refitting here
+    Final best k=9 PRSS=6.2500  iter=7  early_stop=FALSE
+  Loading cHKG data ...
+    cHKG: 1303 cells, 9 genes, 79 donors, sum(w)=79.0000
+  Fitting cHKG GAM (verbose) ...
+    [cHKG_fixed] n=1303 | unique_x=1282 | max_k=10 | donors=79 | donor RE=YES | sum(w)=79.0000
+      init   iter  1 | k=3 | PRSS=12.8043
+      init   iter  2 | k=4 | PRSS=12.8043
+      init   iter  3 | k=5 | PRSS=12.8043
+      init   iter  4 | k=6 | PRSS=12.8043
+      init   iter  5 | k=7 | PRSS=12.8043
+      init   iter  6 | k=8 | PRSS=12.8043
+      init   iter  7 | k=9 | PRSS=12.8043
+      init   iter  8 | k=10 | PRSS=12.8043
+    Phase 1 best k=10 PRSS=12.8043
+      refine iter  9 | k=10 | PRSS=12.8043
+      refine iter 10 | k=10 | PRSS=12.8043
+      refine iter 11 | k=10 | PRSS=12.8043
+      refine iter 12 | k=10 | PRSS=12.8043
+      refine iter 13 | k=10 | PRSS=12.8043
+      best model is from iter 8 (k = 10 ) on a worker - refitting here
+    Final best k=10 PRSS=12.8043  iter=8  early_stop=FALSE
+  Computing per-cell EP and TREP assignment ...
+  EP computed: n_TREP=1202  n_nonTREP=101  (DE=92.3% population level, sets the split | 95.1% summary()$dev.expl | 87.8% donor-aware)
+  TREP donor coverage: 79/79 donors represented | per-donor TREP fraction [0.545, 1.000] median 0.971
+  Building four-colour GAM curve plot ...
+  Non-SKCS-core cells for GAM bg layer: 684
+  GAM curve (4-group) saved
+  Building four-colour SKCS scatter ...
+  SKCS scatter (4-group) saved
+
+  Building 3D SKCS-EP scatter (plotly) ...
+  Computing EP for non-selected cells (same null as SKCS-core) ...
+    y_bar (SKCS-core null): 2.122554
+    SKCS-core cells: 1303 (EP reused from ep_values)
+    Non-selected cells: 684 (EP computed with same null)
+    EP range: [-2984966.7, 1.0]
+    TREP cutoff EP: 0.3160
+    non-TREP cells above TREP cutoff: 0 (should be 0)
+    Group counts:
+
+    Non-selected Post-IP non-TREP     Post-IP TREP  Pre-IP non-TREP 
+             684               57              620               44 
+     Pre-IP TREP 
+             582 
+  EP diagnostic -> Excel sheet EP_Boundary_Diagnostic
+
+  EP distribution by 5-group:
+            group    n EP_median    EP_mean pct_EP_pos
+     Non-selected  684   -1.6882 -7715.5411       29.5
+ Post-IP non-TREP   57   -0.9937   -30.8376       15.8
+     Post-IP TREP  620    0.9346     0.8846      100.0
+  Pre-IP non-TREP   44   -0.1643    -0.6269       34.1
+      Pre-IP TREP  582    0.9548     0.9005      100.0
+ ALL_GOI_positive 1987    0.8387 -2656.3376       71.9
+ TREP_CUTOFF_INFO 1202        NA         NA       87.8
+
+    EP range (raw):    [-2984966.7, 1.0]
+    EP range (symlog): [-6.47, 0.30]
+    IP in 3D space (n=335 cells within +/-0.282 of IP=2.039):
+      median S=0.00, median K=0.6314, median EP=-14.2720
+    (self-contained HTML)
+  3D SKCS-EP scatter saved: Part10b_CP10K_M4_SKCS_NonNeoC_SKCS_3D_scatter_EP.html
+
+
+  Bulbous edge EP analysis ...
+  Bulbous edge analysis:
+      IP_group metric n_edge n_falling edge_median fall_median    test_used
+1  Pre-IP TREP     EP    146       146    0.995887    0.764978 MannWhitneyU
+2  Pre-IP TREP      K    146       146    0.708963    0.625378 MannWhitneyU
+3 Post-IP TREP     EP    155       155    0.995828    0.731901 MannWhitneyU
+4 Post-IP TREP      K    155       155    0.846928    0.682779 MannWhitneyU
+          p_BH
+1 2.197953e-49
+2 6.933607e-26
+3 4.993605e-52
+4 1.141400e-32
+  Bulbous edge -> Excel sheet Bulbous_Edge
+
+  Ki dispersion analysis (pre-IP vs post-IP TREP) ...
+  Ki dispersion results:
+     metric pre_median post_median delta_median cohens_d    test_used
+1         K   0.677074    0.783484     0.106410   1.0502 MannWhitneyU
+2 resid_abs   0.249053    0.241867    -0.007186   0.0588 MannWhitneyU
+          p_BH
+1 4.054536e-66
+2 6.128381e-01
+  Ki boxplot saved
+  Residual dispersion boxplot saved
+  TREP analysis -> Excel sheets Ki_Dispersion, Bulbous_Edge
+
+  EP/TREP CSV saved  (1303 rows)
+
+  Excel saved: Part10b_CP10K_M4_SKCS_NonNeoC_diagnostics.xlsx -- 5 sheet(s): Threshold_Comparison, NonSKCS_Stratification, EP_Boundary_Diagnostic, Bulbous_Edge, Ki_Dispersion 
+  Files from older runs, no longer written: 
+      Part10b_CP10K_M4_SKCS_NonNeoC_threshold_comparison.csv
+      Part10b_CP10K_M4_SKCS_NonNeoC_threshold_comparison.xlsx
+      Part10b_CP10K_M4_SKCS_NonNeoC_TREP_analysis.xlsx
+      Part10b_CP10K_M4_SKCS_NonNeoC_bulbous_edge_analysis.csv
+      Part10b_CP10K_M4_SKCS_NonNeoC_EP_all_GOI_boundary_diagnostic.csv
+
+  Pre/Post split on IP_y = f(IP_x) on cDFG | reported IP_x = 2.679411 | threshold used = 1.875476
+
+ ======================================================================== 
+  Part10b diagnostic: NeoC  [ Mic13_PVM3 ]
+======================================================================== 
+
+  Loaded 2130 cells from Part10_CP10K_M4_Module1_MTCO3_cDFG_NeoC_Pooled_SKCS_scores.csv 
+  GOI-positive (scored): 2130 | GOI-zero (excluded): 0 
+
+  Loading combined GAM data for GAM fitting ...
+    Region DFC           719 cells |  67 donors
+    Region MTG           444 cells |  61 donors
+    Region AnG           183 cells |  37 donors
+    Region STG           272 cells |  39 donors
+    Region V1C           302 cells |  35 donors
+    Region ITG           210 cells |  36 donors
+  Aligned 2130 cells between scores CSV and GAM data
+  Pooled frame: 2130 cells | 78 donors | sum(w)=78.0000
+
+------------------------------------------------------------ 
+  OBJECTIVE 1: Non-SKCS cell stratification
+------------------------------------------------------------ 
+
+  Non-SKCS stratification (dataset: NeoC ):
+# A tibble: 3 × 6
+  stratum             n pct_of_nonskcs pct_of_total mean_spear mean_kend
+  <chr>           <int>          <dbl>        <dbl>      <dbl>     <dbl>
+1 Discordant        401           56.4         18.8     -0.031     0.527
+2 Inflection-zone   296           41.6         13.9      0.074     0.52 
+3 Low-expressor      14            2            0.7     -0.28     -0.152
+
+  Saved: Part10b_CP10K_M4_SKCS_NeoC_nonSKCS_stratification.csv 
+------------------------------------------------------------ 
+  OBJECTIVE 2: Fixed-threshold selection (S_norm>0.05, K>0.5)
+------------------------------------------------------------ 
+
+  Fixed thresholds: S > 0.05  AND  K > 0.50
+  Cells selected  : n = 1419  (66.6% of GOI-positive cells)
+
+  50% quantile thresholds: S > 0.1985  AND  K > 0.6853
+  Cells selected  : n = 783  (36.8% of GOI-positive cells)
+
+  [PASS]  GR-11-NeoC        this file's fixed cut (S>0.05, K>0.50) vs Part 10's is_skcs: 0 cell(s) differ (same thresholds)
+  Fitting cDFG GAM at fixed threshold (full PRSS pipeline) ...
+    frame: 1419 cells | 74 donors | sum(w)=74.0000
+  Fixed threshold DE: 87.67%  (donor RE: YES, donors: 74)
+
+  Fitting reference cDFG GAM at 50% threshold ...
+    frame: 783 cells | 69 donors | sum(w)=69.0000
+  50% reference DE : 93.86%
+
+  Threshold comparison:
+            Method dataset S_thresh K_thresh n_cells pct_total DE_pct Donor_RE
+ Fixed_Snorm05_K05    NeoC   0.0500   0.5000    1419      66.6  87.67     TRUE
+   Reference_50pct    NeoC   0.1985   0.6853     783      36.8  93.86     TRUE
+ N_Donors DE_vs_flat_null
+       74           94.01
+       69           97.85
+
+  Fixed threshold scatter saved
+
+------------------------------------------------------------ 
+  SECTION D2: GAM curves at fixed threshold (S_norm>0.05, K>0.5)
+------------------------------------------------------------ 
+
+  Fitting cDFG GAM (verbose) ...
+    [cDFG_fixed] n=1419 | unique_x=1401 | max_k=10 | donors=74 | donor RE=YES | sum(w)=74.0000
+      init   iter  1 | k=3 | PRSS=6.9673
+      init   iter  2 | k=4 | PRSS=6.5130
+      init   iter  3 | k=5 | PRSS=6.2395
+      init   iter  4 | k=6 | PRSS=6.2124
+      init   iter  5 | k=7 | PRSS=6.2080
+      init   iter  6 | k=8 | PRSS=6.1498
+      init   iter  7 | k=9 | PRSS=6.1484
+      init   iter  8 | k=10 | PRSS=6.0900
+    Phase 1 best k=10 PRSS=6.0900
+      refine iter  9 | k=10 | PRSS=6.0900
+      refine iter 10 | k=10 | PRSS=6.0900
+      refine iter 11 | k=10 | PRSS=6.0900
+      refine iter 12 | k=10 | PRSS=6.0900
+      refine iter 13 | k=10 | PRSS=6.0900
+      best model is from iter 8 (k = 10 ) on a worker - refitting here
+    Final best k=10 PRSS=6.0900  iter=8  early_stop=FALSE
+  Loading cHKG data ...
+    cHKG: 1419 cells, 9 genes, 74 donors, sum(w)=74.0000
+  Fitting cHKG GAM (verbose) ...
+    [cHKG_fixed] n=1419 | unique_x=1401 | max_k=10 | donors=74 | donor RE=YES | sum(w)=74.0000
+      init   iter  1 | k=3 | PRSS=12.8390
+      init   iter  2 | k=4 | PRSS=12.8396
+      init   iter  3 | k=5 | PRSS=12.8392
+      init   iter  4 | k=6 | PRSS=12.8393
+      init   iter  5 | k=7 | PRSS=12.8373
+      init   iter  6 | k=8 | PRSS=12.8373
+      init   iter  7 | k=9 | PRSS=12.8374
+      init   iter  8 | k=10 | PRSS=12.8374
+    Phase 1 best k=8 PRSS=12.8373
+      refine iter  9 | k=8 | PRSS=12.8373
+      refine iter 10 | k=8 | PRSS=12.8373
+      refine iter 11 | k=8 | PRSS=12.8373
+      refine iter 12 | k=8 | PRSS=12.8373
+      refine iter 13 | k=8 | PRSS=12.8373
+      best model is from iter 6 (k = 8 ) on a worker - refitting here
+    Final best k=8 PRSS=12.8373  iter=6  early_stop=FALSE
+  Computing per-cell EP and TREP assignment ...
+  EP computed: n_TREP=1308  n_nonTREP=111  (DE=92.2% population level, sets the split | 94.0% summary()$dev.expl | 87.7% donor-aware)
+  TREP donor coverage: 74/74 donors represented | per-donor TREP fraction [0.500, 1.000] median 0.945
+  Building four-colour GAM curve plot ...
+  Non-SKCS-core cells for GAM bg layer: 711
+  GAM curve (4-group) saved
+  Building four-colour SKCS scatter ...
+  SKCS scatter (4-group) saved
+
+  Building 3D SKCS-EP scatter (plotly) ...
+  Computing EP for non-selected cells (same null as SKCS-core) ...
+    y_bar (SKCS-core null): 1.986861
+    SKCS-core cells: 1419 (EP reused from ep_values)
+    Non-selected cells: 711 (EP computed with same null)
+    EP range: [-8917401.1, 1.0]
+    TREP cutoff EP: 0.1144
+    non-TREP cells above TREP cutoff: 0 (should be 0)
+    Group counts:
+
+    Non-selected Post-IP non-TREP     Post-IP TREP  Pre-IP non-TREP 
+             711               80              668               31 
+     Pre-IP TREP 
+             640 
+  EP diagnostic -> Excel sheet EP_Boundary_Diagnostic
+
+  EP distribution by 5-group:
+            group    n EP_median     EP_mean pct_EP_pos
+     Non-selected  711   -0.9691 -20497.3148       37.4
+ Post-IP non-TREP   80   -6.5281  -1520.5799        3.8
+     Post-IP TREP  668    0.9528      0.8839      100.0
+  Pre-IP non-TREP   31   -0.3375     -0.6549       16.1
+      Pre-IP TREP  640    0.9600      0.9079      100.0
+ ALL_GOI_positive 2130    0.8674  -6898.6319       74.3
+ TREP_CUTOFF_INFO 1308        NA          NA       87.7
+
+    EP range (raw):    [-8917401.1, 1.0]
+    EP range (symlog): [-6.95, 0.30]
+    IP in 3D space (n=429 cells within +/-0.299 of IP=1.875):
+      median S=0.01, median K=0.6543, median EP=-4.9420
+    (self-contained HTML)
+  3D SKCS-EP scatter saved: Part10b_CP10K_M4_SKCS_NeoC_SKCS_3D_scatter_EP.html
+
+
+  Bulbous edge EP analysis ...
+  Bulbous edge analysis:
+      IP_group metric n_edge n_falling edge_median fall_median    test_used
+1  Pre-IP TREP     EP    160       160    0.997623    0.812574 MannWhitneyU
+2  Pre-IP TREP      K    160       160    0.736496    0.615873 MannWhitneyU
+3 Post-IP TREP     EP    167       167    0.996720    0.713937 MannWhitneyU
+4 Post-IP TREP      K    167       167    0.908877    0.750117 MannWhitneyU
+          p_BH
+1 5.778381e-54
+2 3.499834e-48
+3 5.934560e-56
+4 6.490207e-50
+  Bulbous edge -> Excel sheet Bulbous_Edge
+
+  Ki dispersion analysis (pre-IP vs post-IP TREP) ...
+  Ki dispersion results:
+     metric pre_median post_median delta_median cohens_d    test_used
+1         K   0.673556    0.843119     0.169563   1.7114 MannWhitneyU
+2 resid_abs   0.225706    0.206727    -0.018979   0.0305 MannWhitneyU
+           p_BH
+1 2.765076e-124
+2  2.124797e-01
+  Ki boxplot saved
+  Residual dispersion boxplot saved
+  TREP analysis -> Excel sheets Ki_Dispersion, Bulbous_Edge
+
+  EP/TREP CSV saved  (1419 rows)
+
+  Excel saved: Part10b_CP10K_M4_SKCS_NeoC_diagnostics.xlsx -- 5 sheet(s): Threshold_Comparison, NonSKCS_Stratification, EP_Boundary_Diagnostic, Bulbous_Edge, Ki_Dispersion 
+  Files from older runs, no longer written: 
+      Part10b_CP10K_M4_SKCS_NeoC_threshold_comparison.csv
+      Part10b_CP10K_M4_SKCS_NeoC_threshold_comparison.xlsx
+      Part10b_CP10K_M4_SKCS_NeoC_TREP_analysis.xlsx
+      Part10b_CP10K_M4_SKCS_NeoC_bulbous_edge_analysis.csv
+      Part10b_CP10K_M4_SKCS_NeoC_EP_all_GOI_boundary_diagnostic.csv
+
+
+ ######################################################################## 
+  SECTION E1 - POST-ANALYSIS QUALITY GUARDRAILS
+######################################################################## 
+
+  [PASS]  GR-06-NonNeoC     GOI-positive cells (total) = 1987  (min = 50)
+  [PASS]  GR-07-NonNeoC     Fixed-threshold cells (S_norm>0.05, K>0.5) = 1303  (min = 50)
+  [PASS]  GR-08-NonNeoC     Fixed-threshold DE = 87.82%
+  [PASS]  GR-14-NonNeoC     Pre/Post split on cDFG (IP_CLASS_AXIS = cDFG) | threshold used = 2.038718 | IP_y from IPRS = 2.038718
+  [PASS]  GR-09-NonNeoC     IP_thresh = 2.802522  (IPRS R(x)=0, full population)
+  [PASS]  GR-10-NonNeoC     donor RE on 4/4 fit(s); donors per fit [76, 79]; 0 fallback(s)
+  [PASS]  GR-06-NeoC        GOI-positive cells (total) = 2130  (min = 50)
+  [PASS]  GR-07-NeoC        Fixed-threshold cells (S_norm>0.05, K>0.5) = 1419  (min = 50)
+  [PASS]  GR-08-NeoC        Fixed-threshold DE = 87.67%
+  [PASS]  GR-14-NeoC        Pre/Post split on cDFG (IP_CLASS_AXIS = cDFG) | threshold used = 1.875476 | IP_y from IPRS = 1.875476
+  [PASS]  GR-09-NeoC        IP_thresh = 2.679411  (IPRS R(x)=0, full population)
+  [PASS]  GR-10-NeoC        donor RE on 4/4 fit(s); donors per fit [69, 74]; 0 fallback(s)
+  Guardrail log written: /data/Part10b_SKCS/Part10b_SKCS_Mic13_PVM3/Part10b_CP10K_M4_SKCS_Guardrail_Log.txt 
+
+  Final guardrail tally: 22 PASS / 0 WARN / 0 FAIL
+  All 22 checks passed.
+
+ ======================================================================== 
+  Part10b COMPLETE - Cross-dataset summary [ Mic13_PVM3 ]
+======================================================================== 
+
+  Fixed vs reference comparison across datasets:
+
+            Method dataset S_thresh K_thresh n_cells pct_total DE_pct Donor_RE
+ Fixed_Snorm05_K05 NonNeoC   0.0500   0.5000    1303      65.6  87.82     TRUE
+   Reference_50pct NonNeoC   0.1998   0.6737     702      35.3  94.33     TRUE
+ Fixed_Snorm05_K05    NeoC   0.0500   0.5000    1419      66.6  87.67     TRUE
+   Reference_50pct    NeoC   0.1985   0.6853     783      36.8  93.86     TRUE
+ N_Donors DE_vs_flat_null
+       79           95.14
+       76           98.02
+       74           94.01
+       69           97.85
+
+  Output directory: /data/Part10b_SKCS/Part10b_SKCS_Mic13_PVM3 
+  Files generated:
+    Part10b_CP10K_M4_IPRS_results.rds                             206 KB
+    Part10b_CP10K_M4_SKCS_console_log_20261019_073154.txt          22 KB
+    Part10b_CP10K_M4_SKCS_Guardrail_Log.txt                         3 KB
+    Part10b_CP10K_M4_SKCS_NeoC_Combined_GAM_curves_4group.pdf     144 KB
+    Part10b_CP10K_M4_SKCS_NeoC_Combined_GAM_curves_4group.png     447 KB
+    Part10b_CP10K_M4_SKCS_NeoC_diagnostics.xlsx                    10 KB
+    Part10b_CP10K_M4_SKCS_NeoC_EP_TREP_values.csv                 204 KB
+    Part10b_CP10K_M4_SKCS_NeoC_fixed_threshold_scatter.pdf        128 KB
+    Part10b_CP10K_M4_SKCS_NeoC_fixed_threshold_scatter.png        314 KB
+    Part10b_CP10K_M4_SKCS_NeoC_Ki_prepost_TREP_boxplot.pdf         40 KB
+    Part10b_CP10K_M4_SKCS_NeoC_Ki_prepost_TREP_boxplot.png         81 KB
+    Part10b_CP10K_M4_SKCS_NeoC_nonSKCS_stratification.csv          77 KB
+    Part10b_CP10K_M4_SKCS_NeoC_resid_dispersion_prepost_TREP_boxplot.pdf     40 KB
+    Part10b_CP10K_M4_SKCS_NeoC_resid_dispersion_prepost_TREP_boxplot.png     82 KB
+    Part10b_CP10K_M4_SKCS_NeoC_SKCS_3D_scatter_EP_files             0 KB
+    Part10b_CP10K_M4_SKCS_NeoC_SKCS_3D_scatter_EP.html           4104 KB
+    Part10b_CP10K_M4_SKCS_NeoC_SKCS_scatter_4group.pdf            127 KB
+    Part10b_CP10K_M4_SKCS_NeoC_SKCS_scatter_4group.png            312 KB
+    Part10b_CP10K_M4_SKCS_NonNeoC_Combined_GAM_curves_4group.pdf    136 KB
+    Part10b_CP10K_M4_SKCS_NonNeoC_Combined_GAM_curves_4group.png    449 KB
+    Part10b_CP10K_M4_SKCS_NonNeoC_diagnostics.xlsx                 10 KB
+    Part10b_CP10K_M4_SKCS_NonNeoC_EP_TREP_values.csv              190 KB
+    Part10b_CP10K_M4_SKCS_NonNeoC_fixed_threshold_scatter.pdf     120 KB
+    Part10b_CP10K_M4_SKCS_NonNeoC_fixed_threshold_scatter.png     282 KB
+    Part10b_CP10K_M4_SKCS_NonNeoC_Ki_prepost_TREP_boxplot.pdf      40 KB
+    Part10b_CP10K_M4_SKCS_NonNeoC_Ki_prepost_TREP_boxplot.png      81 KB
+    Part10b_CP10K_M4_SKCS_NonNeoC_nonSKCS_stratification.csv       76 KB
+    Part10b_CP10K_M4_SKCS_NonNeoC_resid_dispersion_prepost_TREP_boxplot.pdf     40 KB
+    Part10b_CP10K_M4_SKCS_NonNeoC_resid_dispersion_prepost_TREP_boxplot.png     81 KB
+    Part10b_CP10K_M4_SKCS_NonNeoC_SKCS_3D_scatter_EP_files          0 KB
+    Part10b_CP10K_M4_SKCS_NonNeoC_SKCS_3D_scatter_EP.html        4083 KB
+    Part10b_CP10K_M4_SKCS_NonNeoC_SKCS_scatter_4group.pdf         118 KB
+    Part10b_CP10K_M4_SKCS_NonNeoC_SKCS_scatter_4group.png         280 KB
+    Part10b_CP10K_M4_SKCS_summary_all_datasets.csv                  0 KB
+
+  Results object saved: Part10b_CP10K_M4_SKCS_all_results.rds  (3.7 MB, plots dropped)
+======================================================================== 
+
+  Log written to: /data/Part10b_SKCS/Part10b_SKCS_Mic13_PVM3/Part10b_CP10K_M4_SKCS_console_log_20261019_073154.txt  (console output and warnings) 
+
+Part10b SKCS TREP - log ended: 2026-10-19 07:32:27.935036
+  Part 10b all done: 2026-10-19 07:32:27 
+
+  PSOCK cluster stopped.
+Part10b SKCS TREP - log started: 2026-10-19 07:32:28.018956
+
+
+============================================================================
+  ARM: PVM3_all   config: R_config.R
+============================================================================
+R_config.R loaded (Module 1: MT-CO3 + 8 DFGs, ≥8/10 regions).
+  ARM_TAG   : PVM3_all 
+  ARM_DIR   : /data/R_export_CP10K/PVM3_all 
+  NEOC_DIR  : /data/R_export_CP10K/PVM3_all/neocortex 
+  NONNC_DIR : /data/R_export_CP10K/PVM3_all/nonneocortex 
+  SHARED_DIR: /data/R_export_CP10K/shared 
+  GOI       : MT-CO3 
+  DFG_NEOC  : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  DFG_NONNC : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Composite : cDFG 
+  RUN_SUFFIX: _PVM3all 
+  Supertype : Micro-PVM_3-SEAAD 
+  Mod1 genes: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 ( 9 )
+  HKG_GENES : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 13331 NeoC / 11132 NonNeoC
+  Config OK: PVM3_all | MT-CO3 + 8 DFG | CP10K
+
+  [IPRS] IP definition: IPRS R(x)=0, full population 
+  [IPRS] NonNeoC    IP_thresh set to 2.657153 (IPRS R(x)=0, full population)
+  [IPRS] NonNeoC    IP_y_thresh set to 1.887917  = f(IP_thresh), classification axis
+  [IPRS] NeoC       IP_thresh set to 2.495273 (IPRS R(x)=0, full population)
+  [IPRS] NeoC       IP_y_thresh set to 1.664802  = f(IP_thresh), classification axis
+
+ ======================================================================== 
+  Part10b - SKCS Fixed-Threshold Diagnostic
+  Arm          : PVM3_all 
+  GOI          : MT-CO3 
+  DFG          : cDFG  -  MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Normalisation: CP10K  log1p(UMIs/total x  10000 )
+  Datasets     : NonNeoC, NeoC 
+  S threshold  : > 0   (cell pulls rho upward)
+  K threshold  : > 0.5 (concordant with >50% of cell pairs)
+  Estimator    : donor random intercept, s(donor, bs = "re"), minimum 3 donors 
+  Weights      : inverse donor cell count, w = 1/n_i (each donor sums to 1) 
+  PRSS         : phase 1 = 8 iterations, phase 2 = up to 5 (early stop 20 )
+  Part 10 dir  : /data/Part10/Part10_PVM_3 
+  Scores read  : Part10_PVM_3_NonNeoC, Part10_PVM_3_NeoC (per-dataset folders; arm root as fallback)
+  Output dir   : /data/Part10b_SKCS/Part10b_SKCS_PVM_3 
+  Parallel     : 31 PSOCK worker(s) for the PRSS iterations
+======================================================================== 
+
+
+ ======================================================================== 
+  SECTION A0 - PRE-ANALYSIS GUARDRAILS
+======================================================================== 
+
+  -- Dataset: NeoC --------------------------------------
+  [PASS]  GR-01-NeoC        norm.mtx max = 8.1332  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NeoC        expm1(norm) row sums: mean = 10000.000000, max |dev| = 4.89e-10, n = 50
+  [PASS]  GR-04-NeoC        raw max = 3187, integer-like = TRUE
+  -- Dataset: NonNeoC --------------------------------------
+  [PASS]  GR-01-NonNeoC     norm.mtx max = 7.6610  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NonNeoC     expm1(norm) row sums: mean = 10000.000000, max |dev| = 7.57e-10, n = 50
+  [PASS]  GR-04-NonNeoC     raw max = 1552, integer-like = TRUE
+  [PASS]  GR-05-NonNeoC     Scores CSV: Part10_PVM_3_NonNeoC/Part10_CP10K_PVM_3_Module1_MTCO3_cDFG_NonNeoC_Pooled_SKCS_scores.csv
+  [PASS]  GR-05-NeoC        Scores CSV: Part10_PVM_3_NeoC/Part10_CP10K_PVM_3_Module1_MTCO3_cDFG_NeoC_Pooled_SKCS_scores.csv
+  Guardrail log written: /data/Part10b_SKCS/Part10b_SKCS_PVM_3/Part10b_CP10K_PVM_3_SKCS_Guardrail_Log.txt 
+
+  Pre-analysis guardrails: 8 PASS / 0 WARN / 0 FAIL
+  *** ALL PRE-ANALYSIS GUARDRAILS PASSED ***
+
+  Pre/Post split on IP_y = f(IP_x) on cDFG | reported IP_x = 2.657153 | threshold used = 1.887917
+
+ ======================================================================== 
+  Part10b diagnostic: NonNeoC  [ PVM3_all ]
+======================================================================== 
+
+  Loaded 11132 cells from Part10_CP10K_PVM_3_Module1_MTCO3_cDFG_NonNeoC_Pooled_SKCS_scores.csv 
+  GOI-positive (scored): 11132 | GOI-zero (excluded): 0 
+
+  Loading combined GAM data for GAM fitting ...
+    Region HIP          2535 cells |  40 donors
+    Region MEC          6539 cells |  81 donors
+    Region LEC          1023 cells |  32 donors
+    Region FI           1035 cells |  41 donors
+  Aligned 11132 cells between scores CSV and GAM data
+  Pooled frame: 11132 cells | 83 donors | sum(w)=83.0000
+
+------------------------------------------------------------ 
+  OBJECTIVE 1: Non-SKCS cell stratification
+------------------------------------------------------------ 
+
+  Non-SKCS stratification (dataset: NonNeoC ):
+# A tibble: 3 × 6
+  stratum             n pct_of_nonskcs pct_of_total mean_spear mean_kend
+  <chr>           <int>          <dbl>        <dbl>      <dbl>     <dbl>
+1 Discordant       2253           53.8         20.2     -0.035     0.473
+2 Inflection-zone  1741           41.5         15.6      0.092     0.477
+3 Low-expressor     197            4.7          1.8     -0.314    -0.199
+
+  Saved: Part10b_CP10K_PVM_3_SKCS_NonNeoC_nonSKCS_stratification.csv 
+------------------------------------------------------------ 
+  OBJECTIVE 2: Fixed-threshold selection (S_norm>0.05, K>0.5)
+------------------------------------------------------------ 
+
+  Fixed thresholds: S > 0.05  AND  K > 0.50
+  Cells selected  : n = 6941  (62.4% of GOI-positive cells)
+
+  50% quantile thresholds: S > 0.1903  AND  K > 0.6327
+  Cells selected  : n = 4311  (38.7% of GOI-positive cells)
+
+  [PASS]  GR-11-NonNeoC     this file's fixed cut (S>0.05, K>0.50) vs Part 10's is_skcs: 0 cell(s) differ (same thresholds)
+  Fitting cDFG GAM at fixed threshold (full PRSS pipeline) ...
+    frame: 6941 cells | 83 donors | sum(w)=83.0000
+  Fixed threshold DE: 85.64%  (donor RE: YES, donors: 83)
+
+  Fitting reference cDFG GAM at 50% threshold ...
+    frame: 4311 cells | 83 donors | sum(w)=83.0000
+  50% reference DE : 90.99%
+
+  Threshold comparison:
+            Method dataset S_thresh K_thresh n_cells pct_total DE_pct Donor_RE
+ Fixed_Snorm05_K05 NonNeoC   0.0500   0.5000    6941      62.4  85.64     TRUE
+   Reference_50pct NonNeoC   0.1903   0.6327    4311      38.7  90.99     TRUE
+ N_Donors DE_vs_flat_null
+       83           93.12
+       83           96.02
+
+  Fixed threshold scatter saved
+
+------------------------------------------------------------ 
+  SECTION D2: GAM curves at fixed threshold (S_norm>0.05, K>0.5)
+------------------------------------------------------------ 
+
+  Fitting cDFG GAM (verbose) ...
+    [cDFG_fixed] n=6941 | unique_x=6440 | max_k=10 | donors=83 | donor RE=YES | sum(w)=83.0000
+      init   iter  1 | k=3 | PRSS=8.9819
+      init   iter  2 | k=4 | PRSS=8.3076
+      init   iter  3 | k=5 | PRSS=7.9106
+      init   iter  4 | k=6 | PRSS=7.9086
+      init   iter  5 | k=7 | PRSS=7.8141
+      init   iter  6 | k=8 | PRSS=7.7440
+      init   iter  7 | k=9 | PRSS=7.7179
+      init   iter  8 | k=10 | PRSS=7.6814
+    Phase 1 best k=10 PRSS=7.6814
+      refine iter  9 | k=10 | PRSS=7.6814
+      refine iter 10 | k=10 | PRSS=7.6814
+      refine iter 11 | k=10 | PRSS=7.6814
+      refine iter 12 | k=10 | PRSS=7.6814
+      refine iter 13 | k=10 | PRSS=7.6814
+      best model is from iter 8 (k = 10 ) on a worker - refitting here
+    Final best k=10 PRSS=7.6814  iter=8  early_stop=FALSE
+  Loading cHKG data ...
+    cHKG: 6941 cells, 9 genes, 83 donors, sum(w)=83.0000
+  Fitting cHKG GAM (verbose) ...
+    [cHKG_fixed] n=6941 | unique_x=6440 | max_k=10 | donors=83 | donor RE=YES | sum(w)=83.0000
+      init   iter  1 | k=3 | PRSS=15.0896
+      init   iter  2 | k=4 | PRSS=15.0323
+      init   iter  3 | k=5 | PRSS=15.0346
+      init   iter  4 | k=6 | PRSS=15.0340
+      init   iter  5 | k=7 | PRSS=15.0323
+      init   iter  6 | k=8 | PRSS=15.0327
+      init   iter  7 | k=9 | PRSS=15.0326
+      init   iter  8 | k=10 | PRSS=15.0323
+    Phase 1 best k=7 PRSS=15.0323
+      refine iter  9 | k=7 | PRSS=15.0323
+      refine iter 10 | k=7 | PRSS=15.0323
+      refine iter 11 | k=7 | PRSS=15.0323
+      refine iter 12 | k=7 | PRSS=15.0323
+      refine iter 13 | k=7 | PRSS=15.0323
+      best model is from iter 5 (k = 7 ) on a worker - refitting here
+    Final best k=7 PRSS=15.0323  iter=5  early_stop=FALSE
+  Computing per-cell EP and TREP assignment ...
+  EP computed: n_TREP=6317  n_nonTREP=624  (DE=91.0% population level, sets the split | 93.1% summary()$dev.expl | 85.6% donor-aware)
+  TREP donor coverage: 83/83 donors represented | per-donor TREP fraction [0.720, 1.000] median 0.931
+  Building four-colour GAM curve plot ...
+  Non-SKCS-core cells for GAM bg layer: 4191
+  GAM curve (4-group) saved
+  Building four-colour SKCS scatter ...
+  SKCS scatter (4-group) saved
+
+  Building 3D SKCS-EP scatter (plotly) ...
+  Computing EP for non-selected cells (same null as SKCS-core) ...
+    y_bar (SKCS-core null): 2.016256
+    SKCS-core cells: 6941 (EP reused from ep_values)
+    Non-selected cells: 4191 (EP computed with same null)
+    EP range: [-25620864.7, 1.0]
+    TREP cutoff EP: 0.3410
+    non-TREP cells above TREP cutoff: 0 (should be 0)
+    Group counts:
+
+    Non-selected Post-IP non-TREP     Post-IP TREP  Pre-IP non-TREP 
+            4191              508             3214              116 
+     Pre-IP TREP 
+            3103 
+  EP diagnostic -> Excel sheet EP_Boundary_Diagnostic
+
+  EP distribution by 5-group:
+            group     n EP_median     EP_mean pct_EP_pos
+     Non-selected  4191   -1.2208 -10881.6777       32.3
+ Post-IP non-TREP   508   -3.0837  -3898.6826       15.0
+     Post-IP TREP  3214    0.9315      0.8826      100.0
+  Pre-IP non-TREP   116    0.0226     -0.1794       55.2
+      Pre-IP TREP  3103    0.9517      0.9041      100.0
+ ALL_GOI_positive 11132    0.7994  -4274.1664       70.1
+ TREP_CUTOFF_INFO  6317        NA          NA       85.6
+
+    EP range (raw):    [-25620864.7, 1.0]
+    EP range (symlog): [-7.41, 0.30]
+    IP in 3D space (n=2243 cells within +/-0.282 of IP=1.888):
+      median S=0.00, median K=0.5921, median EP=-6.7893
+    (self-contained HTML)
+  3D SKCS-EP scatter saved: Part10b_CP10K_PVM_3_SKCS_NonNeoC_SKCS_3D_scatter_EP.html
+
+
+  Bulbous edge EP analysis ...
+  Bulbous edge analysis:
+      IP_group metric n_edge n_falling edge_median fall_median    test_used
+1  Pre-IP TREP     EP    776       776    0.996386    0.775945 MannWhitneyU
+2  Pre-IP TREP      K    776       776    0.697601    0.589583 MannWhitneyU
+3 Post-IP TREP     EP    804       804    0.995322    0.722902 MannWhitneyU
+4 Post-IP TREP      K    804       804    0.853652    0.704339 MannWhitneyU
+           p_BH
+1 5.928402e-255
+2 5.430373e-171
+3 8.832199e-264
+4 1.300526e-167
+  Bulbous edge -> Excel sheet Bulbous_Edge
+
+  Ki dispersion analysis (pre-IP vs post-IP TREP) ...
+  Ki dispersion results:
+     metric pre_median post_median delta_median cohens_d    test_used      p_BH
+1         K   0.639745    0.789597     0.149852   1.1494 MannWhitneyU 0.0000000
+2 resid_abs   0.230261    0.221363    -0.008898   0.1052 MannWhitneyU 0.8317485
+  Ki boxplot saved
+  Residual dispersion boxplot saved
+  TREP analysis -> Excel sheets Ki_Dispersion, Bulbous_Edge
+
+  EP/TREP CSV saved  (6941 rows)
+
+  Excel saved: Part10b_CP10K_PVM_3_SKCS_NonNeoC_diagnostics.xlsx -- 5 sheet(s): Threshold_Comparison, NonSKCS_Stratification, EP_Boundary_Diagnostic, Bulbous_Edge, Ki_Dispersion 
+  Files from older runs, no longer written: 
+      Part10b_CP10K_PVM_3_SKCS_NonNeoC_threshold_comparison.csv
+      Part10b_CP10K_PVM_3_SKCS_NonNeoC_threshold_comparison.xlsx
+      Part10b_CP10K_PVM_3_SKCS_NonNeoC_TREP_analysis.xlsx
+      Part10b_CP10K_PVM_3_SKCS_NonNeoC_bulbous_edge_analysis.csv
+      Part10b_CP10K_PVM_3_SKCS_NonNeoC_EP_all_GOI_boundary_diagnostic.csv
+
+  Pre/Post split on IP_y = f(IP_x) on cDFG | reported IP_x = 2.495273 | threshold used = 1.664802
+
+ ======================================================================== 
+  Part10b diagnostic: NeoC  [ PVM3_all ]
+======================================================================== 
+
+  Loaded 13331 cells from Part10_CP10K_PVM_3_Module1_MTCO3_cDFG_NeoC_Pooled_SKCS_scores.csv 
+  GOI-positive (scored): 13331 | GOI-zero (excluded): 0 
+
+  Loading combined GAM data for GAM fitting ...
+    Region DFC          3654 cells |  80 donors
+    Region MTG          3336 cells |  84 donors
+    Region AnG          1146 cells |  43 donors
+    Region STG          1619 cells |  43 donors
+    Region V1C          1826 cells |  43 donors
+    Region ITG          1750 cells |  43 donors
+  Aligned 13331 cells between scores CSV and GAM data
+  Pooled frame: 13331 cells | 84 donors | sum(w)=84.0000
+
+------------------------------------------------------------ 
+  OBJECTIVE 1: Non-SKCS cell stratification
+------------------------------------------------------------ 
+
+  Non-SKCS stratification (dataset: NeoC ):
+# A tibble: 3 × 6
+  stratum             n pct_of_nonskcs pct_of_total mean_spear mean_kend
+  <chr>           <int>          <dbl>        <dbl>      <dbl>     <dbl>
+1 Discordant       2738           55.6         20.5     -0.034     0.48 
+2 Inflection-zone  2019           41           15.1      0.095     0.478
+3 Low-expressor     167            3.4          1.3     -0.29     -0.162
+
+  Saved: Part10b_CP10K_PVM_3_SKCS_NeoC_nonSKCS_stratification.csv 
+------------------------------------------------------------ 
+  OBJECTIVE 2: Fixed-threshold selection (S_norm>0.05, K>0.5)
+------------------------------------------------------------ 
+
+  Fixed thresholds: S > 0.05  AND  K > 0.50
+  Cells selected  : n = 8407  (63.1% of GOI-positive cells)
+
+  50% quantile thresholds: S > 0.1927  AND  K > 0.6391
+  Cells selected  : n = 4998  (37.5% of GOI-positive cells)
+
+  [PASS]  GR-11-NeoC        this file's fixed cut (S>0.05, K>0.50) vs Part 10's is_skcs: 0 cell(s) differ (same thresholds)
+  Fitting cDFG GAM at fixed threshold (full PRSS pipeline) ...
+    frame: 8407 cells | 84 donors | sum(w)=84.0000
+  Fixed threshold DE: 86.31%  (donor RE: YES, donors: 84)
+
+  Fitting reference cDFG GAM at 50% threshold ...
+    frame: 4998 cells | 84 donors | sum(w)=84.0000
+  50% reference DE : 92.05%
+
+  Threshold comparison:
+            Method dataset S_thresh K_thresh n_cells pct_total DE_pct Donor_RE
+ Fixed_Snorm05_K05    NeoC   0.0500   0.5000    8407      63.1  86.31     TRUE
+   Reference_50pct    NeoC   0.1927   0.6391    4998      37.5  92.05     TRUE
+ N_Donors DE_vs_flat_null
+       84           92.25
+       84           96.05
+
+  Fixed threshold scatter saved
+
+------------------------------------------------------------ 
+  SECTION D2: GAM curves at fixed threshold (S_norm>0.05, K>0.5)
+------------------------------------------------------------ 
+
+  Fitting cDFG GAM (verbose) ...
+    [cDFG_fixed] n=8407 | unique_x=7785 | max_k=10 | donors=84 | donor RE=YES | sum(w)=84.0000
+      init   iter  1 | k=3 | PRSS=8.6970
+      init   iter  2 | k=4 | PRSS=8.3294
+      init   iter  3 | k=5 | PRSS=7.7566
+      init   iter  4 | k=6 | PRSS=7.5279
+      init   iter  5 | k=7 | PRSS=7.5290
+      init   iter  6 | k=8 | PRSS=7.4268
+      init   iter  7 | k=9 | PRSS=7.4078
+      init   iter  8 | k=10 | PRSS=7.3827
+    Phase 1 best k=10 PRSS=7.3827
+      refine iter  9 | k=10 | PRSS=7.3827
+      refine iter 10 | k=10 | PRSS=7.3827
+      refine iter 11 | k=10 | PRSS=7.3827
+      refine iter 12 | k=10 | PRSS=7.3827
+      refine iter 13 | k=10 | PRSS=7.3827
+      best model is from iter 8 (k = 10 ) on a worker - refitting here
+    Final best k=10 PRSS=7.3827  iter=8  early_stop=FALSE
+  Loading cHKG data ...
+    cHKG: 8407 cells, 9 genes, 84 donors, sum(w)=84.0000
+  Fitting cHKG GAM (verbose) ...
+    [cHKG_fixed] n=8407 | unique_x=7785 | max_k=10 | donors=84 | donor RE=YES | sum(w)=84.0000
+      init   iter  1 | k=3 | PRSS=15.7088
+      init   iter  2 | k=4 | PRSS=15.6939
+      init   iter  3 | k=5 | PRSS=15.6895
+      init   iter  4 | k=6 | PRSS=15.6899
+      init   iter  5 | k=7 | PRSS=15.6904
+      init   iter  6 | k=8 | PRSS=15.6904
+      init   iter  7 | k=9 | PRSS=15.6904
+      init   iter  8 | k=10 | PRSS=15.6900
+    Phase 1 best k=5 PRSS=15.6895
+      refine iter  9 | k=5 | PRSS=15.6895
+      refine iter 10 | k=5 | PRSS=15.6895
+      refine iter 11 | k=5 | PRSS=15.6895
+      refine iter 12 | k=5 | PRSS=15.6895
+      refine iter 13 | k=5 | PRSS=15.6895
+      best model is from iter 3 (k = 5 ) on a worker - refitting here
+    Final best k=5 PRSS=15.6895  iter=3  early_stop=FALSE
+  Computing per-cell EP and TREP assignment ...
+  EP computed: n_TREP=7617  n_nonTREP=790  (DE=90.6% population level, sets the split | 92.2% summary()$dev.expl | 86.3% donor-aware)
+  TREP donor coverage: 84/84 donors represented | per-donor TREP fraction [0.714, 1.000] median 0.917
+  Building four-colour GAM curve plot ...
+  Non-SKCS-core cells for GAM bg layer: 4924
+  GAM curve (4-group) saved
+  Building four-colour SKCS scatter ...
+  SKCS scatter (4-group) saved
+
+  Building 3D SKCS-EP scatter (plotly) ...
+  Computing EP for non-selected cells (same null as SKCS-core) ...
+    y_bar (SKCS-core null): 1.789358
+    SKCS-core cells: 8407 (EP reused from ep_values)
+    Non-selected cells: 4924 (EP computed with same null)
+    EP range: [-15577359.6, 1.0]
+    TREP cutoff EP: 0.1995
+    non-TREP cells above TREP cutoff: 0 (should be 0)
+    Group counts:
+
+    Non-selected Post-IP non-TREP     Post-IP TREP  Pre-IP non-TREP 
+            4924              689             3836              101 
+     Pre-IP TREP 
+            3781 
+  EP diagnostic -> Excel sheet EP_Boundary_Diagnostic
+
+  EP distribution by 5-group:
+            group     n EP_median     EP_mean pct_EP_pos
+     Non-selected  4924   -0.7468  -1228.5937       38.0
+ Post-IP non-TREP   689   -5.7295 -23347.1042        7.3
+     Post-IP TREP  3836    0.9266      0.8640      100.0
+  Pre-IP non-TREP   101   -0.1166     -1.5053       38.6
+      Pre-IP TREP  3781    0.9626      0.9143      100.0
+ ALL_GOI_positive 13331    0.8196  -1659.9753       71.8
+ TREP_CUTOFF_INFO  7617        NA          NA       86.3
+
+    EP range (raw):    [-15577359.6, 1.0]
+    EP range (symlog): [-7.19, 0.30]
+    IP in 3D space (n=2872 cells within +/-0.299 of IP=1.665):
+      median S=0.01, median K=0.6137, median EP=-4.8033
+    (self-contained HTML)
+  3D SKCS-EP scatter saved: Part10b_CP10K_PVM_3_SKCS_NeoC_SKCS_3D_scatter_EP.html
+
+
+  Bulbous edge EP analysis ...
+  Bulbous edge analysis:
+      IP_group metric n_edge n_falling edge_median fall_median    test_used
+1  Pre-IP TREP     EP    946       946    0.997841    0.808035 MannWhitneyU
+2  Pre-IP TREP      K    946       946    0.698725    0.586497 MannWhitneyU
+3 Post-IP TREP     EP    959       959    0.995183    0.673993 MannWhitneyU
+4 Post-IP TREP      K    959       959    0.884621    0.720180 MannWhitneyU
+           p_BH
+1 2.276594e-310
+2 5.274004e-249
+3 2.636183e-314
+4 2.069137e-228
+  Bulbous edge -> Excel sheet Bulbous_Edge
+
+  Ki dispersion analysis (pre-IP vs post-IP TREP) ...
+  Ki dispersion results:
+     metric pre_median post_median delta_median cohens_d    test_used p_BH
+1         K   0.632807    0.814704     0.181897   1.5429 MannWhitneyU    0
+2 resid_abs   0.211980    0.232460     0.020480   0.3291 MannWhitneyU    1
+  Ki boxplot saved
+  Residual dispersion boxplot saved
+  TREP analysis -> Excel sheets Ki_Dispersion, Bulbous_Edge
+
+  EP/TREP CSV saved  (8407 rows)
+
+  Excel saved: Part10b_CP10K_PVM_3_SKCS_NeoC_diagnostics.xlsx -- 5 sheet(s): Threshold_Comparison, NonSKCS_Stratification, EP_Boundary_Diagnostic, Bulbous_Edge, Ki_Dispersion 
+  Files from older runs, no longer written: 
+      Part10b_CP10K_PVM_3_SKCS_NeoC_threshold_comparison.csv
+      Part10b_CP10K_PVM_3_SKCS_NeoC_threshold_comparison.xlsx
+      Part10b_CP10K_PVM_3_SKCS_NeoC_TREP_analysis.xlsx
+      Part10b_CP10K_PVM_3_SKCS_NeoC_bulbous_edge_analysis.csv
+      Part10b_CP10K_PVM_3_SKCS_NeoC_EP_all_GOI_boundary_diagnostic.csv
+
+
+ ######################################################################## 
+  SECTION E1 - POST-ANALYSIS QUALITY GUARDRAILS
+######################################################################## 
+
+  [PASS]  GR-06-NonNeoC     GOI-positive cells (total) = 11132  (min = 50)
+  [PASS]  GR-07-NonNeoC     Fixed-threshold cells (S_norm>0.05, K>0.5) = 6941  (min = 50)
+  [PASS]  GR-08-NonNeoC     Fixed-threshold DE = 85.64%
+  [PASS]  GR-14-NonNeoC     Pre/Post split on cDFG (IP_CLASS_AXIS = cDFG) | threshold used = 1.887917 | IP_y from IPRS = 1.887917
+  [PASS]  GR-09-NonNeoC     IP_thresh = 2.657153  (IPRS R(x)=0, full population)
+  [PASS]  GR-10-NonNeoC     donor RE on 4/4 fit(s); donors per fit [83, 83]; 0 fallback(s)
+  [PASS]  GR-06-NeoC        GOI-positive cells (total) = 13331  (min = 50)
+  [PASS]  GR-07-NeoC        Fixed-threshold cells (S_norm>0.05, K>0.5) = 8407  (min = 50)
+  [PASS]  GR-08-NeoC        Fixed-threshold DE = 86.31%
+  [PASS]  GR-14-NeoC        Pre/Post split on cDFG (IP_CLASS_AXIS = cDFG) | threshold used = 1.664802 | IP_y from IPRS = 1.664802
+  [PASS]  GR-09-NeoC        IP_thresh = 2.495273  (IPRS R(x)=0, full population)
+  [PASS]  GR-10-NeoC        donor RE on 4/4 fit(s); donors per fit [84, 84]; 0 fallback(s)
+  Guardrail log written: /data/Part10b_SKCS/Part10b_SKCS_PVM_3/Part10b_CP10K_PVM_3_SKCS_Guardrail_Log.txt 
+
+  Final guardrail tally: 22 PASS / 0 WARN / 0 FAIL
+  All 22 checks passed.
+
+ ======================================================================== 
+  Part10b COMPLETE - Cross-dataset summary [ PVM3_all ]
+======================================================================== 
+
+  Fixed vs reference comparison across datasets:
+
+            Method dataset S_thresh K_thresh n_cells pct_total DE_pct Donor_RE
+ Fixed_Snorm05_K05 NonNeoC   0.0500   0.5000    6941      62.4  85.64     TRUE
+   Reference_50pct NonNeoC   0.1903   0.6327    4311      38.7  90.99     TRUE
+ Fixed_Snorm05_K05    NeoC   0.0500   0.5000    8407      63.1  86.31     TRUE
+   Reference_50pct    NeoC   0.1927   0.6391    4998      37.5  92.05     TRUE
+ N_Donors DE_vs_flat_null
+       83           93.12
+       83           96.02
+       84           92.25
+       84           96.05
+
+  Output directory: /data/Part10b_SKCS/Part10b_SKCS_PVM_3 
+  Files generated:
+    Part10b_CP10K_PVM_3_IPRS_results.rds                          415 KB
+    Part10b_CP10K_PVM_3_SKCS_console_log_20261019_073228.txt       22 KB
+    Part10b_CP10K_PVM_3_SKCS_Guardrail_Log.txt                      3 KB
+    Part10b_CP10K_PVM_3_SKCS_NeoC_Combined_GAM_curves_4group.pdf    773 KB
+    Part10b_CP10K_PVM_3_SKCS_NeoC_Combined_GAM_curves_4group.png    832 KB
+    Part10b_CP10K_PVM_3_SKCS_NeoC_diagnostics.xlsx                 10 KB
+    Part10b_CP10K_PVM_3_SKCS_NeoC_EP_TREP_values.csv             1214 KB
+    Part10b_CP10K_PVM_3_SKCS_NeoC_fixed_threshold_scatter.pdf     773 KB
+    Part10b_CP10K_PVM_3_SKCS_NeoC_fixed_threshold_scatter.png     469 KB
+    Part10b_CP10K_PVM_3_SKCS_NeoC_Ki_prepost_TREP_boxplot.pdf      40 KB
+    Part10b_CP10K_PVM_3_SKCS_NeoC_Ki_prepost_TREP_boxplot.png      82 KB
+    Part10b_CP10K_PVM_3_SKCS_NeoC_nonSKCS_stratification.csv      531 KB
+    Part10b_CP10K_PVM_3_SKCS_NeoC_resid_dispersion_prepost_TREP_boxplot.pdf     40 KB
+    Part10b_CP10K_PVM_3_SKCS_NeoC_resid_dispersion_prepost_TREP_boxplot.png     78 KB
+    Part10b_CP10K_PVM_3_SKCS_NeoC_SKCS_3D_scatter_EP_files          0 KB
+    Part10b_CP10K_PVM_3_SKCS_NeoC_SKCS_3D_scatter_EP.html        5795 KB
+    Part10b_CP10K_PVM_3_SKCS_NeoC_SKCS_scatter_4group.pdf         760 KB
+    Part10b_CP10K_PVM_3_SKCS_NeoC_SKCS_scatter_4group.png         524 KB
+    Part10b_CP10K_PVM_3_SKCS_NonNeoC_Combined_GAM_curves_4group.pdf    653 KB
+    Part10b_CP10K_PVM_3_SKCS_NonNeoC_Combined_GAM_curves_4group.png    919 KB
+    Part10b_CP10K_PVM_3_SKCS_NonNeoC_diagnostics.xlsx              10 KB
+    Part10b_CP10K_PVM_3_SKCS_NonNeoC_EP_TREP_values.csv          1017 KB
+    Part10b_CP10K_PVM_3_SKCS_NonNeoC_fixed_threshold_scatter.pdf    645 KB
+    Part10b_CP10K_PVM_3_SKCS_NonNeoC_fixed_threshold_scatter.png    420 KB
+    Part10b_CP10K_PVM_3_SKCS_NonNeoC_Ki_prepost_TREP_boxplot.pdf     40 KB
+    Part10b_CP10K_PVM_3_SKCS_NonNeoC_Ki_prepost_TREP_boxplot.png     81 KB
+    Part10b_CP10K_PVM_3_SKCS_NonNeoC_nonSKCS_stratification.csv    464 KB
+    Part10b_CP10K_PVM_3_SKCS_NonNeoC_resid_dispersion_prepost_TREP_boxplot.pdf     40 KB
+    Part10b_CP10K_PVM_3_SKCS_NonNeoC_resid_dispersion_prepost_TREP_boxplot.png     79 KB
+    Part10b_CP10K_PVM_3_SKCS_NonNeoC_SKCS_3D_scatter_EP_files       0 KB
+    Part10b_CP10K_PVM_3_SKCS_NonNeoC_SKCS_3D_scatter_EP.html     5464 KB
+    Part10b_CP10K_PVM_3_SKCS_NonNeoC_SKCS_scatter_4group.pdf      636 KB
+    Part10b_CP10K_PVM_3_SKCS_NonNeoC_SKCS_scatter_4group.png      466 KB
+    Part10b_CP10K_PVM_3_SKCS_summary_all_datasets.csv               0 KB
+
+  Results object saved: Part10b_CP10K_PVM_3_SKCS_all_results.rds  (14.2 MB, plots dropped)
+======================================================================== 
+
+  Log written to: /data/Part10b_SKCS/Part10b_SKCS_PVM_3/Part10b_CP10K_PVM_3_SKCS_console_log_20261019_073228.txt  (console output and warnings) 
+
+Part10b SKCS TREP - log ended: 2026-10-19 07:34:36.950332
+  Part 10b all done: 2026-10-19 07:34:36 
+
+  PSOCK cluster stopped.
+Part10b SKCS TREP - log started: 2026-10-19 07:34:37.0448
+
+
+============================================================================
+  ARM: PVM1_all   config: R_config.R
+============================================================================
+R_config.R loaded (Module 1: MT-CO3 + 8 DFGs, ≥8/10 regions).
+  ARM_TAG   : PVM1_all 
+  ARM_DIR   : /data/R_export_CP10K/PVM1_all 
+  NEOC_DIR  : /data/R_export_CP10K/PVM1_all/neocortex 
+  NONNC_DIR : /data/R_export_CP10K/PVM1_all/nonneocortex 
+  SHARED_DIR: /data/R_export_CP10K/shared 
+  GOI       : MT-CO3 
+  DFG_NEOC  : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  DFG_NONNC : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Composite : cDFG 
+  RUN_SUFFIX: _PVM1all 
+  Supertype : Micro-PVM_1 
+  Mod1 genes: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 ( 9 )
+  HKG_GENES : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 3218 NeoC / 2658 NonNeoC
+  Config OK: PVM1_all | MT-CO3 + 8 DFG | CP10K
+
+  [IPRS] IP definition: IPRS R(x)=0, full population 
+  [IPRS] NonNeoC    IP_thresh set to 2.645333 (IPRS R(x)=0, full population)
+  [IPRS] NonNeoC    IP_y_thresh set to 1.836287  = f(IP_thresh), classification axis
+  [IPRS] NeoC       IP_thresh set to 2.382738 (IPRS R(x)=0, full population)
+  [IPRS] NeoC       IP_y_thresh set to 1.526079  = f(IP_thresh), classification axis
+
+ ======================================================================== 
+  Part10b - SKCS Fixed-Threshold Diagnostic
+  Arm          : PVM1_all 
+  GOI          : MT-CO3 
+  DFG          : cDFG  -  MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Normalisation: CP10K  log1p(UMIs/total x  10000 )
+  Datasets     : NonNeoC, NeoC 
+  S threshold  : > 0   (cell pulls rho upward)
+  K threshold  : > 0.5 (concordant with >50% of cell pairs)
+  Estimator    : donor random intercept, s(donor, bs = "re"), minimum 3 donors 
+  Weights      : inverse donor cell count, w = 1/n_i (each donor sums to 1) 
+  PRSS         : phase 1 = 8 iterations, phase 2 = up to 5 (early stop 20 )
+  Part 10 dir  : /data/Part10/Part10_PVM_1 
+  Scores read  : Part10_PVM_1_NonNeoC, Part10_PVM_1_NeoC (per-dataset folders; arm root as fallback)
+  Output dir   : /data/Part10b_SKCS/Part10b_SKCS_PVM_1 
+  Parallel     : 31 PSOCK worker(s) for the PRSS iterations
+======================================================================== 
+
+
+ ======================================================================== 
+  SECTION A0 - PRE-ANALYSIS GUARDRAILS
+======================================================================== 
+
+  -- Dataset: NeoC --------------------------------------
+  [PASS]  GR-01-NeoC        norm.mtx max = 7.6178  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NeoC        expm1(norm) row sums: mean = 10000.000000, max |dev| = 6.71e-10, n = 50
+  [PASS]  GR-04-NeoC        raw max = 3138, integer-like = TRUE
+  -- Dataset: NonNeoC --------------------------------------
+  [PASS]  GR-01-NonNeoC     norm.mtx max = 7.7520  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NonNeoC     expm1(norm) row sums: mean = 10000.000000, max |dev| = 6.51e-10, n = 50
+  [PASS]  GR-04-NonNeoC     raw max = 3293, integer-like = TRUE
+  [PASS]  GR-05-NonNeoC     Scores CSV: Part10_PVM_1_NonNeoC/Part10_CP10K_PVM_1_Module1_MTCO3_cDFG_NonNeoC_Pooled_SKCS_scores.csv
+  [PASS]  GR-05-NeoC        Scores CSV: Part10_PVM_1_NeoC/Part10_CP10K_PVM_1_Module1_MTCO3_cDFG_NeoC_Pooled_SKCS_scores.csv
+  Guardrail log written: /data/Part10b_SKCS/Part10b_SKCS_PVM_1/Part10b_CP10K_PVM_1_SKCS_Guardrail_Log.txt 
+
+  Pre-analysis guardrails: 8 PASS / 0 WARN / 0 FAIL
+  *** ALL PRE-ANALYSIS GUARDRAILS PASSED ***
+
+  Pre/Post split on IP_y = f(IP_x) on cDFG | reported IP_x = 2.645333 | threshold used = 1.836287
+
+ ======================================================================== 
+  Part10b diagnostic: NonNeoC  [ PVM1_all ]
+======================================================================== 
+
+  Loaded 2658 cells from Part10_CP10K_PVM_1_Module1_MTCO3_cDFG_NonNeoC_Pooled_SKCS_scores.csv 
+  GOI-positive (scored): 2658 | GOI-zero (excluded): 0 
+
+  Loading combined GAM data for GAM fitting ...
+    Region HIP           449 cells |  39 donors
+    Region MEC          1387 cells |  81 donors
+    Region LEC           209 cells |  31 donors
+    Region FI            613 cells |  41 donors
+  Aligned 2658 cells between scores CSV and GAM data
+  Pooled frame: 2658 cells | 83 donors | sum(w)=83.0000
+
+------------------------------------------------------------ 
+  OBJECTIVE 1: Non-SKCS cell stratification
+------------------------------------------------------------ 
+
+  Non-SKCS stratification (dataset: NonNeoC ):
+# A tibble: 3 × 6
+  stratum             n pct_of_nonskcs pct_of_total mean_spear mean_kend
+  <chr>           <int>          <dbl>        <dbl>      <dbl>     <dbl>
+1 Discordant        532           54.2         20       -0.03      0.513
+2 Inflection-zone   421           42.9         15.8      0.099     0.473
+3 Low-expressor      28            2.9          1.1     -0.393    -0.284
+
+  Saved: Part10b_CP10K_PVM_1_SKCS_NonNeoC_nonSKCS_stratification.csv 
+------------------------------------------------------------ 
+  OBJECTIVE 2: Fixed-threshold selection (S_norm>0.05, K>0.5)
+------------------------------------------------------------ 
+
+  Fixed thresholds: S > 0.05  AND  K > 0.50
+  Cells selected  : n = 1677  (63.1% of GOI-positive cells)
+
+  50% quantile thresholds: S > 0.1953  AND  K > 0.6545
+  Cells selected  : n = 950  (35.7% of GOI-positive cells)
+
+  [PASS]  GR-11-NonNeoC     this file's fixed cut (S>0.05, K>0.50) vs Part 10's is_skcs: 0 cell(s) differ (same thresholds)
+  Fitting cDFG GAM at fixed threshold (full PRSS pipeline) ...
+    frame: 1677 cells | 82 donors | sum(w)=82.0000
+  Fixed threshold DE: 87.41%  (donor RE: YES, donors: 82)
+
+  Fitting reference cDFG GAM at 50% threshold ...
+    frame: 950 cells | 78 donors | sum(w)=78.0000
+  50% reference DE : 91.54%
+
+  Threshold comparison:
+            Method dataset S_thresh K_thresh n_cells pct_total DE_pct Donor_RE
+ Fixed_Snorm05_K05 NonNeoC   0.0500   0.5000    1677      63.1  87.41     TRUE
+   Reference_50pct NonNeoC   0.1953   0.6545     950      35.7  91.54     TRUE
+ N_Donors DE_vs_flat_null
+       82           94.98
+       78           97.17
+
+  Fixed threshold scatter saved
+
+------------------------------------------------------------ 
+  SECTION D2: GAM curves at fixed threshold (S_norm>0.05, K>0.5)
+------------------------------------------------------------ 
+
+  Fitting cDFG GAM (verbose) ...
+    [cDFG_fixed] n=1677 | unique_x=1652 | max_k=10 | donors=82 | donor RE=YES | sum(w)=82.0000
+      init   iter  1 | k=3 | PRSS=8.4014
+      init   iter  2 | k=4 | PRSS=8.0333
+      init   iter  3 | k=5 | PRSS=7.4862
+      init   iter  4 | k=6 | PRSS=7.1446
+      init   iter  5 | k=7 | PRSS=7.1505
+      init   iter  6 | k=8 | PRSS=7.0669
+      init   iter  7 | k=9 | PRSS=6.9588
+      init   iter  8 | k=10 | PRSS=6.9581
+    Phase 1 best k=10 PRSS=6.9581
+      refine iter  9 | k=10 | PRSS=6.9581
+      refine iter 10 | k=10 | PRSS=6.9581
+      refine iter 11 | k=10 | PRSS=6.9581
+      refine iter 12 | k=10 | PRSS=6.9581
+      refine iter 13 | k=10 | PRSS=6.9581
+      best model is from iter 8 (k = 10 ) on a worker - refitting here
+    Final best k=10 PRSS=6.9581  iter=8  early_stop=FALSE
+  Loading cHKG data ...
+    cHKG: 1677 cells, 9 genes, 82 donors, sum(w)=82.0000
+  Fitting cHKG GAM (verbose) ...
+    [cHKG_fixed] n=1677 | unique_x=1652 | max_k=10 | donors=82 | donor RE=YES | sum(w)=82.0000
+      init   iter  1 | k=3 | PRSS=13.7180
+      init   iter  2 | k=4 | PRSS=13.7021
+      init   iter  3 | k=5 | PRSS=13.6870
+      init   iter  4 | k=6 | PRSS=13.6898
+      init   iter  5 | k=7 | PRSS=13.6872
+      init   iter  6 | k=8 | PRSS=13.6881
+      init   iter  7 | k=9 | PRSS=13.6845
+      init   iter  8 | k=10 | PRSS=13.6818
+    Phase 1 best k=10 PRSS=13.6818
+      refine iter  9 | k=10 | PRSS=13.6818
+      refine iter 10 | k=10 | PRSS=13.6818
+      refine iter 11 | k=10 | PRSS=13.6818
+      refine iter 12 | k=10 | PRSS=13.6818
+      refine iter 13 | k=10 | PRSS=13.6818
+      best model is from iter 8 (k = 10 ) on a worker - refitting here
+    Final best k=10 PRSS=13.6818  iter=8  early_stop=FALSE
+  Computing per-cell EP and TREP assignment ...
+  EP computed: n_TREP=1547  n_nonTREP=130  (DE=92.3% population level, sets the split | 95.0% summary()$dev.expl | 87.4% donor-aware)
+  TREP donor coverage: 82/82 donors represented | per-donor TREP fraction [0.500, 1.000] median 0.945
+  Building four-colour GAM curve plot ...
+  Non-SKCS-core cells for GAM bg layer: 981
+  GAM curve (4-group) saved
+  Building four-colour SKCS scatter ...
+  SKCS scatter (4-group) saved
+
+  Building 3D SKCS-EP scatter (plotly) ...
+  Computing EP for non-selected cells (same null as SKCS-core) ...
+    y_bar (SKCS-core null): 2.063811
+    SKCS-core cells: 1677 (EP reused from ep_values)
+    Non-selected cells: 981 (EP computed with same null)
+    EP range: [-1159534.4, 1.0]
+    TREP cutoff EP: 0.2417
+    non-TREP cells above TREP cutoff: 0 (should be 0)
+    Group counts:
+
+    Non-selected Post-IP non-TREP     Post-IP TREP  Pre-IP non-TREP 
+             981              124              804                6 
+     Pre-IP TREP 
+             743 
+  EP diagnostic -> Excel sheet EP_Boundary_Diagnostic
+
+  EP distribution by 5-group:
+            group    n EP_median    EP_mean pct_EP_pos
+     Non-selected  981   -0.3146 -1628.8314       43.7
+ Post-IP non-TREP  124   -7.6182  -329.6159        8.1
+     Post-IP TREP  804    0.9362     0.8697      100.0
+  Pre-IP non-TREP    6    0.1434     0.1311       83.3
+      Pre-IP TREP  743    0.9644     0.9245      100.0
+ ALL_GOI_positive 2658    0.8387  -616.0154       74.9
+ TREP_CUTOFF_INFO 1547        NA         NA       87.4
+
+    EP range (raw):    [-1159534.4, 1.0]
+    EP range (symlog): [-6.06, 0.30]
+    IP in 3D space (n=445 cells within +/-0.277 of IP=1.836):
+      median S=0.00, median K=0.6349, median EP=-2.5497
+    (self-contained HTML)
+  3D SKCS-EP scatter saved: Part10b_CP10K_PVM_1_SKCS_NonNeoC_SKCS_3D_scatter_EP.html
+
+
+  Bulbous edge EP analysis ...
+  Bulbous edge analysis:
+      IP_group metric n_edge n_falling edge_median fall_median    test_used
+1  Pre-IP TREP     EP    186       186    0.997737    0.837008 MannWhitneyU
+2  Pre-IP TREP      K    186       186    0.703049    0.581859 MannWhitneyU
+3 Post-IP TREP     EP    201       201    0.994628    0.680211 MannWhitneyU
+4 Post-IP TREP      K    201       201    0.887091    0.744072 MannWhitneyU
+          p_BH
+1 1.819797e-62
+2 1.624697e-44
+3 4.552400e-67
+4 3.111247e-47
+  Bulbous edge -> Excel sheet Bulbous_Edge
+
+  Ki dispersion analysis (pre-IP vs post-IP TREP) ...
+  Ki dispersion results:
+     metric pre_median post_median delta_median cohens_d    test_used
+1         K   0.628152    0.829507     0.201355   1.8016 MannWhitneyU
+2 resid_abs   0.237274    0.263761     0.026487   0.2299 MannWhitneyU
+           p_BH
+1 7.554526e-153
+2  9.917545e-01
+  Ki boxplot saved
+  Residual dispersion boxplot saved
+  TREP analysis -> Excel sheets Ki_Dispersion, Bulbous_Edge
+
+  EP/TREP CSV saved  (1677 rows)
+
+  Excel saved: Part10b_CP10K_PVM_1_SKCS_NonNeoC_diagnostics.xlsx -- 5 sheet(s): Threshold_Comparison, NonSKCS_Stratification, EP_Boundary_Diagnostic, Bulbous_Edge, Ki_Dispersion 
+  Files from older runs, no longer written: 
+      Part10b_CP10K_PVM_1_SKCS_NonNeoC_threshold_comparison.csv
+      Part10b_CP10K_PVM_1_SKCS_NonNeoC_threshold_comparison.xlsx
+      Part10b_CP10K_PVM_1_SKCS_NonNeoC_TREP_analysis.xlsx
+      Part10b_CP10K_PVM_1_SKCS_NonNeoC_bulbous_edge_analysis.csv
+      Part10b_CP10K_PVM_1_SKCS_NonNeoC_EP_all_GOI_boundary_diagnostic.csv
+
+  Pre/Post split on IP_y = f(IP_x) on cDFG | reported IP_x = 2.382738 | threshold used = 1.526079
+
+ ======================================================================== 
+  Part10b diagnostic: NeoC  [ PVM1_all ]
+======================================================================== 
+
+  Loaded 3218 cells from Part10_CP10K_PVM_1_Module1_MTCO3_cDFG_NeoC_Pooled_SKCS_scores.csv 
+  GOI-positive (scored): 3218 | GOI-zero (excluded): 0 
+
+  Loading combined GAM data for GAM fitting ...
+    Region DFC           730 cells |  80 donors
+    Region MTG           902 cells |  81 donors
+    Region AnG           314 cells |  42 donors
+    Region STG           403 cells |  42 donors
+    Region V1C           419 cells |  42 donors
+    Region ITG           450 cells |  42 donors
+  Aligned 3218 cells between scores CSV and GAM data
+  Pooled frame: 3218 cells | 84 donors | sum(w)=84.0000
+
+------------------------------------------------------------ 
+  OBJECTIVE 1: Non-SKCS cell stratification
+------------------------------------------------------------ 
+
+  Non-SKCS stratification (dataset: NeoC ):
+# A tibble: 3 × 6
+  stratum             n pct_of_nonskcs pct_of_total mean_spear mean_kend
+  <chr>           <int>          <dbl>        <dbl>      <dbl>     <dbl>
+1 Discordant        685           50.5         21.3     -0.038     0.445
+2 Inflection-zone   602           44.4         18.7      0.112     0.439
+3 Low-expressor      69            5.1          2.1     -0.26     -0.13 
+
+  Saved: Part10b_CP10K_PVM_1_SKCS_NeoC_nonSKCS_stratification.csv 
+------------------------------------------------------------ 
+  OBJECTIVE 2: Fixed-threshold selection (S_norm>0.05, K>0.5)
+------------------------------------------------------------ 
+
+  Fixed thresholds: S > 0.05  AND  K > 0.50
+  Cells selected  : n = 1862  (57.9% of GOI-positive cells)
+
+  50% quantile thresholds: S > 0.1803  AND  K > 0.6040
+  Cells selected  : n = 1203  (37.4% of GOI-positive cells)
+
+  [PASS]  GR-11-NeoC        this file's fixed cut (S>0.05, K>0.50) vs Part 10's is_skcs: 0 cell(s) differ (same thresholds)
+  Fitting cDFG GAM at fixed threshold (full PRSS pipeline) ...
+    frame: 1862 cells | 82 donors | sum(w)=82.0000
+  Fixed threshold DE: 87.62%  (donor RE: YES, donors: 82)
+
+  Fitting reference cDFG GAM at 50% threshold ...
+    frame: 1203 cells | 78 donors | sum(w)=78.0000
+  50% reference DE : 91.56%
+
+  Threshold comparison:
+            Method dataset S_thresh K_thresh n_cells pct_total DE_pct Donor_RE
+ Fixed_Snorm05_K05    NeoC   0.0500    0.500    1862      57.9  87.62     TRUE
+   Reference_50pct    NeoC   0.1803    0.604    1203      37.4  91.56     TRUE
+ N_Donors DE_vs_flat_null
+       82           93.40
+       78           95.88
+
+  Fixed threshold scatter saved
+
+------------------------------------------------------------ 
+  SECTION D2: GAM curves at fixed threshold (S_norm>0.05, K>0.5)
+------------------------------------------------------------ 
+
+  Fitting cDFG GAM (verbose) ...
+    [cDFG_fixed] n=1862 | unique_x=1834 | max_k=10 | donors=82 | donor RE=YES | sum(w)=82.0000
+      init   iter  1 | k=3 | PRSS=7.2584
+      init   iter  2 | k=4 | PRSS=7.2155
+      init   iter  3 | k=5 | PRSS=6.8411
+      init   iter  4 | k=6 | PRSS=6.5542
+      init   iter  5 | k=7 | PRSS=6.3955
+      init   iter  6 | k=8 | PRSS=6.3946
+      init   iter  7 | k=9 | PRSS=6.3307
+      init   iter  8 | k=10 | PRSS=6.3220
+    Phase 1 best k=10 PRSS=6.3220
+      refine iter  9 | k=10 | PRSS=6.3220
+      refine iter 10 | k=10 | PRSS=6.3220
+      refine iter 11 | k=10 | PRSS=6.3220
+      refine iter 12 | k=10 | PRSS=6.3220
+      refine iter 13 | k=10 | PRSS=6.3220
+      best model is from iter 8 (k = 10 ) on a worker - refitting here
+    Final best k=10 PRSS=6.3220  iter=8  early_stop=FALSE
+  Loading cHKG data ...
+    cHKG: 1862 cells, 9 genes, 82 donors, sum(w)=82.0000
+  Fitting cHKG GAM (verbose) ...
+    [cHKG_fixed] n=1862 | unique_x=1834 | max_k=10 | donors=82 | donor RE=YES | sum(w)=82.0000
+      init   iter  1 | k=3 | PRSS=11.4031
+      init   iter  2 | k=4 | PRSS=11.4075
+      init   iter  3 | k=5 | PRSS=11.3473
+      init   iter  4 | k=6 | PRSS=11.3509
+      init   iter  5 | k=7 | PRSS=11.3377
+      init   iter  6 | k=8 | PRSS=11.3217
+      init   iter  7 | k=9 | PRSS=11.3247
+      init   iter  8 | k=10 | PRSS=11.3132
+    Phase 1 best k=10 PRSS=11.3132
+      refine iter  9 | k=10 | PRSS=11.3132
+      refine iter 10 | k=10 | PRSS=11.3132
+      refine iter 11 | k=10 | PRSS=11.3132
+      refine iter 12 | k=10 | PRSS=11.3132
+      refine iter 13 | k=10 | PRSS=11.3132
+      best model is from iter 8 (k = 10 ) on a worker - refitting here
+    Final best k=10 PRSS=11.3132  iter=8  early_stop=FALSE
+  Computing per-cell EP and TREP assignment ...
+  EP computed: n_TREP=1708  n_nonTREP=154  (DE=91.7% population level, sets the split | 93.4% summary()$dev.expl | 87.6% donor-aware)
+  TREP donor coverage: 82/82 donors represented | per-donor TREP fraction [0.650, 1.000] median 0.935
+  Building four-colour GAM curve plot ...
+  Non-SKCS-core cells for GAM bg layer: 1356
+  GAM curve (4-group) saved
+  Building four-colour SKCS scatter ...
+  SKCS scatter (4-group) saved
+
+  Building 3D SKCS-EP scatter (plotly) ...
+  Computing EP for non-selected cells (same null as SKCS-core) ...
+    y_bar (SKCS-core null): 1.750059
+    SKCS-core cells: 1862 (EP reused from ep_values)
+    Non-selected cells: 1356 (EP computed with same null)
+    EP range: [-974385.5, 1.0]
+    TREP cutoff EP: -5.1703
+    non-TREP cells above TREP cutoff: 0 (should be 0)
+    Group counts:
+
+    Non-selected Post-IP non-TREP     Post-IP TREP  Pre-IP non-TREP 
+            1356              153              921                1 
+     Pre-IP TREP 
+             787 
+  EP diagnostic -> Excel sheet EP_Boundary_Diagnostic
+
+  EP distribution by 5-group:
+            group    n EP_median    EP_mean pct_EP_pos
+     Non-selected 1356   -0.0747  -296.4055       48.3
+ Post-IP non-TREP  153  -18.5192 -6559.3068        0.0
+     Post-IP TREP  921    0.9202     0.6518       93.3
+  Pre-IP non-TREP    1   -5.3134    -5.3134        0.0
+      Pre-IP TREP  787    0.9728     0.9286       99.7
+ ALL_GOI_positive 3218    0.7895  -436.3499       71.4
+ TREP_CUTOFF_INFO 1708        NA         NA       87.6
+
+    EP range (raw):    [-974385.5, 1.0]
+    EP range (symlog): [-5.99, 0.30]
+    IP in 3D space (n=698 cells within +/-0.288 of IP=1.526):
+      median S=0.01, median K=0.5835, median EP=-3.0120
+    (self-contained HTML)
+  3D SKCS-EP scatter saved: Part10b_CP10K_PVM_1_SKCS_NeoC_SKCS_3D_scatter_EP.html
+
+
+  Bulbous edge EP analysis ...
+  Bulbous edge analysis:
+      IP_group metric n_edge n_falling edge_median fall_median    test_used
+1  Pre-IP TREP     EP    197       197    0.998817    0.867320 MannWhitneyU
+2  Pre-IP TREP      K    197       197    0.674852    0.547404 MannWhitneyU
+3 Post-IP TREP     EP    231       231    0.995292    0.451517 MannWhitneyU
+4 Post-IP TREP      K    231       231    0.925396    0.722101 MannWhitneyU
+          p_BH
+1 4.618475e-66
+2 9.219401e-37
+3 7.180465e-77
+4 3.284405e-65
+  Bulbous edge -> Excel sheet Bulbous_Edge
+
+  Ki dispersion analysis (pre-IP vs post-IP TREP) ...
+  Ki dispersion results:
+     metric pre_median post_median delta_median cohens_d    test_used
+1         K   0.599627    0.837115     0.237488   1.8510 MannWhitneyU
+2 resid_abs   0.190718    0.221006     0.030288   0.3839 MannWhitneyU
+           p_BH
+1 1.432898e-171
+2  9.999999e-01
+  Ki boxplot saved
+  Residual dispersion boxplot saved
+  TREP analysis -> Excel sheets Ki_Dispersion, Bulbous_Edge
+
+  EP/TREP CSV saved  (1862 rows)
+
+  Excel saved: Part10b_CP10K_PVM_1_SKCS_NeoC_diagnostics.xlsx -- 5 sheet(s): Threshold_Comparison, NonSKCS_Stratification, EP_Boundary_Diagnostic, Bulbous_Edge, Ki_Dispersion 
+  Files from older runs, no longer written: 
+      Part10b_CP10K_PVM_1_SKCS_NeoC_threshold_comparison.csv
+      Part10b_CP10K_PVM_1_SKCS_NeoC_threshold_comparison.xlsx
+      Part10b_CP10K_PVM_1_SKCS_NeoC_TREP_analysis.xlsx
+      Part10b_CP10K_PVM_1_SKCS_NeoC_bulbous_edge_analysis.csv
+      Part10b_CP10K_PVM_1_SKCS_NeoC_EP_all_GOI_boundary_diagnostic.csv
+
+
+ ######################################################################## 
+  SECTION E1 - POST-ANALYSIS QUALITY GUARDRAILS
+######################################################################## 
+
+  [PASS]  GR-06-NonNeoC     GOI-positive cells (total) = 2658  (min = 50)
+  [PASS]  GR-07-NonNeoC     Fixed-threshold cells (S_norm>0.05, K>0.5) = 1677  (min = 50)
+  [PASS]  GR-08-NonNeoC     Fixed-threshold DE = 87.41%
+  [PASS]  GR-14-NonNeoC     Pre/Post split on cDFG (IP_CLASS_AXIS = cDFG) | threshold used = 1.836287 | IP_y from IPRS = 1.836287
+  [PASS]  GR-09-NonNeoC     IP_thresh = 2.645333  (IPRS R(x)=0, full population)
+  [PASS]  GR-10-NonNeoC     donor RE on 4/4 fit(s); donors per fit [78, 82]; 0 fallback(s)
+  [PASS]  GR-06-NeoC        GOI-positive cells (total) = 3218  (min = 50)
+  [PASS]  GR-07-NeoC        Fixed-threshold cells (S_norm>0.05, K>0.5) = 1862  (min = 50)
+  [PASS]  GR-08-NeoC        Fixed-threshold DE = 87.62%
+  [PASS]  GR-14-NeoC        Pre/Post split on cDFG (IP_CLASS_AXIS = cDFG) | threshold used = 1.526079 | IP_y from IPRS = 1.526079
+  [PASS]  GR-09-NeoC        IP_thresh = 2.382738  (IPRS R(x)=0, full population)
+  [PASS]  GR-10-NeoC        donor RE on 4/4 fit(s); donors per fit [78, 82]; 0 fallback(s)
+  Guardrail log written: /data/Part10b_SKCS/Part10b_SKCS_PVM_1/Part10b_CP10K_PVM_1_SKCS_Guardrail_Log.txt 
+
+  Final guardrail tally: 22 PASS / 0 WARN / 0 FAIL
+  All 22 checks passed.
+
+ ======================================================================== 
+  Part10b COMPLETE - Cross-dataset summary [ PVM1_all ]
+======================================================================== 
+
+  Fixed vs reference comparison across datasets:
+
+            Method dataset S_thresh K_thresh n_cells pct_total DE_pct Donor_RE
+ Fixed_Snorm05_K05 NonNeoC   0.0500   0.5000    1677      63.1  87.41     TRUE
+   Reference_50pct NonNeoC   0.1953   0.6545     950      35.7  91.54     TRUE
+ Fixed_Snorm05_K05    NeoC   0.0500   0.5000    1862      57.9  87.62     TRUE
+   Reference_50pct    NeoC   0.1803   0.6040    1203      37.4  91.56     TRUE
+ N_Donors DE_vs_flat_null
+       82           94.98
+       78           97.17
+       82           93.40
+       78           95.88
+
+  Output directory: /data/Part10b_SKCS/Part10b_SKCS_PVM_1 
+  Files generated:
+    Part10b_CP10K_PVM_1_IPRS_results.rds                          225 KB
+    Part10b_CP10K_PVM_1_SKCS_console_log_20261019_073437.txt       22 KB
+    Part10b_CP10K_PVM_1_SKCS_Guardrail_Log.txt                      3 KB
+    Part10b_CP10K_PVM_1_SKCS_NeoC_Combined_GAM_curves_4group.pdf    204 KB
+    Part10b_CP10K_PVM_1_SKCS_NeoC_Combined_GAM_curves_4group.png    516 KB
+    Part10b_CP10K_PVM_1_SKCS_NeoC_diagnostics.xlsx                 10 KB
+    Part10b_CP10K_PVM_1_SKCS_NeoC_EP_TREP_values.csv              268 KB
+    Part10b_CP10K_PVM_1_SKCS_NeoC_fixed_threshold_scatter.pdf     191 KB
+    Part10b_CP10K_PVM_1_SKCS_NeoC_fixed_threshold_scatter.png     358 KB
+    Part10b_CP10K_PVM_1_SKCS_NeoC_Ki_prepost_TREP_boxplot.pdf      40 KB
+    Part10b_CP10K_PVM_1_SKCS_NeoC_Ki_prepost_TREP_boxplot.png      82 KB
+    Part10b_CP10K_PVM_1_SKCS_NeoC_nonSKCS_stratification.csv      147 KB
+    Part10b_CP10K_PVM_1_SKCS_NeoC_resid_dispersion_prepost_TREP_boxplot.pdf     40 KB
+    Part10b_CP10K_PVM_1_SKCS_NeoC_resid_dispersion_prepost_TREP_boxplot.png     79 KB
+    Part10b_CP10K_PVM_1_SKCS_NeoC_SKCS_3D_scatter_EP_files          0 KB
+    Part10b_CP10K_PVM_1_SKCS_NeoC_SKCS_3D_scatter_EP.html        4269 KB
+    Part10b_CP10K_PVM_1_SKCS_NeoC_SKCS_scatter_4group.pdf         189 KB
+    Part10b_CP10K_PVM_1_SKCS_NeoC_SKCS_scatter_4group.png         365 KB
+    Part10b_CP10K_PVM_1_SKCS_NonNeoC_Combined_GAM_curves_4group.pdf    173 KB
+    Part10b_CP10K_PVM_1_SKCS_NonNeoC_Combined_GAM_curves_4group.png    509 KB
+    Part10b_CP10K_PVM_1_SKCS_NonNeoC_diagnostics.xlsx              10 KB
+    Part10b_CP10K_PVM_1_SKCS_NonNeoC_EP_TREP_values.csv           252 KB
+    Part10b_CP10K_PVM_1_SKCS_NonNeoC_fixed_threshold_scatter.pdf    158 KB
+    Part10b_CP10K_PVM_1_SKCS_NonNeoC_fixed_threshold_scatter.png    315 KB
+    Part10b_CP10K_PVM_1_SKCS_NonNeoC_Ki_prepost_TREP_boxplot.pdf     40 KB
+    Part10b_CP10K_PVM_1_SKCS_NonNeoC_Ki_prepost_TREP_boxplot.png     82 KB
+    Part10b_CP10K_PVM_1_SKCS_NonNeoC_nonSKCS_stratification.csv    112 KB
+    Part10b_CP10K_PVM_1_SKCS_NonNeoC_resid_dispersion_prepost_TREP_boxplot.pdf     40 KB
+    Part10b_CP10K_PVM_1_SKCS_NonNeoC_resid_dispersion_prepost_TREP_boxplot.png     80 KB
+    Part10b_CP10K_PVM_1_SKCS_NonNeoC_SKCS_3D_scatter_EP_files       0 KB
+    Part10b_CP10K_PVM_1_SKCS_NonNeoC_SKCS_3D_scatter_EP.html     4184 KB
+    Part10b_CP10K_PVM_1_SKCS_NonNeoC_SKCS_scatter_4group.pdf      157 KB
+    Part10b_CP10K_PVM_1_SKCS_NonNeoC_SKCS_scatter_4group.png      320 KB
+    Part10b_CP10K_PVM_1_SKCS_summary_all_datasets.csv               0 KB
+
+  Results object saved: Part10b_CP10K_PVM_1_SKCS_all_results.rds  (4.5 MB, plots dropped)
+======================================================================== 
+
+  Log written to: /data/Part10b_SKCS/Part10b_SKCS_PVM_1/Part10b_CP10K_PVM_1_SKCS_console_log_20261019_073437.txt  (console output and warnings) 
+
+Part10b SKCS TREP - log ended: 2026-10-19 07:35:16.643298
+  Part 10b all done: 2026-10-19 07:35:16 
+
+  PSOCK cluster stopped.
+  HKG comparison: SKIPPED (GOI is an HKG gene; DFG = cHKG8)
+Part10b SKCS TREP - log started: 2026-10-19 07:35:16.740299
+
+
+============================================================================
+  ARM: HKG8_matched   config: R_config_HKG8.R
+============================================================================
+R_config_HKG8.R loaded (HKG specificity control: ACTB + 8 cHKGs).
+  ARM_TAG   : HKG8_matched 
+  ARM_DIR   : /data/R_export_CP10K/HKG8_matched 
+  NEOC_DIR  : /data/R_export_CP10K/HKG8_matched/neocortex 
+  NONNC_DIR : /data/R_export_CP10K/HKG8_matched/nonneocortex 
+  SHARED_DIR: /data/R_export_CP10K/shared 
+  GOI       : ACTB 
+  DFG       : EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 
+  DFG_LABEL : cHKG8 
+  RUN_SUFFIX: _HKG8 
+  Selected  : MT-CO3>0 AND ACTB>0 
+  Mod1 genes: ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 1432 NeoC / 1079 NonNeoC
+  Config OK: HKG8_matched | ACTB + 8 DFG | CP10K
+
+  [IPRS] IP definition: IPRS R(x)=0, full population 
+  [IPRS] NonNeoC    IP_thresh set to 1.813001 (IPRS R(x)=0, full population)
+  [IPRS] NonNeoC    IP_y_thresh set to 1.174491  = f(IP_thresh), classification axis
+  [IPRS] NeoC       IP_thresh set to 1.555173 (IPRS R(x)=0, full population)
+  [IPRS] NeoC       IP_y_thresh set to 1.245230  = f(IP_thresh), classification axis
+
+ ======================================================================== 
+  Part10b - SKCS Fixed-Threshold Diagnostic
+  Arm          : HKG8_matched 
+  GOI          : ACTB 
+  DFG          : cHKG8  -  EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 
+  Normalisation: CP10K  log1p(UMIs/total x  10000 )
+  Datasets     : NonNeoC, NeoC 
+  S threshold  : > 0   (cell pulls rho upward)
+  K threshold  : > 0.5 (concordant with >50% of cell pairs)
+  Estimator    : donor random intercept, s(donor, bs = "re"), minimum 3 donors 
+  Weights      : inverse donor cell count, w = 1/n_i (each donor sums to 1) 
+  PRSS         : phase 1 = 8 iterations, phase 2 = up to 5 (early stop 20 )
+  Part 10 dir  : /data/Part10/Part10_HKG8 
+  Scores read  : Part10_HKG8_NonNeoC, Part10_HKG8_NeoC (per-dataset folders; arm root as fallback)
+  Output dir   : /data/Part10b_SKCS/Part10b_SKCS_HKG8 
+  Parallel     : 31 PSOCK worker(s) for the PRSS iterations
+======================================================================== 
+
+
+ ======================================================================== 
+  SECTION A0 - PRE-ANALYSIS GUARDRAILS
+======================================================================== 
+
+  -- Dataset: NeoC --------------------------------------
+  [PASS]  GR-01-NeoC        norm.mtx max = 7.9541  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NeoC        expm1(norm) row sums: mean = 10000.000000, max |dev| = 8.44e-10, n = 50
+  [PASS]  GR-04-NeoC        raw max = 1874, integer-like = TRUE
+  -- Dataset: NonNeoC --------------------------------------
+  [PASS]  GR-01-NonNeoC     norm.mtx max = 7.6610  (ceiling log1p(10000) = 9.2104)
+  [PASS]  GR-02-NonNeoC     expm1(norm) row sums: mean = 10000.000000, max |dev| = 6.20e-10, n = 50
+  [PASS]  GR-04-NonNeoC     raw max = 1552, integer-like = TRUE
+  [PASS]  GR-05-NonNeoC     Scores CSV: Part10_HKG8_NonNeoC/Part10_CP10K_HKG8_Module1_ACTB_cHKG8_NonNeoC_Pooled_SKCS_scores.csv
+  [PASS]  GR-05-NeoC        Scores CSV: Part10_HKG8_NeoC/Part10_CP10K_HKG8_Module1_ACTB_cHKG8_NeoC_Pooled_SKCS_scores.csv
+  Guardrail log written: /data/Part10b_SKCS/Part10b_SKCS_HKG8/Part10b_CP10K_HKG8_SKCS_Guardrail_Log.txt 
+
+  Pre-analysis guardrails: 8 PASS / 0 WARN / 0 FAIL
+  *** ALL PRE-ANALYSIS GUARDRAILS PASSED ***
+
+  Pre/Post split on IP_y = f(IP_x) on cDFG | reported IP_x = 1.813001 | threshold used = 1.174491
+
+ ======================================================================== 
+  Part10b diagnostic: NonNeoC  [ HKG8_matched ]
+======================================================================== 
+
+  Loaded 1079 cells from Part10_CP10K_HKG8_Module1_ACTB_cHKG8_NonNeoC_Pooled_SKCS_scores.csv 
+  GOI-positive (scored): 1079 | GOI-zero (excluded): 0 
+
+  Loading combined GAM data for GAM fitting ...
+    Region HIP           166 cells |  31 donors
+    Region MEC           739 cells |  73 donors
+    Region LEC            75 cells |  18 donors
+    Region FI             99 cells |  27 donors
+  Aligned 1079 cells between scores CSV and GAM data
+  Pooled frame: 1079 cells | 77 donors | sum(w)=77.0000
+
+------------------------------------------------------------ 
+  OBJECTIVE 1: Non-SKCS cell stratification
+------------------------------------------------------------ 
+
+  Non-SKCS stratification (dataset: NonNeoC ):
+# A tibble: 3 × 6
+  stratum             n pct_of_nonskcs pct_of_total mean_spear mean_kend
+  <chr>           <int>          <dbl>        <dbl>      <dbl>     <dbl>
+1 Discordant        512           58.2         47.5      0.11      0.273
+2 Inflection-zone   170           19.3         15.8      0.079     0.177
+3 Low-expressor     198           22.5         18.4     -0.322    -0.262
+
+  Saved: Part10b_CP10K_HKG8_SKCS_NonNeoC_nonSKCS_stratification.csv 
+------------------------------------------------------------ 
+  OBJECTIVE 2: Fixed-threshold selection (S_norm>0.05, K>0.5)
+------------------------------------------------------------ 
+
+  Fixed thresholds: S > 0.05  AND  K > 0.50
+  Cells selected  : n = 199  (18.4% of GOI-positive cells)
+
+  50% quantile thresholds: S > 0.0697  AND  K > 0.2430
+  Cells selected  : n = 458  (42.4% of GOI-positive cells)
+
+  [PASS]  GR-11-NonNeoC     this file's fixed cut (S>0.05, K>0.50) vs Part 10's is_skcs: 0 cell(s) differ (same thresholds)
+  Fitting cDFG GAM at fixed threshold (full PRSS pipeline) ...
+    frame: 199 cells | 56 donors | sum(w)=56.0000
+  Fixed threshold DE: 64.79%  (donor RE: YES, donors: 56)
+
+  Fitting reference cDFG GAM at 50% threshold ...
+    frame: 458 cells | 70 donors | sum(w)=70.0000
+  50% reference DE : 70.65%
+
+  Threshold comparison:
+            Method dataset S_thresh K_thresh n_cells pct_total DE_pct Donor_RE
+ Fixed_Snorm05_K05 NonNeoC   0.0500    0.500     199      18.4  64.79     TRUE
+   Reference_50pct NonNeoC   0.0697    0.243     458      42.4  70.65     TRUE
+ N_Donors DE_vs_flat_null
+       56           85.46
+       70           84.42
+
+  Fixed threshold scatter saved
+
+------------------------------------------------------------ 
+  SECTION D2: GAM curves at fixed threshold (S_norm>0.05, K>0.5)
+------------------------------------------------------------ 
+
+  Fitting cDFG GAM (verbose) ...
+    [cDFG_fixed] n=199 | unique_x=198 | max_k=10 | donors=56 | donor RE=YES | sum(w)=56.0000
+      init   iter  1 | k=3 | PRSS=2.8434
+      init   iter  2 | k=4 | PRSS=2.6225
+      init   iter  3 | k=5 | PRSS=2.7129
+      init   iter  4 | k=6 | PRSS=2.1016
+      init   iter  5 | k=7 | PRSS=2.1251
+      init   iter  6 | k=8 | PRSS=2.1043
+      init   iter  7 | k=9 | PRSS=2.0982
+      init   iter  8 | k=10 | PRSS=1.9990
+    Phase 1 best k=10 PRSS=1.9990
+      refine iter  9 | k=10 | PRSS=1.9990
+      refine iter 10 | k=10 | PRSS=1.9990
+      refine iter 11 | k=10 | PRSS=1.9990
+      refine iter 12 | k=10 | PRSS=1.9990
+      refine iter 13 | k=10 | PRSS=1.9990
+      best model is from iter 8 (k = 10 ) on a worker - refitting here
+    Final best k=10 PRSS=1.9990  iter=8  early_stop=FALSE
+  cHKG comparison skipped (GOI is an HKG gene)
+  Computing per-cell EP and TREP assignment ...
+  EP computed: n_TREP=159  n_nonTREP=40  (DE=80.0% population level, sets the split | 85.5% summary()$dev.expl | 64.8% donor-aware)
+  TREP donor coverage: 49/56 donors represented | per-donor TREP fraction [0.000, 1.000] median 0.866
+  Building four-colour GAM curve plot ...
+  Non-SKCS-core cells for GAM bg layer: 880
+  GAM curve (4-group) saved
+  Building four-colour SKCS scatter ...
+  SKCS scatter (4-group) saved
+
+  Building 3D SKCS-EP scatter (plotly) ...
+  Computing EP for non-selected cells (same null as SKCS-core) ...
+    y_bar (SKCS-core null): 1.574630
+    SKCS-core cells: 199 (EP reused from ep_values)
+    Non-selected cells: 880 (EP computed with same null)
+    EP range: [-183393.8, 1.0]
+    TREP cutoff EP: -2.5083
+    non-TREP cells above TREP cutoff: 0 (should be 0)
+    Group counts:
+
+    Non-selected Post-IP non-TREP     Post-IP TREP      Pre-IP TREP 
+             880               40              116               43 
+  EP diagnostic -> Excel sheet EP_Boundary_Diagnostic
+
+  EP distribution by 5-group:
+            group    n EP_median   EP_mean pct_EP_pos
+     Non-selected  880   -0.0929 -641.7464       48.6
+ Post-IP non-TREP   40  -14.6268  -58.2109        0.0
+     Post-IP TREP  116    0.7823    0.6203       89.7
+      Pre-IP TREP   43    0.9858    0.9772      100.0
+ ALL_GOI_positive 1079    0.1556 -525.4414       53.3
+ TREP_CUTOFF_INFO  159        NA        NA       64.8
+
+    EP range (raw):    [-183393.8, 1.0]
+    EP range (symlog): [-5.26, 0.30]
+    IP in 3D space (n=244 cells within +/-0.135 of IP=1.174):
+      median S=0.01, median K=0.2152, median EP=-0.1389
+    (self-contained HTML)
+  3D SKCS-EP scatter saved: Part10b_CP10K_HKG8_SKCS_NonNeoC_SKCS_3D_scatter_EP.html
+
+
+  Bulbous edge EP analysis ...
+  Bulbous edge analysis:
+      IP_group metric n_edge n_falling edge_median fall_median    test_used
+1  Pre-IP TREP     EP     11        11    0.998749    0.942073      Welch_t
+2  Pre-IP TREP      K     11        11    0.701299    0.571429 MannWhitneyU
+3 Post-IP TREP     EP     29        29    0.991943    0.372197 MannWhitneyU
+4 Post-IP TREP      K     29        29    0.807050    0.703154 MannWhitneyU
+          p_BH
+1 5.839586e-05
+2 7.416624e-02
+3 1.301895e-10
+4 5.713083e-02
+  Bulbous edge -> Excel sheet Bulbous_Edge
+
+  Ki dispersion analysis (pre-IP vs post-IP TREP) ...
+  Ki dispersion results:
+     metric pre_median post_median delta_median cohens_d    test_used
+1         K   0.640074    0.763451     0.123377   0.7822 MannWhitneyU
+2 resid_abs   0.103058    0.124713     0.021655   0.3434 MannWhitneyU
+          p_BH
+1 4.222277e-05
+2 8.857066e-01
+  Ki boxplot saved
+  Residual dispersion boxplot saved
+  TREP analysis -> Excel sheets Ki_Dispersion, Bulbous_Edge
+
+  EP/TREP CSV saved  (199 rows)
+
+  Excel saved: Part10b_CP10K_HKG8_SKCS_NonNeoC_diagnostics.xlsx -- 5 sheet(s): Threshold_Comparison, NonSKCS_Stratification, EP_Boundary_Diagnostic, Bulbous_Edge, Ki_Dispersion 
+  Files from older runs, no longer written: 
+      Part10b_CP10K_HKG8_SKCS_NonNeoC_threshold_comparison.csv
+      Part10b_CP10K_HKG8_SKCS_NonNeoC_threshold_comparison.xlsx
+      Part10b_CP10K_HKG8_SKCS_NonNeoC_TREP_analysis.xlsx
+      Part10b_CP10K_HKG8_SKCS_NonNeoC_bulbous_edge_analysis.csv
+      Part10b_CP10K_HKG8_SKCS_NonNeoC_EP_all_GOI_boundary_diagnostic.csv
+
+  Pre/Post split on IP_y = f(IP_x) on cDFG | reported IP_x = 1.555173 | threshold used = 1.245230
+
+ ======================================================================== 
+  Part10b diagnostic: NeoC  [ HKG8_matched ]
+======================================================================== 
+
+  Loaded 1432 cells from Part10_CP10K_HKG8_Module1_ACTB_cHKG8_NeoC_Pooled_SKCS_scores.csv 
+  GOI-positive (scored): 1432 | GOI-zero (excluded): 0 
+
+  Loading combined GAM data for GAM fitting ...
+    Region DFC           465 cells |  60 donors
+    Region MTG           290 cells |  51 donors
+    Region AnG           113 cells |  31 donors
+    Region STG           210 cells |  35 donors
+    Region V1C           219 cells |  33 donors
+    Region ITG           135 cells |  33 donors
+  Aligned 1432 cells between scores CSV and GAM data
+  Pooled frame: 1432 cells | 74 donors | sum(w)=74.0000
+
+------------------------------------------------------------ 
+  OBJECTIVE 1: Non-SKCS cell stratification
+------------------------------------------------------------ 
+
+  Non-SKCS stratification (dataset: NeoC ):
+# A tibble: 3 × 6
+  stratum             n pct_of_nonskcs pct_of_total mean_spear mean_kend
+  <chr>           <int>          <dbl>        <dbl>      <dbl>     <dbl>
+1 Discordant        690           58.4         48.2      0.116     0.267
+2 Inflection-zone   193           16.3         13.5      0.075     0.18 
+3 Low-expressor     299           25.3         20.9     -0.317    -0.263
+
+  Saved: Part10b_CP10K_HKG8_SKCS_NeoC_nonSKCS_stratification.csv 
+------------------------------------------------------------ 
+  OBJECTIVE 2: Fixed-threshold selection (S_norm>0.05, K>0.5)
+------------------------------------------------------------ 
+
+  Fixed thresholds: S > 0.05  AND  K > 0.50
+  Cells selected  : n = 250  (17.5% of GOI-positive cells)
+
+  50% quantile thresholds: S > 0.0644  AND  K > 0.2425
+  Cells selected  : n = 619  (43.2% of GOI-positive cells)
+
+  [PASS]  GR-11-NeoC        this file's fixed cut (S>0.05, K>0.50) vs Part 10's is_skcs: 0 cell(s) differ (same thresholds)
+  Fitting cDFG GAM at fixed threshold (full PRSS pipeline) ...
+    frame: 250 cells | 55 donors | sum(w)=55.0000
+  Fixed threshold DE: 78.46%  (donor RE: YES, donors: 55)
+
+  Fitting reference cDFG GAM at 50% threshold ...
+    frame: 619 cells | 66 donors | sum(w)=66.0000
+  50% reference DE : 73.67%
+
+  Threshold comparison:
+            Method dataset S_thresh K_thresh n_cells pct_total DE_pct Donor_RE
+ Fixed_Snorm05_K05    NeoC   0.0500   0.5000     250      17.5  78.46     TRUE
+   Reference_50pct    NeoC   0.0644   0.2425     619      43.2  73.67     TRUE
+ N_Donors DE_vs_flat_null
+       55           87.93
+       66           82.13
+
+  Fixed threshold scatter saved
+
+------------------------------------------------------------ 
+  SECTION D2: GAM curves at fixed threshold (S_norm>0.05, K>0.5)
+------------------------------------------------------------ 
+
+  Fitting cDFG GAM (verbose) ...
+    [cDFG_fixed] n=250 | unique_x=249 | max_k=10 | donors=55 | donor RE=YES | sum(w)=55.0000
+      init   iter  1 | k=3 | PRSS=3.4690
+      init   iter  2 | k=4 | PRSS=3.5512
+      init   iter  3 | k=5 | PRSS=2.9056
+      init   iter  4 | k=6 | PRSS=2.4963
+      init   iter  5 | k=7 | PRSS=2.4672
+      init   iter  6 | k=8 | PRSS=2.4693
+      init   iter  7 | k=9 | PRSS=2.3937
+      init   iter  8 | k=10 | PRSS=2.3948
+    Phase 1 best k=9 PRSS=2.3937
+      refine iter  9 | k=9 | PRSS=2.3937
+      refine iter 10 | k=9 | PRSS=2.3937
+      refine iter 11 | k=9 | PRSS=2.3937
+      refine iter 12 | k=9 | PRSS=2.3937
+      refine iter 13 | k=9 | PRSS=2.3937
+      best model is from iter 7 (k = 9 ) on a worker - refitting here
+    Final best k=9 PRSS=2.3937  iter=7  early_stop=FALSE
+  cHKG comparison skipped (GOI is an HKG gene)
+  Computing per-cell EP and TREP assignment ...
+  EP computed: n_TREP=218  n_nonTREP=32  (DE=87.2% population level, sets the split | 87.9% summary()$dev.expl | 78.5% donor-aware)
+  TREP donor coverage: 52/55 donors represented | per-donor TREP fraction [0.000, 1.000] median 1.000
+  Building four-colour GAM curve plot ...
+  Non-SKCS-core cells for GAM bg layer: 1182
+  GAM curve (4-group) saved
+  Building four-colour SKCS scatter ...
+  SKCS scatter (4-group) saved
+
+  Building 3D SKCS-EP scatter (plotly) ...
+  Computing EP for non-selected cells (same null as SKCS-core) ...
+    y_bar (SKCS-core null): 1.574262
+    SKCS-core cells: 250 (EP reused from ep_values)
+    Non-selected cells: 1182 (EP computed with same null)
+    EP range: [-1397048.1, 1.0]
+    TREP cutoff EP: -4.3357
+    non-TREP cells above TREP cutoff: 0 (should be 0)
+    Group counts:
+
+    Non-selected Post-IP non-TREP     Post-IP TREP      Pre-IP TREP 
+            1182               32              147               71 
+  EP diagnostic -> Excel sheet EP_Boundary_Diagnostic
+
+  EP distribution by 5-group:
+            group    n EP_median    EP_mean pct_EP_pos
+     Non-selected 1182   -0.8061 -1511.2979       38.9
+ Post-IP non-TREP   32  -45.0591 -1442.8061        0.0
+     Post-IP TREP  147    0.8344     0.5654       89.1
+      Pre-IP TREP   71    0.9857     0.9796      100.0
+ ALL_GOI_positive 1432   -0.2872 -1279.5889       46.2
+ TREP_CUTOFF_INFO  218        NA         NA       78.5
+
+    EP range (raw):    [-1397048.1, 1.0]
+    EP range (symlog): [-6.15, 0.30]
+    IP in 3D space (n=374 cells within +/-0.149 of IP=1.245):
+      median S=0.01, median K=0.2082, median EP=-1.4128
+    (self-contained HTML)
+  3D SKCS-EP scatter saved: Part10b_CP10K_HKG8_SKCS_NeoC_SKCS_3D_scatter_EP.html
+
+
+  Bulbous edge EP analysis ...
+  Bulbous edge analysis:
+      IP_group metric n_edge n_falling edge_median fall_median    test_used
+1  Pre-IP TREP     EP     18        18    0.999471    0.950503 MannWhitneyU
+2  Pre-IP TREP      K     18        18    0.612159    0.574423 MannWhitneyU
+3 Post-IP TREP     EP     37        37    0.986913    0.110739 MannWhitneyU
+4 Post-IP TREP      K     37        37    0.726066    0.636618 MannWhitneyU
+          p_BH
+1 3.227837e-07
+2 4.936889e-01
+3 2.836807e-13
+4 1.589905e-02
+  Bulbous edge -> Excel sheet Bulbous_Edge
+
+  Ki dispersion analysis (pre-IP vs post-IP TREP) ...
+  Ki dispersion results:
+     metric pre_median post_median delta_median cohens_d    test_used
+1         K   0.583508    0.735849     0.152341   1.0535 MannWhitneyU
+2 resid_abs   0.101981    0.140812     0.038831   0.5345 MannWhitneyU
+          p_BH
+1 1.974220e-11
+2 9.995312e-01
+  Ki boxplot saved
+  Residual dispersion boxplot saved
+  TREP analysis -> Excel sheets Ki_Dispersion, Bulbous_Edge
+
+  EP/TREP CSV saved  (250 rows)
+
+  Excel saved: Part10b_CP10K_HKG8_SKCS_NeoC_diagnostics.xlsx -- 5 sheet(s): Threshold_Comparison, NonSKCS_Stratification, EP_Boundary_Diagnostic, Bulbous_Edge, Ki_Dispersion 
+  Files from older runs, no longer written: 
+      Part10b_CP10K_HKG8_SKCS_NeoC_threshold_comparison.csv
+      Part10b_CP10K_HKG8_SKCS_NeoC_threshold_comparison.xlsx
+      Part10b_CP10K_HKG8_SKCS_NeoC_TREP_analysis.xlsx
+      Part10b_CP10K_HKG8_SKCS_NeoC_bulbous_edge_analysis.csv
+      Part10b_CP10K_HKG8_SKCS_NeoC_EP_all_GOI_boundary_diagnostic.csv
+
+
+ ######################################################################## 
+  SECTION E1 - POST-ANALYSIS QUALITY GUARDRAILS
+######################################################################## 
+
+  [PASS]  GR-06-NonNeoC     GOI-positive cells (total) = 1079  (min = 50)
+  [PASS]  GR-07-NonNeoC     Fixed-threshold cells (S_norm>0.05, K>0.5) = 199  (min = 50)
+  [PASS]  GR-08-NonNeoC     Fixed-threshold DE = 64.79%
+  [PASS]  GR-14-NonNeoC     Pre/Post split on cDFG (IP_CLASS_AXIS = cDFG) | threshold used = 1.174491 | IP_y from IPRS = 1.174491
+  [PASS]  GR-09-NonNeoC     IP_thresh = 1.813001  (IPRS R(x)=0, full population)
+  [PASS]  GR-10-NonNeoC     donor RE on 3/3 fit(s); donors per fit [56, 70]; 0 fallback(s)
+  [PASS]  GR-06-NeoC        GOI-positive cells (total) = 1432  (min = 50)
+  [PASS]  GR-07-NeoC        Fixed-threshold cells (S_norm>0.05, K>0.5) = 250  (min = 50)
+  [PASS]  GR-08-NeoC        Fixed-threshold DE = 78.46%
+  [PASS]  GR-14-NeoC        Pre/Post split on cDFG (IP_CLASS_AXIS = cDFG) | threshold used = 1.245230 | IP_y from IPRS = 1.245230
+  [PASS]  GR-09-NeoC        IP_thresh = 1.555173  (IPRS R(x)=0, full population)
+  [PASS]  GR-10-NeoC        donor RE on 3/3 fit(s); donors per fit [55, 66]; 0 fallback(s)
+  Guardrail log written: /data/Part10b_SKCS/Part10b_SKCS_HKG8/Part10b_CP10K_HKG8_SKCS_Guardrail_Log.txt 
+
+  Final guardrail tally: 22 PASS / 0 WARN / 0 FAIL
+  All 22 checks passed.
+
+ ======================================================================== 
+  Part10b COMPLETE - Cross-dataset summary [ HKG8_matched ]
+======================================================================== 
+
+  Fixed vs reference comparison across datasets:
+
+            Method dataset S_thresh K_thresh n_cells pct_total DE_pct Donor_RE
+ Fixed_Snorm05_K05 NonNeoC   0.0500   0.5000     199      18.4  64.79     TRUE
+   Reference_50pct NonNeoC   0.0697   0.2430     458      42.4  70.65     TRUE
+ Fixed_Snorm05_K05    NeoC   0.0500   0.5000     250      17.5  78.46     TRUE
+   Reference_50pct    NeoC   0.0644   0.2425     619      43.2  73.67     TRUE
+ N_Donors DE_vs_flat_null
+       56           85.46
+       70           84.42
+       55           87.93
+       66           82.13
+
+  Output directory: /data/Part10b_SKCS/Part10b_SKCS_HKG8 
+  Files generated:
+    Part10b_CP10K_HKG8_IPRS_results.rds                           162 KB
+    Part10b_CP10K_HKG8_SKCS_console_log_20261019_073516.txt        20 KB
+    Part10b_CP10K_HKG8_SKCS_Guardrail_Log.txt                       3 KB
+    Part10b_CP10K_HKG8_SKCS_NeoC_Combined_GAM_curves_4group.pdf    105 KB
+    Part10b_CP10K_HKG8_SKCS_NeoC_Combined_GAM_curves_4group.png    322 KB
+    Part10b_CP10K_HKG8_SKCS_NeoC_diagnostics.xlsx                   9 KB
+    Part10b_CP10K_HKG8_SKCS_NeoC_EP_TREP_values.csv                36 KB
+    Part10b_CP10K_HKG8_SKCS_NeoC_fixed_threshold_scatter.pdf       87 KB
+    Part10b_CP10K_HKG8_SKCS_NeoC_fixed_threshold_scatter.png      241 KB
+    Part10b_CP10K_HKG8_SKCS_NeoC_Ki_prepost_TREP_boxplot.pdf       18 KB
+    Part10b_CP10K_HKG8_SKCS_NeoC_Ki_prepost_TREP_boxplot.png       64 KB
+    Part10b_CP10K_HKG8_SKCS_NeoC_nonSKCS_stratification.csv       126 KB
+    Part10b_CP10K_HKG8_SKCS_NeoC_resid_dispersion_prepost_TREP_boxplot.pdf     18 KB
+    Part10b_CP10K_HKG8_SKCS_NeoC_resid_dispersion_prepost_TREP_boxplot.png     67 KB
+    Part10b_CP10K_HKG8_SKCS_NeoC_SKCS_3D_scatter_EP_files           0 KB
+    Part10b_CP10K_HKG8_SKCS_NeoC_SKCS_3D_scatter_EP.html         4001 KB
+    Part10b_CP10K_HKG8_SKCS_NeoC_SKCS_scatter_4group.pdf           87 KB
+    Part10b_CP10K_HKG8_SKCS_NeoC_SKCS_scatter_4group.png          215 KB
+    Part10b_CP10K_HKG8_SKCS_NonNeoC_Combined_GAM_curves_4group.pdf     85 KB
+    Part10b_CP10K_HKG8_SKCS_NonNeoC_Combined_GAM_curves_4group.png    275 KB
+    Part10b_CP10K_HKG8_SKCS_NonNeoC_diagnostics.xlsx               10 KB
+    Part10b_CP10K_HKG8_SKCS_NonNeoC_EP_TREP_values.csv             30 KB
+    Part10b_CP10K_HKG8_SKCS_NonNeoC_fixed_threshold_scatter.pdf     67 KB
+    Part10b_CP10K_HKG8_SKCS_NonNeoC_fixed_threshold_scatter.png    229 KB
+    Part10b_CP10K_HKG8_SKCS_NonNeoC_Ki_prepost_TREP_boxplot.pdf     15 KB
+    Part10b_CP10K_HKG8_SKCS_NonNeoC_Ki_prepost_TREP_boxplot.png     61 KB
+    Part10b_CP10K_HKG8_SKCS_NonNeoC_nonSKCS_stratification.csv     96 KB
+    Part10b_CP10K_HKG8_SKCS_NonNeoC_resid_dispersion_prepost_TREP_boxplot.pdf     14 KB
+    Part10b_CP10K_HKG8_SKCS_NonNeoC_resid_dispersion_prepost_TREP_boxplot.png     64 KB
+    Part10b_CP10K_HKG8_SKCS_NonNeoC_SKCS_3D_scatter_EP_files        0 KB
+    Part10b_CP10K_HKG8_SKCS_NonNeoC_SKCS_3D_scatter_EP.html      3947 KB
+    Part10b_CP10K_HKG8_SKCS_NonNeoC_SKCS_scatter_4group.pdf        67 KB
+    Part10b_CP10K_HKG8_SKCS_NonNeoC_SKCS_scatter_4group.png       205 KB
+    Part10b_CP10K_HKG8_SKCS_summary_all_datasets.csv                0 KB
+
+  Results object saved: Part10b_CP10K_HKG8_SKCS_all_results.rds  (0.8 MB, plots dropped)
+======================================================================== 
+
+  Log written to: /data/Part10b_SKCS/Part10b_SKCS_HKG8/Part10b_CP10K_HKG8_SKCS_console_log_20261019_073516.txt  (console output and warnings) 
+
+Part10b SKCS TREP - log ended: 2026-10-19 07:35:31.359365
+  Part 10b all done: 2026-10-19 07:35:31 
+
+  PSOCK cluster stopped.
+
+############################################################################
+  Part10b_SKCS COMPLETE -- 3.6 mins
+############################################################################
+
+  Arm             Folder                    PASS    WARN    FAIL  Status
+  ----------------------------------------------------------------------------------
+  Mic13_PVM3      Part10b_SKCS_Mic13_PVM3      22       0       0  ok
+  PVM3_all        Part10b_SKCS_PVM_3          22       0       0  ok
+  PVM1_all        Part10b_SKCS_PVM_1          22       0       0  ok
+  HKG8_matched    Part10b_SKCS_HKG8           22       0       0  ok
+
+  Results under: /data/Part10b_SKCS
+R_config.R loaded (Module 1: MT-CO3 + 8 DFGs, ≥8/10 regions).
+  ARM_TAG   : Mic13_PVM3 
+  ARM_DIR   : /data/R_export_CP10K/Mic13_PVM3 
+  NEOC_DIR  : /data/R_export_CP10K/Mic13_PVM3/neocortex 
+  NONNC_DIR : /data/R_export_CP10K/Mic13_PVM3/nonneocortex 
+  SHARED_DIR: /data/R_export_CP10K/shared 
+  GOI       : MT-CO3 
+  DFG_NEOC  : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  DFG_NONNC : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Composite : cDFG 
+  RUN_SUFFIX: (none) 
+  Supertype : Micro-PVM_3-SEAAD 
+  Mod1 genes: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 ( 9 )
+  HKG_GENES : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 2130 NeoC / 1987 NonNeoC
+  Session configuration reset to the primary arm: Mic13_PVM3
+

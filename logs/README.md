@@ -8,6 +8,10 @@ Console logs of the container rerun on Fedora (Podman), one per script, from Par
 
 Console logs of the container rerun of Python Parts 1 to 8 on Fedora (Podman), one per step, written by `verification/run_python.sh`. `run_python_summary.txt` lists the status and run time of each step. Part 8 has one log per arm. Part 7 first stopped with a bus error because the container's shared memory was too small; it was rerun with `--shm-size=16g`, and the summary shows both attempts. `compare_console_log.txt` is the comparison with the original results. Inside the container, the data folder is `/data` and the original results are `/ref`.
 
+## container_fullrun/
+
+Console logs of the one-command run (`seaad-run all --compare`) on Fedora (Podman), in a new data folder that held only the inputs, one per step, written by `seaad-run`. `seaad-run_summary.txt` lists the start and run time of each step. The first start stopped at Part 5b because two input files were not yet in the folder, and the run was resumed from Part 1d; the summary shows both starts. `compare_rerun.txt` is the comparison of the R parts with the original results. Inside the container, the data folder is `/data` and the original results are `/ref`.
+
 ## original_R/
 
 Logs written by the original runs of the scripts from Part 9 to `Fig17_Summary_code.r`, in the same folder layout as the analysis folder. For each log that the container rerun wrote, the matching original log is included. Where a script wrote the same log at several times, the latest one is kept. Paths to the project folder are replaced with `<SEA-AD>`, and other user folder paths with `C:/Users/<user>` or `C:\Users\<user>`. No other text was changed.

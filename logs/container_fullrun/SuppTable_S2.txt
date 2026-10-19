@@ -1,0 +1,16 @@
+run_supp_tables.sh started 2026-10-19 07:11:25 | root /data | tables 2
+
+== S2
+  saved /data/Manuscript/Supp_Tables/build/SuppTable_S2_Mic13Validation.xlsx
+
+VERDICT: PASS
+   S2 builder: done
+
+== finalize S2
+S2  Manuscript/Supp_Tables/build/SuppTable_S2_Mic13Validation.xlsx
+Written: S2
+VERDICT: PASS
+
+Builders done: 2
+Builders failed: none
+Summary saved to /data/Manuscript/Supp_Tables/run_supp_tables_log.txt

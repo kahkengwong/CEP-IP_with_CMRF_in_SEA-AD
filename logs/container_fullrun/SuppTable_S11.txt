@@ -1,0 +1,16 @@
+run_supp_tables.sh started 2026-10-19 09:16:35 | root /data | tables 11
+
+== S11
+
+VERDICT: PASS
+Log written to: /data/Manuscript/Supp_Tables/build/SuppTable_S11_build_log_20261019_091635.txt 
+   S11 builder: done
+
+== finalize S11
+S11  Manuscript/Supp_Tables/build/SuppTable_S11_DEGs_ModvsNonMod.xlsx
+Written: S11
+VERDICT: PASS
+
+Builders done: 11
+Builders failed: none
+Summary saved to /data/Manuscript/Supp_Tables/run_supp_tables_log.txt

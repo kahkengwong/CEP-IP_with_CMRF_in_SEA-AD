@@ -1,0 +1,297 @@
+Part 12 rerun -- step 07
+Script: Part12_Fig15_Analysis.r
+Shared file: Part12_03_Config.r
+Run ID: 20261019-0909-fedora
+Start: 2026-10-19 09:09:30
+Machine: fac31f98ee06 | R version 4.6.1 (2026-06-24)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 07-01 script saved in Part12_rerun | Part12_Fig15_Analysis.r
+
+Pre-set reading: 15A. Does contamination explain the clinical association? | Part12_rerun/Part12_Preset_Readings.md
+Pre-set reading: 15B. Do doublets drive the clinical association? | Part12_rerun/Part12_Preset_Readings.md
+SECTION A -- inputs
+[PASS] 07-02 05_donors.csv listed in the 05_Units log | Part12_rerun/05_Units/05_donors.csv
+[PASS] 07-03 04_cell_labels.csv.gz listed in the 04_Labels log | Part12_rerun/04_Labels/04_cell_labels.csv.gz
+[PASS] 07-04 donor table and labels carry this labels version | checked
+[NOTE] Module post-IP% denominator | supertype
+
+SECTION B -- 15A, Module post-IP% before and after the contamination covariate
+  M4     NeoC     donors  78/ 78 | FDR<0.05 before 8, after 8 | lost 1
+  M4     NonNeoC  donors  80/ 79 | FDR<0.05 before 8, after 7 | lost 1
+  PVM_3  NeoC     donors  84/ 83 | FDR<0.05 before 7, after 6 | lost 1
+  PVM_3  NonNeoC  donors  83/ 79 | FDR<0.05 before 7, after 7 | lost 0
+  PVM_1  NeoC     donors  84/ 77 | FDR<0.05 before 7, after 7 | lost 0
+  PVM_1  NonNeoC  donors  83/ 63 | FDR<0.05 before 7, after 0 | lost 7
+  HKG8   NeoC     donors  74/ 74 | FDR<0.05 before 3, after 0 | lost 3
+  HKG8   NonNeoC  donors  77/ 76 | FDR<0.05 before 1, after 1 | lost 0
+
+SECTION C -- 15B, Module post-IP nuclei removed at each doublet threshold
+  cut 0.15 M4     NeoC     Module post-IP nuclei removed   4.9%
+  cut 0.15 M4     NonNeoC  Module post-IP nuclei removed   3.4%
+  cut 0.15 PVM_3  NeoC     Module post-IP nuclei removed   3.2%
+  cut 0.15 PVM_3  NonNeoC  Module post-IP nuclei removed   2.9%
+  cut 0.15 PVM_1  NeoC     Module post-IP nuclei removed   3.3%
+  cut 0.15 PVM_1  NonNeoC  Module post-IP nuclei removed   7.2%
+  cut 0.15 HKG8   NeoC     Module post-IP nuclei removed   5.9%
+  cut 0.15 HKG8   NonNeoC  Module post-IP nuclei removed   2.0%
+  cut 0.20 M4     NeoC     Module post-IP nuclei removed   3.5%
+  cut 0.20 M4     NonNeoC  Module post-IP nuclei removed   1.5%
+  cut 0.20 PVM_3  NeoC     Module post-IP nuclei removed   2.1%
+  cut 0.20 PVM_3  NonNeoC  Module post-IP nuclei removed   1.6%
+  cut 0.20 PVM_1  NeoC     Module post-IP nuclei removed   2.0%
+  cut 0.20 PVM_1  NonNeoC  Module post-IP nuclei removed   3.7%
+  cut 0.20 HKG8   NeoC     Module post-IP nuclei removed   4.5%
+  cut 0.20 HKG8   NonNeoC  Module post-IP nuclei removed   0.4%
+  cut 0.30 M4     NeoC     Module post-IP nuclei removed   0.8%
+  cut 0.30 M4     NonNeoC  Module post-IP nuclei removed   0.9%
+  cut 0.30 PVM_3  NeoC     Module post-IP nuclei removed   0.7%
+  cut 0.30 PVM_3  NonNeoC  Module post-IP nuclei removed   0.8%
+  cut 0.30 PVM_1  NeoC     Module post-IP nuclei removed   0.9%
+  cut 0.30 PVM_1  NonNeoC  Module post-IP nuclei removed   1.2%
+  cut 0.30 HKG8   NeoC     Module post-IP nuclei removed   1.4%
+  cut 0.30 HKG8   NonNeoC  Module post-IP nuclei removed   0.4%
+
+SECTION D -- write
+[PASS] 07-05 15A unadjusted model fitted for every arm, region set and outcome | 72 of 72
+[PASS] 07-06 stats files written and read back | 15A 432 rows | 15B 456 rows
+
+Outputs:
+  Part12_rerun/07_Fig15/15AB_ContamDoublets/Stats_15A.csv | 0.1 MB
+  Part12_rerun/07_Fig15/15AB_ContamDoublets/Stats_15B.csv | 0.1 MB
+Checks: 6 PASS, 0 FAIL, 0 WARN | duration 0.0 min
+VERDICT: PASS
+Part 12 rerun -- step 08
+Script: Part12_Fig15_Analysis.r
+Shared file: Part12_03_Config.r
+Run ID: 20261019-0909-fedora
+Start: 2026-10-19 09:09:31
+Machine: fac31f98ee06 | R version 4.6.1 (2026-06-24)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 08-01 script saved in Part12_rerun | Part12_Fig15_Analysis.r
+
+Pre-set reading: 15C. Are Module post-IP cells more contaminated? | Part12_rerun/Part12_Preset_Readings.md
+Pre-set reading: 15D. Does co-expression rise with contamination? | Part12_rerun/Part12_Preset_Readings.md
+SECTION A -- inputs
+[PASS] 08-02 04_cell_labels.csv.gz listed in the 04_Labels log | Part12_rerun/04_Labels/04_cell_labels.csv.gz
+[PASS] 08-03 labels carry this labels version | checked
+[PASS] 08-04 02_counts.mtx.gz listed in the 02_Extract log | Part12_rerun/02_Extract/02_counts.mtx.gz
+[PASS] 08-05 02_counts_genes.tsv listed in the 02_Extract log | Part12_rerun/02_Extract/02_counts_genes.tsv
+[PASS] 08-06 02_counts_cells.tsv listed in the 02_Extract log | Part12_rerun/02_Extract/02_counts_cells.tsv
+[PASS] 08-07 step 02 count matrix matches its cell and gene lists | checked
+[PASS] 08-08 every labelled cell has a contamination value | 0 missing
+
+SECTION B -- 15C, donor-level contrasts (20 cells per group, 10 donors, B = 10000)
+  M4     post_minus_pre         donors  13 | median difference -0.0791 [-0.0969, +0.0048] | p 1.42e-01
+  M4     post_minus_nonmodule   donors  13 | median difference -0.0285 [-0.0665, -0.0033] | p 3.48e-02
+  M4     pre_minus_nonmodule    donors  15 | median difference +0.0336 [+0.0001, +0.0611] | p 4.70e-02
+  PVM_3  post_minus_pre         donors  52 | median difference -0.1059 [-0.1459, -0.0287] | p <=2.00e-04
+  PVM_3  post_minus_nonmodule   donors  55 | median difference -0.0603 [-0.0922, -0.0050] | p <=2.00e-04
+  PVM_3  pre_minus_nonmodule    donors  70 | median difference +0.0222 [+0.0082, +0.0348] | p 3.00e-03
+  PVM_1  post_minus_pre         donors  18 | median difference +0.0006 [-0.0005, +0.0376] | p 2.83e-01
+  PVM_1  post_minus_nonmodule   donors  19 | median difference +0.0005 [-0.0008, +0.0149] | p 2.31e-01
+  PVM_1  pre_minus_nonmodule    donors  26 | median difference -0.0001 [-0.0091, +0.0000] | p 5.46e-01
+  HKG8   post_minus_pre         donors   1 | median difference NA [NA, NA] | p NA
+  HKG8   post_minus_nonmodule   donors   7 | median difference NA [NA, NA] | p NA
+  HKG8   pre_minus_nonmodule    donors   3 | median difference NA [NA, NA] | p NA
+
+SECTION C -- 15D, co-expression by within-donor contamination tertile (B = 10000)
+[NOTE] workers | 31 of 32 logical cores (PSOCK)
+[PASS] 08-09 every labelled cell is in the step 02 count matrix | 0 missing
+[PASS] 08-10 02_cells.csv.gz listed in the 02_Extract log | Part12_rerun/02_Extract/02_cells.csv.gz
+  M4     GOI MT-CO3 donors  48 | Module cells  2863 | cells at zero contamination 23.0%
+         bootstrap 0.0 min
+         rs T1 0.957 | T2 0.950 | T3 0.944 | T3 - T1 -0.013 [-0.024, -0.005] | p 5.20e-03
+  PVM_3  GOI MT-CO3 donors  82 | Module cells 17165 | cells at zero contamination 15.6%
+         bootstrap 0.0 min
+         rs T1 0.952 | T2 0.949 | T3 0.944 | T3 - T1 -0.008 [-0.018, -0.001] | p 2.70e-02
+  PVM_1  GOI MT-CO3 donors  58 | Module cells  3826 | cells at zero contamination 35.3%
+         bootstrap 0.0 min
+         rs T1 0.957 | T2 0.959 | T3 0.949 | T3 - T1 -0.008 [-0.018, +0.001] | p 8.60e-02
+  HKG8   GOI ACTB   donors  19 | Module cells   576 | cells at zero contamination 20.5%
+         bootstrap 0.0 min
+         rs T1 0.897 | T2 0.907 | T3 0.912 | T3 - T1 +0.015 [-0.028, +0.059] | p 4.19e-01
+
+SECTION D -- write
+[PASS] 08-11 stats files written and read back | 15C 24 rows | 15D 16 rows
+
+Outputs:
+  Part12_rerun/07_Fig15/15CD_DecontXStrata/Stats_15C.csv | 0.0 MB
+  Part12_rerun/07_Fig15/15CD_DecontXStrata/Stats_15D.csv | 0.0 MB
+  Part12_rerun/07_Fig15/15CD_DecontXStrata/Plot_15D_tertiles.csv | 0.0 MB
+Checks: 11 PASS, 0 FAIL, 0 WARN | duration 0.1 min
+VERDICT: PASS
+Part 12 rerun -- step 09
+Script: Part12_Fig15_Analysis.r
+Shared file: Part12_03_Config.r
+Run ID: 20261019-0909-fedora
+Start: 2026-10-19 09:09:36
+Machine: fac31f98ee06 | R version 4.6.1 (2026-06-24)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 09-01 script saved in Part12_rerun | Part12_Fig15_Analysis.r
+
+Pre-set reading: 15E. Is the ambient pool more mitochondrial than the nuclei? (Gerrits) | Part12_rerun/Part12_Preset_Readings.md
+Pre-set reading: 15F. Does co-expression survive removing ambient RNA and depth? (Gerrits) | Part12_rerun/Part12_Preset_Readings.md
+Pre-set reading: 15G. Does co-expression change with ambient load? (Gerrits) | Part12_rerun/Part12_Preset_Readings.md
+SECTION A -- inputs
+[PASS] 09-02 06_gerrits_samples.csv listed in the 06_GerritsCells log | Part12_rerun/06_GerritsCells/06_gerrits_samples.csv
+[PASS] 09-03 06_gerrits_cells.csv.gz listed in the 06_GerritsCells log | Part12_rerun/06_GerritsCells/06_gerrits_cells.csv.gz
+[PASS] 09-04 36 samples from 18 donors | 36 samples | 18 donors
+
+SECTION B -- 15E, ambient against nuclear %MT
+[PASS] 09-05 log ratio finite on every sample | 0 not finite
+  median log ratio 1.142 [1.011, 1.456] (ratio 3.13) | samples above 0: 36 of 36 | p <=2.00e-04
+
+SECTION C -- per-sample correlations in the MT-CO3-positive nuclei
+[NOTE] share of population nuclei with a soup index of 0, per sample | median 29.3% (range 14.5% to 60.6%); above two thirds, the top tertile also holds zeros
+  population per sample: median 3589 nuclei (range 897 to 8123) | 15F samples 36 | 15G samples 36
+
+SECTION D -- 15F, raw and partial co-expression
+  raw 0.267 [0.238, 0.297] p <=2.00e-04 | partial 0.366 [0.354, 0.400] p <=2.00e-04 | partial/raw 1.368
+    MT-ATP6 raw 0.272 | partial 0.378
+    MT-CO2  raw 0.308 | partial 0.381
+    MT-ND3  raw 0.206 | partial 0.346
+    MT-ND4  raw 0.270 | partial 0.372
+    MT-CYB  raw 0.282 | partial 0.373
+    MT-ND1  raw 0.227 | partial 0.340
+    MT-ND2  raw 0.213 | partial 0.332
+    MT-CO1  raw 0.387 | partial 0.406
+
+SECTION E -- 15G, top minus bottom soup-index tertile
+  difference +0.0602 [+0.0160, +0.0821] | p <=2.00e-04
+    MT-ATP6 +0.0586
+    MT-CO2  +0.0549
+    MT-ND3  +0.0309
+    MT-ND4  +0.0533
+    MT-CYB  +0.0540
+    MT-ND1  +0.0619
+    MT-ND2  +0.0433
+    MT-CO1  +0.0412
+
+SECTION F -- write
+[PASS] 09-06 stats files written and read back | 30 rows
+
+Outputs:
+  Part12_rerun/07_Fig15/15EG_GerritsAmbient/Stats_15E.csv | 0.0 MB
+  Part12_rerun/07_Fig15/15EG_GerritsAmbient/Stats_15F.csv | 0.0 MB
+  Part12_rerun/07_Fig15/15EG_GerritsAmbient/Stats_15G.csv | 0.0 MB
+  Part12_rerun/07_Fig15/15EG_GerritsAmbient/Plot_15E_samples.csv | 0.0 MB
+  Part12_rerun/07_Fig15/15EG_GerritsAmbient/Plot_15F_samples.csv | 0.0 MB
+  Part12_rerun/07_Fig15/15EG_GerritsAmbient/Plot_15G_tertiles.csv | 0.0 MB
+Checks: 6 PASS, 0 FAIL, 0 WARN | duration 0.1 min
+VERDICT: PASS
+Part 12 rerun -- step 10
+Script: Part12_Fig15_Analysis.r
+Shared file: Part12_03_Config.r
+Run ID: 20261019-0909-fedora
+Start: 2026-10-19 09:09:43
+Machine: fac31f98ee06 | R version 4.6.1 (2026-06-24)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 10-01 script saved in Part12_rerun | Part12_Fig15_Analysis.r
+
+Pre-set reading: 15H. Do depth and mitochondrial content explain the gap to Gerrits? (simulation) | Part12_rerun/Part12_Preset_Readings.md
+SECTION A -- inputs
+[PASS] 10-02 04_cell_labels.csv.gz listed in the 04_Labels log | Part12_rerun/04_Labels/04_cell_labels.csv.gz
+[PASS] 10-03 labels carry this labels version | checked
+[PASS] 10-04 02_counts.mtx.gz listed in the 02_Extract log | Part12_rerun/02_Extract/02_counts.mtx.gz
+[PASS] 10-05 02_counts_genes.tsv listed in the 02_Extract log | Part12_rerun/02_Extract/02_counts_genes.tsv
+[PASS] 10-06 02_counts_cells.tsv listed in the 02_Extract log | Part12_rerun/02_Extract/02_counts_cells.tsv
+[PASS] 10-07 02_cells.csv.gz listed in the 02_Extract log | Part12_rerun/02_Extract/02_cells.csv.gz
+[PASS] 10-08 06_gerrits_samples.csv listed in the 06_GerritsCells log | Part12_rerun/06_GerritsCells/06_gerrits_samples.csv
+[PASS] 10-09 Stats_15F.csv listed in the 07_Fig15/15EG_GerritsAmbient log | Part12_rerun/07_Fig15/15EG_GerritsAmbient/Stats_15F.csv
+[PASS] 10-10 every PVM_3 arm cell is in the step 02 count matrix | 24463 of 24463
+[PASS] 10-11 every PVM_3 arm cell has MT-CO3 above zero (the arm population) | 24463 of 24463
+[PASS] 10-12 Gerrits reference range read from Stats_15F | IQR 0.228 to 0.309 (median 0.267)
+  population: 24463 cells | median depth 5650 UMIs | median MT fraction 0.0057
+  Gerrits: depth 1504 UMIs | MT fraction 0.00124 | targets: 8000, 6000, 4000, 3000, 2000, 1504, 1500, 1000, 750, 500 | repeats 20
+
+SECTION B -- thinning
+[PASS] 10-13 every repeat gave a finite rs | 20 of 20 condition-target cells complete
+  observed: rs 0.711 | 24463 cells | median MT fraction 0.0057
+  depth      target  8000 | rs 0.702 [0.701, 0.703] | housekeeping 0.205 | cells  24106 | MT fraction 0.00573 | MT UMIs 28.0 | MT keep 1.0000
+  depth      target  6000 | rs 0.690 [0.689, 0.692] | housekeeping 0.196 | cells  23632 | MT fraction 0.00570 | MT UMIs 25.0 | MT keep 1.0000
+  depth      target  4000 | rs 0.661 [0.658, 0.663] | housekeeping 0.178 | cells  22486 | MT fraction 0.00575 | MT UMIs 19.0 | MT keep 1.0000
+  depth      target  3000 | rs 0.630 [0.626, 0.632] | housekeeping 0.161 | cells  21258 | MT fraction 0.00567 | MT UMIs 16.0 | MT keep 1.0000
+  depth      target  2000 | rs 0.577 [0.573, 0.583] | housekeeping 0.132 | cells  19126 | MT fraction 0.00599 | MT UMIs 11.0 | MT keep 1.0000
+  depth      target  1504 | rs 0.534 [0.529, 0.538] | housekeeping 0.123 | cells  17392 | MT fraction 0.00598 | MT UMIs 9.0 | MT keep 1.0000
+  depth      target  1500 | rs 0.534 [0.529, 0.539] | housekeeping 0.124 | cells  17396 | MT fraction 0.00600 | MT UMIs 8.5 | MT keep 1.0000
+  depth      target  1000 | rs 0.471 [0.460, 0.479] | housekeeping 0.103 | cells  14732 | MT fraction 0.00600 | MT UMIs 6.0 | MT keep 1.0000
+  depth      target   750 | rs 0.429 [0.421, 0.437] | housekeeping 0.087 | cells  12874 | MT fraction 0.00533 | MT UMIs 4.0 | MT keep 1.0000
+  depth      target   500 | rs 0.367 [0.352, 0.383] | housekeeping 0.064 | cells  10311 | MT fraction 0.00600 | MT UMIs 3.0 | MT keep 1.0000
+  depth+mito target  8000 | rs 0.420 [0.412, 0.431] | housekeeping 0.205 | cells  14782 | MT fraction 0.00124 | MT UMIs 6.0 | MT keep 0.2165
+  depth+mito target  6000 | rs 0.416 [0.405, 0.420] | housekeeping 0.196 | cells  14103 | MT fraction 0.00122 | MT UMIs 5.0 | MT keep 0.2176
+  depth+mito target  4000 | rs 0.389 [0.381, 0.402] | housekeeping 0.178 | cells  12504 | MT fraction 0.00125 | MT UMIs 4.0 | MT keep 0.2158
+  depth+mito target  3000 | rs 0.371 [0.363, 0.384] | housekeeping 0.161 | cells  11290 | MT fraction 0.00133 | MT UMIs 3.0 | MT keep 0.2190
+  depth+mito target  2000 | rs 0.334 [0.322, 0.349] | housekeeping 0.132 | cells   8918 | MT fraction 0.00100 | MT UMIs 2.0 | MT keep 0.2070
+  depth+mito target  1504 | rs 0.300 [0.289, 0.320] | housekeeping 0.123 | cells   7508 | MT fraction 0.00133 | MT UMIs 2.0 | MT keep 0.2074
+  depth+mito target  1500 | rs 0.296 [0.278, 0.315] | housekeeping 0.124 | cells   7470 | MT fraction 0.00133 | MT UMIs 2.0 | MT keep 0.2068
+  depth+mito target  1000 | rs 0.244 [0.225, 0.254] | housekeeping 0.103 | cells   5658 | MT fraction 0.00100 | MT UMIs 1.0 | MT keep 0.2068
+  depth+mito target   750 | rs 0.234 [0.211, 0.256] | housekeeping 0.087 | cells   5022 | MT fraction 0.00133 | MT UMIs 1.0 | MT keep 0.2327
+  depth+mito target   500 | rs 0.189 [0.170, 0.213] | housekeeping 0.064 | cells   3294 | MT fraction 0.00000 | MT UMIs 0.0 | MT keep 0.2068
+  at Gerrits' depth, depth      rs 0.534 against the Gerrits IQR 0.228 to 0.309: above
+  at Gerrits' depth, depth+mito rs 0.300 against the Gerrits IQR 0.228 to 0.309: inside
+
+SECTION C -- write
+[PASS] 10-14 stats file written and read back | 86 rows
+
+Outputs:
+  Part12_rerun/07_Fig15/15H_DepthThinning/Stats_15H.csv | 0.0 MB
+Checks: 14 PASS, 0 FAIL, 0 WARN | duration 0.3 min
+VERDICT: PASS
+Part 12 rerun -- step 11
+Script: Part12_Fig15_Analysis.r
+Shared file: Part12_03_Config.r
+Run ID: 20261019-0910-fedora
+Start: 2026-10-19 09:10:03
+Machine: fac31f98ee06 | R version 4.6.1 (2026-06-24)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 11-01 script saved in Part12_rerun | Part12_Fig15_Analysis.r
+
+Pre-set reading: Supplementary Figure 10. Is the extra material the cell's own cytoplasm or another lineage's? | Part12_rerun/Part12_Preset_Readings.md
+SECTION A -- inputs
+[PASS] 11-02 04_cell_labels.csv.gz listed in the 04_Labels log | Part12_rerun/04_Labels/04_cell_labels.csv.gz
+[PASS] 11-03 labels carry this labels version | checked
+[PASS] 11-04 own_er finite on every Module cell | 0 missing
+[PASS] 11-05 ribosome finite on every Module cell | 0 missing
+[PASS] 11-06 neat1 finite on every Module cell | 0 missing
+[PASS] 11-07 other_lineage finite on every Module cell | 0 missing
+
+SECTION B -- post-IP minus pre-IP, per donor (20 cells per group, 10 donors, B = 10000)
+  M4     donors with 20 or more cells in both groups: 13
+    own_er         +0.0057 [-0.0029, +0.0120] | p 1.44e-01
+    ribosome       +0.0047 [+0.0000, +0.0115] | p 1.35e-01
+    neat1          -0.0333 [-0.0712, +0.0237] | p 1.41e-01
+    other_lineage  +0.0193 [+0.0030, +0.0339] | p 3.14e-02
+  PVM_3  donors with 20 or more cells in both groups: 52
+    own_er         +0.0060 [+0.0039, +0.0089] | p <=2.00e-04
+    ribosome       +0.0039 [+0.0002, +0.0083] | p 3.46e-02
+    neat1          -0.0189 [-0.0293, -0.0040] | p 1.58e-02
+    other_lineage  +0.0171 [+0.0102, +0.0232] | p <=2.00e-04
+  PVM_1  donors with 20 or more cells in both groups: 18
+    own_er         +0.0308 [+0.0174, +0.0361] | p <=2.00e-04
+    ribosome       +0.0093 [+0.0065, +0.0169] | p <=2.00e-04
+    neat1          -0.0918 [-0.1541, -0.0504] | p <=2.00e-04
+    other_lineage  +0.0043 [-0.0034, +0.0190] | p 2.07e-01
+  HKG8   donors with 20 or more cells in both groups: 1
+    own_er         NA [NA, NA] | p NA
+    ribosome       NA [NA, NA] | p NA
+    neat1          NA [NA, NA] | p NA
+    other_lineage  NA [NA, NA] | p NA
+
+SECTION C -- write
+[PASS] 11-08 stats file written and read back | 48 rows
+
+Outputs:
+  Part12_rerun/07_Fig15/S10_Cargo/Stats_S10.csv | 0.0 MB
+Checks: 8 PASS, 0 FAIL, 0 WARN | duration 0.0 min
+VERDICT: PASS
+Figure 15 analysis: sections 07 to 11 all PASS. Next: run Part12_Fig15_Plots.r

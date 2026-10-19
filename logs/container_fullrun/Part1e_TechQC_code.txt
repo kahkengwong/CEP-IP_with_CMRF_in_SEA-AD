@@ -1,0 +1,596 @@
+
+==========================================================================
+  F0 - load, resolve columns, technical-covariate inventory
+==========================================================================
+  PUBLISHED IP definition assumed here : IPRS R(x) = 0 crossing
+    (USE_SI0_IP = False; comparator = Si_norm = 0 (= median GOI))
+    published IP  NeoC 4.613502 at u=0.5390   NonNeoC 4.732708 at u=0.4839
+    comparator    NeoC 4.501971 at u=0.5000   NonNeoC 4.785060 at u=0.5003
+
+  file  : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad
+  shape : (240651, 36601)
+
+  resolved columns:
+    stype     -> Supertype
+    region    -> Brain Region
+    donor     -> Donor ID
+    lib       -> library_prep
+    adnc      -> Overall AD neuropathological Change
+    braak     -> Braak
+    intron    -> GEX_Reads_mapped_confidently_to_intronic_regions
+    exon      -> GEX_Reads_mapped_confidently_to_exonic_regions
+    interg    -> GEX_Reads_mapped_confidently_to_intergenic_regions
+    sat       -> GEX_sequencing_saturation
+    dup       -> GEX_Percent_duplicates
+    doublet   -> Doublet score
+    mitofrac  -> Fraction mitochondrial UMIs
+    nUMI      -> Number of UMIs
+    nGene     -> Genes detected
+    method    -> method
+    pmi       -> PMI
+    rin       -> RIN
+    ph        -> Brain pH
+    weight    -> Fresh Brain Weight
+    severe    -> Severely Affected Donor
+    sex       -> Sex
+
+  layers: ['UMIs']
+  Organism     distinct values: ['human']
+  Genome       distinct values: ['GRCh38']
+  alignment    distinct values: ['Cell Ranger 6.0', 'cellranger-arc-2.0.0']   <- NOT constant, note it
+
+  --- pass/fail QC flags ---
+  rna_amplification_pass_fail:
+      Pass                       240,122  (99.780%)
+      Fail                           529  (0.220%)
+      529 nuclei on a failed component
+      by region: MTG 529
+  library_prep_pass_fail:
+      Pass                       240,651  (100.000%)
+  experiment_component_failed:
+      False                      239,104  (99.357%)
+      True                         1,547  (0.643%)
+      1,547 nuclei on a failed component
+      by region: MTG 737, MEC 418, DFC 312, ITG 80
+
+  >>> Nuclei from failed components are present.
+
+==========================================================================
+  F1 - library_prep structure: is batch separable from donor and region?
+==========================================================================
+  distinct libraries : 905
+  distinct donors    : 84
+  distinct regions   : 10
+
+  nuclei per library : min 3  median 229  max 994
+  libraries with <50 nuclei : 46
+
+  libraries spanning >1 donor  : 0 of 905
+  libraries spanning >1 region : 0 of 905
+
+  >>> Every library belongs to one donor: library is nested in donor.
+
+  libraries per donor : min 3  median 9  max 20
+  >>> Some donors have more than one library (within-donor comparison in F3).
+
+  libraries per region:
+    AnG       62 libraries,   10,279 nuclei
+    DFC      195 libraries,   41,553 nuclei
+    FI        45 libraries,   17,445 nuclei
+    HIP       41 libraries,   14,190 nuclei
+    ITG       45 libraries,   16,111 nuclei
+    LEC       34 libraries,   11,791 nuclei
+    MEC      171 libraries,   63,137 nuclei
+    MTG      204 libraries,   36,686 nuclei
+    STG       44 libraries,   15,214 nuclei
+    V1C       64 libraries,   14,245 nuclei
+
+==========================================================================
+  F2 - intronic:exonic ambient index
+==========================================================================
+  GEX_Reads_mapped_confidently_to_intronic_regions
+    range 0.064 .. 0.7353
+  GEX_Reads_mapped_confidently_to_exonic_regions
+    range 0.092 .. 0.373
+  interpreted as    : fraction 0-1
+
+  intronic:exonic ratio over nuclei: min 0.4476  median 3.6887  max 7.2080
+  finite values: 240,651/240,651
+
+  A lower intronic:exonic ratio means more ambient RNA.
+
+  distinct ratio values per library: max 1
+  >>> Constant within library (one value per library).
+
+  donor-level ambient index vs ADNC: rho=-0.2645  p=0.01505  n=84
+  >>> The ambient index tracks pathology.
+
+==========================================================================
+  Loading the gene block (one full load, then freed)
+==========================================================================
+  count layer : UMIs
+  extracted 43 genes
+  building the abundance-matched gene pool on 24,463 analysed cells ...
+  matched-gene pool: 360 candidate genes
+  Micro-PVM_3-SEAAD: 29,805 nuclei, 24,463 with MT-CO3 > 0
+  pooled rho(MT-CO3, cDFG) over the analysed set = +0.8174  p=0
+
+==========================================================================
+  F2b - exogenous soup index: a within-library ambient measure
+==========================================================================
+  immune positive controls:
+    PTPRC     detected in  88.0% of analysed nuclei, mean 5.11 counts
+    CSF1R     detected in  76.6% of analysed nuclei, mean 2.78 counts
+    C1QA      detected in  42.9% of analysed nuclei, mean 0.95 counts
+    C1QB      detected in  64.2% of analysed nuclei, mean 2.14 counts
+    P2RY12    detected in  54.2% of analysed nuclei, mean 2.05 counts
+    CX3CR1    detected in  29.5% of analysed nuclei, mean 0.61 counts
+
+  exogenous panels:
+    panel      genes found    det%  mean counts  % of library
+    neuronal             6    86.1        4.493        0.0585
+    oligo                6    83.3        3.427        0.0433
+    astro                5    33.2        0.506        0.0000
+    opc                  3     6.3        0.092        0.0000
+    endo                 3    55.8        1.369        0.0115
+
+  combined soup index (% of a nucleus's UMIs that are foreign):
+    median 0.1434%   q75 0.2118%   q99 0.5276%   max 1.395%
+    nuclei with zero foreign transcripts: 2.5%
+
+    SD within libraries (median) 0.0856   SD between library medians 0.0538
+    >>> Varies more within libraries than between them.
+
+  --- does the module track the soup index? ---
+    soup index vs MT-CO3            +0.0621  p=2.4e-22
+    soup index vs cDFG            +0.0584  p=6.28e-20
+    soup index vs mito%           +0.0703  p=3.72e-28
+    soup index vs depth           -0.1570  p=9.01e-135
+
+    module rho +0.8174 -> +0.8170 conditioned on the soup index  (drop +0.0004)
+
+  --- module strength by soup quartile (per NUCLEUS) ---
+    quartile         n  median soup%      rho              95% CI
+    Q1           6,116        0.0611    0.793   [+0.780, +0.805]
+    Q2           6,115        0.1174    0.831   [+0.821, +0.841]
+    Q3           6,116        0.1725    0.830   [+0.821, +0.840]
+    Q4           6,116        0.2759    0.813   [+0.804, +0.821]
+
+    Q1 (least soup) +0.793  ->  Q4 (most soup) +0.813   change +0.020
+
+    >>> Flat across the soup range.
+
+  --- lineage consistency (soup vs phagocytosis) ---
+    panel        rho with cDFG  rho with mito%
+    neuronal            -0.001          +0.004
+    oligo               +0.006          -0.003
+    astro               +0.063          +0.044
+    opc                 +0.024          +0.010
+    endo                -0.009          -0.037
+
+==========================================================================
+  F3 - module strength per library vs the ambient index
+==========================================================================
+  libraries with >=40 analysed cells: 185 of 889
+    denominators: 905 libraries exist in obs; 889 contribute >=1 analysed nucleus;
+                  185 clear the >=40-cell floor and carry a per-library rho.
+  saved: Part1_PreChecks/S1e_per_library.csv
+
+  per-library rho: min +0.2523  q25 +0.6930  median +0.7910  q75 +0.8423  max +0.9544
+  SD across libraries : 0.1159
+  libraries with rho < 0.3 : 1
+  libraries with rho < 0   : 0
+
+  --- the directional ambient test (RAW) ---
+  rho( intronic:exonic , module strength ) = -0.3394  p=2.296e-06  n=185
+
+  --- mediation: ambient, or mito fraction, or depth? ---
+    ambient index vs library mito%     -0.4597  p=4.63e-11
+    ambient index vs library depth     +0.0167  p=0.821
+    library mito% vs module strength   +0.6046  p=7.99e-20
+    library depth vs module strength   +0.0402  p=0.587
+
+    ambient -> module | mito%          -0.0772  p=0.296
+    ambient -> module | depth          -0.3392  p=2.32e-06
+    ambient -> module | mito% + depth  +0.0920  p=0.213
+    mito%   -> module | ambient        +0.5190  p=3.76e-14
+
+  --- sensitivity to minimum library size ---
+     min cells  libraries       rho           p
+            40        185    -0.339     2.3e-06
+            60        102    -0.247      0.0122
+            80         55    -0.172       0.208
+           120         14    -0.015       0.958
+           200          4       too few
+
+  --- effect size across the ambient range ---
+    quartile            libs   med rho  med mito%  med depth
+    Q1 most ambient       47    0.8252      1.196       5790
+    Q2                    46    0.7957      0.593       6602
+    Q3                    46    0.7912      0.551       6792
+    Q4 least ambient      46    0.7399      0.446       5931
+    spread across the range : +0.0853
+    libraries below rho 0.50: 6 of 185;  lowest +0.2523
+
+  >>> Mediated by mito fraction, not by the ambient index.
+
+      EFFECT SIZE: median per-library rho moves +0.085
+      across the range of the index.
+
+  cell-level: rho = +0.8174 unconditional, +0.8041 conditioned on the ambient index  (drop +0.0133)
+
+  --- within-donor library spread (39 donors with >=2 usable libraries) ---
+  rho range within a donor: median 0.1470  max 0.6408
+
+==========================================================================
+  F4 - permutation null: is between-library variance more than chance?
+==========================================================================
+  observed SD of per-library rho : 0.1159
+  null SD (labels shuffled, 500 perms): median 0.0544  q95 0.0603
+  permutation p (observed >= null) : 0.0000
+
+  >>> Between-library variation exceeds chance.
+
+==========================================================================
+  F5 - cross-supertype specificity (ambient is a droplet property)
+==========================================================================
+  supertype                   n_total  n_GOI+      rho    det%   depth  mito%
+  Micro-PVM_2                 141,248  98,528   +0.725    69.8    5807   0.32
+  Micro-PVM_2_3-SEAAD          53,815  40,401   +0.753    75.1    5566   0.37
+  Micro-PVM_3-SEAAD            29,805  24,463   +0.817    82.1    5650   0.57
+  Micro-PVM_1                   7,909   5,876   +0.808    74.3    5878   0.48
+  Lymphocyte                    4,607   4,007   +0.790    87.0    3784   0.99
+  Micro-PVM_4-SEAAD             1,767   1,155   +0.594    65.4    5813   0.26
+  Micro-PVM_2_1-SEAAD           1,458   1,204   +0.858    82.6    8474   0.35
+  Monocyte                         42      41   +0.893    97.6    7503   1.10
+  saved: Part1_PreChecks/S1e_per_supertype.csv
+
+  excluded from the comparison (n < 500 GOI+ cells): Monocyte (n=41, rho +0.893)
+
+  across the 7 supertypes with n >= 500:
+    module rho vs GOI detection%  +0.7143  p=0.0713
+    module rho vs median depth    +0.2857  p=0.535
+    (n = 7 supertypes. With this n a correlation of even
+     0.7 is not significant at 0.05, so treat the detectability
+     ordering as SUGGESTIVE and let the per-gene R2 0.99 and the
+     F5d matched-panel null carry the argument.)
+    >>> The supertype ordering follows the detection-rate ordering.
+
+  target rho +0.8174 vs other supertypes (n >= 500): min +0.5936  median +0.7714  max +0.8582
+  best other is Micro-PVM_2_1-SEAAD at +0.8582 (n=1,204)
+    CAVEAT: that comparator has only 1,204 GOI+ cells and a
+    median depth of 8,474 against the target's 5,650.
+    Both inflate rho, so the raw ordering is fragile. F5b
+    repeats it at matched depth and is the version to quote.
+
+  >>> The module is not specific to the target supertype.
+
+==========================================================================
+  F5b - cross-supertype comparison at matched sequencing depth
+==========================================================================
+  depth strata from the target's quintiles: 157, 3,015, 4,736, 6,702, 9,593
+
+  supertype                       n      raw   matched    shift  strata
+  Micro-PVM_2_1-SEAAD         1,204    0.858     0.852   -0.006       5
+  Lymphocyte                  4,007    0.790     0.831   +0.041       5
+  Micro-PVM_1                 5,876    0.808     0.823   +0.016       5
+  Micro-PVM_3-SEAAD          24,463    0.817     0.820   +0.003       5  <- target
+  Micro-PVM_2                98,528    0.725     0.750   +0.026       5
+  Micro-PVM_2_3-SEAAD        40,401    0.753     0.742   -0.011       5
+  Micro-PVM_4-SEAAD           1,155    0.594     0.626   +0.033       5
+  saved: Part1_PreChecks/S1e_supertype_depth_matched.csv
+
+  target minus best other, AT MATCHED DEPTH: -0.0319
+
+  >>> The target does not lead at matched depth.
+
+==========================================================================
+  F5c - is a threshold shape specific to the target supertype?
+==========================================================================
+  Model-free segmented screen (a shape screen, not the CEP-IP IP).
+
+  supertype                       n   break  vs line  vs quad  slope lo  slope hi
+  Micro-PVM_2_3-SEAAD        40,401    1.94    96.0%    40.0%     0.538     0.926
+  Micro-PVM_2                98,528    1.95    95.2%   -34.0%     0.497     1.002
+  Micro-PVM_1                 5,876    1.92    94.2%    72.5%     0.529     0.978
+  Lymphocyte                  4,007    2.59    93.9%    22.3%     0.565     1.053
+  Micro-PVM_3-SEAAD          24,463    2.07    93.8%    16.4%     0.598     0.970  <- target
+  Micro-PVM_2_1-SEAAD         1,204    1.75    80.0%    -8.9%     0.562     0.958
+  Micro-PVM_4-SEAAD           1,155    1.45    70.6%    15.4%     0.373     0.786
+
+  'vs line'  = RSS removed relative to a straight line (2 params)
+  'vs quad'  = RSS removed relative to a quadratic (3 params)
+  saved: Part1_PreChecks/S1e_segmented_screen.csv
+
+  target RSS drop 93.8% vs best other 96.0%
+  target break at GOI = 2.068; other breaks span 1.447 to 2.594
+
+  against a QUADRATIC: target 16.4% vs best other 72.5%
+
+  >>> A threshold shape exists but is not distinctive to the target.
+
+==========================================================================
+  F5e - is the median a distinguished point on the curve?
+==========================================================================
+  USE_SI0_IP = False.
+  Published IP = R(x)=0 crossing, estimated from the fitted curve:
+    NeoC    4.613502  at u = 0.5390
+    NonNeoC 4.732708  at u = 0.4839
+  Comparator = Si_norm=0 = median GOI, u = 0.5000 / 0.5003.
+
+  candidate grid: 0.10 to 0.90 step 0.05 (17 points), plus the published IP quantiles 0.4839, 0.5390 -> 19 candidates offered
+
+  supertype                      n   median  q preferred  median rank   penalty
+  Lymphocyte                 4,007    2.641         0.48      1 of 17       0.000
+  Micro-PVM_1                5,876    2.081         0.45      2 of 17       0.008
+  Micro-PVM_2_1-SEAAD        1,204    1.913         0.45      2 of 17       0.009
+  Micro-PVM_3-SEAAD         24,463    2.239         0.45      2 of 17       0.017  <- target
+  Micro-PVM_2               98,528    1.812         0.55      4 of 17       0.018
+  Micro-PVM_2_3-SEAAD       40,401    1.893         0.54      4 of 17       0.012
+  Micro-PVM_4-SEAAD          1,155    1.631         0.40      4 of 17       0.055
+  saved: Part1_PreChecks/S1e_median_specialness.csv
+
+  'q preferred' = the quantile where a two-segment fit works best.
+  'median rank' = where q=0.50 places among the candidates, 1 = best.
+  'penalty'     = how much worse q=0.50 is than the best break,
+                  scaled 0 (as good as the best) to 1 (the worst).
+  'central'     = the same penalty scaled over q = 0.25-0.75 only.
+
+    supertype                 penalty  central   evaluated         range
+    Lymphocyte                  0.000    0.000     17 of 19     0.15-0.85  
+    Micro-PVM_1                 0.008    0.013     17 of 19     0.15-0.85  
+    Micro-PVM_2_1-SEAAD         0.009    0.019     17 of 19     0.15-0.85  
+    Micro-PVM_3-SEAAD           0.017    0.034     17 of 19     0.15-0.85  
+    Micro-PVM_2                 0.018    0.049     17 of 19     0.15-0.85  
+    Micro-PVM_2_3-SEAAD         0.012    0.019     17 of 19     0.15-0.85  
+    Micro-PVM_4-SEAAD           0.055    0.081     17 of 19     0.15-0.85  
+
+  --- the published IP quantile, scored on the same grid ---
+    supertype                    rank NeoC  rank NonNeoC
+    Lymphocyte                    3 of 17        1 of 17  
+    Micro-PVM_1                   5 of 17        2 of 17  
+    Micro-PVM_2_1-SEAAD           4 of 17        2 of 17  
+    Micro-PVM_3-SEAAD             5 of 17        2 of 17  
+    Micro-PVM_2                   2 of 17        4 of 17  
+    Micro-PVM_2_3-SEAAD           1 of 17        4 of 17  
+    Micro-PVM_4-SEAAD             2 of 17        4 of 17  
+
+  TARGET: data prefer a break at q = 0.45 (GOI = 2.102); the comparator (Si=0) sits at q = 0.50 (GOI = 2.239)
+          q=0.50 ranks 2 of 17, penalty 0.017
+
+  >>> The data prefer a break at the median.
+
+  comparators prefer q = 0.40 to 0.55; their median ranks run 1 to 4
+  across ALL 7 supertypes the preferred q spans 0.40 to 0.55; 6 of 7 fall in 0.45-0.55
+  supertypes outside 0.45-0.55: Micro-PVM_4-SEAAD (0.40)
+
+==========================================================================
+  F5d - abundance-matched non-mito panel null
+==========================================================================
+  pool: 360 non-mitochondrial candidate genes
+  module gene     mean    det%    matched pool mean    det%
+  MT-CO3         8.04   100.0                 9.95    94.4   n=46  tol +-8pp, 0.3 log10
+  MT-ATP6        6.99    85.3                 5.50    85.9   n=139  tol +-8pp, 0.3 log10
+  MT-CO2         7.11    88.6                 6.39    88.1   n=144  tol +-8pp, 0.3 log10
+  MT-ND3         8.42    83.7                 5.75    85.6   n=83  tol +-8pp, 0.3 log10
+  MT-ND4         6.12    85.4                 4.90    84.8   n=179  tol +-8pp, 0.3 log10
+  MT-CYB         4.83    81.3                 3.85    80.5   n=235  tol +-8pp, 0.3 log10
+  MT-ND1         3.07    72.5                 3.13    74.9   n=169  tol +-8pp, 0.3 log10
+  MT-ND2         3.51    75.9                 3.34    77.0   n=226  tol +-8pp, 0.3 log10
+  MT-CO1         4.38    83.7                 4.11    82.3   n=210  tol +-8pp, 0.3 log10
+
+  observed Module 1 rho          : +0.8174
+  matched non-mito null (295 panels):
+    min -0.0468   q25 +0.0799   median +0.1257   q75 +0.1679   max +0.3483
+  panels reaching the observed rho: 0/295   empirical p = 0.0000
+
+  >>> Matched non-mito panels do not reach the observed value.
+  saved: Part1_PreChecks/S1e_matched_panel_null.csv
+
+==========================================================================
+  F6 - doublet score
+==========================================================================
+  all nuclei     : median 0.0000  q99 0.1800
+  Micro-PVM_3-SEAAD     : median 0.0100  q99 0.1800
+  doublet score vs MT-CO3   : rho=+0.0689  p=4.01e-27
+  doublet score vs cDFG   : rho=+0.1458  p=2.898e-116
+  module conditioned on doublet score: +0.8174 -> +0.8177  (drop -0.0003)
+  rho in low-doublet half  +0.7818  (n=12,300)
+  rho in high-doublet half +0.8508  (n=12,163)
+
+==========================================================================
+  F7 - post-mortem covariates at donor level
+==========================================================================
+  PMI                  vs mito       : rho=+0.2819  p=0.009382  n=84  <-- ALTERNATIVE EXPLANATION
+  PMI                  vs module_rho : rho=+0.1751  p=0.1179  n=81
+  RIN                  vs mito       : rho=-0.4209  p=6.687e-05  n=84  <-- ALTERNATIVE EXPLANATION
+  RIN                  vs module_rho : rho=-0.3355  p=0.002201  n=81
+  Brain pH             vs mito       : rho=-0.3352  p=0.001829  n=84  <-- ALTERNATIVE EXPLANATION
+  Brain pH             vs module_rho : rho=-0.2313  p=0.03771  n=81
+  Fresh Brain Weight   vs mito       : rho=-0.2500  p=0.02265  n=83  <-- ALTERNATIVE EXPLANATION
+  Fresh Brain Weight   vs module_rho : rho=-0.1214  p=0.2834  n=80
+
+  reference: ADNC vs mito       : rho=+0.4370  p=3.233e-05  n=84
+
+  --- does any degradation covariate explain the ADNC-mito link? ---
+    ADNC vs mito, unconditioned        +0.4370  p=3.233e-05
+    ADNC vs mito | pmi                 +0.4303  p=4.397e-05  n=84
+    ADNC vs mito | rin                 +0.3161  p=0.0034  n=84
+    ADNC vs mito | ph                  +0.3784  p=0.0003861  n=84
+    ADNC vs mito | weight              +0.3212  p=0.003064  n=83
+    ADNC vs mito | ALL (pmi+rin+ph+weight)+0.2786  p=0.01075  n=83
+
+    >>> Degradation explains part of the ADNC-mito link.
+
+  --- are the covariates themselves pathology-linked? ---
+    ADNC vs pmi                   -0.0274  p=0.8043  n=84
+    ADNC vs rin                   -0.2295  p=0.03573  n=84  <- on the causal path
+    ADNC vs ph                    -0.1107  p=0.3163  n=84
+    ADNC vs weight                -0.3261  p=0.002621  n=83  <- on the causal path
+
+==========================================================================
+  F8 - chemistry: singleome vs multiome
+==========================================================================
+  nuclei per method:
+    10Xv3.1                        134,565
+    10xMulti                        62,314
+    10xV3.1_HT                      43,772
+
+    10Xv3.1                      rho=+0.8238  p=0  n=12,871  median depth 5893
+    10xMulti                     rho=+0.7609  p=0  n=6,613  median depth 4106
+    10xV3.1_HT                   rho=+0.8569  p=0  n=4,979  median depth 7638
+  donors with more than one method: 51
+
+==========================================================================
+  F9 - Severely Affected Donor sensitivity
+==========================================================================
+  donors flagged Severely Affected : 11
+  ADNC vs mito, all donors        : rho=+0.4370  p=3.233e-05  n=84
+  ADNC vs mito, excluding severe  : rho=+0.3058  p=0.008519  n=73
+
+  change: +0.1312 absolute, 30.0% of the original magnitude, from 11 of 84 donors (13% of the cohort)
+
+  >>> A large share of the association comes from the severely affected donors.
+
+  module rho, severe donors      : +0.8861  n=3,679
+  module rho, other donors       : +0.7911  n=20,784
+
+==========================================================================
+  F10 - region-level module strength and leave-one-region-out per arm
+==========================================================================
+  region arm        analysed      rho  donors  libs   depth  mito%
+  AnG    NeoC          1,146   +0.804      43    62    4063   0.84
+  DFC    NeoC          3,654   +0.793      80   195    5712   0.46
+  FI     NonNeoC       1,035   +0.719      41    45    2982   0.83
+  HIP    NonNeoC       2,535   +0.800      40    41    4523   0.97
+  ITG    NeoC          1,750   +0.865      43    45    6674   0.60
+  LEC    NonNeoC       1,023   +0.695      34    34    3453   0.69
+  MEC    NonNeoC       6,539   +0.844      81   171    5983   0.59
+  MTG    NeoC          3,336   +0.789      84   204    5958   0.43
+  STG    NeoC          1,619   +0.862      43    44    8247   0.41
+  V1C    NeoC          1,826   +0.823      43    64    7738   0.43
+  saved: Part1_PreChecks/S1e_per_region.csv
+
+  --- does region-level rho track region-level DEPTH? ---
+  region rho vs median depth : +0.8061  p=0.00486  n=10 regions
+  region rho vs median mito% : -0.2848  p=0.425  n=10 regions
+  ...depth vs rho | mito%    : +0.7576  p=0.0111
+
+  --- arm means at region level (the depth-vs-arm question) ---
+    arm         regions  mean rho  mean depth
+    NeoC              6    0.8226        6399
+    NonNeoC           4    0.7649        4235
+
+  NeoC: pooled rho +0.8184  n=13,331
+    leave-one-region-out:
+      without DFC   rho=+0.8275  n=  9,677  (that region was  27.4% of the arm)
+      without MTG   rho=+0.8274  n=  9,995  (that region was  25.0% of the arm)
+      without AnG   rho=+0.8182  n= 12,185  (that region was   8.6% of the arm)
+      without STG   rho=+0.8122  n= 11,712  (that region was  12.1% of the arm)
+      without V1C   rho=+0.8179  n= 11,505  (that region was  13.7% of the arm)
+      without ITG   rho=+0.8093  n= 11,581  (that region was  13.1% of the arm)
+
+  NonNeoC: pooled rho +0.8061  n=11,132
+    leave-one-region-out:
+      without HIP   rho=+0.8035  n=  8,597  (that region was  22.8% of the arm)
+      without MEC   rho=+0.7471  n=  4,593  (that region was  58.7% of the arm)
+      without LEC   rho=+0.8193  n= 10,109  (that region was   9.2% of the arm)
+      without FI    rho=+0.8204  n= 10,097  (that region was   9.3% of the arm)
+
+==========================================================================
+  F10b - is the NeoC / NonNeoC difference just a depth difference?
+==========================================================================
+  raw:  NeoC +0.8184 (n=13,331, median depth 6,272)
+        NonNeoC +0.8061 (n=11,132, median depth 5,005)
+  raw difference: +0.0124
+
+  depth stratum           NeoC rho        n  NonNeoC rho        n
+       157-3,015           0.761    2,217        0.729    2,674
+     3,015-4,736           0.797    2,412        0.806    2,477
+     4,736-6,702           0.821    2,528        0.821    2,369
+     6,702-9,593           0.844    2,890        0.867    2,002
+     9,593-inf             0.869    3,284        0.877    1,610
+
+  depth-standardised: NeoC +0.8183   NonNeoC +0.8198   difference -0.0015
+  the raw difference was +0.0124
+
+  >>> No arm difference, raw or standardised.
+
+  --- paired within-donor arm comparison ---
+  53 donors contribute analysable cells to BOTH arms
+  median within-donor difference (NeoC - NonNeoC): +0.0057
+  donors with NeoC > NonNeoC: 28/53   Wilcoxon p = 0.6806
+
+==========================================================================
+  F11 - GOI-zero nuclei: is the analysed subset biased?
+==========================================================================
+  Micro-PVM_3-SEAAD: 24,463 analysed, 5,342 excluded for MT-CO3 == 0 (17.92%)
+    depth   analysed median   5650.000   excluded median   4226.000   p=3.75e-151
+    mito%   analysed median      0.572   excluded median      0.087   p=0
+    cDFG    analysed median      1.645   excluded median      0.448   p=0
+
+==========================================================================
+  F12 - is the ACTB residual stable across regions and libraries?
+==========================================================================
+  rho(GOI, gene) per region for ACTB and two abundance-matched mitochondrial genes.
+
+  region      ACTB    MT-ND5   MT-ATP8   MT-ND4L      gap
+  AnG       +0.031    +0.483    +0.463    +0.447   +0.434
+  DFC       +0.061    +0.481    +0.381    +0.388   +0.356
+  FI        -0.104    +0.413    +0.358    +0.345   +0.476
+  HIP       -0.017    +0.449    +0.393    +0.382   +0.425
+  ITG       +0.025    +0.551    +0.372    +0.385   +0.411
+  LEC       -0.017    +0.416    +0.274    +0.307   +0.350
+  MEC       +0.132    +0.502    +0.372    +0.409   +0.296
+  MTG       +0.123    +0.397    +0.268    +0.333   +0.209
+  STG       +0.125    +0.567    +0.443    +0.482   +0.373
+  V1C       +0.087    +0.540    +0.401    +0.420   +0.366
+
+  gap (mean matched-mito rho minus ACTB rho): min +0.209  median +0.369  max +0.476
+  regions with a positive gap : 10/10
+  weakest region as a fraction of the median gap : 0.57
+  libraries with a positive gap : 176/185 (95.1%)
+  library-level gap: median +0.298  IQR +0.176 to +0.414
+
+  >>> The gap is positive and stable in every region.
+
+==========================================================================
+  F13 - figures
+==========================================================================
+  PNGs -> Part1_PreChecks/S1e_figures
+  [figure] S1e_P1_ambient_index_vs_module.png  - the headline directional test
+  [figure] S1e_P2_library_permutation_null.png
+  [figure] S1e_P3_cross_supertype_specificity.png
+  [figure] S1e_P4_quartile_gradients.png  - rising with depth argues against ambient
+  [figure] S1e_P5_region_forest_and_LORO.png
+  [figure] S1e_P6_detectability_trend_and_ACTB.png  - the specificity argument, likely a paper figure
+  [figure] S1e_P7_donor_covariates.png
+  [figure] S1e_P8_analysed_vs_excluded.png
+  [figure] S1e_P9_segmented_threshold_screen.png  - screen only - NOT the CEP-IP inflection point
+  [figure] S1e_P10_supertype_depth_matched.png
+  [figure] S1e_P11_matched_panel_null.png  - the decisive specificity control
+  [figure] S1e_P12_exogenous_soup_index.png  - the within-library ambient test
+  [figure] S1e_P13_is_the_median_special.png  - the reviewer objection, tested directly
+
+  13 figure(s) written to Part1_PreChecks/S1e_figures
+
+==========================================================================
+  F14 - SUMMARY
+==========================================================================
+  pooled module rho                    : +0.8174
+  libraries analysed                   : 185
+  per-library rho, median (SD)         : +0.7910 (0.1159)
+  library nested within donor          : YES - batch and donor inseparable
+  ambient index vs module, RAW         : -0.3394 (p=2.3e-06)
+  ...conditioned on mito% + depth      : +0.0920 (p=0.213)
+  mito% vs module | ambient index      : +0.5190 (p=3.76e-14)
+  target minus best other, matched depth: -0.0319
+  threshold screen, target vs best other: 93.8% vs 96.0% RSS removed
+  IP definition assumed        : R(x)=0 crossing   [USE_SI0_IP=False]
+  target rho minus best other (n>=500): -0.0408
+
+  saved: Part1_PreChecks/S1e_techqc_report.txt
+
+==========================================================================
+  PART 1e COMPLETE
+==========================================================================

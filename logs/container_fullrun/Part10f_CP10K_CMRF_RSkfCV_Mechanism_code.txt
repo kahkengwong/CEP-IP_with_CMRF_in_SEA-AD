@@ -1,0 +1,33 @@
+
+================ M4 NeoC ================
+Figure 10 inputs -- M4 NeoC
+  OriRef 1358 | candidates 352 | removed 54 | kept 298
+  iterations 55 | final p=0.0000 | dRMSE=0.0587 | BV=0.0613
+  CV: 5 folds x 40 repeats = 200 fold-RMSEs, alpha=0.05
+  reconstructing Curve B, iteration 1 ...
+  verifying the reconstruction against the stored closure union ...
+    max |recomputed - stored| at closure = 0.000e+00 -> reproduces exactly
+  dRMSE check: recomputed closure 0.0587 vs Part 10e 0.0587 (diff 0.00e+00)
+  iter 1  : p=1.4e-34  dRMSE=0.1324
+  iter 55 : p=0.0000  dRMSE=0.0587
+  Paired tests (BH over 3):
+    F  paired t-test          p=4.58e-79  FDR=1.37e-78  (Shapiro p=0.152)
+    M  paired t-test          p=1.29e-32  FDR=1.29e-32  (Shapiro p=0.734)
+    R3 paired t-test          p=7.79e-50  FDR=1.17e-49  (Shapiro p=0.219)
+  Margin median(B-A) - IQR(RMSE_A), fold bootstrap 2000x:
+    iteration 1  +0.00534 [+0.00392, +0.00630]
+    iteration 55 -0.00020 [-0.00142, +0.00061]
+  page: CV design and stratification 
+  page: First iteration 
+  page: PAVA removal and convergence 
+  page: Final iteration 
+  page: Effect size vs background variability 
+  page: dRMSE arm of the gate 
+  page: RMSE and dRMSE distributions 
+  PDF : Part10e_CP10K_M4_RSkfCV_NeoC_Figure10_mechanism.pdf
+  PNG : 7 page file(s)
+  Excel: Part10e_CP10K_M4_RSkfCV_NeoC_RSkfCV_Mechanism.xlsx (7 sheets)
+  Folder: /data/Part10f_RSkfCV_Mechanism/Part10f_RSkfCV_Mechanism_Mic13_PVM3
+Gate closed at iteration 55.
+  Wilcoxon p = 1.39e-25 (alpha 0.05) | dRMSE = 0.0587 (BV 0.0613)
+  Closing criterion: the dRMSE effect size

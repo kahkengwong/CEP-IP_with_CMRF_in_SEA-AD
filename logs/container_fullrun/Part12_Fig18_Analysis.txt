@@ -1,0 +1,220 @@
+Part 12 rerun -- step 22
+Script: Part12_Fig18_Analysis.r
+Shared file: Part12_03_Config.r
+Run ID: 20261019-0912-fedora
+Start: 2026-10-19 09:12:33
+Machine: fac31f98ee06 | R version 4.6.1 (2026-06-24)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 22-01 script saved in Part12_rerun | Part12_Fig18_Analysis.r
+
+Pre-set reading: Figure 18 definitions, shared by 18A to 18E | Part12_rerun/Part12_Preset_Readings.md
+Pre-set reading: 18A. Can a nuclear-encoded mitochondrial panel replace the Module? | Part12_rerun/Part12_Preset_Readings.md
+SECTION A -- inputs
+[PASS] 22-02 04_cell_labels.csv.gz listed in the 04_Labels log | Part12_rerun/04_Labels/04_cell_labels.csv.gz
+[PASS] 22-03 02_counts.mtx.gz listed in the 02_Extract log | Part12_rerun/02_Extract/02_counts.mtx.gz
+[PASS] 22-04 02_counts_genes.tsv listed in the 02_Extract log | Part12_rerun/02_Extract/02_counts_genes.tsv
+[PASS] 22-05 02_counts_cells.tsv listed in the 02_Extract log | Part12_rerun/02_Extract/02_counts_cells.tsv
+[PASS] 22-06 02_matched_sets.csv listed in the 02_Extract log | Part12_rerun/02_Extract/02_matched_sets.csv
+[PASS] 22-07 05_donors.csv listed in the 05_Units log | Part12_rerun/05_Units/05_donors.csv
+[PASS] 22-08 labels and donor table carry this labels version | checked
+[PASS] 22-09 count matrix, gene list and cell list agree | 37714 x 955
+[PASS] 22-10 every labelled cell is in the count matrix | 36967 cells
+[PASS] 22-11 M4: every panel set is in 02_matched_sets.csv | 16 sets for Micro-PVM_3-SEAAD
+[PASS] 22-12 PVM_3: every panel set is in 02_matched_sets.csv | 16 sets for Micro-PVM_3-SEAAD
+[PASS] 22-13 PVM_1: every panel set is in 02_matched_sets.csv | 16 sets for Micro-PVM_1
+[PASS] 22-14 HKG8: every panel set is in 02_matched_sets.csv | 16 sets for Micro-PVM_3-SEAAD
+
+SECTION B -- donor panel scores
+  M4     NeoC     cells  2130 | donors with 20 or more cells:  34 of  78
+  M4     NonNeoC  cells  1987 | donors with 20 or more cells:  31 of  80
+  PVM_3  NeoC     cells 13331 | donors with 20 or more cells:  78 of  84
+  PVM_3  NonNeoC  cells 11132 | donors with 20 or more cells:  75 of  83
+  PVM_1  NeoC     cells  3218 | donors with 20 or more cells:  54 of  84
+  PVM_1  NonNeoC  cells  2658 | donors with 20 or more cells:  44 of  83
+  HKG8   NeoC     cells  1432 | donors with 20 or more cells:  28 of  74
+  HKG8   NonNeoC  cells  1079 | donors with 20 or more cells:  19 of  77
+[NOTE] panels below the gene floor | none
+[PASS] 22-15 every panel gene is in the count matrix | 128 panel rows
+
+SECTION C -- models
+  M4 primary rows (cognition, both region sets), verdict counts per panel:
+   second predictor: module
+    nuclear_mito_all   second only 3, Both 0, NE panel only 0, Neither 3, Unreadable 0, Untestable 0
+    oxphos_core        second only 4, Both 0, NE panel only 0, Neither 2, Unreadable 0, Untestable 0
+    ci_nduf            second only 4, Both 0, NE panel only 0, Neither 2, Unreadable 0, Untestable 0
+    cii_sdh            second only 2, Both 0, NE panel only 0, Neither 4, Unreadable 0, Untestable 0
+    ciii_uqcr          second only 1, Both 2, NE panel only 0, Neither 3, Unreadable 0, Untestable 0
+    civ_cox            second only 1, Both 0, NE panel only 0, Neither 5, Unreadable 0, Untestable 0
+    cv_atp5            second only 2, Both 0, NE panel only 0, Neither 4, Unreadable 0, Untestable 0
+    assembly           second only 1, Both 0, NE panel only 0, Neither 5, Unreadable 0, Untestable 0
+    biogenesis         second only 1, Both 0, NE panel only 0, Neither 5, Unreadable 0, Untestable 0
+    mitoribo           second only 3, Both 0, NE panel only 0, Neither 3, Unreadable 0, Untestable 0
+    import             second only 3, Both 0, NE panel only 0, Neither 3, Unreadable 0, Untestable 0
+    dynamics           second only 2, Both 0, NE panel only 0, Neither 4, Unreadable 0, Untestable 0
+    mitophagy          second only 1, Both 0, NE panel only 0, Neither 5, Unreadable 0, Untestable 0
+    tca                second only 2, Both 0, NE panel only 0, Neither 4, Unreadable 0, Untestable 0
+    glycolysis         second only 1, Both 0, NE panel only 0, Neither 5, Unreadable 0, Untestable 0
+    reference          second only 1, Both 0, NE panel only 0, Neither 5, Unreadable 0, Untestable 0
+   second predictor: mito
+    nuclear_mito_all   second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    oxphos_core        second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    ci_nduf            second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    cii_sdh            second only 1, Both 0, NE panel only 0, Neither 5, Unreadable 0, Untestable 0
+    ciii_uqcr          second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    civ_cox            second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    cv_atp5            second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    assembly           second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    biogenesis         second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    mitoribo           second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    import             second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    dynamics           second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    mitophagy          second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    tca                second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    glycolysis         second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+    reference          second only 0, Both 0, NE panel only 0, Neither 6, Unreadable 0, Untestable 0
+  M4     module all rows: second only 65, Both 4, NE panel only 4, Neither 215, Unreadable 0, Untestable 0 | max VIF 1.30
+  M4     mito   all rows: second only 11, Both 0, NE panel only 6, Neither 271, Unreadable 0, Untestable 0 | max VIF 1.66
+  PVM_3  module all rows: second only 221, Both 3, NE panel only 0, Neither 64, Unreadable 0, Untestable 0 | max VIF 1.57
+  PVM_3  mito   all rows: second only 227, Both 1, NE panel only 0, Neither 60, Unreadable 0, Untestable 0 | max VIF 2.01
+  PVM_1  module all rows: second only 192, Both 0, NE panel only 1, Neither 95, Unreadable 0, Untestable 0 | max VIF 1.08
+  PVM_1  mito   all rows: second only 224, Both 0, NE panel only 1, Neither 63, Unreadable 0, Untestable 0 | max VIF 1.13
+  HKG8   module all rows: second only 0, Both 0, NE panel only 1, Neither 287, Unreadable 0, Untestable 0 | max VIF 1.52
+  HKG8   mito   all rows: second only 63, Both 0, NE panel only 0, Neither 225, Unreadable 0, Untestable 0 | max VIF 1.68
+
+SECTION D -- write
+[PASS] 22-16 stats and plot files written | 18A 6912 rows | 2304 verdicts
+
+Outputs:
+  Part12_rerun/10_Fig18/18A_NuclearPanels/Stats_18A.csv | 1.3 MB
+  Part12_rerun/10_Fig18/18A_NuclearPanels/Plot_18A_verdicts.csv | 0.4 MB
+  Part12_rerun/10_Fig18/18A_NuclearPanels/Plot_18A_panels.csv | 0.0 MB
+Checks: 16 PASS, 0 FAIL, 0 WARN | duration 0.1 min
+VERDICT: PASS
+Part 12 rerun -- step 23
+Script: Part12_Fig18_Analysis.r
+Shared file: Part12_03_Config.r
+Run ID: 20261019-0912-fedora
+Start: 2026-10-19 09:12:40
+Machine: fac31f98ee06 | R version 4.6.1 (2026-06-24)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 23-01 script saved in Part12_rerun | Part12_Fig18_Analysis.r
+
+Pre-set reading: Figure 18 definitions, shared by 18A to 18E | Part12_rerun/Part12_Preset_Readings.md
+Pre-set reading: 18B. Does any %MT threshold reproduce the Module cells? (descriptive) | Part12_rerun/Part12_Preset_Readings.md
+Pre-set reading: 18C. Does %MT distinguish Module cells within a donor? | Part12_rerun/Part12_Preset_Readings.md
+SECTION A -- inputs
+[PASS] 23-02 04_cell_labels.csv.gz listed in the 04_Labels log | Part12_rerun/04_Labels/04_cell_labels.csv.gz
+[PASS] 23-03 labels carry this labels version | 36967 cells
+[PASS] 23-04 %MT and Module membership on every cell | checked
+
+SECTION B -- 18B, cells pooled over donors
+  M4     NeoC     Module  1656 | non-Module   474 | AUC 0.586 (does not recover) | kappa 0.173 | best cut 1.21%
+  M4     NonNeoC  Module  1474 | non-Module   513 | AUC 0.547 (does not recover) | kappa 0.178 | best cut 1.30%
+  PVM_3  NeoC     Module  9454 | non-Module  3877 | AUC 0.579 (does not recover) | kappa 0.218 | best cut 0.85%
+  PVM_3  NonNeoC  Module  7735 | non-Module  3397 | AUC 0.559 (does not recover) | kappa 0.208 | best cut 1.19%
+  PVM_1  NeoC     Module  2202 | non-Module  1016 | AUC 0.633 (partial) | kappa 0.271 | best cut 0.64%
+  PVM_1  NonNeoC  Module  1936 | non-Module   722 | AUC 0.615 (partial) | kappa 0.242 | best cut 0.97%
+  HKG8   NeoC     Module   526 | non-Module   906 | AUC 0.513 (does not recover) | kappa 0.033 | best cut 1.34%
+  HKG8   NonNeoC  Module   431 | non-Module   648 | AUC 0.520 (does not recover) | kappa 0.044 | best cut 0.40%
+
+SECTION C -- 18C, within donor (20 or more cells per side)
+  M4     NeoC     donors   5 | median AUC untestable | FDR NA
+  PVM_3  NeoC     donors  59 | median AUC 0.527 [0.477, 0.599] | FDR 5.04e-01
+  PVM_1  NeoC     donors  13 | median AUC 0.576 [0.504, 0.667] | FDR 6.60e-02
+  HKG8   NeoC     donors   5 | median AUC untestable | FDR NA
+  M4     NonNeoC  donors   6 | median AUC untestable | FDR NA
+  PVM_3  NonNeoC  donors  47 | median AUC 0.504 [0.469, 0.535] | FDR 6.64e-01
+  PVM_1  NonNeoC  donors  10 | median AUC 0.603 [0.459, 0.719] | FDR 2.23e-01
+  HKG8   NonNeoC  donors   3 | median AUC untestable | FDR NA
+
+SECTION D -- write
+[PASS] 23-05 stats and plot files written | 18B 32 | 18C 8 rows | 148 donor AUCs
+
+Outputs:
+  Part12_rerun/10_Fig18/18BC_MTOverlap/Stats_18B.csv | 0.0 MB
+  Part12_rerun/10_Fig18/18BC_MTOverlap/Stats_18C.csv | 0.0 MB
+  Part12_rerun/10_Fig18/18BC_MTOverlap/Plot_18B_cells.csv | 2.4 MB
+  Part12_rerun/10_Fig18/18BC_MTOverlap/Plot_18C_donors.csv | 0.0 MB
+Checks: 5 PASS, 0 FAIL, 0 WARN | duration 0.0 min
+VERDICT: PASS
+Part 12 rerun -- step 24
+Script: Part12_Fig18_Analysis.r
+Shared file: Part12_03_Config.r
+Run ID: 20261019-0912-fedora
+Start: 2026-10-19 09:12:41
+Machine: fac31f98ee06 | R version 4.6.1 (2026-06-24)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6 | parallel 4.6.1
+Config: Part12_rerun/Part12_01_config.json | version 16
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 24-01 script saved in Part12_rerun | Part12_Fig18_Analysis.r
+
+Pre-set reading: Figure 18 definitions, shared by 18A to 18E | Part12_rerun/Part12_Preset_Readings.md
+Pre-set reading: 18D. How many donors does each effect need? (simulation) | Part12_rerun/Part12_Preset_Readings.md
+Pre-set reading: 18E. What does raising the region floor cost? (descriptive) | Part12_rerun/Part12_Preset_Readings.md
+Pre-set reading: Supplementary Figure 17. Donor-count curves per arm | Part12_rerun/Part12_Preset_Readings.md
+SECTION A -- inputs
+[PASS] 24-02 05_units.csv listed in the 05_Units log | Part12_rerun/05_Units/05_units.csv
+[PASS] 24-03 05_donors.csv listed in the 05_Units log | Part12_rerun/05_Units/05_donors.csv
+[PASS] 24-04 Stats_16A.csv listed in the 08_Fig16/16AB_DonorStructure log | Part12_rerun/08_Fig16/16AB_DonorStructure/Stats_16A.csv
+[PASS] 24-05 unit table carries this labels version | 856 units
+
+SECTION B -- arms, observed shares and the null per donor count
+[PASS] 24-06 M4 donor share equals the 16A estimate | 0.695671 against 16A 0.695671
+[PASS] 24-07 M4 cov4 and MMSE_num agree between a donor's region-set rows | 83 donors | 0 conflicting fields
+[PASS] 24-08 M4 rescaled donor shares equal their targets | 1.00x 0.6957 | 0.75x 0.5218 | 0.50x 0.3478
+  M4     units  125 | donors  51 | observed share 0.696 | null p95 at n: 10 0.635, 15 0.562, 20 0.527, 25 0.511, 30 0.460, 40 0.499, 50 0.469
+[PASS] 24-09 PVM_3 donor share equals the 16A estimate | 0.731795 against 16A 0.731795
+[PASS] 24-10 PVM_3 cov4 and MMSE_num agree between a donor's region-set rows | 84 donors | 0 conflicting fields
+[PASS] 24-11 PVM_3 rescaled donor shares equal their targets | 1.00x 0.7318 | 0.75x 0.5488 | 0.50x 0.3659
+  PVM_3  units  450 | donors  83 | observed share 0.732 | null p95 at n: 10 0.305, 15 0.277, 20 0.257, 25 0.259, 30 0.252, 40 0.246, 50 0.224, 60 0.219, 70 0.221, 83 0.220
+[PASS] 24-12 PVM_1 donor share equals the 16A estimate | 0.738724 against 16A 0.738724
+[PASS] 24-13 PVM_1 cov4 and MMSE_num agree between a donor's region-set rows | 84 donors | 0 conflicting fields
+[PASS] 24-14 PVM_1 rescaled donor shares equal their targets | 1.00x 0.7387 | 0.75x 0.5540 | 0.50x 0.3694
+  PVM_1  units  201 | donors  66 | observed share 0.739 | null p95 at n: 10 0.526, 15 0.463, 20 0.456, 25 0.411, 30 0.420, 40 0.396, 50 0.396, 60 0.395
+[PASS] 24-15 HKG8 donor share equals the 16A estimate | 0.416512 against 16A 0.416512
+[PASS] 24-16 HKG8 cov4 and MMSE_num agree between a donor's region-set rows | 82 donors | 0 conflicting fields
+[PASS] 24-17 HKG8 rescaled donor shares equal their targets | 1.00x 0.4165 | 0.75x 0.3124 | 0.50x 0.2083
+  HKG8   units   80 | donors  38 | observed share 0.417 | null p95 at n: 10 0.679, 15 0.568, 20 0.568, 25 0.569, 30 0.582
+
+SECTION C -- 18D, 300 draws per point
+[NOTE] workers | 31 of 32 logical cores (PSOCK)
+[NOTE] simulation time | 0.4 min | 90 cells
+  M4     1.00x target share 0.696 | n at 80%: R1 15, R2 20, R3 25
+  M4     0.75x target share 0.522 | n at 80%: R1 50, R2 not reached, R3 25
+  M4     0.50x target share 0.348 | n at 80%: R1 not reached, R2 not reached, R3 25
+  PVM_3  1.00x target share 0.732 | n at 80%: R1 10, R2 15, R3 30
+  PVM_3  0.75x target share 0.549 | n at 80%: R1 10, R2 15, R3 30
+  PVM_3  0.50x target share 0.366 | n at 80%: R1 20, R2 not reached, R3 30
+  PVM_1  1.00x target share 0.739 | n at 80%: R1 10, R2 20, R3 40
+  PVM_1  0.75x target share 0.554 | n at 80%: R1 25, R2 not reached, R3 40
+  PVM_1  0.50x target share 0.369 | n at 80%: R1 not reached, R2 not reached, R3 40
+  HKG8   1.00x target share 0.417 | n at 80%: R1 not reached, R2 not reached, R3 not reached
+  HKG8   0.75x target share 0.312 | n at 80%: R1 not reached, R2 not reached, R3 not reached
+  HKG8   0.50x target share 0.208 | n at 80%: R1 not reached, R2 not reached, R3 not reached
+[NOTE] validity check: HKG8 R1 reaches 80% at no donor count | holds
+
+SECTION D -- 18E, minimum regions per donor
+  M4     3+: kept 0.37 share 0.63 split 0.70 | 4+: kept 0.22 share 0.62 split 0.78 | 5+: kept 0.18 share 0.75 split NA | 6+: kept 0.06 share 0.65 split NA | 7+: kept 0.04 share NA split NA
+[NOTE] M4 rise over 3+ regions | donor share +0.119, split-half +0.083 (margin 0.05)
+  PVM_3  3+: kept 0.84 share 0.72 split 0.85 | 4+: kept 0.49 share 0.67 split 0.88 | 5+: kept 0.47 share 0.66 split 0.88 | 6+: kept 0.46 share 0.67 split 0.88 | 7+: kept 0.43 share 0.66 split 0.87 | 8+: kept 0.39 share 0.65 split 0.89 | 9+: kept 0.24 share 0.46 split 0.81 | 10+: kept 0.13 share 0.43 split 0.82
+[NOTE] PVM_3 rise over 3+ regions | donor share -0.048, split-half +0.040 (margin 0.05)
+  PVM_1  3+: kept 0.38 share 0.67 split 0.77 | 4+: kept 0.27 share 0.62 split 0.78 | 5+: kept 0.23 share 0.57 split 0.71 | 6+: kept 0.18 share 0.56 split 0.73 | 7+: kept 0.12 share 0.55 split NA | 8+: kept 0.08 share 0.27 split NA | 9+: kept 0.05 share 0.15 split NA | 10+: kept 0.05 share 0.15 split NA
+[NOTE] PVM_1 rise over 3+ regions | donor share -0.048, split-half +0.010 (margin 0.05)
+  HKG8   3+: kept 0.34 share 0.36 split 0.30 | 4+: kept 0.11 share 0.22 split NA | 5+: kept 0.03 share NA split NA | 6+: kept 0.03 share NA split NA | 7+: kept 0.03 share NA split NA
+[NOTE] HKG8 rise over 3+ regions | donor share -0.146, split-half +0.000 (margin 0.05)
+
+SECTION E -- write
+[PASS] 24-18 stats and plot files written | 18D 72 | 18E 78 rows
+
+Outputs:
+  Part12_rerun/10_Fig18/18DE_DonorPower/Stats_18D.csv | 0.0 MB
+  Part12_rerun/10_Fig18/18DE_DonorPower/Stats_18E.csv | 0.0 MB
+  Part12_rerun/10_Fig18/18DE_DonorPower/Plot_18D_curves.csv | 0.0 MB
+  Part12_rerun/10_Fig18/18DE_DonorPower/Plot_18E_regions.csv | 0.0 MB
+Checks: 18 PASS, 0 FAIL, 0 WARN | duration 0.4 min
+VERDICT: PASS
+Figure 18 analysis: sections 22 to 24 all PASS. Next: run Part12_Fig18_Plots.r

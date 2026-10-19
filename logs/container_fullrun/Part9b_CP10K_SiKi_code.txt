@@ -1,0 +1,465 @@
+CEP_arms.R loaded.
+  CEP_HOME    : /data 
+  RESULTS_ROOT: /data 
+  Arms        : Mic13_PVM3, PVM3_all, PVM1_all, HKG8_matched 
+
+############################################################################
+  Part9b
+  Home        : /data
+  Results     : /data/Part9b
+  Arms to run : 1 of 4
+      Mic13_PVM3     -> Part9b_Mic13_PVM3   Mic13 PVM_3 (M4-top, primary)
+############################################################################
+
+============================================================================
+  ARM: Mic13_PVM3
+  Config: /data/R_config.R
+============================================================================
+R_config.R loaded (Module 1: MT-CO3 + 8 DFGs, ≥8/10 regions).
+  ARM_TAG   : Mic13_PVM3 
+  ARM_DIR   : /data/R_export_CP10K/Mic13_PVM3 
+  NEOC_DIR  : /data/R_export_CP10K/Mic13_PVM3/neocortex 
+  NONNC_DIR : /data/R_export_CP10K/Mic13_PVM3/nonneocortex 
+  SHARED_DIR: /data/R_export_CP10K/shared 
+  GOI       : MT-CO3 
+  DFG_NEOC  : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  DFG_NONNC : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Composite : cDFG 
+  RUN_SUFFIX: (none) 
+  Supertype : Micro-PVM_3-SEAAD 
+  Mod1 genes: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 ( 9 )
+  HKG_GENES : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 2130 NeoC / 1987 NonNeoC
+  Config OK: Mic13_PVM3 | MT-CO3 + 8 DFG | CP10K
+
+
+ ======================================================================== 
+  Part9b Si/Ki threshold justification
+  Arm     :  Mic13_PVM3 
+  Norm    :  CP10K 
+  Output  :  /data/Part9b/Part9b_Mic13_PVM3 
+======================================================================== 
+
+  Part9 RDS:
+     NeoC :  /data/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_NeoC_GAM_models.rds 
+     NonNeoC :  /data/Part9/Part9_Mic13_PVM3/Part9_CP10K_M4_NonNeoC_GAM_models.rds 
+
+  Loading Part9 RDS and computing SKCS inline...
+
+  Pooling NonNeoC: 4 regions (HIP, MEC, LEC, FI)
+    HIP: 445 GOI-positive cells
+    MEC: 1156 GOI-positive cells
+    LEC: 190 GOI-positive cells
+    FI: 196 GOI-positive cells
+  NonNeoC pooled: 1987 cells
+  [NonNeoC_Pooled] Global Spearman rho = 0.8406  |  Si_max = 496.50
+  [NonNeoC_Pooled] Using tau_b denominator | cells with ties: 117 / 1987
+  [NonNeoC_Pooled] Global Kendall tau  = 0.6538
+  [NonNeoC_Pooled] SKCS-core: 1303 (65.6%)  |  Non-SKCS: 684 (34.4%)
+
+  Pooling NeoC: 6 regions (DFC, MTG, AnG, STG, V1C, ITG)
+    DFC: 719 GOI-positive cells
+    MTG: 444 GOI-positive cells
+    AnG: 183 GOI-positive cells
+    STG: 272 GOI-positive cells
+    V1C: 302 GOI-positive cells
+    ITG: 210 GOI-positive cells
+  NeoC pooled: 2130 cells
+  [NeoC_Pooled] Global Spearman rho = 0.8557  |  Si_max = 532.25
+  [NeoC_Pooled] n=2130 > 2000 -- chunked Kendall (chunk=500)
+  [NeoC_Pooled] Using tau_b denominator | cells with ties: 89 / 2130
+  [NeoC_Pooled] Global Kendall tau  = 0.6756
+  [NeoC_Pooled] SKCS-core: 1419 (66.6%)  |  Non-SKCS: 711 (33.4%)
+  SKCS computation complete.
+
+
+ ======================================================================== 
+  Dataset: NonNeoC
+======================================================================== 
+
+  1987 GOI-positive cells
+  Si_norm: [-0.8538, 0.9970]  median=0.1998
+  Ki:      [-0.8556, 0.9970]  median=0.6737
+
+  -- Section 1: Empirical waist boundary --
+    Waist peak: |Si_norm| = 0.0051 (density = 15.36)
+    Density trough at |Si_norm| = 0.0412 (density = 6.18)
+    Density drop: 59.7% from peak to trough
+    >>> Empirical waist boundary: |Si_norm| < 0.0412 (density trough) <<<
+    Waist cells: 416 (20.9% of total)
+    Saved: Part9b_CP10K_M4_NonNeoC_waist_boundary.png
+
+  -- Section 1b: Rank-based waist boundary --
+    n_cells = 1987 | median_rank = 994.0
+    Option A (resolution limit): K = 1.0 ranks
+    Option B (rank noise floor): K = 44.6 ranks (sqrt(n))
+    Option C (rank SE):          K = 12.9 ranks (sqrt(n/12))
+    Theoretical bounds (2K/(n-1)):
+      A: 0.001007 | B: 0.044890 | C: 0.012959
+    Empirical bounds (max|Si| for cells within K ranks):
+      A: 0.000709 (3 cells, 0.2%)
+      B: 0.025974 (89 cells, 4.5%)
+      C: 0.007107 (25 cells, 1.3%)
+
+    Recovery zone size (waist_bnd to 0.05):
+      KDE (density trough):       waist=0.0412 | recovery = 53 cells
+      Option A (K=1):        waist=0.0007 | recovery = 447 cells
+      Option B (sqrt(n)):    waist=0.0260 | recovery = 159 cells
+      Option C (sqrt(n/12)): waist=0.0071 | recovery = 345 cells
+
+    Option B gap to threshold: 0.0240 (48.1% of threshold)
+
+    Waist boundary comparison:
+                   Option  K_ranks Theory_bound Empirical_bound N_waist_cells
+       KDE density trough       NA           NA        0.041202           416
+      A: Resolution (K=1)  1.00000     0.001007        0.000709             3
+ B: Noise floor (sqrt(n)) 44.57578     0.044890        0.025974            89
+  C: Rank SE (sqrt(n/12)) 12.86792     0.012959        0.007107            25
+ Pct_of_total N_recovery_zone
+         20.9              53
+          0.2             447
+          4.5             159
+          1.3             345
+    Saved: Part9b_CP10K_M4_NonNeoC_waist_rankbased.png
+    Saved: Part9b_CP10K_M4_NonNeoC_rank_vs_Si.png
+
+  -- Section 2: Si_norm GMM decomposition --
+    BIC-optimal: 4 components (BIC=-93.8)
+      C1: mean=0.3448  sd=0.2526  prop=57.1%
+      C2: mean=-0.0001  sd=0.0155  prop=9.8%
+      C3: mean=0.0524  sd=0.0767  prop=24.6%
+      C4: mean=0.8380  sd=0.0931  prop=8.4%
+    Adjacent intersections: 0.0192, 0.1414, 0.7547
+    Waist spike: C2 (mean=-0.0001, sd=0.0155, prop=9.8%)
+    Saved: Part9b_CP10K_M4_NonNeoC_gmm_Si_norm.png
+
+  -- Section 3: GMM posterior P(waist | Si_norm) --
+    Posterior decay:
+      Si_norm = 0.00: P(waist) = 64.8706%
+      Si_norm = 0.01: P(waist) = 58.1583%
+      Si_norm = 0.02: P(waist) = 41.1929%
+      Si_norm = 0.03: P(waist) = 19.1181%
+      Si_norm = 0.04: P(waist) = 5.0699%
+      Si_norm = 0.05: P(waist) = 0.8013% <- SKCS
+      Si_norm = 0.06: P(waist) = 0.0817%
+      Si_norm = 0.07: P(waist) = 0.0055%
+      Si_norm = 0.10: P(waist) = 0.0000%
+    Waist percentiles: 95th=0.0255  99th=0.0361  99.9th=0.0479
+    P(waist) = 5%  at Si_norm = 0.0401
+    P(waist) = 1%  at Si_norm = 0.0489
+    >>> P(waist | 0.05) = 0.8013% <<<
+
+    Waist boundary reconciliation:
+      Density trough: 0.0412
+      GMM waist-grey: 0.0192 (lower, adopted)
+      >>> Reconciled waist boundary: |Si_norm| < 0.0192 <<<
+      Waist cells: 258 (13.0% of total)
+
+  -- Section 4: Rank-based verification --
+    GOI rank deviation by Si_norm bin:
+    Bin                        n   median      IQR
+    Waist: |Si|<0.019        258   0.0420   0.0871
+    [0.019, 0.04)             94   0.0804   0.1069
+    [0.04, 0.06)              71   0.1145   0.0971
+    [0.08, 0.12)             123   0.1462   0.1042
+    [0.15, 0.25)             216   0.2153   0.1125
+    [0.30, 0.50)             314   0.3050   0.0945
+
+    Normality (Shapiro-Wilk per bin):
+      Waist: |Si|<0.019      W=0.7945, p=9.84e-18 -> NON-NORMAL
+      [0.019, 0.04)          W=0.8479, p=2.13e-08 -> NON-NORMAL
+      [0.04, 0.06)           W=0.9258, p=4.32e-04 -> NON-NORMAL
+      [0.08, 0.12)           W=0.8911, p=5.25e-08 -> NON-NORMAL
+      [0.15, 0.25)           W=0.9515, p=1.14e-06 -> NON-NORMAL
+      [0.30, 0.50)           W=0.9820, p=5.64e-04 -> NON-NORMAL
+    At least one bin non-normal ->  Kruskal-Wallis + Dunn's post hoc
+
+    Kruskal-Wallis: chi2 = 653.96, df = 5, p = 4.42e-139
+    Dunn's post hoc (BH-corrected):
+  Kruskal-Wallis rank sum test
+
+data: x and group
+Kruskal-Wallis chi-squared = 653.9554, df = 5, p-value = 0
+
+
+                    Dunn's Pairwise Comparison of x by group                    
+                              (Benjamini-Hochberg)                              
+
+Col Mean-│
+Row Mean │   Waist: |   [0.019,    [0.04, 0   [0.08, 0   [0.15, 0
+─────────┼───────────────────────────────────────────────────────
+[0.019,  │  -2.729434
+         │     0.0073*
+         │
+[0.04, 0 │  -3.779041  -1.129683
+         │     0.0002*    0.2586 
+         │
+[0.08, 0 │  -7.620227  -3.694480  -2.204089
+         │     0.0000*    0.0003*    0.0295*
+         │
+[0.15, 0 │  -14.74928  -8.347418  -6.241320  -4.650368
+         │     0.0000*    0.0000*    0.0000*    0.0000*
+         │
+[0.30, 0 │  -23.63063  -14.09189  -11.25599  -10.81748  -7.074380
+         │     0.0000*    0.0000*    0.0000*    0.0000*    0.0000*
+
+FDR = 0.05
+Reject Ho if adjusted p ≤ FDR with stopping rule, where (unadjusted) p = Pr(|Z| ≥ |z|)
+
+    Key comparison (Waist vs [0.04, 0.06)):
+      z = -3.7790, BH-adjusted p = 2.15e-04
+      Waist:  median = 0.0420 (n=258)
+      [0.04, 0.06): median = 0.1145 (n=71)
+      Ratio: 2.7x more dispersed at threshold
+    Kendall tau: 0.6507 (p = 0.00e+00)
+    FDR-corrected: KW FDR = 4.42e-139 | Kendall FDR = 0.00e+00
+
+  -- Section 5: Synthesis --
+
+    Threshold comparison:
+ Dataset                    Approach  Si_thresh                   Note
+ NonNeoC              SKCS (adopted) 0.05000000      Adopted threshold
+ NonNeoC GMM waist-grey intersection 0.01924923 GMM component boundary
+ NonNeoC           GMM P(waist) < 5% 0.04008648  P(waist|0.05) = 0.80%
+ NonNeoC           GMM P(waist) < 1% 0.04891931  P(waist|0.05) = 0.80%
+
+    Key result: P(waist | Si_norm = 0.05) = 0.8013%
+    Saved: Part9b_CP10K_M4_NonNeoC_synthesis.png
+
+
+ ======================================================================== 
+  Dataset: NeoC
+======================================================================== 
+
+  2130 GOI-positive cells
+  Si_norm: [-0.5825, 1.0000]  median=0.1985
+  Ki:      [-0.5500, 1.0000]  median=0.6853
+
+  -- Section 1: Empirical waist boundary --
+    Waist peak: |Si_norm| = 0.0048 (density = 16.84)
+    Density trough at |Si_norm| = 0.0254 (density = 7.63)
+    Density drop: 54.7% from peak to trough
+    >>> Empirical waist boundary: |Si_norm| < 0.0254 (density trough) <<<
+    Waist cells: 323 (15.2% of total)
+    Saved: Part9b_CP10K_M4_NeoC_waist_boundary.png
+
+  -- Section 1b: Rank-based waist boundary --
+    n_cells = 2130 | median_rank = 1065.5
+    Option A (resolution limit): K = 1.0 ranks
+    Option B (rank noise floor): K = 46.2 ranks (sqrt(n))
+    Option C (rank SE):          K = 13.3 ranks (sqrt(n/12))
+    Theoretical bounds (2K/(n-1)):
+      A: 0.000939 | B: 0.043355 | C: 0.012516
+    Empirical bounds (max|Si| for cells within K ranks):
+      A: 0.000354 (2 cells, 0.1%)
+      B: 0.032113 (92 cells, 4.3%)
+      C: 0.008696 (26 cells, 1.2%)
+
+    Recovery zone size (waist_bnd to 0.05):
+      KDE (density trough):       waist=0.0254 | recovery = 162 cells
+      Option A (K=1):        waist=0.0004 | recovery = 469 cells
+      Option B (sqrt(n)):    waist=0.0321 | recovery = 109 cells
+      Option C (sqrt(n/12)): waist=0.0087 | recovery = 319 cells
+
+    Option B gap to threshold: 0.0179 (35.8% of threshold)
+
+    Waist boundary comparison:
+                   Option  K_ranks Theory_bound Empirical_bound N_waist_cells
+       KDE density trough       NA           NA        0.025367           323
+      A: Resolution (K=1)  1.00000     0.000939        0.000354             2
+ B: Noise floor (sqrt(n)) 46.15192     0.043355        0.032113            92
+  C: Rank SE (sqrt(n/12)) 13.32291     0.012516        0.008696            26
+ Pct_of_total N_recovery_zone
+         15.2             162
+          0.1             469
+          4.3             109
+          1.2             319
+    Saved: Part9b_CP10K_M4_NeoC_waist_rankbased.png
+    Saved: Part9b_CP10K_M4_NeoC_rank_vs_Si.png
+
+  -- Section 2: Si_norm GMM decomposition --
+    BIC-optimal: 4 components (BIC=-44.8)
+      C1: mean=0.0436  sd=0.0748  prop=27.7%
+      C2: mean=0.0024  sd=0.0085  prop=7.3%
+      C3: mean=0.3179  sd=0.2335  prop=50.3%
+      C4: mean=0.7716  sd=0.1246  prop=14.7%
+    Adjacent intersections: 0.014, 0.1401, 0.6549
+    Waist spike: C2 (mean=0.0024, sd=0.0085, prop=7.3%)
+    Saved: Part9b_CP10K_M4_NeoC_gmm_Si_norm.png
+
+  -- Section 3: GMM posterior P(waist | Si_norm) --
+    Posterior decay:
+      Si_norm = 0.00: P(waist) = 67.3937%
+      Si_norm = 0.01: P(waist) = 57.5405%
+      Si_norm = 0.02: P(waist) = 18.4952%
+      Si_norm = 0.03: P(waist) = 0.9610%
+      Si_norm = 0.04: P(waist) = 0.0106%
+      Si_norm = 0.05: P(waist) = 0.0000% <- SKCS
+      Si_norm = 0.06: P(waist) = 0.0000%
+      Si_norm = 0.07: P(waist) = 0.0000%
+      Si_norm = 0.10: P(waist) = 0.0000%
+    Waist percentiles: 95th=0.0164  99th=0.0222  99.9th=0.0287
+    P(waist) = 5%  at Si_norm = 0.0252
+    P(waist) = 1%  at Si_norm = 0.0299
+    >>> P(waist | 0.05) = 0.0000% <<<
+
+    Waist boundary reconciliation:
+      Density trough: 0.0254
+      GMM waist-grey: 0.0140 (lower, adopted)
+      >>> Reconciled waist boundary: |Si_norm| < 0.0140 <<<
+      Waist cells: 226 (10.6% of total)
+
+  -- Section 4: Rank-based verification --
+    GOI rank deviation by Si_norm bin:
+    Bin                        n   median      IQR
+    Waist: |Si|<0.014        226   0.0338   0.0619
+    [0.014, 0.04)            127   0.0817   0.0911
+    [0.04, 0.06)              91   0.1028   0.1049
+    [0.08, 0.12)             132   0.1543   0.1016
+    [0.15, 0.25)             212   0.2246   0.0847
+    [0.30, 0.50)             327   0.3150   0.0778
+
+    Normality (Shapiro-Wilk per bin):
+      Waist: |Si|<0.014      W=0.7436, p=1.93e-18 -> NON-NORMAL
+      [0.014, 0.04)          W=0.8391, p=1.86e-10 -> NON-NORMAL
+      [0.04, 0.06)           W=0.8721, p=2.47e-07 -> NON-NORMAL
+      [0.08, 0.12)           W=0.9210, p=1.01e-06 -> NON-NORMAL
+      [0.15, 0.25)           W=0.9548, p=3.08e-06 -> NON-NORMAL
+      [0.30, 0.50)           W=0.9912, p=4.96e-02 -> NON-NORMAL
+    At least one bin non-normal ->  Kruskal-Wallis + Dunn's post hoc
+
+    Kruskal-Wallis: chi2 = 737.67, df = 5, p = 3.50e-157
+    Dunn's post hoc (BH-corrected):
+  Kruskal-Wallis rank sum test
+
+data: x and group
+Kruskal-Wallis chi-squared = 737.6744, df = 5, p-value = 0
+
+
+                    Dunn's Pairwise Comparison of x by group                    
+                              (Benjamini-Hochberg)                              
+
+Col Mean-│
+Row Mean │   Waist: |   [0.014,    [0.04, 0   [0.08, 0   [0.15, 0
+─────────┼───────────────────────────────────────────────────────
+[0.014,  │  -3.510585
+         │     0.0005*
+         │
+[0.04, 0 │  -5.504921  -2.141539
+         │     0.0000*    0.0322*
+         │
+[0.08, 0 │  -9.077173  -4.867796  -2.281997
+         │     0.0000*    0.0000*    0.0241*
+         │
+[0.15, 0 │  -15.35107  -9.610871  -6.258259  -4.269576
+         │     0.0000*    0.0000*    0.0000*    0.0000*
+         │
+[0.30, 0 │  -24.75840  -16.75997  -12.30372  -11.12595  -7.643043
+         │     0.0000*    0.0000*    0.0000*    0.0000*    0.0000*
+
+FDR = 0.05
+Reject Ho if adjusted p ≤ FDR with stopping rule, where (unadjusted) p = Pr(|Z| ≥ |z|)
+
+    Key comparison (Waist vs [0.04, 0.06)):
+      z = -5.5049, BH-adjusted p = 5.54e-08
+      Waist:  median = 0.0338 (n=226)
+      [0.04, 0.06): median = 0.1028 (n=91)
+      Ratio: 3.0x more dispersed at threshold
+    Kendall tau: 0.6727 (p = 0.00e+00)
+    FDR-corrected: KW FDR = 3.50e-157 | Kendall FDR = 0.00e+00
+
+  -- Section 5: Synthesis --
+
+    Threshold comparison:
+ Dataset                    Approach  Si_thresh                   Note
+    NeoC              SKCS (adopted) 0.05000000      Adopted threshold
+    NeoC GMM waist-grey intersection 0.01395030 GMM component boundary
+    NeoC           GMM P(waist) < 5% 0.02517657  P(waist|0.05) = 0.00%
+    NeoC           GMM P(waist) < 1% 0.02989513  P(waist|0.05) = 0.00%
+
+    Key result: P(waist | Si_norm = 0.05) = 0.0000%
+    Saved: Part9b_CP10K_M4_NeoC_synthesis.png
+
+
+  -- Section 6: Posterior profile plot --
+    Saved: Part9b_CP10K_M4_posterior_profile.png
+
+
+ ======================================================================== 
+  SUMMARY
+======================================================================== 
+
+  Waist boundary (density gap):
+     NonNeoC: |Si_norm| < 0.0192 (capped at GMM waist-grey (density trough was 0.0412))
+     NeoC: |Si_norm| < 0.0140 (capped at GMM waist-grey (density trough was 0.0254))
+
+  GMM waist spike:
+     NonNeoC: waist spike C2 (mean=-0.0001, sd=0.0155, 9.8% of cells)
+     NeoC: waist spike C2 (mean=0.0024, sd=0.0085, 7.3% of cells)
+
+  Rank verification at 0.05:
+     NonNeoC: 2.7x dispersion ratio | KW FDR = 4.4e-139, Dunn's p.adj = 2.1e-04 | tau = 0.651
+     NeoC: 3.0x dispersion ratio | KW FDR = 3.5e-157, Dunn's p.adj = 5.5e-08 | tau = 0.673
+
+  GMM posterior at threshold:
+     NonNeoC: P(waist | Si_norm = 0.05) = 0.8013%
+     NeoC: P(waist | Si_norm = 0.05) = 0.0000%
+
+ ======================================================================== 
+  Export
+======================================================================== 
+  Excel: Part9b_CP10K_M4_SiKi_threshold_comparison.xlsx
+  RDS: Part9b_CP10K_M4_SiKi_results.rds
+
+  Files:
+    Part9b_CP10K_M4_NeoC_gmm_Si_norm.png                      123 KB
+    Part9b_CP10K_M4_NeoC_rank_vs_Si.png                       235 KB
+    Part9b_CP10K_M4_NeoC_synthesis.png                         71 KB
+    Part9b_CP10K_M4_NeoC_waist_boundary.png                    88 KB
+    Part9b_CP10K_M4_NeoC_waist_rankbased.png                   93 KB
+    Part9b_CP10K_M4_NonNeoC_gmm_Si_norm.png                   124 KB
+    Part9b_CP10K_M4_NonNeoC_rank_vs_Si.png                    231 KB
+    Part9b_CP10K_M4_NonNeoC_synthesis.png                      71 KB
+    Part9b_CP10K_M4_NonNeoC_waist_boundary.png                 90 KB
+    Part9b_CP10K_M4_NonNeoC_waist_rankbased.png                94 KB
+    Part9b_CP10K_M4_posterior_profile.png                      99 KB
+    Part9b_CP10K_M4_SiKi_Log.txt                               14 KB
+    Part9b_CP10K_M4_SiKi_results.rds                          191 KB
+    Part9b_CP10K_M4_SiKi_threshold_comparison.xlsx             16 KB
+
+ ======================================================================== 
+  Part9b complete ( Mic13_PVM3 )
+======================================================================== 
+
+############################################################################
+  Part9b COMPLETE -- 0.1 mins
+############################################################################
+
+  Arm             Folder                    PASS    WARN    FAIL  Status
+  ----------------------------------------------------------------------------------
+  Mic13_PVM3      Part9b_Mic13_PVM3            2       0       0  ok
+
+  Results under: /data/Part9b
+R_config.R loaded (Module 1: MT-CO3 + 8 DFGs, ≥8/10 regions).
+  ARM_TAG   : Mic13_PVM3 
+  ARM_DIR   : /data/R_export_CP10K/Mic13_PVM3 
+  NEOC_DIR  : /data/R_export_CP10K/Mic13_PVM3/neocortex 
+  NONNC_DIR : /data/R_export_CP10K/Mic13_PVM3/nonneocortex 
+  SHARED_DIR: /data/R_export_CP10K/shared 
+  GOI       : MT-CO3 
+  DFG_NEOC  : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  DFG_NONNC : MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 
+  Composite : cDFG 
+  RUN_SUFFIX: (none) 
+  Supertype : Micro-PVM_3-SEAAD 
+  Mod1 genes: MT-CO3, MT-ATP6, MT-CO2, MT-ND3, MT-ND4, MT-CYB, MT-ND1, MT-ND2, MT-CO1 ( 9 )
+  HKG_GENES : ACTB, EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, HNRNPA2B1 ( 9 )
+  Export record validated: Part8_export_record.csv 
+    h5ad    : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad 
+    release : 2026-06-22 Multiregion 
+    selected: 2130 NeoC / 1987 NonNeoC
+  Session configuration reset to the primary arm: Mic13_PVM3
+

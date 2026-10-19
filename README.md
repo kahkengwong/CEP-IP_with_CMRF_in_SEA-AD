@@ -170,7 +170,7 @@ The five figures below follow the main steps of the analysis, using M4 NeoC as t
 | `requirements-python.txt` | Exact Python package versions (Python 3.13.14). |
 | `verification/` | <ul><li>`run_rest.sh` and `run_python.sh`: the run scripts used for the reproduction check, before `seaad-run`</li><li>`compare_rerun.py`, `compare_python.py`, and `compare_gamdata.py`: compare a rerun with the original results</li><li>The comparisons of the container reruns with the original results: `compare_all_*` for R; `compare_python_*` and `compare_gamdata_log.txt` for Python</li></ul> |
 | `figures/` | The workflow figure (`Workflow.png`) and Figures 1 to 5 of the Methods and Key Results section. |
-| `logs/` | <ul><li>`container_rerun/`: console logs of the container rerun of R Part 9 onward and the Part 12 Python step</li><li>`container_rerun_python/`: console logs of the container rerun of Python Parts 1 to 8</li><li>`original_R/`: logs of the original runs from Part 9 onward</li><li>`original_python/`: logs of the original runs of Python Parts 1 to 8</li><li>`logs/README.md` describes each folder and maps the Python logs to their scripts</li></ul> |
+| `logs/` | <ul><li>`container_rerun/`: console logs of the container rerun of R Part 9 onward and the Part 12 Python step</li><li>`container_rerun_python/`: console logs of the container rerun of Python Parts 1 to 8</li><li>`container_fullrun/`: console logs of the one-command run (`seaad-run all`) in a new folder</li><li>`original_R/`: logs of the original runs from Part 9 onward</li><li>`original_python/`: logs of the original runs of Python Parts 1 to 8</li><li>`logs/README.md` describes each folder and maps the Python logs to their scripts</li></ul> |
 
 ---
 

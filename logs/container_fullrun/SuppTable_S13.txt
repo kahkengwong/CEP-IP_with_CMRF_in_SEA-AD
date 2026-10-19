@@ -1,0 +1,16 @@
+run_supp_tables.sh started 2026-10-19 09:19:28 | root /data | tables 13
+
+== S13
+Checks: 57 PASS, 0 FAIL, 0 NOTE
+Output: /data/Part12_rerun/07_Fig15/SuppTable_Fig15.xlsx
+VERDICT: PASS
+   S13 builder: done
+
+== finalize S13
+S13  Part12_rerun/07_Fig15/SuppTable_Fig15.xlsx
+Written: S13
+VERDICT: PASS
+
+Builders done: 13
+Builders failed: none
+Summary saved to /data/Manuscript/Supp_Tables/run_supp_tables_log.txt

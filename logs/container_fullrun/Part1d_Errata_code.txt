@@ -1,0 +1,309 @@
+
+==========================================================================
+  E0 - obs inventory and column resolution
+==========================================================================
+  file : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad
+  shape: (240651, 36601)
+  obs  : 240,651 rows x 130 columns
+
+  full obs column list:
+    [  0] sample_id
+    [  1] Neurotypical reference
+    [  2] Donor ID
+    [  3] Organism
+    [  4] Brain Region
+    [  5] Sex
+    [  6] Gender
+    [  7] Age at Death
+    [  8] Race (choice=White)
+    [  9] Race (choice=Black/ African American)
+    [ 10] Race (choice=Asian)
+    [ 11] Race (choice=American Indian/ Alaska Native)
+    [ 12] Race (choice=Native Hawaiian or Pacific Islander)
+    [ 13] Race (choice=Unknown or unreported)
+    [ 14] Race (choice=Other)
+    [ 15] specify other race
+    [ 16] Hispanic/Latino
+    [ 17] Highest level of education
+    [ 18] Years of education
+    [ 19] PMI
+    [ 20] Fresh Brain Weight
+    [ 21] Brain pH
+    [ 22] Overall AD neuropathological Change
+    [ 23] Thal
+    [ 24] Braak
+    [ 25] CERAD score
+    [ 26] Overall CAA Score
+    [ 27] Highest Lewy Body Disease
+    [ 28] Total Microinfarcts (not observed grossly)
+    [ 29] Total microinfarcts in screening sections
+    [ 30] Atherosclerosis
+    [ 31] Arteriolosclerosis
+    [ 32] LATE
+    [ 33] Cognitive Status
+    [ 34] Last CASI Score
+    [ 35] Interval from last CASI in months
+    [ 36] Last MMSE Score
+    [ 37] Interval from last MMSE in months
+    [ 38] Last MOCA Score
+    [ 39] Interval from last MOCA in months
+    [ 40] APOE Genotype
+    [ 41] Primary Study Name
+    [ 42] Secondary Study Name
+    [ 43] NeuN positive fraction on FANS
+    [ 44] RIN
+    [ 45] cell_prep_type
+    [ 46] facs_population_plan
+    [ 47] rna_amplification
+    [ 48] sample_name
+    [ 49] sample_quantity_count
+    [ 50] expc_cell_capture
+    [ 51] method
+    [ 52] pcr_cycles
+    [ 53] percent_cdna_longer_than_400bp
+    [ 54] rna_amplification_pass_fail
+    [ 55] amplified_quantity_ng
+    [ 56] load_name
+    [ 57] library_prep
+    [ 58] library_input_ng
+    [ 59] r1_index
+    [ 60] avg_size_bp
+    [ 61] quantification_fmol
+    [ 62] library_prep_pass_fail
+    [ 63] exp_component_vendor_name
+    [ 64] batch_vendor_name
+    [ 65] experiment_component_failed
+    [ 66] alignment
+    [ 67] Genome
+    [ 68] ar_id
+    [ 69] bc
+    [ 70] GEX_Estimated_number_of_cells
+    [ 71] GEX_number_of_reads
+    [ 72] GEX_sequencing_saturation
+    [ 73] GEX_Mean_raw_reads_per_cell
+    [ 74] GEX_Q30_bases_in_barcode
+    [ 75] GEX_Q30_bases_in_read_2
+    [ 76] GEX_Q30_bases_in_UMI
+    [ 77] GEX_Percent_duplicates
+    [ 78] GEX_Q30_bases_in_sample_index_i1
+    [ 79] GEX_Q30_bases_in_sample_index_i2
+    [ 80] GEX_Reads_with_TSO
+    [ 81] GEX_Sequenced_read_pairs
+    [ 82] GEX_Valid_UMIs
+    [ 83] GEX_Valid_barcodes
+    [ 84] GEX_Reads_mapped_to_genome
+    [ 85] GEX_Reads_mapped_confidently_to_genome
+    [ 86] GEX_Reads_mapped_confidently_to_intergenic_regions
+    [ 87] GEX_Reads_mapped_confidently_to_intronic_regions
+    [ 88] GEX_Reads_mapped_confidently_to_exonic_regions
+    [ 89] GEX_Reads_mapped_confidently_to_transcriptome
+    [ 90] GEX_Reads_mapped_antisense_to_gene
+    [ 91] GEX_Fraction_of_transcriptomic_reads_in_cells
+    [ 92] GEX_Total_genes_detected
+    [ 93] GEX_Median_UMI_counts_per_cell
+    [ 94] GEX_Median_genes_per_cell
+    [ 95] Multiome_Feature_linkages_detected
+    [ 96] Multiome_Linked_genes
+    [ 97] Multiome_Linked_peaks
+    [ 98] ATAC_Confidently_mapped_read_pairs
+    [ 99] ATAC_Fraction_of_genome_in_peaks
+    [100] ATAC_Fraction_of_high_quality_fragments_in_cells
+    [101] ATAC_Fraction_of_high_quality_fragments_overlapping_TSS
+    [102] ATAC_Fraction_of_high_quality_fragments_overlapping_peaks
+    [103] ATAC_Fraction_of_transposition_events_in_peaks_in_cells
+    [104] ATAC_Mean_raw_read_pairs_per_cell
+    [105] ATAC_Median_high_quality_fragments_per_cell
+    [106] ATAC_Non-nuclear_read_pairs
+    [107] ATAC_Number_of_peaks
+    [108] ATAC_Percent_duplicates
+    [109] ATAC_Q30_bases_in_barcode
+    [110] ATAC_Q30_bases_in_read_1
+    [111] ATAC_Q30_bases_in_read_2
+    [112] ATAC_Q30_bases_in_sample_index_i1
+    [113] ATAC_Sequenced_read_pairs
+    [114] ATAC_TSS_enrichment_score
+    [115] ATAC_Unmapped_read_pairs
+    [116] ATAC_Valid_barcodes
+    [117] Number of mapped reads
+    [118] Number of unmapped reads
+    [119] Number of multimapped reads
+    [120] Number of reads
+    [121] Number of UMIs
+    [122] Genes detected
+    [123] Doublet score
+    [124] Fraction mitochondrial UMIs
+    [125] Severely Affected Donor
+    [126] Class
+    [127] Subclass
+    [128] Supertype
+    [129] Used in analysis
+
+  resolved columns:
+    donor              -> Donor ID
+    region             -> Brain Region
+    supertype          -> Supertype
+    sex                -> Sex
+    library/specimen   -> library_prep
+
+==========================================================================
+  E1 - can the errata specimen IDs be matched to obs at all?
+==========================================================================
+  errata specimens: 42
+  of which CORRECT tissue is in the ten studied regions: 21
+  of which are WRONGLY labelled as a studied region: 3
+
+  numeric columns excluded from substring matching: 75 (e.g. ['Neurotypical reference', 'Age at Death', 'Years of education', 'PMI'])
+
+  columns containing errata specimen IDs:
+    column                                     n_uniq   exact  substr
+    sample_name                                   905       8       0
+    load_name                                     905       2       0
+
+  specimen key: 'sample_name' (exact match)
+
+==========================================================================
+  E2 - does obs match the corrected or the original values?
+==========================================================================
+  8 errata specimens have nuclei here (3,032 nuclei total)
+
+    specimen                  fix                 n  donor       tissue      
+    M1HX_230112_401_2_A01     donor;sex         513  CORRECT     CORRECT     
+    M1HX_230112_403_2_B01     donor;sex         347  CORRECT     CORRECT     
+    M1HX_230119_431_2_A01     donor;sex         295  CORRECT     CORRECT     
+    M1HX_230119_433_2_B01     donor;sex         651  CORRECT     CORRECT     
+    M1HX_230130_401_1_A01     donor;sex         260  CORRECT     CORRECT     
+    M1HX_230130_403_1_B01     donor;sex         564  CORRECT     CORRECT     
+    M2TX_210727_207_E01       donor;tissue      177  CORRECT     CORRECT     
+    M1TX_210723_159_G01       donor;tissue      225  CORRECT     CORRECT     
+
+  specimens matching the corrected metadata   : 8
+  specimens matching the original metadata    : 0
+  specimens matching neither (indeterminate)  : 0
+
+  corrections are in the file
+  saved: Part1_PreChecks/S1d_errata_specimen_audit.csv
+
+  affected nuclei in NeoC regions    : 3,032
+  affected nuclei in NonNeoC regions : 0
+
+==========================================================================
+  E2b - in-scope errata specimens with no nuclei here
+==========================================================================
+  in-scope errata specimens (corrected tissue is a studied region) : 21
+    tested in E2 (joined to obs)                                   : 8
+    not testable (no nuclei under this specimen ID)                : 13
+
+  join rate by assay class (in-scope specimens):
+    assay       in errata  joined to obs
+    ATAC                8              0
+    RNA                11              8
+    plate               2              0
+
+    specimen                  assay   fix         tissue donor(correct) in file?    nuclei
+    M2AT_220121_206_D01       ATAC    donor       MTG    H21.33.047     yes            382
+    M1AT_220902_207_B01       ATAC    donor       V1C    H20.33.015     yes            400
+    M1AT_220902_207_C01       ATAC    donor       V1C    H20.33.013     yes            247
+    M2AT_221007_221_A01       ATAC    donor       V1C    H21.33.019     yes            339
+    M2AT_221007_221_C01       ATAC    donor       V1C    H21.33.003     yes            325
+    M2AT_221024_206_A01       ATAC    donor       V1C    H20.33.031     yes            335
+    1406_B09                  plate   donor       V1C    H20.33.015     yes            400
+    1406_C09                  plate   donor       V1C    H20.33.013     yes            247
+    M1TX_191118_107_F01       RNA     donor;sex   V1C    H18.30.002     no               0
+    M1TX_191118_107_E01       RNA     donor;sex   V1C    H18.30.002     no               0
+    M1TX_191118_107_D01       RNA     donor;sex   V1C    H18.30.002     no               0
+    M2AT_221102_221_D01       ATAC    donor;sex   V1C    H20.33.033     yes            427
+    M2AT_221102_221_B01       ATAC    donor;sex   V1C    H20.33.037     yes            137
+
+  not an RNA specimen, so cannot be in this file      : 10
+  RNA specimen but its corrected donor is absent here : 3
+  residual (RNA, donor present, unverified)           : 0
+  verified on 8 of 21 in-scope specimens; no residual
+
+  specimens wrongly labelled as a studied region: 3
+    M2AT_221028_221_A01       V1C (labelled) -> CaH (really)
+    M2AT_221028_221_C01       V1C (labelled) -> CaH (really)
+    M2AT_221028_221_B01       V1C (labelled) -> CaH (really)
+
+==========================================================================
+  E3 - donor-ID sanity against the 84-donor cohort table
+==========================================================================
+  donor table: 84 rows x 66 columns
+  unique Donor ID in table : 84
+  unique donors in obs     : 84
+  donors in obs but not in the 84-donor table : 0
+  all obs donors are in the 84-donor table
+
+==========================================================================
+  E4 - sex consistency per donor
+==========================================================================
+  donors with more than one sex value in obs : 0
+  donors whose obs sex disagrees with the table : 0
+  sex is consistent within donors and with the table
+
+==========================================================================
+  E5 - region inventory
+==========================================================================
+  distinct region values (10): ['AnG', 'DFC', 'FI', 'HIP', 'ITG', 'LEC', 'MEC', 'MTG', 'STG', 'V1C']
+
+  expected regions absent : none
+  unexpected regions      : none
+  no caudate codes present
+
+  nuclei per region:
+    DFC    NeoC        41,553
+    MTG    NeoC        36,686
+    AnG    NeoC        10,279
+    STG    NeoC        15,214
+    V1C    NeoC        14,245
+    ITG    NeoC        16,111
+    HIP    NonNeoC     14,190
+    MEC    NonNeoC     63,137
+    LEC    NonNeoC     11,791
+    FI     NonNeoC     17,445
+
+==========================================================================
+  E6 - donor x region coverage
+==========================================================================
+  donors x regions matrix saved: Part1_PreChecks/S1d_donor_region_coverage.csv
+
+  donors with >=1 nucleus per region:
+    DFC    NeoC       80 donors  <- documented as all 84 donors
+    MTG    NeoC       84 donors  <- documented as all 84 donors
+    AnG    NeoC       43 donors
+    STG    NeoC       43 donors
+    V1C    NeoC       43 donors
+    ITG    NeoC       43 donors
+    HIP    NonNeoC    40 donors
+    MEC    NonNeoC    81 donors  <- documented as all 84 donors
+    LEC    NonNeoC    34 donors
+    FI     NonNeoC    41 donors
+
+  donors appearing in MTG/DFC/MEC (union) : 84
+  donors appearing in any AD-Spectrum region (union) : 43
+  donors appearing in all AD-Spectrum regions        : 32
+
+  distribution of regions-per-donor:
+     2 regions :    3 donors
+     3 regions :   38 donors
+     6 regions :    1 donors
+     8 regions :    4 donors
+     9 regions :    6 donors
+    10 regions :   32 donors
+
+  'Used in analysis': 240,651 of 240,651 nuclei flagged for analysis (100.000%)
+  all nuclei flagged
+
+==========================================================================
+  E7 - VERDICT
+==========================================================================
+  errata corrections applied to this file : True
+  caudate contamination                   : False
+  orphan donors (not in the 84)           : 0
+
+  verdict: clean
+
+  saved: Part1_PreChecks/S1d_errata_audit.txt
+
+==========================================================================
+  PART 1d COMPLETE
+==========================================================================

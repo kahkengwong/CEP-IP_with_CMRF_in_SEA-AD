@@ -1,0 +1,226 @@
+Part 12 rerun -- step 19
+Script: Part12_Fig17_Analysis.r
+Shared file: Part12_03_Config.r
+Run ID: 20261019-0911-fedora
+Start: 2026-10-19 09:11:05
+Machine: fac31f98ee06 | R version 4.6.1 (2026-06-24)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6 | parallel 4.6.1
+Config: Part12_rerun/Part12_01_config.json | version 16
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 19-01 script saved in Part12_rerun | Part12_Fig17_Analysis.r
+
+Pre-set reading: Definitions shared by 17A to 17E and Supplementary Figure 12 | Part12_rerun/Part12_Preset_Readings.md
+Pre-set reading: 17A. Does microglial shape track Module post-IP%, or just %MT? | Part12_rerun/Part12_Preset_Readings.md
+Pre-set reading: 17B. Does nearby pathology track Module post-IP%, or just %MT? | Part12_rerun/Part12_Preset_Readings.md
+Pre-set reading: Supplementary Figure 12. How do the stain families track each quantity? | Part12_rerun/Part12_Preset_Readings.md
+SECTION A -- inputs and join
+[PASS] 19-02 05_units.csv listed in the 05_Units log | Part12_rerun/05_Units/05_units.csv
+[PASS] 19-03 unit table carries this labels version | 856 units
+[PASS] 19-04 the config lists 28 distinct stain measures, none also excluded | 28 listed
+  input neuropathology table         Manuscript/Papers/MetaData_&_Green_Paper/sea-ad-quantitative-neuropathology-063026.xlsx | 1.5 MB
+  input CPS workbook                 Manuscript/Papers/MetaData_&_Green_Paper/sea-ad_global_and_local_cps_050126.xlsx | 0.1 MB
+[NOTE] sheets | neuropathology 'Travaglini 2026 (multi-region)' 758 rows | CPS 'Travaglini 2026' 632 rows
+[PASS] 19-05 every column of the sheet is a key, a used measure or an excluded measure | 28 used, 4 excluded
+[PASS] 19-06 the sheet has one analysis region | Grey matter
+[PASS] 19-07 every neuropathology region is mapped or has no sequencing | all mapped
+[NOTE] neuropathology rows without sequencing, left out | 126 rows: CaH, ESOC
+[PASS] 19-08 every stain value is numeric or empty | 0 non-numeric entries
+[PASS] 19-09 one neuropathology row per donor and region | 632 rows | 84 donors
+[PASS] 19-10 every CPS region is mapped or has no sequencing | all mapped
+[PASS] 19-11 every CPS value is numeric or empty | 0 non-numeric entries
+[PASS] 19-12 one CPS row per donor and region | 632 rows | 84 donors
+[PASS] 19-13 each global CPS score is constant within donor | CPS_Global max range 0.00e+00 | CPS_Global_ABeta max range 0.00e+00 | CPS_Global_pTau max range 0.00e+00
+[PASS] 19-14 every unit-table donor has a neuropathology row | 83 of 83 donors
+[PASS] 19-15 every unit-table donor has a CPS row | 83 of 83 donors
+[NOTE] M4 join | 125 units | histology 121 | CPS 121 | regions without histology: LEC
+[NOTE] PVM_3 join | 450 units | histology 426 | CPS 426 | regions without histology: LEC, MEC
+[NOTE] PVM_1 join | 201 units | histology 196 | CPS 196 | regions without histology: LEC
+[NOTE] HKG8 join | 80 units | histology 79 | CPS 79 | regions without histology: LEC
+[PASS] 19-16 every arm has joined units | histology and CPS
+[PASS] 19-17 the 17A measures are the 6 IBA1 measures | 6 listed
+
+SECTION B -- tasks
+[NOTE] tasks | 1300 (1120 histology, 180 CPS) | 1245 testable
+
+SECTION C -- donor bootstrap, donors drawn per arm (B = 10000)
+[NOTE] workers | 31 of 32 logical cores (PSOCK)
+[NOTE] M4 bootstrap | 51 donors | 325 columns
+[NOTE] PVM_3 bootstrap | 83 donors | 325 columns
+[NOTE] PVM_1 bootstrap | 66 donors | 325 columns
+[NOTE] HKG8 bootstrap | 38 donors | 325 columns
+[NOTE] bootstrap time | 0.7 min
+[PASS] 19-18 bootstrap matrix complete | 10000 x 1300
+
+SECTION D -- results against the readings
+  17A, within donor, Module post-IP% (predicted sign: + activated, - inactivated, - process area and length)
+    M4     average Iba1 positive process area per cell      Module -0.160 FDR 2.27e-01   predicted | %MT -0.292 | cyto -0.207 | donors 19
+    M4     average Iba1 positive process length per cell    Module -0.191 FDR 1.95e-01   predicted | %MT -0.348 | cyto -0.205 | donors 19
+    M4     number of activated Iba1 positive cells per area Module +0.015 FDR 8.95e-01   predicted | %MT +0.221 | cyto +0.003 | donors 19
+    M4     number of Iba1 positive cells per area           Module -0.013 FDR 8.95e-01             | %MT +0.086 | cyto -0.032 | donors 19
+    M4     number of inactivated Iba1 positive cells per area Module -0.097 FDR 5.59e-01   predicted | %MT -0.307 | cyto -0.121 | donors 19
+    M4     percent Iba1 positive area                       Module -0.328 FDR 1.95e-01             | %MT -0.241 | cyto -0.023 | donors 19
+    M4     shape measures significant in the predicted direction: 0 of 4 | opposite: 0
+    PVM_3  average Iba1 positive process area per cell      Module -0.173 FDR 5.70e-03   predicted | %MT -0.184 | cyto -0.105 | donors 69
+    PVM_3  average Iba1 positive process length per cell    Module -0.224 FDR 1.60e-03   predicted | %MT -0.239 | cyto -0.097 | donors 69
+    PVM_3  number of activated Iba1 positive cells per area Module +0.167 FDR 3.79e-02   predicted | %MT +0.227 | cyto -0.153 | donors 69
+    PVM_3  number of Iba1 positive cells per area           Module +0.001 FDR 9.78e-01             | %MT +0.056 | cyto -0.198 | donors 69
+    PVM_3  number of inactivated Iba1 positive cells per area Module -0.240 FDR 1.20e-03   predicted | %MT -0.223 | cyto -0.135 | donors 69
+    PVM_3  percent Iba1 positive area                       Module -0.229 FDR 1.20e-03             | %MT -0.229 | cyto -0.164 | donors 69
+    PVM_3  shape measures significant in the predicted direction: 4 of 4 | opposite: 0
+    PVM_1  average Iba1 positive process area per cell      Module -0.106 FDR 3.87e-01   predicted | %MT -0.132 | cyto +0.047 | donors 22
+    PVM_1  average Iba1 positive process length per cell    Module -0.133 FDR 3.87e-01   predicted | %MT -0.158 | cyto +0.025 | donors 22
+    PVM_1  number of activated Iba1 positive cells per area Module +0.169 FDR 3.87e-01   predicted | %MT +0.247 | cyto +0.046 | donors 22
+    PVM_1  number of Iba1 positive cells per area           Module +0.134 FDR 3.87e-01             | %MT +0.153 | cyto +0.042 | donors 22
+    PVM_1  number of inactivated Iba1 positive cells per area Module -0.102 FDR 3.87e-01   predicted | %MT -0.119 | cyto -0.066 | donors 22
+    PVM_1  percent Iba1 positive area                       Module -0.095 FDR 3.87e-01             | %MT -0.156 | cyto -0.087 | donors 22
+    PVM_1  shape measures significant in the predicted direction: 0 of 4 | opposite: 0
+    HKG8   average Iba1 positive process area per cell      Module +0.140 FDR 4.18e-01   opposite  | %MT -0.077 | cyto +0.094 | donors 11
+    HKG8   average Iba1 positive process length per cell    Module +0.021 FDR 8.26e-01   opposite  | %MT -0.180 | cyto +0.140 | donors 11
+    HKG8   number of activated Iba1 positive cells per area Module +0.194 FDR 4.18e-01   predicted | %MT +0.354 | cyto +0.067 | donors 11
+    HKG8   number of Iba1 positive cells per area           Module +0.116 FDR 6.63e-01             | %MT +0.308 | cyto +0.119 | donors 11
+    HKG8   number of inactivated Iba1 positive cells per area Module -0.099 FDR 7.38e-01   predicted | %MT -0.173 | cyto +0.193 | donors 11
+    HKG8   percent Iba1 positive area                       Module -0.426 FDR 1.92e-02             | %MT -0.059 | cyto +0.174 | donors 11
+    HKG8   shape measures significant in the predicted direction: 0 of 4 | opposite: 0
+  17B, Module post-IP% against CPS
+    M4     within donor    CPS_Local -0.069 (9.35e-01) | CPS_Local_ABeta -0.204 (2.61e-01) | CPS_Local_pTau +0.014 (9.35e-01)
+    M4     between donors  CPS_Global +0.511 (1.80e-03) | CPS_Global_ABeta +0.285 (7.72e-02) | CPS_Global_pTau +0.566 (1.20e-03) | CPS_Local +0.260 (1.06e-01) | CPS_Local_ABeta +0.182 (2.07e-01) | CPS_Local_pTau +0.216 (1.76e-01)
+    PVM_3  within donor    CPS_Local +0.055 (3.82e-01) | CPS_Local_ABeta -0.047 (3.82e-01) | CPS_Local_pTau +0.111 (1.65e-01)
+    PVM_3  between donors  CPS_Global +0.452 (6.00e-04) | CPS_Global_ABeta +0.304 (4.32e-03) | CPS_Global_pTau +0.470 (6.00e-04) | CPS_Local +0.385 (8.00e-04) | CPS_Local_ABeta +0.269 (1.26e-02) | CPS_Local_pTau +0.348 (2.40e-03)
+    PVM_1  within donor    CPS_Local +0.087 (4.43e-01) | CPS_Local_ABeta -0.007 (9.42e-01) | CPS_Local_pTau +0.122 (4.43e-01)
+    PVM_1  between donors  CPS_Global +0.370 (6.00e-03) | CPS_Global_ABeta +0.161 (2.28e-01) | CPS_Global_pTau +0.429 (1.20e-03) | CPS_Local +0.342 (1.05e-02) | CPS_Local_ABeta +0.243 (7.78e-02) | CPS_Local_pTau +0.348 (1.05e-02)
+    HKG8   within donor    CPS_Local +0.001 (9.98e-01) | CPS_Local_ABeta -0.007 (9.98e-01) | CPS_Local_pTau +0.010 (9.98e-01)
+    HKG8   between donors  CPS_Global +0.109 (8.77e-01) | CPS_Global_ABeta -0.024 (8.77e-01) | CPS_Global_pTau +0.195 (8.77e-01) | CPS_Local +0.064 (8.77e-01) | CPS_Local_ABeta -0.048 (8.77e-01) | CPS_Local_pTau +0.110 (8.77e-01)
+  S12B, |Module rs| - |%MT rs| per stain family
+    M4     within donor    Amyloid 6E10 -0.139 | Tau AT8 -0.171 | TDP43 +0.063 | Synuclein +0.039 | Astro GFAP +0.035 | Microglia IBA1 -0.144 | Neuron NeuN -0.183
+    M4     between donors  Amyloid 6E10 +0.030 | Tau AT8 -0.013 | TDP43 -0.105 | Synuclein +0.172 | Astro GFAP +0.012 | Microglia IBA1 -0.029 | Neuron NeuN -0.023
+    PVM_3  within donor    Amyloid 6E10 -0.058 | Tau AT8 -0.149** | TDP43 -0.085** | Synuclein -0.090 | Astro GFAP -0.028 | Microglia IBA1 -0.013 | Neuron NeuN -0.127**
+    PVM_3  between donors  Amyloid 6E10 -0.005 | Tau AT8 -0.046 | TDP43 +0.014 | Synuclein +0.010 | Astro GFAP -0.018 | Microglia IBA1 +0.001 | Neuron NeuN +0.016
+    PVM_1  within donor    Amyloid 6E10 -0.043 | Tau AT8 -0.142 | TDP43 -0.095 | Synuclein -0.154 | Astro GFAP +0.003 | Microglia IBA1 -0.025 | Neuron NeuN -0.076
+    PVM_1  between donors  Amyloid 6E10 +0.036 | Tau AT8 +0.002 | TDP43 -0.005 | Synuclein +0.006 | Astro GFAP -0.039 | Microglia IBA1 +0.022 | Neuron NeuN +0.026
+    HKG8   within donor    Amyloid 6E10 +0.024 | Tau AT8 -0.065 | TDP43 -0.032 | Synuclein NA | Astro GFAP +0.088 | Microglia IBA1 -0.116 | Neuron NeuN -0.089
+    HKG8   between donors  Amyloid 6E10 -0.090 | Tau AT8 -0.133 | TDP43 -0.157 | Synuclein +0.296 | Astro GFAP -0.166 | Microglia IBA1 -0.133 | Neuron NeuN -0.217
+
+SECTION E -- write
+[PASS] 19-19 joined table text fields are ASCII | checked
+[PASS] 19-20 stats and plot files written | 17A 240 | 17B 180 | S12 336 | S12 measures 1120 rows
+
+Outputs:
+  Part12_rerun/09_Fig17/17AB_Histology/Stats_17A.csv | 0.1 MB
+  Part12_rerun/09_Fig17/17AB_Histology/Stats_17B.csv | 0.0 MB
+  Part12_rerun/09_Fig17/17AB_Histology/Stats_S12.csv | 0.1 MB
+  Part12_rerun/09_Fig17/17AB_Histology/Stats_S12_measures.csv | 0.2 MB
+  Part12_rerun/09_Fig17/17AB_Histology/Plot_S12_counts.csv | 0.0 MB
+  Part12_rerun/09_Fig17/17AB_Histology/Joined_17AB_units.csv | 0.5 MB
+Checks: 20 PASS, 0 FAIL, 0 WARN | duration 1.2 min
+VERDICT: PASS
+Part 12 rerun -- step 20
+Script: Part12_Fig17_Analysis.r
+Shared file: Part12_03_Config.r
+Run ID: 20261019-0912-fedora
+Start: 2026-10-19 09:12:15
+Machine: fac31f98ee06 | R version 4.6.1 (2026-06-24)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6 | parallel 4.6.1
+Config: Part12_rerun/Part12_01_config.json | version 16
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 20-01 script saved in Part12_rerun | Part12_Fig17_Analysis.r
+
+Pre-set reading: Definitions shared by 17A to 17E and Supplementary Figure 12 | Part12_rerun/Part12_Preset_Readings.md
+Pre-set reading: 17C. Can Module post-IP% and %MT be separated on histology? | Part12_rerun/Part12_Preset_Readings.md
+Pre-set reading: 17D. Can Module post-IP% and %MT be separated on the clinical outcomes? | Part12_rerun/Part12_Preset_Readings.md
+Pre-set reading: 17E. Why are so many models unreadable? | Part12_rerun/Part12_Preset_Readings.md
+SECTION A -- inputs and join
+[PASS] 20-02 05_units.csv listed in the 05_Units log | Part12_rerun/05_Units/05_units.csv
+[PASS] 20-03 05_donors.csv listed in the 05_Units log | Part12_rerun/05_Units/05_donors.csv
+[PASS] 20-04 unit and donor tables carry this labels version | checked
+[PASS] 20-05 the config lists 28 distinct stain measures, none also excluded | 28 listed
+  input neuropathology table         Manuscript/Papers/MetaData_&_Green_Paper/sea-ad-quantitative-neuropathology-063026.xlsx | 1.5 MB
+  input CPS workbook                 Manuscript/Papers/MetaData_&_Green_Paper/sea-ad_global_and_local_cps_050126.xlsx | 0.1 MB
+[NOTE] sheets | neuropathology 'Travaglini 2026 (multi-region)' 758 rows | CPS 'Travaglini 2026' 632 rows
+[PASS] 20-06 every column of the sheet is a key, a used measure or an excluded measure | 28 used, 4 excluded
+[PASS] 20-07 the sheet has one analysis region | Grey matter
+[PASS] 20-08 every neuropathology region is mapped or has no sequencing | all mapped
+[NOTE] neuropathology rows without sequencing, left out | 126 rows: CaH, ESOC
+[PASS] 20-09 every stain value is numeric or empty | 0 non-numeric entries
+[PASS] 20-10 one neuropathology row per donor and region | 632 rows | 84 donors
+[PASS] 20-11 every CPS region is mapped or has no sequencing | all mapped
+[PASS] 20-12 every CPS value is numeric or empty | 0 non-numeric entries
+[PASS] 20-13 one CPS row per donor and region | 632 rows | 84 donors
+[PASS] 20-14 each global CPS score is constant within donor | CPS_Global max range 0.00e+00 | CPS_Global_ABeta max range 0.00e+00 | CPS_Global_pTau max range 0.00e+00
+[PASS] 20-15 every unit-table donor has a neuropathology row | 83 of 83 donors
+[PASS] 20-16 every unit-table donor has a CPS row | 83 of 83 donors
+[NOTE] M4 join | 125 units | histology 121 | CPS 121 | regions without histology: LEC
+[NOTE] PVM_3 join | 450 units | histology 426 | CPS 426 | regions without histology: LEC, MEC
+[NOTE] PVM_1 join | 201 units | histology 196 | CPS 196 | regions without histology: LEC
+[NOTE] HKG8 join | 80 units | histology 79 | CPS 79 | regions without histology: LEC
+[PASS] 20-17 every arm has joined units | histology and CPS
+
+SECTION B -- tasks
+[NOTE] tasks | 224 17C models, 16 17E rows | testable 229
+
+SECTION C -- donor bootstrap, donors drawn per arm (B = 10000)
+[NOTE] workers | 31 of 32 logical cores (PSOCK)
+[NOTE] M4|HU bootstrap | 51 donors | 114 columns
+[NOTE] M4|CG|NeoC bootstrap | 78 donors | 1 columns
+[NOTE] M4|CG|NonNeoC bootstrap | 80 donors | 1 columns
+[NOTE] PVM_3|HU bootstrap | 83 donors | 114 columns
+[NOTE] PVM_3|CG|NeoC bootstrap | 84 donors | 1 columns
+[NOTE] PVM_3|CG|NonNeoC bootstrap | 83 donors | 1 columns
+[NOTE] PVM_1|HU bootstrap | 66 donors | 114 columns
+[NOTE] PVM_1|CG|NeoC bootstrap | 84 donors | 1 columns
+[NOTE] PVM_1|CG|NonNeoC bootstrap | 83 donors | 1 columns
+[NOTE] HKG8|HU bootstrap | 38 donors | 114 columns
+[NOTE] HKG8|CG|NeoC bootstrap | 74 donors | 1 columns
+[NOTE] HKG8|CG|NonNeoC bootstrap | 77 donors | 1 columns
+[NOTE] bootstrap time | 0.2 min
+[PASS] 20-18 bootstrap matrix complete | 10000 x 464
+
+SECTION D -- 17C, Module post-IP% and %MT in one rank model, histology
+  M4     within donor    Module only 0, %MT only 10, Both 2, Neither 14, Unreadable 0, Untestable 2 | %MT only with a Module sign flip 5 | donors 19
+  M4     between donors  Module only 3, %MT only 0, Both 0, Neither 23, Unreadable 2, Untestable 0 | %MT only with a Module sign flip 0 | donors 51
+  PVM_3  within donor    Module only 0, %MT only 15, Both 1, Neither 11, Unreadable 0, Untestable 1 | %MT only with a Module sign flip 12 | donors 69
+  PVM_3  between donors  Module only 0, %MT only 0, Both 0, Neither 0, Unreadable 28, Untestable 0 | %MT only with a Module sign flip 0 | donors 83
+  PVM_1  within donor    Module only 0, %MT only 6, Both 0, Neither 20, Unreadable 0, Untestable 2 | %MT only with a Module sign flip 6 | donors 25
+  PVM_1  between donors  Module only 0, %MT only 0, Both 0, Neither 11, Unreadable 17, Untestable 0 | %MT only with a Module sign flip 0 | donors 66
+  HKG8   within donor    Module only 0, %MT only 1, Both 0, Neither 21, Unreadable 0, Untestable 6 | %MT only with a Module sign flip 1 | donors 13
+  HKG8   between donors  Module only 0, %MT only 0, Both 0, Neither 28, Unreadable 0, Untestable 0 | %MT only with a Module sign flip 0 | donors 38
+
+SECTION E -- 17D, Module post-IP% and %MT in one cov4 model, clinical
+  M4     NeoC     Cognitive status: Neither | MMSE score: Module only | CASI score: Neither | CERAD score: Neither | Braak stage: Neither | Thal phase: Neither | ADNC rank: Neither | CAA score: Neither | APOE e4 dose: Neither
+  M4     NonNeoC  Cognitive status: Module only | MMSE score: Module only | CASI score: Neither | CERAD score: Neither | Braak stage: Neither | Thal phase: Neither | ADNC rank: Neither | CAA score: Neither | APOE e4 dose: Neither
+  PVM_3  NeoC     Cognitive status: Unreadable | MMSE score: Unreadable | CASI score: Unreadable | CERAD score: Unreadable | Braak stage: Unreadable | Thal phase: Unreadable | ADNC rank: Unreadable | CAA score: Unreadable | APOE e4 dose: Unreadable
+  PVM_3  NonNeoC  Cognitive status: Unreadable | MMSE score: Unreadable | CASI score: Unreadable | CERAD score: Unreadable | Braak stage: Unreadable | Thal phase: Unreadable | ADNC rank: Unreadable | CAA score: Unreadable | APOE e4 dose: Unreadable
+  PVM_1  NeoC     Cognitive status: Unreadable | MMSE score: Unreadable | CASI score: Unreadable | CERAD score: Unreadable | Braak stage: Unreadable | Thal phase: Unreadable | ADNC rank: Unreadable | CAA score: Unreadable | APOE e4 dose: Unreadable
+  PVM_1  NonNeoC  Cognitive status: Unreadable | MMSE score: Unreadable | CASI score: Unreadable | CERAD score: Unreadable | Braak stage: Unreadable | Thal phase: Unreadable | ADNC rank: Unreadable | CAA score: Unreadable | APOE e4 dose: Unreadable
+  HKG8   NeoC     Cognitive status: %MT only | MMSE score: %MT only | CASI score: %MT only | CERAD score: %MT only | Braak stage: %MT only | Thal phase: %MT only | ADNC rank: %MT only | CAA score: Neither | APOE e4 dose: Neither
+  HKG8   NonNeoC  Cognitive status: %MT only | MMSE score: %MT only | CASI score: %MT only | CERAD score: %MT only | Braak stage: %MT only | Thal phase: %MT only | ADNC rank: %MT only | CAA score: Neither | APOE e4 dose: Neither
+
+SECTION F -- 17E, collinearity of Module post-IP% and %MT
+  M4     within donor HU    pooled   |r| 0.474 [0.151, 0.733] | VIF 1.3 | donors 19
+  M4     between donors HU  pooled   |r| 0.879 [0.767, 0.932] | VIF 4.4 | donors 51
+  M4     between donors CG  NeoC     |r| 0.731 [0.617, 0.845] | VIF 2.1 | donors 78
+  M4     between donors CG  NonNeoC  |r| 0.653 [0.526, 0.778] | VIF 1.7 | donors 80
+  PVM_3  within donor HU    pooled   |r| 0.761 [0.702, 0.814] | VIF 2.4 | donors 69
+  PVM_3  between donors HU  pooled   |r| 0.980 [0.963, 0.986] | VIF 25.7 | donors 83
+  PVM_3  between donors CG  NeoC     |r| 0.962 [0.947, 0.975] | VIF 13.3 | donors 84
+  PVM_3  between donors CG  NonNeoC  |r| 0.957 [0.934, 0.978] | VIF 12.0 | donors 83
+  PVM_1  within donor HU    pooled   |r| 0.677 [0.538, 0.782] | VIF 1.8 | donors 25
+  PVM_1  between donors HU  pooled   |r| 0.890 [0.783, 0.954] | VIF 4.8 | donors 66
+  PVM_1  between donors CG  NeoC     |r| 0.929 [0.903, 0.957] | VIF 7.3 | donors 84
+  PVM_1  between donors CG  NonNeoC  |r| 0.908 [0.869, 0.939] | VIF 5.7 | donors 83
+  HKG8   within donor HU    pooled   |r| 0.388 [0.032, 0.705] | VIF 1.2 | donors 13
+  HKG8   between donors HU  pooled   |r| 0.347 [0.044, 0.624] | VIF 1.1 | donors 38
+  HKG8   between donors CG  NeoC     |r| 0.502 [0.260, 0.696] | VIF 1.3 | donors 74
+  HKG8   between donors CG  NonNeoC  |r| 0.279 [0.092, 0.465] | VIF 1.1 | donors 77
+
+SECTION G -- write
+[PASS] 20-19 stats and plot files written | 17C 1120 | 17D 216 | 17E 32 rows
+
+Outputs:
+  Part12_rerun/09_Fig17/17CE_ModuleVsMT/Stats_17C.csv | 0.2 MB
+  Part12_rerun/09_Fig17/17CE_ModuleVsMT/Stats_17D.csv | 0.0 MB
+  Part12_rerun/09_Fig17/17CE_ModuleVsMT/Stats_17E.csv | 0.0 MB
+  Part12_rerun/09_Fig17/17CE_ModuleVsMT/Plot_17C_verdicts.csv | 0.1 MB
+  Part12_rerun/09_Fig17/17CE_ModuleVsMT/Plot_17D_verdicts.csv | 0.0 MB
+Checks: 19 PASS, 0 FAIL, 0 WARN | duration 0.2 min
+VERDICT: PASS
+Figure 17 analysis: sections 19 and 20 all PASS. Next: run Part12_Fig17_Plots.r

@@ -1,0 +1,16 @@
+run_supp_tables.sh started 2026-10-19 09:05:00 | root /data | tables 7
+
+== S7
+  G_Si_rank_tests      2 rows
+  H_pitcher_summary    14 rows
+VERDICT: PASS
+   S7 builder: done
+
+== finalize S7
+S7  Manuscript/Supp_Tables/build/SuppTable_S7_Fig2_SKCS.xlsx
+Written: S7
+VERDICT: PASS
+
+Builders done: 7
+Builders failed: none
+Summary saved to /data/Manuscript/Supp_Tables/run_supp_tables_log.txt

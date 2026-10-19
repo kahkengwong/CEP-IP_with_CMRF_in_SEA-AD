@@ -1,0 +1,16 @@
+run_supp_tables.sh started 2026-10-19 09:05:54 | root /data | tables 12
+
+== S12
+Finished: 2026-10-19 09:06:01
+VERDICT: PASS
+Log written: /data/Manuscript/Supp_Tables/build/SuppTable_S12_build_log.txt
+   S12 builder: done
+
+== finalize S12
+S12  Manuscript/Supp_Tables/build/SuppTable_S12_Prognosis_&_Ablation.xlsx
+Written: S12
+VERDICT: PASS
+
+Builders done: 12
+Builders failed: none
+Summary saved to /data/Manuscript/Supp_Tables/run_supp_tables_log.txt

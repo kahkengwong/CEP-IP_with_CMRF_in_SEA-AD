@@ -1,0 +1,16 @@
+run_supp_tables.sh started 2026-10-19 09:05:29 | root /data | tables 10
+
+== S10
+  J_Fig8_tests         176 rows
+Log: /data/Manuscript/Supp_Tables/build/build_SuppTable_S10_log.txt
+VERDICT: PASS
+   S10 builder: done
+
+== finalize S10
+S10  Manuscript/Supp_Tables/build/SuppTable_S10_Fig5_CMRF.xlsx
+Written: S10
+VERDICT: PASS
+
+Builders done: 10
+Builders failed: none
+Summary saved to /data/Manuscript/Supp_Tables/run_supp_tables_log.txt

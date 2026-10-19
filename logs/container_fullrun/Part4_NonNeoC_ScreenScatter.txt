@@ -1,0 +1,142 @@
+[LOG] All output mirrored to: /data/[2]_Non-NeoC/Part4_NonNeoC_ScreenScatter/Part4_NonNeoC_ScreenScatter_log.txt
+======================================================================
+Part 4  -  non-neocortical pooled PVM_3 GOI-DFG screen, all screened genes (no M4 mask)  [NonNeoC arm]
+  Populations : 1
+  Base output : /data/[2]_Non-NeoC/Part4_NonNeoC_ScreenScatter/
+  Joblib      : /data/[2]_Non-NeoC/Part2_NonNeoC_M4/Part2_nonneocortex_env.joblib
+======================================================================
+
+======================================================================
+SECTION 1: Auto-loader, guardrails, adata load
+======================================================================
+  [AUTO-LOADER] 10 variables missing  -  loading from joblib ...
+  [AUTO-LOADER] All variables loaded successfully.
+
+  [GUARDRAIL 1] M4_TOP_MASK integrity check
+    PASS  n=2,704 cells | M1_thr=0.981825 | M2_thr=1.199185 | TOP_PCT=3.0%
+
+  [GUARDRAIL 2] Non-neocortical region check
+    PASS  obs_full regions = ['FI', 'HIP', 'LEC', 'MEC'] (n=106,563 cells)
+
+  Loading adata: /data/SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad
+  adata: 240,651 cells × 36,601 genes
+  adata.X confirmed present  -  shape: (240651, 36601), dtype: float64
+
+  Building obs_full → adata global index map ...
+  Mapped 106,563 obs_full cells → adata global indices. No missing barcodes.
+
+======================================================================
+SECTION 2: Protein-coding gene list
+======================================================================
+  Gene biotype map loaded from cache  (36,601 genes, method='name_pattern_inference'): /data/[2]_Non-NeoC/Part4_NonNeoC_ScreenScatter/gene_biotype_map.pkl
+
+  GOI candidate list: 36,601 genes (all biotypes screened; biotype used for annotation only)
+
+======================================================================
+SECTION 3: Expression extraction helpers
+======================================================================
+  Expression helpers ready.
+
+======================================================================
+SECTION 12: Population catalogue and cell count tally
+======================================================================
+
+  [GUARDRAIL 4] ALL-CELLS COUNT TALLY (no M4 mask)
+
+  Supertype            HIP         MEC         LEC          FI      Pooled  Subsample
+  ------------------------------------------------------------------------------------------
+  PVM_3              2,793       7,721       1,295       1,289      13,098  [-> 2500]
+  PVM_2              8,369      36,241       8,485      12,337      65,432  [-> 2500]
+  PVM_1                508       1,662         283         860       3,313  [-> 2500]
+  Lymph                258       1,413         140         336       2,147  [all]
+  PVM_2_1               36         238          57          60         391  [all]
+  PVM_2_3            2,147      15,573       1,490       2,518      21,728  [-> 2500]
+  PVM_4                 79         281          40          42         442  [all]
+  ------------------------------------------------------------------------------------------
+  ALL ST            14,190      63,129      11,790      17,442     106,551
+
+  GOI+ filter (MT-CO3 > 0) applied during expression loading.
+  Populations with > 2500 cells subsampled to 2500.
+
+  POPULATION BREAKDOWN (1 screening jobs):
+  Population              Strategy       All cells   After sub  Notes
+  --------------------------------------------------------------------------------
+    PVM_3_pooled            POOLED            13,098       2,500  all 4 regions, PVM_3, no M4 mask
+
+  ──────────────────────────────────────────────────────────────────────
+  ELIGIBILITY CHECK  (min_pop_cells=10, min_donor_cells=5)
+  ──────────────────────────────────────────────────────────────────────
+
+  Population             Strategy     ST_short   all_cells  after_donor_filt   elig_donors  status
+  ----------------------------------------------------------------------------------------------------
+  ✓ PVM_3_pooled          POOLED       PVM_3         13,098            13,092            81  OK (subsample 13,092 -> 2,500)
+
+  Tally saved: /data/[2]_Non-NeoC/Part4_NonNeoC_ScreenScatter/Part6b_population_tally.csv
+
+  Valid populations  : 1 / 1
+  Skipped populations: 0 / 1
+
+  [GUARDRAIL 4 COMPLETE]
+
+======================================================================
+SECTION 15: Running all valid populations
+======================================================================
+  Populations to run: ['PVM_3_pooled']
+  Populations to skip: []
+
+
+======================================================================
+POPULATION: PVM_3_pooled  (Micro-PVM_3-SEAAD | ALL NonNeoC regions pooled)
+======================================================================
+  All cells of PVM_3 (before filters): 13,098  [ALL NonNeoC regions pooled]
+  Eligible donors (>=5 cells): 81 | Cells after donor filter: 13,092 (6 excluded)
+  Stratified subsample: FI=625, HIP=625, LEC=625, MEC=625  (total=2500, seed=42)
+
+  Loading expression for 2,500 cells ...
+  Expression loaded: (2500, 36601)  [6.5s]
+  [GUARDRAIL 3 PASS] adata.X dtype: max=6.52, min_nz=0.3892, integer-like=False [PVM_3_pooled]
+  GOI candidates in matrix : 36,601 (all biotypes; protein-coding + lncRNA + other)
+  Partner genes (>=10 cells expressing): 18,274 / 36,601
+
+  GOI list: 36,601 | split into 2 parts
+    Part 01: 18,301 genes  (MIR1302-2HG … AC010157.1)
+    Part 02: 18,300 genes  (NRG3-AS1 … AC007325.2)
+>>> Part 01/2  -  already done (checkpoint found), skipping.
+>>> Part 02/2  -  already done (checkpoint found), skipping.
+
+  Final MasterDFG consolidation for PVM_3_pooled ...
+  MasterDFG [PVM_3_pooled]: 9 GOIs with DFG hits  -  PVM_3_pooled_MasterDFG_Ranking.xlsx
+
+  GOIs screened      : 36,601
+  GOIs with >= 1 DFG : 9
+
+  Top 10 GOIs by DFG_Total:
+      GOI  DFG_Total  max_Spearman  max_Kendall
+  MT-ATP6          6        0.7385       0.5805
+   MT-CO3          5        0.6855       0.5288
+   MT-ND3          4        0.7385       0.5805
+   MT-ND4          4        0.7100       0.5523
+   MT-CO2          3        0.6855       0.5270
+   MT-CYB          3        0.6816       0.5376
+   MT-ND2          1        0.6476       0.5079
+LINC00278          1        0.6375       0.5621
+      UTY          1        0.6375       0.5621
+
+  saved /data/[2]_Non-NeoC/Part4_NonNeoC_ScreenScatter/PVM_3_pooled_screen_scatter.csv  (2,723 genes passing the expression gate)
+  Part 6b ranking not found for the check: /data/[2]_Non-NeoC/Part6b_NonNeoC_Pooled_GOI-DFG/PVM_3_pooled/PVM_3_pooled_MasterDFG_Ranking.xlsx
+
+======================================================================
+POPULATION PVM_3_pooled COMPLETE  → /data/[2]_Non-NeoC/Part4_NonNeoC_ScreenScatter/PVM_3_pooled/
+======================================================================
+
+======================================================================
+Part 4  -  COMPLETE
+Output: /data/[2]_Non-NeoC/Part4_NonNeoC_ScreenScatter/
+======================================================================
+
+Directory listing (/data/[2]_Non-NeoC/Part4_NonNeoC_ScreenScatter/):
+  PVM_3_pooled/   (5 files)
+  PVM_3_pooled_screen_scatter.csv                                 197.0 KB
+  Part4_NonNeoC_ScreenScatter_log.txt                               0.0 KB
+  Part6b_population_tally.csv                                       0.3 KB
+  gene_biotype_map.pkl                                            729.4 KB

@@ -1,0 +1,16 @@
+run_supp_tables.sh started 2026-10-19 09:05:28 | root /data | tables 8
+
+== S8
+  A_IP_detection: 8 rows
+  B_Rx_grid: 1600 rows
+VERDICT: PASS
+   S8 builder: done
+
+== finalize S8
+S8  Manuscript/Supp_Tables/build/SuppTable_S8_Fig3_IP.xlsx
+Written: S8
+VERDICT: PASS
+
+Builders done: 8
+Builders failed: none
+Summary saved to /data/Manuscript/Supp_Tables/run_supp_tables_log.txt

@@ -1,0 +1,80 @@
+
+==========================================================================
+  Loading
+==========================================================================
+  file  : SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad
+  shape : (240651, 36601)
+  Micro-PVM_3-SEAAD : 29,805 nuclei
+  genes extracted : 14  (13 mitochondrial)
+  analysed (MT-CO3 > 0)  : 24,463 nuclei
+  excluded (MT-CO3 == 0) : 5,342 nuclei
+
+==========================================================================
+  Per-gene table, both abundance axes
+==========================================================================
+   gene  rho_analysed  mean_counts_all  mean_counts_analysed  ratio_analysed_over_all  detect_pct_all  detect_pct_analysed
+ MT-CO3           NaN           6.5977                8.0384                   1.2184         82.0768             100.0000
+   ACTB        0.0442           1.8349                2.0133                   1.0972         60.2818              62.5393
+ MT-ND1        0.6128           2.5907                3.0695                   1.1848         64.6569              72.4891
+ MT-ND2        0.6464           2.9619                3.5146                   1.1866         67.7001              75.9473
+ MT-CO1        0.6247           3.7309                4.3847                   1.1752         76.6113              83.6733
+ MT-CO2        0.7544           5.9915                7.1098                   1.1867         81.3387              88.6277
+MT-ATP8        0.3713           0.6500                0.7699                   1.1844         33.3904              38.7197
+MT-ATP6        0.7356           5.8643                6.9925                   1.1924         77.0240              85.3002
+ MT-ND3        0.7223           7.0341                8.4237                   1.1975         75.1116              83.6897
+MT-ND4L        0.3897           0.6703                0.7944                   1.1851         34.8801              40.5183
+ MT-ND4        0.7201           5.1520                6.1183                   1.1876         77.7051              85.3657
+ MT-ND5        0.4780           1.2803                1.5174                   1.1852         49.1025              56.4158
+ MT-ND6        0.0932           0.0857                0.0988                   1.1525          7.2068               8.2574
+ MT-CYB        0.7025           4.0628                4.8323                   1.1894         73.0481              81.3433
+
+==========================================================================
+  The two fits
+==========================================================================
+  fitted on 12 non-GOI mitochondrial genes;
+
+                                         all PVM_3      analysed    difference
+  --------------------------------------------------------------------------
+  slope                                    +0.3542       +0.3520       -0.0021
+  intercept                                +0.4573       +0.4322       -0.0251
+  r2                                        0.9877        0.9876       -0.0002
+  log10 mean counts, ACTB                  +0.2636       +0.3039       +0.0403
+  ACTB predicted rho                       +0.5506       +0.5391       -0.0115
+  ACTB residual                            -0.5064       -0.4949       +0.0115
+  worst mito residual                      +0.0351       +0.0356       +0.0006
+  residual / worst mito residual             14.44         13.90         -0.55
+
+  ACTB observed rho : +0.0442  (same in both)
+  worst mito residual carried by: MT-CO1 / MT-ND3
+
+  vs detection% (all_PVM3 ): R2 0.9737
+  vs detection% (analysed ): R2 0.9799
+
+==========================================================================
+  Against the recorded values
+==========================================================================
+  all_PVM3
+    slope        run +0.3542   recorded +0.3542   PASS
+    intercept    run +0.4573   recorded +0.4573   PASS
+    r2           run +0.9877   recorded +0.9877   PASS
+    resid        run -0.5064   recorded -0.5064   PASS
+    ratio        run +14.4447   recorded +14.4000   PASS
+
+  analysed
+    slope        run +0.3520   recorded +0.3520   PASS
+    intercept    run +0.4322   recorded +0.4320   PASS
+    r2           run +0.9876   recorded +0.9876   PASS
+    resid        run -0.4949   recorded -0.4950   PASS
+    ratio        run +13.8969   recorded +13.9000   PASS
+
+
+==========================================================================
+  Saving
+==========================================================================
+  saved: /data/Part1_PreChecks/S1g_trend_reconcile.csv
+  saved: /data/Part1_PreChecks/S1g_trend_fits.csv
+  saved: /data/Part1_PreChecks/S1g_trend_reconcile_report.txt
+
+==========================================================================
+  PART 1g COMPLETE
+==========================================================================

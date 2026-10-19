@@ -1,0 +1,259 @@
+Part 12 rerun -- step 13
+Script: Part12_Fig16_Analysis.r
+Shared file: Part12_03_Config.r
+Run ID: 20261019-0910-fedora
+Start: 2026-10-19 09:10:06
+Machine: fac31f98ee06 | R version 4.6.1 (2026-06-24)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 13-01 script saved in Part12_rerun | Part12_Fig16_Analysis.r
+
+Pre-set reading: 16A. Is Module post-IP% donor-structured? | Part12_rerun/Part12_Preset_Readings.md
+Pre-set reading: 16B. Does a donor keep its value across regions? | Part12_rerun/Part12_Preset_Readings.md
+SECTION A -- inputs
+[PASS] 13-02 05_units.csv listed in the 05_Units log | Part12_rerun/05_Units/05_units.csv
+[PASS] 13-03 unit table carries this labels version | 856 units
+
+SECTION B -- 16A, donor share against 10000 within-region shuffles
+  M4     module_post_pct   units  125 | donors  51 | donor share  69.6% | null median  37.4%, 95th  47.8% | p <=1.00e-04
+  M4     module_resid_tq4  units  124 | donors  50 | donor share  58.3% | null median  37.6%, 95th  48.2% | p 1.20e-03
+  M4     mito_log1p        units  125 | donors  51 | donor share  72.7% | null median  36.6%, 95th  46.2% | p <=1.00e-04
+  M4     contamination     units  125 | donors  51 | donor share  56.3% | null median  41.5%, 95th  61.5% | p 1.75e-01
+  M4     ctrl_pct_null     units  125 | donors  51 | donor share  60.7% | null median  41.6%, 95th  51.3% | p 7.00e-04
+  PVM_3  module_post_pct   units  450 | donors  83 | donor share  73.2% | null median  18.0%, 95th  22.2% | p <=1.00e-04
+  PVM_3  module_resid_tq4  units  447 | donors  82 | donor share  66.7% | null median  17.0%, 95th  20.9% | p <=1.00e-04
+  PVM_3  mito_log1p        units  450 | donors  83 | donor share  66.7% | null median  17.2%, 95th  21.5% | p <=1.00e-04
+  PVM_3  contamination     units  450 | donors  83 | donor share  37.1% | null median  17.0%, 95th  21.1% | p <=1.00e-04
+  PVM_3  ctrl_pct_null     units  450 | donors  83 | donor share  40.8% | null median  17.4%, 95th  21.5% | p <=1.00e-04
+  PVM_1  module_post_pct   units  201 | donors  66 | donor share  73.9% | null median  32.4%, 95th  40.0% | p <=1.00e-04
+  PVM_1  module_resid_tq4  units  199 | donors  65 | donor share  66.1% | null median  30.3%, 95th  37.4% | p <=1.00e-04
+  PVM_1  mito_log1p        units  201 | donors  66 | donor share  64.8% | null median  30.2%, 95th  38.9% | p <=1.00e-04
+  PVM_1  contamination     units  201 | donors  66 | donor share  40.6% | null median  31.3%, 95th  40.2% | p 4.37e-02
+  PVM_1  ctrl_pct_null     units  201 | donors  66 | donor share  51.3% | null median  27.8%, 95th  35.9% | p <=1.00e-04
+  HKG8   module_post_pct   units   80 | donors  38 | donor share  41.7% | null median  41.6%, 95th  56.4% | p 4.98e-01
+  HKG8   module_resid_tq4  units   80 | donors  38 | donor share  40.9% | null median  41.3%, 95th  55.7% | p 5.20e-01
+  HKG8   mito_log1p        units   80 | donors  38 | donor share  80.6% | null median  44.8%, 95th  57.5% | p <=1.00e-04
+  HKG8   contamination     units   80 | donors  38 | donor share  64.8% | null median  48.2%, 95th  66.0% | p 6.71e-02
+  HKG8   ctrl_pct_null     units   80 | donors  38 | donor share  67.6% | null median  49.5%, 95th  62.8% | p 1.25e-02
+
+SECTION C -- 16B, split-half rs over 200 splits (B = 10000)
+[NOTE] workers | 31 of 32 logical cores (PSOCK)
+  M4     module_post_pct   donors  30 | split-half rs +0.692 [+0.494, +0.817] | p <=2.00e-04
+  M4     module_resid_tq4  donors  30 | split-half rs +0.469 [+0.180, +0.693] | p 2.40e-03
+  M4     mito_log1p        donors  30 | split-half rs +0.733 [+0.533, +0.855] | p <=2.00e-04
+  PVM_3  module_post_pct   donors  80 | split-half rs +0.839 [+0.760, +0.885] | p <=2.00e-04
+  PVM_3  module_resid_tq4  donors  79 | split-half rs +0.790 [+0.684, +0.859] | p <=2.00e-04
+  PVM_3  mito_log1p        donors  80 | split-half rs +0.786 [+0.709, +0.842] | p <=2.00e-04
+  PVM_1  module_post_pct   donors  46 | split-half rs +0.721 [+0.522, +0.832] | p <=2.00e-04
+  PVM_1  module_resid_tq4  donors  45 | split-half rs +0.615 [+0.377, +0.791] | p <=2.00e-04
+  PVM_1  mito_log1p        donors  46 | split-half rs +0.617 [+0.381, +0.762] | p <=2.00e-04
+  HKG8   module_post_pct   donors  22 | split-half rs +0.066 [-0.334, +0.434] | p 7.61e-01
+  HKG8   module_resid_tq4  donors  22 | split-half rs +0.012 [-0.412, +0.418] | p 9.70e-01
+  HKG8   mito_log1p        donors  22 | split-half rs +0.802 [+0.605, +0.904] | p <=2.00e-04
+
+SECTION D -- write
+[PASS] 13-04 stats files written | 16A 20 rows | 16B 12 rows
+
+Outputs:
+  Part12_rerun/08_Fig16/16AB_DonorStructure/Stats_16A.csv | 0.0 MB
+  Part12_rerun/08_Fig16/16AB_DonorStructure/Stats_16B.csv | 0.0 MB
+Checks: 4 PASS, 0 FAIL, 0 WARN | duration 0.7 min
+VERDICT: PASS
+Part 12 rerun -- step 14
+Script: Part12_Fig16_Analysis.r
+Shared file: Part12_03_Config.r
+Run ID: 20261019-0910-fedora
+Start: 2026-10-19 09:10:51
+Machine: fac31f98ee06 | R version 4.6.1 (2026-06-24)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 14-01 script saved in Part12_rerun | Part12_Fig16_Analysis.r
+
+Pre-set reading: 16C. Do two arms label the same cells? | Part12_rerun/Part12_Preset_Readings.md
+SECTION A -- inputs
+[PASS] 14-02 04_cell_labels.csv.gz listed in the 04_Labels log | Part12_rerun/04_Labels/04_cell_labels.csv.gz
+[PASS] 14-03 labels carry this labels version | checked
+
+SECTION B -- kappa against PVM_3 (regions with at least 20 shared cells)
+  M4    pooled   shared cells   4117 | donors  83 | kappa 0.827 [0.804, 0.847] | both 71.1% test only 5.0% ref only 1.7% neither 22.3%
+  M4    NeoC     shared cells   2130 | donors  78 | kappa 0.802 [0.773, 0.829] | both 72.1% test only 5.6% ref only 1.6% neither 20.6%
+  M4    NonNeoC  shared cells   1987 | donors  80 | kappa 0.851 [0.818, 0.878] | both 70.0% test only 4.2% ref only 1.7% neither 24.2%
+  HKG8  pooled   shared cells   2511 | donors  82 | kappa 0.004 [-0.020, 0.032] | both 28.9% test only 9.2% ref only 46.7% neither 15.2%
+  HKG8  NeoC     shared cells   1432 | donors  74 | kappa 0.010 [-0.020, 0.040] | both 28.5% test only 8.2% ref only 48.3% neither 14.9%
+  HKG8  NonNeoC  shared cells   1079 | donors  77 | kappa -0.003 [-0.050, 0.054] | both 29.5% test only 10.5% ref only 44.5% neither 15.6%
+[NOTE] pre-set thresholds, pooled kappa | M4 0.827 (> 0.60: TRUE) | HKG8 0.004 (|kappa| < 0.20: TRUE)
+
+SECTION C -- write
+[PASS] 14-04 stats file written | 30 rows
+
+Outputs:
+  Part12_rerun/08_Fig16/16C_LabelAgreement/Stats_16C.csv | 0.0 MB
+Checks: 4 PASS, 0 FAIL, 0 WARN | duration 0.0 min
+VERDICT: PASS
+Part 12 rerun -- step 15
+Script: Part12_Fig16_Analysis.r
+Shared file: Part12_03_Config.r
+Run ID: 20261019-0910-fedora
+Start: 2026-10-19 09:10:52
+Machine: fac31f98ee06 | R version 4.6.1 (2026-06-24)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 15-01 script saved in Part12_rerun | Part12_Fig16_Analysis.r
+
+Pre-set reading: 16D. Does the MT-CO3 to cDFG relationship hold inside single donors? | Part12_rerun/Part12_Preset_Readings.md
+SECTION A -- inputs
+[PASS] 15-02 04_cell_labels.csv.gz listed in the 04_Labels log | Part12_rerun/04_Labels/04_cell_labels.csv.gz
+[PASS] 15-03 labels carry this labels version | checked
+[PASS] 15-04 02_counts.mtx.gz listed in the 02_Extract log | Part12_rerun/02_Extract/02_counts.mtx.gz
+[PASS] 15-05 02_counts_genes.tsv listed in the 02_Extract log | Part12_rerun/02_Extract/02_counts_genes.tsv
+[PASS] 15-06 02_counts_cells.tsv listed in the 02_Extract log | Part12_rerun/02_Extract/02_counts_cells.tsv
+[PASS] 15-07 every PVM_3 arm cell is in the step 02 count matrix | 24463 of 24463
+  population: 24463 cells from 84 donors
+
+SECTION B -- per-donor rs (donors with at least 20 cells, B = 10000)
+  MT-CO3 vs cDFG  donors  83 | within median raw 0.7473 | partial 0.7432 | pooled 0.8174 | between 0.9550
+  ACTB vs cHKG8   donors  83 | within median raw 0.4025 | partial 0.3816 | pooled 0.4415 | between 0.5240
+[NOTE] pre-set marks on the raw within-donor median | 0.7473 -> 0.40 to 0.75
+
+SECTION C -- write
+[PASS] 15-08 stats and plot files written | 10 stats rows | 166 donor rows
+
+Outputs:
+  Part12_rerun/08_Fig16/16D_WithinDonorRho/Stats_16D.csv | 0.0 MB
+  Part12_rerun/08_Fig16/16D_WithinDonorRho/Plot_16D_donors.csv | 0.0 MB
+Checks: 8 PASS, 0 FAIL, 0 WARN | duration 0.0 min
+VERDICT: PASS
+Part 12 rerun -- step 16
+Script: Part12_Fig16_Analysis.r
+Shared file: Part12_03_Config.r
+Run ID: 20261019-0910-fedora
+Start: 2026-10-19 09:10:55
+Machine: fac31f98ee06 | R version 4.6.1 (2026-06-24)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 16-01 script saved in Part12_rerun | Part12_Fig16_Analysis.r
+
+Pre-set reading: 16E. Is the offset share equal between the branches? | Part12_rerun/Part12_Preset_Readings.md
+SECTION A -- inputs
+[PASS] 16-02 04_cell_labels.csv.gz listed in the 04_Labels log | Part12_rerun/04_Labels/04_cell_labels.csv.gz
+[PASS] 16-03 labels carry this labels version | checked
+[PASS] 16-04 MT UMIs and total UMIs on every labelled cell | checked
+[PASS] 16-05 every Module cell is Module post-IP or Module pre-IP | Module post-IP, Module pre-IP
+
+SECTION B -- offset share per branch (20 cells per donor and branch, 10 donors, B = 10000)
+  M4     donors post  25, pre  26 | share post  42.9%, pre  21.4% | difference +21.5 pp, 95% [+1.0, +37.2], 90% [+4.5, +35.0] | p 4.12e-02 | FDR 1.24e-01 | underpowered: neither non-zero nor shown to be within the margin
+  PVM_3  donors post  57, pre  75 | share post  34.2%, pre  37.5% | difference -3.3 pp, 95% [-10.8, +2.7], 90% [-9.2, +1.8] | p 2.60e-01 | FDR 3.90e-01 | within the margin
+  PVM_1  donors post  31, pre  34 | share post  38.5%, pre  40.8% | difference -2.3 pp, 95% [-20.3, +16.9], 90% [-17.1, +13.6] | p 7.35e-01 | FDR 7.35e-01 | underpowered: neither non-zero nor shown to be within the margin
+  HKG8   donors post   7, pre   3 | share post    NA%, pre    NA% | difference NA pp, 95% [NA, NA], 90% [NA, NA] | p NA | FDR NA | untestable
+
+SECTION C -- write
+[PASS] 16-06 stats file written | 28 rows
+
+Outputs:
+  Part12_rerun/08_Fig16/16E_Offset/Stats_16E.csv | 0.0 MB
+Checks: 6 PASS, 0 FAIL, 0 WARN | duration 0.1 min
+VERDICT: PASS
+Part 12 rerun -- step 17
+Script: Part12_Fig16_Analysis.r
+Shared file: Part12_03_Config.r
+Run ID: 20261019-0910-fedora
+Start: 2026-10-19 09:10:58
+Machine: fac31f98ee06 | R version 4.6.1 (2026-06-24)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 17-01 script saved in Part12_rerun | Part12_Fig16_Analysis.r
+
+Pre-set reading: 16F. Does Module post-IP% track the library intronic rate? | Part12_rerun/Part12_Preset_Readings.md
+Pre-set reading: 16G. Do sort purity or library construction order it? | Part12_rerun/Part12_Preset_Readings.md
+SECTION A -- inputs
+[PASS] 17-02 05_units.csv listed in the 05_Units log | Part12_rerun/05_Units/05_units.csv
+[PASS] 17-03 unit table carries this labels version | 856 units
+[NOTE] field intronic | 0.0% of units missing: kept
+[NOTE] field antisense | 0.0% of units missing: kept
+[NOTE] field neun_fans | 0.0% of units missing: kept
+[NOTE] field cdna_400 | 0.1% of units missing: kept
+[NOTE] field pcr_cycles | 0.0% of units missing: kept
+[NOTE] field saturation | 25.1% of units missing: dropped (above the missing-value limit)
+[PASS] 17-04 the intronic rate is available for 16F | intronic, antisense, neun_fans, cdna_400, pcr_cycles
+
+SECTION B -- donor bootstrap over 83 donors, 160 tasks (B = 10000)
+[NOTE] workers | 31 of 32 logical cores (PSOCK)
+[NOTE] bootstrap time | 0.1 min
+
+  M4, between donors
+    intronic    Module rs -0.518 [-0.696, -0.285] FDR 8.00e-04 | %MT -0.517 | cells +0.022 | depth -0.030 | donors 51
+    antisense   Module rs -0.680 [-0.788, -0.515] FDR 1.60e-03 | %MT -0.714 | cells +0.075 | depth -0.073 | donors 51
+    neun_fans   Module rs -0.005 [-0.295, +0.276] FDR 9.91e-01 | %MT +0.053 | cells -0.280 | depth +0.012 | donors 51
+    cdna_400    Module rs -0.019 [-0.272, +0.238] FDR 9.91e-01 | %MT +0.114 | cells +0.002 | depth +0.108 | donors 51
+    pcr_cycles  Module rs -0.025 [-0.305, +0.260] FDR 9.91e-01 | %MT -0.145 | cells +0.131 | depth +0.221 | donors 51
+  M4, within donor
+    intronic    Module rs -0.114 [-0.380, +0.188] FDR 5.62e-01 | %MT -0.176 | cells +0.084 | depth -0.283 | donors 19
+    antisense   Module rs +0.098 [-0.112, +0.310] FDR 8.69e-01 | %MT +0.080 | cells -0.008 | depth -0.494 | donors 19
+    neun_fans   Module rs +0.206 [-0.019, +0.419] FDR 2.98e-01 | %MT +0.021 | cells -0.056 | depth +0.070 | donors 19
+    cdna_400    Module rs +0.021 [-0.170, +0.209] FDR 9.17e-01 | %MT +0.182 | cells -0.065 | depth -0.403 | donors 19
+    pcr_cycles  Module rs -0.086 [-0.318, +0.162] FDR 8.69e-01 | %MT -0.034 | cells -0.057 | depth +0.431 | donors 19
+  PVM_3, between donors
+    intronic    Module rs -0.690 [-0.793, -0.545] FDR 4.00e-04 | %MT -0.695 | cells -0.287 | depth +0.059 | donors 83
+    antisense   Module rs -0.772 [-0.848, -0.651] FDR 1.07e-03 | %MT -0.778 | cells -0.345 | depth -0.045 | donors 83
+    neun_fans   Module rs +0.081 [-0.170, +0.315] FDR 6.32e-01 | %MT +0.084 | cells -0.182 | depth -0.090 | donors 83
+    cdna_400    Module rs +0.018 [-0.202, +0.234] FDR 9.21e-01 | %MT -0.007 | cells -0.076 | depth -0.112 | donors 83
+    pcr_cycles  Module rs -0.120 [-0.336, +0.099] FDR 5.95e-01 | %MT -0.146 | cells +0.120 | depth +0.119 | donors 83
+  PVM_3, within donor
+    intronic    Module rs -0.301 [-0.396, -0.199] FDR 2.67e-04 | %MT -0.025 | cells -0.228 | depth -0.300 | donors 70
+    antisense   Module rs -0.141 [-0.245, -0.038] FDR 1.03e-02 | %MT +0.117 | cells -0.346 | depth -0.540 | donors 70
+    neun_fans   Module rs -0.053 [-0.139, +0.029] FDR 2.34e-01 | %MT -0.085 | cells -0.303 | depth -0.048 | donors 70
+    cdna_400    Module rs -0.005 [-0.095, +0.081] FDR 8.94e-01 | %MT +0.094 | cells -0.258 | depth -0.347 | donors 70
+    pcr_cycles  Module rs +0.024 [-0.062, +0.110] FDR 6.18e-01 | %MT -0.239 | cells +0.307 | depth +0.534 | donors 70
+  PVM_1, between donors
+    intronic    Module rs -0.576 [-0.735, -0.366] FDR 8.00e-04 | %MT -0.454 | cells -0.205 | depth -0.105 | donors 66
+    antisense   Module rs -0.683 [-0.800, -0.517] FDR 1.60e-03 | %MT -0.536 | cells -0.129 | depth -0.262 | donors 66
+    neun_fans   Module rs -0.066 [-0.311, +0.186] FDR 7.03e-01 | %MT -0.067 | cells -0.179 | depth -0.248 | donors 66
+    cdna_400    Module rs -0.104 [-0.348, +0.155] FDR 6.31e-01 | %MT -0.054 | cells -0.151 | depth -0.232 | donors 66
+    pcr_cycles  Module rs -0.020 [-0.254, +0.211] FDR 8.65e-01 | %MT -0.129 | cells +0.082 | depth +0.207 | donors 66
+  PVM_1, within donor
+    intronic    Module rs -0.318 [-0.513, -0.124] FDR 1.04e-02 | %MT -0.029 | cells -0.076 | depth -0.087 | donors 25
+    antisense   Module rs -0.261 [-0.409, -0.099] FDR 1.28e-02 | %MT +0.068 | cells -0.134 | depth -0.354 | donors 25
+    neun_fans   Module rs -0.149 [-0.321, +0.012] FDR 1.58e-01 | %MT -0.046 | cells -0.233 | depth -0.061 | donors 25
+    cdna_400    Module rs +0.021 [-0.193, +0.207] FDR 8.55e-01 | %MT +0.135 | cells -0.114 | depth -0.272 | donors 25
+    pcr_cycles  Module rs +0.058 [-0.115, +0.272] FDR 5.95e-01 | %MT -0.230 | cells +0.148 | depth +0.319 | donors 25
+  HKG8, between donors
+    intronic    Module rs -0.512 [-0.737, -0.191] FDR 1.28e-02 | %MT -0.488 | cells -0.001 | depth +0.104 | donors 38
+    antisense   Module rs -0.147 [-0.469, +0.210] FDR 5.85e-01 | %MT -0.559 | cells +0.146 | depth -0.221 | donors 38
+    neun_fans   Module rs -0.033 [-0.358, +0.295] FDR 9.01e-01 | %MT +0.205 | cells -0.301 | depth +0.204 | donors 38
+    cdna_400    Module rs -0.240 [-0.522, +0.077] FDR 5.80e-01 | %MT +0.089 | cells -0.107 | depth +0.177 | donors 38
+    pcr_cycles  Module rs +0.210 [-0.171, +0.543] FDR 5.80e-01 | %MT -0.173 | cells +0.050 | depth -0.016 | donors 38
+  HKG8, within donor
+    intronic    Module rs -0.246 [-0.510, -0.000] FDR 1.14e-01 | %MT +0.163 | cells +0.094 | depth -0.238 | donors 13
+    antisense   Module rs +0.307 [+0.034, +0.543] FDR 5.68e-02 | %MT +0.094 | cells +0.032 | depth -0.443 | donors 13
+    neun_fans   Module rs -0.077 [-0.329, +0.111] FDR 5.34e-01 | %MT +0.176 | cells -0.350 | depth +0.237 | donors 13
+    cdna_400    Module rs +0.091 [-0.083, +0.235] FDR 3.74e-01 | %MT +0.328 | cells -0.271 | depth -0.386 | donors 13
+    pcr_cycles  Module rs +0.120 [-0.060, +0.314] FDR 2.85e-01 | %MT -0.162 | cells +0.215 | depth +0.272 | donors 13
+
+SECTION C -- the four conditions for 16G, within donor
+  M4     antisense   non-zero FALSE | vs depth TRUE  | vs HKG8 FALSE | not matched by %MT TRUE  -> does not order Module post-IP%
+  M4     neun_fans   non-zero FALSE | vs depth FALSE | vs HKG8 TRUE  | not matched by %MT TRUE  -> does not order Module post-IP%
+  M4     cdna_400    non-zero FALSE | vs depth TRUE  | vs HKG8 FALSE | not matched by %MT TRUE  -> does not order Module post-IP%
+  M4     pcr_cycles  non-zero FALSE | vs depth TRUE  | vs HKG8 FALSE | not matched by %MT TRUE  -> does not order Module post-IP%
+  PVM_3  antisense   non-zero TRUE  | vs depth TRUE  | vs HKG8 TRUE  | not matched by %MT TRUE  -> orders Module post-IP%
+  PVM_3  neun_fans   non-zero FALSE | vs depth FALSE | vs HKG8 FALSE | not matched by %MT TRUE  -> does not order Module post-IP%
+  PVM_3  cdna_400    non-zero FALSE | vs depth TRUE  | vs HKG8 FALSE | not matched by %MT TRUE  -> does not order Module post-IP%
+  PVM_3  pcr_cycles  non-zero FALSE | vs depth TRUE  | vs HKG8 FALSE | not matched by %MT FALSE -> does not order Module post-IP%
+  PVM_1  antisense   non-zero TRUE  | vs depth FALSE | vs HKG8 TRUE  | not matched by %MT TRUE  -> does not order Module post-IP%
+  PVM_1  neun_fans   non-zero FALSE | vs depth FALSE | vs HKG8 FALSE | not matched by %MT TRUE  -> does not order Module post-IP%
+  PVM_1  cdna_400    non-zero FALSE | vs depth FALSE | vs HKG8 FALSE | not matched by %MT TRUE  -> does not order Module post-IP%
+  PVM_1  pcr_cycles  non-zero FALSE | vs depth FALSE | vs HKG8 FALSE | not matched by %MT TRUE  -> does not order Module post-IP%
+
+SECTION D -- write
+[PASS] 17-05 stats files written | 16F 54 rows | 16G 216 rows
+
+Outputs:
+  Part12_rerun/08_Fig16/16FG_LibraryFields/Stats_16F.csv | 0.0 MB
+  Part12_rerun/08_Fig16/16FG_LibraryFields/Stats_16G.csv | 0.0 MB
+Checks: 5 PASS, 0 FAIL, 0 WARN | duration 0.1 min
+VERDICT: PASS
+Figure 16 analysis: sections 13 to 17 all PASS. Next: run Part12_Fig16_Plots.r

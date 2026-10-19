@@ -1,0 +1,16 @@
+run_supp_tables.sh started 2026-10-19 07:11:25 | root /data | tables 3
+
+== S3
+  saved: Manuscript/Supp_Tables/build/SuppTable_S3_MT-CO3_selection.xlsx
+
+VERDICT: PASS
+   S3 builder: done
+
+== finalize S3
+S3  Manuscript/Supp_Tables/build/SuppTable_S3_MT-CO3_selection.xlsx
+Written: S3
+VERDICT: PASS
+
+Builders done: 3
+Builders failed: none
+Summary saved to /data/Manuscript/Supp_Tables/run_supp_tables_log.txt

@@ -1,0 +1,116 @@
+
+==========================================================================
+  Part 1c - Within-donor decomposition of rho(MT-CO3, cDFG)
+==========================================================================
+  MIN_CELLS_DONOR : 30
+  N_SIM           : 500
+  GOI             : MT-CO3
+  DFG             : ['MT-ATP6', 'MT-CO2', 'MT-ND3', 'MT-ND4', 'MT-CYB', 'MT-ND1', 'MT-ND2', 'MT-CO1']
+  TARGET_STYPE    : Micro-PVM_3-SEAAD
+
+==========================================================================
+  C0 - Loading h5ad
+==========================================================================
+  shape : (240651, 36601)
+  stype_col  : Supertype
+  donor_col  : Donor ID
+  adnc_col   : Overall AD neuropathological Change
+  count layer: UMIs
+  extracting 9/9 module genes ...
+  done
+  Micro-PVM_3-SEAAD : 29,805 cells
+  sel (GOI > 0)        : 24,463 cells
+
+==========================================================================
+  C1 - Donor table: GOI-positive PVM_3 cells per donor
+==========================================================================
+  Total donors with >=1 GOI+ PVM_3 cell : 84
+  Qualifying (>= 30 cells)              : 82
+  Excluded   (<  30 cells)              : 2
+  Cells in qualifying donors             : 24,424 / 24,463
+
+  Cell-count distribution (qualifying donors):
+    min=36  q25=113  median=215  q75=371  max=1252
+  Cell-count distribution (excluded donors):
+    min=17  max=22
+
+==========================================================================
+  C2 - ADNC distribution of included vs excluded donors
+==========================================================================
+  Included   (n=82): NotAD=8, Low=12, Interm=20, High=42
+  Excluded   (n=2): NotAD=1, Low=0, Interm=1, High=0
+
+==========================================================================
+  C3 - Within-donor rho(MT-CO3, cDFG)
+==========================================================================
+  cDFG built from 8/8 DFGs: ['MT-ATP6', 'MT-CO2', 'MT-ND3', 'MT-ND4', 'MT-CYB', 'MT-ND1', 'MT-ND2', 'MT-CO1']
+  Computed rho for 82 donors
+
+==========================================================================
+  C4 - Three-number decomposition: pooled / within-donor / between-donor
+==========================================================================
+  1. POOLED rho(MT-CO3, cDFG)
+       unconditional : +0.8174  (n=24,463 cells)
+       | depth       : +0.8124
+
+  2. WITHIN-DONOR rho  (n=82 donors, >=30 GOI+ PVM_3 cells each)
+       unconditional : median=+0.7509  IQR=[+0.6635, +0.8022]  range=[+0.3963, +0.9199]
+       | depth       : median=+0.7399  IQR=[+0.6456, +0.7932]
+       fraction > 0  : 1.000  (82/82)
+
+  3. BETWEEN-DONOR rho  (donor-mean GOI vs donor-mean cDFG)
+       unconditional : +0.9524  p=5.085e-43  (n=82 donors)
+       | depth       : +0.9587  p=1.948e-45
+
+  +--------------------------------------------------------------+
+  |  Pooled rho        : +0.8174  (depth-partialled: +0.8124)   |
+  |  Within-donor med  : +0.7509  (depth-partialled: +0.7399)   |
+  |  Between-donor     : +0.9524  (depth-partialled: +0.9587)   |
+  +--------------------------------------------------------------+
+
+==========================================================================
+  C5 - Noise-floor simulation: expected IQR under true rho = 0.80
+==========================================================================
+  500 replicates per donor at each donor's n_i, true rho = 0.80
+  Simulated  : median=+0.7850  IQR=[+0.7836, +0.7859]  width=0.0023
+  Observed   : median=+0.7509  IQR=[+0.6635, +0.8022]  width=0.1387
+
+  Observed IQR substantially wider than simulated.
+
+==========================================================================
+  C6 - Per-DFG within-donor rho (median across donors)
+==========================================================================
+  gene        med_rho      q25      q75  n_donors
+  ------------------------------------------------
+  MT-ATP6     +0.6010  +0.5225  +0.7364        82
+  MT-CO2      +0.6676  +0.5921  +0.7589        82
+  MT-ND3      +0.6141  +0.5036  +0.7222        82
+  MT-ND4      +0.6220  +0.4864  +0.7043        82
+  MT-CYB      +0.5730  +0.5022  +0.6962        82
+  MT-ND1      +0.4921  +0.3901  +0.5917        82
+  MT-ND2      +0.5280  +0.4322  +0.6244        82
+  MT-CO1      +0.5593  +0.4990  +0.6443        82
+
+==========================================================================
+  C7 - VERDICT
+==========================================================================
+  Within-donor median = +0.7509 (>= 0.75)
+
+  VERDICT: PASS
+    pooled rho           = +0.8174
+    within-donor median  = +0.7509
+    between-donor rho    = +0.9524
+    depth-partialled:
+      pooled             = +0.8124
+      within-donor med   = +0.7399
+      between-donor      = +0.9587
+
+==========================================================================
+  Saving
+==========================================================================
+  saved: Part1_PreChecks/S1c_within_donor_rho.csv  (82 donors)
+  saved: Part1_PreChecks/S1c_within_donor_report.txt
+
+==========================================================================
+  PART 1c COMPLETE
+==========================================================================

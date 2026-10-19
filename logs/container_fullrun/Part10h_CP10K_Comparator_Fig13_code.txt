@@ -1,0 +1,48 @@
+========================================================================
+Part10h comparator - Figure 13 builder
+Date: 2026-10-19 08:58:21
+Read root : /data
+Output dir: /data/Part10h_Prognosis_1_Comparator/Fig13
+========================================================================
+
+STEP 1 -- inputs
+  [PASS] GR-13A-01  4 of 4 groups resolved: M4 -> Part10h_CP10K_M4_Comparator_results.rds; PVM_3 -> Part10h_CP10K_PVM_3_Comparator_results.rds; PVM_1 -> Part10h_CP10K_PVM_1_Comparator_results.rds; HKG8 -> Part10h_CP10K_HKG8_Comparator_results.rds
+
+STEP 2 -- checks
+  [PASS] GR-13A-02  all 6 predictors present in all 4 groups
+  [PASS] GR-13A-03  PVM_3 shares 5 of 5 baselines with M4 (Cluster proportion (supertype), Module score (AUCell), Changepoint split (segmented), Module score (UCell), Module score (AddModuleScore)); PVM_1 shares 0 of 5 baselines with M4; HKG8 shares 1 of 5 baselines with M4 (Cluster proportion (supertype))
+  [WARN] GR-13A-04  134 of 360 non-control duel rows at joint VIF >= 5: M4 (masked, primary) 0/90, PVM_3, all cells 71/90, PVM_1, all cells 63/90, HKG8 (housekeeping control) 0/90
+  [WARN] GR-13A-05  32 of 320 intervals exclude zero: PVM_3, all cells NeoC CASI score vs Changepoint split (segmented) (0.089); PVM_3, all cells NeoC MMSE score vs Changepoint split (segmented) (0.050); PVM_3, all cells NeoC Braak stage vs Changepoint split (segmented) (0.043); PVM_3, all cells NonNeoC CASI score vs Module score (AUCell) (0.066); PVM_3, all cells NonNeoC CASI score vs Changepoint split (segmented) (0.125); PVM_3, all cells NonNeoC MMSE score vs Changepoint split (segmented) (0.061); PVM_3, all cells NonNeoC Braak stage vs Changepoint split (segmented) (0.066); PVM_1, all cells NeoC CASI score vs Cluster proportion (supertype) (0.181); PVM_1, all cells NeoC Cognitive status vs Cluster proportion (supertype) (0.154); PVM_1, all cells NeoC CERAD score vs Cluster proportion (supertype) (0.130); PVM_1, all cells NeoC ADNC rank vs Cluster proportion (supertype) (0.107); PVM_1, all cells NeoC CASI score vs Module score (AddModuleScore) (-0.067); PVM_1, all cells NeoC MMSE score vs Module score (AddModuleScore) (-0.057); PVM_1, all cells NonNeoC Cognitive status vs Cluster proportion (supertype) (0.113); PVM_1, all cells NonNeoC CERAD score vs Module score (AUCell) (-0.045); PVM_1, all cells NonNeoC CASI score vs Changepoint split (segmented) (0.120); PVM_1, all cells NonNeoC MMSE score vs Changepoint split (segmented) (0.071); PVM_1, all cells NonNeoC CERAD score vs Module score (UCell) (-0.044); PVM_1, all cells NonNeoC CERAD score vs Module score (AddModuleScore) (-0.034); HKG8 (housekeeping control) NeoC CERAD score vs Cluster proportion (supertype) (-0.152); HKG8 (housekeeping control) NeoC CERAD score vs Module score (AUCell) (0.084); HKG8 (housekeeping control) NeoC Thal phase vs Module score (AUCell) (0.069); HKG8 (housekeeping control) NeoC CAA score vs Changepoint split (segmented) (0.086); HKG8 (housekeeping control) NeoC Thal phase vs Module score (UCell) (0.068); HKG8 (housekeeping control) NeoC CERAD score vs Module score (AddModuleScore) (0.091); HKG8 (housekeeping control) NeoC CAA score vs Module score (AddModuleScore) (0.082); HKG8 (housekeeping control) NonNeoC CERAD score vs Cluster proportion (supertype) (-0.141); HKG8 (housekeeping control) NonNeoC CASI score vs Cluster proportion (supertype) (-0.156); HKG8 (housekeeping control) NonNeoC Thal phase vs Cluster proportion (supertype) (-0.118); HKG8 (housekeeping control) NonNeoC ADNC rank vs Cluster proportion (supertype) (-0.146); HKG8 (housekeeping control) NonNeoC Cognitive status vs Changepoint split (segmented) (0.105); HKG8 (housekeeping control) NonNeoC Cognitive status vs Module score (AddModuleScore) (0.106)
+
+STEP 3 -- figures
+    Fig13A_DeltaR2_grid_plotted.csv (432 rows)
+    duel panel drops 1 outcome(s) with no class: APOE e4 dose
+    Fig13B_Duel_verdicts_plotted.csv (320 rows)
+    Fig13_Bootstrap_plotted.csv (320 rows)
+
+  publication cut
+    Fig13A_Pub_DeltaR2_grid_plotted.csv (96 rows)
+    Fig13B_Pub_Duel_verdicts_plotted.csv (118 rows)
+    Fig13_Bootstrap_cognition_plotted.csv (120 rows)
+
+  panel C -- decomposition
+    Fig13C_Pub_Decomposition_plotted.csv (32 rows)
+  [PASS] GR-13A-07  decomposition over 32 primary-score row(s), 4 group(s): 3 HOLDS, 16 not readable.
+
+  panel C2 -- module against the score, head to head
+    Fig13C2_Pub_Contrast_plotted.csv (24 rows)
+  [PASS] GR-13A-08  coefficient contrast on M4 over 24 tile(s): module stronger on 11, score stronger on 0, indistinguishable on 13, unreadable on 0. The score's own coefficient clears 0.05 on 4
+    Fig13_Forest_M4_plotted.csv (180 rows)
+    Fig13_Forest_PVM_3_plotted.csv (180 rows)
+    Fig13_Forest_PVM_1_plotted.csv (180 rows)
+    Fig13_Forest_HKG8_plotted.csv (180 rows)
+
+STEP 4 -- ledger
+  [PASS] GR-13A-06  6 figure(s) written and 12 plotted-data CSV(s). Every figure has its rows on disk. Table-only outputs: Fig13_Bootstrap, Fig13_Bootstrap_cognition, Fig13_Forest_M4, Fig13_Forest_PVM_3, Fig13_Forest_PVM_1, Fig13_Forest_HKG8
+
+  6 PASS / 2 WARN / 0 FAIL
+  outputs in /data/Part10h_Prognosis_1_Comparator/Fig13
+  log written to Fig13_Log.txt
+Warning message:
+`geom_errorbarh()` was deprecated in ggplot2 4.0.0.
+ℹ Please use the `orientation` argument of `geom_errorbar()` instead. 

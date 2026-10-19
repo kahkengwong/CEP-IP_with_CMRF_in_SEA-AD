@@ -1,0 +1,16 @@
+run_supp_tables.sh started 2026-10-19 09:19:23 | root /data | tables 18
+
+== S18
+Guardrail ledger : /data/Part13b_M4RandomSubset/Part13_13b_CP10K_M4_Guardrail_Log.txt
+Console log      : /data/Part13b_M4RandomSubset/Part13_13b_CP10K_M4_console_log_20261019_091923.txt
+Run: completed
+   S18 builder: done
+
+== finalize S18
+S18  Part13b_M4RandomSubset/Part13_13b_CP10K_M4_SuppTable.xlsx
+Written: S18
+VERDICT: PASS
+
+Builders done: 18
+Builders failed: none
+Summary saved to /data/Manuscript/Supp_Tables/run_supp_tables_log.txt

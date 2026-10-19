@@ -1,0 +1,79 @@
+
+==============================================================================
+Part 10g Steps 7b, 7c, 8 and 9 rebuild
+==============================================================================
+Date     : 2026-10-19 08:17:17 
+CEP_HOME : /data 
+R        : R version 4.6.1 (2026-06-24) 
+Output   : /data/Part10g_DEGs/Step7to9_rebuild 
+
+==============================================================================
+1. INPUTS
+==============================================================================
+  M4 NeoC       Part10g_CP10K_M4_NeoC_results.rds (2026-10-19 08:05)
+  M4 NonNeoC    Part10g_CP10K_M4_NonNeoC_results.rds (2026-10-19 08:05)
+  PVM_3 NeoC    Part10g_CP10K_PVM_3_NeoC_results.rds (2026-10-19 08:10)
+  PVM_3 NonNeoC Part10g_CP10K_PVM_3_NonNeoC_results.rds (2026-10-19 08:10)
+  PVM_1 NeoC    Part10g_CP10K_PVM_1_NeoC_results.rds (2026-10-19 08:13)
+  PVM_1 NonNeoC Part10g_CP10K_PVM_1_NonNeoC_results.rds (2026-10-19 08:13)
+  HKG8 NeoC     Part10g_CP10K_HKG8_NeoC_results.rds (2026-10-19 08:17)
+  HKG8 NonNeoC  Part10g_CP10K_HKG8_NonNeoC_results.rds (2026-10-19 08:17)
+
+  Structure check on M4 NeoC PostIP_vs_PreIP 
+    donor columns : gene, dataset, comparison, unit, n_fg, n_bg, n_donors, avg_log2FC, pct_fg, pct_bg, mean_expr_fg, mean_expr_bg, p_val, p_val_adj_BH, auc, r_rb, significant, direction, pct_filter_pass, is_mt_gene, padj_rank, auc_rank, fc_rank, CRS, CRS_signed, eligible, top1000_up, top1000_down, rank_up, rank_down 
+    donor_fc      : matrix 11697 x 41 
+
+==============================================================================
+2. STEPS 7b AND 7c: choose the test settings
+==============================================================================
+  t-test Welch   | Mann-Whitney exact = FALSE   | differences 0
+
+  Using: t-test Welch, Mann-Whitney exact = FALSE
+
+==============================================================================
+3. STEPS 7b AND 7c: comparison with the existing CSVs
+==============================================================================
+
+  Step 7b: no existing CSV; comparison skipped
+
+  Step 7b verdict: no existing CSV; comparison skipped
+
+  Step 7c: no existing CSV; comparison skipped
+
+==============================================================================
+4. STEP 8: Module membership overlap between arms
+==============================================================================
+  M4 NeoC         2130 cells | ID column barcode      | Module   1656
+  M4 NonNeoC      1987 cells | ID column barcode      | Module   1474
+  PVM_3 NeoC     13331 cells | ID column barcode      | Module   9454
+  PVM_3 NonNeoC  11132 cells | ID column barcode      | Module   7735
+  PVM_1 NeoC      3218 cells | ID column barcode      | Module   2202
+  PVM_1 NonNeoC   2658 cells | ID column barcode      | Module   1936
+  HKG8 NeoC       1432 cells | ID column barcode      | Module    526
+  HKG8 NonNeoC    1079 cells | ID column barcode      | Module    431
+ dataset arm_a arm_b  n_a   n_b n_shared both_module a_only_module b_only_module neither_module jaccard_module   kappa pct_a_module_that_is_b_module
+    NeoC  HKG8 PVM_3 1432 13331     1432         408           118           692            214         0.3350  0.0097                          77.6
+    NeoC  HKG8    M4 1432  2130     1432         430            96           736            170         0.3407  0.0041                          81.7
+    NeoC    M4 PVM_3 2130 13331     2130        1536           120            35            439         0.9083  0.8023                          92.8
+ NonNeoC  HKG8 PVM_3 1079 11132     1079         318           113           480            168         0.3491 -0.0026                          73.8
+ NonNeoC  HKG8    M4 1079  1987     1079         323           108           504            144         0.3455 -0.0246                          74.9
+ NonNeoC    M4 PVM_3 1987 11132     1987        1390            84            33            480         0.9224  0.8511                          94.3
+
+  Step 8: no existing CSV; comparison skipped
+
+==============================================================================
+5. STEP 9: axis genes on non-Module cells
+==============================================================================
+  Non-circular Step 7c passes (two-sided): SYT1 NeoC, KCNIP4 NeoC, CADM1 NeoC, RBFOX1 NeoC, DPP10 NeoC, CDK14 NeoC, MEG3 NeoC, MAGI2 NeoC, CNTNAP2 NeoC, RORA NeoC, SRGAP2C NonNeoC, PPM1E NonNeoC, CSMD1 NonNeoC, LSAMP NonNeoC 
+  source avg_log2FC           differences 0
+
+  Using source: avg_log2FC 
+
+  Step 9: no existing CSV; comparison skipped
+
+==============================================================================
+DONE
+==============================================================================
+Rebuilt files and this log are in:
+  /data/Part10g_DEGs/Step7to9_rebuild
+Log saved: /data/Part10g_DEGs/Step7to9_rebuild/Part10g_Step7to9_rebuild_log_20261019_081717.txt 

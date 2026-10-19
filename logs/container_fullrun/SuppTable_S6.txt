@@ -1,0 +1,16 @@
+run_supp_tables.sh started 2026-10-19 07:11:28 | root /data | tables 6
+
+== S6
+saved Manuscript/Supp_Tables/build/SuppTable_S6_DecontX.xlsx (9.8 MB)
+
+VERDICT: PASS
+   S6 builder: done
+
+== finalize S6
+S6  Manuscript/Supp_Tables/build/SuppTable_S6_DecontX.xlsx
+Written: S6
+VERDICT: PASS
+
+Builders done: 6
+Builders failed: none
+Summary saved to /data/Manuscript/Supp_Tables/run_supp_tables_log.txt

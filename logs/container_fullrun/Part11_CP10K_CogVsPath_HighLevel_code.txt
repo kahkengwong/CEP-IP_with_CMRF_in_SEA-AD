@@ -1,0 +1,28 @@
+============================================================================
+Part 11 high-level summary panel. Started 2026-10-19 09:03:26
+  Read : /data/Part10e_Validation1
+  Write: /data/Part11_Identity/Part11_CogVsPath_HighLevel
+============================================================================
+
+STEP 1: refined cells
+  [PASS]  GR-11HL-01   M4 NeoC from Part10e_CP10K_M4_V1_NeoC_SK_interaction_analysis.xlsx: 2130 refined cell(s), 37 column(s)
+
+STEP 2: IP and module boundary
+  [PASS]  GR-11HL-02   IP_y = 1.8748 maps to v = 0.5386; Spearman(cDFG, v) = 1.000000; v split matches the cDFG split on 100.00% of cells
+  [PASS]  GR-11HL-03   four populations over 2130 cell(s): Non-module Pre-IP 346; Module Pre-IP 801; Non-module Post-IP 128; Module Post-IP 855
+  [PASS]  GR-11HL-04   colours drawn: Non-module Pre-IP #A8C8E0; Module Pre-IP #5A7FA6; Non-module Post-IP #B08968; Module Post-IP #2D2D2D
+  [WARN]  GR-11HL-10   interleaving (recorded only). Post-IP: 3 of 48 non-module cells (6.2%) within the module v range, 40 slices, median height 0.224. Pre-IP: 7 of 308 (2.3%), 40 slices, median height 0.267
+
+STEP 3: figure
+  [PASS]  GR-11HL-05   2 of 2 device(s) written (PDF and PNG at 300 dpi, 7.5 x 8.5 in)
+  [PASS]  GR-11HL-06   population counts and guardrail table written
+
+============================================================================
+  Total: 7 | PASS 6 | WARN 1 | FAIL 0
+  Output: /data/Part11_Identity/Part11_CogVsPath_HighLevel
+    Part11_CogVsPath_HighLevel_guardrails.csv                 0.9 KB
+    Part11_CogVsPath_HighLevel_log_20261019_090326.txt        1.5 KB
+    Part11_CogVsPath_HighLevel_populations.csv                0.2 KB
+    Part11_CogVsPath_HighLevel.pdf                          122.9 KB
+    Part11_CogVsPath_HighLevel.png                          592.3 KB
+============================================================================

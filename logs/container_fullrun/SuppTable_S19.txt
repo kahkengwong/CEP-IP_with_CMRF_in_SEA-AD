@@ -1,0 +1,13 @@
+run_supp_tables.sh started 2026-10-19 09:20:03 | root /data | tables 19
+
+== S19
+   S19 builder: done
+
+== finalize S19
+S19  Manuscript/Fig17/Preprint/Fig17_Summary.xlsx
+Written: S19
+VERDICT: PASS
+
+Builders done: 19
+Builders failed: none
+Summary saved to /data/Manuscript/Supp_Tables/run_supp_tables_log.txt

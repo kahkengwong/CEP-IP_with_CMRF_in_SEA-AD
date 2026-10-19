@@ -1,0 +1,16 @@
+run_supp_tables.sh started 2026-10-19 07:11:27 | root /data | tables 4
+
+== S4
+  saved: Manuscript/Supp_Tables/build/SuppTable_S4_GOI_DFG_screen.xlsx
+
+VERDICT: PASS
+   S4 builder: done
+
+== finalize S4
+S4  Manuscript/Supp_Tables/build/SuppTable_S4_GOI_DFG_screen.xlsx
+Written: S4
+VERDICT: PASS
+
+Builders done: 4
+Builders failed: none
+Summary saved to /data/Manuscript/Supp_Tables/run_supp_tables_log.txt

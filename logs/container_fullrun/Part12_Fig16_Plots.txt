@@ -1,0 +1,61 @@
+Part 12 rerun -- step 18
+Script: Part12_Fig16_Plots.r
+Shared file: Part12_03_Config.r
+Run ID: 20261019-0911-fedora
+Start: 2026-10-19 09:11:04
+Machine: fac31f98ee06 | R version 4.6.1 (2026-06-24)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 18-01 script saved in Part12_rerun | Part12_Fig16_Plots.r
+
+SECTION A -- inputs
+[PASS] 18-02 Stats_16A.csv listed in the 08_Fig16/16AB_DonorStructure log | Part12_rerun/08_Fig16/16AB_DonorStructure/Stats_16A.csv
+[PASS] 18-03 Stats_16B.csv listed in the 08_Fig16/16AB_DonorStructure log | Part12_rerun/08_Fig16/16AB_DonorStructure/Stats_16B.csv
+[PASS] 18-04 Stats_16C.csv listed in the 08_Fig16/16C_LabelAgreement log | Part12_rerun/08_Fig16/16C_LabelAgreement/Stats_16C.csv
+[PASS] 18-05 Stats_16D.csv listed in the 08_Fig16/16D_WithinDonorRho log | Part12_rerun/08_Fig16/16D_WithinDonorRho/Stats_16D.csv
+[PASS] 18-06 Plot_16D_donors.csv listed in the 08_Fig16/16D_WithinDonorRho log | Part12_rerun/08_Fig16/16D_WithinDonorRho/Plot_16D_donors.csv
+[PASS] 18-07 Stats_16E.csv listed in the 08_Fig16/16E_Offset log | Part12_rerun/08_Fig16/16E_Offset/Stats_16E.csv
+[PASS] 18-08 Stats_16F.csv listed in the 08_Fig16/16FG_LibraryFields log | Part12_rerun/08_Fig16/16FG_LibraryFields/Stats_16F.csv
+[PASS] 18-09 Stats_16G.csv listed in the 08_Fig16/16FG_LibraryFields log | Part12_rerun/08_Fig16/16FG_LibraryFields/Stats_16G.csv
+[PASS] 18-10 16D plot data agree with the stats file | within-donor median 0.747328 against 0.747328
+[PASS] 18-11 figure labels are ASCII | 9 labels
+[PASS] 18-12 figure script text is ASCII | 613 lines
+
+SECTION B -- figures
+[PASS] 18-13 Fig16A_donor_share drawn | pdf and png
+[PASS] 18-14 Fig16B_split_half drawn | pdf and png
+[PASS] 18-15 Fig16C_label_agreement drawn | pdf and png
+[PASS] 18-16 Fig16D_within_donor_rs drawn | pdf and png
+[PASS] 18-17 Fig16E_offset_share drawn | pdf and png
+[PASS] 18-18 Fig16F_intronic_rate drawn | pdf and png
+[PASS] 18-19 Fig16G_library_fields_M4 drawn | pdf and png
+[PASS] 18-20 Fig16G_library_fields_PVM_3 drawn | pdf and png
+[PASS] 18-21 Fig16G_library_fields_PVM_1 drawn | pdf and png
+[PASS] 18-22 Fig16G_library_fields_HKG8 drawn | pdf and png
+
+
+Outputs:
+  Part12_rerun/08_Fig16/Fig16/Fig16A_donor_share.pdf | 0.0 MB
+  Part12_rerun/08_Fig16/Fig16/Fig16A_donor_share.png | 0.3 MB
+  Part12_rerun/08_Fig16/Fig16/Fig16B_split_half.pdf | 0.0 MB
+  Part12_rerun/08_Fig16/Fig16/Fig16B_split_half.png | 0.2 MB
+  Part12_rerun/08_Fig16/Fig16/Fig16C_label_agreement.pdf | 0.0 MB
+  Part12_rerun/08_Fig16/Fig16/Fig16C_label_agreement.png | 0.2 MB
+  Part12_rerun/08_Fig16/Fig16/Fig16D_within_donor_rs.pdf | 0.0 MB
+  Part12_rerun/08_Fig16/Fig16/Fig16D_within_donor_rs.png | 0.1 MB
+  Part12_rerun/08_Fig16/Fig16/Fig16E_offset_share.pdf | 0.0 MB
+  Part12_rerun/08_Fig16/Fig16/Fig16E_offset_share.png | 0.1 MB
+  Part12_rerun/08_Fig16/Fig16/Fig16F_intronic_rate.pdf | 0.0 MB
+  Part12_rerun/08_Fig16/Fig16/Fig16F_intronic_rate.png | 0.2 MB
+  Part12_rerun/08_Fig16/Fig16/Fig16G_library_fields_M4.pdf | 0.0 MB
+  Part12_rerun/08_Fig16/Fig16/Fig16G_library_fields_M4.png | 0.3 MB
+  Part12_rerun/08_Fig16/Fig16/Fig16G_library_fields_PVM_3.pdf | 0.0 MB
+  Part12_rerun/08_Fig16/Fig16/Fig16G_library_fields_PVM_3.png | 0.3 MB
+  Part12_rerun/08_Fig16/Fig16/Fig16G_library_fields_PVM_1.pdf | 0.0 MB
+  Part12_rerun/08_Fig16/Fig16/Fig16G_library_fields_PVM_1.png | 0.3 MB
+  Part12_rerun/08_Fig16/Fig16/Fig16G_library_fields_HKG8.pdf | 0.0 MB
+  Part12_rerun/08_Fig16/Fig16/Fig16G_library_fields_HKG8.png | 0.3 MB
+Checks: 22 PASS, 0 FAIL, 0 WARN | duration 0.0 min
+VERDICT: PASS
+Figure 16: section 18 PASS. Figures in Part12_rerun/08_Fig16/Fig16

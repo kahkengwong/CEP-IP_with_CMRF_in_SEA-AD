@@ -1,0 +1,210 @@
+Part 12 rerun -- step 04
+Script: Part12_04_Labels.r
+Shared file: Part12_03_Config.r
+Run ID: 20261019-0906-fedora
+Start: 2026-10-19 09:06:28
+Machine: fac31f98ee06 | R version 4.6.1 (2026-06-24)
+Packages: jsonlite 2.0.0 | readxl 1.5.0 | Matrix 1.7.6
+Config: Part12_rerun/Part12_01_config.json | version 16
+Labels version: 2026-09-06_module-pool | cut token: ip_y_threshold
+[PASS] 04-01 script saved in Part12_rerun | Part12_04_Labels.r
+
+SECTION A -- step 02 tables copied from Fedora
+[PASS] 04-02 step 02 log present | Part12_rerun/02_Extract/Part12_02_Extract_log.txt
+[PASS] 04-03 step 02 log lists six outputs | 6 listed
+[PASS] 04-04 02_cells.csv.gz listed in the step 02 log and present | Part12_rerun/02_Extract/02_cells.csv.gz
+[PASS] 04-05 02_counts.mtx.gz listed in the step 02 log and present | Part12_rerun/02_Extract/02_counts.mtx.gz
+[PASS] 04-06 02_counts_genes.tsv listed in the step 02 log and present | Part12_rerun/02_Extract/02_counts_genes.tsv
+[PASS] 04-07 02_counts_cells.tsv listed in the step 02 log and present | Part12_rerun/02_Extract/02_counts_cells.tsv
+[PASS] 04-08 02_gene_summary.csv listed in the step 02 log and present | Part12_rerun/02_Extract/02_gene_summary.csv
+[PASS] 04-09 02_matched_sets.csv listed in the step 02 log and present | Part12_rerun/02_Extract/02_matched_sets.csv
+[PASS] 04-10 step 02 count matrix, cell list and cell table agree | 37714 cells x 955 genes
+
+SECTION B -- inputs
+  input DecontX (Part 7)             Part7_DecontX/decontX_contamination_all.csv | 25.5 MB
+  input M4 IPRS RDS                  Part10b_IPRS/Part10b_IPRS_Mic13_PVM3/Part10b_IPRS_CP10K_M4_results.rds | 0.2 MB
+  input M4 Prognosis                 Part10h_Prognosis/Part10h_Prognosis_Mic13_PVM3/Part10h_CP10K_M4_Prognosis.xlsx | 1.3 MB
+  input PVM_3 IPRS RDS               Part10b_IPRS/Part10b_IPRS_PVM_3/Part10b_IPRS_CP10K_PVM_3_results.rds | 0.4 MB
+  input PVM_3 Prognosis              Part10h_Prognosis/Part10h_Prognosis_PVM_3/Part10h_CP10K_PVM_3_Prognosis.xlsx | 1.3 MB
+  input PVM_1 IPRS RDS               Part10b_IPRS/Part10b_IPRS_PVM_1/Part10b_IPRS_CP10K_PVM_1_results.rds | 0.2 MB
+  input PVM_1 Prognosis              Part10h_Prognosis/Part10h_Prognosis_PVM_1/Part10h_CP10K_PVM_1_Prognosis.xlsx | 1.3 MB
+  input HKG8 IPRS RDS                Part10b_IPRS/Part10b_IPRS_HKG8/Part10b_IPRS_CP10K_HKG8_results.rds | 0.2 MB
+  input HKG8 Prognosis               Part10h_Prognosis/Part10h_Prognosis_HKG8/Part10h_CP10K_HKG8_Prognosis.xlsx | 1.2 MB
+  input M4 NeoC Validation 1         Part10e_Validation1/Part10e_Validation1_Mic13_PVM3/Part10e_CP10K_M4_V1_NeoC_SK_interaction_analysis.xlsx | 0.6 MB
+  input M4 NeoC obs_dataset          R_export_CP10K/Mic13_PVM3/neocortex/metadata/obs_dataset.csv | 137.5 MB
+  input M4 NonNeoC Validation 1      Part10e_Validation1/Part10e_Validation1_Mic13_PVM3/Part10e_CP10K_M4_V1_NonNeoC_SK_interaction_analysis.xlsx | 0.5 MB
+  input M4 NonNeoC obs_dataset       R_export_CP10K/Mic13_PVM3/nonneocortex/metadata/obs_dataset.csv | 115.5 MB
+  input PVM_3 NeoC Validation 1      Part10e_Validation1/Part10e_Validation1_PVM_3/Part10e_CP10K_PVM_3_V1_NeoC_SK_interaction_analysis.xlsx | 3.2 MB
+  input PVM_3 NeoC obs_dataset       R_export_CP10K/PVM3_all/neocortex/metadata/obs_dataset.csv | 127.5 MB
+  input PVM_3 NonNeoC Validation 1   Part10e_Validation1/Part10e_Validation1_PVM_3/Part10e_CP10K_PVM_3_V1_NonNeoC_SK_interaction_analysis.xlsx | 2.9 MB
+  input PVM_3 NonNeoC obs_dataset    R_export_CP10K/PVM3_all/nonneocortex/metadata/obs_dataset.csv | 107.5 MB
+  input PVM_1 NeoC Validation 1      Part10e_Validation1/Part10e_Validation1_PVM_1/Part10e_CP10K_PVM_1_V1_NeoC_SK_interaction_analysis.xlsx | 0.8 MB
+  input PVM_1 NeoC obs_dataset       R_export_CP10K/PVM1_all/neocortex/metadata/obs_dataset.csv | 127.5 MB
+  input PVM_1 NonNeoC Validation 1   Part10e_Validation1/Part10e_Validation1_PVM_1/Part10e_CP10K_PVM_1_V1_NonNeoC_SK_interaction_analysis.xlsx | 0.7 MB
+  input PVM_1 NonNeoC obs_dataset    R_export_CP10K/PVM1_all/nonneocortex/metadata/obs_dataset.csv | 107.5 MB
+  input HKG8 NeoC Validation 1       Part10e_Validation1/Part10e_Validation1_HKG8/Part10e_CP10K_HKG8_V1_NeoC_SK_interaction_analysis.xlsx | 0.3 MB
+  input HKG8 NeoC obs_dataset        R_export_CP10K/HKG8_matched/neocortex/metadata/obs_dataset.csv | 137.5 MB
+  input HKG8 NonNeoC Validation 1    Part10e_Validation1/Part10e_Validation1_HKG8/Part10e_CP10K_HKG8_V1_NonNeoC_SK_interaction_analysis.xlsx | 0.2 MB
+  input HKG8 NonNeoC obs_dataset     R_export_CP10K/HKG8_matched/nonneocortex/metadata/obs_dataset.csv | 115.5 MB
+
+[PASS] 04-11 DecontX barcodes unique | 240651 rows
+[PASS] 04-12 M4 IPRS RDS carries IP_y for both datasets | NonNeoC, NeoC
+[PASS] 04-13 PVM_3 IPRS RDS carries IP_y for both datasets | NonNeoC, NeoC
+[PASS] 04-14 PVM_1 IPRS RDS carries IP_y for both datasets | NonNeoC, NeoC
+[PASS] 04-15 HKG8 IPRS RDS carries IP_y for both datasets | NonNeoC, NeoC
+SECTION C -- the Module cut (IP_y), per arm and dataset
+[PASS] 04-16 M4 NeoC barcodes unique | 2130 cells | 1656 Module
+[PASS] 04-17 M4 NeoC composite finite on every cell | 0 missing
+[PASS] 04-18 M4 NeoC IP_status on Module cells is Post or Pre | post-ip, pre-ip
+[PASS] 04-19 M4 NeoC Prognosis donors unique | 84 donors
+[PASS] 04-20 M4 NeoC cut reproduces the Prognosis Post-IP count | IP_y 1.875476 -> 855 Post-IP (target 855)
+[PASS] 04-21 M4 NeoC IP_y and the top-N rule split the Module cells identically | IP_x 2.679411 | IP_y 1.875476 | top-N 1.877062 | 0 Module cell(s) between
+[PASS] 04-22 M4 NeoC labels match the workbook IP_status | 0 of 1656 Module cells disagree
+[PASS] 04-23 M4 NeoC IP_status is a clean threshold on the composite | Post min 1.877062 | Pre max 1.872635
+[PASS] 04-24 M4 NeoC obs_dataset barcodes unique | 134088 rows
+[PASS] 04-25 M4 NeoC donor joined for every cell | 2130 of 2130
+[PASS] 04-26 M4 NeoC every cell found in DecontX | 2130 of 2130
+[PASS] 04-27 M4 NeoC region agrees between DecontX and obs_dataset | 0 cell(s) disagree
+[PASS] 04-28 M4 NeoC donor IDs are clean ASCII | 78 donors | 0 bad
+[NOTE] M4 NeoC per-donor Post-IP counts against Prognosis | 84 donors | max deviation 0 | off by more than 1: 0
+
+[PASS] 04-29 M4 NonNeoC barcodes unique | 1987 cells | 1474 Module
+[PASS] 04-30 M4 NonNeoC composite finite on every cell | 0 missing
+[PASS] 04-31 M4 NonNeoC IP_status on Module cells is Post or Pre | post-ip, pre-ip
+[PASS] 04-32 M4 NonNeoC Prognosis donors unique | 83 donors
+[PASS] 04-33 M4 NonNeoC cut reproduces the Prognosis Post-IP count | IP_y 2.038718 -> 776 Post-IP (target 776)
+[PASS] 04-34 M4 NonNeoC IP_y and the top-N rule split the Module cells identically | IP_x 2.802522 | IP_y 2.038718 | top-N 2.038975 | 0 Module cell(s) between
+[PASS] 04-35 M4 NonNeoC labels match the workbook IP_status | 0 of 1474 Module cells disagree
+[PASS] 04-36 M4 NonNeoC IP_status is a clean threshold on the composite | Post min 2.038975 | Pre max 2.027697
+[PASS] 04-37 M4 NonNeoC obs_dataset barcodes unique | 106563 rows
+[PASS] 04-38 M4 NonNeoC donor joined for every cell | 1987 of 1987
+[PASS] 04-39 M4 NonNeoC every cell found in DecontX | 1987 of 1987
+[PASS] 04-40 M4 NonNeoC region agrees between DecontX and obs_dataset | 0 cell(s) disagree
+[PASS] 04-41 M4 NonNeoC donor IDs are clean ASCII | 80 donors | 0 bad
+[NOTE] M4 NonNeoC per-donor Post-IP counts against Prognosis | 83 donors | max deviation 0 | off by more than 1: 0
+
+[PASS] 04-42 PVM_3 NeoC barcodes unique | 13331 cells | 9454 Module
+[PASS] 04-43 PVM_3 NeoC composite finite on every cell | 0 missing
+[PASS] 04-44 PVM_3 NeoC IP_status on Module cells is Post or Pre | post-ip, pre-ip
+[PASS] 04-45 PVM_3 NeoC Prognosis donors unique | 84 donors
+[PASS] 04-46 PVM_3 NeoC cut reproduces the Prognosis Post-IP count | IP_y 1.664802 -> 4910 Post-IP (target 4910)
+[PASS] 04-47 PVM_3 NeoC IP_y and the top-N rule split the Module cells identically | IP_x 2.495273 | IP_y 1.664802 | top-N 1.664922 | 0 Module cell(s) between
+[PASS] 04-48 PVM_3 NeoC labels match the workbook IP_status | 0 of 9454 Module cells disagree
+[PASS] 04-49 PVM_3 NeoC IP_status is a clean threshold on the composite | Post min 1.664922 | Pre max 1.664580
+[PASS] 04-50 PVM_3 NeoC obs_dataset barcodes unique | 134088 rows
+[PASS] 04-51 PVM_3 NeoC donor joined for every cell | 13331 of 13331
+[PASS] 04-52 PVM_3 NeoC every cell found in DecontX | 13331 of 13331
+[PASS] 04-53 PVM_3 NeoC region agrees between DecontX and obs_dataset | 0 cell(s) disagree
+[PASS] 04-54 PVM_3 NeoC donor IDs are clean ASCII | 84 donors | 0 bad
+[NOTE] PVM_3 NeoC per-donor Post-IP counts against Prognosis | 84 donors | max deviation 0 | off by more than 1: 0
+
+[PASS] 04-55 PVM_3 NonNeoC barcodes unique | 11132 cells | 7735 Module
+[PASS] 04-56 PVM_3 NonNeoC composite finite on every cell | 0 missing
+[PASS] 04-57 PVM_3 NonNeoC IP_status on Module cells is Post or Pre | post-ip, pre-ip
+[PASS] 04-58 PVM_3 NonNeoC Prognosis donors unique | 83 donors
+[PASS] 04-59 PVM_3 NonNeoC cut reproduces the Prognosis Post-IP count | IP_y 1.887917 -> 4111 Post-IP (target 4111)
+[PASS] 04-60 PVM_3 NonNeoC IP_y and the top-N rule split the Module cells identically | IP_x 2.657153 | IP_y 1.887917 | top-N 1.889069 | 0 Module cell(s) between
+[PASS] 04-61 PVM_3 NonNeoC labels match the workbook IP_status | 0 of 7735 Module cells disagree
+[PASS] 04-62 PVM_3 NonNeoC IP_status is a clean threshold on the composite | Post min 1.889069 | Pre max 1.887013
+[PASS] 04-63 PVM_3 NonNeoC obs_dataset barcodes unique | 106563 rows
+[PASS] 04-64 PVM_3 NonNeoC donor joined for every cell | 11132 of 11132
+[PASS] 04-65 PVM_3 NonNeoC every cell found in DecontX | 11132 of 11132
+[PASS] 04-66 PVM_3 NonNeoC region agrees between DecontX and obs_dataset | 0 cell(s) disagree
+[PASS] 04-67 PVM_3 NonNeoC donor IDs are clean ASCII | 83 donors | 0 bad
+[NOTE] PVM_3 NonNeoC per-donor Post-IP counts against Prognosis | 83 donors | max deviation 0 | off by more than 1: 0
+
+[PASS] 04-68 PVM_1 NeoC barcodes unique | 3218 cells | 2202 Module
+[PASS] 04-69 PVM_1 NeoC composite finite on every cell | 0 missing
+[PASS] 04-70 PVM_1 NeoC IP_status on Module cells is Post or Pre | post-ip, pre-ip
+[PASS] 04-71 PVM_1 NeoC Prognosis donors unique | 84 donors
+[PASS] 04-72 PVM_1 NeoC cut reproduces the Prognosis Post-IP count | IP_y 1.526079 -> 1188 Post-IP (target 1188)
+[PASS] 04-73 PVM_1 NeoC IP_y and the top-N rule split the Module cells identically | IP_x 2.382738 | IP_y 1.526079 | top-N 1.530003 | 0 Module cell(s) between
+[PASS] 04-74 PVM_1 NeoC labels match the workbook IP_status | 0 of 2202 Module cells disagree
+[PASS] 04-75 PVM_1 NeoC IP_status is a clean threshold on the composite | Post min 1.530003 | Pre max 1.525908
+[PASS] 04-76 PVM_1 NeoC obs_dataset barcodes unique | 134088 rows
+[PASS] 04-77 PVM_1 NeoC donor joined for every cell | 3218 of 3218
+[PASS] 04-78 PVM_1 NeoC every cell found in DecontX | 3218 of 3218
+[PASS] 04-79 PVM_1 NeoC region agrees between DecontX and obs_dataset | 0 cell(s) disagree
+[PASS] 04-80 PVM_1 NeoC donor IDs are clean ASCII | 84 donors | 0 bad
+[NOTE] PVM_1 NeoC per-donor Post-IP counts against Prognosis | 84 donors | max deviation 0 | off by more than 1: 0
+
+[PASS] 04-81 PVM_1 NonNeoC barcodes unique | 2658 cells | 1936 Module
+[PASS] 04-82 PVM_1 NonNeoC composite finite on every cell | 0 missing
+[PASS] 04-83 PVM_1 NonNeoC IP_status on Module cells is Post or Pre | post-ip, pre-ip
+[PASS] 04-84 PVM_1 NonNeoC Prognosis donors unique | 83 donors
+[PASS] 04-85 PVM_1 NonNeoC cut reproduces the Prognosis Post-IP count | IP_y 1.836287 -> 1047 Post-IP (target 1047)
+[PASS] 04-86 PVM_1 NonNeoC IP_y and the top-N rule split the Module cells identically | IP_x 2.645333 | IP_y 1.836287 | top-N 1.840170 | 0 Module cell(s) between
+[PASS] 04-87 PVM_1 NonNeoC labels match the workbook IP_status | 0 of 1936 Module cells disagree
+[PASS] 04-88 PVM_1 NonNeoC IP_status is a clean threshold on the composite | Post min 1.840170 | Pre max 1.835693
+[PASS] 04-89 PVM_1 NonNeoC obs_dataset barcodes unique | 106563 rows
+[PASS] 04-90 PVM_1 NonNeoC donor joined for every cell | 2658 of 2658
+[PASS] 04-91 PVM_1 NonNeoC every cell found in DecontX | 2658 of 2658
+[PASS] 04-92 PVM_1 NonNeoC region agrees between DecontX and obs_dataset | 0 cell(s) disagree
+[PASS] 04-93 PVM_1 NonNeoC donor IDs are clean ASCII | 83 donors | 0 bad
+[NOTE] PVM_1 NonNeoC per-donor Post-IP counts against Prognosis | 83 donors | max deviation 0 | off by more than 1: 0
+
+[PASS] 04-94 HKG8 NeoC barcodes unique | 1432 cells | 526 Module
+[PASS] 04-95 HKG8 NeoC composite finite on every cell | 0 missing
+[PASS] 04-96 HKG8 NeoC IP_status on Module cells is Post or Pre | post-ip, pre-ip
+[PASS] 04-97 HKG8 NeoC Prognosis donors unique | 84 donors
+[PASS] 04-98 HKG8 NeoC cut reproduces the Prognosis Post-IP count | IP_y 1.245230 -> 289 Post-IP (target 289)
+[PASS] 04-99 HKG8 NeoC IP_y and the top-N rule split the Module cells identically | IP_x 1.555173 | IP_y 1.245230 | top-N 1.251733 | 0 Module cell(s) between
+[PASS] 04-100 HKG8 NeoC labels match the workbook IP_status | 0 of 526 Module cells disagree
+[PASS] 04-101 HKG8 NeoC IP_status is a clean threshold on the composite | Post min 1.251733 | Pre max 1.243691
+[PASS] 04-102 HKG8 NeoC obs_dataset barcodes unique | 134088 rows
+[PASS] 04-103 HKG8 NeoC donor joined for every cell | 1432 of 1432
+[PASS] 04-104 HKG8 NeoC every cell found in DecontX | 1432 of 1432
+[PASS] 04-105 HKG8 NeoC region agrees between DecontX and obs_dataset | 0 cell(s) disagree
+[PASS] 04-106 HKG8 NeoC donor IDs are clean ASCII | 74 donors | 0 bad
+[NOTE] HKG8 NeoC per-donor Post-IP counts against Prognosis | 84 donors | max deviation 0 | off by more than 1: 0
+
+[PASS] 04-107 HKG8 NonNeoC barcodes unique | 1079 cells | 431 Module
+[PASS] 04-108 HKG8 NonNeoC composite finite on every cell | 0 missing
+[PASS] 04-109 HKG8 NonNeoC IP_status on Module cells is Post or Pre | post-ip, pre-ip
+[PASS] 04-110 HKG8 NonNeoC Prognosis donors unique | 83 donors
+[PASS] 04-111 HKG8 NonNeoC cut reproduces the Prognosis Post-IP count | IP_y 1.174491 -> 249 Post-IP (target 249)
+[PASS] 04-112 HKG8 NonNeoC IP_y and the top-N rule split the Module cells identically | IP_x 1.813001 | IP_y 1.174491 | top-N 1.176631 | 0 Module cell(s) between
+[PASS] 04-113 HKG8 NonNeoC labels match the workbook IP_status | 0 of 431 Module cells disagree
+[PASS] 04-114 HKG8 NonNeoC IP_status is a clean threshold on the composite | Post min 1.176631 | Pre max 1.174413
+[PASS] 04-115 HKG8 NonNeoC obs_dataset barcodes unique | 106563 rows
+[PASS] 04-116 HKG8 NonNeoC donor joined for every cell | 1079 of 1079
+[PASS] 04-117 HKG8 NonNeoC every cell found in DecontX | 1079 of 1079
+[PASS] 04-118 HKG8 NonNeoC region agrees between DecontX and obs_dataset | 0 cell(s) disagree
+[PASS] 04-119 HKG8 NonNeoC donor IDs are clean ASCII | 77 donors | 0 bad
+[NOTE] HKG8 NonNeoC per-donor Post-IP counts against Prognosis | 83 donors | max deviation 0 | off by more than 1: 0
+
+SECTION D -- join to the step 02 tables
+[PASS] 04-120 every labelled cell is in the step 02 table | 36967 of 36967
+[PASS] 04-121 every labelled cell has its arm's supertype in the h5ad | 0 mismatches
+[PASS] 04-122 each cell appears once per arm | 36967 rows
+[PASS] 04-123 region agrees between DecontX and the h5ad | 0 cell(s) disagree
+[PASS] 04-124 donor agrees between obs_dataset and the h5ad | 0 cell(s) disagree
+[PASS] 04-125 M4 NeoC recomputed composite agrees with the workbook | rs 1.0000 | max |difference| 1.691e-07
+[PASS] 04-126 M4 NonNeoC recomputed composite agrees with the workbook | rs 1.0000 | max |difference| 1.727e-07
+[PASS] 04-127 PVM_3 NeoC recomputed composite agrees with the workbook | rs 1.0000 | max |difference| 1.7e-07
+[PASS] 04-128 PVM_3 NonNeoC recomputed composite agrees with the workbook | rs 1.0000 | max |difference| 1.989e-07
+[PASS] 04-129 PVM_1 NeoC recomputed composite agrees with the workbook | rs 1.0000 | max |difference| 1.74e-07
+[PASS] 04-130 PVM_1 NonNeoC recomputed composite agrees with the workbook | rs 1.0000 | max |difference| 1.66e-07
+[PASS] 04-131 HKG8 NeoC recomputed composite agrees with the workbook | rs 1.0000 | max |difference| 7.799e-08
+[PASS] 04-132 HKG8 NonNeoC recomputed composite agrees with the workbook | rs 1.0000 | max |difference| 9.208e-08
+
+SECTION E -- totals
+[PASS] 04-133 every arm and dataset produced a cut | 8 units
+[PASS] 04-134 ip_status is set on Module cells only | 25414 Module cells
+  HKG8 NeoC      Module post-IP 289 | Module pre-IP 237 | non-Module post-IP 460 | non-Module pre-IP 446
+  HKG8 NonNeoC   Module post-IP 249 | Module pre-IP 182 | non-Module post-IP 300 | non-Module pre-IP 348
+  M4 NeoC        Module post-IP 855 | Module pre-IP 801 | non-Module post-IP 128 | non-Module pre-IP 346
+  M4 NonNeoC     Module post-IP 776 | Module pre-IP 698 | non-Module post-IP 163 | non-Module pre-IP 350
+  PVM_1 NeoC     Module post-IP 1188 | Module pre-IP 1014 | non-Module post-IP 206 | non-Module pre-IP 810
+  PVM_1 NonNeoC  Module post-IP 1047 | Module pre-IP 889 | non-Module post-IP 154 | non-Module pre-IP 568
+  PVM_3 NeoC     Module post-IP 4910 | Module pre-IP 4544 | non-Module post-IP 970 | non-Module pre-IP 2907
+  PVM_3 NonNeoC  Module post-IP 4111 | Module pre-IP 3624 | non-Module post-IP 1149 | non-Module pre-IP 2248
+  donors per arm: M4 83 | PVM_3 84 | PVM_1 84 | HKG8 82
+[PASS] 04-135 label text fields are ASCII | checked
+[PASS] 04-136 labels written and read back | 36967 rows x 51 columns
+
+Outputs:
+  Part12_rerun/04_Labels/04_cell_labels.csv.gz | 5.3 MB
+  Part12_rerun/04_Labels/04_module_cuts.csv | 0.0 MB
+Checks: 136 PASS, 0 FAIL, 0 WARN | duration 0.4 min
+VERDICT: PASS
