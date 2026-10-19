@@ -10,7 +10,7 @@ Console logs of the container rerun of Python Parts 1 to 8 on Fedora (Podman), o
 
 ## container_fullrun/
 
-Console logs of the one-command run (`seaad-run all --compare`) on Fedora (Podman), in a new data folder that held only the inputs, one per step, written by `seaad-run`. `seaad-run_summary.txt` lists the start and run time of each step. The first start stopped at Part 5b because two input files were not yet in the folder, and the run was resumed from Part 1d; the summary shows both starts. `compare_rerun.txt` is the comparison of the R parts with the original results. Inside the container, the data folder is `/data` and the original results are `/ref`.
+Console logs of the one-command run (`seaad-run all --compare`) on Fedora (Podman), in a new data folder that held only the inputs, one per step, written by `seaad-run`. `seaad-run_summary.txt` lists the start and run time of each step. The first start stopped at Part 5b because two input files were not yet in the folder, and the run was resumed from Part 1d; the summary shows both starts. `compare_rerun.txt`, `compare_python.txt`, and `compare_supp_tables.txt` are the comparisons of the R parts, the Python parts, and the Supplementary Tables with the original results. `seaad-setup.txt` is the console log of `seaad-setup`. Inside the container, the data folder is `/data` and the original results are `/ref`.
 
 ## original_R/
 
