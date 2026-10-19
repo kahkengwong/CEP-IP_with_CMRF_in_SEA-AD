@@ -17,7 +17,7 @@
 
 
 <table>
-<tr><th align="center" colspan="3"><h3>Table of Contents</h3></th></tr>
+<tr><th align="center" colspan="3">Table of Contents</th></tr>
 <tr><th align="left">No.</th><th align="left">Section</th><th align="left">Descriptions</th></tr>
 <tr><td align="left" colspan="3"><b>About the study</b></td></tr>
 <tr><td align="left"><b>1</b></td><td align="left"><a href="#1-overview">Overview</a></td><td align="left">The study in brief and the datasets</td></tr>
@@ -85,7 +85,7 @@ Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely
 <tr><th align="left">Item</th><th align="left">Details</th></tr>
 <tr><td align="left" colspan="2"><b>1. SEA-AD immune snRNA-seq dataset</b></td></tr>
 <tr><td align="left"><b>Release</b></td><td align="left">Multiregion release of 22 June 2026</td></tr>
-<tr><td align="left"><b>Files</b></td><td align="left"><ul><li>Immune h5ad: <code>SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad</code></li><li>Quantitative neuropathology workbook: <code>sea-ad-quantitative-neuropathology-063026.xlsx</code></li><li>CPS workbook: <code>sea-ad_global_and_local_cps_050126.xlsx</code></li></ul></td></tr>
+<tr><td align="left"><b>Files</b></td><td align="left"><ul><li>Immune h5ad: <code>SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad</code></li><li>Quantitative neuropathology workbook: <code>sea-ad-quantitative-neuropathology-063026.xlsx</code></li><li>CPS workbook: <code>sea-ad_global_and_local_cps_050126.xlsx</code></li><li>Donor metadata workbook: <code>MetaData/sea-ad_cohort_donor_metadata_072524.xlsx</code></li></ul></td></tr>
 <tr><td align="left"><b>Used in</b></td><td align="left">Python Parts 1 to 8 and Part 12</td></tr>
 <tr><td align="left"><b>Available from</b></td><td align="left"><a href="https://brain-map.org/consortia/sea-ad/our-data">SEA-AD portal</a></td></tr>
 <tr><td align="left"><b>References</b></td><td align="left"><ul><li>M.I. Gabitto, K.J. Travaglini, V.M. Rachleff, E.S. Kaplan, B. Long, et al., Integrated multimodal cell atlas of Alzheimer's disease, Nat Neurosci, 27 (2024) 2366-2383. <a href="https://doi.org/10.1038/s41593-024-01774-5">https://doi.org/10.1038/s41593-024-01774-5</a></li><li>K.J. Travaglini, M.I. Gabitto, Y. Ding, A. Agrawal, N. Postupna, et al., Multiregional single-cell profiling reveals shared and specialized cellular vulnerability in Alzheimer’s disease, bioRxiv, (2026). <a href="https://www.biorxiv.org/content/10.64898/2026.07.01.734821v1">https://www.biorxiv.org/content/10.64898/2026.07.01.734821v1</a></li></ul></td></tr>
@@ -159,7 +159,7 @@ The five figures below follow the main steps of the analysis, using M4 NeoC as t
 ## 4. Repository Contents
 | Path | Contents |
 |---|---|
-| `scripts/Python/` | The 23 Python scripts: Parts 1 to 8 and the Part 12 extraction step (`Part12_02_Extract.py`). |
+| `scripts/Python/` | <ul><li>The 23 Python scripts: Parts 1 to 8 and the Part 12 extraction step (`Part12_02_Extract.py`)</li><li>`Mic13_genes.txt`: the Mic.13 gene table read by Part 5b (from Green et al. 2024, Extended Data Fig. 2c)</li></ul> |
 | `scripts/R/` | <ul><li>The R scripts of Parts 9 to 13 and `Fig17_Summary_code.r`</li><li>The shared arm table and settings: `CEP_arms.R`, `R_config.R`, `R_config_HKG8.R`</li><li>The Part 12 settings: `Part12_01_config.json`, `Part12_Fig19_config.json`</li><li>The pre-specified readings of the Batteries: `Part12_Preset_Readings.md`, `Part12_Preset_Readings_Battery5.md`</li></ul> |
 | `scripts/SuppTables/` | The scripts that build Supplementary Tables S1 to S19 from the pipeline outputs:<ul><li>One builder per table: `build_SuppTable_S<n>`</li><li>`finalize_supp_tables.py`: published sheet names, Contents and wording, from `supp_tables_contents.json`</li><li>`run_supp_tables.sh`</li><li>`compare_supp_tables.py`</li></ul> |
 | `Containerfile` | Recipe for the container image (R 4.6.1, Python 3.13.14, all packages). Works with Podman or Docker. |
@@ -283,7 +283,7 @@ The analysis runs in a container that holds R 4.6.1, Python 3.13.14 and every pa
 | Source | Files | Needed for |
 |---|---|---|
 | [Hugging Face](https://huggingface.co/datasets/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD) | <ul><li>`R_export_CP10K/`: Part 8 export of the four arms, about 14 GB</li><li>The Part 2 donor tables: `NeoC_S5b_donor_clinical.csv`, `NonNeoC_S5b_donor_clinical.csv`</li><li>`Part7_DecontX/decontX_contamination_all.csv`</li></ul> | R Parts 9 to 13 |
-| [SEA-AD portal](https://brain-map.org/consortia/sea-ad/our-data) | Immune h5ad (2026-06-22 release), neuropathology and CPS workbooks | Python Parts 1 to 8, Part 12 |
+| [SEA-AD portal](https://brain-map.org/consortia/sea-ad/our-data) | Immune h5ad (2026-06-22 release), the donor metadata workbook (`MetaData/sea-ad_cohort_donor_metadata_072524.xlsx`), and the neuropathology and CPS workbooks | Python Parts 1 to 8, Part 12 |
 | [GEO GSE148822](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE148822) | Gerrits deposit, placed in `Gerrits/` with the series matrix in `Gerrits/Metadata/` | Part 12 (Battery 1) |
 
 Place them in one folder (the data folder), keeping the folder names above.
@@ -315,13 +315,17 @@ ii) From the extracted folder, build the image:
 ```bash
 podman build -t seaad-cepip -f Containerfile .
 ```
-The first build takes about one to two hours, mostly to compile the Bioconductor packages and monocle3. Docker accepts the same commands with `docker` in place of `podman`.
+- The first build takes about one to two hours, mostly to compile the Bioconductor packages and monocle3.
 
-iii) Alternatively, instead of building it, the image can be loaded from the archived copy on Zenodo (`seaad-cepip_image.tar.gz`, 1.7 GB, https://doi.org/10.5281/zenodo.23446228), which holds the same software and scripts:
+iii) Alternatively, load the archived image from Zenodo instead of building it:
 ```bash
 podman load -i seaad-cepip_image.tar.gz
 ```
-This gives the image `localhost/seaad-cepip`; Docker accepts `docker load -i` in the same way.
+- File: `seaad-cepip_image.tar.gz` (1.7 GB), https://doi.org/10.5281/zenodo.23446228
+- It holds the same software and scripts, and gives the image `localhost/seaad-cepip`.
+
+> [!TIP]
+> Docker accepts every command in this section with `docker` in place of `podman` (for example, `docker build` and `docker load -i`).
 
 ### 6.3 Run the analysis
 i) Run the whole analysis with one command, with the data folder mounted at `/data`:
@@ -331,27 +335,35 @@ podman run --rm --shm-size=16g -v /path/to/data_folder:/data:Z seaad-cepip seaad
 > [!IMPORTANT]
 > `--shm-size=16g` gives the container enough shared memory for Part 7 (DecontX), whose worker processes share the count matrix. Without it, Part 7 stops with a bus error.
 
-`seaad-run all` runs every script in order, from the SEA-AD h5ad to Figure 17 and Supplementary Tables S1 to S19. Other modes run part of the analysis:
+ii) To run part of the analysis, replace `all` with another mode:
+- `seaad-run all`: every script in order, from the SEA-AD h5ad to Figure 17 and Supplementary Tables S1 to S19.
 - `seaad-run python`: Python Parts 1 to 8 and Tables S1 to S6.
 - `seaad-run r`: R Parts 9 to 13, Figure 17 and Tables S7 to S19, from the Hugging Face files and the SEA-AD inputs of Part 12.
 - `seaad-run hf`: R Parts 9 to 11 and Tables S7 to S10 and S12, from the Hugging Face files only.
 - `seaad-run tables`: Tables S1 to S19 from outputs already in the data folder.
 - `seaad-run list all`: prints the steps.
 
-ii) Each step's console output is saved to `seaad-run_logs/`. The run stops at the first step that fails and prints the command to resume from that step, for example `seaad-run all --from Part10e_CP10K_CMRF_code`.
+iii) Logs and resuming:
+- Each step's console output is saved to `seaad-run_logs/`.
+- The run stops at the first step that fails and prints the command to resume from that step, for example `seaad-run all --from Part10e_CP10K_CMRF_code`.
 
-iii) To compare the results with the original results, mount them read-only at `/ref` and add `--compare`:
+iv) To compare the results with the original results, mount them read-only at `/ref` and add `--compare`:
 ```bash
 podman run --rm --shm-size=16g -v /path/to/data_folder:/data:Z -v /path/to/original:/ref:ro,Z seaad-cepip seaad-run all --compare
 ```
 
-iv) To run scripts one by one, start the container with a shell, run `seaad-setup` once, and follow the order in `README_container.md`:
+<details>
+<summary><strong>Running the scripts one by one (click to expand)</strong></summary>
+
+Start the container with a shell, run `seaad-setup` once, and follow the order in `README_container.md`:
 ```bash
 podman run --rm -it --shm-size=16g -v /path/to/data_folder:/data:Z seaad-cepip
 seaad-setup
 Rscript -e 'source("/opt/seaad/R/Part9_CP10K_QC_GAM_code.r")'
 ```
 `seaad-setup` copies the settings files and the Part 12 scripts into the data folder and lists every input as found or missing.
+
+</details>
 
 ### 6.4 Without the container (optional)
 - **R:** run `renv::restore()` in the repository folder to install the package versions in `renv.lock`. renv uses an isolated library and does not change the existing R setup.
