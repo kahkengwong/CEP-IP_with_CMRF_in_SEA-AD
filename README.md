@@ -38,10 +38,7 @@
 
 </div>
 
-- The **CEP-IP** framework with a **copula monotone recovery filter (CMRF)** applied to the **SEA-AD** immune single-nucleus RNA-seq dataset (84 donors, 10 brain regions).
-- A transcriptome-wide screen identified a module of **MT-CO3** and eight co-expressed mitochondrially encoded genes (cDFG).
-- The donor percentage of **Module post-IP** cells was tested against cognition and pathology.
-- Five **Batteries** of analyses tested contamination, measurement artifacts, %MT, and the 11 severely affected (SA) donors.
+<br>
 
 <details>
 <summary><strong>Abstract (click to expand)</strong></summary>
@@ -51,6 +48,14 @@ Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely
 > K.K. Wong (2026). PREPRINT_TITLE. *bioRxiv*. https://doi.org/BIORXIV_DOI
 
 </details>
+
+<br>
+
+## Highlights
+- The **CEP-IP** framework with a **copula monotone recovery filter (CMRF)** applied to the **SEA-AD** immune single-nucleus RNA-seq dataset (84 donors, 10 brain regions).
+- A transcriptome-wide screen identified a module of **MT-CO3** and eight co-expressed mitochondrially encoded genes (cDFG).
+- The donor percentage of **Module post-IP** cells was tested against cognition and pathology.
+- Five **Batteries** of analyses tested contamination, measurement artifacts, %MT, and the 11 severely affected (SA) donors.
 
 ---
 
@@ -153,7 +158,7 @@ The five figures below follow the main steps of the analysis, using M4 NeoC as t
 |---|---|
 | `scripts/Python/` | The 23 Python scripts: Parts 1 to 8 and the Part 12 extraction step (`Part12_02_Extract.py`). |
 | `scripts/R/` | <ul><li>The R scripts of Parts 9 to 13 and `Fig17_Summary_code.r`</li><li>The shared arm table and settings: `CEP_arms.R`, `R_config.R`, `R_config_HKG8.R`</li><li>The Part 12 settings: `Part12_01_config.json`, `Part12_Fig19_config.json`</li><li>The pre-specified readings of the Batteries: `Part12_Preset_Readings.md`, `Part12_Preset_Readings_Battery5.md`</li></ul> |
-| `scripts/SuppTables/` | The scripts that build Supplementary Tables S1 to S19 from the pipeline outputs: one builder per table (`build_SuppTable_S<n>`), `finalize_supp_tables.py` (published sheet names, Contents and wording, from `supp_tables_contents.json`), `run_supp_tables.sh`, and `compare_supp_tables.py`. |
+| `scripts/SuppTables/` | The scripts that build Supplementary Tables S1 to S19 from the pipeline outputs:<ul><li>One builder per table: `build_SuppTable_S<n>`</li><li>`finalize_supp_tables.py`: published sheet names, Contents and wording, from `supp_tables_contents.json`</li><li>`run_supp_tables.sh`</li><li>`compare_supp_tables.py`</li></ul> |
 | `Containerfile` | Recipe for the container image (R 4.6.1, Python 3.13.14, all packages). Works with Podman or Docker. |
 | `seaad-setup.sh` | Run once inside the container: copies the settings into the data folder and checks the inputs. |
 | `seaad-run.sh` | The one-command run (`seaad-run` in the container): runs the whole analysis, or part of it, in order, with a log per step. |
