@@ -18,6 +18,7 @@
 
 ### Author: Kah Keng Wong [![ORCID](https://img.shields.io/badge/ORCID-0000--0001--7359--6202-A6CE39?logo=orcid&logoColor=white&style=flat-square)](https://orcid.org/0000-0001-7359-6202)
 
+**R package:** the methods of this study (CEP-IP, SKCS, and CMRF) are available as the R package [cepip](https://github.com/kahkengwong/cepip), for use on other single-cell datasets.
 
 <table>
 <tr><th align="center" colspan="3">Table of Contents</th></tr>
@@ -50,7 +51,7 @@
 
 Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely filter nuclei by mitochondrial fraction (%MT) or remove mitochondrial genes, yet whether these reads carry information about cognition is rarely examined. In SEA-AD microglia (84 donors, 10 brain regions), a transcriptome-wide screen identified a module of MT-CO3 and eight co-expressed mitochondrially encoded genes. Three microglial populations were analyzed, Mic.13-like, PVM_3, and PVM_1 cells, with a housekeeping-gene control. The CEP-IP pipeline with a copula monotone recovery filter (CMRF) used per-cell Spearman and Kendall scores, an inflection point (IP), and a cross-validated copula-space boundary to label Module cells. The donor percentage of Module cells past the IP (Module post-IP%) was associated with worse cognition (MMSE and CASI) in the three populations in neocortical and non-neocortical regions. These associations remained after adjustment for tissue quality, plaque and tangle burden, whereas most pathology associations were lost after adjustment for cognition. Tested together, Module post-IP% carried the cognition associations and non-Module post-IP% did not, and the housekeeping control showed no MMSE association. In Mic.13-like and PVM_3, the cognition associations held after contamination adjustment and doublet removal, Module post-IP% repeated across each donor's regions beyond chance, and no per-cell %MT cutoff reproduced the Module cells. However, Module post-IP% could not be separated from %MT, and the source of the mitochondrial transcripts, whether retained cytoplasm, ambient RNA, or a true change in mitochondrial content, remains unresolved. These findings suggest that mitochondrial reads in AD snRNA-seq should be checked before filtering, and the full pipeline code is publicly available.
 
-> K.K. Wong (2026). PREPRINT_TITLE. *bioRxiv*. https://doi.org/BIORXIV_DOI
+> K.K. Wong (2026). CEP-IP with CMRF in SEA-AD Microglia: A Mitochondrial Co-expression Module Linked to Cognition. *bioRxiv*. https://doi.org/BIORXIV_DOI
 
 </details>
 
@@ -62,13 +63,14 @@ Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely
 - A transcriptome-wide screen identified a module of **MT-CO3** and eight co-expressed mitochondrially encoded genes (cDFG).
 - The donor percentage of **Module post-IP** cells was tested against cognition and pathology.
 - Five **Batteries** of analyses tested contamination, measurement artifacts, %MT, and the 11 severely affected (SA) donors.
+- The methods are available as the R package [**cepip**](https://github.com/kahkengwong/cepip) for use on other datasets.
 
 ---
 
 ## 1. Overview
 - This repository holds the analysis code, the software environment (container recipe and lock files), and the reproduction check for the preprint. It builds on the published **CEP-IP framework** ([Wong, 2026, *CMPB*](https://doi.org/10.1016/j.cmpb.2026.109372); [code](https://github.com/kahkengwong/CEP-IP_Framework)).
 
-- The methods of this study (CEP-IP, SKCS and CMRF) are available as the R package [`cepip`](https://github.com/kahkengwong/cepip), for use on other datasets. The package reproduces the PVM_3 and HKG8 arms of this study: its script `reproduce_seaad.R` checks 722 published values, and all of them agree.
+- The methods of this study (CEP-IP, SKCS, and CMRF) are available as the R package [`cepip`](https://github.com/kahkengwong/cepip), for use on other datasets. The package reproduces the PVM_3 and HKG8 arms of this study: its script `reproduce_seaad.R` checks 722 published values, and all of them agree.
 
 - **Python Parts 1 to 8** read the SEA-AD immune h5ad: pre-checks, Mic.13-like (M4) cell selection, the GOI-DFG screens, DecontX, and the export of each arm for R.
 
@@ -122,6 +124,9 @@ Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely
 
 ## 3. Methods and Key Results
 The five figures below follow the main steps of the analysis, using M4 NeoC as the example where one arm is shown.
+
+> [!NOTE]
+> The R package [cepip](https://github.com/kahkengwong/cepip) draws these plots for any pair of a gene and its partner genes. Its README shows the [example output](https://github.com/kahkengwong/cepip#example-output) on the PVM_3 NeoC cells.
 
 <p align="center"><img src="figures/Figure_1_Si_Ki_creates_discontinuity.jpg" width="900" alt="Figure 1"></p>
 
@@ -285,7 +290,7 @@ Each builder writes its workbook and a log to `Manuscript/Supp_Tables/build/`. `
 The analysis runs in a container that holds R 4.6.1, Python 3.13.14 and every package at the version in the lock files. No data are inside the container: the data folder is mounted at `/data` when it starts, and every script reads and writes in that folder.
 
 > [!TIP]
-> To apply CEP-IP, SKCS and CMRF to other data, use the R package [`cepip`](https://github.com/kahkengwong/cepip). It does not need the container.
+> To apply CEP-IP, SKCS, and CMRF to other data, use the R package [`cepip`](https://github.com/kahkengwong/cepip). It does not need the container.
 
 ### 6.1 Get the data
 | Source | Files | Needed for |
@@ -449,6 +454,8 @@ The full comparisons are in `verification/`:
 - **Python parts:** `compare_python_tables_log.txt` and `compare_python_tables_detail.csv` (tables), `compare_python_matrices_log.txt` (count matrices and cell and gene lists), and `compare_gamdata_log.txt` (the Part 8 `gam_data` tables).
 - **One-command run:** `fulltest_seaad-run_summary.txt` (steps and run times), `fulltest_compare_R_log.txt` and `fulltest_compare_R_detail.csv`, `fulltest_compare_python_tables_log.txt` and `fulltest_compare_python_tables_detail.csv`, and `fulltest_compare_python_matrices_log.txt`.
 
+**Check with the R package:** the script `reproduce_seaad.R` of [cepip](https://github.com/kahkengwong/cepip) reruns the PVM_3 and HKG8 arms from the Hugging Face data with the package code, and all 722 published values agree.
+
 ---
 
 ## 8. Supplementary Tables & Figures (Zenodo)
@@ -494,9 +501,11 @@ This project is licensed under the [MIT License](https://github.com/kahkengwong/
 ## 11. Citation
 If you found this study useful, please cite:
 
-K.K. Wong. PREPRINT_TITLE. *bioRxiv* (2026). https://doi.org/BIORXIV_DOI
+K.K. Wong. CEP-IP with CMRF in SEA-AD Microglia: A Mitochondrial Co-expression Module Linked to Cognition. *bioRxiv* (2026). https://doi.org/BIORXIV_DOI
 
 K.K. Wong. CEP-IP: An explainable framework for cell subpopulation identification in single-cell transcriptomics. *Computer Methods and Programs in Biomedicine*, 282 (2026) 109372. https://doi.org/10.1016/j.cmpb.2026.109372
+
+The methods are implemented in the R package [cepip](https://github.com/kahkengwong/cepip).
 
 <details>
 <summary><strong>BibTeX (click to expand)</strong></summary>
@@ -504,7 +513,7 @@ K.K. Wong. CEP-IP: An explainable framework for cell subpopulation identificatio
 ```bibtex
 @article{Wong2026SEAAD,
   author  = {Wong, Kah Keng},
-  title   = {PREPRINT_TITLE},
+  title   = {{CEP-IP} with {CMRF} in {SEA-AD} Microglia: A Mitochondrial Co-expression Module Linked to Cognition},
   journal = {bioRxiv},
   year    = {2026},
   doi     = {BIORXIV_DOI}
