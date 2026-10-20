@@ -126,7 +126,7 @@ Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely
 The five figures below follow the main steps of the analysis, using M4 NeoC as the example where one arm is shown.
 
 > [!NOTE]
-> The R package [cepip](https://github.com/kahkengwong/cepip) draws these plots for any pair of a gene and its partner genes. Its README shows the [example output](https://github.com/kahkengwong/cepip#example-output) on the PVM_3 NeoC cells.
+> The R package [cepip](https://github.com/kahkengwong/cepip) draws these plots for any pair of a gene and its partner genes. Its README explains each step on the PVM_3 NeoC cells in a [worked example](https://github.com/kahkengwong/cepip#4-worked-example).
 
 <p align="center"><img src="figures/Figure_1_Si_Ki_creates_discontinuity.jpg" width="900" alt="Figure 1"></p>
 
