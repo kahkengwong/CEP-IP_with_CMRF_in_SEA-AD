@@ -7,7 +7,7 @@ authors:
     given-names: Kah Keng
     affiliation: "Department of Immunology, School of Medical Sciences, Health Campus, Universiti Sains Malaysia"
     orcid: "https://orcid.org/0000-0001-7359-6202"
-repository-code: "https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD"
+repository-code: "https://github.com/kahkengwong/CEP-IP_with_CMRF_in_SEA-AD"
 license: MIT
 identifiers:
   - type: doi

@@ -4,8 +4,8 @@
 
 # CEP-IP with CMRF in SEA-AD Microglia:<br>A Mitochondrial Co-expression Module Linked to Cognition
 
-[![Project Page](https://img.shields.io/badge/Code-GitHub-4E81BE?logo=github&logoColor=white&style=flat-square)](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
-[![Dataset](https://img.shields.io/badge/Dataset-Hugging%20Face-B08C00?logo=huggingface&logoColor=F3D34E&style=flat-square)](https://huggingface.co/datasets/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
+[![Project Page](https://img.shields.io/badge/Code-GitHub-4E81BE?logo=github&logoColor=white&style=flat-square)](https://github.com/kahkengwong/CEP-IP_with_CMRF_in_SEA-AD)
+[![Dataset](https://img.shields.io/badge/Dataset-Hugging%20Face-B08C00?logo=huggingface&logoColor=F3D34E&style=flat-square)](https://huggingface.co/datasets/kahkengwong/CEP-IP_with_CMRF_in_SEA-AD)
 [![Supplementary](https://img.shields.io/badge/Supplementary-Zenodo-1682D4?logo=zenodo&logoColor=white&style=flat-square)](https://zenodo.org/records/23445742)
 [![Preprint](https://img.shields.io/badge/Preprint-bioRxiv-B31B1B?style=flat-square)](https://doi.org/BIORXIV_DOI)
 [![Container](https://img.shields.io/badge/Container-Podman%20%7C%20Docker-892CA0?logo=podman&logoColor=white&style=flat-square)](#6-reproducing-the-analysis)
@@ -14,7 +14,7 @@
 ![Project Status](https://img.shields.io/badge/status-active-brightgreen?logo=check&logoColor=white&style=flat-square)
 [![R](https://img.shields.io/badge/R-4.6.1-276DC3?logo=r&logoColor=white&style=flat-square)](#91-software-requirements)
 [![Python](https://img.shields.io/badge/Python-3.13.14-3776AB?logo=python&logoColor=white&style=flat-square)](#91-software-requirements)
-[![GitHub last commit](https://img.shields.io/github/last-commit/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD?style=flat-square)](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD)
+[![GitHub last commit](https://img.shields.io/github/last-commit/kahkengwong/CEP-IP_with_CMRF_in_SEA-AD?style=flat-square)](https://github.com/kahkengwong/CEP-IP_with_CMRF_in_SEA-AD)
 
 ### Author: Kah Keng Wong [![ORCID](https://img.shields.io/badge/ORCID-0000--0001--7359--6202-A6CE39?logo=orcid&logoColor=white&style=flat-square)](https://orcid.org/0000-0001-7359-6202)
 
@@ -290,7 +290,7 @@ The analysis runs in a container that holds R 4.6.1, Python 3.13.14 and every pa
 ### 6.1 Get the data
 | Source | Files | Needed for |
 |---|---|---|
-| [Hugging Face](https://huggingface.co/datasets/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD) | <ul><li>`R_export_CP10K/`: Part 8 export of the four arms, about 14 GB</li><li>The Part 2 donor tables: `NeoC_S5b_donor_clinical.csv`, `NonNeoC_S5b_donor_clinical.csv`</li><li>`Part7_DecontX/decontX_contamination_all.csv`</li></ul> | R Parts 9 to 13 |
+| [Hugging Face](https://huggingface.co/datasets/kahkengwong/CEP-IP_with_CMRF_in_SEA-AD) | <ul><li>`R_export_CP10K/`: Part 8 export of the four arms, about 14 GB</li><li>The Part 2 donor tables: `NeoC_S5b_donor_clinical.csv`, `NonNeoC_S5b_donor_clinical.csv`</li><li>`Part7_DecontX/decontX_contamination_all.csv`</li></ul> | R Parts 9 to 13 |
 | [SEA-AD portal](https://brain-map.org/consortia/sea-ad/our-data) | Immune h5ad (2026-06-22 release), the donor metadata workbook (`MetaData/sea-ad_cohort_donor_metadata_072524.xlsx`), and the neuropathology and CPS workbooks | Python Parts 1 to 8, Part 12 |
 | [GEO GSE148822](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE148822) | Gerrits deposit, placed in `Gerrits/` with the series matrix in `Gerrits/Metadata/` | Part 12 (Battery 1) |
 
@@ -299,7 +299,7 @@ Place them in one folder (the data folder), keeping the folder names above.
 > [!TIP]
 > R Parts 9 to 11 run on the Hugging Face files alone (`seaad-run hf`), without the SEA-AD h5ad or the Python parts. The files can be downloaded into the data folder in one step:
 > ```bash
-> hf download kahkengwong/CEP-IP_and_CMRF_in_SEA-AD --repo-type dataset --local-dir /path/to/data_folder
+> hf download kahkengwong/CEP-IP_with_CMRF_in_SEA-AD --repo-type dataset --local-dir /path/to/data_folder
 > ```
 
 The Part 8 export can also be read directly, for example the raw counts of one arm in R:
@@ -487,7 +487,7 @@ The full comparisons are in `verification/`:
 ---
 
 ## 10. License
-This project is licensed under the [MIT License](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD/blob/main/LICENSE). For the full details, please refer to the [LICENSE](https://github.com/kahkengwong/CEP-IP_and_CMRF_in_SEA-AD/blob/main/LICENSE) file in this repository.
+This project is licensed under the [MIT License](https://github.com/kahkengwong/CEP-IP_with_CMRF_in_SEA-AD/blob/main/LICENSE). For the full details, please refer to the [LICENSE](https://github.com/kahkengwong/CEP-IP_with_CMRF_in_SEA-AD/blob/main/LICENSE) file in this repository.
 
 ---
 
