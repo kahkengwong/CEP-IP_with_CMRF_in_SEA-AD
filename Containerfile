@@ -53,8 +53,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # base R for both, as in the runs for the paper.
 WORKDIR /opt/seaad
 COPY renv.lock /opt/seaad/renv.lock
+# renv installs one package at a time (RENV_CONFIG_INSTALL_JOBS=1). The parallel installation of
+# renv >= 1.2 can load-test a package while one of its dependencies is still being installed.
 RUN . /etc/os-release \
     && export RENV_CONFIG_REPOS_OVERRIDE="https://packagemanager.posit.co/cran/__linux__/${VERSION_CODENAME}/latest" \
+    && export RENV_CONFIG_INSTALL_JOBS=1 \
     && Rscript -e 'install.packages("renv", repos = Sys.getenv("RENV_CONFIG_REPOS_OVERRIDE"))' \
     && Rscript -e 'options(Ncpus = max(1L, parallel::detectCores() - 1L)); \
                    renv::restore(project = "/opt/seaad", lockfile = "/opt/seaad/renv.lock", \
