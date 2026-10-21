@@ -474,7 +474,7 @@ The full comparisons are in `verification/`:
 ### 9.2 Hardware Requirements
 | Item | Required | Recommended |
 |---|---|---|
-| **RAM** | 16 GB | 32 GB (the Python parts that read the full h5ad need 32 GB) |
+| **RAM** | 32 GB | 48 GB (the Python parts that read the full h5ad, and the Part 10h comparator step, each need about 32 GB; on a 32 GB computer, enable swap) |
 | **CPU** | 8 cores | 12+ cores (the GAM fits and resampling run in parallel) |
 | **Storage** | about 60 GB free disk space for the inputs, the container image and the outputs | 100 GB |
 
