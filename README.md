@@ -70,7 +70,7 @@ Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely
 ## 1. Overview
 - This repository holds the analysis code, the software environment (container recipe and lock files), and the reproduction check for the preprint. It builds on the published **CEP-IP framework** ([Wong, 2026, *CMPB*](https://doi.org/10.1016/j.cmpb.2026.109372); [code](https://github.com/kahkengwong/CEP-IP_Framework)).
 
-- The methods of this study (CEP-IP, SKCS, and CMRF) are available as the R package [`cepip`](https://github.com/kahkengwong/cepip), for use on other datasets. The package reproduces the PVM_3 and HKG8 arms of this study: its script `reproduce_seaad.R` checks 722 published values, and all of them agree.
+- The methods of this study (CEP-IP, SKCS, and CMRF) are available as the R package [`cepip`](https://github.com/kahkengwong/cepip), for use on other datasets. The package reproduces the PVM_3 and HKG8 arms of this study: its script `reproduce_seaad.R` checks 698 published values, and all of them agree.
 
 - **Python Parts 1 to 8** read the SEA-AD immune h5ad: pre-checks, Mic.13-like (M4) cell selection, the GOI-DFG screens, DecontX, and the export of each arm for R.
 
@@ -454,7 +454,7 @@ The full comparisons are in `verification/`:
 - **Python parts:** `compare_python_tables_log.txt` and `compare_python_tables_detail.csv` (tables), `compare_python_matrices_log.txt` (count matrices and cell and gene lists), and `compare_gamdata_log.txt` (the Part 8 `gam_data` tables).
 - **One-command run:** `fulltest_seaad-run_summary.txt` (steps and run times), `fulltest_compare_R_log.txt` and `fulltest_compare_R_detail.csv`, `fulltest_compare_python_tables_log.txt` and `fulltest_compare_python_tables_detail.csv`, and `fulltest_compare_python_matrices_log.txt`.
 
-**Check with the R package:** the script `reproduce_seaad.R` of [cepip](https://github.com/kahkengwong/cepip) reruns the PVM_3 and HKG8 arms from the Hugging Face data with the package code, and all 722 published values agree.
+**Check with the R package:** the script `reproduce_seaad.R` of [cepip](https://github.com/kahkengwong/cepip) reruns the PVM_3 and HKG8 arms from the Hugging Face data with the package code, and all 698 published values agree.
 
 ---
 
