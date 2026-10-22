@@ -456,6 +456,8 @@ The full comparisons are in `verification/`:
 
 **Check with the R package:** the script `reproduce_seaad.R` of [cepip](https://github.com/kahkengwong/cepip) reruns the PVM_3 and HKG8 arms from the Hugging Face data with the package code, and all 698 published values agree.
 
+**Independent test on Windows:** a second person not involved in the analysis repeated both checks on a Windows 11 laptop (32 GB RAM, Docker Desktop) on 21 October 2026. The cepip reproduction script agreed with all 698 published values. The container, built from this repository at commit d4a82aa, reran R Parts 9 to 11 and Supplementary Tables S7 to S10 and S12 with `seaad-run hf`. Of the 1,073 tables compared with the original results, 1,020 agreed within 0.1%. The other 53 held the same secondary statistics as in the container rerun above, and in the UMAP-based tests of Part 10e, 13 of 324 FDR-adjusted equivalence and separation calls changed. These calls are not reported in the preprint text, and the clinical associations were identical. The comparison files are in `verification/windows_test/`.
+
 ---
 
 ## 8. Supplementary Tables & Figures (Zenodo)
@@ -477,6 +479,9 @@ The full comparisons are in `verification/`:
 | **RAM** | 32 GB | 48 GB (the Python parts that read the full h5ad, and the Part 10h comparator step, each need about 32 GB; on a 32 GB computer, enable swap) |
 | **CPU** | 8 cores | 12+ cores (the GAM fits and resampling run in parallel) |
 | **Storage** | about 60 GB free disk space for the inputs, the container image and the outputs | 100 GB |
+
+> [!NOTE]
+> On Windows, Docker Desktop runs in WSL 2, which by default can use only half of the computer's memory. Before the R parts, raise the limit in `%UserProfile%\.wslconfig` (for example `memory=28GB` and `swap=32GB` on a 32 GB computer), then run `wsl --shutdown` and restart Docker Desktop.
 
 ### 9.3 Development Environment
 - **Developed and tested on:** Intel Core i9-14900KF, 64 GB DDR5 RAM, Windows 11 Pro (R 4.6.1) and Fedora 44 (Python 3.13.14)

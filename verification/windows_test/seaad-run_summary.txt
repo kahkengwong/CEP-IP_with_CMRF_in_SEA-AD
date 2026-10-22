@@ -1,0 +1,99 @@
+seaad-run hf started 2026-10-21 03:29:36 | data /data
+R: R version 4.6.1 (2026-06-24) -- "Happy Hop" | Python: Python 3.13.14
+
+== seaad-setup
+  missing    SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad  (SEA-AD h5ad, read by Parts 1 to 8 and Part12_02)
+  missing    MetaData/sea-ad_cohort_donor_metadata_072524.xlsx  (SEA-AD donor metadata, read by Parts 1d and 1e)
+  missing    sea-ad-quantitative-neuropathology-063026.xlsx  (SEA-AD neuropathology, read by Part 12)
+  missing    sea-ad_global_and_local_cps_050126.xlsx  (SEA-AD CPS workbook, read by Part 12)
+  missing    Gerrits/Metadata/GSE148822_series_matrix.txt.gz  (GSE148822, read by Part12_06 and Battery 1)
+== Part9_CP10K_QC_GAM_code   start 03:29:39
+   finished 03:49:34 | 20 min
+== Part9b_CP10K_SiKi_code   start 03:49:34
+   finished 03:49:44 | 0 min
+== Part10_CP10K_SKCS_code   start 03:49:44
+   finished 04:10:10 | 20 min
+== Part10b_CP10K_IPRS_code   start 04:10:10
+   finished 04:14:34 | 4 min
+== Part10b_CP10K_SKCS_TREP_code   start 04:14:34
+   finished 04:24:22 | 10 min
+== Part10c_CP10K_Copula1_code   start 04:24:22
+   finished 04:30:55 | 7 min
+== Part10d_CP10K_Copula2_code   start 04:30:55
+   finished 04:36:49 | 6 min
+== Part10e_CP10K_CMRF_code   start 04:36:49
+   finished 04:56:14 | 19 min
+== Part10e_CP10K_Validation1_code   start 04:56:14
+   finished 05:05:04 | 9 min
+== Part10e_CP10K_Validation2_UMAP_code   start 05:05:04
+   finished 05:13:05 | 8 min
+== Part10f_CP10K_Band_Formation_code   start 05:13:05
+   finished 05:14:51 | 2 min
+== Part10f_CP10K_CMRF_RSkfCV_Mechanism_code   start 05:14:51
+   finished 05:15:02 | 0 min
+== Part10g_CP10K_DEGs_Part1_code   start 05:15:02
+   finished 06:12:07 | 57 min
+== Part10g_Step7to9_rebuild_code   start 06:12:07
+   finished 06:12:24 | 0 min
+== Part10h_CP10K_Prognosis_code   start 06:12:24
+   finished 06:34:28 | 22 min
+== Part10h_CP10K_Prognosis_1_Comparator_code   start 06:34:28
+   FAILED 07:05:23 | 31 min | exit 137 | log: seaad-run_logs/Part10h_CP10K_Prognosis_1_Comparator_code.txt
+   |   Primary input: Part10h_CP10K_PVM_3_Prognosis_results.rds 
+   |   Also read    : obs_dataset.csv and the dataset raw matrix
+   |   Unit         : donor
+   |   Output dir   : /data/Part10h_Prognosis_1_Comparator/Part10h_Prognosis_1_Comparator_PVM_3 
+   | ======================================================================== 
+   | 
+   | STEP 1 -- Part 10h results object
+   |   [PASS]  GR-10HC-02          module predictor = prop_df$pct_post keyed on donor_id, over NeoC 84 and NonNeoC 83 | 167 donor-dataset row(s), 66 column(s)
+   |   [PASS]  GR-10HC-01          Part10h_CP10K_PVM_3_Prognosis_results.rds (schema M10H-33 v1, written 2026-10-21 06:22:15) | 167 donor-dataset row(s), 15 outcome(s) of 28 declared, 6 covariate block(s): cov4(4) cov7(7) covM(6) covT(8) covP(9) covE(6) | covariate map via Part 10h COV_MAP, outcome map via built-in | classes: clinical 9, control 6 | not modelled by Part 10h, dropped: LATE stage, Lewy body stage, Atherosclerosis, Arteriolosclerosis, Microinfarcts, Years of education, Months from last MMSE, Mito fraction (donor mean), UMIs per cell (donor mean), Genes detected (donor mean), Doublet score (donor mean), Intronic:exonic ratio (donor mean), Sequencing saturation (donor mean)
+   | 
+   | STEP 2 -- external baselines
+   | 
+   |   NeoC
+   |     B1: Micro-PVM_3-SEAAD is 12.70% of 131,598 microglial cell(s) over 84 donor(s)
+   | /usr/local/bin/seaad-run: line 254:  4766 Killed                  Rscript -e "source('$RDIR/$s.r')"
+
+Run stopped at Part10h_CP10K_Prognosis_1_Comparator_code. After fixing the cause, resume with:
+   seaad-run hf --from Part10h_CP10K_Prognosis_1_Comparator_code
+seaad-run hf started 2026-10-21 08:17:24 | data /data
+Starting at: Part10h_CP10K_Prognosis_1_Comparator_code
+R: R version 4.6.1 (2026-06-24) -- "Happy Hop" | Python: Python 3.13.14
+
+== seaad-setup
+  missing    SEAAD_Immune_HIP_MEC_LEC_ITG_MTG_FI_STG_DFC_AnG_V1C_RNAseq_final-nuclei.2026-06-22.h5ad  (SEA-AD h5ad, read by Parts 1 to 8 and Part12_02)
+  missing    MetaData/sea-ad_cohort_donor_metadata_072524.xlsx  (SEA-AD donor metadata, read by Parts 1d and 1e)
+  missing    sea-ad-quantitative-neuropathology-063026.xlsx  (SEA-AD neuropathology, read by Part 12)
+  missing    sea-ad_global_and_local_cps_050126.xlsx  (SEA-AD CPS workbook, read by Part 12)
+  missing    Gerrits/Metadata/GSE148822_series_matrix.txt.gz  (GSE148822, read by Part12_06 and Battery 1)
+== Part10h_CP10K_Prognosis_1_Comparator_code   start 08:17:30
+   finished 13:06:46 | 289 min
+== Part10h_CP10K_Prognosis_2_CogVsPath_code   start 13:06:46
+   finished 13:10:33 | 4 min
+== Part10h_CP10K_Prognosis_4_Multivariate_code   start 13:10:33
+   finished 13:10:43 | 0 min
+== Part10h_CP10K_Comparator_Fig13_code   start 13:10:43
+   finished 13:11:10 | 0 min
+== Part11_CP10K_CogVsPath_code   start 13:11:10
+   finished 13:17:41 | 7 min
+== Part11_CP10K_CogVsPath_HighLevel_code   start 13:17:41
+   finished 13:17:45 | 0 min
+== Part11_Identity_BandAblation_code   start 13:17:45
+   finished 13:20:38 | 3 min
+== Part11_BandAblation_Fig11Export_code   start 13:20:38
+   finished 13:21:00 | 0 min
+== SuppTable_S7   start 13:21:00
+   finished 13:21:38 | 1 min
+== SuppTable_S8   start 13:21:38
+   finished 13:21:46 | 0 min
+== SuppTable_S9   start 13:21:46
+   finished 13:21:51 | 0 min
+== SuppTable_S10   start 13:21:51
+   finished 13:22:32 | 1 min
+== SuppTable_S12   start 13:22:32
+   finished 13:22:52 | 0 min
+
+13 steps finished in 305 min
+
+seaad-run hf ended 2026-10-21 13:22:52

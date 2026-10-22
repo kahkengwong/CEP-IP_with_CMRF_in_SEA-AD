@@ -1,0 +1,132 @@
+shape_new,shape_win,n_num,n_num_diff,n_sign,n_within,n_outside,max_abs,max_rel,n_text,n_text_diff,n_volatile_diff,n_blank_diff,example,rows_aligned_on_key,status,part,file,sheet
+36968x23,36968x23,334354.0,73934.0,0.0,1493.0,72441.0,10.322499752044681,1.999983348123196,447833.0,0.0,0.0,0.0,r2 c22: 0.749115824699402 vs 0.0893315598368645,False,OUTSIDE 0.1%,Manuscript/Supp_Tables,Supplementary_Table_S10_Fig5_CMRF.xlsx,A_cells
+9x28,9x28,200.0,0.0,0.0,0.0,0.0,0.0,0.0,52.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S10_Fig5_CMRF.xlsx,B_band
+9x15,9x15,96.0,0.0,0.0,0.0,0.0,0.0,0.0,39.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S10_Fig5_CMRF.xlsx,C_gate
+14x3,14x3,10.0,0.0,0.0,0.0,0.0,0.0,0.0,25.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S10_Fig5_CMRF.xlsx,Contents
+56x9,56x9,385.0,0.0,0.0,0.0,0.0,0.0,0.0,119.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S10_Fig5_CMRF.xlsx,D_gate_trajectory
+201x7,201x7,1000.0,0.0,0.0,0.0,0.0,0.0,0.0,407.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S10_Fig5_CMRF.xlsx,E_fold_RMSE
+353x9,353x9,1462.0,0.0,0.0,0.0,0.0,0.0,0.0,1417.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S10_Fig5_CMRF.xlsx,F_candidates
+49x21,49x21,196.0,0.0,0.0,0.0,0.0,0.0,0.0,297.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S10_Fig5_CMRF.xlsx,G_tests
+33x7,33x7,128.0,0.0,0.0,0.0,0.0,0.0,0.0,103.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S10_Fig5_CMRF.xlsx,H_resid_by_class
+9x18,9x18,128.0,40.0,0.0,13.0,27.0,0.02400000000000002,0.12244897959183684,34.0,0.0,0.0,0.0,r2 c12: 0.081378 vs 0.081379,False,OUTSIDE 0.1%,Manuscript/Supp_Tables,Supplementary_Table_S10_Fig5_CMRF.xlsx,I_Fig8_summary
+177x28,177x28,1167.0,66.0,0.0,66.0,0.0,0.011166463238168944,0.0006056802517874529,1612.0,0.0,0.0,0.0,r3 c9: 841.2314182859391 vs 841.228636689526,False,WITHIN 0.1%,Manuscript/Supp_Tables,Supplementary_Table_S10_Fig5_CMRF.xlsx,J_Fig8_tests
+669x36,669x36,21884.0,0.0,0.0,0.0,0.0,0.0,0.0,2040.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S12_Prognosis_&_Ablation.xlsx,A_donor_frame
+289x14,289x14,2880.0,0.0,0.0,0.0,0.0,0.0,0.0,1166.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S12_Prognosis_&_Ablation.xlsx,B_Fig9A_variance
+65x15,65x15,640.0,0.0,0.0,0.0,0.0,0.0,0.0,335.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S12_Prognosis_&_Ablation.xlsx,C_Fig9B_cognition
+23x3,23x3,19.0,0.0,0.0,0.0,0.0,0.0,0.0,43.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S12_Prognosis_&_Ablation.xlsx,Contents
+65x15,65x15,640.0,0.0,0.0,0.0,0.0,0.0,0.0,335.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S12_Prognosis_&_Ablation.xlsx,D_Fig9C_pathology
+49x21,49x21,768.0,0.0,0.0,0.0,0.0,0.0,0.0,261.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S12_Prognosis_&_Ablation.xlsx,E_Fig9D_mod_vs_nonmod
+433x13,433x13,3456.0,0.0,0.0,0.0,0.0,0.0,0.0,2173.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S12_Prognosis_&_Ablation.xlsx,F_Fig10A_benchmark
+321x20,321x20,3520.0,0.0,0.0,0.0,0.0,0.0,0.0,2900.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S12_Prognosis_&_Ablation.xlsx,G_Fig10B_competitors
+49x23,49x23,768.0,0.0,0.0,0.0,0.0,0.0,0.0,359.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S12_Prognosis_&_Ablation.xlsx,H_Fig10CD_decomposition
+129x11,129x11,640.0,0.0,0.0,0.0,0.0,0.0,0.0,779.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S12_Prognosis_&_Ablation.xlsx,I_Fig11A_boundary_assoc
+921x7,921x7,3680.0,0.0,0.0,0.0,0.0,0.0,0.0,2767.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S12_Prognosis_&_Ablation.xlsx,J_Fig11B_boundary_curves
+36968x17,36968x17,221802.0,0.0,0.0,0.0,0.0,0.0,0.0,406654.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S12_Prognosis_&_Ablation.xlsx,K_Fig11BC_cells
+9x14,9x14,90.0,0.0,0.0,0.0,0.0,0.0,0.0,30.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S12_Prognosis_&_Ablation.xlsx,L_Fig11C_scorecard
+2305x16,2305x16,11520.0,0.0,0.0,0.0,0.0,0.0,0.0,23920.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S12_Prognosis_&_Ablation.xlsx,M_Fig11C_tests
+49x7,49x7,144.0,0.0,0.0,0.0,0.0,0.0,0.0,199.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S12_Prognosis_&_Ablation.xlsx,N_Fig11C_overlap
+9x15,9x15,96.0,0.0,0.0,0.0,0.0,0.0,0.0,39.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S12_Prognosis_&_Ablation.xlsx,O_Fig11BC_boundary_summary
+241x13,241x13,1920.0,0.0,0.0,0.0,0.0,0.0,0.0,1213.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S12_Prognosis_&_Ablation.xlsx,P_SuppFig14_cov4_cov7
+1441x15,1441x15,11224.0,0.0,0.0,0.0,0.0,0.0,0.0,10095.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S12_Prognosis_&_Ablation.xlsx,Q_SuppFig14_leave_one_in
+97x10,97x10,576.0,0.0,0.0,0.0,0.0,0.0,0.0,394.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S12_Prognosis_&_Ablation.xlsx,R_SuppFig14_without_SA
+25x6,25x6,96.0,0.0,0.0,0.0,0.0,0.0,0.0,54.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S12_Prognosis_&_Ablation.xlsx,S_SuppFig14_tissue_disease
+36968x37,36968x37,997568.0,0.0,0.0,0.0,0.0,0.0,0.0,332740.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S7_Fig2_SKCS.xlsx,A_cells
+3515x8,3515x8,7028.0,0.0,0.0,0.0,0.0,0.0,0.0,21092.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S7_Fig2_SKCS.xlsx,B_HKG_pitcher_cells
+161x13,161x13,1166.0,0.0,0.0,0.0,0.0,0.0,0.0,927.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S7_Fig2_SKCS.xlsx,C_GAM
+12x3,12x3,8.0,0.0,0.0,0.0,0.0,0.0,0.0,21.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S7_Fig2_SKCS.xlsx,Contents
+9x6,9x6,24.0,0.0,0.0,0.0,0.0,0.0,0.0,30.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S7_Fig2_SKCS.xlsx,D_Si_mixture
+17x8,17x8,52.0,0.0,0.0,0.0,0.0,0.0,0.0,40.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S7_Fig2_SKCS.xlsx,E_Si_boundaries
+19x3,19x3,36.0,0.0,0.0,0.0,0.0,0.0,0.0,21.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S7_Fig2_SKCS.xlsx,F_Si_posterior
+3x13,3x13,20.0,0.0,0.0,0.0,0.0,0.0,0.0,19.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S7_Fig2_SKCS.xlsx,G_Si_rank_tests
+15x11,15x11,76.0,0.0,0.0,0.0,0.0,0.0,0.0,81.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S7_Fig2_SKCS.xlsx,H_pitcher_summary
+9x33,9x33,198.0,0.0,0.0,0.0,0.0,0.0,0.0,92.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S8_Fig3_IP.xlsx,A_IP_detection
+1601x8,1601x8,8000.0,0.0,0.0,0.0,0.0,0.0,0.0,4808.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S8_Fig3_IP.xlsx,B_Rx_grid
+6x3,6x3,2.0,0.0,0.0,0.0,0.0,0.0,0.0,9.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S8_Fig3_IP.xlsx,Contents
+9x10,9x10,64.0,0.0,0.0,0.0,0.0,0.0,0.0,26.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S9_Fig4_Copula.xlsx,A_copula_IP
+9x15,9x15,96.0,0.0,0.0,0.0,0.0,0.0,0.0,39.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S9_Fig4_Copula.xlsx,B_copula_gates
+17x17,17x17,112.0,0.0,0.0,0.0,0.0,0.0,0.0,177.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S9_Fig4_Copula.xlsx,C_worked_cells
+7x3,7x3,3.0,0.0,0.0,0.0,0.0,0.0,0.0,11.0,0.0,0.0,0.0,,False,SAME,Manuscript/Supp_Tables,Supplementary_Table_S9_Fig4_Copula.xlsx,Contents
+,,,,,,,,,,,,,,,ONLY IN RERUN,Manuscript/Supp_Tables,build/B1_group_donor_counts.csv,
+,,,,,,,,,,,,,,,ONLY IN RERUN,Manuscript/Supp_Tables,build/Part10e_CP10K_HKG8_V2_NeoC_Fig8_cells.csv,
+,,,,,,,,,,,,,,,ONLY IN RERUN,Manuscript/Supp_Tables,build/Part10e_CP10K_HKG8_V2_NonNeoC_Fig8_cells.csv,
+,,,,,,,,,,,,,,,ONLY IN RERUN,Manuscript/Supp_Tables,build/Part10e_CP10K_M4_V2_NeoC_Fig8_cells.csv,
+,,,,,,,,,,,,,,,ONLY IN RERUN,Manuscript/Supp_Tables,build/Part10e_CP10K_M4_V2_NonNeoC_Fig8_cells.csv,
+,,,,,,,,,,,,,,,ONLY IN RERUN,Manuscript/Supp_Tables,build/Part10e_CP10K_PVM_1_V2_NeoC_Fig8_cells.csv,
+,,,,,,,,,,,,,,,ONLY IN RERUN,Manuscript/Supp_Tables,build/Part10e_CP10K_PVM_1_V2_NonNeoC_Fig8_cells.csv,
+,,,,,,,,,,,,,,,ONLY IN RERUN,Manuscript/Supp_Tables,build/Part10e_CP10K_PVM_3_V2_NeoC_Fig8_cells.csv,
+,,,,,,,,,,,,,,,ONLY IN RERUN,Manuscript/Supp_Tables,build/Part10e_CP10K_PVM_3_V2_NonNeoC_Fig8_cells.csv,
+,,,,,,,,,,,,,,,ONLY IN RERUN,Manuscript/Supp_Tables,build/SuppTable_S10_Fig5_CMRF.xlsx,
+,,,,,,,,,,,,,,,ONLY IN RERUN,Manuscript/Supp_Tables,build/SuppTable_S12_Prognosis_&_Ablation.xlsx,
+,,,,,,,,,,,,,,,ONLY IN RERUN,Manuscript/Supp_Tables,build/SuppTable_S7_Fig2_SKCS.xlsx,
+,,,,,,,,,,,,,,,ONLY IN RERUN,Manuscript/Supp_Tables,build/SuppTable_S8_Fig3_IP.xlsx,
+,,,,,,,,,,,,,,,ONLY IN RERUN,Manuscript/Supp_Tables,build/SuppTable_S9_Fig4_Copula.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/Previous_version/Supplementary_Table_S12_Prognosis_&_Ablation_v2.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/Previous_version/Supplementary_Table_S12_Prognosis_&_Ablation_vOri.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/Previous_version/Supplementary_Table_S13_Fig12_Contamination_vOri.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/Previous_version/Supplementary_Table_S14_Fig13_MeasurementArtifact_vOri.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/Previous_version/Supplementary_Table_S15_Fig14_ModuleVsMT_vOri.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/Previous_version/Supplementary_Table_S16_Fig15_NuclearPanels_vOri.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/Previous_version/Supplementary_Table_S17_Fig16_SADonors_vOri.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/Previous_version/Supplementary_Table_S18_M4vsPVM3_vOri.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/Previous_version/Supplementary_Table_S19_Fig17_TestSummary_vOri.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/Relabelled/Supplementary_Table_S17_SuppFig24_SADonors_vTruncated.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/SuppTable_S11_build/Part10g_S11_Part1_contrasts_20261004_213933.csv,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/SuppTable_S11_build/Part10g_S11_inventory_20261004_213933.csv,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/Supplementary_Table_S13_SuppFig20_Contamination.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/Supplementary_Table_S14_SuppFig21_MeasurementArtifact.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/Supplementary_Table_S15_SuppFig22_ModuleVsMT.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/Supplementary_Table_S16_SuppFig23_NuclearPanels.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/Supplementary_Table_S17_SuppFig24_SADonors.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/Supplementary_Table_S18_M4vsPVM3.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/Supplementary_Table_S19_Fig12_TestSummary.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/Truncated_version/Supplementary_Table_S10_Fig5_CMRF_vTruncated.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/Truncated_version/Supplementary_Table_S6_DecontX_vTruncated.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/Truncated_version/Supplementary_Table_S7_Fig2_SKCS_vTruncated.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/superseded/SuppTable_DEGs.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/superseded/SuppTable_Fig12.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/superseded/SuppTable_Fig13.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/superseded/SuppTable_Fig14.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/superseded/SuppTable_RSkfCV_gate_outcome.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/superseded/SuppTable_S4_GOI_DFG_screen_before_note_2026-10-02.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/superseded/SuppTable_SF10_Part13.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/superseded/Supplementary_Table_S13_Fig12_Contamination_vOri.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/superseded/Supplementary_Table_S14_Fig13_MeasurementArtifact_vOri.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/superseded/Supplementary_Table_S15_Fig14_ModuleVsMT_vOri.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/superseded/Supplementary_Table_S16_Fig15_NuclearPanels_vOri.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/superseded/Supplementary_Table_S17_Fig16_SADonors_vOri.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/superseded/Supplementary_Table_S18_M4vsPVM3_vOri.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive/superseded/Supplementary_Table_S19_Fig17_TestSummary_vOri.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive_v2/Preprint/Supplementary_Table_S13_Fig12_Contamination.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive_v2/Preprint/Supplementary_Table_S14_Fig13_MeasurementArtifact.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive_v2/Preprint/Supplementary_Table_S15_Fig14_ModuleVsMT.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive_v2/Preprint/Supplementary_Table_S16_Fig15_NuclearPanels.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive_v2/Preprint/Supplementary_Table_S17_Fig16_SADonors.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive_v2/Preprint/Supplementary_Table_S18_M4vsPVM3.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive_v2/Preprint/Supplementary_Table_S19_Fig17_TestSummary.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive_v2/Supplementary_Table_S10_Fig5_CMRF.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive_v2/Supplementary_Table_S11_DEGs_ModvsNonMod.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive_v2/Supplementary_Table_S12_Prognosis_&_Ablation.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive_v2/Supplementary_Table_S1_CellSelection.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive_v2/Supplementary_Table_S2_Mic13Validation.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive_v2/Supplementary_Table_S3_MT-CO3_selection.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive_v2/Supplementary_Table_S4_GOI_DFG_screen.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive_v2/Supplementary_Table_S5_PreChecks.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive_v2/Supplementary_Table_S6_DecontX.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive_v2/Supplementary_Table_S7_Fig2_SKCS.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive_v2/Supplementary_Table_S8_Fig3_IP.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Archive_v2/Supplementary_Table_S9_Fig4_Copula.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Supplementary_Table_S11_DEGs_ModvsNonMod.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Supplementary_Table_S13_Fig12_Contamination.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Supplementary_Table_S14_Fig13_MeasurementArtifact.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Supplementary_Table_S15_Fig14_ModuleVsMT.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Supplementary_Table_S16_Fig15_NuclearPanels.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Supplementary_Table_S17_Fig16_SADonors.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Supplementary_Table_S18_M4vsPVM3.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Supplementary_Table_S19_Fig17_TestSummary.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Supplementary_Table_S1_CellSelection.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Supplementary_Table_S2_Mic13Validation.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Supplementary_Table_S3_MT-CO3_selection.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Supplementary_Table_S4_GOI_DFG_screen.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Supplementary_Table_S5_PreChecks.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,Supplementary_Table_S6_DecontX.xlsx,
+,,,,,,,,,,,,,,,ONLY IN REFERENCE,Manuscript/Supp_Tables,~$SuppTable_S10_Fig5_CMRF.xlsx,

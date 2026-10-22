@@ -1,0 +1,305 @@
+compare_rerun.py   2026-10-22 08:04:10
+Rerun   : /home/wong/Downloads/cepip_windows_partB_tables
+Reference: /home/wong/Desktop/SEA-AD_Windows/SEA-AD
+Tolerance: relative 1e-06, absolute 1e-09
+Parts   : Part10e_Validation2, Part10f_Band_Formation, Part10g_DEGs
+
+How to read this log
+  The reference results were produced on Windows; the rerun used the container on
+  Linux. Results are not expected to be identical to the last digit across operating
+  systems and linear algebra libraries, and statistics based on random subsamples,
+  permutations or nearest neighbours can change more. Each table is given one result:
+    SAME                      all numbers within 1e-6 (relative), text identical
+    SAME UP TO SIGN           only opposite signs of equal size (eigenvector signs)
+    SAME VALUES, OTHER ORDER  the same rows in a different order
+    TEXT ONLY                 numbers the same, some text differs
+    WITHIN 0.1%               numbers differ by more than 1e-6 but at most 0.1%
+    OUTSIDE 0.1%              some numbers differ by more than 0.1%
+  Tables only in the reference come from scripts or steps that are not part of the
+  deposit. Known causes are given as notes under the entries.
+
+== Part10e_Validation2
+   tables (file or sheet): SAME 39 | TEXT ONLY 8 | WITHIN 0.1% 20 | OUTSIDE 0.1% 45 | ONLY IN REFERENCE 8
+   other files (figures, RDS, logs): rerun 16 | reference 184 | same name in both 12
+   [WITHIN 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: Fig11_Omnibus_BH | 8 of 216 numbers beyond 1e-6, 0 beyond 0.1%, max rel 1.91e-04
+        e.g. r2 c6: 4.455035555229815e-05 vs 4.455541091039456e-05
+   [OUTSIDE 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: Fig11_Summary | 12 of 58 numbers beyond 1e-6, 5 beyond 0.1%, max rel 2.86e-02
+        e.g. r2 c23: 26.09020195609663 vs 26.09009371795409
+   [WITHIN 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NeoC_Fig11_Descriptives | 44 of 240 numbers beyond 1e-6, 0 beyond 0.1%, max rel 2.01e-04
+        e.g. r2 c3: -0.02667230634702193 vs -0.02667313021237059
+   [TEXT ONLY] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NeoC_Fig11_Methods | 1 text cells differ
+        e.g. r9 c2: 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal)' vs 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal); the repeated'
+   [WITHIN 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NeoC_Fig11_Omnibus | 4 of 84 numbers beyond 1e-6, 0 beyond 0.1%, max rel 1.91e-04
+        e.g. r2 c4: 4.455035555229815e-05 vs 4.455541091039456e-05
+   [OUTSIDE 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NeoC_Fig11_PostHoc | 14 of 300 numbers beyond 1e-6, 2 beyond 0.1%, max rel 4.09e-03
+        e.g. r11 c5: -4.381840874704381 vs -4.382733310208366
+   [OUTSIDE 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NeoC_Neighbour_Proportions | 16 of 54 numbers beyond 1e-6, 16 beyond 0.1%, max rel 1.00e+00
+        e.g. r2 c8: 0.1854 vs 0.1859
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NeoC_PERMANOVA_PERMDISP | 60 of 120 numbers beyond 1e-6, 60 beyond 0.1%, max rel 5.78e-01
+        e.g. r2 c11: 0.028346 vs 0.026634
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NeoC_TOST_Equivalence | 187 of 336 numbers beyond 1e-6, 182 beyond 0.1%, max rel 1.84e+00 | 5 text cells differ
+        e.g. r2 c7: 0.602 vs 0.5568
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NeoC_iLISI | 51 of 96 numbers beyond 1e-6, 35 beyond 0.1%, max rel 2.44e-02
+        e.g. r2 c6: 1.6461 vs 1.6559
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NeoC_kBET | 9 of 54 numbers beyond 1e-6, 9 beyond 0.1%, max rel 1.42e-01
+        e.g. r2 c8: 0.433 vs 0.4553
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [WITHIN 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NonNeoC_Fig11_Descriptives | 6 of 240 numbers beyond 1e-6, 0 beyond 0.1%, max rel 8.09e-06
+        e.g. r2 c3: -0.01529081211730919 vs -0.01529093585458369
+   [TEXT ONLY] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NonNeoC_Fig11_Methods | 1 text cells differ
+        e.g. r9 c2: 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal)' vs 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal); the repeated'
+   [WITHIN 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NonNeoC_Fig11_Omnibus | 4 of 84 numbers beyond 1e-6, 0 beyond 0.1%, max rel 7.76e-05
+        e.g. r2 c4: 0.2007340822373777 vs 0.2007345611918943
+   [WITHIN 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NonNeoC_Fig11_PostHoc | 8 of 303 numbers beyond 1e-6, 0 beyond 0.1%, max rel 6.06e-04
+        e.g. r32 c5: -6.572112019308757 vs -6.571922906933226
+   [OUTSIDE 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NonNeoC_Neighbour_Proportions | 10 of 54 numbers beyond 1e-6, 10 beyond 0.1%, max rel 2.88e-01
+        e.g. r2 c8: 0.1432 vs 0.1429
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NonNeoC_PERMANOVA_PERMDISP | 58 of 120 numbers beyond 1e-6, 56 beyond 0.1%, max rel 9.06e-01 | 1 text cells differ
+        e.g. r2 c11: 0.033543 vs 0.033224
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NonNeoC_TOST_Equivalence | 190 of 336 numbers beyond 1e-6, 188 beyond 0.1%, max rel 1.16e+00 | 2 text cells differ
+        e.g. r2 c7: 0.7924 vs 0.8049
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NonNeoC_iLISI | 51 of 96 numbers beyond 1e-6, 49 beyond 0.1%, max rel 9.99e-02
+        e.g. r2 c6: 1.633 vs 1.6265
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_Validation2_Summary.xlsx :: NonNeoC_kBET | 8 of 54 numbers beyond 1e-6, 8 beyond 0.1%, max rel 1.43e-01
+        e.g. r2 c8: 0.4346 vs 0.424
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [WITHIN 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: Fig11_Omnibus_BH | 12 of 216 numbers beyond 1e-6, 0 beyond 0.1%, max rel 7.50e-05
+        e.g. r4 c8: 841.2314182859391 vs 841.228636689526
+   [OUTSIDE 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: Fig11_Summary | 14 of 58 numbers beyond 1e-6, 6 beyond 0.1%, max rel 5.00e-01
+        e.g. r2 c22: 23.95740203410638 vs 23.95735017010794
+   [WITHIN 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NeoC_Fig11_Descriptives | 16 of 240 numbers beyond 1e-6, 0 beyond 0.1%, max rel 4.26e-05
+        e.g. r2 c3: -0.04931169566867788 vs -0.04931379753523976
+   [TEXT ONLY] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NeoC_Fig11_Methods | 1 text cells differ
+        e.g. r9 c2: 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal)' vs 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal); the repeated'
+   [WITHIN 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NeoC_Fig11_Omnibus | 6 of 84 numbers beyond 1e-6, 0 beyond 0.1%, max rel 2.58e-05
+        e.g. r4 c6: 841.2314182859391 vs 841.228636689526
+   [WITHIN 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NeoC_Fig11_PostHoc | 18 of 288 numbers beyond 1e-6, 0 beyond 0.1%, max rel 9.95e-04
+        e.g. r8 c5: -9.213918623595365 vs -9.213767677005071
+   [OUTSIDE 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NeoC_Neighbour_Proportions | 19 of 54 numbers beyond 1e-6, 19 beyond 0.1%, max rel 8.34e-02
+        e.g. r2 c8: 0.6374 vs 0.6345
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NeoC_PERMANOVA_PERMDISP | 86 of 150 numbers beyond 1e-6, 83 beyond 0.1%, max rel 5.55e-01 | 1 text cells differ
+        e.g. r2 c11: 0.009237 vs 0.00979
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NeoC_TOST_Equivalence | 243 of 420 numbers beyond 1e-6, 241 beyond 0.1%, max rel 1.00e+00 | 2 text cells differ
+        e.g. r2 c7: 0.8523 vs 0.8423
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NeoC_iLISI | 54 of 96 numbers beyond 1e-6, 34 beyond 0.1%, max rel 2.00e-01
+        e.g. r2 c6: 1.7074 vs 1.7067
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NeoC_kBET | 11 of 54 numbers beyond 1e-6, 11 beyond 0.1%, max rel 1.78e-01
+        e.g. r2 c8: 0.28 vs 0.284
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [WITHIN 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NonNeoC_Fig11_Descriptives | 32 of 240 numbers beyond 1e-6, 0 beyond 0.1%, max rel 9.52e-05
+        e.g. r2 c3: -0.0622375541300554 vs -0.0622434818812457
+   [TEXT ONLY] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NonNeoC_Fig11_Methods | 1 text cells differ
+        e.g. r9 c2: 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal)' vs 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal); the repeated'
+   [WITHIN 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NonNeoC_Fig11_Omnibus | 6 of 84 numbers beyond 1e-6, 0 beyond 0.1%, max rel 7.50e-05
+        e.g. r2 c4: 0.002721399715772369 vs 0.002721294738471641
+   [WITHIN 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NonNeoC_Fig11_PostHoc | 14 of 297 numbers beyond 1e-6, 0 beyond 0.1%, max rel 4.20e-04
+        e.g. r8 c5: -7.952641463882165 vs -7.952953639303073
+   [OUTSIDE 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NonNeoC_Neighbour_Proportions | 17 of 54 numbers beyond 1e-6, 15 beyond 0.1%, max rel 2.00e-01
+        e.g. r2 c8: 0.6873 vs 0.6877
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NonNeoC_PERMANOVA_PERMDISP | 84 of 150 numbers beyond 1e-6, 84 beyond 0.1%, max rel 9.64e-01
+        e.g. r2 c11: 0.007236 vs 0.007141
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NonNeoC_TOST_Equivalence | 243 of 420 numbers beyond 1e-6, 239 beyond 0.1%, max rel 1.52e+00 | 5 text cells differ
+        e.g. r2 c7: 0.8247 vs 0.8523
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NonNeoC_iLISI | 56 of 96 numbers beyond 1e-6, 49 beyond 0.1%, max rel 1.00e+00
+        e.g. r2 c6: 1.6546 vs 1.6571
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_Validation2_Summary.xlsx :: NonNeoC_kBET | 11 of 54 numbers beyond 1e-6, 11 beyond 0.1%, max rel 1.77e-01
+        e.g. r2 c8: 0.196 vs 0.172
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [WITHIN 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: Fig11_Omnibus_BH | 4 of 216 numbers beyond 1e-6, 0 beyond 0.1%, max rel 2.94e-06
+        e.g. r11 c8: 1412.354310079624 vs 1412.356890122916
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: Fig11_Summary | 7 of 58 numbers beyond 1e-6, 7 beyond 0.1%, max rel 5.63e-02
+        e.g. r2 c32: 0.013298 vs 0.012549
+   [TEXT ONLY] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NeoC_Fig11_Methods | 1 text cells differ
+        e.g. r9 c2: 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal)' vs 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal); the repeated'
+   [WITHIN 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NeoC_Fig11_Omnibus | 2 of 84 numbers beyond 1e-6, 0 beyond 0.1%, max rel 1.83e-06
+        e.g. r11 c6: 1412.354310079624 vs 1412.356890122916
+   [WITHIN 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NeoC_Fig11_PostHoc | 6 of 288 numbers beyond 1e-6, 0 beyond 0.1%, max rel 9.81e-05
+        e.g. r34 c5: -37.15080929792612 vs -37.15084888922053
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NeoC_Neighbour_Proportions | 16 of 54 numbers beyond 1e-6, 14 beyond 0.1%, max rel 1.80e-02
+        e.g. r2 c8: 0.6472 vs 0.6467
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NeoC_PERMANOVA_PERMDISP | 71 of 135 numbers beyond 1e-6, 71 beyond 0.1%, max rel 4.79e-01
+        e.g. r2 c11: 0.019702 vs 0.018906
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NeoC_TOST_Equivalence | 207 of 378 numbers beyond 1e-6, 207 beyond 0.1%, max rel 1.95e+00 | 1 text cells differ
+        e.g. r2 c7: 1.1253 vs 1.0592
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NeoC_iLISI | 55 of 96 numbers beyond 1e-6, 41 beyond 0.1%, max rel 5.00e-02
+        e.g. r2 c6: 1.6949 vs 1.6986
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NeoC_kBET | 11 of 54 numbers beyond 1e-6, 11 beyond 0.1%, max rel 7.14e-01
+        e.g. r2 c8: 0.34 vs 0.346
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [TEXT ONLY] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NonNeoC_Fig11_Methods | 1 text cells differ
+        e.g. r9 c2: 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal)' vs 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal); the repeated'
+   [WITHIN 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NonNeoC_Fig11_Omnibus | 2 of 84 numbers beyond 1e-6, 0 beyond 0.1%, max rel 2.94e-06
+        e.g. r11 c6: 1210.439861789705 vs 1210.442770403604
+   [WITHIN 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NonNeoC_Fig11_PostHoc | 8 of 288 numbers beyond 1e-6, 0 beyond 0.1%, max rel 2.83e-04
+        e.g. r32 c5: -19.86645665417933 vs -19.8664219316068
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NonNeoC_Neighbour_Proportions | 13 of 54 numbers beyond 1e-6, 9 beyond 0.1%, max rel 8.83e-02
+        e.g. r2 c8: 0.6672 vs 0.6669
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NonNeoC_PERMANOVA_PERMDISP | 101 of 180 numbers beyond 1e-6, 89 beyond 0.1%, max rel 6.00e-01
+        e.g. r2 c11: 0.005625 vs 0.005523
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NonNeoC_TOST_Equivalence | 288 of 504 numbers beyond 1e-6, 288 beyond 0.1%, max rel 1.62e+00 | 2 text cells differ
+        e.g. r2 c7: 0.6749 vs 0.7035
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NonNeoC_iLISI | 52 of 96 numbers beyond 1e-6, 29 beyond 0.1%, max rel 4.55e-02
+        e.g. r2 c6: 1.6292 vs 1.628
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_Validation2_Summary.xlsx :: NonNeoC_kBET | 11 of 54 numbers beyond 1e-6, 11 beyond 0.1%, max rel 3.40e-01
+        e.g. r2 c8: 0.288 vs 0.29
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: Fig11_Summary | 7 of 58 numbers beyond 1e-6, 6 beyond 0.1%, max rel 9.09e-02
+        e.g. r2 c32: 0.063256 vs 0.063784
+   [TEXT ONLY] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NeoC_Fig11_Methods | 1 text cells differ
+        e.g. r9 c2: 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal)' vs 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal); the repeated'
+   [WITHIN 0.1%] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NeoC_Fig11_PostHoc | 1 of 288 numbers beyond 1e-6, 0 beyond 0.1%, max rel 1.03e-06
+        e.g. r35 c5: 4.210272990893979 vs 4.210277322990696
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NeoC_Neighbour_Proportions | 21 of 54 numbers beyond 1e-6, 19 beyond 0.1%, max rel 1.47e-01
+        e.g. r2 c8: 0.6771 vs 0.6779
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NeoC_PERMANOVA_PERMDISP | 86 of 180 numbers beyond 1e-6, 74 beyond 0.1%, max rel 5.00e-01 | 3 text cells differ
+        e.g. r2 c11: 0.005065 vs 0.005098
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NeoC_TOST_Equivalence | 225 of 504 numbers beyond 1e-6, 208 beyond 0.1%, max rel 1.38e+00 | 2 text cells differ
+        e.g. r2 c7: 0.9335 vs 0.935
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NeoC_iLISI | 56 of 96 numbers beyond 1e-6, 27 beyond 0.1%, max rel 6.49e-02
+        e.g. r2 c6: 1.5617 vs 1.5614
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NeoC_kBET | 13 of 54 numbers beyond 1e-6, 12 beyond 0.1%, max rel 4.55e-02
+        e.g. r2 c8: 0.418 vs 0.436
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [TEXT ONLY] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NonNeoC_Fig11_Methods | 1 text cells differ
+        e.g. r9 c2: 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal)' vs 'paired t-test (normal) or paired Wilcoxon signed-rank (non-normal); the repeated'
+   [WITHIN 0.1%] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NonNeoC_Fig11_PostHoc | 1 of 288 numbers beyond 1e-6, 0 beyond 0.1%, max rel 1.09e-06
+        e.g. r35 c5: 7.914615258085982 vs 7.914606622291648
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NonNeoC_Neighbour_Proportions | 19 of 54 numbers beyond 1e-6, 19 beyond 0.1%, max rel 8.18e-02
+        e.g. r2 c8: 0.6812 vs 0.6825
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NonNeoC_PERMANOVA_PERMDISP | 92 of 180 numbers beyond 1e-6, 86 beyond 0.1%, max rel 9.93e-01
+        e.g. r2 c11: 0.012614 vs 0.012948
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NonNeoC_TOST_Equivalence | 240 of 504 numbers beyond 1e-6, 233 beyond 0.1%, max rel 1.00e+00
+        e.g. r2 c7: 1.1142 vs 1.1261
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NonNeoC_iLISI | 53 of 96 numbers beyond 1e-6, 31 beyond 0.1%, max rel 1.59e-01
+        e.g. r2 c6: 1.5354 vs 1.5327
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [OUTSIDE 0.1%] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_Validation2_Summary.xlsx :: NonNeoC_kBET | 13 of 54 numbers beyond 1e-6, 13 beyond 0.1%, max rel 2.94e-01
+        e.g. r2 c8: 0.362 vs 0.368
+        note: Secondary statistic computed from UMAP neighbourhoods, subsamples or permutations. The UMAP coordinates differ slightly between systems, which changes these values.
+   [ONLY IN REFERENCE] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_NeoC_Fig8_cells.csv
+   [ONLY IN REFERENCE] Part10e_Validation2_HKG8/Part10e_CP10K_HKG8_V2_NonNeoC_Fig8_cells.csv
+   [ONLY IN REFERENCE] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_NeoC_Fig8_cells.csv
+   [ONLY IN REFERENCE] Part10e_Validation2_Mic13_PVM3/Part10e_CP10K_M4_V2_NonNeoC_Fig8_cells.csv
+   [ONLY IN REFERENCE] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_NeoC_Fig8_cells.csv
+   [ONLY IN REFERENCE] Part10e_Validation2_PVM_1/Part10e_CP10K_PVM_1_V2_NonNeoC_Fig8_cells.csv
+   [ONLY IN REFERENCE] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_NeoC_Fig8_cells.csv
+   [ONLY IN REFERENCE] Part10e_Validation2_PVM_3/Part10e_CP10K_PVM_3_V2_NonNeoC_Fig8_cells.csv
+
+== Part10f_Band_Formation
+   tables (file or sheet): SAME 4 | OUTSIDE 0.1% 4
+   other files (figures, RDS, logs): rerun 8 | reference 184 | same name in both 4
+   [OUTSIDE 0.1%] Part10f_Band_Formation_HKG8/Part10f_CP10K_HKG8_Band_Formation_Counts.xlsx :: Donor_Spread | 15 of 80 numbers beyond 1e-6, 15 beyond 0.1%, max rel 3.76e-02
+        e.g. r2 c7: 0.3138 vs 0.3096
+        note: TVD_null_p95 is a permutation null threshold; it varies with the order of the permuted cells.
+   [OUTSIDE 0.1%] Part10f_Band_Formation_Mic13_PVM3/Part10f_CP10K_M4_Band_Formation_Counts.xlsx :: Donor_Spread | 14 of 78 numbers beyond 1e-6, 13 beyond 0.1%, max rel 1.85e-02
+        e.g. r3 c7: 0.226 vs 0.2268
+        note: TVD_null_p95 is a permutation null threshold; it varies with the order of the permuted cells.
+   [OUTSIDE 0.1%] Part10f_Band_Formation_PVM_1/Part10f_CP10K_PVM_1_Band_Formation_Counts.xlsx :: Donor_Spread | 14 of 78 numbers beyond 1e-6, 13 beyond 0.1%, max rel 2.85e-02 | 2 text cells differ
+        e.g. r3 c7: 0.2105 vs 0.2133
+        note: TVD_null_p95 is a permutation null threshold; it varies with the order of the permuted cells.
+   [OUTSIDE 0.1%] Part10f_Band_Formation_PVM_3/Part10f_CP10K_PVM_3_Band_Formation_Counts.xlsx :: Donor_Spread | 14 of 78 numbers beyond 1e-6, 14 beyond 0.1%, max rel 3.52e-02
+        e.g. r3 c7: 0.1108 vs 0.1132
+        note: TVD_null_p95 is a permutation null threshold; it varies with the order of the permuted cells.
+
+== Part10g_DEGs
+   tables (file or sheet): SAME 72 | SAME VALUES, OTHER ORDER 3 | TEXT ONLY 8 | WITHIN 0.1% 2 | OUTSIDE 0.1% 4 | ONLY IN REFERENCE 25
+   other files (figures, RDS, logs): rerun 9 | reference 646 | same name in both 4
+   [OUTSIDE 0.1%] Part10g_DEGs_HKG8/Part10g_CP10K_HKG8_DEGs_Part1_donor.xlsx :: NeoC_NMPost_vs_NMPre_donor | 321 of 194296 numbers beyond 1e-6, 7 beyond 0.1%, max rel 2.88e-02
+        e.g. r138 c22: 10127.5 vs 10126.5
+   [WITHIN 0.1%] Part10g_DEGs_HKG8/Part10g_CP10K_HKG8_DEGs_Part1_donor.xlsx :: NeoC_PostIP_vs_NMAll_donor | 1 of 194906 numbers beyond 1e-6, 0 beyond 0.1%, max rel 2.30e-05
+        e.g. r7406 c13: 0.43445 vs 0.43444
+   [OUTSIDE 0.1%] Part10g_DEGs_HKG8/Part10g_CP10K_HKG8_DEGs_Part1_donor.xlsx :: NeoC_PostIP_vs_NMPost_donor | 728 of 197428 numbers beyond 1e-6, 16 beyond 0.1%, max rel 1.98e-02
+        e.g. r103 c22: 5044 vs 5044.5
+   [TEXT ONLY] Part10g_DEGs_HKG8/Part10g_CP10K_HKG8_DEGs_Part1_donor.xlsx :: Read_Me | 2 text cells differ
+        e.g. r2 c4: 'primary result' vs 'PRIMARY - enrichment and every later part read this file'
+   [TEXT ONLY] Part10g_DEGs_HKG8/Part10g_CP10K_HKG8_DEGs_Part1_donor.xlsx :: Summary | 18 text cells differ
+        e.g. r2 c18: 'Part10b_CP10K_HKG8_IPRS_results.rds' vs 'Part10b_IPRS_CP10K_HKG8_results.rds'
+   [SAME VALUES, OTHER ORDER] Part10g_DEGs_HKG8/Part10g_CP10K_HKG8_DEGs_Part1_donor.xlsx :: Testable_Universe
+   [OUTSIDE 0.1%] Part10g_DEGs_Mic13_PVM3/Part10g_CP10K_M4_DEGs_Part1_donor.xlsx :: NeoC_PostIP_vs_NMAll_donor | 1027 of 181368 numbers beyond 1e-6, 6 beyond 0.1%, max rel 9.49e-02
+        e.g. r5 c13: 0.84006 vs 0.82957
+   [TEXT ONLY] Part10g_DEGs_Mic13_PVM3/Part10g_CP10K_M4_DEGs_Part1_donor.xlsx :: Read_Me | 2 text cells differ
+        e.g. r2 c4: 'primary result' vs 'PRIMARY - enrichment and every later part read this file'
+   [TEXT ONLY] Part10g_DEGs_Mic13_PVM3/Part10g_CP10K_M4_DEGs_Part1_donor.xlsx :: Summary | 18 text cells differ
+        e.g. r2 c18: 'Part10b_CP10K_M4_IPRS_results.rds' vs 'Part10b_IPRS_CP10K_M4_results.rds'
+   [SAME VALUES, OTHER ORDER] Part10g_DEGs_Mic13_PVM3/Part10g_CP10K_M4_DEGs_Part1_donor.xlsx :: Testable_Universe
+   [WITHIN 0.1%] Part10g_DEGs_PVM_1/Part10g_CP10K_PVM_1_DEGs_Part1_donor.xlsx :: NeoC_PreIP_vs_NMPre_donor | 1 of 181676 numbers beyond 1e-6, 0 beyond 0.1%, max rel 4.58e-05
+        e.g. r3691 c13: 0.21849 vs 0.2185
+   [TEXT ONLY] Part10g_DEGs_PVM_1/Part10g_CP10K_PVM_1_DEGs_Part1_donor.xlsx :: Read_Me | 2 text cells differ
+        e.g. r2 c4: 'primary result' vs 'PRIMARY - enrichment and every later part read this file'
+   [TEXT ONLY] Part10g_DEGs_PVM_1/Part10g_CP10K_PVM_1_DEGs_Part1_donor.xlsx :: Summary | 18 text cells differ
+        e.g. r2 c18: 'Part10b_CP10K_PVM_1_IPRS_results.rds' vs 'Part10b_IPRS_CP10K_PVM_1_results.rds'
+   [OUTSIDE 0.1%] Part10g_DEGs_PVM_3/Part10g_CP10K_PVM_3_DEGs_Part1_donor.xlsx :: NonNeoC_PostIP_vs_BG_donor | 708 of 160107 numbers beyond 1e-6, 126 beyond 0.1%, max rel 6.69e-02
+        e.g. r26 c14: 0.7544 vs 0.75457
+   [TEXT ONLY] Part10g_DEGs_PVM_3/Part10g_CP10K_PVM_3_DEGs_Part1_donor.xlsx :: Read_Me | 2 text cells differ
+        e.g. r2 c4: 'primary result' vs 'PRIMARY - enrichment and every later part read this file'
+   [TEXT ONLY] Part10g_DEGs_PVM_3/Part10g_CP10K_PVM_3_DEGs_Part1_donor.xlsx :: Summary | 18 text cells differ
+        e.g. r2 c18: 'Part10b_CP10K_PVM_3_IPRS_results.rds' vs 'Part10b_IPRS_CP10K_PVM_3_results.rds'
+   [SAME VALUES, OTHER ORDER] Part10g_DEGs_PVM_3/Part10g_CP10K_PVM_3_DEGs_Part1_donor.xlsx :: Testable_Universe
+   [ONLY IN REFERENCE] Fig15_Panel_counts.csv
+   [ONLY IN REFERENCE] Fig15_Panel_donor_scores.csv
+   [ONLY IN REFERENCE] Fig15_Panel_fourgroup_matrix.csv
+   [ONLY IN REFERENCE] Fig15_Panel_gate.csv
+   [ONLY IN REFERENCE] Fig15_Panel_panel_scores.csv
+   [ONLY IN REFERENCE] Fig15_Panel_sign_agreement.csv
+   [ONLY IN REFERENCE] Part10g_Signature_Step3_candidates.csv
+   [ONLY IN REFERENCE] Part10g_Signature_Step3_residual_NeoC.csv
+   [ONLY IN REFERENCE] Part10g_Signature_Step3_residual_NonNeoC.csv
+   [ONLY IN REFERENCE] Part10g_Step4a_PreVsPost_candidates.csv
+   [ONLY IN REFERENCE] Part10g_Step4a_background_delta.csv
+   [ONLY IN REFERENCE] Part10g_Step4b_content_residual.csv
+   [ONLY IN REFERENCE] Part10g_Step4c_noncoding_candidates.csv
+   [ONLY IN REFERENCE] Part10g_Step6_plain_list.csv
+   [ONLY IN REFERENCE] Part10g_Step7_arm_tests.csv
+   [ONLY IN REFERENCE] Part10g_Step7_paired_tests.csv
+   [ONLY IN REFERENCE] Part10g_Step7b_targeted_tests.csv
+   [ONLY IN REFERENCE] Part10g_Step7b_targeted_tests_verdict.csv
+   [ONLY IN REFERENCE] Part10g_Step7c_PvP_targeted_tests.csv
+   [ONLY IN REFERENCE] Part10g_Step8_control_overlap.csv
+   [ONLY IN REFERENCE] Part10g_Step9_ambient_check.csv
+   [ONLY IN REFERENCE] SuppFig_S15_depth_coupling.csv
+   [ONLY IN REFERENCE] SuppFig_S15_omnibus_tests.csv
+   [ONLY IN REFERENCE] SuppFig_S15_pairwise_tests.csv
+   [ONLY IN REFERENCE] SuppTable_Fig15_superseded.xlsx
+
+== Overall
+   SAME                       115
+   SAME VALUES, OTHER ORDER   3
+   TEXT ONLY                  16
+   WITHIN 0.1%                22
+   OUTSIDE 0.1%               53
+   ONLY IN REFERENCE          33
+
+Detail: /home/wong/Downloads/cepip_windows_partB_tables/compare/compare_Part10e_Validation2_Part10f_Band_Formation_Part10g_DEGs_detail.csv
+Cells : /home/wong/Downloads/cepip_windows_partB_tables/compare/compare_Part10e_Validation2_Part10f_Band_Formation_Part10g_DEGs_cells.csv
+Done in 2.6 min

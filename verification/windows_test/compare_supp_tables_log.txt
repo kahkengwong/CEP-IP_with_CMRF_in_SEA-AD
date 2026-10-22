@@ -1,0 +1,123 @@
+compare_rerun.py   2026-10-22 07:37:41
+Rerun   : /home/wong/Downloads/cepip_windows_partB_tables
+Reference: /home/wong/Desktop/SEA-AD_Windows/SEA-AD
+Tolerance: relative 1e-06, absolute 1e-09
+Parts   : Manuscript/Supp_Tables
+
+How to read this log
+  The reference results were produced on Windows; the rerun used the container on
+  Linux. Results are not expected to be identical to the last digit across operating
+  systems and linear algebra libraries, and statistics based on random subsamples,
+  permutations or nearest neighbours can change more. Each table is given one result:
+    SAME                      all numbers within 1e-6 (relative), text identical
+    SAME UP TO SIGN           only opposite signs of equal size (eigenvector signs)
+    SAME VALUES, OTHER ORDER  the same rows in a different order
+    TEXT ONLY                 numbers the same, some text differs
+    WITHIN 0.1%               numbers differ by more than 1e-6 but at most 0.1%
+    OUTSIDE 0.1%              some numbers differ by more than 0.1%
+  Tables only in the reference come from scripts or steps that are not part of the
+  deposit. Known causes are given as notes under the entries.
+
+== Manuscript/Supp_Tables
+   tables (file or sheet): SAME 44 | WITHIN 0.1% 1 | OUTSIDE 0.1% 2 | ONLY IN RERUN 14 | ONLY IN REFERENCE 70
+   other files (figures, RDS, logs): rerun 9 | reference 12 | same name in both 0
+   [OUTSIDE 0.1%] Supplementary_Table_S10_Fig5_CMRF.xlsx :: A_cells | 73934 of 334354 numbers beyond 1e-6, 72441 beyond 0.1%, max rel 2.00e+00
+        e.g. r2 c22: 0.749115824699402 vs 0.0893315598368645
+   [OUTSIDE 0.1%] Supplementary_Table_S10_Fig5_CMRF.xlsx :: I_Fig8_summary | 40 of 128 numbers beyond 1e-6, 27 beyond 0.1%, max rel 1.22e-01
+        e.g. r2 c12: 0.081378 vs 0.081379
+   [WITHIN 0.1%] Supplementary_Table_S10_Fig5_CMRF.xlsx :: J_Fig8_tests | 66 of 1167 numbers beyond 1e-6, 0 beyond 0.1%, max rel 6.06e-04
+        e.g. r3 c9: 841.2314182859391 vs 841.228636689526
+   [ONLY IN RERUN] build/B1_group_donor_counts.csv
+   [ONLY IN RERUN] build/Part10e_CP10K_HKG8_V2_NeoC_Fig8_cells.csv
+   [ONLY IN RERUN] build/Part10e_CP10K_HKG8_V2_NonNeoC_Fig8_cells.csv
+   [ONLY IN RERUN] build/Part10e_CP10K_M4_V2_NeoC_Fig8_cells.csv
+   [ONLY IN RERUN] build/Part10e_CP10K_M4_V2_NonNeoC_Fig8_cells.csv
+   [ONLY IN RERUN] build/Part10e_CP10K_PVM_1_V2_NeoC_Fig8_cells.csv
+   [ONLY IN RERUN] build/Part10e_CP10K_PVM_1_V2_NonNeoC_Fig8_cells.csv
+   [ONLY IN RERUN] build/Part10e_CP10K_PVM_3_V2_NeoC_Fig8_cells.csv
+   [ONLY IN RERUN] build/Part10e_CP10K_PVM_3_V2_NonNeoC_Fig8_cells.csv
+   [ONLY IN RERUN] build/SuppTable_S10_Fig5_CMRF.xlsx
+   [ONLY IN RERUN] build/SuppTable_S12_Prognosis_&_Ablation.xlsx
+   [ONLY IN RERUN] build/SuppTable_S7_Fig2_SKCS.xlsx
+   [ONLY IN RERUN] build/SuppTable_S8_Fig3_IP.xlsx
+   [ONLY IN RERUN] build/SuppTable_S9_Fig4_Copula.xlsx
+   [ONLY IN REFERENCE] Archive/Previous_version/Supplementary_Table_S12_Prognosis_&_Ablation_v2.xlsx
+   [ONLY IN REFERENCE] Archive/Previous_version/Supplementary_Table_S12_Prognosis_&_Ablation_vOri.xlsx
+   [ONLY IN REFERENCE] Archive/Previous_version/Supplementary_Table_S13_Fig12_Contamination_vOri.xlsx
+   [ONLY IN REFERENCE] Archive/Previous_version/Supplementary_Table_S14_Fig13_MeasurementArtifact_vOri.xlsx
+   [ONLY IN REFERENCE] Archive/Previous_version/Supplementary_Table_S15_Fig14_ModuleVsMT_vOri.xlsx
+   [ONLY IN REFERENCE] Archive/Previous_version/Supplementary_Table_S16_Fig15_NuclearPanels_vOri.xlsx
+   [ONLY IN REFERENCE] Archive/Previous_version/Supplementary_Table_S17_Fig16_SADonors_vOri.xlsx
+   [ONLY IN REFERENCE] Archive/Previous_version/Supplementary_Table_S18_M4vsPVM3_vOri.xlsx
+   [ONLY IN REFERENCE] Archive/Previous_version/Supplementary_Table_S19_Fig17_TestSummary_vOri.xlsx
+   [ONLY IN REFERENCE] Archive/Relabelled/Supplementary_Table_S17_SuppFig24_SADonors_vTruncated.xlsx
+   [ONLY IN REFERENCE] Archive/SuppTable_S11_build/Part10g_S11_Part1_contrasts_20261004_213933.csv
+   [ONLY IN REFERENCE] Archive/SuppTable_S11_build/Part10g_S11_inventory_20261004_213933.csv
+   [ONLY IN REFERENCE] Archive/Supplementary_Table_S13_SuppFig20_Contamination.xlsx
+   [ONLY IN REFERENCE] Archive/Supplementary_Table_S14_SuppFig21_MeasurementArtifact.xlsx
+   [ONLY IN REFERENCE] Archive/Supplementary_Table_S15_SuppFig22_ModuleVsMT.xlsx
+   [ONLY IN REFERENCE] Archive/Supplementary_Table_S16_SuppFig23_NuclearPanels.xlsx
+   [ONLY IN REFERENCE] Archive/Supplementary_Table_S17_SuppFig24_SADonors.xlsx
+   [ONLY IN REFERENCE] Archive/Supplementary_Table_S18_M4vsPVM3.xlsx
+   [ONLY IN REFERENCE] Archive/Supplementary_Table_S19_Fig12_TestSummary.xlsx
+   [ONLY IN REFERENCE] Archive/Truncated_version/Supplementary_Table_S10_Fig5_CMRF_vTruncated.xlsx
+   [ONLY IN REFERENCE] Archive/Truncated_version/Supplementary_Table_S6_DecontX_vTruncated.xlsx
+   [ONLY IN REFERENCE] Archive/Truncated_version/Supplementary_Table_S7_Fig2_SKCS_vTruncated.xlsx
+   [ONLY IN REFERENCE] Archive/superseded/SuppTable_DEGs.xlsx
+   [ONLY IN REFERENCE] Archive/superseded/SuppTable_Fig12.xlsx
+   [ONLY IN REFERENCE] Archive/superseded/SuppTable_Fig13.xlsx
+   [ONLY IN REFERENCE] Archive/superseded/SuppTable_Fig14.xlsx
+   [ONLY IN REFERENCE] Archive/superseded/SuppTable_RSkfCV_gate_outcome.xlsx
+   [ONLY IN REFERENCE] Archive/superseded/SuppTable_S4_GOI_DFG_screen_before_note_2026-10-02.xlsx
+   [ONLY IN REFERENCE] Archive/superseded/SuppTable_SF10_Part13.xlsx
+   [ONLY IN REFERENCE] Archive/superseded/Supplementary_Table_S13_Fig12_Contamination_vOri.xlsx
+   [ONLY IN REFERENCE] Archive/superseded/Supplementary_Table_S14_Fig13_MeasurementArtifact_vOri.xlsx
+   [ONLY IN REFERENCE] Archive/superseded/Supplementary_Table_S15_Fig14_ModuleVsMT_vOri.xlsx
+   [ONLY IN REFERENCE] Archive/superseded/Supplementary_Table_S16_Fig15_NuclearPanels_vOri.xlsx
+   [ONLY IN REFERENCE] Archive/superseded/Supplementary_Table_S17_Fig16_SADonors_vOri.xlsx
+   [ONLY IN REFERENCE] Archive/superseded/Supplementary_Table_S18_M4vsPVM3_vOri.xlsx
+   [ONLY IN REFERENCE] Archive/superseded/Supplementary_Table_S19_Fig17_TestSummary_vOri.xlsx
+   [ONLY IN REFERENCE] Archive_v2/Preprint/Supplementary_Table_S13_Fig12_Contamination.xlsx
+   [ONLY IN REFERENCE] Archive_v2/Preprint/Supplementary_Table_S14_Fig13_MeasurementArtifact.xlsx
+   [ONLY IN REFERENCE] Archive_v2/Preprint/Supplementary_Table_S15_Fig14_ModuleVsMT.xlsx
+   [ONLY IN REFERENCE] Archive_v2/Preprint/Supplementary_Table_S16_Fig15_NuclearPanels.xlsx
+   [ONLY IN REFERENCE] Archive_v2/Preprint/Supplementary_Table_S17_Fig16_SADonors.xlsx
+   [ONLY IN REFERENCE] Archive_v2/Preprint/Supplementary_Table_S18_M4vsPVM3.xlsx
+   [ONLY IN REFERENCE] Archive_v2/Preprint/Supplementary_Table_S19_Fig17_TestSummary.xlsx
+   [ONLY IN REFERENCE] Archive_v2/Supplementary_Table_S10_Fig5_CMRF.xlsx
+   [ONLY IN REFERENCE] Archive_v2/Supplementary_Table_S11_DEGs_ModvsNonMod.xlsx
+   [ONLY IN REFERENCE] Archive_v2/Supplementary_Table_S12_Prognosis_&_Ablation.xlsx
+   [ONLY IN REFERENCE] Archive_v2/Supplementary_Table_S1_CellSelection.xlsx
+   [ONLY IN REFERENCE] Archive_v2/Supplementary_Table_S2_Mic13Validation.xlsx
+   [ONLY IN REFERENCE] Archive_v2/Supplementary_Table_S3_MT-CO3_selection.xlsx
+   [ONLY IN REFERENCE] Archive_v2/Supplementary_Table_S4_GOI_DFG_screen.xlsx
+   [ONLY IN REFERENCE] Archive_v2/Supplementary_Table_S5_PreChecks.xlsx
+   [ONLY IN REFERENCE] Archive_v2/Supplementary_Table_S6_DecontX.xlsx
+   [ONLY IN REFERENCE] Archive_v2/Supplementary_Table_S7_Fig2_SKCS.xlsx
+   [ONLY IN REFERENCE] Archive_v2/Supplementary_Table_S8_Fig3_IP.xlsx
+   [ONLY IN REFERENCE] Archive_v2/Supplementary_Table_S9_Fig4_Copula.xlsx
+   [ONLY IN REFERENCE] Supplementary_Table_S11_DEGs_ModvsNonMod.xlsx
+   [ONLY IN REFERENCE] Supplementary_Table_S13_Fig12_Contamination.xlsx
+   [ONLY IN REFERENCE] Supplementary_Table_S14_Fig13_MeasurementArtifact.xlsx
+   [ONLY IN REFERENCE] Supplementary_Table_S15_Fig14_ModuleVsMT.xlsx
+   [ONLY IN REFERENCE] Supplementary_Table_S16_Fig15_NuclearPanels.xlsx
+   [ONLY IN REFERENCE] Supplementary_Table_S17_Fig16_SADonors.xlsx
+   [ONLY IN REFERENCE] Supplementary_Table_S18_M4vsPVM3.xlsx
+   [ONLY IN REFERENCE] Supplementary_Table_S19_Fig17_TestSummary.xlsx
+   [ONLY IN REFERENCE] Supplementary_Table_S1_CellSelection.xlsx
+   [ONLY IN REFERENCE] Supplementary_Table_S2_Mic13Validation.xlsx
+   [ONLY IN REFERENCE] Supplementary_Table_S3_MT-CO3_selection.xlsx
+   [ONLY IN REFERENCE] Supplementary_Table_S4_GOI_DFG_screen.xlsx
+   [ONLY IN REFERENCE] Supplementary_Table_S5_PreChecks.xlsx
+   [ONLY IN REFERENCE] Supplementary_Table_S6_DecontX.xlsx
+   [ONLY IN REFERENCE] ~$SuppTable_S10_Fig5_CMRF.xlsx
+
+== Overall
+   SAME                       44
+   WITHIN 0.1%                1
+   OUTSIDE 0.1%               2
+   ONLY IN RERUN              14
+   ONLY IN REFERENCE          70
+
+Detail: /home/wong/Downloads/cepip_windows_partB_tables/compare/compare_Manuscript_Supp_Tables_detail.csv
+Done in 0.3 min

@@ -1,0 +1,25 @@
+cepip 0.1.0 reproduction check, 2026-10-21 08:59:34, 20 min
+                          PASS
+HKG_control 01_fit          24
+HKG8_control 02_ip          24
+HKG8_control 03_skcs         4
+HKG8_control 04_band         6
+HKG8_control 05_cmrf        16
+HKG8_control 06_validate     8
+HKG8_control 07_donor      167
+HKG8_control 09_associate   72
+PVM_3 01_fit                24
+PVM_3 02_ip                 24
+PVM_3 03_skcs                4
+PVM_3 04_band                6
+PVM_3 05_cmrf               16
+PVM_3 06_validate            8
+PVM_3 07_donor             167
+PVM_3 08_deg                56
+PVM_3 09_associate          72
+
+Values outside their tolerance:
+[1] arm        region_set item       value      package
+<0 rows> (or 0-length row.names)
+
+VERDICT: PASS
