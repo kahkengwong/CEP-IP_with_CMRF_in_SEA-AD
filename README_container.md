@@ -155,7 +155,7 @@ bash /opt/seaad/SuppTables/run_supp_tables.sh 7-10,12
 
 `run_supp_tables.sh` builds the listed tables. Each table has a builder (`build_SuppTable_S<n>`), whose workbook and log go to `Manuscript/Supp_Tables/build/`. `finalize_supp_tables.py` then writes the published workbook (`Manuscript/Supp_Tables/Supplementary_Table_S<n>_*.xlsx`) with the published sheet names, the Contents sheet (from `supp_tables_contents.json`) and the published wording. With `PUBLISHED=/ref/Manuscript/Supp_Tables`, it also runs `compare_supp_tables.py` against the published tables.
 
-`verification/run_rest.sh` and `verification/run_python.sh` in the repository are the run scripts used for the reproduction check of the paper, before `seaad-run` was written.
+`verification/run_rest.sh` and `verification/run_python.sh` in the repository are the run scripts used for the reproducibility check of the paper, before `seaad-run` was written.
 
 ## 5. Notes
 

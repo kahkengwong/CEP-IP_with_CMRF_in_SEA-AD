@@ -32,7 +32,7 @@
 <tr><td align="left"><b>5</b></td><td align="left"><a href="#5-descriptions-of-the-scripts">Descriptions of the Scripts</a></td><td align="left">Every script, its role, and its paper output</td></tr>
 <tr><td align="left" colspan="3"><b>Running and checking the analysis</b></td></tr>
 <tr><td align="left"><b>6</b></td><td align="left"><a href="#6-reproducing-the-analysis">Reproducing the Analysis</a></td><td align="left">Data, container, and run commands</td></tr>
-<tr><td align="left"><b>7</b></td><td align="left"><a href="#7-reproduction-check">Reproduction Check</a></td><td align="left">Container rerun compared with the original results</td></tr>
+<tr><td align="left"><b>7</b></td><td align="left"><a href="#7-reproducibility-check">Reproducibility Check</a></td><td align="left">Container rerun compared with the original results</td></tr>
 <tr><td align="left" colspan="3"><b>Files and requirements</b></td></tr>
 <tr><td align="left"><b>8</b></td><td align="left"><a href="#8-supplementary-tables--figures-zenodo">Supplementary Tables and Figures</a></td><td align="left">Supplementary Tables and Figures on Zenodo</td></tr>
 <tr><td align="left"><b>9</b></td><td align="left"><a href="#9-requirements">Requirements</a></td><td align="left">Software and hardware</td></tr>
@@ -68,7 +68,7 @@ Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely
 ---
 
 ## 1. Overview
-- This repository holds the analysis code, the software environment (container recipe and lock files), and the reproduction check for the preprint. It builds on the published **CEP-IP framework** ([Wong, 2026, *CMPB*](https://doi.org/10.1016/j.cmpb.2026.109372); [code](https://github.com/kahkengwong/CEP-IP_Framework)).
+- This repository holds the analysis code, the software environment (container recipe and lock files), and the reproducibility check for the preprint. It builds on the published **CEP-IP framework** ([Wong, 2026, *CMPB*](https://doi.org/10.1016/j.cmpb.2026.109372); [code](https://github.com/kahkengwong/CEP-IP_Framework)).
 
 - The methods of this study (CEP-IP, SKCS, and CMRF) are available as the R package [`cepip`](https://github.com/kahkengwong/cepip), for use on other datasets. The package reproduces the PVM_3 and HKG8 arms of this study: its script `reproduce_seaad.R` checks 698 published values, and all of them agree.
 
@@ -108,7 +108,7 @@ Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely
 <p align="center"><img src="figures/Workflow.png" width="100%" alt="Workflow of the project"></p>
 
 > [!NOTE]
-> The figure and table numbers in the workflow are those of the preprint; S numbers refer to its Supplementary Figures and Tables. Figures 1 to 5 in the Methods and Key Results section are separate figures made for this README.
+> The figure and table numbers in the workflow are those of the preprint; S numbers refer to its Supplementary Methods, Figures, and Tables. Figures 1 to 5 in the Methods and Key Results section are separate figures made for this README.
 
 - The **GOI-DFG screen** ranks every gene as a GOI against all expressed partner genes with the Spearman-Kendall dual filter (r<sub>s</sub> ≥0.6 and τ<sub>b</sub> ≥0.5). MT-CO3 was the top-ranked mitochondrial GOI, and its eight DFGs were averaged into the composite cDFG.
 
@@ -178,7 +178,7 @@ The five figures below follow the main steps of the analysis, using M4 NeoC as t
 | `README_container.md` | Container build, inputs, and the full run order. |
 | `renv.lock` | Exact R package versions (R 4.6.1, Bioconductor 3.23; 280 packages). |
 | `requirements-python.txt` | Exact Python package versions (Python 3.13.14). |
-| `verification/` | <ul><li>`run_rest.sh` and `run_python.sh`: the run scripts used for the reproduction check, before `seaad-run`</li><li>`compare_rerun.py`, `compare_python.py`, and `compare_gamdata.py`: compare a rerun with the original results</li><li>The comparisons of the container reruns with the original results: `compare_all_*` for R; `compare_python_*` and `compare_gamdata_log.txt` for Python</li></ul> |
+| `verification/` | <ul><li>`run_rest.sh` and `run_python.sh`: the run scripts used for the reproducibility check, before `seaad-run`</li><li>`compare_rerun.py`, `compare_python.py`, and `compare_gamdata.py`: compare a rerun with the original results</li><li>The comparisons of the container reruns with the original results: `compare_all_*` for R; `compare_python_*` and `compare_gamdata_log.txt` for Python</li></ul> |
 | `figures/` | The workflow figure (`Workflow.png`) and Figures 1 to 5 of the Methods and Key Results section. |
 | `logs/` | <ul><li>`container_rerun/`: console logs of the container rerun of R Part 9 onward and the Part 12 Python step</li><li>`container_rerun_python/`: console logs of the container rerun of Python Parts 1 to 8</li><li>`container_fullrun/`: console logs of the one-command run (`seaad-run all`) in a new folder</li><li>`original_R/`: logs of the original runs from Part 9 onward</li><li>`original_python/`: logs of the original runs of Python Parts 1 to 8</li><li>`logs/README.md` describes each folder and maps the Python logs to their scripts</li></ul> |
 
@@ -385,7 +385,7 @@ Rscript -e 'source("/opt/seaad/R/Part9_CP10K_QC_GAM_code.r")'
 
 ---
 
-## 7. Reproduction Check
+## 7. Reproducibility Check
 The original analysis ran R on Windows 11 and Python on Fedora 44. The whole pipeline was then rerun inside this container on Fedora: Python Parts 1 to 8 from the SEA-AD h5ad, and R Parts 9 to 13 from the Part 8 export. Every table was compared with the original results by `verification/compare_rerun.py`.
 
 > [!NOTE]
@@ -456,7 +456,7 @@ The full comparisons are in `verification/`:
 
 **Check with the R package:** the script `reproduce_seaad.R` of [cepip](https://github.com/kahkengwong/cepip) reruns the PVM_3 and HKG8 arms from the Hugging Face data with the package code, and all 698 published values agree.
 
-**Independent test on Windows:** a second person not involved in the analysis repeated both checks on a Windows 11 laptop (32 GB RAM, Docker Desktop) on 21 October 2026. The cepip reproduction script agreed with all 698 published values. The container, built from this repository at commit d4a82aa, reran R Parts 9 to 11 and Supplementary Tables S7 to S10 and S12 with `seaad-run hf`. Of the 1,073 tables compared with the original results, 1,020 agreed within 0.1%. The other 53 held the same secondary statistics as in the container rerun above, and in the UMAP-based tests of Part 10e, 13 of 324 FDR-adjusted equivalence and separation calls changed. These calls are not reported in the preprint text, and the clinical associations were identical. The comparison files are in `verification/windows_test/`.
+**Independent test on Windows:** a second person not involved in the analysis repeated both checks on a Windows 11 laptop (32 GB RAM, Docker Desktop) on 21 October 2026. The cepip reproducibility script agreed with all 698 published values. The container, built from this repository at commit d4a82aa, reran R Parts 9 to 11 and Supplementary Tables S7 to S10 and S12 with `seaad-run hf`. Of the 1,073 tables compared with the original results, 1,020 agreed within 0.1%. The other 53 held the same secondary statistics as in the container rerun above, and in the UMAP-based tests of Part 10e, 13 of 324 FDR-adjusted equivalence and separation calls changed. These calls are not reported in the preprint text, and the clinical associations were identical. The comparison files are in `verification/windows_test/`.
 
 ---
 
