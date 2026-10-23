@@ -37,7 +37,7 @@
 <tr><td align="left"><b>8</b></td><td align="left"><a href="#8-supplementary-tables--figures-zenodo">Supplementary Tables and Figures</a></td><td align="left">Supplementary Tables and Figures on Zenodo</td></tr>
 <tr><td align="left"><b>9</b></td><td align="left"><a href="#9-requirements">Requirements</a></td><td align="left">Software and hardware</td></tr>
 <tr><td align="left" colspan="3"><b>Using this work</b></td></tr>
-<tr><td align="left"><b>10</b></td><td align="left"><a href="#10-license">License</a></td><td align="left">MIT License</td></tr>
+<tr><td align="left"><b>10</b></td><td align="left"><a href="#10-license">License</a></td><td align="left">MIT License and the SEA-AD data terms</td></tr>
 <tr><td align="left"><b>11</b></td><td align="left"><a href="#11-citation">Citation</a></td><td align="left">How to cite the preprint and the framework</td></tr>
 <tr><td align="left"><b>12</b></td><td align="left"><a href="#12-contact">Contact</a></td><td align="left">Email</td></tr>
 </table>
@@ -499,7 +499,9 @@ The full comparisons are in `verification/`:
 ---
 
 ## 10. License
-This project is licensed under the [MIT License](https://github.com/kahkengwong/CEP-IP_with_CMRF_in_SEA-AD/blob/main/LICENSE). For the full details, please refer to the [LICENSE](https://github.com/kahkengwong/CEP-IP_with_CMRF_in_SEA-AD/blob/main/LICENSE) file in this repository.
+The code in this repository is licensed under the [MIT License](https://github.com/kahkengwong/CEP-IP_with_CMRF_in_SEA-AD/blob/main/LICENSE). For the full details, please refer to the [LICENSE](https://github.com/kahkengwong/CEP-IP_with_CMRF_in_SEA-AD/blob/main/LICENSE) file in this repository.
+
+The figures and the output files derived from the SEA-AD data (for example, in `figures/` and `verification/`) are subject to the [Allen Institute Terms of Use](https://alleninstitute.org/legal/terms-of-use) (noncommercial research use) and [Citation Policy](https://alleninstitute.org/legal/citation-policy). Commercial use needs the written permission of the Allen Institute. Please also cite the source datasets (see [1.1 Datasets Used](#11-datasets-used)).
 
 ---
 
