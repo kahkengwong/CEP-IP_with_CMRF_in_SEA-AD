@@ -1,0 +1,57 @@
+rexach-run all started 2026-10-25 11:09:39 | data /data
+R: R version 4.6.1 (2026-06-24) -- "Happy Hop" | Python: Python 3.13.14
+cepip: 0.1.0 fe4b26934d2f4ff5aa1331a56f0e40ab70d8234f
+
+== Inputs
+  found      aa87f914-07e0-48aa-b915-8de906c95baf.h5ad  (CELLxGENE h5ad)
+  found      R13_mapmycells_output/ (6 MapMyCells csv files)
+  found      mmc1.xlsx
+  found      Part12c_cell_metrics.csv
+
+== R11_Rexach_cellxgene_check   start 11:09:40
+   finished 11:10:05 | 0 min
+== R12_Rexach_mapping_input   start 11:10:05
+   finished 11:11:54 | 2 min
+== R13_Rexach_count_checks   start 11:11:54
+   finished 11:12:33 | 1 min
+== R14_Rexach_core_cepip   start 11:12:33
+   finished 11:16:13 | 4 min
+== R15_Rexach_diagnosis_contrasts   start 11:16:13
+   finished 11:16:18 | 0 min
+== R17_Rexach_posthoc_beta   start 11:16:18
+   finished 11:16:32 | 0 min
+== R16_Rexach_main_figure   start 11:16:32
+   finished 11:16:43 | 0 min
+== build_SuppTable_S21   start 11:16:43
+   finished 11:16:45 | 0 min
+
+== 8 step(s) finished in 7 min
+
+== Compare with /ref
+   [WITHIN 0.1%] R17_Rexach_posthoc_beta.xlsx :: 06_Bootstrap | 1 of 56 numbers beyond 1e-6, 0 beyond 0.1%, max rel 1.75e-04
+        e.g. r5 c13: 0.5705 vs 0.5704
+        note: Monte Carlo statistic (Freedman-Lane permutations or the donor bootstrap) with fixed seeds.
+
+== R16_Figure_Rexach
+   files compared: SAME 14 | WITHIN 0.1% 1
+   other files (figures, RDS, logs): rerun 22 | reference 22 | same name in both 22
+   [WITHIN 0.1%] R16_Rexach_figure_source_data.xlsx :: H_LODO_summary | 1 of 24 numbers beyond 1e-6, 0 beyond 0.1%, max rel 1.75e-04
+        e.g. r5 c5: 0.5705 vs 0.5704
+
+== Table S21
+   files compared: SAME 15 | WITHIN 0.1% 1
+   other files (figures, RDS, logs): rerun 0 | reference 0 | same name in both 0
+   [WITHIN 0.1%] Supplementary_Table_S21_Fig19_Rexach.xlsx :: H_LODO_summary | 1 of 24 numbers beyond 1e-6, 0 beyond 0.1%, max rel 1.75e-04
+        e.g. r5 c5: 0.5705 vs 0.5704
+
+== Overall
+   SAME                       102
+   WITHIN 0.1%                3
+   IDENTICAL                  4
+   PROVENANCE ONLY            4
+   agree (SAME to WITHIN 0.1%, IDENTICAL, or PROVENANCE ONLY): 113 of 113
+
+Detail: /data/compare/compare_rexach_all_detail.csv
+Done in 1.4 min
+
+rexach-run all finished 2026-10-25 11:18:12

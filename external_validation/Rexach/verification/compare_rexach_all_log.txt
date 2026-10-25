@@ -1,0 +1,91 @@
+compare_rexach.py   2026-10-25 11:16:46 | mode all
+Rerun    : /data
+Reference: /ref (Table S21: /ref_supp)
+Tolerance: relative 1e-06, absolute 1e-09
+
+How to read this log
+  The reference results were produced on Windows (R) and in WSL (Python); the rerun used the
+  container on Linux. Numbers can differ in the last digits across operating systems and
+  linear algebra libraries. Each table is given one result:
+    SAME                      all numbers within 1e-6 (relative), text identical
+    SAME UP TO SIGN           only opposite signs of equal size
+    SAME VALUES, OTHER ORDER  the same rows in a different order
+    TEXT ONLY                 numbers the same, some text differs
+    WITHIN 0.1%               numbers differ by more than 1e-6 but at most 0.1%
+    OUTSIDE 0.1%              some numbers differ by more than 0.1%
+    PROVENANCE ONLY           a Session sheet (versions, paths, times, BLAS) differs in its text
+  The R12 MapMyCells input files and the R13 count matrix are compared exactly
+  (IDENTICAL or DIFFERENT). Known causes are given as notes under the entries.
+
+== R11 (data folder)
+   files compared: SAME 1
+   other files (figures, RDS, logs): rerun 0 | reference 0 | same name in both 0
+
+== R12_mapmycells_input
+   files compared: SAME 6 | IDENTICAL 3 | PROVENANCE ONLY 1
+   other files (figures, RDS, logs): rerun 1 | reference 7 | same name in both 1
+   [PROVENANCE ONLY] R12_Rexach_summary.xlsx :: Session | 6 text cells differ
+        e.g. r2 c2: '3.13.14' vs '3.14.6'
+        note: Run record: start and end times, paths, and the BLAS and LAPACK libraries of the system.
+
+== R13_count_checks
+   files compared: SAME 10 | IDENTICAL 1 | PROVENANCE ONLY 1
+   other files (figures, RDS, logs): rerun 1 | reference 1 | same name in both 1
+   [PROVENANCE ONLY] R13_Rexach_count_checks.xlsx :: Session | 6 text cells differ
+        e.g. r2 c2: '3.13.14' vs '3.14.6'
+        note: Run record: start and end times, paths, and the BLAS and LAPACK libraries of the system.
+
+== R14_readings
+   files compared: SAME 14 | PROVENANCE ONLY 1
+   other files (figures, RDS, logs): rerun 3 | reference 3 | same name in both 3
+   [PROVENANCE ONLY] R14_Rexach_readings.xlsx :: 16_Session | 2 cells empty in one table only | 1 text cells differ
+        e.g. r10 c2: 'not installed' vs '2.0.7'
+        note: Run record: start and end times, paths, and the BLAS and LAPACK libraries of the system.
+
+== R14_PVM_3
+   files compared: SAME 17
+   other files (figures, RDS, logs): rerun 33 | reference 33 | same name in both 33
+
+== R14_HKG8
+   files compared: SAME 3
+   other files (figures, RDS, logs): rerun 5 | reference 5 | same name in both 5
+
+== R14_HKG_control
+   files compared: SAME 3
+   other files (figures, RDS, logs): rerun 5 | reference 5 | same name in both 5
+
+== R15_readings
+   files compared: SAME 8 | PROVENANCE ONLY 1
+   other files (figures, RDS, logs): rerun 2 | reference 2 | same name in both 2
+   [PROVENANCE ONLY] R15_Rexach_contrasts.xlsx :: 10_Session | 2 cells empty in one table only
+        e.g. r8 c2: '/usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3' vs ''
+        note: Run record: start and end times, paths, and the BLAS and LAPACK libraries of the system.
+
+== R17_posthoc
+   files compared: SAME 11 | WITHIN 0.1% 1
+   other files (figures, RDS, logs): rerun 2 | reference 2 | same name in both 2
+   [WITHIN 0.1%] R17_Rexach_posthoc_beta.xlsx :: 06_Bootstrap | 1 of 56 numbers beyond 1e-6, 0 beyond 0.1%, max rel 1.75e-04
+        e.g. r5 c13: 0.5705 vs 0.5704
+        note: Monte Carlo statistic (Freedman-Lane permutations or the donor bootstrap) with fixed seeds.
+
+== R16_Figure_Rexach
+   files compared: SAME 14 | WITHIN 0.1% 1
+   other files (figures, RDS, logs): rerun 22 | reference 22 | same name in both 22
+   [WITHIN 0.1%] R16_Rexach_figure_source_data.xlsx :: H_LODO_summary | 1 of 24 numbers beyond 1e-6, 0 beyond 0.1%, max rel 1.75e-04
+        e.g. r5 c5: 0.5705 vs 0.5704
+
+== Table S21
+   files compared: SAME 15 | WITHIN 0.1% 1
+   other files (figures, RDS, logs): rerun 0 | reference 0 | same name in both 0
+   [WITHIN 0.1%] Supplementary_Table_S21_Fig19_Rexach.xlsx :: H_LODO_summary | 1 of 24 numbers beyond 1e-6, 0 beyond 0.1%, max rel 1.75e-04
+        e.g. r5 c5: 0.5705 vs 0.5704
+
+== Overall
+   SAME                       102
+   WITHIN 0.1%                3
+   IDENTICAL                  4
+   PROVENANCE ONLY            4
+   agree (SAME to WITHIN 0.1%, IDENTICAL, or PROVENANCE ONLY): 113 of 113
+
+Detail: /data/compare/compare_rexach_all_detail.csv
+Done in 1.4 min
