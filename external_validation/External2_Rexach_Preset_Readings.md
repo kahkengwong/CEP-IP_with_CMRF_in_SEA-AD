@@ -1,6 +1,6 @@
 # External validation 2 (Rexach et al. 2024): pre-specified readings, core analyses
 
-Status: COMMITTED, 2026-10-25, after the count checks of Section 2 and before any statistic of Sections 3 and 4. After the commit, a reading is changed only with a dated note that states the reason.
+Status: COMMITTED on 25 October 2026, after the count checks of Section 2 and before any statistic of Sections 3 and 4. After the commit, a reading is changed only with a dated note that states the reason.
 
 Two readings are fixed: the replication of the eight DFGs (Section 3) and the IP gate (Section 4). All other results are reported as observed. Design and settings are those of External validation 1 (Pineda), except where stated.
 
