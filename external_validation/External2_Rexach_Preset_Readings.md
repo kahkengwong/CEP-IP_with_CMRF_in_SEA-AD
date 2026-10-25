@@ -70,3 +70,7 @@ This file fixes two readings: the replication of the eight DFGs (Section 3) and 
   - AD, bvFTD, and PSP each against controls, with `min_donors = 15`, because the contrasts have 17 (AD) and 15 (bvFTD and PSP) donors after the donor floor.
   - HKG8 is fitted with the same models and reported beside, with the PVM_3 minus HKG8 coefficient difference.
 - DEGs by `cepip_deg()` with the S8 thresholds.
+
+## Dated notes
+
+- 2026-10-25, before any statistic of Sections 3 and 4 was computed. Clarification of Section 4: the mosaic comparison splits pre-IP from post-IP on the GOI axis (x < IP_x), as CMPB 2026 Section 3.12 does. The split on the cDFG axis (y < IP_y) is reported beside it. The test is two-sided, and the review is confirmed only when the post-IP share is the higher one.
