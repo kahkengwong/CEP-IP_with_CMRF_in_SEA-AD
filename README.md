@@ -435,11 +435,14 @@ Tables found only in the original results come from scripts or steps that are no
 | Differ by more than 0.1% | 3 | Table S10, sheets A and I: the UMAP coordinates, kBET and neighbour enrichment of Validation2. Table S13, sheet P: the depth-thinning curve. These values already differ in the pipeline outputs (see above). |
 | **Total** | **226** | - |
 
-**One-command run from a new folder:** `seaad-run all --compare` was then run in a new data folder that held only the inputs. It ran Python Parts 1 to 8, R Parts 9 to 13, Figure 17, and Tables S1 to S19. The first start stopped at Part 5b because two input files were not yet in the folder; `seaad-run` now checks for them. The run was resumed from Part 1d and finished the remaining 84 steps in 302 minutes. The comparison with the original results gave the same outcome as the reruns above:
-- R Parts 9 to 11: every table has the same result as in `compare_all_log.txt`.
-- Python Parts 1 to 8: the same results; the 40 Part 8 `gam_data` tables are now the same in every column, because this run also includes R Part 9.
-- The 165 count matrices and cell and gene lists: identical byte for byte.
-- Supplementary Tables: the same 226 sheet results as in the table above.
+**One-command run from a new folder:** 
+- `seaad-run all --compare` was run in a new data folder that held only the inputs. It ran Python Parts 1 to 8, R Parts 9 to 13, Figure 17, and Tables S1 to S19.
+- The first start stopped at Part 5b because two input files were missing. `seaad-run` now checks for them. The run resumed from Part 1d and finished the remaining 84 steps in 302 minutes.
+- The comparison with the original results gave the same outcome as the reruns above:
+  - **R Parts 9 to 11:** every table has the same result as in `compare_all_log.txt`.
+  - **Python Parts 1 to 8:** the same results. The 40 Part 8 `gam_data` tables now match in every column, because this run also includes R Part 9.
+  - **Count matrices and cell and gene lists:** all 165 files are identical byte for byte.
+  - **Supplementary Tables:** the same 226 sheet results as in the table above.
 
 **Expected differences:**
 - eigenvector signs in the GAM basis-function tables (either sign is a valid solution);
@@ -462,7 +465,15 @@ The full comparisons are in `verification/`:
 
 **Check with the R package:** the script `reproduce_seaad.R` of [cepip](https://github.com/kahkengwong/cepip) reruns the PVM_3 and HKG8 arms from the Hugging Face data with the package code, and all 698 published values agree.
 
-**Independent test on Windows:** a second person not involved in the analysis repeated both checks on a Windows 11 laptop (32 GB RAM, Docker Desktop) on 21 October 2026. The cepip reproducibility script agreed with all 698 published values. The container, built from this repository at commit d4a82aa, reran R Parts 9 to 11 and Supplementary Tables S7 to S10 and S12 with `seaad-run hf`. Of the 1,073 tables compared with the original results, 1,020 agreed within 0.1%. The other 53 held the same secondary statistics as in the container rerun above, and in the UMAP-based tests of Part 10e, 13 of 324 FDR-adjusted equivalence and separation calls changed. These calls are not reported in the preprint text, and the clinical associations were identical. The comparison files are in `verification/windows_test/`.
+**Independent test on Windows**
+- A second person not involved in the analysis repeated both checks on 21 October 2026, on a Windows 11 laptop (32 GB RAM, Docker Desktop).
+- The cepip reproducibility script agreed with all 698 published values.
+- The container, built from this repository at commit d4a82aa, reran R Parts 9 to 11 and Supplementary Tables S7 to S10 and S12 with `seaad-run hf`.
+- Of the 1,073 tables compared with the original results, 1,020 agreed within 0.1%.
+- The other 53 held the same secondary statistics as in the container rerun above.
+- In the UMAP-based tests of Part 10e, 13 of 324 FDR-adjusted equivalence and separation calls changed. These calls are not reported in the preprint text.
+- The clinical associations were identical.
+- The comparison files are in `verification/windows_test/`.
 
 ---
 
