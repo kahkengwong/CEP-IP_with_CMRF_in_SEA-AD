@@ -473,7 +473,7 @@ The full comparisons are in `verification/`:
 - The other 53 held the same secondary statistics as in the container rerun above.
 - In the UMAP-based tests of Part 10e, 13 of 324 FDR-adjusted equivalence and separation calls changed. These calls are not reported in the preprint text.
 - The clinical associations were identical.
-- The comparison files are in `verification/windows_test/`.
+- The comparison files are in `verification/windows_test/`. 
 
 ---
 
