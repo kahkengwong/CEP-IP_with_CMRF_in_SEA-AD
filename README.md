@@ -28,7 +28,7 @@
 <tr><td align="left"><b>2</b></td><td align="left"><a href="#2-workflow-of-the-project">Workflow</a></td><td align="left">Pipeline from the SEA-AD h5ad to the Batteries</td></tr>
 <tr><td align="left"><b>3</b></td><td align="left"><a href="#3-methods-and-key-results">Methods and Key Results</a></td><td align="left">Five figures of the main steps</td></tr>
 <tr><td align="left" colspan="3"><b>The code</b></td></tr>
-<tr><td align="left"><b>4</b></td><td align="left"><a href="#4-repository-contents">Repository Contents</a></td><td align="left">What each folder holds</td></tr>
+<tr><td align="left"><b>4</b></td><td align="left"><a href="#4-repository-contents">Repository Contents</a></td><td align="left">Contents of each folder</td></tr>
 <tr><td align="left"><b>5</b></td><td align="left"><a href="#5-descriptions-of-the-scripts">Descriptions of the Scripts</a></td><td align="left">Every script, its role, and its paper output</td></tr>
 <tr><td align="left" colspan="3"><b>Running and checking the analysis</b></td></tr>
 <tr><td align="left"><b>6</b></td><td align="left"><a href="#6-reproducing-the-analysis">Reproducing the Analysis</a></td><td align="left">Data, container, and run commands</td></tr>
@@ -39,7 +39,7 @@
 <tr><td align="left"><b>10</b></td><td align="left"><a href="#10-requirements">Requirements</a></td><td align="left">Software and hardware</td></tr>
 <tr><td align="left" colspan="3"><b>Using this work</b></td></tr>
 <tr><td align="left"><b>11</b></td><td align="left"><a href="#11-license">License</a></td><td align="left">MIT License and the SEA-AD data terms</td></tr>
-<tr><td align="left"><b>12</b></td><td align="left"><a href="#12-citation">Citation</a></td><td align="left">How to cite the preprint and the framework</td></tr>
+<tr><td align="left"><b>12</b></td><td align="left"><a href="#12-citation">Citation</a></td><td align="left">Citations of the preprint and the framework</td></tr>
 <tr><td align="left"><b>13</b></td><td align="left"><a href="#13-contact">Contact</a></td><td align="left">Email</td></tr>
 </table>
 
@@ -265,12 +265,12 @@ Figure and table numbers are those of the preprint.
 | 26 | `Part12_Fig15_Analysis.r`<br>`Part12_Fig15_Plots.r` | Battery 1: contamination. | Figure 12, Table S13 |
 | 27 | `Part12_Fig16_Analysis.r`<br>`Part12_Fig16_Plots.r` | Battery 2: measurement. | Figure 13, Table S14 |
 | 28 | `Part12_Fig17_Analysis.r`<br>`Part12_Fig17_Plots.r` | Battery 3: Module post-IP% and %MT on histology and clinical outcomes. | Figure 14, Table S15 |
-| 29 | `Part12_Fig18_Analysis.r`<br>`Part12_Fig18_Plots.r` | Battery 4: can %MT replace the Module. | Figure 15, Table S16 |
+| 29 | `Part12_Fig18_Analysis.r`<br>`Part12_Fig18_Plots.r` | Battery 4: tests whether %MT can replace the Module. | Figure 15, Table S16 |
 | 30 | `Part12_Fig19_Analysis.r`<br>`Part12_Fig19_Plots.r` | Battery 5: the 11 severely affected donors. | Figure 16, Table S17 |
 | 31 | `Part12_ModulePostIP_Overview.r` | Module post-IP% overview. | Supplementary Figure S13 |
 | 32 | `Part10g_CP10K_DEGs_Part1_code_S11_followup_analyses.r` | Follow-up DE analyses (reads the Part 12 labels). | Table S11 |
 | 33 | `Part13a_CP10K_Find14DpctMT_code.r` | Donor %MT for the Part 13 model. | Input to Part 13 |
-| 34 | `Part13_CP10K_M4Share_code.r` | Does the donor's M4 share explain the M4 results. | Input to Part 13c (Supplementary Figure S20, Table S18) |
+| 34 | `Part13_CP10K_M4Share_code.r` | Tests whether the donor's M4 share explains the M4 results. | Input to Part 13c (Supplementary Figure S20, Table S18) |
 | 35 | `Part13b_CP10K_M4RandomSubset_code.r` | M4 cells against random PVM_3 cells. | Input to Part 13c (Supplementary Figure S21, Table S18) |
 | 36 | `Part13c_CP10K_M4_SuppConsolidate_code.r` | Draws the Part 13 and 13b figures and collects their values. | Supplementary Figures S20 and S21, Table S18 |
 | 37 | `Fig17_Summary_code.r` | Summary of all tests of Module post-IP%. | Figure 17, Table S19 |
@@ -420,7 +420,7 @@ The original analysis ran R on Windows 11 and Python on Fedora 44. The whole pip
 - **Agreed:** the same, or different only in sign, row order, or the way a value is written, or by at most 0.1%.
 - **Independent test:** a second person not involved in the analysis ran both checks on 21 October 2026, on a Windows 11 laptop (32 GB RAM, Docker Desktop). The container was built from this repository at commit d4a82aa and ran R Parts 9 to 11 and Tables S7 to S10 and S12 with `seaad-run hf`.
 
-| Expected difference | Why it does not change a result |
+| Expected difference | Reason the results are unchanged |
 |---|---|
 | Eigenvector signs in the GAM basis-function tables | A basis function and its sign-flipped copy give the same fit. |
 | The sign of values printed as zero | A value printed as -0 is zero. |
@@ -499,7 +499,7 @@ Each external validation has its own container, built on the SEA-AD container. T
 | **Container image** | To be added | `rexach-cepip_image.tar.gz` on Zenodo (https://doi.org/10.5281/zenodo.23653156), or built from `external_validation/Rexach/Containerfile` |
 | **Inputs** | To be added | The h5ad from CELLxGENE. The MapMyCells outputs and the SEA-AD %MT table from [Hugging Face](https://huggingface.co/datasets/kahkengwong/CEP-IP_with_CMRF_in_SEA-AD), folder `external_validation/Rexach/`. Table S1 from the paper. |
 | **Command** | To be added | `podman run --rm -v /path/to/Rexach_rerun:/data:Z rexach-cepip rexach-run all` |
-| **Run time** | To be added | About 8 minutes (R11 to R17 and Table S21) |
+| **Run time** | To be added | R11 to R17 and Table S21: about 8 minutes on the development machine, and about 10 minutes on the Windows 11 laptop of the independent test |
 
 ### 8.3 Reproducibility check
 The external validations were checked as in Section 7, with the same rules.
