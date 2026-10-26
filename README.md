@@ -39,7 +39,7 @@
 <tr><td align="left"><b>10</b></td><td align="left"><a href="#10-requirements">Requirements</a></td><td align="left">Software and hardware</td></tr>
 <tr><td align="left" colspan="3"><b>Using this work</b></td></tr>
 <tr><td align="left"><b>11</b></td><td align="left"><a href="#11-license">License</a></td><td align="left">MIT License and the SEA-AD data terms</td></tr>
-<tr><td align="left"><b>12</b></td><td align="left"><a href="#12-citation">Citation</a></td><td align="left">Citations of the preprint and the framework</td></tr>
+<tr><td align="left"><b>12</b></td><td align="left"><a href="#12-citation">Citation</a></td><td align="left">Citations of the preprint and the cepip package</td></tr>
 <tr><td align="left"><b>13</b></td><td align="left"><a href="#13-contact">Contact</a></td><td align="left">Email</td></tr>
 </table>
 
