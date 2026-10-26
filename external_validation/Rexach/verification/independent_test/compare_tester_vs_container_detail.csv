@@ -1,0 +1,114 @@
+shape_new,shape_ref,n_num,n_num_diff,n_sign,n_within,n_outside,max_abs,max_rel,n_text,n_text_diff,n_volatile_diff,n_blank_diff,example,rows_aligned_on_key,status,part,file,sheet
+38x8,38x8,222.0,0.0,0.0,0.0,0.0,0.0,0.0,82.0,0.0,0.0,0.0,,False,SAME,R11 (data folder),R11_Rexach_microglia_by_donor.csv,
+228672x14,228672x14,1143355.0,0.0,0.0,0.0,0.0,0.0,0.0,2058053.0,0.0,0.0,0.0,,False,SAME,R12_mapmycells_input,R12_Rexach_nuclei.csv.gz,
+38x16,38x16,380.0,0.0,0.0,0.0,0.0,0.0,0.0,201.0,0.0,0.0,0.0,,False,SAME,R12_mapmycells_input,R12_Rexach_summary.xlsx,Donors
+10x4,10x4,27.0,0.0,0.0,0.0,0.0,0.0,0.0,13.0,0.0,0.0,0.0,,False,SAME,R12_mapmycells_input,R12_Rexach_summary.xlsx,Floor_by_cell_type
+38x4,38x4,74.0,0.0,0.0,0.0,0.0,0.0,0.0,78.0,0.0,0.0,0.0,,False,SAME,R12_mapmycells_input,R12_Rexach_summary.xlsx,Libraries
+4x7,4x7,12.0,0.0,0.0,0.0,0.0,0.0,0.0,16.0,0.0,0.0,0.0,,False,SAME,R12_mapmycells_input,R12_Rexach_summary.xlsx,Parts
+11x2,11x2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,22.0,0.0,2.0,0.0,,False,SAME,R12_mapmycells_input,R12_Rexach_summary.xlsx,Session
+10x2,10x2,5.0,0.0,0.0,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,,False,SAME,R12_mapmycells_input,R12_Rexach_summary.xlsx,Settings
+,,,,,,,,,,,,,"78934 nuclei x 29363 genes, 0 counts differ",,IDENTICAL,R12_mapmycells_input,R12_Rexach_MapMyCells_part1.h5ad,
+,,,,,,,,,,,,,"76710 nuclei x 29363 genes, 0 counts differ",,IDENTICAL,R12_mapmycells_input,R12_Rexach_MapMyCells_part2.h5ad,
+,,,,,,,,,,,,,"67609 nuclei x 29363 genes, 0 counts differ",,IDENTICAL,R12_mapmycells_input,R12_Rexach_MapMyCells_part3.h5ad,
+29364x2,29364x2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,58728.0,0.0,0.0,0.0,,False,SAME,R13_count_checks,R13_Rexach_MicroPVM3_genes.csv.gz,
+4844x24,4844x24,38744.0,0.0,0.0,0.0,0.0,0.0,0.0,77512.0,0.0,0.0,0.0,,False,SAME,R13_count_checks,R13_Rexach_MicroPVM3_nuclei.csv.gz,
+13x5,13x5,36.0,0.0,0.0,0.0,0.0,0.0,0.0,29.0,0.0,0.0,0.0,,False,SAME,R13_count_checks,R13_Rexach_count_checks.xlsx,Agreement
+6x5,6x5,20.0,0.0,0.0,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,,False,SAME,R13_count_checks,R13_Rexach_count_checks.xlsx,Arm_depth
+10x25,10x25,216.0,0.0,0.0,0.0,0.0,0.0,0.0,34.0,0.0,0.0,0.0,,False,SAME,R13_count_checks,R13_Rexach_count_checks.xlsx,Author_vs_DGM
+38x14,38x14,368.0,0.0,0.0,0.0,0.0,0.0,0.0,162.0,0.0,0.0,0.0,,False,SAME,R13_count_checks,R13_Rexach_count_checks.xlsx,Donors
+7x10,7x10,36.0,0.0,0.0,0.0,0.0,0.0,0.0,34.0,0.0,0.0,0.0,,False,SAME,R13_count_checks,R13_Rexach_count_checks.xlsx,Files
+43x23,43x23,924.0,0.0,0.0,0.0,0.0,0.0,0.0,65.0,0.0,0.0,0.0,,False,SAME,R13_count_checks,R13_Rexach_count_checks.xlsx,Microglia_DGM_vs_HM
+11x2,11x2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,22.0,0.0,2.0,0.0,,False,SAME,R13_count_checks,R13_Rexach_count_checks.xlsx,Session
+12x2,12x2,3.0,0.0,0.0,0.0,0.0,0.0,0.0,21.0,0.0,0.0,0.0,,False,SAME,R13_count_checks,R13_Rexach_count_checks.xlsx,Settings
+5x3,5x3,0.0,0.0,0.0,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,,False,SAME,R13_count_checks,R13_Rexach_count_checks.xlsx,Taxonomy_names
+,,,,,,,,,,,,,decompressed content identical,,IDENTICAL,R13_count_checks,R13_Rexach_MicroPVM3_counts.mtx.gz,
+4x2,4x2,3.0,0.0,0.0,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,,False,SAME,R14_readings,R14_Rexach_readings.xlsx,01_Readings
+9x5,9x5,16.0,0.0,0.0,0.0,0.0,0.0,0.0,29.0,0.0,0.0,0.0,,False,SAME,R14_readings,R14_Rexach_readings.xlsx,02_S3_DFGs
+2x4,2x4,2.0,0.0,0.0,0.0,0.0,0.0,0.0,6.0,0.0,0.0,0.0,,False,SAME,R14_readings,R14_Rexach_readings.xlsx,03_S3_MTCO3_gate
+3x26,3x26,26.0,0.0,0.0,0.0,0.0,0.0,0.0,40.0,0.0,0.0,0.0,,False,SAME,R14_readings,R14_Rexach_readings.xlsx,04_S4_IP_gate
+3x2,3x2,2.0,0.0,0.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0,,False,SAME,R14_readings,R14_Rexach_readings.xlsx,05_S6_within_positive
+3x7,3x7,10.0,0.0,0.0,0.0,0.0,0.0,0.0,11.0,0.0,0.0,0.0,,False,SAME,R14_readings,R14_Rexach_readings.xlsx,06_S6_agnostic_rank
+7x8,7x8,42.0,0.0,0.0,0.0,0.0,0.0,0.0,14.0,0.0,0.0,0.0,,False,SAME,R14_readings,R14_Rexach_readings.xlsx,07_S6_agnostic_tier1
+17x8,17x8,112.0,0.0,0.0,0.0,0.0,0.0,0.0,24.0,0.0,0.0,0.0,,False,SAME,R14_readings,R14_Rexach_readings.xlsx,08_S6_agnostic_tier2
+33x3,33x3,27.0,0.0,0.0,0.0,0.0,0.0,0.0,72.0,0.0,0.0,0.0,,False,SAME,R14_readings,R14_Rexach_readings.xlsx,09_S6_pipeline
+4x2,4x2,3.0,0.0,0.0,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,,False,SAME,R14_readings,R14_Rexach_readings.xlsx,10_S6_same_cell
+3x7,3x7,14.0,0.0,0.0,0.0,0.0,0.0,0.0,7.0,0.0,0.0,0.0,,False,SAME,R14_readings,R14_Rexach_readings.xlsx,11_S6_known_filter
+4x2,4x2,3.0,0.0,0.0,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,,False,SAME,R14_readings,R14_Rexach_readings.xlsx,12_S6_both_mappings
+34x13,34x13,330.0,0.0,0.0,0.0,0.0,0.0,0.0,112.0,0.0,0.0,0.0,,False,SAME,R14_readings,R14_Rexach_readings.xlsx,13_Donors_PVM_3
+18x2,18x2,8.0,0.0,0.0,0.0,0.0,0.0,0.0,28.0,0.0,0.0,0.0,,False,SAME,R14_readings,R14_Rexach_readings.xlsx,15_Settings
+14x2,14x2,1.0,0.0,0.0,0.0,0.0,0.0,0.0,27.0,0.0,2.0,0.0,,False,SAME,R14_readings,R14_Rexach_readings.xlsx,16_Session
+6x5,6x5,10.0,0.0,0.0,0.0,0.0,0.0,0.0,20.0,0.0,0.0,0.0,,False,SAME,R14_PVM_3,R14_PVM_3_cepip_tables.xlsx,01_partners
+2x8,2x8,7.0,0.0,0.0,0.0,0.0,0.0,0.0,9.0,0.0,0.0,0.0,,False,SAME,R14_PVM_3,R14_PVM_3_cepip_tables.xlsx,01_screen
+9x7,9x7,48.0,0.0,0.0,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,,False,SAME,R14_PVM_3,R14_PVM_3_cepip_tables.xlsx,02_prss
+3418x8,3418x8,17085.0,0.0,0.0,0.0,0.0,0.0,0.0,10259.0,0.0,0.0,0.0,,False,SAME,R14_PVM_3,R14_PVM_3_cepip_tables.xlsx,03_fit
+2x24,2x24,16.0,0.0,0.0,0.0,0.0,0.0,0.0,31.0,0.0,0.0,0.0,,False,SAME,R14_PVM_3,R14_PVM_3_cepip_tables.xlsx,04_ip
+3418x10,3418x10,19314.0,0.0,0.0,0.0,0.0,0.0,0.0,13678.0,0.0,0.0,0.0,,False,SAME,R14_PVM_3,R14_PVM_3_cepip_tables.xlsx,05_skcs
+20x2,20x2,19.0,0.0,0.0,0.0,0.0,0.0,0.0,21.0,0.0,0.0,0.0,,False,SAME,R14_PVM_3,R14_PVM_3_cepip_tables.xlsx,07_band
+212x6,212x6,1055.0,0.0,0.0,0.0,0.0,0.0,0.0,216.0,0.0,0.0,0.0,,False,SAME,R14_PVM_3,R14_PVM_3_cepip_tables.xlsx,08_rskfcv_trace
+13x3,13x3,15.0,0.0,0.0,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,,False,SAME,R14_PVM_3,R14_PVM_3_cepip_tables.xlsx,10_class_tests
+3418x29,3418x29,41004.0,0.0,0.0,0.0,0.0,0.0,0.0,58118.0,0.0,0.0,0.0,,False,SAME,R14_PVM_3,R14_PVM_3_cepip_tables.xlsx,10_module_cells
+8x2,8x2,7.0,0.0,0.0,0.0,0.0,0.0,0.0,9.0,0.0,0.0,0.0,,False,SAME,R14_PVM_3,R14_PVM_3_cepip_tables.xlsx,11_validate
+2579x7,2579x7,2578.0,0.0,0.0,0.0,0.0,0.0,0.0,15475.0,0.0,0.0,0.0,,False,SAME,R14_PVM_3,R14_PVM_3_cepip_tables.xlsx,11_validate_cells
+34x13,34x13,330.0,0.0,0.0,0.0,0.0,0.0,0.0,112.0,0.0,0.0,0.0,,False,SAME,R14_PVM_3,R14_PVM_3_cepip_tables.xlsx,12_donor
+7697x12,7697x12,53872.0,0.0,0.0,0.0,0.0,0.0,0.0,38492.0,0.0,0.0,0.0,,False,SAME,R14_PVM_3,R14_PVM_3_cepip_tables.xlsx,13_deg_NMPost_vs_NMPre
+7603x12,7603x12,53214.0,0.0,0.0,0.0,0.0,0.0,0.0,38022.0,0.0,0.0,0.0,,False,SAME,R14_PVM_3,R14_PVM_3_cepip_tables.xlsx,13_deg_PostIP_vs_NMPost
+8269x12,8269x12,57876.0,0.0,0.0,0.0,0.0,0.0,0.0,41352.0,0.0,0.0,0.0,,False,SAME,R14_PVM_3,R14_PVM_3_cepip_tables.xlsx,13_deg_PostIP_vs_PreIP
+8269x12,8269x12,57876.0,0.0,0.0,0.0,0.0,0.0,0.0,41352.0,0.0,0.0,0.0,,False,SAME,R14_PVM_3,R14_PVM_3_cepip_tables.xlsx,13_deg_PreIP_vs_NMPre
+9x7,9x7,48.0,0.0,0.0,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,,False,SAME,R14_HKG8,R14_HKG8_cepip_tables.xlsx,02_prss
+1845x8,1845x8,9220.0,0.0,0.0,0.0,0.0,0.0,0.0,5540.0,0.0,0.0,0.0,,False,SAME,R14_HKG8,R14_HKG8_cepip_tables.xlsx,03_fit
+2x24,2x24,9.0,0.0,0.0,0.0,0.0,0.0,0.0,29.0,0.0,0.0,0.0,,False,SAME,R14_HKG8,R14_HKG8_cepip_tables.xlsx,04_ip
+9x7,9x7,48.0,0.0,0.0,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,,False,SAME,R14_HKG_control,R14_HKG_control_cepip_tables.xlsx,02_prss
+3418x8,3418x8,17085.0,0.0,0.0,0.0,0.0,0.0,0.0,10259.0,0.0,0.0,0.0,,False,SAME,R14_HKG_control,R14_HKG_control_cepip_tables.xlsx,03_fit
+2x24,2x24,9.0,0.0,0.0,0.0,0.0,0.0,0.0,29.0,0.0,0.0,0.0,,False,SAME,R14_HKG_control,R14_HKG_control_cepip_tables.xlsx,04_ip
+9x13,9x13,40.0,0.0,0.0,0.0,0.0,0.0,0.0,33.0,0.0,0.0,0.0,,False,SAME,R15_readings,R15_Rexach_contrasts.xlsx,01_Contrasts
+2x2,2x2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0,,False,SAME,R15_readings,R15_Rexach_contrasts.xlsx,02_PVM3_minus_HKG8
+5x11,5x11,36.0,0.0,0.0,0.0,0.0,0.0,0.0,19.0,0.0,0.0,0.0,,False,SAME,R15_readings,R15_Rexach_contrasts.xlsx,03_By_diagnosis
+34x8,34x8,198.0,0.0,0.0,0.0,0.0,0.0,0.0,74.0,0.0,0.0,0.0,,False,SAME,R15_readings,R15_Rexach_contrasts.xlsx,04_Donors_PVM_3
+5x7,5x7,28.0,0.0,0.0,0.0,0.0,0.0,0.0,7.0,0.0,0.0,0.0,,False,SAME,R15_readings,R15_Rexach_contrasts.xlsx,06_SEAAD_MT_cut
+38x9,38x9,74.0,0.0,0.0,0.0,0.0,0.0,0.0,268.0,0.0,0.0,0.0,,False,SAME,R15_readings,R15_Rexach_contrasts.xlsx,07_Age_sex_check
+3x26,3x26,26.0,0.0,0.0,0.0,0.0,0.0,0.0,40.0,0.0,0.0,0.0,,False,SAME,R15_readings,R15_Rexach_contrasts.xlsx,08_Section4_gate
+10x2,10x2,3.0,0.0,0.0,0.0,0.0,0.0,0.0,17.0,0.0,0.0,0.0,,False,SAME,R15_readings,R15_Rexach_contrasts.xlsx,09_Settings
+9x2,9x2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,18.0,0.0,2.0,0.0,,False,SAME,R15_readings,R15_Rexach_contrasts.xlsx,10_Session
+5x20,5x20,76.0,0.0,0.0,0.0,0.0,0.0,0.0,24.0,0.0,0.0,0.0,,False,SAME,R17_posthoc,R17_Rexach_posthoc_beta.xlsx,01_Summary
+5x11,5x11,40.0,0.0,0.0,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,,False,SAME,R17_posthoc,R17_Rexach_posthoc_beta.xlsx,02_Observed_cov3
+5x7,5x7,24.0,0.0,0.0,0.0,0.0,0.0,0.0,11.0,0.0,0.0,0.0,,False,SAME,R17_posthoc,R17_Rexach_posthoc_beta.xlsx,03_Permutation
+5x11,5x11,32.0,0.0,0.0,0.0,0.0,0.0,0.0,23.0,0.0,0.0,0.0,,False,SAME,R17_posthoc,R17_Rexach_posthoc_beta.xlsx,04_LODO_summary
+81x10,81x10,400.0,0.0,0.0,0.0,0.0,0.0,0.0,410.0,0.0,0.0,0.0,,False,SAME,R17_posthoc,R17_Rexach_posthoc_beta.xlsx,05_LODO_donors
+5x15,5x15,56.0,1.0,0.0,1.0,0.0,0.00019999999999997797,0.00035056967572301136,19.0,0.0,0.0,0.0,r5 c13: 0.5703 vs 0.5705,False,WITHIN 0.1%,R17_posthoc,R17_Rexach_posthoc_beta.xlsx,06_Bootstrap
+5x9,5x9,28.0,0.0,0.0,0.0,0.0,0.0,0.0,17.0,0.0,0.0,0.0,,False,SAME,R17_posthoc,R17_Rexach_posthoc_beta.xlsx,07_Firth
+9x12,9x12,72.0,0.0,0.0,0.0,0.0,0.0,0.0,36.0,0.0,0.0,0.0,,False,SAME,R17_posthoc,R17_Rexach_posthoc_beta.xlsx,08_SEAAD_difference
+9x8,9x8,48.0,0.0,0.0,0.0,0.0,0.0,0.0,24.0,0.0,0.0,0.0,,False,SAME,R17_posthoc,R17_Rexach_posthoc_beta.xlsx,09_Donors_needed
+3x8,3x8,14.0,0.0,0.0,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,,False,SAME,R17_posthoc,R17_Rexach_posthoc_beta.xlsx,10_SEAAD_reference
+15x2,15x2,6.0,0.0,0.0,0.0,0.0,0.0,0.0,24.0,0.0,0.0,0.0,,False,SAME,R17_posthoc,R17_Rexach_posthoc_beta.xlsx,11_Settings
+8x2,8x2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,16.0,0.0,2.0,0.0,,False,SAME,R17_posthoc,R17_Rexach_posthoc_beta.xlsx,12_Session
+9x9,9x9,40.0,0.0,0.0,0.0,0.0,0.0,0.0,41.0,0.0,0.0,0.0,,False,SAME,R16_Figure_Rexach,R16_Rexach_figure_source_data.xlsx,A_DFG_replication
+3418x5,3418x5,10251.0,0.0,0.0,0.0,0.0,0.0,0.0,6839.0,0.0,0.0,0.0,,False,SAME,R16_Figure_Rexach,R16_Rexach_figure_source_data.xlsx,B_GAM_cells
+601x6,601x6,3000.0,0.0,0.0,0.0,0.0,0.0,0.0,606.0,0.0,0.0,0.0,,False,SAME,R16_Figure_Rexach,R16_Rexach_figure_source_data.xlsx,B_GAM_curves
+2x9,2x9,8.0,0.0,0.0,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,,False,SAME,R16_Figure_Rexach,R16_Rexach_figure_source_data.xlsx,C_CEPIP_IP
+3418x5,3418x5,6834.0,0.0,0.0,0.0,0.0,0.0,0.0,10256.0,0.0,0.0,0.0,,False,SAME,R16_Figure_Rexach,R16_Rexach_figure_source_data.xlsx,C_CEPIP_cells
+301x4,301x4,1200.0,0.0,0.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0,,False,SAME,R16_Figure_Rexach,R16_Rexach_figure_source_data.xlsx,C_CEPIP_curve
+3418x7,3418x7,6834.0,0.0,0.0,0.0,0.0,0.0,0.0,17092.0,0.0,0.0,0.0,,False,SAME,R16_Figure_Rexach,R16_Rexach_figure_source_data.xlsx,D_Expression_space
+3418x4,3418x4,6834.0,0.0,0.0,0.0,0.0,0.0,0.0,6838.0,0.0,0.0,0.0,,False,SAME,R16_Figure_Rexach,R16_Rexach_figure_source_data.xlsx,E_Pitcher_cells
+3x2,3x2,2.0,0.0,0.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0,,False,SAME,R16_Figure_Rexach,R16_Rexach_figure_source_data.xlsx,E_Pitcher_gates
+34x8,34x8,198.0,0.0,0.0,0.0,0.0,0.0,0.0,74.0,0.0,0.0,0.0,,False,SAME,R16_Figure_Rexach,R16_Rexach_figure_source_data.xlsx,F_Donors
+5x11,5x11,36.0,0.0,0.0,0.0,0.0,0.0,0.0,19.0,0.0,0.0,0.0,,False,SAME,R16_Figure_Rexach,R16_Rexach_figure_source_data.xlsx,G_Contrasts
+81x8,81x8,400.0,0.0,0.0,0.0,0.0,0.0,0.0,248.0,0.0,0.0,0.0,,False,SAME,R16_Figure_Rexach,R16_Rexach_figure_source_data.xlsx,H_LODO_donors
+5x7,5x7,24.0,1.0,0.0,1.0,0.0,0.00019999999999997797,0.00035056967572301136,11.0,0.0,0.0,0.0,r5 c5: 0.5703 vs 0.5705,False,WITHIN 0.1%,R16_Figure_Rexach,R16_Rexach_figure_source_data.xlsx,H_LODO_summary
+333x4,333x4,996.0,0.0,0.0,0.0,0.0,0.0,0.0,336.0,0.0,0.0,0.0,,False,SAME,R16_Figure_Rexach,R16_Rexach_figure_source_data.xlsx,I_Power_curves
+9x5,9x5,24.0,0.0,0.0,0.0,0.0,0.0,0.0,21.0,0.0,0.0,0.0,,False,SAME,R16_Figure_Rexach,R16_Rexach_figure_source_data.xlsx,I_Power_points
+9x9,9x9,40.0,0.0,0.0,0.0,0.0,0.0,0.0,41.0,0.0,0.0,0.0,,False,SAME,Table S21,Supplementary_Table_S21_Fig19_Rexach.xlsx,A_DFG_replication
+3418x5,3418x5,10251.0,0.0,0.0,0.0,0.0,0.0,0.0,6839.0,0.0,0.0,0.0,,False,SAME,Table S21,Supplementary_Table_S21_Fig19_Rexach.xlsx,B_GAM_cells
+601x6,601x6,3000.0,0.0,0.0,0.0,0.0,0.0,0.0,606.0,0.0,0.0,0.0,,False,SAME,Table S21,Supplementary_Table_S21_Fig19_Rexach.xlsx,B_GAM_curves
+2x9,2x9,8.0,0.0,0.0,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,,False,SAME,Table S21,Supplementary_Table_S21_Fig19_Rexach.xlsx,C_CEPIP_IP
+3418x5,3418x5,6834.0,0.0,0.0,0.0,0.0,0.0,0.0,10256.0,0.0,0.0,0.0,,False,SAME,Table S21,Supplementary_Table_S21_Fig19_Rexach.xlsx,C_CEPIP_cells
+301x4,301x4,1200.0,0.0,0.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0,,False,SAME,Table S21,Supplementary_Table_S21_Fig19_Rexach.xlsx,C_CEPIP_curve
+19x3,19x3,15.0,0.0,0.0,0.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,,False,SAME,Table S21,Supplementary_Table_S21_Fig19_Rexach.xlsx,Contents
+3418x7,3418x7,6834.0,0.0,0.0,0.0,0.0,0.0,0.0,17092.0,0.0,0.0,0.0,,False,SAME,Table S21,Supplementary_Table_S21_Fig19_Rexach.xlsx,D_Expression_space
+3418x4,3418x4,6834.0,0.0,0.0,0.0,0.0,0.0,0.0,6838.0,0.0,0.0,0.0,,False,SAME,Table S21,Supplementary_Table_S21_Fig19_Rexach.xlsx,E_Pitcher_cells
+3x2,3x2,2.0,0.0,0.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0,,False,SAME,Table S21,Supplementary_Table_S21_Fig19_Rexach.xlsx,E_Pitcher_gates
+34x8,34x8,198.0,0.0,0.0,0.0,0.0,0.0,0.0,74.0,0.0,0.0,0.0,,False,SAME,Table S21,Supplementary_Table_S21_Fig19_Rexach.xlsx,F_Donors
+5x11,5x11,36.0,0.0,0.0,0.0,0.0,0.0,0.0,19.0,0.0,0.0,0.0,,False,SAME,Table S21,Supplementary_Table_S21_Fig19_Rexach.xlsx,G_Contrasts
+81x8,81x8,400.0,0.0,0.0,0.0,0.0,0.0,0.0,248.0,0.0,0.0,0.0,,False,SAME,Table S21,Supplementary_Table_S21_Fig19_Rexach.xlsx,H_LODO_donors
+5x7,5x7,24.0,1.0,0.0,1.0,0.0,0.00019999999999997797,0.00035056967572301136,11.0,0.0,0.0,0.0,r5 c5: 0.5703 vs 0.5705,False,WITHIN 0.1%,Table S21,Supplementary_Table_S21_Fig19_Rexach.xlsx,H_LODO_summary
+333x4,333x4,996.0,0.0,0.0,0.0,0.0,0.0,0.0,336.0,0.0,0.0,0.0,,False,SAME,Table S21,Supplementary_Table_S21_Fig19_Rexach.xlsx,I_Power_curves
+9x5,9x5,24.0,0.0,0.0,0.0,0.0,0.0,0.0,21.0,0.0,0.0,0.0,,False,SAME,Table S21,Supplementary_Table_S21_Fig19_Rexach.xlsx,I_Power_points

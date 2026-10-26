@@ -43,6 +43,8 @@ docker build --build-arg BASE=seaad-cepip:latest -t rexach-cepip -f Containerfil
 
 The build log ends with `check_lock.R: PASS`, and lists cepip with its commit and the packages added beyond `renv.lock`.
 
+The built image is also on Zenodo, as `rexach-cepip_image.tar.gz` in the same record as the SEA-AD image (https://doi.org/10.5281/zenodo.23653156). `podman load -i rexach-cepip_image.tar.gz` (or `docker load -i`) gives `localhost/rexach-cepip`, so the build can be skipped. The image holds the scripts of this folder at commit 8b98869.
+
 ## 2. Run
 
 Make a new folder that holds only the inputs of section 3, for example `Rexach_rerun`. Then:
@@ -133,6 +135,8 @@ Each script writes a log and a guardrail log (PASS, WARN, and FAIL) next to its 
 The comparison is written to `compare/compare_rexach_<mode>_log.txt` (summary) and `compare/compare_rexach_<mode>_detail.csv` (one row per file and sheet). With `-e COMPARE_CELLS=1`, each differing cell is also listed.
 
 `external_validation/Rexach/verification/` holds the comparison of the author's container rerun, made from a new folder with the inputs of section 3, with the original results: `rexach-run_summary.txt` (the steps and their times), `compare_rexach_all_log.txt`, and `compare_rexach_all_detail.csv`.
+
+`external_validation/Rexach/verification/independent_test/` holds the same check for an independent rerun on another computer. It ran on Windows 11 with Docker Desktop, with the image built from this folder at commit 8b98869. The folder holds the run summary and two comparisons, each with its detail file. The first is with the original results (`compare_tester_vs_original_log.txt`), and the second with the author's container rerun (`compare_tester_vs_container_log.txt`).
 
 ## 6. Notes
 

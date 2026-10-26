@@ -1,0 +1,30 @@
+rexach-run all started 2026-10-25 23:04:18 | data /data
+R: R version 4.6.1 (2026-06-24) -- "Happy Hop" | Python: Python 3.13.14
+cepip: 0.1.0 fe4b26934d2f4ff5aa1331a56f0e40ab70d8234f
+
+== Inputs
+  found      aa87f914-07e0-48aa-b915-8de906c95baf.h5ad  (CELLxGENE h5ad)
+  found      R13_mapmycells_output/ (6 MapMyCells csv files)
+  found      mmc1.xlsx
+  found      Part12c_cell_metrics.csv
+
+== R11_Rexach_cellxgene_check   start 23:04:19
+   finished 23:05:02 | 1 min
+== R12_Rexach_mapping_input   start 23:05:02
+   finished 23:08:21 | 3 min
+== R13_Rexach_count_checks   start 23:08:21
+   finished 23:09:17 | 1 min
+== R14_Rexach_core_cepip   start 23:09:17
+   finished 23:13:34 | 4 min
+== R15_Rexach_diagnosis_contrasts   start 23:13:34
+   finished 23:13:43 | 0 min
+== R17_Rexach_posthoc_beta   start 23:13:43
+   finished 23:13:54 | 0 min
+== R16_Rexach_main_figure   start 23:13:54
+   finished 23:14:07 | 0 min
+== build_SuppTable_S21   start 23:14:07
+   finished 23:14:10 | 0 min
+
+== 8 step(s) finished in 10 min
+
+rexach-run all finished 2026-10-25 23:14:10
