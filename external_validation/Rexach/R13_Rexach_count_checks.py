@@ -1,20 +1,18 @@
 # R13_Rexach_count_checks.py
-# Count checks of the Rexach readings (External2_Rexach_Preset_Readings_DRAFT.md, Section 2), run
-# after MapMyCells and before the readings are committed. Counts only: no correlation, screen,
-# GAM, IP, or association is computed here.
+# Count checks of external validation 2 (Rexach et al. 2024, insula), run after MapMyCells and
+# before R14. Counts only: no correlation, screen, GAM, IP, or association is computed here.
 #
 # Checks:
 #   A. MapMyCells files: all six present (parts 1 to 3, Deep Generative and SEA-AD Hierarchical
 #      Mapping), each covering exactly the nuclei of its R12 part, with no duplicates or extras.
 #      The algorithm and codebase version are taken from each csv header.
-#   B. Taxonomy names: Micro-PVM_3-SEAAD and Micro-PVM_1 written exactly as in the SEA-AD release
-#      (count check 6).
-#   C. Agreement (count check 3): Deep Generative against Hierarchical Mapping at subclass and
+#   B. Taxonomy names: Micro-PVM_3-SEAAD and Micro-PVM_1 written exactly as in the SEA-AD release.
+#   C. Agreement: Deep Generative against Hierarchical Mapping at subclass and
 #      supertype, within Microglia-PVM, and against the authors' cell type; the Sst Chodl count.
-#   D. Micro-PVM_3 nuclei per donor, by diagnosis (count check 1), with donors below 5, 10, 20, and
-#      50 nuclei. The arm is Micro-PVM_3 by Deep Generative Mapping (readings Section 1).
-#   E. Depth of the PVM_3 arm (Micro-PVM_3 with MT-CO3 > 0; count check 2): median UMIs, genes,
-#      MT UMIs, and MT-CO3 UMIs per nucleus, %MT range (count check 4), and the HKG8 arm count
+#   D. Micro-PVM_3 nuclei per donor, by diagnosis, with donors below 5, 10, 20, and 50 nuclei. The
+#      arm is Micro-PVM_3 by Deep Generative Mapping.
+#   E. Depth of the PVM_3 arm (Micro-PVM_3 with MT-CO3 > 0): median UMIs, genes,
+#      MT UMIs, and MT-CO3 UMIs per nucleus, %MT range, and the HKG8 arm count
 #      (PVM_3 arm nuclei with ACTB > 0).
 #   F. Export for the R steps: the raw counts of every nucleus that is Micro-PVM_3 in either mapping
 #      (all genes, genes x nuclei), with a nucleus table that flags each mapping.

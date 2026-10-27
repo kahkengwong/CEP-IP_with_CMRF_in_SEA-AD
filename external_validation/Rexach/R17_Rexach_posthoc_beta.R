@@ -1,6 +1,6 @@
 # R17_Rexach_posthoc_beta.R
-# Post hoc exploratory analyses of the Rexach diagnosis contrasts (R15, cov3 model). These are not in
-# the pre-specified readings. They ask two questions of the four PVM_3 betas.
+# Post hoc exploratory analyses of the Rexach diagnosis contrasts (R15, cov3 model). They ask two
+# questions of the four PVM_3 betas.
 #
 #   1. Is the beta stable?
 #      a. Freedman-Lane permutation test of the Module post-IP% coefficient, with the cov3

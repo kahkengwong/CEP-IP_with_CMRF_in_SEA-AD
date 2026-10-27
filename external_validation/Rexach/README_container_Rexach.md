@@ -2,7 +2,7 @@
 
 This container reruns external validation 2, from the CELLxGENE h5ad to Supplementary Table S21. It is built on the SEA-AD container (`seaad-cepip`, README_container.md), so R 4.6.1, the 280 R packages of `renv.lock`, Python 3.13.14, and the packages of `requirements-python.txt` are those used for the paper. It adds three things:
 
-1) cepip 0.1.0 at commit fe4b26934d2f4ff5aa1331a56f0e40ab70d8234f, the commit fixed in the pre-specified readings (R code identical to 4c4f70c, the CRAN submission).
+1) cepip 0.1.0 at commit fe4b26934d2f4ff5aa1331a56f0e40ab70d8234f (R code identical to 4c4f70c, the CRAN submission).
 2) brglm2 1.1.1, for the Firth logistic regression of R17, with the packages it needs that are not already installed (Posit Package Manager snapshot of 2026-10-25).
 3) The scripts R11 to R17, `build_SuppTable_S21.py`, `compare_rexach.py`, and the run script `rexach-run`.
 
@@ -119,7 +119,7 @@ On Ubuntu 22.04 in WSL, Podman is installed with `sudo apt install --no-install-
 
 1) R11_Rexach_cellxgene_check.py. Donors, diagnoses, and microglia of the insula. Outputs in the data folder.
 2) R12_Rexach_mapping_input.py. The 500-gene floor and the MapMyCells input files. `R12_mapmycells_input/`
-3) R13_Rexach_count_checks.py. The count checks of the readings and the counts of the Micro-PVM_3 nuclei. `R13_count_checks/`
+3) R13_Rexach_count_checks.py. The count checks and the counts of the Micro-PVM_3 nuclei. `R13_count_checks/`
 4) R14_Rexach_core_cepip.R. The DFG screen, the IP gate, and the cepip fits of the three arms. `R14_readings/`, `R14_PVM_3/`, `R14_HKG8/`, and `R14_HKG_control/`
 5) R15_Rexach_diagnosis_contrasts.R. The diagnosis contrasts (cov3). `R15_readings/`
 6) R17_Rexach_posthoc_beta.R. The post hoc analyses of the betas. `R17_posthoc/`

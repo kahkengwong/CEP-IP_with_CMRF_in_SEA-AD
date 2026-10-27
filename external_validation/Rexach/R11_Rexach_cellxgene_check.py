@@ -1,7 +1,7 @@
 # R11_Rexach_cellxgene_check.py
 # Checks the CELLxGENE copy of Rexach et al. 2024 (collection c53573b2-eff4-4c5e-9ad0-b24d422dfd9b)
 # before it is used as external dataset 2. Counts and structure only: no correlation or other
-# statistic of the readings is computed here, because the Rexach readings are not written yet.
+# statistic is computed here.
 #
 # Checks:
 #   1. File structure: where the raw counts are (raw/X or X), their shape, and that they are integers.

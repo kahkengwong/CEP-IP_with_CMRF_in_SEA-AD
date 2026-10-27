@@ -1,20 +1,19 @@
 # R14_Rexach_core_cepip.R
-# Core cepip run on external validation 2 (Rexach et al. 2024, insula), following the committed
-# readings (external_validation/External2_Rexach_Preset_Readings.md, commit 195439d).
+# Core cepip run on external validation 2 (Rexach et al. 2024, insula). The log headings and the
+# sheet names number the three steps below 3, 4, and 6 (S3, S4, and S6).
 #
-#   Section 3  Do the eight DFGs replicate? MT-CO3 screen on all Micro-PVM_3 nuclei (donors with
-#              >= 5 nuclei), tier 1 (rs >= 0.6, tau_b >= 0.5) and tier 2 (rs >= 0.5, tau_b >= 0.4).
-#   Section 4  IP gate of each arm: IPRS tier, the C1 to C5 flag, and, for Moderate, Weak, or a
-#              component at 0, the CMPB 2026 Section 3.12 mosaic comparison (Fisher's exact test,
-#              pre-IP and post-IP split on the GOI axis as in CMPB 2026).
-#   Section 6  Observed items that need no ages: within-positive rs and tau_b, the agnostic screen
-#              at both tiers, pipeline counts, the same-cell control (cDFG against cHKG9), the
-#              known-filter test (1% and 5% MT), the share of Module post-IP cells that are
-#              Micro-PVM_3 in both mappings, per-donor Module post-IP%, and DEGs.
-# The diagnosis contrasts need the Table S1 ages and are run by R15, only for arms that pass the
-# Section 4 gate.
+#   3  DFG replication. MT-CO3 screen on all Micro-PVM_3 nuclei (donors with >= 5 nuclei), tier 1
+#      (rs >= 0.6, tau_b >= 0.5) and tier 2 (rs >= 0.5, tau_b >= 0.4).
+#   4  IP gate of each arm. IPRS tier and the C1 to C5 flag. For Moderate, Weak, or a component at
+#      0, the CMPB 2026 Section 3.12 mosaic comparison is added (Fisher's exact test, pre-IP and
+#      post-IP split on the GOI axis as in CMPB 2026).
+#   6  Other results that need no ages. Within-positive rs and tau_b, the agnostic screen at both
+#      tiers, pipeline counts, the same-cell control (cDFG against cHKG9), the known-filter test (1%
+#      and 5% MT), the share of Module post-IP cells that are Micro-PVM_3 in both mappings,
+#      per-donor Module post-IP%, and DEGs.
+# The diagnosis contrasts need the Table S1 ages. R15 runs them, only for arms that pass the IP gate.
 #
-# Arms (readings Section 1):
+# Arms:
 #   PVM_3         MT-CO3 against cDFG (mean of the eight DFGs), Micro-PVM_3 (Deep Generative
 #                 Mapping) nuclei with MT-CO3 > 0, all donors
 #   HKG8          ACTB against cHKG8, PVM_3 arm nuclei with ACTB > 0
@@ -23,25 +22,25 @@
 # Expression is ln(CP10K + 1), with CP10K from each nucleus's total UMIs over all genes.
 #
 # Guardrails (ledger R14_readings/R14_Rexach_Guardrail_Log.txt, PASS / WARN / FAIL):
-#   GR-01  input files present              GR-11  Section 3 screen cells = floor donors' nuclei
-#   GR-02  matrix and tables consistent      GR-12  Section 3 pass flags match rs and tau_b
+#   GR-01  input files present              GR-11  DFG screen cells = floor donors' nuclei
+#   GR-02  matrix and tables consistent      GR-12  DFG screen pass flags match rs and tau_b
 #   GR-03  raw counts integer, non-negative  GR-13  cepip run completed (each arm)
 #   GR-04  total UMIs equal R13              GR-14  IP found and IPRS tier (each arm)
 #   GR-05  ln(CP10K + 1) pins 10,000         GR-15  CMRF classes cover the arm; Module =
 #   GR-06  arm genes present and unique             OriRef + Recovered (each arm)
-#   GR-07  counts equal the committed        GR-16  Validation1 present (each arm)
-#          count checks (R13)                GR-17  donor table consistent (each arm)
+#   GR-07  counts equal the R13 count        GR-16  Validation1 present (each arm)
+#          checks                            GR-17  donor table consistent (each arm)
 #   GR-08  arms nested and GOI-positive      GR-18  PVM_3 arm %MT within the authors' 8% cut
 #   GR-09  cepip version and commit          GR-19  R warnings during the run
-#   GR-10  settings equal the readings       GR-20  output files written
+#   GR-10  settings equal READINGS           GR-20  output files written
 # A FAIL in GR-01 to GR-10 stops the run before any statistic. R14_readings/_RUN_INCOMPLETE.txt
 # exists while the run is going and is removed when it finishes.
 #
 # Input (from R13, Python in WSL): R13_count_checks/R13_Rexach_MicroPVM3_counts.mtx.gz,
 #   R13_Rexach_MicroPVM3_genes.csv.gz, and R13_Rexach_MicroPVM3_nuclei.csv.gz.
-# Outputs, one flat folder per arm plus one for the readings:
+# Outputs, one flat folder per arm plus one for the results:
 #   R14_PVM_3/, R14_HKG8/, R14_HKG_control/   cepip_save() tables, plots, and settings
-#   R14_readings/R14_Rexach_readings.xlsx     the Section 3, 4, and 6 results
+#   R14_readings/R14_Rexach_readings.xlsx     the results of steps 3, 4, and 6
 #   R14_readings/R14_Rexach_Guardrail_Log.txt guardrail ledger
 #   R14_readings/R14_Rexach_log.txt           console output
 #   R14_readings/R14_Rexach_results.rds       the cepip objects and donor tables, for R15
@@ -54,7 +53,7 @@ ROOT <- Sys.getenv("REXACH_ROOT", "C:/Users/Wong/Desktop/SEA-AD/External_Dataset
 # Workers for cepip(); REXACH_WORKERS overrides it. The results do not depend on the number of workers.
 WORKERS <- as.integer(Sys.getenv("REXACH_WORKERS", "6"))
 
-# The method settings of the committed readings (Section 1). GR-10 checks them against READINGS.
+# The method settings. GR-10 checks them against READINGS.
 SET <- list(
     goi = "MT-CO3",
     dfg8 = c("MT-ATP6", "MT-CO1", "MT-CO2", "MT-CYB", "MT-ND1", "MT-ND2", "MT-ND3", "MT-ND4"),
@@ -65,8 +64,7 @@ SET <- list(
     ip_k = 10L, ip_axis = "y", kappa = 0.5, bw = 0.1, repeats = 40L,
     min_arm_cells = 50L, mt_cutoffs = c(1, 5), review_alpha = 0.05,
     rng_kind = c("Mersenne-Twister", "Inversion", "Rejection"))
-# The same settings as written in the committed readings, kept separately so that GR-10 detects an
-# edit of SET.
+# The same settings, kept separately so that GR-10 detects an edit of SET.
 READINGS <- list(goi = "MT-CO3", dfg8 = c("MT-ATP6", "MT-CO1", "MT-CO2", "MT-CYB", "MT-ND1", "MT-ND2",
                                           "MT-ND3", "MT-ND4"),
                  hkg_goi = "ACTB", hk8 = c("EEF1A1", "RPL13A", "B2M", "YWHAZ", "FTL", "PSAP", "RAB7A",
@@ -74,9 +72,9 @@ READINGS <- list(goi = "MT-CO3", dfg8 = c("MT-ATP6", "MT-CO1", "MT-CO2", "MT-CYB
                  donor_floor = 5L, tier1 = c(rs = 0.6, tau = 0.5), tier2 = c(rs = 0.5, tau = 0.4),
                  n_pass = 5L, ip_k = 10L, ip_axis = "y", kappa = 0.5, bw = 0.1, repeats = 40L,
                  min_arm_cells = 50L, mt_cutoffs = c(1, 5), review_alpha = 0.05)
-# Commits of cepip 0.1.0 with the code of the readings (4c4f70c is the CRAN submission).
+# Commits of cepip 0.1.0 (4c4f70c is the CRAN submission, with the same R code).
 COMMITS <- c("fe4b269", "4c4f70c")
-# Counts from the committed count checks (readings Section 2, R13).
+# Counts from the R13 count checks.
 EXPECT <- list(micro_pvm3 = 3710L, pvm3_arm = 3417L, hkg8_arm = 1844L, floor_donors = 33L,
                floor_by_disease = c("Alzheimer disease" = 10L, "Pick disease" = 8L,
                                     "progressive supranuclear palsy" = 8L, "normal" = 7L))
@@ -236,7 +234,7 @@ ktau <- if (has_pcapp) pcaPP::cor.fk else function(a, b) stats::cor(a, b, method
 say("Kendall tau-b by %s", if (has_pcapp) "pcaPP::cor.fk" else
     "stats::cor (install pcaPP for speed; same values)")
 
-# ---- Section 3: DFG replication ------------------------------------------------------------------
+# ---- Step 3: DFG replication ---------------------------------------------------------------------
 say("\n== Section 3. Do the eight DFGs replicate?")
 X3 <- N[, pvm3_all]
 d3 <- nuc$donor_id[pvm3_all]
@@ -276,7 +274,7 @@ gate3 <- screens$tier1$gate
 say("MT-CO3 gate values: share expressing %.4f | mean over expressing nuclei %.4f",
     gate3$pct_expr[1], gate3$mean_expressing[1])
 
-# ---- Section 4: arms and IP gate --------------------------------------------------------------------
+# ---- Step 4: arms and IP gate -----------------------------------------------------------------------
 # A cepip error in one arm is recorded (GR-13) and the other arms still run.
 run_arm <- function(arm, cells, x_gene, y_genes, cmrf) {
     say("\n== Arm %s: %d nuclei, %d donors", arm, length(cells), length(unique(nuc$donor_id[cells])))
@@ -388,7 +386,7 @@ for (k in seq_len(nrow(gate4)))
     say("READING (Section 4, %s): IPRS %s (%s); diagnosis contrasts %s.", gate4$arm[k],
         format(round(gate4$IPRS[k], 3), nsmall = 3), gate4$tier[k], gate4$diagnosis_contrasts[k])
 
-# ---- Section 6: observed items ------------------------------------------------------------------------
+# ---- Step 6: other results -----------------------------------------------------------------------------
 say("\n== Section 6. Reported as observed")
 ac <- arm_cells$PVM_3
 xa <- as.numeric(N[SET$goi, ac]); ya <- cepip_composite(dense(SET$dfg8, ac), SET$dfg8)
@@ -547,7 +545,7 @@ invisible(TRUE)
 # The guardrail ledger is written whether or not the run finishes.
 writeLines(paste("R14 started", format(Sys.time()), "- this file is removed when the run finishes."),
            INCOMPLETE)
-# Results of an earlier run are removed, so a failed run cannot leave old readings in place.
+# Results of an earlier run are removed, so a failed run cannot leave old results in place.
 old_out <- file.path(OUT, c("R14_Rexach_readings.xlsx", "R14_Rexach_results.rds"))
 invisible(file.remove(old_out[file.exists(old_out)]))
 zz <- file(LOG, open = "wt")

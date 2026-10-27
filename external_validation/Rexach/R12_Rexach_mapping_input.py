@@ -1,12 +1,12 @@
 # R12_Rexach_mapping_input.py
 # Prepares the Rexach et al. 2024 insula nuclei (CELLxGENE dataset aa87f914-07e0-48aa-b915-8de906c95baf)
 # for MapMyCells, and records the per-nucleus QC used by the count checks.
-# No correlation or other statistic of the readings is computed here.
+# No correlation or other statistic is computed here.
 #
 # Steps:
 #   1. Insula nuclei (tissue "insular cortex") and their raw counts (raw/X, integer counts).
 #   2. Per nucleus: total UMIs, genes detected (counts > 0), MT UMIs (13 MT genes), and %MT.
-#   3. The 500-gene floor of the readings (Section 1). The authors' QC is kept as published, so no
+#   3. The 500-gene floor. The authors' QC is kept as published, so no
 #      %MT cut and no doublet removal are added here.
 #   4. Donor checks: one insula library per donor (library_id against donor_id), and the age format
 #      in development_stage.
@@ -49,7 +49,7 @@ except ImportError:
 
 SET = {
     "tissue": "insular cortex",
-    "min_genes": 500,          # readings Section 1
+    "min_genes": 500,          # 500-gene floor
     "part_cells": 80000,       # nuclei per MapMyCells part (whole donors are kept together)
     "max_bytes": 1_950_000_000,  # below the 2 GB MapMyCells upload limit
     "chunk_rows": 10000,       # rows read from the file at a time

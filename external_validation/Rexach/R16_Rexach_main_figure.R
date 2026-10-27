@@ -2,7 +2,7 @@
 # Panels of the main figure for external validation 2 (Rexach et al. 2024, insula), in the plot
 # types, colours, and styles of the main manuscript figures (Figures 2, 4, 8, 9, and 15).
 #
-#   (A) DFG replication (Section 3): r_s against tau_b of MT-CO3 with each of the eight DFGs, with
+#   (A) DFG replication: r_s against tau_b of MT-CO3 with each of the eight DFGs, with
 #       the tier 1 and tier 2 regions and the r_s expected at this depth (SEA-AD Stats_15H).
 #   (B) GAM plot (as Figure 2): MT-CO3 against cDFG and against cHKG9 on the same PVM_3 arm cells.
 #   (C) CEP-IP plot (as Figure 2): TREP and non-TREP cells of the IP curve, with IP_x, IP_y, and IPRS.
@@ -26,7 +26,7 @@
 #          no FAIL                         GR-06  output files written
 #   GR-03  counts equal the R14 results
 #
-# Inputs, in External_Dataset_2: R14_readings/ (results .rds, readings .xlsx, guardrail log),
+# Inputs, in External_Dataset_2: R14_readings/ (results .rds, results .xlsx, guardrail log),
 #   R15_readings/ (contrasts .xlsx, guardrail log), R17_posthoc/ (post hoc .xlsx, guardrail log), and
 #   R13_count_checks/R13_Rexach_MicroPVM3_nuclei.csv.gz.
 # Outputs, in R16_Figure_Rexach/: R16_A_... to R16_I_... (PDF and PNG), R16_Rexach_Figure_draft
@@ -41,7 +41,7 @@
 ROOT <- Sys.getenv("REXACH_ROOT", "C:/Users/Wong/Desktop/SEA-AD/External_Dataset_2")
 
 # r_s expected at the depth of the Rexach arm: SEA-AD Stats_15H, PVM_3 downsampled to 3,000 UMIs
-# (median r_s over the eight partners 0.630, 95% CI 0.626 to 0.632); readings count check 2.
+# (median r_s over the eight partners 0.630, 95% CI 0.626 to 0.632).
 EXPECTED_RS <- c(estimate = 0.630, lo = 0.626, hi = 0.632)
 # Counts of the R14 run (R14_Rexach_log.txt, 2026-10-25), checked in GR-03.
 EXPECT <- list(arm = 3417L, module = 2578L, post_ip = 1341L, recovered = 430L, floor_donors = 33L)

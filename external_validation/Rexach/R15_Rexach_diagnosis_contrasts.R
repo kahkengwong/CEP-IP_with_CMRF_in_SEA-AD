@@ -1,8 +1,5 @@
 # R15_Rexach_diagnosis_contrasts.R
-# Diagnosis contrasts of external validation 2 (Rexach et al. 2024, insula), Section 6 of the
-# readings (external_validation/External2_Rexach_Preset_Readings.md, committed in 195439d, with the
-# dated notes on the Section 4 review split and on the Section 6 covariates). Reported as observed,
-# without a reading.
+# Diagnosis contrasts of external validation 2 (Rexach et al. 2024, insula).
 #
 #   Predictor   Module post-IP% per donor (R14 donor table: Module post-IP cells / all Micro-PVM_3
 #               nuclei of the donor x 100), the 33 donors at or above the floor of 5 nuclei.
@@ -12,16 +9,16 @@
 #   Contrasts   All three diagnoses combined against controls (min_donors = 20), and AD, bvFTD, and
 #               PSP each against controls (min_donors = 15). BH across the four contrasts is
 #               reported beside the p values.
-#   Arms        Only arms whose Section 4 gate in R14 allows the contrasts. HKG8 is reported beside
+#   Arms        Only arms whose IP gate in R14 allows the contrasts. HKG8 is reported beside
 #               PVM_3 when its gate allows it, and otherwise as not available, with the reason.
-# Also reported: the SEA-AD share of Module post-IP cells above 8% MT (readings Section 1, beside
-# Section 3), from the SEA-AD file Part12c_cell_metrics.csv, PVM_3 arm.
+# Also reported: the SEA-AD share of Module post-IP cells above 8% MT (the cut of the Rexach
+# authors' QC), from the SEA-AD file Part12c_cell_metrics.csv, PVM_3 arm.
 #
 # Age at death and PMI come from Table S1 of the paper, sheet 5.Metadata_perRNAlibrary, insula
 # libraries. CELLxGENE gives a range of ages for 27 of the 37 donors and no PMI.
 #
 # Guardrails (ledger R15_readings/R15_Rexach_Guardrail_Log.txt, PASS / WARN / FAIL):
-#   GR-01  input files present               GR-07  arms allowed by the Section 4 gate
+#   GR-01  input files present               GR-07  arms allowed by the IP gate
 #   GR-02  R14 finished without a FAIL        GR-08  donors per contrast and min_donors
 #   GR-03  Table S1 insula libraries cover    GR-09  models fitted with finite estimates
 #          the CELLxGENE donors               GR-10  SEA-AD share above 8% MT
@@ -175,7 +172,7 @@ gr("GR-06-diagnosis", if (dx_ok) "PASS" else "FAIL",
            nrow(m)))
 stop_if_fail()
 
-# ---- Arms allowed by the Section 4 gate ----------------------------------------------------------
+# ---- Arms allowed by the IP gate ----------------------------------------------------------------
 g4 <- r14$gate4
 allowed <- g4$arm[startsWith(g4$diagnosis_contrasts, "run")]
 conditional <- g4$arm[grepl("conditional", g4$diagnosis_contrasts)]
