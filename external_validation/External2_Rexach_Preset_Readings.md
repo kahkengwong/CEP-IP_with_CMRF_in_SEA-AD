@@ -1,6 +1,6 @@
 # External validation 2 (Rexach et al. 2024): pre-specified readings, core analyses
 
-Status: COMMITTED on 25 October 2026, after the count checks of Section 2 and before any statistic of Sections 3 and 4. After the commit, a reading is changed only with a dated note that states the reason.
+Status: COMMITTED, 2026-10-25, after the count checks of Section 2 and before any statistic of Sections 3 and 4. After the commit, a reading is changed only with a dated note that states the reason.
 
 Two readings are fixed: the replication of the eight DFGs (Section 3) and the IP gate (Section 4). All other results are reported as observed. Design and settings are those of External validation 1 (Pineda), except where stated.
 
@@ -24,7 +24,7 @@ Two readings are fixed: the replication of the eight DFGs (Section 3) and the IP
 4. Maximum %MT in the PVM_3 arm is 8.03%, which confirms the authors' cut.
 5. Taxonomy names match the SEA-AD Multiregion release.
 
-## 3. Reproducibility of the eight DFGs
+## 3. Do the eight DFGs replicate?
 
 - Estimate. `cepip_screen(goi = "MT-CO3", min_pct = 0, min_mean = 0)` on all Micro-PVM_3 nuclei of the 33 floor donors. r_s and tau_b of MT-CO3 with each DFG.
 - Tiers. Tier 1: r_s >= 0.6 and tau_b >= 0.5 (SEA-AD). Tier 2: r_s >= 0.5 and tau_b >= 0.4 (CEP-IP, CMPB 2026).
