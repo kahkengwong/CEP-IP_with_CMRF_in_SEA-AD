@@ -17,11 +17,13 @@ Three readings are fixed: the replication of the eight DFGs (Section 3), the IP 
 
 ## 2. Count checks (no statistic of Sections 3 to 5)
 
-1. Micro-PVM_3 nuclei per donor, by diagnosis (done 2026-10-27). Deep Generative Mapping gives 3,442 Micro-PVM_3 nuclei: 1,097 ALS (median 27 per donor, range 1 to 311), 1,699 FTLD (median 56.5, range 3 to 436), and 646 PN (median 22.5, range 3 to 140). Four donors have < 5: ALS_118, FTLD_209, PN_302, and PN_303. So 59 donors enter Section 3 (22 ALS, 23 FTLD, and 14 PN). Section 5 has 22 FTLD and 14 PN after FTLD_226 is left out, Section 5 with PMI added has 18 FTLD and 9 PN, and ALS against PN has 22 ALS and 14 PN.
-2. Median UMIs and median MT UMIs per PVM_3 arm nucleus, and the expected r_s at this depth from SEA-AD Stats_15H. It sets no threshold (done 2026-10-27). The PVM_3 arm has 2,795 nuclei (81.2% of the Micro-PVM_3 nuclei have MT-CO3 > 0), and the HKG8 arm has 1,632. Per PVM_3 arm nucleus, the median is 1,918 UMIs, 26 MT UMIs, and 4 MT-CO3 UMIs. The expected r_s is 0.534 (95% CI 0.529 to 0.538), from the SEA-AD PVM_3 arm thinned to 1,504 UMIs, the largest SEA-AD target depth at or below 1,918 (SEA-AD median 5,650 UMIs).
-3. Doublets per library, and the agreement of the two mappings and of the authors' microglia labels (done 2026-10-27). scDblFinder doublets per library: median 8.72% (range 4.20% to 25.65%); ALS 10.21%, FTLD 7.94%, and PN 7.44%. Deep Generative Mapping and Hierarchical Mapping agree for 89.3% of kept nuclei at subclass and 51.5% at supertype. Of the 3,442 Micro-PVM_3 nuclei by Deep Generative Mapping, 1,237 (35.9%) are Micro-PVM_3 by Hierarchical Mapping. Of the authors' Micro nuclei, 12,212 of 12,213 are Microglia-PVM by Deep Generative Mapping. Of the Micro-PVM_3 nuclei, 2,189 (63.6%) are in the authors' published QC set, and 2,188 of these are Micro in the authors' labels.
-4. Taxonomy names Micro-PVM_3-SEAAD and Micro-PVM_1 match the SEA-AD Multiregion release (done 2026-10-27). Both names are present in both mappings. Deep Generative Mapping version 2.0.2 (vae_cell_type_mapper_scvi) and Hierarchical Mapping version 1.7.4 (cell_type_mapper).
-5. Covariates in S01 (done 2026-10-26). S01 has no APOE, RIN, brain pH, or brain weight. Age at death and sex: 23 FTLD (226 has no age at death) and 16 PN. PMI: 20 of 24 FTLD and 9 of 16 PN, so 19 FTLD and 9 PN have all three.
+Checks 1 to 4 were done on 2026-10-27 and check 5 on 2026-10-26.
+
+1. Micro-PVM_3 nuclei. There are 3,442: 1,097 ALS, 1,699 FTLD, and 646 PN. Four donors have fewer than 5 (ALS_118, FTLD_209, PN_302, and PN_303), so 59 donors are analysed: 22 ALS, 23 FTLD, and 14 PN. Section 5 has 22 FTLD and 14 PN.
+2. Depth. The PVM_3 arm has 2,795 nuclei and the HKG8 arm has 1,632. The median arm nucleus has 1,918 UMIs and 26 MT UMIs. At this depth, the expected r_s from SEA-AD (Stats_15H) is 0.534. It sets no threshold.
+3. Doublets and cell labels. The median doublet rate per library is 8.7%. All but one of the authors' microglia are Microglia-PVM in our mapping. Hierarchical Mapping agrees with Deep Generative Mapping for 36% of the Micro-PVM_3 nuclei.
+4. Taxonomy names. Micro-PVM_3-SEAAD and Micro-PVM_1 are present in both mappings.
+5. Covariates. S01 has age at death and sex for every donor except FTLD_226, who has no age at death. PMI is missing for 4 FTLD and 7 PN donors. S01 has no APOE, RIN, brain pH, or brain weight.
 
 ## 3. Replication of the eight DFGs
 
