@@ -70,7 +70,7 @@
 - A transcriptome-wide screen identified a module of **MT-CO3** and eight co-expressed mitochondrially encoded genes (cDFG).
 - The donor percentage of **Module post-IP** cells was tested against cognition and pathology.
 - Five **Batteries** of analyses tested contamination, measurement artifacts, %MT, and the 11 severely affected (SA) donors.
-- The pipeline was run on independent snRNA-seq datasets with the R package cepip, with pre-specified readings ([Section 8](#8-external-validation)).
+- The pipeline was rerun on two independent snRNA-seq datasets with the R package cepip ([Section 8](#8-external-validation)).
 - The methods are available as the R package [**cepip**](https://github.com/kahkengwong/cepip) for use on other datasets.
 
 ---
@@ -109,8 +109,10 @@
 <tr><td align="left"><b>Available from</b></td><td align="left"><a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE148822">GEO</a></td></tr>
 <tr><td align="left"><b>Reference</b></td><td align="left">E. Gerrits, N. Brouwer, S.M. Kooistra, M.E. Woodbury, Y. Vermeiren, et al., Distinct amyloid-beta and tau-associated microglia profiles in Alzheimer's disease, Acta Neuropathol, 141 (2021) 681-696. doi: 10.1007/s00401-021-02263-w</td></tr>
 <tr><td align="left" colspan="2"><b>3. External dataset 1: Pineda et al. (2024)</b></td></tr>
+<tr><td align="left"><b>Files</b></td><td align="left"><ul><li>Raw reads of the 63 BA9 libraries of batch 210526: SRA <code>PRJNA1073234</code> (SRA Lite)</li><li>Donor metadata: <code>S01_sample_information.xlsx</code>, and the authors' per-library metadata (<code>&lt;LIB&gt;_col_metadata.tsv</code>)</li></ul></td></tr>
 <tr><td align="left"><b>Used in</b></td><td align="left">External validation 1 (<a href="#8-external-validation">Section 8</a>)</td></tr>
-<tr><td align="left"><b>Details</b></td><td align="left">To be added.</td></tr>
+<tr><td align="left"><b>Available from</b></td><td align="left"><a href="https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1073234">SRA</a>; donor and per-library metadata from <a href="https://www.synapse.org/Synapse:syn51105515">Synapse (syn51105515)</a></td></tr>
+<tr><td align="left"><b>Reference</b></td><td align="left">S.S. Pineda, H. Lee, M.J. Ulloa-Navas, R.M. Linville, F.J. Garcia, et al., Single-cell dissection of the human motor and prefrontal cortices in ALS and FTLD, Cell, 187 (2024) 1971-1989. <a href="https://doi.org/10.1016/j.cell.2024.02.031">https://doi.org/10.1016/j.cell.2024.02.031</a></td></tr>
 <tr><td align="left" colspan="2"><b>4. External dataset 2: Rexach et al. (2024), insula</b></td></tr>
 <tr><td align="left"><b>Files</b></td><td align="left"><ul><li>CELLxGENE h5ad: <code>aa87f914-07e0-48aa-b915-8de906c95baf.h5ad</code> (raw counts, insula)</li><li>Table S1 of the paper: <code>mmc1.xlsx</code> (age at death and PMI)</li></ul></td></tr>
 <tr><td align="left"><b>Used in</b></td><td align="left">External validation 2 (<a href="#8-external-validation">Section 8</a>)</td></tr>
@@ -195,7 +197,7 @@ The five figures below follow the main steps of the analysis, using M4 NeoC as t
 | `renv.lock` | Exact R package versions (R 4.6.1, Bioconductor 3.23; 280 packages). |
 | `requirements-python.txt` | Exact Python package versions (Python 3.13.14). |
 | `verification/` | <ul><li>`run_rest.sh` and `run_python.sh`: the run scripts used for the reproducibility check, before `seaad-run`</li><li>`compare_rerun.py`, `compare_python.py`, and `compare_gamdata.py`: compare a rerun with the original results</li><li>The comparisons of the container reruns with the original results: `compare_all_*` for R; `compare_python_*` and `compare_gamdata_log.txt` for Python</li></ul> |
-| `external_validation/` | <ul><li>`External2_Rexach_Preset_Readings.md`: the pre-specified readings of external validation 2, committed before any statistic was computed</li><li>`Rexach/`: the container recipe, the run script `rexach-run`, the scripts R11 to R17, the Table S21 builder, the WSL step scripts, and `README_container_Rexach.md`</li><li>`Rexach/verification/`: the comparisons of the container reruns with the original results</li><li>External validation 1 (Pineda): to be added</li></ul> |
+| `external_validation/` | <ul><li>`README.md`: the datasets, results, rerun steps, and reproducibility checks of both external validations</li><li>`Pineda/`: the download and Cell Ranger scripts, the scripts R02 to R17, the Table S20 builder, the container recipe, the run script `pineda-run`, and `README_container_Pineda.md`</li><li>`Rexach/`: the scripts R11 to R17, the Table S21 builder, the container recipe, the run script `rexach-run`, and `README_container_Rexach.md`</li><li>`Pineda/verification/` and `Rexach/verification/`: the comparisons of the container reruns with the original results</li></ul> |
 | `figures/` | The workflow figure (`Workflow.png`) and Figures 1 to 5 of the Methods and Key Results section. |
 | `logs/` | <ul><li>`container_rerun/`: console logs of the container rerun of R Part 9 onward and the Part 12 Python step</li><li>`container_rerun_python/`: console logs of the container rerun of Python Parts 1 to 8</li><li>`container_fullrun/`: console logs of the one-command run (`seaad-run all`) in a new folder</li><li>`original_R/`: logs of the original runs from Part 9 onward</li><li>`original_python/`: logs of the original runs of Python Parts 1 to 8</li><li>`logs/README.md` describes each folder and maps the Python logs to their scripts</li></ul> |
 
@@ -408,6 +410,9 @@ The original analysis ran R on Windows 11 and Python on Fedora 44. The whole pip
 > [!NOTE]
 > The results reported in the preprint and in the supplementary tables are those of the original runs. The container reruns were used to check them.
 
+<details>
+<summary><strong>Summary of the checks (click to expand)</strong></summary>
+
 | Check | Compared | Agreed | Differences | Files in `verification/` |
 |---|---:|---:|---|---|
 | Python Parts 1 to 8, container rerun | 9,262 tables | 9,253 | Nine Part 5 differential expression tables. A few p-values and log2FC shifted slightly, and no gene crosses the 0.05 cutoff. The 54 count matrices and cell and gene lists of Part 8 are identical byte for byte. | `compare_python_tables_*`, `compare_python_matrices_log.txt`, `compare_gamdata_log.txt` |
@@ -420,6 +425,11 @@ The original analysis ran R on Windows 11 and Python on Fedora 44. The whole pip
 - **Agreed:** the same, or different only in sign, row order, or the way a value is written, or by at most 0.1%.
 - **Independent test:** a second person not involved in the analysis ran both checks on 21 October 2026, on a Windows 11 laptop (32 GB RAM, Docker Desktop). The container was built from this repository at commit d4a82aa and ran R Parts 9 to 11 and Tables S7 to S10 and S12 with `seaad-run hf`.
 
+</details>
+
+<details>
+<summary><strong>Expected differences (click to expand)</strong></summary>
+
 | Expected difference | Reason the results are unchanged |
 |---|---|
 | Eigenvector signs in the GAM basis-function tables | A basis function and its sign-flipped copy give the same fit. |
@@ -427,6 +437,8 @@ The original analysis ran R on Windows 11 and Python on Fedora 44. The whole pip
 | Quote marks written by R's `shQuote()` (double on Windows, single on Linux) | It is a record of the run and is not used in any calculation. |
 | The settings version recorded in the Part 12 tables | It is a record of the run and is not used in any calculation. |
 | Dates, times, and folder paths | They are records of the run and are not used in any calculation. |
+
+</details>
 
 <details>
 <summary><strong>Breakdown of each comparison (click to expand)</strong></summary>
@@ -472,45 +484,13 @@ Tables found only in the original results come from scripts or steps that are no
 ---
 
 ## 8. External Validation
-The pipeline is run on independent snRNA-seq datasets with the R package [cepip](https://github.com/kahkengwong/cepip) (0.1.0, commit fe4b269) at the SEA-AD settings. Each dataset is run on the PVM_3 arm (Micro-PVM_3 nuclei with *MT-CO3*>0), with the HKG8 arm as the control. The readings that decide the next steps are pre-specified and committed to this repository before any statistic is computed. All other results are reported as observed.
+The pipeline was rerun with the R package [cepip](https://github.com/kahkengwong/cepip) (0.1.0, commit fe4b269) at the SEA-AD settings on two independent snRNA-seq datasets: Pineda et al. (2024; prefrontal cortex, ALS and FTLD) and Rexach et al. (2024; insula, AD, bvFTD, and PSP).
 
-### 8.1 Datasets and results
-| Item | External dataset 1: Pineda et al. (2024) | External dataset 2: Rexach et al. (2024) |
-|---|---|---|
-| **Region and diagnoses** | To be added | Insular cortex; AD, bvFTD, PSP, and controls |
-| **Donors** | To be added | 37 (33 with at least 5 Micro-PVM_3 nuclei: 10 AD, 8 bvFTD, 8 PSP, and 7 controls) |
-| **Input** | To be added | Raw counts from CELLxGENE, with the authors' quality control (nuclei with <200 genes or >8% MT removed); nuclei with <500 genes removed |
-| **Cell types** | To be added | MapMyCells Deep Generative Mapping to the SEA-AD taxonomy (CCN20230505) |
-| **Pre-specified readings** | To be added | `external_validation/External2_Rexach_Preset_Readings.md`: replication of the eight DFGs, and the IP gate |
-| **DFG replication** | To be added | Replicated at the SEA-AD thresholds: 5 of 8 DFGs at tier 1 (r<sub>s</sub> ≥0.6 and τ<sub>b</sub> ≥0.5), and the other 3 at tier 2 |
-| **IP gate** | To be added | PVM_3: IPRS 0.758 (strong tier), passed. HKG8: no IP (IPRS 0.200, failed). |
-| **Module** | To be added | 2,578 of 3,417 PVM_3 arm cells, of which 430 Recovered by CMRF |
-| **Module post-IP% against diagnosis** | To be added | Reported as observed (7 control donors). Standardized β against controls, adjusted for age at death, sex, and PMI: all three diagnoses 0.277 (FDR=0.261), AD 0.478 (FDR=0.254), bvFTD 0.641 (FDR=0.254), and PSP 0.064 (FDR=0.882). |
-| **Post hoc** | To be added | Leave-one-donor-out refits, a donor bootstrap, and the power to detect the SEA-AD NeoC β (0.465) |
-| **Preprint** | Figure 18 and Supplementary Table S20 (to be added) | Figure 19 and Supplementary Table S21 |
-| **Folder** | To be added | `external_validation/Rexach/` |
+- The *MT-CO3* module replicated in both datasets (5 of 8 DFGs at tier 1), and the PVM_3 IP passed (IPRS 0.754 and 0.758). The HKG8 control had no IP.
+- Module post-IP% showed a non-significant increase over controls in AD and bvFTD (insula), and no difference from controls in FTLD and ALS (prefrontal cortex).
+- In the container reruns, 151 of 152 Pineda tables and 113 of 113 Rexach tables agreed with the original results. The Rexach rerun was repeated by a second person on another computer.
 
-### 8.2 Rerunning an external validation
-Each external validation has its own container, built on the SEA-AD container. The steps, inputs, and outputs are in the README of its folder.
-
-| Item | External dataset 1: Pineda et al. (2024) | External dataset 2: Rexach et al. (2024) |
-|---|---|---|
-| **Instructions** | To be added | [`README_container_Rexach.md`](external_validation/Rexach/README_container_Rexach.md) |
-| **Container image** | To be added | `rexach-cepip_image.tar.gz` on Zenodo (https://doi.org/10.5281/zenodo.23653156), or built from `external_validation/Rexach/Containerfile` |
-| **Inputs** | To be added | The h5ad from CELLxGENE. The MapMyCells outputs and the SEA-AD %MT table from [Hugging Face](https://huggingface.co/datasets/kahkengwong/CEP-IP_with_CMRF_in_SEA-AD), folder `external_validation/Rexach/`. Table S1 from the paper. |
-| **Command** | To be added | `podman run --rm -v /path/to/Rexach_rerun:/data:Z rexach-cepip rexach-run all` |
-| **Run time** | To be added | R11 to R17 and Table S21: about 8 minutes on the development machine, and about 10 minutes on the Windows 11 laptop of the independent test |
-
-### 8.3 Reproducibility check
-The external validations were checked as in Section 7, with the same rules.
-
-| Check | External dataset 1: Pineda et al. (2024) | External dataset 2: Rexach et al. (2024) |
-|---|---|---|
-| **Container rerun by the author** (Podman in WSL, new folder with the inputs only) | To be added | 113 of 113 tables agreed with the original results |
-| **Independent test** (second person, Windows 11, Docker Desktop) | To be added | 113 of 113 tables agreed with the original results, and 113 of 113 with the author's container rerun (26 October 2026, image built at commit 8b98869) |
-| **Files** | To be added | `external_validation/Rexach/verification/` and `verification/independent_test/` |
-
-The tables that differ only in their run records (versions, paths, times, and the BLAS library) are counted as agreed.
+The datasets, results, rerun steps, and reproducibility checks of both external validations are in [`external_validation/`](external_validation/README.md).
 
 ---
 
@@ -518,7 +498,7 @@ The tables that differ only in their run records (versions, paths, times, and th
 - Supplementary Tables (Excel format) and Supplementary Figures are available from [Zenodo](https://zenodo.org/records/23445742).
 - Refer to these tables to see the results without running the pipeline, or to check your own results.
 - The tables can also be rebuilt from the pipeline outputs with `seaad-run tables` (see `scripts/SuppTables/`).
-- Supplementary Table S21 (external validation 2) is built by `external_validation/Rexach/build_SuppTable_S21.py` in its container (Section 8.2).
+- Supplementary Tables S20 and S21 (external validations 1 and 2) are built by `external_validation/Pineda/build_SuppTable_S20.py` and `external_validation/Rexach/build_SuppTable_S21.py` in their containers (see [`external_validation/`](external_validation/README.md)).
 
 ---
 
@@ -550,6 +530,7 @@ The tables that differ only in their run records (versions, paths, times, and th
   - Parts 10e to 10g: about 45 minutes
   - the four Part 10h model scripts: about 45 minutes
   - `Part10h_CP10K_Comparator_Fig13_code.r` to `Fig17_Summary_code.r` (including the Part 12 Batteries): about 20 minutes
+  - external validation 1 (`pineda-run all`): about 2 hours, mostly the cell calling of R02
   - external validation 2 (`rexach-run all`): about 8 minutes
 
 ---
