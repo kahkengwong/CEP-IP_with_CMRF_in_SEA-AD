@@ -1,0 +1,72 @@
+# Containerfile for external validation 1 (Pineda et al. 2024, BA9 batch 210526)
+#
+# Built on the SEA-AD container (localhost/seaad-cepip), so R 4.6.1, the 280 R packages of renv.lock,
+# Python 3.13.14, and the packages of requirements-python.txt are those of the paper. Added here:
+#   - cepip 0.1.0 at commit fe4b26934d2f4ff5aa1331a56f0e40ab70d8234f (R code identical to 4c4f70c,
+#     the CRAN submission), installed with remotes so that the commit is recorded (R14 GR-09);
+#   - brglm2 1.1.1 (Firth logistic regression in R17), from the Posit Package Manager snapshot of
+#     2026-10-25, as in the Rexach container;
+#   - scDblFinder 1.26.9 (doublets in R02) and the 16 other packages of pineda_r_packages.tsv, at the
+#     versions of the R02 run on Windows, from Bioconductor 3.23 and the same CRAN snapshot;
+#   - the Pineda scripts R02 to R17, build_SuppTable_S20.py, compare_pineda.py, and pineda-run.
+# The build stops if any package of renv.lock or pineda_r_packages.tsv has another version
+# (check_lock_pineda.R).
+#
+# Build, from the folder that holds this file and the scripts:
+#     podman build -t pineda-cepip -f Containerfile .
+# The SEA-AD image must be present first (built from the repository, or loaded from Zenodo:
+# podman load -i seaad-cepip_image.tar.gz). With Docker, if the SEA-AD image has another name:
+#     docker build --build-arg BASE=seaad-cepip:latest -t pineda-cepip -f Containerfile .
+#
+# Run (the Pineda data folder is mounted at /data):
+#     podman run --rm -v /path/to/Pineda_rerun:/data:Z pineda-cepip pineda-run all
+# See README_container_Pineda.md for the inputs, the run modes, and the comparison.
+
+ARG BASE=localhost/seaad-cepip:latest
+FROM ${BASE}
+
+LABEL org.opencontainers.image.title="CEP-IP with CMRF, external validation 1 (Pineda et al. 2024)" \
+      org.opencontainers.image.source="https://github.com/kahkengwong"
+
+ARG CEPIP_SHA=fe4b26934d2f4ff5aa1331a56f0e40ab70d8234f
+ARG PPM_DATE=2026-10-25
+ARG BIOC=3.23
+
+COPY check_lock_pineda.R install_pineda_packages.R pineda_r_packages.tsv /opt/pineda/
+
+# remotes goes to a temporary library, so the site library holds only renv.lock, cepip, brglm2, and
+# the R02 packages.
+RUN . /etc/os-release \
+    && export PPM="https://packagemanager.posit.co/cran/__linux__/${VERSION_CODENAME}/${PPM_DATE}" \
+    && mkdir -p /tmp/rlib_build \
+    && Rscript -e 'install.packages("remotes", lib = "/tmp/rlib_build", repos = Sys.getenv("PPM"))' \
+    && Rscript -e '.libPaths(c("/tmp/rlib_build", .libPaths())); \
+                   remotes::install_github("kahkengwong/cepip", ref = Sys.getenv("CEPIP_SHA"), \
+                                           lib = .libPaths()[2], dependencies = FALSE, upgrade = "never", \
+                                           build_vignettes = FALSE)' \
+    && Rscript -e 'install.packages("brglm2", lib = .libPaths()[1], repos = Sys.getenv("PPM"), \
+                                    dependencies = c("Depends", "Imports", "LinkingTo"))' \
+    && Rscript /opt/pineda/install_pineda_packages.R /opt/pineda/pineda_r_packages.tsv "${BIOC}" "${PPM}" \
+    && rm -rf /tmp/rlib_build /tmp/Rtmp* /root/.cache/R \
+    && Rscript /opt/pineda/check_lock_pineda.R /opt/seaad/renv.lock "${CEPIP_SHA}" 1.1.1 \
+               /opt/pineda/pineda_r_packages.tsv
+
+# ---- Scripts -----------------------------------------------------------------------------------
+ENV PINEDA_ROOT=/data
+COPY R02_Pineda_cell_calling_QC.R R11_Pineda_nuclei_table.R R12_Pineda_mapping_input.py \
+     R13_Pineda_count_checks.py R13b_Pineda_mapping_comparison.py R13c_Pineda_noAuthorQC_arm.py \
+     R14_Pineda_core_cepip.R R15_Pineda_diagnosis_contrasts.R R16_Pineda_main_figure.R \
+     R17_Pineda_posthoc_beta.R build_SuppTable_S20.py compare_pineda.py \
+     /opt/pineda/
+COPY pineda-run.sh /usr/local/bin/pineda-run
+RUN chmod +x /usr/local/bin/pineda-run
+
+# Versions, for the record (written at build time)
+RUN { echo "R:"; R --version | head -1; \
+      echo "Python:"; python --version; \
+      Rscript -e 'ip <- installed.packages()[, c("Package", "Version")]; write.table(ip, sep = "\t", quote = FALSE, row.names = FALSE)'; \
+      Rscript -e 'd <- packageDescription("cepip"); cat("cepip", d$Version, "RemoteSha", d$RemoteSha, "\n")'; \
+      python -m pip freeze; } > /opt/pineda/versions.txt 2>&1
+
+WORKDIR /data
+CMD ["bash"]

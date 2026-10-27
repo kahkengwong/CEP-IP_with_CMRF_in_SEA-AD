@@ -1,0 +1,163 @@
+pineda-run all started 2026-10-27 08:54:22 | data /data | workers 4
+R: R version 4.6.1 (2026-06-24) -- "Happy Hop" | Python: Python 3.13.14
+cepip: 0.1.0 fe4b26934d2f4ff5aa1331a56f0e40ab70d8234f
+scDblFinder: 1.26.9
+
+== Inputs
+  found      counts/ (63 Cell Ranger raw count matrices)
+  found      05_cellranger_metrics.csv
+  found      S01 workbook (Synapse syn51105515)
+  found      Pineda2024_metadata/ (152 authors' <LIB>_col_metadata.tsv files)
+  found      Stats_15H.csv
+  found      R13_mapmycells_output/ (12 MapMyCells csv files of the authors' QC nuclei)
+  found      R13_mapmycells_output_allKept/ (26 MapMyCells csv files of all R02 kept nuclei)
+  found      R13_mapmycells_output_allKept_repeat/ (26 MapMyCells csv files of the repeat mapping)
+  found      Pineda_BA9_210526_manifest.tsv
+
+== R02_Pineda_cell_calling_QC   start 08:54:23
+   FAILED 09:04:12 | 10 min | exit code 1 | log pineda-run_logs/R02_Pineda_cell_calling_QC.txt
+
+Resume after fixing the cause with: pineda-run all --from R02_Pineda_cell_calling_QC
+pineda-run all started 2026-10-27 09:12:14 | data /data | workers 2
+R: R version 4.6.1 (2026-06-24) -- "Happy Hop" | Python: Python 3.13.14
+cepip: 0.1.0 fe4b26934d2f4ff5aa1331a56f0e40ab70d8234f
+scDblFinder: 1.26.9
+
+== Inputs
+  found      counts/ (63 Cell Ranger raw count matrices)
+  found      05_cellranger_metrics.csv
+  found      S01 workbook (Synapse syn51105515)
+  found      Pineda2024_metadata/ (152 authors' <LIB>_col_metadata.tsv files)
+  found      Stats_15H.csv
+  found      R13_mapmycells_output/ (12 MapMyCells csv files of the authors' QC nuclei)
+  found      R13_mapmycells_output_allKept/ (26 MapMyCells csv files of all R02 kept nuclei)
+  found      R13_mapmycells_output_allKept_repeat/ (26 MapMyCells csv files of the repeat mapping)
+  found      Pineda_BA9_210526_manifest.tsv
+
+== R02_Pineda_cell_calling_QC   start 09:12:15
+pineda-run all started 2026-10-27 10:29:41 | data /data | workers 6
+R: R version 4.6.1 (2026-06-24) -- "Happy Hop" | Python: Python 3.13.14
+cepip: 0.1.0 fe4b26934d2f4ff5aa1331a56f0e40ab70d8234f
+scDblFinder: 1.26.9
+
+== Inputs
+  found      counts/ (63 Cell Ranger raw count matrices)
+  found      05_cellranger_metrics.csv
+  found      S01 workbook (Synapse syn51105515)
+  found      Pineda2024_metadata/ (152 authors' <LIB>_col_metadata.tsv files)
+  found      Stats_15H.csv
+  found      R13_mapmycells_output/ (12 MapMyCells csv files of the authors' QC nuclei)
+  found      R13_mapmycells_output_allKept/ (26 MapMyCells csv files of all R02 kept nuclei)
+  found      R13_mapmycells_output_allKept_repeat/ (26 MapMyCells csv files of the repeat mapping)
+  found      Pineda_BA9_210526_manifest.tsv
+
+== R02_Pineda_cell_calling_QC   start 10:29:42
+   FAILED 10:31:18 | 2 min | exit code 1 | log pineda-run_logs/R02_Pineda_cell_calling_QC.txt
+
+Resume after fixing the cause with: pineda-run all --from R02_Pineda_cell_calling_QC
+pineda-run all started 2026-10-27 10:34:04 | data /data | workers 6
+R: R version 4.6.1 (2026-06-24) -- "Happy Hop" | Python: Python 3.13.14
+cepip: 0.1.0 fe4b26934d2f4ff5aa1331a56f0e40ab70d8234f
+scDblFinder: 1.26.9
+
+== Inputs
+  found      counts/ (63 Cell Ranger raw count matrices)
+  found      05_cellranger_metrics.csv
+  found      S01 workbook (Synapse syn51105515)
+  found      Pineda2024_metadata/ (152 authors' <LIB>_col_metadata.tsv files)
+  found      Stats_15H.csv
+  found      R13_mapmycells_output/ (12 MapMyCells csv files of the authors' QC nuclei)
+  found      R13_mapmycells_output_allKept/ (26 MapMyCells csv files of all R02 kept nuclei)
+  found      R13_mapmycells_output_allKept_repeat/ (26 MapMyCells csv files of the repeat mapping)
+  found      Pineda_BA9_210526_manifest.tsv
+
+== R02_Pineda_cell_calling_QC   start 10:34:05
+   FAILED 10:50:21 | 16 min | exit code 1 | log pineda-run_logs/R02_Pineda_cell_calling_QC.txt
+
+Resume after fixing the cause with: pineda-run all --from R02_Pineda_cell_calling_QC
+pineda-run all started 2026-10-27 10:51:30 | data /data | workers 4
+R: R version 4.6.1 (2026-06-24) -- "Happy Hop" | Python: Python 3.13.14
+cepip: 0.1.0 fe4b26934d2f4ff5aa1331a56f0e40ab70d8234f
+scDblFinder: 1.26.9
+
+== Inputs
+  found      counts/ (63 Cell Ranger raw count matrices)
+  found      05_cellranger_metrics.csv
+  found      S01 workbook (Synapse syn51105515)
+  found      Pineda2024_metadata/ (152 authors' <LIB>_col_metadata.tsv files)
+  found      Stats_15H.csv
+  found      R13_mapmycells_output/ (12 MapMyCells csv files of the authors' QC nuclei)
+  found      R13_mapmycells_output_allKept/ (26 MapMyCells csv files of all R02 kept nuclei)
+  found      R13_mapmycells_output_allKept_repeat/ (26 MapMyCells csv files of the repeat mapping)
+  found      Pineda_BA9_210526_manifest.tsv
+
+== R02_Pineda_cell_calling_QC   start 10:51:30
+   finished 11:15:18 | 24 min
+== R11_Pineda_nuclei_table   start 11:15:18
+   finished 11:16:51 | 2 min
+== R12_Pineda_mapping_input   start 11:16:51
+   finished 11:25:55 | 9 min
+== R13_Pineda_count_checks   start 11:25:55
+   finished 11:27:17 | 1 min
+== R13b_repeat   start 11:27:17
+   finished 11:27:22 | 0 min
+== R13b_QC   start 11:27:22
+   finished 11:27:27 | 0 min
+== R13c_Pineda_noAuthorQC_arm   start 11:27:27
+   finished 11:28:29 | 1 min
+== R14_Pineda_core_cepip   start 11:28:29
+   finished 11:30:13 | 2 min
+== R15_Pineda_diagnosis_contrasts   start 11:30:13
+   finished 11:30:15 | 0 min
+== R17_Pineda_posthoc_beta   start 11:30:15
+   finished 11:30:26 | 0 min
+== R16_Pineda_main_figure   start 11:30:26
+   finished 11:30:35 | 0 min
+== build_SuppTable_S20   start 11:30:35
+   finished 11:30:37 | 0 min
+
+== 12 step(s) finished in 39 min
+
+== Compare with /ref
+   other files (figures, RDS, logs): rerun 33 | reference 33 | same name in both 33
+
+== R14_HKG8
+   files compared: SAME 3
+   other files (figures, RDS, logs): rerun 5 | reference 5 | same name in both 5
+
+== R14_HKG_control
+   files compared: SAME 3
+   other files (figures, RDS, logs): rerun 5 | reference 5 | same name in both 5
+
+== R15_contrasts
+   files compared: SAME 7 | PROVENANCE ONLY 1
+   other files (figures, RDS, logs): rerun 2 | reference 2 | same name in both 2
+   [PROVENANCE ONLY] R15_Pineda_contrasts.xlsx :: 09_Session | 2 cells empty in one table only
+        e.g. r8 c2: '/usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3' vs ''
+        note: Run record: start and end times, paths, and the BLAS and LAPACK libraries of the system.
+
+== R17_posthoc
+   files compared: SAME 12
+   other files (figures, RDS, logs): rerun 2 | reference 2 | same name in both 2
+
+== R16_Figure_Pineda
+   files compared: SAME 15
+   other files (figures, RDS, logs): rerun 22 | reference 22 | same name in both 22
+
+== Table S20
+   files compared: SAME 20
+   other files (figures, RDS, logs): rerun 0 | reference 0 | same name in both 0
+
+== Overall
+   SAME                       133
+   WITHIN 0.1%                1
+   OUTSIDE 0.1%               2
+   DIFFERENT SIZE             2
+   IDENTICAL                  8
+   PROVENANCE ONLY            6
+   agree (SAME to WITHIN 0.1%, IDENTICAL, or PROVENANCE ONLY): 148 of 152
+
+Detail: /data/compare/compare_pineda_all_detail.csv
+Done in 2.2 min
+
+pineda-run all finished 2026-10-27 11:32:50
