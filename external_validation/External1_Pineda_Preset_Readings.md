@@ -6,14 +6,14 @@ Three readings are fixed: the replication of the eight DFGs (Section 3), the IP 
 
 ## 1. Design and fixed settings
 
-- Data. Pineda et al. 2024 (Cell), BA9, batch 210526. Raw reads from SRA PRJNA1073234 as SRA Lite files, converted with fastq-dump (the pilot library 210526_FTLD_228_snRNA-C8 from the ENA FASTQ). SRA Lite carries simplified base qualities, so Q30 reads 100% in every library. Donor metadata from Synapse syn51105515 (S01).
-- Donors. 63: 23 ALS (6 C9ALS), 24 FTLD (11 C9FTLD), and 16 PN, as grouped in S01. All enter the CEP-IP fit. The association uses FTLD and PN.
-- Processing. Cell Ranger 10.1.0, GRCh38-2020-A, intronic reads counted. Cells called by emptyDrops (lower = 100, FDR <= 0.01, 10,000 iterations), as in Part12_06. Nuclei with < 500 genes removed. No %MT cutoff. Doublets removed by scDblFinder per library, default settings. Expression is ln(CP10K + 1).
-- Cell types. MapMyCells Deep Generative Mapping to the SEA-AD taxonomy (CCN20230505), no confidence cutoff. Hierarchical Mapping as a second mapping.
-- Arms. PVM_3 (primary): Micro-PVM_3 nuclei with MT-CO3 > 0. HKG8 (control): PVM_3 arm nuclei with ACTB > 0, ACTB against cHKG8 (the mean of EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, and HNRNPA2B1), nested in the primary arm as in SEA-AD.
-- Method. `cepip(x, y, donor, id, cmrf = TRUE, ip_k = 10, ip_axis = "y", kappa = 0.5, bw = 0.1, repeats = 40)`, cepip 0.1.0 at commit fe4b26934d2f4ff5aa1331a56f0e40ab70d8234f. Composite: mean of the eight SEA-AD DFGs (MT-ATP6, MT-CO1, MT-CO2, MT-CYB, MT-ND1, MT-ND2, MT-ND3, and MT-ND4).
-- Significance. FDR < 0.05, Benjamini-Hochberg within each family.
-- Order in the paper. Pineda (BA9; ALS and FTLD) is external validation 1, and Rexach (insula; AD, bvFTD, and PSP) is external validation 2, so that the validations end with the dataset that includes AD donors, as SEA-AD does.
+- Data. Pineda et al. 2024 (Cell), prefrontal cortex (BA9), batch 210526. Reads from SRA PRJNA1073234. Donor information from Synapse syn51105515 (S01).
+- Donors. There are 63: 23 ALS, 24 FTLD, and 16 PN (pathologically normal). All donors enter the CEP-IP fit. The association with diagnosis compares FTLD with PN.
+- Processing. Cell Ranger 10.1.0 with GRCh38-2020-A, counting intronic reads. Cells are called with emptyDrops (FDR <= 0.01). Nuclei with fewer than 500 genes and doublets (scDblFinder) are removed. No %MT cutoff is applied. Expression is ln(CP10K + 1).
+- Cell types. MapMyCells Deep Generative Mapping to the SEA-AD taxonomy (CCN20230505). Hierarchical Mapping is a second mapping.
+- Arms. The PVM_3 arm (primary) is the Micro-PVM_3 nuclei with MT-CO3 > 0. The HKG8 arm (control) is the PVM_3 arm nuclei with ACTB > 0, with ACTB plotted against the mean of eight housekeeping genes (EEF1A1, RPL13A, B2M, YWHAZ, FTL, PSAP, RAB7A, and HNRNPA2B1), as in SEA-AD.
+- Method. `cepip(x, y, donor, id, cmrf = TRUE, ip_k = 10, ip_axis = "y", kappa = 0.5, bw = 0.1, repeats = 40)`, cepip 0.1.0 at commit fe4b26934d2f4ff5aa1331a56f0e40ab70d8234f. The y axis is the mean of the eight SEA-AD DFGs (MT-ATP6, MT-CO1, MT-CO2, MT-CYB, MT-ND1, MT-ND2, MT-ND3, and MT-ND4).
+- Significance. FDR < 0.05 (Benjamini-Hochberg).
+- Order in the paper. Pineda is external validation 1 and Rexach is external validation 2. The validations then end with the dataset that has AD donors, as SEA-AD does.
 
 ## 2. Count checks (no statistic of Sections 3 to 5)
 
