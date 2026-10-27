@@ -7,7 +7,7 @@
 [![Project Page](https://img.shields.io/badge/Code-GitHub-4E81BE?logo=github&logoColor=white&style=flat-square)](https://github.com/kahkengwong/CEP-IP_with_CMRF_in_SEA-AD)
 [![Dataset](https://img.shields.io/badge/Dataset-Hugging%20Face-B08C00?logo=huggingface&logoColor=F3D34E&style=flat-square)](https://huggingface.co/datasets/kahkengwong/CEP-IP_with_CMRF_in_SEA-AD)
 [![Supplementary](https://img.shields.io/badge/Supplementary-Zenodo-1682D4?logo=zenodo&logoColor=white&style=flat-square)](https://zenodo.org/records/23445742)
-[![Preprint](https://img.shields.io/badge/Preprint-bioRxiv-B31B1B?style=flat-square)](https://doi.org/BIORXIV_DOI)
+[![Preprint](https://img.shields.io/badge/Preprint-bioRxiv-B31B1B?style=flat-square)](https://www.biorxiv.org/content/10.64898/2026.10.22.761284v1)
 [![Container](https://img.shields.io/badge/Container-Podman%20%7C%20Docker-892CA0?logo=podman&logoColor=white&style=flat-square)](#6-reproducing-the-analysis)
 [![R package](https://img.shields.io/badge/R%20package-cepip-276DC3?logo=r&logoColor=white&style=flat-square)](https://github.com/kahkengwong/cepip)
 
@@ -58,7 +58,7 @@
 
 **Conclusions:** Routine %MT filtering in AD snRNA-seq may therefore remove cells that carry information about cognition. The full pipeline code, software container, processed data, and the R package cepip are publicly available, and reruns of the full pipeline in the container reproduced the original findings.
 
-> K.K. Wong (2026). CEP-IP with CMRF in SEA-AD Microglia: A Mitochondrial Co-expression Module Linked to Cognition. *bioRxiv*. https://doi.org/BIORXIV_DOI
+> K.K. Wong (2026). CEP-IP with CMRF in SEA-AD Microglia: A Mitochondrial Co-expression Module Linked to Cognition. *bioRxiv*. https://www.biorxiv.org/content/10.64898/2026.10.22.761284v1
 
 </details>
 
@@ -545,7 +545,7 @@ The figures and the output files derived from the SEA-AD data (for example, in `
 ## 12. Citation
 If you found this study useful, please cite:
 
-K.K. Wong. CEP-IP with CMRF in SEA-AD Microglia: A Mitochondrial Co-expression Module Linked to Cognition. *bioRxiv* (2026). https://doi.org/BIORXIV_DOI
+K.K. Wong. CEP-IP with CMRF in SEA-AD Microglia: A Mitochondrial Co-expression Module Linked to Cognition. *bioRxiv* (2026). https://www.biorxiv.org/content/10.64898/2026.10.22.761284v1
 
 K.K. Wong. CEP-IP: An explainable framework for cell subpopulation identification in single-cell transcriptomics. *Computer Methods and Programs in Biomedicine*, 282 (2026) 109372. https://doi.org/10.1016/j.cmpb.2026.109372
 
@@ -560,7 +560,8 @@ The methods are implemented in the R package [cepip](https://github.com/kahkengw
   title   = {{CEP-IP} with {CMRF} in {SEA-AD} Microglia: A Mitochondrial Co-expression Module Linked to Cognition},
   journal = {bioRxiv},
   year    = {2026},
-  doi     = {BIORXIV_DOI}
+  doi     = {10.64898/2026.10.22.761284},
+  url     = {https://www.biorxiv.org/content/10.64898/2026.10.22.761284v1}
 }
 
 @article{Wong2026CEPIP,
