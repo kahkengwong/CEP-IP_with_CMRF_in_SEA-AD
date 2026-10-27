@@ -32,7 +32,8 @@ preferred-citation:
       orcid: "https://orcid.org/0000-0001-7359-6202"
   journal: bioRxiv
   year: 2026
-  # doi: 10.64898/2026.10.22.761284 (add when the preprint is posted)
+  doi: 10.64898/2026.10.22.761284
+  url: "https://www.biorxiv.org/content/10.64898/2026.10.22.761284v1"
 references:
   - type: article
     title: "CEP-IP: An explainable framework for cell subpopulation identification in single-cell transcriptomics"
