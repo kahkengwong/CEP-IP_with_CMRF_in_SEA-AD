@@ -1,0 +1,71 @@
+pineda-run r started 2026-10-28 00:50:37 | data /data | workers 4
+R: R version 4.6.1 (2026-06-24) -- "Happy Hop" | Python: Python 3.13.14
+cepip: 0.1.0 fe4b26934d2f4ff5aa1331a56f0e40ab70d8234f
+scDblFinder: 1.26.9
+
+== Inputs
+  found      R13_count_checks/R13_Pineda_MicroPVM3_counts.mtx.gz
+  found      R13_count_checks/R13_Pineda_MicroPVM3_genes.csv.gz
+  found      R13_count_checks/R13_Pineda_MicroPVM3_nuclei.csv.gz
+  found      R13_count_checks/R13_Pineda_count_checks.xlsx
+  found      R13b_mapping_comparison_repeat/R13b_Pineda_mapping_comparison.xlsx
+  found      R13b_mapping_comparison_QC/R13b_Pineda_mapping_comparison.xlsx
+  found      R13c_noAuthorQC_arm/R13c_Pineda_noAuthorQC_arm.xlsx
+  found      Pineda_BA9_210526_manifest.tsv
+
+== R14_Pineda_core_cepip   start 00:50:38
+   finished 00:54:47 | 4 min
+== R15_Pineda_diagnosis_contrasts   start 00:54:47
+   finished 00:54:49 | 0 min
+== R17_Pineda_posthoc_beta   start 00:54:49
+   finished 00:55:02 | 0 min
+== R16_Pineda_main_figure   start 00:55:02
+   finished 00:55:13 | 0 min
+== build_SuppTable_S20   start 00:55:13
+   finished 00:55:15 | 0 min
+
+== 5 step(s) finished in 5 min
+
+== Compare with /ref
+        note: Run record: start and end times, paths, and the BLAS and LAPACK libraries of the system.
+
+== R14_PVM_3
+   files compared: SAME 17
+   other files (figures, RDS, logs): rerun 33 | reference 33 | same name in both 33
+
+== R14_HKG8
+   files compared: SAME 3
+   other files (figures, RDS, logs): rerun 5 | reference 5 | same name in both 5
+
+== R14_HKG_control
+   files compared: SAME 3
+   other files (figures, RDS, logs): rerun 5 | reference 5 | same name in both 5
+
+== R15_contrasts
+   files compared: SAME 7 | PROVENANCE ONLY 1
+   other files (figures, RDS, logs): rerun 2 | reference 2 | same name in both 2
+   [PROVENANCE ONLY] R15_Pineda_contrasts.xlsx :: 09_Session | 2 cells empty in one table only
+        e.g. r8 c2: '/usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3' vs ''
+        note: Run record: start and end times, paths, and the BLAS and LAPACK libraries of the system.
+
+== R17_posthoc
+   files compared: SAME 12
+   other files (figures, RDS, logs): rerun 2 | reference 2 | same name in both 2
+
+== R16_Figure_Pineda
+   files compared: SAME 15
+   other files (figures, RDS, logs): rerun 22 | reference 22 | same name in both 22
+
+== Table S20
+   files compared: SAME 20
+   other files (figures, RDS, logs): rerun 0 | reference 0 | same name in both 0
+
+== Overall
+   SAME                       91
+   PROVENANCE ONLY            2
+   agree (SAME to WITHIN 0.1%, IDENTICAL, or PROVENANCE ONLY): 93 of 93
+
+Detail: /data/compare/compare_pineda_r_detail.csv
+Done in 0.1 min
+
+pineda-run r finished 2026-10-28 00:55:22

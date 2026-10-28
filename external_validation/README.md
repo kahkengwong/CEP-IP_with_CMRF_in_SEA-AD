@@ -6,7 +6,7 @@ The pipeline was run on two independent snRNA-seq datasets with the R package [c
 | Folder | Contents |
 |---|---|
 | [`Pineda/`](Pineda/) | External dataset 1: the download and Cell Ranger scripts (01 to 08), the scripts R02 to R17, the Table S20 builder, the container recipe, the run script `pineda-run`, the WSL step scripts, and [`README_container_Pineda.md`](Pineda/README_container_Pineda.md) |
-| `Pineda/verification/` | The comparison of the author's container rerun with the original results |
+| `Pineda/verification/` | The comparison of the author's container rerun with the original results, and `independent_test/` for the rerun on another computer |
 | [`Rexach/`](Rexach/) | External dataset 2: the scripts R11 to R17, the Table S21 builder, the container recipe, the run script `rexach-run`, the WSL step scripts, and [`README_container_Rexach.md`](Rexach/README_container_Rexach.md) |
 | `Rexach/verification/` | The comparison of the author's container rerun with the original results, and `independent_test/` for the rerun on another computer |
 
@@ -30,10 +30,10 @@ Each external validation has its own container, built on the SEA-AD container. T
 | Item | External dataset 1: Pineda et al. (2024) | External dataset 2: Rexach et al. (2024) |
 |---|---|---|
 | **Instructions** | [`README_container_Pineda.md`](Pineda/README_container_Pineda.md) | [`README_container_Rexach.md`](Rexach/README_container_Rexach.md) |
-| **Container image** | Built from `Pineda/Containerfile` (Zenodo archive to be added) | `rexach-cepip_image.tar.gz` on Zenodo (https://doi.org/10.5281/zenodo.23653156), or built from `Rexach/Containerfile` |
-| **Inputs** | The 63 Cell Ranger raw count matrices and the MapMyCells outputs (Hugging Face, to be added). The S01 workbook and the authors' per-library metadata from Synapse (syn51105515). | The h5ad from CELLxGENE. The MapMyCells outputs and the SEA-AD %MT table from [Hugging Face](https://huggingface.co/datasets/kahkengwong/CEP-IP_with_CMRF_in_SEA-AD), folder `external_validation/Rexach/`. Table S1 from the paper. |
+| **Container image** | `pineda-cepip_image.tar.gz` on Zenodo (https://doi.org/10.5281/zenodo.23653156), or built from `Pineda/Containerfile` | `rexach-cepip_image.tar.gz` on Zenodo (https://doi.org/10.5281/zenodo.23653156), or built from `Rexach/Containerfile` |
+| **Inputs** | The 63 Cell Ranger raw count matrices, the MapMyCells outputs, and the other input files from [Hugging Face](https://huggingface.co/datasets/kahkengwong/CEP-IP_with_CMRF_in_SEA-AD), folder `external_validation/Pineda/`. The S01 workbook and the authors' per-library metadata from Synapse (syn51105515). | The h5ad from CELLxGENE. The MapMyCells outputs and the SEA-AD %MT table from [Hugging Face](https://huggingface.co/datasets/kahkengwong/CEP-IP_with_CMRF_in_SEA-AD), folder `external_validation/Rexach/`. Table S1 from the paper. |
 | **Command** | `podman run --rm -v /path/to/Pineda_rerun:/data:Z pineda-cepip pineda-run all` | `podman run --rm -v /path/to/Rexach_rerun:/data:Z rexach-cepip rexach-run all` |
-| **Run time** | R02 (cell calling): about 1.5 to 2 hours (108 minutes with 6 workers on Windows). R11 to R17 and Table S20: about 15 minutes in the container. | R11 to R17 and Table S21: about 8 minutes on the development machine, and about 10 minutes on the Windows 11 laptop of the independent test |
+| **Run time** | R02 (cell calling): about 1.5 to 2 hours (108 minutes with 6 workers on Windows). R11 to R17 and Table S20: about 15 minutes in the container. `pineda-run r` (R14 to R17 and Table S20): about 5 minutes on the Windows 11 laptop of the independent test. | R11 to R17 and Table S21: about 8 minutes on the development machine, and about 10 minutes on the Windows 11 laptop of the independent test |
 
 ## 4. Reproducibility check
 The external validations were checked as the SEA-AD pipeline ([Section 7 of the main README](../README.md#7-reproducibility-check)), with the same rules: numbers agree when their relative difference is within 1e-6, and text must match exactly. The tables that differ only in their run records (versions, paths, times, the BLAS library, and the number of workers) are counted as agreed.
@@ -41,8 +41,8 @@ The external validations were checked as the SEA-AD pipeline ([Section 7 of the 
 | Check | External dataset 1: Pineda et al. (2024) | External dataset 2: Rexach et al. (2024) |
 |---|---|---|
 | **Container rerun by the author** (Podman in WSL, new folder with the inputs only) | From the Cell Ranger count matrices: the cell calls were identical in all 63 libraries, and 151 of 152 tables agreed with the original results. The other table is the R11 nuclei table, whose scDblFinder scores differ by at most 3.7e-4; no doublet class changed. | 113 of 113 tables agreed with the original results |
-| **Independent test** (second person, Windows 11, Docker Desktop) | To be added | 113 of 113 tables agreed with the original results, and 113 of 113 with the author's container rerun (26 October 2026, image built at commit 8b98869) |
-| **Files** | `Pineda/verification/` | `Rexach/verification/` and `Rexach/verification/independent_test/` |
+| **Independent test** (second person, Windows 11, Docker Desktop) | `pineda-run r` (R14 to R17 and Table S20, from the outputs of R13 to R13c): 93 of 93 tables agreed with the original results, and 93 of 93 with the author's container rerun (28 October 2026, image built at commit 4268f76) | 113 of 113 tables agreed with the original results, and 113 of 113 with the author's container rerun (26 October 2026, image built at commit 8b98869) |
+| **Files** | `Pineda/verification/` and `Pineda/verification/independent_test/` | `Rexach/verification/` and `Rexach/verification/independent_test/` |
 
 ## 5. References
 - S.S. Pineda, H. Lee, M.J. Ulloa-Navas, R.M. Linville, F.J. Garcia, et al., Single-cell dissection of the human motor and prefrontal cortices in ALS and FTLD, Cell, 187 (2024) 1971-1989. https://doi.org/10.1016/j.cell.2024.02.031

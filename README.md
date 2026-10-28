@@ -488,7 +488,7 @@ The pipeline was rerun with the R package [cepip](https://github.com/kahkengwong
 
 - The *MT-CO3* module replicated in both datasets (5 of 8 DFGs at tier 1), and the PVM_3 IP passed (IPRS 0.754 and 0.758). The HKG8 control had no IP.
 - Module post-IP% showed a non-significant increase over controls in AD and bvFTD (insula), and no difference from controls in FTLD and ALS (prefrontal cortex).
-- In the container reruns, 151 of 152 Pineda tables and 113 of 113 Rexach tables agreed with the original results. The Rexach rerun was repeated by a second person on another computer.
+- In the container reruns, 151 of 152 Pineda tables and 113 of 113 Rexach tables agreed with the original results. Both reruns were repeated by a second person on another computer (for Pineda, the steps R14 to R17 and Table S20).
 
 The datasets, results, rerun steps, and reproducibility checks of both external validations are in [`external_validation/`](external_validation/README.md).
 
