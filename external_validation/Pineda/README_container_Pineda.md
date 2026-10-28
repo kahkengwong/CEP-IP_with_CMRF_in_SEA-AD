@@ -60,13 +60,13 @@ Place these in the data folder before running:
 ## 4. Run
 
 ```bash
-podman run --rm -v /path/to/Pineda_rerun:/data:Z pineda-cepip pineda-run all
+podman run --rm -e PINEDA_FIGURE=18 -v /path/to/Pineda_rerun:/data:Z pineda-cepip pineda-run all
 ```
 
 `:Z` lets the container use the folder on systems with SELinux, such as Fedora. With Docker Desktop on Windows, give the Windows path and leave out `:Z`. To compare the rerun with the original results, mount the original `External_Dataset_1` folder read-only at `/ref`, and the original `Manuscript/Supp_Tables` folder at `/ref_supp`, and add `--compare`:
 
 ```bash
-podman run --rm -v /path/to/Pineda_rerun:/data:Z \
+podman run --rm -e PINEDA_FIGURE=18 -v /path/to/Pineda_rerun:/data:Z \
     -v /path/to/SEA-AD/External_Dataset_1:/ref:ro,Z \
     -v /path/to/SEA-AD/Manuscript/Supp_Tables:/ref_supp:ro,Z \
     pineda-cepip pineda-run all --compare
@@ -80,7 +80,7 @@ podman run --rm -v /path/to/Pineda_rerun:/data:Z \
 
 Settings, given with `-e` on the run line:
 
-1) `PINEDA_FIGURE`. The main figure number in the Table S20 title and file name (default 19).
+1) `PINEDA_FIGURE`. The main figure number in the Table S20 title and file name (default 19). The preprint numbers this figure 18, so the commands above give `-e PINEDA_FIGURE=18`. The default of 19 is kept so that `pineda-run` matches the image on Zenodo. The author's container rerun and the independent test ran with the default, before the figure was renumbered; the figure number changes only the title of the Contents sheet and the file name of Table S20.
 2) `PINEDA_WORKERS`. The libraries processed at the same time in R02 and the workers of `cepip()` in R14 (default 6). The results do not depend on the number of workers. Each R02 worker holds one raw matrix in memory and used up to 9 GB in the author's rerun, so 4 workers need about 36 GB. On a computer with less memory, use `-e PINEDA_WORKERS=2`. WSL gives Linux half of the Windows memory by default; a `.wslconfig` file in the Windows user folder with the lines `[wsl2]`, `memory=40GB`, and `swap=16GB` raises it after `wsl --shutdown`.
 
 Each step's console output is saved to `pineda-run_logs/<step>.txt`, and the start, end, and result of every step to `pineda-run_logs/pineda-run_summary.txt`. The run stops at the first step that fails, because later steps read earlier outputs, and prints the command to resume from that step. A step fails when it exits with an error, or when its log shows a Python traceback, a failed check (`[FAIL]`, `VERDICT: FAIL`) or a stop (`STOPPED`, `ERROR:`, `Execution halted`). R02 also fails unless all 63 libraries finished.

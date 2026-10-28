@@ -14,7 +14,7 @@
 # To resume after a failed step (the summary prints the step name):
 #   FROM=R14_Pineda_core_cepip bash 23_run_pineda_container.sh
 # Settings: WORKERS (libraries at the same time in R02 and cepip workers in R14, default 4, because WSL has
-# half the memory of Windows by default; R02 ran with 6 on a 48 GB laptop in Windows), FIGURE (Table S20 figure number, default 19).
+# half the memory of Windows by default; R02 ran with 6 on a 48 GB laptop in Windows), FIGURE (Table S20 figure number, default 18).
 # Log: 23_run_pineda_container_log.txt in this folder.
 
 set -uo pipefail
@@ -24,7 +24,7 @@ ORIG="${ORIG:-/mnt/c/Users/Wong/Desktop/SEA-AD/External_Dataset_1}"
 SUPP="${SUPP:-/mnt/c/Users/Wong/Desktop/SEA-AD/Manuscript/Supp_Tables}"
 OUTC="${OUTC:-/mnt/c/Users/Wong/Downloads/pineda_results}"
 WORKERS="${WORKERS:-4}"
-FIGURE="${FIGURE:-19}"
+FIGURE="${FIGURE:-18}"
 IMAGE=pineda-cepip
 LOG="$SRC/23_run_pineda_container_log.txt"
 
