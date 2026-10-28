@@ -543,8 +543,6 @@ The figures and the output files derived from the SEA-AD data (for example, in `
 ---
 
 ## 12. Citation
-If you found this study useful, please cite:
-
 K.K. Wong. CEP-IP with CMRF in SEA-AD Microglia: A Mitochondrial Co-expression Module Linked to Cognition. *bioRxiv* (2026). https://www.biorxiv.org/content/10.64898/2026.10.22.761284v1
 
 K.K. Wong. CEP-IP: An explainable framework for cell subpopulation identification in single-cell transcriptomics. *Computer Methods and Programs in Biomedicine*, 282 (2026) 109372. https://doi.org/10.1016/j.cmpb.2026.109372
