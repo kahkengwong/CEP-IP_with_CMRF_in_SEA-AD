@@ -11,10 +11,10 @@ repository-code: "https://github.com/kahkengwong/CEP-IP_with_CMRF_in_SEA-AD"
 license: MIT
 identifiers:
   - type: doi
-    value: 10.5281/zenodo.23446228
+    value: 10.5281/zenodo.23653156
     description: "Code snapshot and container image (Zenodo)"
   - type: doi
-    value: 10.5281/zenodo.23445742
+    value: 10.5281/zenodo.23719390
     description: "Supplementary Figures and Tables (Zenodo)"
 keywords:
   - CEP-IP

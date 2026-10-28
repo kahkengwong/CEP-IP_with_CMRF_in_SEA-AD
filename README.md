@@ -6,7 +6,7 @@
 
 [![Project Page](https://img.shields.io/badge/Code-GitHub-4E81BE?logo=github&logoColor=white&style=flat-square)](https://github.com/kahkengwong/CEP-IP_with_CMRF_in_SEA-AD)
 [![Dataset](https://img.shields.io/badge/Dataset-Hugging%20Face-B08C00?logo=huggingface&logoColor=F3D34E&style=flat-square)](https://huggingface.co/datasets/kahkengwong/CEP-IP_with_CMRF_in_SEA-AD)
-[![Supplementary](https://img.shields.io/badge/Supplementary-Zenodo-1682D4?logo=zenodo&logoColor=white&style=flat-square)](https://zenodo.org/records/23445742)
+[![Supplementary](https://img.shields.io/badge/Supplementary-Zenodo-1682D4?logo=zenodo&logoColor=white&style=flat-square)](https://zenodo.org/records/23719390)
 [![Preprint](https://img.shields.io/badge/Preprint-bioRxiv-B31B1B?style=flat-square)](https://www.biorxiv.org/content/10.64898/2026.10.22.761284v1)
 [![Container](https://img.shields.io/badge/Container-Podman%20%7C%20Docker-892CA0?logo=podman&logoColor=white&style=flat-square)](#6-reproducing-the-analysis)
 [![R package](https://img.shields.io/badge/R%20package-cepip-276DC3?logo=r&logoColor=white&style=flat-square)](https://github.com/kahkengwong/cepip)
@@ -353,7 +353,7 @@ iii) Alternatively, load the archived image from Zenodo instead of building it:
 ```bash
 podman load -i seaad-cepip_image.tar.gz
 ```
-- File: `seaad-cepip_image.tar.gz` (1.7 GB), https://doi.org/10.5281/zenodo.23446228
+- File: `seaad-cepip_image.tar.gz` (1.7 GB), https://doi.org/10.5281/zenodo.23653156
 - It holds the same software and scripts, and gives the image `localhost/seaad-cepip`.
 
 > [!TIP]
@@ -495,7 +495,7 @@ The datasets, results, rerun steps, and reproducibility checks of both external 
 ---
 
 ## 9. Supplementary Tables & Figures (Zenodo)
-- Supplementary Tables (Excel format) and Supplementary Figures are available from [Zenodo](https://zenodo.org/records/23445742).
+- Supplementary Tables (Excel format) and Supplementary Figures are available from [Zenodo](https://zenodo.org/records/23719390).
 - Refer to these tables to see the results without running the pipeline, or to check your own results.
 - The tables can also be rebuilt from the pipeline outputs with `seaad-run tables` (see `scripts/SuppTables/`).
 - Supplementary Tables S20 and S21 (external validations 1 and 2) are built by `external_validation/Pineda/build_SuppTable_S20.py` and `external_validation/Rexach/build_SuppTable_S21.py` in their containers (see [`external_validation/`](external_validation/README.md)).
