@@ -17,7 +17,7 @@ seaad-run.sh
 renv.lock
 requirements-python.txt
 scripts/R/          the deposited R scripts, the Part 12 JSON settings and the Part 12
-                    pre-specified readings (Part12_Preset_Readings*.md)
+                    pre-specified readings (Batteries_1-5_Pre-specified_Readings*.md)
 scripts/Python/     the deposited Python scripts and the Mic.13 gene table (Mic13_genes.txt)
 scripts/SuppTables/ the scripts that build Supplementary Tables S1 to S19
 verification/       compare_rerun.py, compare_python.py and compare_gamdata.py
@@ -52,13 +52,13 @@ podman run --rm --shm-size=16g -v /path/to/SEA-AD:/data:Z seaad-cepip seaad-run 
 
 `:Z` lets the container use the folder on systems with SELinux, such as Fedora. `--shm-size=16g` is needed for Part 7 (DecontX), whose worker processes share the count matrix through shared memory; with the default size, Part 7 stops with a bus error.
 
-`seaad-run all` runs `seaad-setup`, then every script in the order of section 4, from the SEA-AD h5ad to Figure 17 and Supplementary Tables S1 to S19. It takes about six hours on the development machine. Other modes run part of the analysis:
+`seaad-run all` runs `seaad-setup`, then every script in the order of section 4, from the SEA-AD h5ad to Figure 9 and Supplementary Tables S1 to S19. It takes about five hours on the development machine. Other modes run part of the analysis:
 
 | Command | Runs | Needs |
 |---|---|---|
-| `seaad-run all` | Python Parts 1 to 8, R Parts 9 to 13, Figure 17, Tables S1 to S19 | the inputs of section 3, items 1 to 3 |
+| `seaad-run all` | Python Parts 1 to 8, R Parts 9 to 13, Figure 9, Tables S1 to S19 | the inputs of section 3, items 1 to 3 |
 | `seaad-run python` | Python Parts 1 to 8, Tables S1 to S6 | the SEA-AD h5ad |
-| `seaad-run r` | R Parts 9 to 13, Figure 17, Tables S7 to S19 | items 1 to 4 of section 3 |
+| `seaad-run r` | R Parts 9 to 13, Figure 9, Tables S7 to S19 | items 1 to 4 of section 3 |
 | `seaad-run hf` | R Parts 9 to 11, Tables S7 to S10 and S12 | item 4 of section 3 only (the Hugging Face files) |
 | `seaad-run tables` | Tables S1 to S19 from outputs already in the data folder | the outputs of the earlier parts |
 | `seaad-run list r` | prints the steps of a mode | - |
@@ -139,7 +139,7 @@ Each script lists its own inputs in its header.
 29) Part12_ModulePostIP_Overview.r
 30) Table S11, then Part10g_CP10K_DEGs_Part1_code_S11_followup_analyses.r (reads the Part 12 labels and Table S11)
 31) Part13a_CP10K_Find14DpctMT_code.r, Part13_CP10K_M4Share_code.r, Part13b_CP10K_M4RandomSubset_code.r
-32) Table S18 (runs Part13c_CP10K_M4_SuppConsolidate_code.r, which also draws Supplementary Figures S20 and S21), then Tables S13 to S17
+32) Table S18 (runs Part13c_CP10K_M4_SuppConsolidate_code.r, which also draws Supplementary Figures S25 and S26), then Tables S13 to S17
 33) Fig17_Summary_code.r
 34) Table S19
 

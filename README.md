@@ -7,7 +7,7 @@
 [![Project Page](https://img.shields.io/badge/Code-GitHub-4E81BE?logo=github&logoColor=white&style=flat-square)](https://github.com/kahkengwong/CEP-IP_with_CMRF_in_SEA-AD)
 [![Dataset](https://img.shields.io/badge/Dataset-Hugging%20Face-B08C00?logo=huggingface&logoColor=F3D34E&style=flat-square)](https://huggingface.co/datasets/kahkengwong/CEP-IP_with_CMRF_in_SEA-AD)
 [![Supplementary](https://img.shields.io/badge/Supplementary-Zenodo-1682D4?logo=zenodo&logoColor=white&style=flat-square)](https://zenodo.org/records/23719390)
-[![Preprint](https://img.shields.io/badge/Preprint-bioRxiv-B31B1B?style=flat-square)](https://www.biorxiv.org/content/10.64898/2026.10.22.761284v1)
+[![Preprint](https://img.shields.io/badge/Preprint-bioRxiv-B31B1B?style=flat-square)](https://www.biorxiv.org/content/10.64898/2026.10.22.761284v2)
 [![Container](https://img.shields.io/badge/Container-Podman%20%7C%20Docker-892CA0?logo=podman&logoColor=white&style=flat-square)](#6-reproducing-the-analysis)
 [![R package](https://img.shields.io/badge/R%20package-cepip-276DC3?logo=r&logoColor=white&style=flat-square)](https://github.com/kahkengwong/cepip) [![CRAN](https://img.shields.io/cran/v/cepip?label=CRAN&logo=r&logoColor=white&color=276DC3&style=flat-square)](https://CRAN.R-project.org/package=cepip)
 
@@ -50,15 +50,9 @@
 <details>
 <summary><strong>Abstract (click to expand)</strong></summary>
 
-**Background:** Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely filter nuclei by mitochondrial percentage (%MT) or remove mitochondrial genes, yet whether these reads carry information about cognition is rarely examined.
+Single-nucleus RNA-seq (snRNA-seq) studies of Alzheimer's disease (AD) routinely filter nuclei by mitochondrial percentage (%MT), yet whether these reads carry information about cognition is rarely examined. In the Seattle Alzheimer's Disease Brain Cell Atlas (SEA-AD) microglia snRNA-seq dataset, a transcriptome-wide screen identified *MT-CO3* and eight co-expressed mitochondrial genes (*MT-CO3* module). Three microglial populations were analyzed: PVM_3, M4 (Mic.13-like), and PVM_1, with a housekeeping-gene control. The CEP-IP pipeline with a copula monotone recovery filter (CMRF) isolated cells following this module (Module cells) using per-cell Spearman and Kendall scores, an inflection point (IP), and a cross-validated copula space boundary. The donor percentage of Module cells past the IP (Module post-IP%) was associated with worse cognition (MMSE and CASI; FDR<0.05) in all three populations. In PVM_3 and M4, these associations remained significant after adjustment for tissue quality, pathology, or contamination, and after doublet removal. No per-cell %MT cutoff reproduced Module cells. In two external datasets without cognitive scores, the *MT-CO3* module and its IP replicated. Excluding mitochondrial genes or applying strict %MT cutoffs may therefore remove cells linked to cognition. However, the source of the mitochondrial transcripts remains unresolved. The R package cepip and a container that reproduced the findings are publicly available.
 
-**Methods:** In the SEA-AD microglia snRNA-seq dataset, a transcriptome-wide screen identified a module of *MT-CO3* and eight co-expressed mitochondrial genes. Three microglial populations were analyzed: M4 (Mic.13-like), PVM_3, and PVM_1, with a housekeeping-gene control in M4 cells. The CEP-IP pipeline with a copula monotone recovery filter (CMRF) used per-cell Spearman and Kendall scores, an inflection point (IP), and a cross-validated copula space boundary to isolate *MT-CO3* Module cells.
-
-**Results:** The donor percentage of Module cells past the IP (Module post-IP%) was significantly associated with worse cognition (MMSE and CASI; FDR<0.05) in all three populations. In M4 and PVM_3, these associations remained significant after adjustment for tissue quality, plaque burden, tangle burden, and contamination, and after doublet removal. M4 and PVM_3 Module post-IP% repeated in each donor's regions beyond chance, and no per-cell %MT cutoff reproduced the Module cells. However, at the donor level, Module post-IP% could not be separated from mean %MT, and the source of the mitochondrial transcripts (e.g., retained cytoplasm or a true change in mitochondrial content) remains unresolved.
-
-**Conclusions:** Routine %MT filtering in AD snRNA-seq may therefore remove cells that carry information about cognition. The full pipeline code, software container, processed data, and the R package cepip are publicly available, and reruns of the full pipeline in the container reproduced the original findings.
-
-> K.K. Wong (2026). CEP-IP with CMRF in SEA-AD Microglia: A Mitochondrial Co-expression Module Linked to Cognition. *bioRxiv*. https://www.biorxiv.org/content/10.64898/2026.10.22.761284v1
+> K.K. Wong (2026). CEP-IP with CMRF in SEA-AD Microglia: A Mitochondrial Co-expression Module Linked to Cognition. *bioRxiv*. https://www.biorxiv.org/content/10.64898/2026.10.22.761284v2
 
 </details>
 
@@ -85,8 +79,8 @@
 - **R Parts 9 to 13** take the data exported from the SEA-AD h5ad by Part 8: GAM fits, the Spearman-Kendall cell-level scores (SKCS), the inflection point (IP and IPRS), copula space, the CMRF Module, differential expression, the donor-level clinical models, the Module boundary ablation, the five Batteries (Part 12), and the M4 analyses (Part 13).
 
 **Four arms are analyzed in parallel:**
-1. **M4** - Mic.13-like cells shortlisted from Micro-PVM_3 cells (primary arm).
-2. **PVM_3** - all Micro-PVM_3 cells.
+1. **M4** - Mic.13-like cells shortlisted from Micro-PVM_3 cells (the primary arm when the pipeline was built).
+2. **PVM_3** - all Micro-PVM_3 cells (the recommended arm).
 3. **PVM_1** - all Micro-PVM_1 cells.
 4. **HKG8** - control: the M4 cells analyzed with ACTB as the gene of interest (GOI) and eight other housekeeping genes as its partners.
 
@@ -107,7 +101,7 @@
 <tr><td align="left" colspan="2"><b>2. Gerrits et al. single-nucleus dataset (GSE148822)</b></td></tr>
 <tr><td align="left"><b>Used in</b></td><td align="left">Battery 1 (ambient RNA)</td></tr>
 <tr><td align="left"><b>Available from</b></td><td align="left"><a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE148822">GEO</a></td></tr>
-<tr><td align="left"><b>Reference</b></td><td align="left">E. Gerrits, N. Brouwer, S.M. Kooistra, M.E. Woodbury, Y. Vermeiren, et al., Distinct amyloid-beta and tau-associated microglia profiles in Alzheimer's disease, Acta Neuropathol, 141 (2021) 681-696. doi: 10.1007/s00401-021-02263-w</td></tr>
+<tr><td align="left"><b>Reference</b></td><td align="left">E. Gerrits, N. Brouwer, S.M. Kooistra, M.E. Woodbury, Y. Vermeiren, et al., Distinct amyloid-beta and tau-associated microglia profiles in Alzheimer's disease, Acta Neuropathol, 141 (2021) 681-696. <a href="https://doi.org/10.1007/s00401-021-02263-w">https://doi.org/10.1007/s00401-021-02263-w</a></td></tr>
 <tr><td align="left" colspan="2"><b>3. External dataset 1: Pineda et al. (2024)</b></td></tr>
 <tr><td align="left"><b>Files</b></td><td align="left"><ul><li>Raw reads of the 63 BA9 libraries of batch 210526: SRA <code>PRJNA1073234</code> (SRA Lite)</li><li>Donor metadata: <code>S01_sample_information.xlsx</code>, and the authors' per-library metadata (<code>&lt;LIB&gt;_col_metadata.tsv</code>)</li></ul></td></tr>
 <tr><td align="left"><b>Used in</b></td><td align="left">External validation 1 (<a href="#8-external-validation">Section 8</a>)</td></tr>
@@ -188,7 +182,7 @@ The five figures below follow the main steps of the analysis, using M4 NeoC as t
 | Path | Contents |
 |---|---|
 | `scripts/Python/` | <ul><li>The 23 Python scripts: Parts 1 to 8 and the Part 12 extraction step (`Part12_02_Extract.py`)</li><li>`Mic13_genes.txt`: the Mic.13 gene table read by Part 5b (from Green et al. 2024, Extended Data Fig. 2c)</li></ul> |
-| `scripts/R/` | <ul><li>The R scripts of Parts 9 to 13 and `Fig17_Summary_code.r`</li><li>The shared arm table and settings: `CEP_arms.R`, `R_config.R`, `R_config_HKG8.R`</li><li>The Part 12 settings: `Part12_01_config.json`, `Part12_Fig19_config.json`</li><li>The pre-specified readings of the Batteries: `Part12_Preset_Readings.md`, `Part12_Preset_Readings_Battery5.md`</li></ul> |
+| `scripts/R/` | <ul><li>The R scripts of Parts 9 to 13 and `Fig17_Summary_code.r`</li><li>The shared arm table and settings: `CEP_arms.R`, `R_config.R`, `R_config_HKG8.R`</li><li>The Part 12 settings: `Part12_01_config.json`, `Part12_Fig19_config.json`</li><li>The pre-specified readings of the Batteries: `Batteries_1-5_Pre-specified_Readings.md` and `Batteries_1-5_Pre-specified_Readings_Battery5.md` (named `Part12_Preset_Readings*.md` in the logs)</li></ul> |
 | `scripts/SuppTables/` | The scripts that build Supplementary Tables S1 to S19 from the pipeline outputs:<ul><li>One builder per table: `build_SuppTable_S<n>`</li><li>`finalize_supp_tables.py`: published sheet names, Contents and wording, from `supp_tables_contents.json`</li><li>`run_supp_tables.sh`</li><li>`compare_supp_tables.py`</li></ul> |
 | `Containerfile` | Recipe for the container image (R 4.6.1, Python 3.13.14, all packages). Works with Podman or Docker. |
 | `seaad-setup.sh` | Run once inside the container: copies the settings into the data folder and checks the inputs. |
@@ -196,7 +190,7 @@ The five figures below follow the main steps of the analysis, using M4 NeoC as t
 | `README_container.md` | Container build, inputs, and the full run order. |
 | `renv.lock` | Exact R package versions (R 4.6.1, Bioconductor 3.23; 280 packages). |
 | `requirements-python.txt` | Exact Python package versions (Python 3.13.14). |
-| `verification/` | <ul><li>`run_rest.sh` and `run_python.sh`: the run scripts used for the reproducibility check, before `seaad-run`</li><li>`compare_rerun.py`, `compare_python.py`, and `compare_gamdata.py`: compare a rerun with the original results</li><li>The comparisons of the container reruns with the original results: `compare_all_*` for R; `compare_python_*` and `compare_gamdata_log.txt` for Python</li></ul> |
+| `verification/` | <ul><li>`run_rest.sh` and `run_python.sh`: the run scripts used for the reproducibility check, before `seaad-run`</li><li>`compare_rerun.py`, `compare_python.py`, and `compare_gamdata.py`: compare a rerun with the original results</li><li>The comparisons of the container reruns with the original results: `compare_all_*` for R; `compare_python_*` and `compare_gamdata_log.txt` for Python</li><li>`fulltest_*`: the comparisons of the one-command run (`seaad-run all --compare`)</li><li>`windows_test/`: the independent test on Windows 11</li></ul> |
 | `external_validation/` | <ul><li>`README.md`: the datasets, results, rerun steps, and reproducibility checks of both external validations</li><li>`Pineda/`: the download and Cell Ranger scripts, the scripts R02 to R17, the Table S20 builder, the container recipe, the run script `pineda-run`, and `README_container_Pineda.md`</li><li>`Rexach/`: the scripts R11 to R17, the Table S21 builder, the container recipe, the run script `rexach-run`, and `README_container_Rexach.md`</li><li>`Pineda/verification/` and `Rexach/verification/`: the comparisons of the container reruns with the original results</li></ul> |
 | `figures/` | The workflow figure (`Workflow.png`) and Figures 1 to 5 of the Methods and Key Results section. |
 | `logs/` | <ul><li>`container_rerun/`: console logs of the container rerun of R Part 9 onward and the Part 12 Python step</li><li>`container_rerun_python/`: console logs of the container rerun of Python Parts 1 to 8</li><li>`container_fullrun/`: console logs of the one-command run (`seaad-run all`) in a new folder</li><li>`original_R/`: logs of the original runs from Part 9 onward</li><li>`original_python/`: logs of the original runs of Python Parts 1 to 8</li><li>`logs/README.md` describes each folder and maps the Python logs to their scripts</li></ul> |
@@ -207,7 +201,7 @@ The five figures below follow the main steps of the analysis, using M4 NeoC as t
 Figure and table numbers are those of the preprint.
 
 > [!NOTE]
-> The Part 12 file names (`Fig15` to `Fig19`) follow the run order of the Batteries; they correspond to preprint Figures 12 to 16.
+> Figure numbers in file names are those of the original analysis run: `Part12_Fig15` to `Part12_Fig19` are Supplementary Figures S15, S17, S19, S21, and S24, `Part10h_CP10K_Comparator_Fig13_code.r` is Figure 8, and `Fig17_Summary_code.r` is Figure 9.
 
 <details>
 <summary><strong>Python scripts (SEA-AD h5ad): Parts 1 to 8 and the Part 12 extraction (click to expand)</strong></summary>
@@ -222,12 +216,12 @@ Figure and table numbers are those of the preprint.
 | 6 | `Part1f_Ordinals_code.py` | Clinical ordinals and donor table with tissue-quality covariates. | Pre-check |
 | 7 | `Part1g_TrendReconcile_code.py` | Detectability trend on two abundance axes. | Figure 1G |
 | 8 | `Part2_NeoC_CP10K_code.py`<br>`Part2_NonNeoC_CP10K_code.py` | M4 selection with the Mic.13 signature; writes the donor clinical tables. | Supplementary Figure S1A, Table S1 |
-| 9 | `Part3_M4Composition_code.py` | Supertype composition of the M4 set. | Figure 1B |
-| 10 | `Part4_NeoC_ScreenScatter.py`<br>`Part4_NonNeoC_ScreenScatter.py` | PVM_3 pooled GOI-DFG screen. | Figure 1D |
-| 11 | `Part5_NeoC_DEGs.py`<br>`Part5_NonNeoC_DEGs.py` | Pseudobulk DEGs of M4 cells. | Figure 1 |
-| 12 | `Part5b_NeoC_Validation.py`<br>`Part5b_NonNeoC_Validation.py` | Mic.13 equivalence validation. | Figure 1 |
-| 13 | `Part6_NeoC_GOI-DFG_code.py`<br>`Part6_NonNeoC_GOI-DFG_code.py` | GOI-DFG screen by region and supertype. | Figure 1, Tables S2 to S4 |
-| 14 | `Part6b_NeoC_Pooled_GOI-DFG.py`<br>`Part6b_NonNeoC_Pooled_GOI-DFG.py` | Pooled GOI-DFG screen in seven immune supertypes. | Figure 1, Tables S2 to S4 |
+| 9 | `Part3_M4Composition_code.py` | Supertype composition of the M4 set. | Figure 1A and 1B |
+| 10 | `Part4_NeoC_ScreenScatter.py`<br>`Part4_NonNeoC_ScreenScatter.py` | PVM_3 pooled GOI-DFG screen. | Figure 1C and 1D |
+| 11 | `Part5_NeoC_DEGs.py`<br>`Part5_NonNeoC_DEGs.py` | Pseudobulk DEGs of M4 cells. | Table S2 |
+| 12 | `Part5b_NeoC_Validation.py`<br>`Part5b_NonNeoC_Validation.py` | Mic.13 equivalence validation. | Table S2 |
+| 13 | `Part6_NeoC_GOI-DFG_code.py`<br>`Part6_NonNeoC_GOI-DFG_code.py` | GOI-DFG screen by region and supertype. | Figure 1E, Tables S3 and S4 |
+| 14 | `Part6b_NeoC_Pooled_GOI-DFG.py`<br>`Part6b_NonNeoC_Pooled_GOI-DFG.py` | Pooled GOI-DFG screen in seven immune supertypes. | Figure 1F, Tables S3 and S4 |
 | 15 | `Part7_DecontX.py` | DecontX ambient RNA estimate per library. | Table S6 |
 | 16 | `Part8_Data-export-CP10K_MT-CO3_8DFG.py` | Exports one arm for the R parts (run once per arm). | Input to Parts 9 to 13 |
 | 17 | `Part12_02_Extract.py` | Part 12 step 02: extracts the cells and counts the Batteries use. | Input to Part 12 |
@@ -235,47 +229,47 @@ Figure and table numbers are those of the preprint.
 </details>
 
 <details>
-<summary><strong>R scripts (data exported from SEA-AD h5ad): Parts 9 to 13 and the Figure 17 summary (click to expand)</strong></summary>
+<summary><strong>R scripts (data exported from SEA-AD h5ad): Parts 9 to 13 and the Figure 9 summary (click to expand)</strong></summary>
 
 | No | Script File | Description | Paper output |
 |----|---|---|---|
-| 1 | `Part9_CP10K_QC_GAM_code.r` | Export QC, heatmaps and GAM fits. | Figure 2, Supplementary Figures S2, S3, S5, Table S7 |
+| 1 | `Part9_CP10K_QC_GAM_code.r` | Export QC, heatmaps and GAM fits. | Figures 1H and 2, Supplementary Figures S2, S3, and S5, Table S7 |
 | 2 | `Part9b_CP10K_SiKi_code.r` | Justifies the S<sub>i</sub> floor. | Supplementary Figure S4, Table S7 |
-| 3 | `Part10_CP10K_SKCS_code.r` | SKCS decomposition and TREP classification. | Figures 2 and 3, Supplementary Figures S5 and S7, Table S7 |
-| 4 | `Part10b_CP10K_IPRS_code.r` | Inflection point detection and IPRS. | Figure 3, Supplementary Figure S6, Table S8 |
+| 3 | `Part10_CP10K_SKCS_code.r` | SKCS decomposition and TREP classification. | Figure 2, Supplementary Figures S5 and S7, Table S7 |
+| 4 | `Part10b_CP10K_IPRS_code.r` | Inflection point detection and IPRS. | Supplementary Figure S6, Table S8 |
 | 5 | `Part10b_CP10K_SKCS_TREP_code.r` | SKCS fixed thresholds and IP x TREP classes. | Table S7 |
-| 6 | `Part10c_CP10K_Copula1_code.r` | Copula space. | Figure 4, Supplementary Figures S8 to S10, Table S9 |
-| 7 | `Part10d_CP10K_Copula2_code.r` | The IP and gates in copula coordinates. | Figure 4, Supplementary Figures S8 to S10, Table S9 |
+| 6 | `Part10c_CP10K_Copula1_code.r` | Copula space. | Figure 2C and 2D, Supplementary Figures S8 and S9, Table S9 |
+| 7 | `Part10d_CP10K_Copula2_code.r` | The IP and gates in copula coordinates. | Figure 2C and 2D, Supplementary Figures S8 and S9, Table S9 |
 | 8 | `Part10e_CP10K_CMRF_code.r` | Copula monotone recovery filter (CMRF). | Table S10 |
-| 9 | `Part10e_CP10K_Validation1_code.r` | GAM refit on the final Module. | Figure 8A, Table S10 |
-| 10 | `Part10e_CP10K_Validation2_UMAP_code.r` | CMRF classes in a raw-count UMAP. | Figure 8B and 8C, Table S10 |
-| 11 | `Part10f_CP10K_Band_Formation_code.r` | Band-formation figures. | Figure 6, Supplementary Figures S11 and S12 |
-| 12 | `Part10f_CP10K_CMRF_RSkfCV_Mechanism_code.r` | How the RSk-fCV gate works. | Figure 7 |
+| 9 | `Part10e_CP10K_Validation1_code.r` | GAM refit on the final Module. | Figure 6A, Table S10 |
+| 10 | `Part10e_CP10K_Validation2_UMAP_code.r` | CMRF classes in a raw-count UMAP. | Figure 6B and 6C, Table S10 |
+| 11 | `Part10f_CP10K_Band_Formation_code.r` | Band-formation figures. | Figure 4, Supplementary Figures S10 and S11 |
+| 12 | `Part10f_CP10K_CMRF_RSkfCV_Mechanism_code.r` | How the RSk-fCV gate works. | Figure 5 |
 | 13 | `Part10g_CP10K_DEGs_Part1_code.r` | Paired pseudobulk differential expression in the Module. | Table S11 |
 | 14 | `Part10g_Step7to9_rebuild_code.r` | Targeted tests, control overlap and ambient check. | Table S11 |
-| 15 | `Part10h_CP10K_Prognosis_code.r` | Donor-level clinical models. | Figure 9A, Supplementary Figure S14, Table S12 |
-| 16 | `Part10h_CP10K_Prognosis_1_Comparator_code.r` | Comparison with five external baselines. | Figure 10A and 10B, Table S12 |
-| 17 | `Part10h_CP10K_Prognosis_2_CogVsPath_code.r` | Cognition against pathology. | Figure 9B and 9C, Table S12 |
-| 18 | `Part10h_CP10K_Prognosis_4_Multivariate_code.r` | Module against a gene score plus a cell count. | Figure 10C and 10D, Table S12 |
-| 19 | `Part10h_CP10K_Comparator_Fig13_code.r` | Draws the comparator figures. | Figure 10A to 10D |
-| 20 | `Part11_CP10K_CogVsPath_code.r` | Module minus non-Module contrast. | Figure 9D, Table S12 |
-| 21 | `Part11_CP10K_CogVsPath_HighLevel_code.r` | Summary panel of the four cell populations. | Figure 9E |
-| 22 | `Part11_Identity_BandAblation_code.r` | Module boundary ablation. | Figure 11A and 11C, Table S12 |
-| 23 | `Part11_BandAblation_Fig11Export_code.r` | Boundary lines and cell membership. | Figure 11B, Table S12 |
+| 15 | `Part10h_CP10K_Prognosis_code.r` | Donor-level clinical models. | Figure 7A, Supplementary Figure S13, Table S12 |
+| 16 | `Part10h_CP10K_Prognosis_1_Comparator_code.r` | Comparison with five external baselines. | Figure 8A and 8B, Table S12 |
+| 17 | `Part10h_CP10K_Prognosis_2_CogVsPath_code.r` | Cognition against pathology. | Figure 7B and 7C, Table S12 |
+| 18 | `Part10h_CP10K_Prognosis_4_Multivariate_code.r` | Module against a gene score plus a cell count. | Figure 8C and 8D, Table S12 |
+| 19 | `Part10h_CP10K_Comparator_Fig13_code.r` | Draws the comparator figures. | Figure 8A to 8D |
+| 20 | `Part11_CP10K_CogVsPath_code.r` | Module minus non-Module contrast. | Figure 7D, Table S12 |
+| 21 | `Part11_CP10K_CogVsPath_HighLevel_code.r` | Summary panel of the four cell populations. | Figure 7E |
+| 22 | `Part11_Identity_BandAblation_code.r` | Module boundary ablation. | Supplementary Figure S14A and S14C, Table S12 |
+| 23 | `Part11_BandAblation_Fig11Export_code.r` | Boundary lines and cell membership. | Supplementary Figure S14B, Table S12 |
 | 24 | `Part12_03_Config.r` | Shared settings and functions of Part 12 (sourced by each step). | - |
 | 25 | `Part12_04_Labels.r`<br>`Part12_05_Units.r`<br>`Part12_06_GerritsCells.r` | Cell labels, donor-region units, and Gerrits cells. | Inputs to the Batteries |
-| 26 | `Part12_Fig15_Analysis.r`<br>`Part12_Fig15_Plots.r` | Battery 1: contamination. | Figure 12, Table S13 |
-| 27 | `Part12_Fig16_Analysis.r`<br>`Part12_Fig16_Plots.r` | Battery 2: measurement. | Figure 13, Table S14 |
-| 28 | `Part12_Fig17_Analysis.r`<br>`Part12_Fig17_Plots.r` | Battery 3: Module post-IP% and %MT on histology and clinical outcomes. | Figure 14, Table S15 |
-| 29 | `Part12_Fig18_Analysis.r`<br>`Part12_Fig18_Plots.r` | Battery 4: tests whether %MT can replace the Module. | Figure 15, Table S16 |
-| 30 | `Part12_Fig19_Analysis.r`<br>`Part12_Fig19_Plots.r` | Battery 5: the 11 severely affected donors. | Figure 16, Table S17 |
-| 31 | `Part12_ModulePostIP_Overview.r` | Module post-IP% overview. | Supplementary Figure S13 |
+| 26 | `Part12_Fig15_Analysis.r`<br>`Part12_Fig15_Plots.r` | Battery 1: contamination. | Supplementary Figures S15 and S16, Table S13 |
+| 27 | `Part12_Fig16_Analysis.r`<br>`Part12_Fig16_Plots.r` | Battery 2: measurement. | Supplementary Figures S17 and S18, Table S14 |
+| 28 | `Part12_Fig17_Analysis.r`<br>`Part12_Fig17_Plots.r` | Battery 3: Module post-IP% and %MT on histology and clinical outcomes. | Supplementary Figures S19 and S20, Table S15 |
+| 29 | `Part12_Fig18_Analysis.r`<br>`Part12_Fig18_Plots.r` | Battery 4: tests whether %MT can replace the Module. | Supplementary Figures S21 to S23, Table S16 |
+| 30 | `Part12_Fig19_Analysis.r`<br>`Part12_Fig19_Plots.r` | Battery 5: the 11 severely affected donors. | Supplementary Figure S24, Table S17 |
+| 31 | `Part12_ModulePostIP_Overview.r` | Module post-IP% overview. | Supplementary Figure S12 |
 | 32 | `Part10g_CP10K_DEGs_Part1_code_S11_followup_analyses.r` | Follow-up DE analyses (reads the Part 12 labels). | Table S11 |
 | 33 | `Part13a_CP10K_Find14DpctMT_code.r` | Donor %MT for the Part 13 model. | Input to Part 13 |
-| 34 | `Part13_CP10K_M4Share_code.r` | Tests whether the donor's M4 share explains the M4 results. | Input to Part 13c (Supplementary Figure S20, Table S18) |
-| 35 | `Part13b_CP10K_M4RandomSubset_code.r` | M4 cells against random PVM_3 cells. | Input to Part 13c (Supplementary Figure S21, Table S18) |
-| 36 | `Part13c_CP10K_M4_SuppConsolidate_code.r` | Draws the Part 13 and 13b figures and collects their values. | Supplementary Figures S20 and S21, Table S18 |
-| 37 | `Fig17_Summary_code.r` | Summary of all tests of Module post-IP%. | Figure 17, Table S19 |
+| 34 | `Part13_CP10K_M4Share_code.r` | Tests whether the donor's M4 share explains the M4 results. | Input to Part 13c (Supplementary Figure S25, Table S18) |
+| 35 | `Part13b_CP10K_M4RandomSubset_code.r` | M4 cells against random PVM_3 cells. | Input to Part 13c (Supplementary Figure S26, Table S18) |
+| 36 | `Part13c_CP10K_M4_SuppConsolidate_code.r` | Draws the Part 13 and 13b figures and collects their values. | Supplementary Figures S25 and S26, Table S18 |
+| 37 | `Fig17_Summary_code.r` | Summary of all tests of Module post-IP%. | Figure 9, Table S19 |
 
 </details>
 
@@ -314,7 +308,7 @@ The analysis runs in a container that holds R 4.6.1, Python 3.13.14 and every pa
 ### 6.1 Get the data
 | Source | Files | Needed for |
 |---|---|---|
-| [Hugging Face](https://huggingface.co/datasets/kahkengwong/CEP-IP_with_CMRF_in_SEA-AD) | <ul><li>`R_export_CP10K/`: Part 8 export of the four arms, about 14 GB</li><li>The Part 2 donor tables: `NeoC_S5b_donor_clinical.csv`, `NonNeoC_S5b_donor_clinical.csv`</li><li>`Part7_DecontX/decontX_contamination_all.csv`</li></ul> | R Parts 9 to 13 |
+| [Hugging Face](https://huggingface.co/datasets/kahkengwong/CEP-IP_with_CMRF_in_SEA-AD) | <ul><li>`R_export_CP10K/`: Part 8 export of the four arms, 14.9 GB</li><li>The Part 2 donor tables: `NeoC_S5b_donor_clinical.csv`, `NonNeoC_S5b_donor_clinical.csv`</li><li>`Part7_DecontX/decontX_contamination_all.csv`</li></ul> | R Parts 9 to 13 |
 | [SEA-AD portal](https://brain-map.org/consortia/sea-ad/our-data) | Immune h5ad (2026-06-22 release), the donor metadata workbook (`MetaData/sea-ad_cohort_donor_metadata_072524.xlsx`), and the neuropathology and CPS workbooks | Python Parts 1 to 8, Part 12 |
 | [GEO GSE148822](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE148822) | Gerrits deposit, placed in `Gerrits/` with the series matrix in `Gerrits/Metadata/` | Part 12 (Battery 1) |
 
@@ -368,9 +362,9 @@ podman run --rm --shm-size=16g -v /path/to/data_folder:/data:Z seaad-cepip seaad
 > `--shm-size=16g` gives the container enough shared memory for Part 7 (DecontX), whose worker processes share the count matrix. Without it, Part 7 stops with a bus error.
 
 ii) To run part of the analysis, replace `all` with another mode:
-- `seaad-run all`: every script in order, from the SEA-AD h5ad to Figure 17 and Supplementary Tables S1 to S19.
+- `seaad-run all`: every script in order, from the SEA-AD h5ad to Figure 9 and Supplementary Tables S1 to S19.
 - `seaad-run python`: Python Parts 1 to 8 and Tables S1 to S6.
-- `seaad-run r`: R Parts 9 to 13, Figure 17 and Tables S7 to S19, from the Hugging Face files and the SEA-AD inputs of Part 12.
+- `seaad-run r`: R Parts 9 to 13, Figure 9 and Tables S7 to S19, from the Hugging Face files and the SEA-AD inputs of Part 12.
 - `seaad-run hf`: R Parts 9 to 11 and Tables S7 to S10 and S12, from the Hugging Face files only.
 - `seaad-run tables`: Tables S1 to S19 from outputs already in the data folder.
 - `seaad-run list all`: prints the steps.
@@ -422,7 +416,7 @@ The original analysis ran R on Windows 11 and Python on Fedora 44. The whole pip
 | R package cepip (`reproduce_seaad.R`), PVM_3 and HKG8 arms | 698 values | 698 | None. | In the [cepip](https://github.com/kahkengwong/cepip) repository |
 | Independent test on Windows 11 | 1,073 tables and 698 values | 1,020 tables and 698 values | 53 tables of the same secondary statistics. 13 of 324 UMAP-based FDR calls of Part 10e changed, and these calls are not reported in the preprint text. The clinical associations were identical. | `windows_test/` |
 
-- **Agreed:** the same, or different only in sign, row order, or the way a value is written, or by at most 0.1%.
+- **Agreed:** the same, or different only in sign, row order, or the way a value is written, or by at most 0.1%. The four R tables that differ only in size (see the breakdown below) are also counted as agreed.
 - **Independent test:** a second person not involved in the analysis ran both checks on 21 October 2026, on a Windows 11 laptop (32 GB RAM, Docker Desktop). The container was built from this repository at commit d4a82aa and ran R Parts 9 to 11 and Tables S7 to S10 and S12 with `seaad-run hf`.
 
 </details>
@@ -461,7 +455,7 @@ The original analysis ran R on Windows 11 and Python on Fedora 44. The whole pip
 | Differ only in sign, row order, or text | 110 | - |
 | Differ by at most 0.1% | 23 | - |
 | Differ in size | 4 | A checksum column was removed from the deposited scripts, or the original folder held more files to scan. |
-| Differ by more than 0.1% | 53 | <ul><li>the TOST, PERMANOVA and PERMDISP, kBET, iLISI, and neighbour-proportion tests of Part 10e Validation2 (with their columns in the Figure 11 summary)</li><li>the permutation null threshold of Part 10f</li><li>the Part 12 depth-thinning curve</li><li>some donor-level p-values in four Part 10g tables</li></ul> |
+| Differ by more than 0.1% | 53 | <ul><li>the TOST, PERMANOVA and PERMDISP, kBET, iLISI, and neighbour-proportion tests of Part 10e Validation2 (with their columns in the Figure 6C summary)</li><li>the permutation null threshold of Part 10f</li><li>the Part 12 depth-thinning curve</li><li>some donor-level p-values in four Part 10g tables</li></ul> |
 | **Total** | **1,203** | - |
 
 **Supplementary Tables:** the 19 tables were rebuilt from the rerun outputs with the scripts in `scripts/SuppTables/`.
@@ -484,7 +478,7 @@ Tables found only in the original results come from scripts or steps that are no
 ---
 
 ## 8. External Validation
-The pipeline was rerun with the R package [cepip](https://github.com/kahkengwong/cepip) (0.1.0, commit fe4b269) at the SEA-AD settings on two independent snRNA-seq datasets: Pineda et al. (2024; prefrontal cortex, ALS and FTLD) and Rexach et al. (2024; insula, AD, bvFTD, and PSP).
+The pipeline was rerun with the R package [cepip](https://github.com/kahkengwong/cepip) (0.1.0, commit fe4b269, the same code as the CRAN release) at the SEA-AD settings on two independent snRNA-seq datasets: Pineda et al. (2024; prefrontal cortex, ALS and FTLD) and Rexach et al. (2024; insula, AD, bvFTD, and PSP).
 
 - The *MT-CO3* module replicated in both datasets (5 of 8 DFGs at tier 1), and the PVM_3 IP passed (IPRS 0.754 and 0.758). The HKG8 control had no IP.
 - Module post-IP% showed a non-significant increase over controls in AD and bvFTD (insula), and no difference from controls in FTLD and ALS (prefrontal cortex).
@@ -543,7 +537,7 @@ The figures and the output files derived from the SEA-AD data (for example, in `
 ---
 
 ## 12. Citation
-K.K. Wong. CEP-IP with CMRF in SEA-AD Microglia: A Mitochondrial Co-expression Module Linked to Cognition. *bioRxiv* (2026). https://www.biorxiv.org/content/10.64898/2026.10.22.761284v1
+K.K. Wong. CEP-IP with CMRF in SEA-AD Microglia: A Mitochondrial Co-expression Module Linked to Cognition. *bioRxiv* (2026). https://www.biorxiv.org/content/10.64898/2026.10.22.761284v2
 
 K.K. Wong. CEP-IP: An explainable framework for cell subpopulation identification in single-cell transcriptomics. *Computer Methods and Programs in Biomedicine*, 282 (2026) 109372. https://doi.org/10.1016/j.cmpb.2026.109372
 
@@ -559,7 +553,7 @@ The methods are implemented in the R package cepip, available on [CRAN](https://
   journal = {bioRxiv},
   year    = {2026},
   doi     = {10.64898/2026.10.22.761284},
-  url     = {https://www.biorxiv.org/content/10.64898/2026.10.22.761284v1}
+  url     = {https://www.biorxiv.org/content/10.64898/2026.10.22.761284v2}
 }
 
 @article{Wong2026CEPIP,

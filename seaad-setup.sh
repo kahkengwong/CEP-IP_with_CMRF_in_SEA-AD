@@ -42,7 +42,7 @@ copy_if_absent "$PY/Mic13_genes.txt" "$H/Mic13_genes.txt"
 
 echo
 echo "Part 12 files in Part12_rerun:"
-for src in "$R"/Part12_* "$PY"/Part12_02_Extract.py; do
+for src in "$R"/Part12_* "$R"/Batteries_1-5_Pre-specified_Readings*.md "$PY"/Part12_02_Extract.py; do
     [ -e "$src" ] && copy_if_absent "$src" "$H/Part12_rerun/$(basename "$src")"
 done
 

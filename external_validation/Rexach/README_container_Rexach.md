@@ -50,19 +50,19 @@ The built image is also on Zenodo, as `rexach-cepip_image.tar.gz` in the same re
 Make a new folder that holds only the inputs of section 3, for example `Rexach_rerun`. Then:
 
 ```bash
-podman run --rm -v /path/to/Rexach_rerun:/data:Z rexach-cepip rexach-run all
+podman run --rm -e REXACH_FIGURE=10 -v /path/to/Rexach_rerun:/data:Z rexach-cepip rexach-run all
 ```
 
 `:Z` lets the container use the folder on systems with SELinux, such as Fedora. With Docker Desktop on Windows, give the Windows path and leave out `:Z`:
 
 ```bash
-docker run --rm -v "C:\Users\<name>\Rexach_rerun:/data" rexach-cepip rexach-run all
+docker run --rm -e REXACH_FIGURE=10 -v "C:\Users\<name>\Rexach_rerun:/data" rexach-cepip rexach-run all
 ```
 
 To compare the rerun with the original results, mount the original `External_Dataset_2` folder read-only at `/ref`, and the original `Manuscript/Supp_Tables` folder at `/ref_supp`, and add `--compare`:
 
 ```bash
-podman run --rm -v /path/to/Rexach_rerun:/data:Z \
+podman run --rm -e REXACH_FIGURE=10 -v /path/to/Rexach_rerun:/data:Z \
     -v /path/to/SEA-AD/External_Dataset_2:/ref:ro,Z \
     -v /path/to/SEA-AD/Manuscript/Supp_Tables:/ref_supp:ro,Z \
     rexach-cepip rexach-run all --compare
@@ -76,13 +76,13 @@ podman run --rm -v /path/to/Rexach_rerun:/data:Z \
 
 Settings, given with `-e` on the run line:
 
-1) `REXACH_FIGURE`. The main figure number in the Table S21 title and file name (default 19).
+1) `REXACH_FIGURE`. The main figure number in the Table S21 title and file name (default 19, as in the image on Zenodo). The submitted version numbers this figure 10, so the commands above give `-e REXACH_FIGURE=10`.
 2) `REXACH_WORKERS`. The workers of `cepip()` in R14 (default 6). The results do not depend on the number of workers. On a laptop with less memory, use `-e REXACH_WORKERS=2`.
 
 Each step's console output is saved to `rexach-run_logs/<step>.txt`, and the start, end, and result of every step to `rexach-run_logs/rexach-run_summary.txt`. The run stops at the first step that fails, because later steps read earlier outputs, and prints the command to resume from that step, for example:
 
 ```bash
-podman run --rm -v /path/to/Rexach_rerun:/data:Z rexach-cepip rexach-run all --from R15_Rexach_diagnosis_contrasts
+podman run --rm -e REXACH_FIGURE=10 -v /path/to/Rexach_rerun:/data:Z rexach-cepip rexach-run all --from R15_Rexach_diagnosis_contrasts
 ```
 
 A step fails when it exits with an error, or when its log shows a Python traceback, a failed check (`[FAIL]`, `VERDICT: FAIL`) or a stop (`STOPPED`, `ERROR:`, `Execution halted`).

@@ -1,8 +1,8 @@
 {
-  "_about": "Battery 5 (Figure 19 files): do the eleven severely affected (SA) donors drive the between-donor and clinical results of Batteries 1 to 4? This file belongs to Battery 5 only. Part12_01_config.json, Part12_Preset_Readings.md, Part12_03_Config.r and the Figure 15 to 18 analysis files are read, never changed.",
-  "battery5_version": 1,
+  "_about": "Battery 5 (Figure 19 files): do the eleven severely affected (SA) donors drive the between-donor and clinical results of Batteries 1 to 4? This file belongs to Battery 5 only. Part12_01_config.json, Batteries_1-5_Pre-specified_Readings.md, Part12_03_Config.r and the Figure 15 to 18 analysis files are read, never changed.",
+  "battery5_version": 2,
   "created": "2026-09-25",
-  "readings_file": "Part12_rerun/Part12_Preset_Readings_Battery5.md",
+  "readings_file": "Part12_rerun/Batteries_1-5_Pre-specified_Readings_Battery5.md",
   "figure_dir": "11_Fig19",
   "why_separate_files": "Battery 5 carries its own configuration and pre-set readings, so the Battery 1 to 4 files stay as they were run.",
   "source_logs": {

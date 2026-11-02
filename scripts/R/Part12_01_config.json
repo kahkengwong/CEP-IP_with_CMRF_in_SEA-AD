@@ -1,6 +1,6 @@
 {
   "_about": "Part 12 rerun, shared configuration. Read by every script, Python and R. Values are changed only here; any change bumps config_version and adds a changelog line.",
-  "config_version": "16",
+  "config_version": "17",
   "changelog": [
     "1  2026-09-22  first version, from migration summary revision 29",
     "2  2026-09-22  PVM_1 supertype corrected to Micro-PVM_1 (no -SEAAD suffix), checked in the PVM1_all NeoC obs_dataset",
@@ -17,12 +17,13 @@
     "13 2026-09-22  figure palette (arms, cell groups, neutral greys and accent) moved into the config",
     "14 2026-09-22  Figure 17: neuropathology table and sheet named exactly, with their column names; CPS column names; the 28 stain measures, their families and the 17C blocks listed by exact name (replaces the stain-family patterns); CaH has no sequencing; Figure 17 labels and colours",
     "15 2026-09-22  Figure 17 strip, verdict and grain colours set to the archived Part12q values (strip #1F3864; verdicts #2D2D2D, #7B7B7B, #1275D8, #D9D9D9, #FBE7A2, #F2F2F2; grains #2E7D5B, #D95F02, #24456F)",
-    "16 2026-09-22  Figure 18: panel order and labels, the power-analysis design (effects, donor grid, draws, null draws, split count, detection rate, outcome), the %MT offset and AUC bands, and the archived Figure 18 colours"
+    "16 2026-09-22  Figure 18: panel order and labels, the power-analysis design (effects, donor grid, draws, null draws, split count, detection rate, outcome), the %MT offset and AUC bands, and the archived Figure 18 colours",
+    "17 2026-11-02  pre-specified readings renamed to Batteries_1-5_Pre-specified_Readings.md, the name cited in the paper; no setting changed"
   ],
 
   "rerun_dir": "Part12_rerun",
   "archive_dir": "Part12_archive",
-  "readings_file": "Part12_rerun/Part12_Preset_Readings.md",
+  "readings_file": "Part12_rerun/Batteries_1-5_Pre-specified_Readings.md",
   "ledger_file": "Part12_rerun/Part12_run_ledger.txt",
 
   "inputs": {

@@ -49,7 +49,7 @@ Place these in the data folder before running:
 2) `05_cellranger_metrics.csv` (the Cell Ranger metrics of the 63 libraries, read by R02) and `Pineda_BA9_210526_manifest.tsv`.
 3) The S01 workbook `S01_sample_information.xlsx` of Pineda et al. 2024 (Synapse syn51105515), read by R11 and R15.
 4) `Pineda2024_metadata/`, with the authors' `<LIB>_col_metadata.tsv` file of each library (Synapse syn51105515). R12 and R13 keep the nuclei of the authors' published QC: a nucleus is kept when its barcode is in the authors' file.
-5) `Stats_15H.csv`, the SEA-AD source data of Figure 15H, read by R13 for the expected r_s.
+5) `Stats_15H.csv`, the SEA-AD source data of Supplementary Figure S15H, read by R13 for the expected r_s.
 6) The MapMyCells results of the original run. MapMyCells is a web service of the Allen Institute and is not run in the container. The same file mapped twice gave another Deep Generative Mapping supertype for 0.8% of nuclei, so the rerun uses these files:
    - `R13_mapmycells_output/`: 12 csv files (six parts, each with Deep Generative Mapping and Hierarchical Mapping), the nuclei of the authors' QC. R13 checks that each file covers exactly the nuclei of its part in the rerun of R12, so the rerun stops if R12 does not reproduce the parts.
    - `R13_mapmycells_output_allKept/` and `R13_mapmycells_output_allKept_repeat/`: 26 csv files each, all R02 kept nuclei mapped before the authors' QC, and the same files mapped again. Read by R13b and R13c for sheets J and K of Table S20.
@@ -60,13 +60,13 @@ Place these in the data folder before running:
 ## 4. Run
 
 ```bash
-podman run --rm -e PINEDA_FIGURE=18 -v /path/to/Pineda_rerun:/data:Z pineda-cepip pineda-run all
+podman run --rm -v /path/to/Pineda_rerun:/data:Z pineda-cepip pineda-run all
 ```
 
 `:Z` lets the container use the folder on systems with SELinux, such as Fedora. With Docker Desktop on Windows, give the Windows path and leave out `:Z`. To compare the rerun with the original results, mount the original `External_Dataset_1` folder read-only at `/ref`, and the original `Manuscript/Supp_Tables` folder at `/ref_supp`, and add `--compare`:
 
 ```bash
-podman run --rm -e PINEDA_FIGURE=18 -v /path/to/Pineda_rerun:/data:Z \
+podman run --rm -v /path/to/Pineda_rerun:/data:Z \
     -v /path/to/SEA-AD/External_Dataset_1:/ref:ro,Z \
     -v /path/to/SEA-AD/Manuscript/Supp_Tables:/ref_supp:ro,Z \
     pineda-cepip pineda-run all --compare
@@ -80,7 +80,7 @@ podman run --rm -e PINEDA_FIGURE=18 -v /path/to/Pineda_rerun:/data:Z \
 
 Settings, given with `-e` on the run line:
 
-1) `PINEDA_FIGURE`. The main figure number in the Table S20 title and file name (default 19). The preprint numbers this figure 18, so the commands above give `-e PINEDA_FIGURE=18`. The default of 19 is kept so that `pineda-run` matches the image on Zenodo. The author's container rerun and the independent test ran with the default, before the figure was renumbered; the figure number changes only the title of the Contents sheet and the file name of Table S20.
+1) `PINEDA_FIGURE`. The figure number in the Table S20 title and file name (default 19, as in the image on Zenodo). The submitted version shows this figure as Supplementary Figure S27, which the builder cannot write, so a rerun differs from the published Table S20 only in the title of the Contents sheet and the file name.
 2) `PINEDA_WORKERS`. The libraries processed at the same time in R02 and the workers of `cepip()` in R14 (default 6). The results do not depend on the number of workers. Each R02 worker holds one raw matrix in memory and used up to 9 GB in the author's rerun, so 4 workers need about 36 GB. On a computer with less memory, use `-e PINEDA_WORKERS=2`. WSL gives Linux half of the Windows memory by default; a `.wslconfig` file in the Windows user folder with the lines `[wsl2]`, `memory=40GB`, and `swap=16GB` raises it after `wsl --shutdown`.
 
 Each step's console output is saved to `pineda-run_logs/<step>.txt`, and the start, end, and result of every step to `pineda-run_logs/pineda-run_summary.txt`. The run stops at the first step that fails, because later steps read earlier outputs, and prints the command to resume from that step. A step fails when it exits with an error, or when its log shows a Python traceback, a failed check (`[FAIL]`, `VERDICT: FAIL`) or a stop (`STOPPED`, `ERROR:`, `Execution halted`). R02 also fails unless all 63 libraries finished.
