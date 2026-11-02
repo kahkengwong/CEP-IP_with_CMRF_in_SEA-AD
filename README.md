@@ -9,7 +9,7 @@
 [![Supplementary](https://img.shields.io/badge/Supplementary-Zenodo-1682D4?logo=zenodo&logoColor=white&style=flat-square)](https://zenodo.org/records/23719390)
 [![Preprint](https://img.shields.io/badge/Preprint-bioRxiv-B31B1B?style=flat-square)](https://www.biorxiv.org/content/10.64898/2026.10.22.761284v1)
 [![Container](https://img.shields.io/badge/Container-Podman%20%7C%20Docker-892CA0?logo=podman&logoColor=white&style=flat-square)](#6-reproducing-the-analysis)
-[![R package](https://img.shields.io/badge/R%20package-cepip-276DC3?logo=r&logoColor=white&style=flat-square)](https://github.com/kahkengwong/cepip)
+[![R package](https://img.shields.io/badge/R%20package-cepip-276DC3?logo=r&logoColor=white&style=flat-square)](https://github.com/kahkengwong/cepip) [![CRAN](https://img.shields.io/cran/v/cepip?label=CRAN&logo=r&logoColor=white&color=276DC3&style=flat-square)](https://CRAN.R-project.org/package=cepip)
 
 ![Project Status](https://img.shields.io/badge/status-active-brightgreen?logo=check&logoColor=white&style=flat-square)
 [![R](https://img.shields.io/badge/R-4.6.1-276DC3?logo=r&logoColor=white&style=flat-square)](#101-software-requirements)
@@ -18,7 +18,7 @@
 
 ### Author: Kah Keng Wong [![ORCID](https://img.shields.io/badge/ORCID-0000--0001--7359--6202-A6CE39?logo=orcid&logoColor=white&style=flat-square)](https://orcid.org/0000-0001-7359-6202)
 
-**R package:** the methods of this study (CEP-IP, SKCS, and CMRF) are available as the R package [cepip](https://github.com/kahkengwong/cepip), for use on other single-cell datasets.
+**R package:** the methods of this study (CEP-IP, SKCS, and CMRF) are available as the R package [cepip](https://github.com/kahkengwong/cepip), for use on other single-cell datasets. It is on [CRAN](https://CRAN.R-project.org/package=cepip) and installs with `install.packages("cepip")`.
 
 <table>
 <tr><th align="center" colspan="3">Table of Contents</th></tr>
@@ -309,7 +309,7 @@ Each builder writes its workbook and a log to `Manuscript/Supp_Tables/build/`. `
 The analysis runs in a container that holds R 4.6.1, Python 3.13.14 and every package at the version in the lock files. No data are inside the container: the data folder is mounted at `/data` when it starts, and every script reads and writes in that folder.
 
 > [!TIP]
-> To apply CEP-IP, SKCS, and CMRF to other data, use the R package [`cepip`](https://github.com/kahkengwong/cepip). It does not need the container.
+> To apply CEP-IP, SKCS, and CMRF to other data, use the R package [`cepip`](https://github.com/kahkengwong/cepip). It does not need the container. Install it from [CRAN](https://CRAN.R-project.org/package=cepip) with `install.packages("cepip")`.
 
 ### 6.1 Get the data
 | Source | Files | Needed for |
@@ -547,7 +547,7 @@ K.K. Wong. CEP-IP with CMRF in SEA-AD Microglia: A Mitochondrial Co-expression M
 
 K.K. Wong. CEP-IP: An explainable framework for cell subpopulation identification in single-cell transcriptomics. *Computer Methods and Programs in Biomedicine*, 282 (2026) 109372. https://doi.org/10.1016/j.cmpb.2026.109372
 
-The methods are implemented in the R package [cepip](https://github.com/kahkengwong/cepip).
+The methods are implemented in the R package cepip, available on [CRAN](https://CRAN.R-project.org/package=cepip) (source: [GitHub](https://github.com/kahkengwong/cepip)).
 
 <details>
 <summary><strong>BibTeX (click to expand)</strong></summary>
