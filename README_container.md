@@ -31,7 +31,7 @@ podman build --no-cache -t seaad-cepip -f Containerfile .
 
 The first build takes about one to two hours, mostly to compile the Bioconductor packages and monocle3. It needs an internet connection. The image is about 6 to 8 GB. After a change to the scripts only, the same command without `--no-cache` rebuilds only the last layers.
 
-Instead of building it, the image can be loaded from the archived copy on Zenodo (`seaad-cepip_image.tar.gz`, https://doi.org/10.5281/zenodo.23446228), which holds the same software and scripts:
+Instead of building it, the image can be loaded from the archived copy on Zenodo (`seaad-cepip_image.tar.gz`, https://doi.org/10.5281/zenodo.23653156), which holds the same software and analysis code (the readings files have their earlier names, `Part12_Preset_Readings*.md`):
 ```bash
 podman load -i seaad-cepip_image.tar.gz
 ```
@@ -153,7 +153,7 @@ Rscript -e 'source("Part12_rerun/Part12_04_Labels.r")'
 bash /opt/seaad/SuppTables/run_supp_tables.sh 7-10,12
 ```
 
-`run_supp_tables.sh` builds the listed tables. Each table has a builder (`build_SuppTable_S<n>`), whose workbook and log go to `Manuscript/Supp_Tables/build/`. `finalize_supp_tables.py` then writes the published workbook (`Manuscript/Supp_Tables/Supplementary_Table_S<n>_*.xlsx`) with the published sheet names, the Contents sheet (from `supp_tables_contents.json`) and the published wording. With `PUBLISHED=/ref/Manuscript/Supp_Tables`, it also runs `compare_supp_tables.py` against the published tables.
+`run_supp_tables.sh` builds the listed tables. Each table has a builder (`build_SuppTable_S<n>`), whose workbook and log go to `Manuscript/Supp_Tables/build/`. `finalize_supp_tables.py` then writes the final workbook (`Manuscript/Supp_Tables/Supplementary_Table_S<n>_*.xlsx`) with the sheet names, the Contents sheet (from `supp_tables_contents.json`) and the wording of the build before submission. The submitted tables were then edited by hand to use the figure numbers of the paper, so their file names, sheet names, and Contents text differ from this build. The values are the same. With `PUBLISHED=/ref/Manuscript/Supp_Tables`, it also runs `compare_supp_tables.py` against the published tables. That comparison lists the renamed sheets as ONLY IN REBUILT and ONLY IN PUBLISHED, and the Contents sheets as TEXT ONLY.
 
 `verification/run_rest.sh` and `verification/run_python.sh` in the repository are the run scripts used for the reproducibility check of the paper, before `seaad-run` was written.
 

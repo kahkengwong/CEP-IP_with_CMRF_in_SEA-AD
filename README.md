@@ -183,7 +183,7 @@ The five figures below follow the main steps of the analysis, using M4 NeoC as t
 |---|---|
 | `scripts/Python/` | <ul><li>The 23 Python scripts: Parts 1 to 8 and the Part 12 extraction step (`Part12_02_Extract.py`)</li><li>`Mic13_genes.txt`: the Mic.13 gene table read by Part 5b (from Green et al. 2024, Extended Data Fig. 2c)</li><li>`02_matched_sets.csv`: the matched gene sets drawn by `Part12_02_Extract.py` (Supplementary Methods S11)</li></ul> |
 | `scripts/R/` | <ul><li>The R scripts of Parts 9 to 13 and `Fig17_Summary_code.r`</li><li>The shared arm table and settings: `CEP_arms.R`, `R_config.R`, `R_config_HKG8.R`</li><li>The Part 12 settings: `Part12_01_config.json`, `Part12_Fig19_config.json`</li><li>The pre-specified readings of the Batteries: `Batteries_1-5_Pre-specified_Readings.md` and `Batteries_1-5_Pre-specified_Readings_Battery5.md` (named `Part12_Preset_Readings*.md` in the logs)</li></ul> |
-| `scripts/SuppTables/` | The scripts that build Supplementary Tables S1 to S19 from the pipeline outputs:<ul><li>One builder per table: `build_SuppTable_S<n>`</li><li>`finalize_supp_tables.py`: published sheet names, Contents and wording, from `supp_tables_contents.json`</li><li>`run_supp_tables.sh`</li><li>`compare_supp_tables.py`</li></ul> |
+| `scripts/SuppTables/` | The scripts that build Supplementary Tables S1 to S19 from the pipeline outputs:<ul><li>One builder per table: `build_SuppTable_S<n>`</li><li>`finalize_supp_tables.py`: sheet names, Contents and wording of the build before submission, from `supp_tables_contents.json`</li><li>`run_supp_tables.sh`</li><li>`compare_supp_tables.py`</li></ul> |
 | `Containerfile` | Recipe for the container image (R 4.6.1, Python 3.13.14, all packages). Works with Podman or Docker. |
 | `seaad-setup.sh` | Run once inside the container: copies the settings into the data folder and checks the inputs. |
 | `seaad-run.sh` | The one-command run (`seaad-run` in the container): runs the whole analysis, or part of it, in order, with a log per step. |
@@ -293,7 +293,7 @@ Figure and table numbers are those of the preprint.
 | S18 | `Part13c_CP10K_M4_SuppConsolidate_code.r` | Parts 13 and 13b |
 | S19 | (finalize only) | `Fig17_Summary_code.r` |
 
-Each builder writes its workbook and a log to `Manuscript/Supp_Tables/build/`. `finalize_supp_tables.py` then writes the published workbook. The two scripts that read tables (the Part 10g follow-up reads Table S11, and `Fig17_Summary_code.r` reads Table S12 and the Part 12 workbooks of Tables S13 to S17) run after those tables are built, so no table is needed as an input.
+Each builder writes its workbook and a log to `Manuscript/Supp_Tables/build/`. `finalize_supp_tables.py` then writes the final workbook with the sheet names and Contents text of the build before submission. The submitted tables were then edited by hand to use the figure numbers of the paper, so their file names, sheet names, and Contents text differ from this build. The values are the same. The two scripts that read tables (the Part 10g follow-up reads Table S11, and `Fig17_Summary_code.r` reads Table S12 and the Part 12 workbooks of Tables S13 to S17) run after those tables are built, so no table is needed as an input.
 
 </details>
 
@@ -348,7 +348,7 @@ iii) Alternatively, load the archived image from Zenodo instead of building it:
 podman load -i seaad-cepip_image.tar.gz
 ```
 - File: `seaad-cepip_image.tar.gz` (1.7 GB), https://doi.org/10.5281/zenodo.23653156
-- It holds the same software and scripts, and gives the image `localhost/seaad-cepip`.
+- It holds the same software and analysis code, and gives the image `localhost/seaad-cepip`. In the image, the readings files have their earlier names (`Part12_Preset_Readings*.md`).
 
 > [!TIP]
 > Docker accepts every command in this section with `docker` in place of `podman` (for example, `docker build` and `docker load -i`).

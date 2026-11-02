@@ -66,7 +66,7 @@ if [ -z "$BASE" ] && [ -n "${SEAAD_TAR:-}" ]; then
 fi
 if [ -z "$BASE" ]; then
     echo "STOPPED: the SEA-AD image (seaad-cepip) is not in $ENG on this computer."
-    echo "  Download seaad-cepip_image.tar.gz from https://doi.org/10.5281/zenodo.23446228, then run:"
+    echo "  Download seaad-cepip_image.tar.gz from https://doi.org/10.5281/zenodo.23653156, then run:"
     echo "  SEAAD_TAR=/mnt/c/Users/Wong/Downloads/seaad-cepip_image.tar.gz bash 21_build_pineda_image.sh"
     $ENG images
     exit 1
