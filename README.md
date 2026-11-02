@@ -181,7 +181,7 @@ The five figures below follow the main steps of the analysis, using M4 NeoC as t
 ## 4. Repository Contents
 | Path | Contents |
 |---|---|
-| `scripts/Python/` | <ul><li>The 23 Python scripts: Parts 1 to 8 and the Part 12 extraction step (`Part12_02_Extract.py`)</li><li>`Mic13_genes.txt`: the Mic.13 gene table read by Part 5b (from Green et al. 2024, Extended Data Fig. 2c)</li></ul> |
+| `scripts/Python/` | <ul><li>The 23 Python scripts: Parts 1 to 8 and the Part 12 extraction step (`Part12_02_Extract.py`)</li><li>`Mic13_genes.txt`: the Mic.13 gene table read by Part 5b (from Green et al. 2024, Extended Data Fig. 2c)</li><li>`02_matched_sets.csv`: the matched gene sets drawn by `Part12_02_Extract.py` (Supplementary Methods S11)</li></ul> |
 | `scripts/R/` | <ul><li>The R scripts of Parts 9 to 13 and `Fig17_Summary_code.r`</li><li>The shared arm table and settings: `CEP_arms.R`, `R_config.R`, `R_config_HKG8.R`</li><li>The Part 12 settings: `Part12_01_config.json`, `Part12_Fig19_config.json`</li><li>The pre-specified readings of the Batteries: `Batteries_1-5_Pre-specified_Readings.md` and `Batteries_1-5_Pre-specified_Readings_Battery5.md` (named `Part12_Preset_Readings*.md` in the logs)</li></ul> |
 | `scripts/SuppTables/` | The scripts that build Supplementary Tables S1 to S19 from the pipeline outputs:<ul><li>One builder per table: `build_SuppTable_S<n>`</li><li>`finalize_supp_tables.py`: published sheet names, Contents and wording, from `supp_tables_contents.json`</li><li>`run_supp_tables.sh`</li><li>`compare_supp_tables.py`</li></ul> |
 | `Containerfile` | Recipe for the container image (R 4.6.1, Python 3.13.14, all packages). Works with Podman or Docker. |
